@@ -30,7 +30,6 @@ class PodcastListViewController: UIViewController, UIScrollViewDelegate {
         topView.podcastImageView.image = caster.artwork
         title = caster.name
         topView.delegate = self
-        //  topView.podcastTitleLabel.text = caster.name
         topView.layoutSubviews()
         view.addSubview(topView)
         collectionView.frame = CGRect(x: topView.bounds.minX, y: topView.frame.maxY, width: topFrameWidth, height: view.bounds.height)

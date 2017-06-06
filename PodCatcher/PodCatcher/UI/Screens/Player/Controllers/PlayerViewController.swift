@@ -51,4 +51,24 @@ final class PlayerViewController: UIViewController {
     }
 }
 
+extension PlayerViewController: PlayerViewDelegate {
+    
+    func backButtonTapped() {
+        guard var index = index else { return }
+        index -= 1
+    }
+
+    func skipButtonTapped() {
+        guard var index = index, index > 0 else { return }
+        index += 1
+    }
+
+    func pauseButtonTapped() {
+        
+    }
+
+    func playButtonTapped() {
+        
+    }
+}
 
