@@ -1,0 +1,31 @@
+import UIKit
+
+class TabCoordinator: NavigationCoordinator {
+    
+    weak var delegate: CoordinatorDelegate?
+    
+    var dataSource: BaseMediaControllerDataSource!
+    
+    var navigationController: UINavigationController
+    
+    required init(navigationController: UINavigationController) {
+        self.navigationController = navigationController
+    }
+    
+    convenience init(navigationController: UINavigationController, controller: UIViewController) {
+        self.init(navigationController: navigationController)
+        navigationController.viewControllers = [controller]
+    }
+    
+    func start() {
+        //
+    }
+    
+    fileprivate func showMediaController(mediaCollectionController: MediaCollectionViewController) {
+        addChild(viewController: mediaCollectionController)
+    }
+    
+    func addChild(viewController: UIViewController) {
+        navigationController.viewControllers.append(viewController)
+    }
+}

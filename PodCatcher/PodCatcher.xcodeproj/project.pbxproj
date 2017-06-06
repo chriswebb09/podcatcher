@@ -1,0 +1,935 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A7150EB41EE621E600E3553F /* TabCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7150EB31EE621E600E3553F /* TabCoordinator.swift */; };
+		A7150EB91EE6270500E3553F /* TabControllerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7150EB81EE6270500E3553F /* TabControllerCoordinator.swift */; };
+		A7150EBB1EE62DF900E3553F /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7150EBA1EE62DF900E3553F /* PlayerView.swift */; };
+		A7150EBD1EE62E0300E3553F /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7150EBC1EE62E0300E3553F /* PlayerViewController.swift */; };
+		A7150EBF1EE62E0D00E3553F /* PlayerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7150EBE1EE62E0D00E3553F /* PlayerViewDelegate.swift */; };
+		A7150EC11EE62E1700E3553F /* PlayerViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7150EC01EE62E1700E3553F /* PlayerViewControllerDelegate.swift */; };
+		A7150EC71EE6337D00E3553F /* PodcastListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7150EC61EE6337D00E3553F /* PodcastListViewController.swift */; };
+		A7150ECF1EE637C700E3553F /* PodCatcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7150ECE1EE637C700E3553F /* PodCatcherTests.swift */; };
+		A7150ED71EE638A900E3553F /* StartCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7150ED61EE638A900E3553F /* StartCoordinatorTests.swift */; };
+		A7150EDB1EE638E000E3553F /* MediaPlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7150EDA1EE638E000E3553F /* MediaPlayerTests.swift */; };
+		A7150EDD1EE6399200E3553F /* PlayerControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7150EDC1EE6399200E3553F /* PlayerControllerTests.swift */; };
+		A7150EDF1EE63E7200E3553F /* PodcastCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7150EDE1EE63E7200E3553F /* PodcastCell.swift */; };
+		A7150EE11EE655F800E3553F /* MediaTabCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7150EE01EE655F800E3553F /* MediaTabCoordinator.swift */; };
+		A7150EE31EE6563300E3553F /* TabBarConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7150EE21EE6563300E3553F /* TabBarConstants.swift */; };
+		A7150EE51EE6566600E3553F /* PodcasterControllState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7150EE41EE6566600E3553F /* PodcasterControllState.swift */; };
+		A7150EE71EE6568B00E3553F /* PodcastListViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7150EE61EE6568B00E3553F /* PodcastListViewControllerDelegate.swift */; };
+		A7150EE91EE6571200E3553F /* PodcastCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7150EE81EE6571200E3553F /* PodcastCellModel.swift */; };
+		A7150EEB1EE657D000E3553F /* StartViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7150EEA1EE657D000E3553F /* StartViewDelegate.swift */; };
+		A7150EEE1EE65B2300E3553F /* PlayerViewConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7150EED1EE65B2300E3553F /* PlayerViewConstants.swift */; };
+		A7150EF01EE6609200E3553F /* PodcastListTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7150EEF1EE6609200E3553F /* PodcastListTopView.swift */; };
+		A7150EF21EE66C0E00E3553F /* PlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7150EF11EE66C0E00E3553F /* PlayerViewModel.swift */; };
+		A7150EF41EE66C8E00E3553F /* ShowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7150EF31EE66C8E00E3553F /* ShowView.swift */; };
+		A71B26F21EE5D24700613CF4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71B26F11EE5D24700613CF4 /* AppDelegate.swift */; };
+		A71B26FA1EE5D24700613CF4 /* PodCatcher.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A71B26F81EE5D24700613CF4 /* PodCatcher.xcdatamodeld */; };
+		A71B26FC1EE5D24700613CF4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A71B26FB1EE5D24700613CF4 /* Assets.xcassets */; };
+		A71B26FF1EE5D24700613CF4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A71B26FD1EE5D24700613CF4 /* LaunchScreen.storyboard */; };
+		A71B27151EE5D24700613CF4 /* PodCatcherUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71B27141EE5D24700613CF4 /* PodCatcherUITests.swift */; };
+		A71B27231EE5D27700613CF4 /* NavigationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71B27221EE5D27700613CF4 /* NavigationCoordinator.swift */; };
+		A71B27251EE5D28600613CF4 /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71B27241EE5D28600613CF4 /* TabBarCoordinator.swift */; };
+		A71B27271EE5D29100613CF4 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71B27261EE5D29100613CF4 /* MainCoordinator.swift */; };
+		A71B27291EE5D31300613CF4 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71B27281EE5D31300613CF4 /* Coordinator.swift */; };
+		A71B272B1EE5D4B800613CF4 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71B272A1EE5D4B800613CF4 /* TabBarController.swift */; };
+		A71B272D1EE5D55E00613CF4 /* CoordinatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71B272C1EE5D55E00613CF4 /* CoordinatorDelegate.swift */; };
+		A71B272F1EE5D57100613CF4 /* CoordinatorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71B272E1EE5D57100613CF4 /* CoordinatorType.swift */; };
+		A71B27311EE5D6F500613CF4 /* StartCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71B27301EE5D6F500613CF4 /* StartCoordinator.swift */; };
+		A71B27331EE5D80F00613CF4 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71B27321EE5D80F00613CF4 /* SplashViewController.swift */; };
+		A71B27351EE5D81700613CF4 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71B27341EE5D81600613CF4 /* SplashView.swift */; };
+		A71B27371EE5D87900613CF4 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71B27361EE5D87900613CF4 /* UIView+Extension.swift */; };
+		A71B27391EE5DA7E00613CF4 /* SplashViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71B27381EE5DA7E00613CF4 /* SplashViewDelegate.swift */; };
+		A71B273B1EE5DB8D00613CF4 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71B273A1EE5DB8D00613CF4 /* StartViewController.swift */; };
+		A71B273D1EE5DB9700613CF4 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71B273C1EE5DB9700613CF4 /* StartView.swift */; };
+		A71B27411EE5E1BA00613CF4 /* Audible.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71B27401EE5E1BA00613CF4 /* Audible.swift */; };
+		A71B27451EE5E1F200613CF4 /* PCMediaPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71B27441EE5E1F200613CF4 /* PCMediaPlayer.swift */; };
+		A77EDF4F1EE5E6C4001A24E5 /* Caster.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EDF4E1EE5E6C4001A24E5 /* Caster.swift */; };
+		A77EDF531EE5F426001A24E5 /* PodCatcherItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EDF521EE5F426001A24E5 /* PodCatcherItem.swift */; };
+		A77EDF551EE5FA61001A24E5 /* MediaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EDF541EE5FA61001A24E5 /* MediaCell.swift */; };
+		A77EDF571EE5FAA5001A24E5 /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EDF561EE5FAA5001A24E5 /* UIImageView+Extension.swift */; };
+		A77EDF591EE5FAC2001A24E5 /* CALayer+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EDF581EE5FAC2001A24E5 /* CALayer+Extension.swift */; };
+		A77EDF5B1EE5FB3B001A24E5 /* MediaCellConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EDF5A1EE5FB3B001A24E5 /* MediaCellConstants.swift */; };
+		A77EDF5D1EE5FB5F001A24E5 /* ReusableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EDF5C1EE5FB5F001A24E5 /* ReusableProtocol.swift */; };
+		A77EDF5F1EE5FB83001A24E5 /* MediaCellModelerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EDF5E1EE5FB83001A24E5 /* MediaCellModelerProtocol.swift */; };
+		A77EDF611EE5FBA0001A24E5 /* MediaCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EDF601EE5FBA0001A24E5 /* MediaCellViewModel.swift */; };
+		A77EDF631EE5FBE4001A24E5 /* TrackItemsFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EDF621EE5FBE4001A24E5 /* TrackItemsFlowLayout.swift */; };
+		A77EDF651EE5FC17001A24E5 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EDF641EE5FC17001A24E5 /* EmptyView.swift */; };
+		A77EDF671EE5FC38001A24E5 /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EDF661EE5FC38001A24E5 /* UILabel+Extension.swift */; };
+		A77EDF701EE5FD57001A24E5 /* MediaCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EDF6F1EE5FD57001A24E5 /* MediaCollectionViewController.swift */; };
+		A77EDF721EE5FDA9001A24E5 /* UICollectionView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EDF711EE5FDA9001A24E5 /* UICollectionView+Extension.swift */; };
+		A77EDF741EE5FDE5001A24E5 /* BaseMediaCollectionDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EDF731EE5FDE5001A24E5 /* BaseMediaCollectionDataSource.swift */; };
+		A77EDF761EE5FDFA001A24E5 /* MediaDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EDF751EE5FDFA001A24E5 /* MediaDataStore.swift */; };
+		A77EDF781EE5FF72001A24E5 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EDF771EE5FF72001A24E5 /* UIColor+Extension.swift */; };
+		A77EDF7A1EE5FF93001A24E5 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EDF791EE5FF93001A24E5 /* UIViewController+Extension.swift */; };
+		A77EDF7C1EE5FFAB001A24E5 /* ViewType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EDF7B1EE5FFAB001A24E5 /* ViewType.swift */; };
+		A77EDF7E1EE5FFE9001A24E5 /* CALayerConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EDF7D1EE5FFE9001A24E5 /* CALayerConstants.swift */; };
+		A77EDF801EE6007E001A24E5 /* CollectionViewAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EDF7F1EE6007E001A24E5 /* CollectionViewAttributes.swift */; };
+		A77EDF821EE61338001A24E5 /* MediaCollectionControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EDF811EE61338001A24E5 /* MediaCollectionControllerDelegate.swift */; };
+		A77EDF841EE613E2001A24E5 /* ApplicationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EDF831EE613E2001A24E5 /* ApplicationCoordinator.swift */; };
+		A77EDF861EE614CD001A24E5 /* StartViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EDF851EE614CD001A24E5 /* StartViewControllerDelegate.swift */; };
+		A77EDF881EE614FB001A24E5 /* ButtonFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EDF871EE614FB001A24E5 /* ButtonFactory.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		A7150ED11EE637C700E3553F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A71B26E61EE5D24700613CF4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A71B26ED1EE5D24700613CF4;
+			remoteInfo = PodCatcher;
+		};
+		A71B27111EE5D24700613CF4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A71B26E61EE5D24700613CF4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A71B26ED1EE5D24700613CF4;
+			remoteInfo = PodCatcher;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		A7150EB31EE621E600E3553F /* TabCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabCoordinator.swift; sourceTree = "<group>"; };
+		A7150EB81EE6270500E3553F /* TabControllerCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabControllerCoordinator.swift; sourceTree = "<group>"; };
+		A7150EBA1EE62DF900E3553F /* PlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
+		A7150EBC1EE62E0300E3553F /* PlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
+		A7150EBE1EE62E0D00E3553F /* PlayerViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerViewDelegate.swift; sourceTree = "<group>"; };
+		A7150EC01EE62E1700E3553F /* PlayerViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerViewControllerDelegate.swift; sourceTree = "<group>"; };
+		A7150EC61EE6337D00E3553F /* PodcastListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodcastListViewController.swift; sourceTree = "<group>"; };
+		A7150ECC1EE637C700E3553F /* PodCatcherTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PodCatcherTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A7150ECE1EE637C700E3553F /* PodCatcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodCatcherTests.swift; sourceTree = "<group>"; };
+		A7150ED01EE637C700E3553F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A7150ED61EE638A900E3553F /* StartCoordinatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartCoordinatorTests.swift; sourceTree = "<group>"; };
+		A7150EDA1EE638E000E3553F /* MediaPlayerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaPlayerTests.swift; sourceTree = "<group>"; };
+		A7150EDC1EE6399200E3553F /* PlayerControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerControllerTests.swift; sourceTree = "<group>"; };
+		A7150EDE1EE63E7200E3553F /* PodcastCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodcastCell.swift; sourceTree = "<group>"; };
+		A7150EE01EE655F800E3553F /* MediaTabCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaTabCoordinator.swift; sourceTree = "<group>"; };
+		A7150EE21EE6563300E3553F /* TabBarConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarConstants.swift; sourceTree = "<group>"; };
+		A7150EE41EE6566600E3553F /* PodcasterControllState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodcasterControllState.swift; sourceTree = "<group>"; };
+		A7150EE61EE6568B00E3553F /* PodcastListViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodcastListViewControllerDelegate.swift; sourceTree = "<group>"; };
+		A7150EE81EE6571200E3553F /* PodcastCellModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodcastCellModel.swift; sourceTree = "<group>"; };
+		A7150EEA1EE657D000E3553F /* StartViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartViewDelegate.swift; sourceTree = "<group>"; };
+		A7150EED1EE65B2300E3553F /* PlayerViewConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerViewConstants.swift; sourceTree = "<group>"; };
+		A7150EEF1EE6609200E3553F /* PodcastListTopView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodcastListTopView.swift; sourceTree = "<group>"; };
+		A7150EF11EE66C0E00E3553F /* PlayerViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerViewModel.swift; sourceTree = "<group>"; };
+		A7150EF31EE66C8E00E3553F /* ShowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowView.swift; sourceTree = "<group>"; };
+		A71B26EE1EE5D24700613CF4 /* PodCatcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PodCatcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A71B26F11EE5D24700613CF4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		A71B26F91EE5D24700613CF4 /* PodCatcher.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PodCatcher.xcdatamodel; sourceTree = "<group>"; };
+		A71B26FB1EE5D24700613CF4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A71B26FE1EE5D24700613CF4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		A71B27001EE5D24700613CF4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A71B27091EE5D24700613CF4 /* PodCatcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodCatcherTests.swift; sourceTree = "<group>"; };
+		A71B270B1EE5D24700613CF4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A71B27101EE5D24700613CF4 /* PodCatcherUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PodCatcherUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A71B27141EE5D24700613CF4 /* PodCatcherUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodCatcherUITests.swift; sourceTree = "<group>"; };
+		A71B27161EE5D24700613CF4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A71B27221EE5D27700613CF4 /* NavigationCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationCoordinator.swift; sourceTree = "<group>"; };
+		A71B27241EE5D28600613CF4 /* TabBarCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarCoordinator.swift; sourceTree = "<group>"; };
+		A71B27261EE5D29100613CF4 /* MainCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
+		A71B27281EE5D31300613CF4 /* Coordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		A71B272A1EE5D4B800613CF4 /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		A71B272C1EE5D55E00613CF4 /* CoordinatorDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoordinatorDelegate.swift; sourceTree = "<group>"; };
+		A71B272E1EE5D57100613CF4 /* CoordinatorType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoordinatorType.swift; sourceTree = "<group>"; };
+		A71B27301EE5D6F500613CF4 /* StartCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartCoordinator.swift; sourceTree = "<group>"; };
+		A71B27321EE5D80F00613CF4 /* SplashViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
+		A71B27341EE5D81600613CF4 /* SplashView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
+		A71B27361EE5D87900613CF4 /* UIView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		A71B27381EE5DA7E00613CF4 /* SplashViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashViewDelegate.swift; sourceTree = "<group>"; };
+		A71B273A1EE5DB8D00613CF4 /* StartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
+		A71B273C1EE5DB9700613CF4 /* StartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
+		A71B27401EE5E1BA00613CF4 /* Audible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Audible.swift; sourceTree = "<group>"; };
+		A71B27441EE5E1F200613CF4 /* PCMediaPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCMediaPlayer.swift; sourceTree = "<group>"; };
+		A77EDF4E1EE5E6C4001A24E5 /* Caster.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Caster.swift; sourceTree = "<group>"; };
+		A77EDF521EE5F426001A24E5 /* PodCatcherItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodCatcherItem.swift; sourceTree = "<group>"; };
+		A77EDF541EE5FA61001A24E5 /* MediaCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaCell.swift; sourceTree = "<group>"; };
+		A77EDF561EE5FAA5001A24E5 /* UIImageView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
+		A77EDF581EE5FAC2001A24E5 /* CALayer+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CALayer+Extension.swift"; sourceTree = "<group>"; };
+		A77EDF5A1EE5FB3B001A24E5 /* MediaCellConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaCellConstants.swift; sourceTree = "<group>"; };
+		A77EDF5C1EE5FB5F001A24E5 /* ReusableProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReusableProtocol.swift; sourceTree = "<group>"; };
+		A77EDF5E1EE5FB83001A24E5 /* MediaCellModelerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaCellModelerProtocol.swift; sourceTree = "<group>"; };
+		A77EDF601EE5FBA0001A24E5 /* MediaCellViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaCellViewModel.swift; sourceTree = "<group>"; };
+		A77EDF621EE5FBE4001A24E5 /* TrackItemsFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackItemsFlowLayout.swift; sourceTree = "<group>"; };
+		A77EDF641EE5FC17001A24E5 /* EmptyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
+		A77EDF661EE5FC38001A24E5 /* UILabel+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
+		A77EDF6F1EE5FD57001A24E5 /* MediaCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaCollectionViewController.swift; sourceTree = "<group>"; };
+		A77EDF711EE5FDA9001A24E5 /* UICollectionView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extension.swift"; sourceTree = "<group>"; };
+		A77EDF731EE5FDE5001A24E5 /* BaseMediaCollectionDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseMediaCollectionDataSource.swift; sourceTree = "<group>"; };
+		A77EDF751EE5FDFA001A24E5 /* MediaDataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaDataStore.swift; sourceTree = "<group>"; };
+		A77EDF771EE5FF72001A24E5 /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		A77EDF791EE5FF93001A24E5 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
+		A77EDF7B1EE5FFAB001A24E5 /* ViewType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewType.swift; sourceTree = "<group>"; };
+		A77EDF7D1EE5FFE9001A24E5 /* CALayerConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CALayerConstants.swift; sourceTree = "<group>"; };
+		A77EDF7F1EE6007E001A24E5 /* CollectionViewAttributes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewAttributes.swift; sourceTree = "<group>"; };
+		A77EDF811EE61338001A24E5 /* MediaCollectionControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaCollectionControllerDelegate.swift; sourceTree = "<group>"; };
+		A77EDF831EE613E2001A24E5 /* ApplicationCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationCoordinator.swift; sourceTree = "<group>"; };
+		A77EDF851EE614CD001A24E5 /* StartViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartViewControllerDelegate.swift; sourceTree = "<group>"; };
+		A77EDF871EE614FB001A24E5 /* ButtonFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonFactory.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A7150EC91EE637C700E3553F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A71B26EB1EE5D24700613CF4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A71B270D1EE5D24700613CF4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A7150EB51EE6242200E3553F /* MediaCollection */ = {
+			isa = PBXGroup;
+			children = (
+				A77EDF6D1EE5FCC9001A24E5 /* MediaCell */,
+				A77EDF6F1EE5FD57001A24E5 /* MediaCollectionViewController.swift */,
+				A77EDF811EE61338001A24E5 /* MediaCollectionControllerDelegate.swift */,
+				A77EDF731EE5FDE5001A24E5 /* BaseMediaCollectionDataSource.swift */,
+				A7150EF31EE66C8E00E3553F /* ShowView.swift */,
+			);
+			name = MediaCollection;
+			sourceTree = "<group>";
+		};
+		A7150EB61EE6243E00E3553F /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				A77EDF6A1EE5FCA2001A24E5 /* Extensions */,
+				A77EDF871EE614FB001A24E5 /* ButtonFactory.swift */,
+				A77EDF5A1EE5FB3B001A24E5 /* MediaCellConstants.swift */,
+				A77EDF6E1EE5FCED001A24E5 /* Screens */,
+				A7150EE21EE6563300E3553F /* TabBarConstants.swift */,
+				A7150EED1EE65B2300E3553F /* PlayerViewConstants.swift */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
+		A7150EB71EE6246A00E3553F /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				A77EDF691EE5FC9C001A24E5 /* Services */,
+				A77EDF751EE5FDFA001A24E5 /* MediaDataStore.swift */,
+			);
+			name = Data;
+			sourceTree = "<group>";
+		};
+		A7150EC21EE631DA00E3553F /* Player */ = {
+			isa = PBXGroup;
+			children = (
+				A7150EBA1EE62DF900E3553F /* PlayerView.swift */,
+				A7150EBC1EE62E0300E3553F /* PlayerViewController.swift */,
+				A7150EBE1EE62E0D00E3553F /* PlayerViewDelegate.swift */,
+				A7150EC01EE62E1700E3553F /* PlayerViewControllerDelegate.swift */,
+				A7150EF11EE66C0E00E3553F /* PlayerViewModel.swift */,
+			);
+			name = Player;
+			sourceTree = "<group>";
+		};
+		A7150EC31EE631E700E3553F /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				A71B27281EE5D31300613CF4 /* Coordinator.swift */,
+				A71B272E1EE5D57100613CF4 /* CoordinatorType.swift */,
+				A71B272C1EE5D55E00613CF4 /* CoordinatorDelegate.swift */,
+			);
+			name = Coordinator;
+			sourceTree = "<group>";
+		};
+		A7150EC41EE631FE00E3553F /* Tab */ = {
+			isa = PBXGroup;
+			children = (
+				A71B272A1EE5D4B800613CF4 /* TabBarController.swift */,
+				A7150EB31EE621E600E3553F /* TabCoordinator.swift */,
+				A7150EB81EE6270500E3553F /* TabControllerCoordinator.swift */,
+				A71B27241EE5D28600613CF4 /* TabBarCoordinator.swift */,
+				A7150EE01EE655F800E3553F /* MediaTabCoordinator.swift */,
+			);
+			name = Tab;
+			sourceTree = "<group>";
+		};
+		A7150EC51EE6320400E3553F /* Start */ = {
+			isa = PBXGroup;
+			children = (
+				A71B27301EE5D6F500613CF4 /* StartCoordinator.swift */,
+			);
+			name = Start;
+			sourceTree = "<group>";
+		};
+		A7150ECD1EE637C700E3553F /* PodCatcherTests */ = {
+			isa = PBXGroup;
+			children = (
+				A7150ECE1EE637C700E3553F /* PodCatcherTests.swift */,
+				A7150ED01EE637C700E3553F /* Info.plist */,
+			);
+			path = PodCatcherTests;
+			sourceTree = "<group>";
+		};
+		A7150EEC1EE658D900E3553F /* PodcastList */ = {
+			isa = PBXGroup;
+			children = (
+				A7150EC61EE6337D00E3553F /* PodcastListViewController.swift */,
+				A7150EE41EE6566600E3553F /* PodcasterControllState.swift */,
+				A7150EE61EE6568B00E3553F /* PodcastListViewControllerDelegate.swift */,
+				A7150EDE1EE63E7200E3553F /* PodcastCell.swift */,
+				A7150EE81EE6571200E3553F /* PodcastCellModel.swift */,
+				A7150EEF1EE6609200E3553F /* PodcastListTopView.swift */,
+			);
+			name = PodcastList;
+			sourceTree = "<group>";
+		};
+		A71B26E51EE5D24700613CF4 = {
+			isa = PBXGroup;
+			children = (
+				A71B26F01EE5D24700613CF4 /* PodCatcher */,
+				A71B27081EE5D24700613CF4 /* PodCatcherTests */,
+				A71B27131EE5D24700613CF4 /* PodCatcherUITests */,
+				A7150ECD1EE637C700E3553F /* PodCatcherTests */,
+				A71B26EF1EE5D24700613CF4 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A71B26EF1EE5D24700613CF4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A71B26EE1EE5D24700613CF4 /* PodCatcher.app */,
+				A71B27101EE5D24700613CF4 /* PodCatcherUITests.xctest */,
+				A7150ECC1EE637C700E3553F /* PodCatcherTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A71B26F01EE5D24700613CF4 /* PodCatcher */ = {
+			isa = PBXGroup;
+			children = (
+				A71B26F11EE5D24700613CF4 /* AppDelegate.swift */,
+				A71B26FB1EE5D24700613CF4 /* Assets.xcassets */,
+				A71B26FD1EE5D24700613CF4 /* LaunchScreen.storyboard */,
+				A71B27001EE5D24700613CF4 /* Info.plist */,
+				A71B26F81EE5D24700613CF4 /* PodCatcher.xcdatamodeld */,
+				A71B27421EE5E1C800613CF4 /* Coordinators */,
+				A71B27431EE5E1D000613CF4 /* Models */,
+				A7150EB61EE6243E00E3553F /* UI */,
+				A77EDF6C1EE5FCBC001A24E5 /* Protocols */,
+				A7150EB71EE6246A00E3553F /* Data */,
+			);
+			path = PodCatcher;
+			sourceTree = "<group>";
+		};
+		A71B27081EE5D24700613CF4 /* PodCatcherTests */ = {
+			isa = PBXGroup;
+			children = (
+				A71B27091EE5D24700613CF4 /* PodCatcherTests.swift */,
+				A7150ED61EE638A900E3553F /* StartCoordinatorTests.swift */,
+				A71B270B1EE5D24700613CF4 /* Info.plist */,
+				A7150EDA1EE638E000E3553F /* MediaPlayerTests.swift */,
+				A7150EDC1EE6399200E3553F /* PlayerControllerTests.swift */,
+			);
+			path = PodCatcherTests;
+			sourceTree = "<group>";
+		};
+		A71B27131EE5D24700613CF4 /* PodCatcherUITests */ = {
+			isa = PBXGroup;
+			children = (
+				A71B27141EE5D24700613CF4 /* PodCatcherUITests.swift */,
+				A71B27161EE5D24700613CF4 /* Info.plist */,
+			);
+			path = PodCatcherUITests;
+			sourceTree = "<group>";
+		};
+		A71B27421EE5E1C800613CF4 /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				A71B27221EE5D27700613CF4 /* NavigationCoordinator.swift */,
+				A7150EC31EE631E700E3553F /* Coordinator */,
+				A7150EC41EE631FE00E3553F /* Tab */,
+				A7150EC51EE6320400E3553F /* Start */,
+				A77EDF831EE613E2001A24E5 /* ApplicationCoordinator.swift */,
+				A71B27261EE5D29100613CF4 /* MainCoordinator.swift */,
+			);
+			name = Coordinators;
+			sourceTree = "<group>";
+		};
+		A71B27431EE5E1D000613CF4 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A77EDF4E1EE5E6C4001A24E5 /* Caster.swift */,
+				A71B27401EE5E1BA00613CF4 /* Audible.swift */,
+				A77EDF521EE5F426001A24E5 /* PodCatcherItem.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		A77EDF681EE5FC95001A24E5 /* Splash */ = {
+			isa = PBXGroup;
+			children = (
+				A71B27321EE5D80F00613CF4 /* SplashViewController.swift */,
+				A71B27341EE5D81600613CF4 /* SplashView.swift */,
+				A71B27381EE5DA7E00613CF4 /* SplashViewDelegate.swift */,
+			);
+			name = Splash;
+			sourceTree = "<group>";
+		};
+		A77EDF691EE5FC9C001A24E5 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				A71B27441EE5E1F200613CF4 /* PCMediaPlayer.swift */,
+			);
+			name = Services;
+			sourceTree = "<group>";
+		};
+		A77EDF6A1EE5FCA2001A24E5 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				A71B27361EE5D87900613CF4 /* UIView+Extension.swift */,
+				A77EDF581EE5FAC2001A24E5 /* CALayer+Extension.swift */,
+				A77EDF561EE5FAA5001A24E5 /* UIImageView+Extension.swift */,
+				A77EDF661EE5FC38001A24E5 /* UILabel+Extension.swift */,
+				A77EDF711EE5FDA9001A24E5 /* UICollectionView+Extension.swift */,
+				A77EDF771EE5FF72001A24E5 /* UIColor+Extension.swift */,
+				A77EDF791EE5FF93001A24E5 /* UIViewController+Extension.swift */,
+				A77EDF7B1EE5FFAB001A24E5 /* ViewType.swift */,
+				A77EDF7D1EE5FFE9001A24E5 /* CALayerConstants.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
+		A77EDF6B1EE5FCB6001A24E5 /* Start */ = {
+			isa = PBXGroup;
+			children = (
+				A71B273A1EE5DB8D00613CF4 /* StartViewController.swift */,
+				A71B273C1EE5DB9700613CF4 /* StartView.swift */,
+				A77EDF851EE614CD001A24E5 /* StartViewControllerDelegate.swift */,
+				A7150EEA1EE657D000E3553F /* StartViewDelegate.swift */,
+			);
+			name = Start;
+			sourceTree = "<group>";
+		};
+		A77EDF6C1EE5FCBC001A24E5 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				A77EDF5E1EE5FB83001A24E5 /* MediaCellModelerProtocol.swift */,
+				A77EDF5C1EE5FB5F001A24E5 /* ReusableProtocol.swift */,
+			);
+			name = Protocols;
+			sourceTree = "<group>";
+		};
+		A77EDF6D1EE5FCC9001A24E5 /* MediaCell */ = {
+			isa = PBXGroup;
+			children = (
+				A77EDF601EE5FBA0001A24E5 /* MediaCellViewModel.swift */,
+				A77EDF541EE5FA61001A24E5 /* MediaCell.swift */,
+			);
+			name = MediaCell;
+			sourceTree = "<group>";
+		};
+		A77EDF6E1EE5FCED001A24E5 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				A7150EC21EE631DA00E3553F /* Player */,
+				A77EDF621EE5FBE4001A24E5 /* TrackItemsFlowLayout.swift */,
+				A77EDF641EE5FC17001A24E5 /* EmptyView.swift */,
+				A77EDF7F1EE6007E001A24E5 /* CollectionViewAttributes.swift */,
+				A77EDF681EE5FC95001A24E5 /* Splash */,
+				A77EDF6B1EE5FCB6001A24E5 /* Start */,
+				A7150EB51EE6242200E3553F /* MediaCollection */,
+				A7150EEC1EE658D900E3553F /* PodcastList */,
+			);
+			name = Screens;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A7150ECB1EE637C700E3553F /* PodCatcherTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A7150ED31EE637C700E3553F /* Build configuration list for PBXNativeTarget "PodCatcherTests" */;
+			buildPhases = (
+				A7150EC81EE637C700E3553F /* Sources */,
+				A7150EC91EE637C700E3553F /* Frameworks */,
+				A7150ECA1EE637C700E3553F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A7150ED21EE637C700E3553F /* PBXTargetDependency */,
+			);
+			name = PodCatcherTests;
+			productName = PodCatcherTests;
+			productReference = A7150ECC1EE637C700E3553F /* PodCatcherTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		A71B26ED1EE5D24700613CF4 /* PodCatcher */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A71B27191EE5D24700613CF4 /* Build configuration list for PBXNativeTarget "PodCatcher" */;
+			buildPhases = (
+				A71B26EA1EE5D24700613CF4 /* Sources */,
+				A71B26EB1EE5D24700613CF4 /* Frameworks */,
+				A71B26EC1EE5D24700613CF4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PodCatcher;
+			productName = PodCatcher;
+			productReference = A71B26EE1EE5D24700613CF4 /* PodCatcher.app */;
+			productType = "com.apple.product-type.application";
+		};
+		A71B270F1EE5D24700613CF4 /* PodCatcherUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A71B271F1EE5D24700613CF4 /* Build configuration list for PBXNativeTarget "PodCatcherUITests" */;
+			buildPhases = (
+				A71B270C1EE5D24700613CF4 /* Sources */,
+				A71B270D1EE5D24700613CF4 /* Frameworks */,
+				A71B270E1EE5D24700613CF4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A71B27121EE5D24700613CF4 /* PBXTargetDependency */,
+			);
+			name = PodCatcherUITests;
+			productName = PodCatcherUITests;
+			productReference = A71B27101EE5D24700613CF4 /* PodCatcherUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A71B26E61EE5D24700613CF4 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0830;
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = "Christopher Webb-Orenstein";
+				TargetAttributes = {
+					A7150ECB1EE637C700E3553F = {
+						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = 4SZP4Q326F;
+						ProvisioningStyle = Automatic;
+						TestTargetID = A71B26ED1EE5D24700613CF4;
+					};
+					A71B26ED1EE5D24700613CF4 = {
+						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = 4SZP4Q326F;
+						ProvisioningStyle = Automatic;
+					};
+					A71B270F1EE5D24700613CF4 = {
+						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = 4SZP4Q326F;
+						ProvisioningStyle = Automatic;
+						TestTargetID = A71B26ED1EE5D24700613CF4;
+					};
+				};
+			};
+			buildConfigurationList = A71B26E91EE5D24700613CF4 /* Build configuration list for PBXProject "PodCatcher" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = A71B26E51EE5D24700613CF4;
+			productRefGroup = A71B26EF1EE5D24700613CF4 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A71B26ED1EE5D24700613CF4 /* PodCatcher */,
+				A71B270F1EE5D24700613CF4 /* PodCatcherUITests */,
+				A7150ECB1EE637C700E3553F /* PodCatcherTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A7150ECA1EE637C700E3553F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A71B26EC1EE5D24700613CF4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A71B26FF1EE5D24700613CF4 /* LaunchScreen.storyboard in Resources */,
+				A71B26FC1EE5D24700613CF4 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A71B270E1EE5D24700613CF4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A7150EC81EE637C700E3553F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A7150ECF1EE637C700E3553F /* PodCatcherTests.swift in Sources */,
+				A7150ED71EE638A900E3553F /* StartCoordinatorTests.swift in Sources */,
+				A7150EDD1EE6399200E3553F /* PlayerControllerTests.swift in Sources */,
+				A7150EDB1EE638E000E3553F /* MediaPlayerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A71B26EA1EE5D24700613CF4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A77EDF7A1EE5FF93001A24E5 /* UIViewController+Extension.swift in Sources */,
+				A71B26F21EE5D24700613CF4 /* AppDelegate.swift in Sources */,
+				A77EDF741EE5FDE5001A24E5 /* BaseMediaCollectionDataSource.swift in Sources */,
+				A77EDF5F1EE5FB83001A24E5 /* MediaCellModelerProtocol.swift in Sources */,
+				A77EDF671EE5FC38001A24E5 /* UILabel+Extension.swift in Sources */,
+				A77EDF7E1EE5FFE9001A24E5 /* CALayerConstants.swift in Sources */,
+				A7150EBF1EE62E0D00E3553F /* PlayerViewDelegate.swift in Sources */,
+				A71B27411EE5E1BA00613CF4 /* Audible.swift in Sources */,
+				A7150EE91EE6571200E3553F /* PodcastCellModel.swift in Sources */,
+				A77EDF801EE6007E001A24E5 /* CollectionViewAttributes.swift in Sources */,
+				A77EDF701EE5FD57001A24E5 /* MediaCollectionViewController.swift in Sources */,
+				A7150EE31EE6563300E3553F /* TabBarConstants.swift in Sources */,
+				A77EDF4F1EE5E6C4001A24E5 /* Caster.swift in Sources */,
+				A7150EEE1EE65B2300E3553F /* PlayerViewConstants.swift in Sources */,
+				A77EDF841EE613E2001A24E5 /* ApplicationCoordinator.swift in Sources */,
+				A71B27371EE5D87900613CF4 /* UIView+Extension.swift in Sources */,
+				A7150EE71EE6568B00E3553F /* PodcastListViewControllerDelegate.swift in Sources */,
+				A7150EC11EE62E1700E3553F /* PlayerViewControllerDelegate.swift in Sources */,
+				A7150EEB1EE657D000E3553F /* StartViewDelegate.swift in Sources */,
+				A77EDF591EE5FAC2001A24E5 /* CALayer+Extension.swift in Sources */,
+				A77EDF651EE5FC17001A24E5 /* EmptyView.swift in Sources */,
+				A7150EF21EE66C0E00E3553F /* PlayerViewModel.swift in Sources */,
+				A77EDF611EE5FBA0001A24E5 /* MediaCellViewModel.swift in Sources */,
+				A71B27231EE5D27700613CF4 /* NavigationCoordinator.swift in Sources */,
+				A71B27451EE5E1F200613CF4 /* PCMediaPlayer.swift in Sources */,
+				A71B273D1EE5DB9700613CF4 /* StartView.swift in Sources */,
+				A77EDF861EE614CD001A24E5 /* StartViewControllerDelegate.swift in Sources */,
+				A7150EBB1EE62DF900E3553F /* PlayerView.swift in Sources */,
+				A77EDF781EE5FF72001A24E5 /* UIColor+Extension.swift in Sources */,
+				A77EDF631EE5FBE4001A24E5 /* TrackItemsFlowLayout.swift in Sources */,
+				A77EDF5B1EE5FB3B001A24E5 /* MediaCellConstants.swift in Sources */,
+				A77EDF551EE5FA61001A24E5 /* MediaCell.swift in Sources */,
+				A7150EF41EE66C8E00E3553F /* ShowView.swift in Sources */,
+				A77EDF7C1EE5FFAB001A24E5 /* ViewType.swift in Sources */,
+				A77EDF721EE5FDA9001A24E5 /* UICollectionView+Extension.swift in Sources */,
+				A77EDF531EE5F426001A24E5 /* PodCatcherItem.swift in Sources */,
+				A71B27291EE5D31300613CF4 /* Coordinator.swift in Sources */,
+				A77EDF881EE614FB001A24E5 /* ButtonFactory.swift in Sources */,
+				A71B272D1EE5D55E00613CF4 /* CoordinatorDelegate.swift in Sources */,
+				A71B273B1EE5DB8D00613CF4 /* StartViewController.swift in Sources */,
+				A77EDF761EE5FDFA001A24E5 /* MediaDataStore.swift in Sources */,
+				A71B27251EE5D28600613CF4 /* TabBarCoordinator.swift in Sources */,
+				A71B27351EE5D81700613CF4 /* SplashView.swift in Sources */,
+				A71B272F1EE5D57100613CF4 /* CoordinatorType.swift in Sources */,
+				A7150EE51EE6566600E3553F /* PodcasterControllState.swift in Sources */,
+				A7150EDF1EE63E7200E3553F /* PodcastCell.swift in Sources */,
+				A77EDF5D1EE5FB5F001A24E5 /* ReusableProtocol.swift in Sources */,
+				A71B27391EE5DA7E00613CF4 /* SplashViewDelegate.swift in Sources */,
+				A71B272B1EE5D4B800613CF4 /* TabBarController.swift in Sources */,
+				A7150EB91EE6270500E3553F /* TabControllerCoordinator.swift in Sources */,
+				A7150EC71EE6337D00E3553F /* PodcastListViewController.swift in Sources */,
+				A7150EBD1EE62E0300E3553F /* PlayerViewController.swift in Sources */,
+				A71B27311EE5D6F500613CF4 /* StartCoordinator.swift in Sources */,
+				A7150EB41EE621E600E3553F /* TabCoordinator.swift in Sources */,
+				A77EDF571EE5FAA5001A24E5 /* UIImageView+Extension.swift in Sources */,
+				A71B27271EE5D29100613CF4 /* MainCoordinator.swift in Sources */,
+				A77EDF821EE61338001A24E5 /* MediaCollectionControllerDelegate.swift in Sources */,
+				A71B26FA1EE5D24700613CF4 /* PodCatcher.xcdatamodeld in Sources */,
+				A7150EF01EE6609200E3553F /* PodcastListTopView.swift in Sources */,
+				A71B27331EE5D80F00613CF4 /* SplashViewController.swift in Sources */,
+				A7150EE11EE655F800E3553F /* MediaTabCoordinator.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A71B270C1EE5D24700613CF4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A71B27151EE5D24700613CF4 /* PodCatcherUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A7150ED21EE637C700E3553F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A71B26ED1EE5D24700613CF4 /* PodCatcher */;
+			targetProxy = A7150ED11EE637C700E3553F /* PBXContainerItemProxy */;
+		};
+		A71B27121EE5D24700613CF4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A71B26ED1EE5D24700613CF4 /* PodCatcher */;
+			targetProxy = A71B27111EE5D24700613CF4 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		A71B26FD1EE5D24700613CF4 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A71B26FE1EE5D24700613CF4 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		A7150ED41EE637C700E3553F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 4SZP4Q326F;
+				INFOPLIST_FILE = PodCatcherTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.froleeyo.PodCatcherTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PodCatcher.app/PodCatcher";
+			};
+			name = Debug;
+		};
+		A7150ED51EE637C700E3553F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 4SZP4Q326F;
+				INFOPLIST_FILE = PodCatcherTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.froleeyo.PodCatcherTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PodCatcher.app/PodCatcher";
+			};
+			name = Release;
+		};
+		A71B27171EE5D24700613CF4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		A71B27181EE5D24700613CF4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		A71B271A1EE5D24700613CF4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				"ARCHS[sdk=*]" = "$(ARCHS_STANDARD)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 4SZP4Q326F;
+				INFOPLIST_FILE = PodCatcher/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.froleeyo.PodCatcher;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		A71B271B1EE5D24700613CF4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 4SZP4Q326F;
+				INFOPLIST_FILE = PodCatcher/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.froleeyo.PodCatcher;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		A71B27201EE5D24700613CF4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				DEVELOPMENT_TEAM = 4SZP4Q326F;
+				INFOPLIST_FILE = PodCatcherUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.froleeyo.PodCatcherUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = PodCatcher;
+			};
+			name = Debug;
+		};
+		A71B27211EE5D24700613CF4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				DEVELOPMENT_TEAM = 4SZP4Q326F;
+				INFOPLIST_FILE = PodCatcherUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.froleeyo.PodCatcherUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = PodCatcher;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A7150ED31EE637C700E3553F /* Build configuration list for PBXNativeTarget "PodCatcherTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A7150ED41EE637C700E3553F /* Debug */,
+				A7150ED51EE637C700E3553F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		A71B26E91EE5D24700613CF4 /* Build configuration list for PBXProject "PodCatcher" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A71B27171EE5D24700613CF4 /* Debug */,
+				A71B27181EE5D24700613CF4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A71B27191EE5D24700613CF4 /* Build configuration list for PBXNativeTarget "PodCatcher" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A71B271A1EE5D24700613CF4 /* Debug */,
+				A71B271B1EE5D24700613CF4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A71B271F1EE5D24700613CF4 /* Build configuration list for PBXNativeTarget "PodCatcherUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A71B27201EE5D24700613CF4 /* Debug */,
+				A71B27211EE5D24700613CF4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		A71B26F81EE5D24700613CF4 /* PodCatcher.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				A71B26F91EE5D24700613CF4 /* PodCatcher.xcdatamodel */,
+			);
+			currentVersion = A71B26F91EE5D24700613CF4 /* PodCatcher.xcdatamodel */;
+			path = PodCatcher.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = A71B26E61EE5D24700613CF4 /* Project object */;
+}
