@@ -102,6 +102,8 @@
 		A7894FA81EE6C861000CC190 /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7894FA71EE6C861000CC190 /* PreferencesView.swift */; };
 		A7894FAA1EE6DC5E000CC190 /* PreferencesViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7894FA91EE6DC5E000CC190 /* PreferencesViewDelegate.swift */; };
 		A7A54E9F1EE70CFB009A5538 /* PopoverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A54E9E1EE70CFB009A5538 /* PopoverTests.swift */; };
+		A7A54EA11EE7109C009A5538 /* PillView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A54EA01EE7109C009A5538 /* PillView.swift */; };
+		A7A54EA31EE711C8009A5538 /* EntryPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A54EA21EE711C8009A5538 /* EntryPopover.swift */; };
 		A7EBA09A1EE672A700FAAC9C /* UserDataAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EBA0991EE672A700FAAC9C /* UserDataAPIClient.swift */; };
 		A7EBA09D1EE672E300FAAC9C /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EBA09C1EE672E300FAAC9C /* CoreDataStack.swift */; };
 		A7EBA0A11EE6739000FAAC9C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EBA0A01EE6739000FAAC9C /* LoginView.swift */; };
@@ -247,6 +249,8 @@
 		A7894FA71EE6C861000CC190 /* PreferencesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesView.swift; sourceTree = "<group>"; };
 		A7894FA91EE6DC5E000CC190 /* PreferencesViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesViewDelegate.swift; sourceTree = "<group>"; };
 		A7A54E9E1EE70CFB009A5538 /* PopoverTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopoverTests.swift; sourceTree = "<group>"; };
+		A7A54EA01EE7109C009A5538 /* PillView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PillView.swift; sourceTree = "<group>"; };
+		A7A54EA21EE711C8009A5538 /* EntryPopover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryPopover.swift; sourceTree = "<group>"; };
 		A7EBA0991EE672A700FAAC9C /* UserDataAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDataAPIClient.swift; sourceTree = "<group>"; };
 		A7EBA09C1EE672E300FAAC9C /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		A7EBA0A01EE6739000FAAC9C /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -931,6 +935,7 @@
 				A7EBA0BC1EE6821B00FAAC9C /* Popover */,
 				A73D74481EE68945004571A5 /* TextField */,
 				A73D744A1EE68952004571A5 /* Views */,
+				A7A54EA01EE7109C009A5538 /* PillView.swift */,
 			);
 			path = Elements;
 			sourceTree = "<group>";
@@ -962,6 +967,7 @@
 				A7EBA0BE1EE6823000FAAC9C /* Base */,
 				A73D74101EE6862E004571A5 /* Loading */,
 				A7EBA0BD1EE6822800FAAC9C /* Menu */,
+				A7A54EA21EE711C8009A5538 /* EntryPopover.swift */,
 			);
 			path = Popover;
 			sourceTree = "<group>";
@@ -1179,12 +1185,14 @@
 				A71B273D1EE5DB9700613CF4 /* StartView.swift in Sources */,
 				A77EDF861EE614CD001A24E5 /* StartViewControllerDelegate.swift in Sources */,
 				A7150EBB1EE62DF900E3553F /* PlayerView.swift in Sources */,
+				A7A54EA31EE711C8009A5538 /* EntryPopover.swift in Sources */,
 				A77EDF781EE5FF72001A24E5 /* UIColor+Extension.swift in Sources */,
 				A7EBA0AA1EE6772200FAAC9C /* CreateAccountView.swift in Sources */,
 				A71BFB811EE6E94900A35D8E /* PodCaster+CoreDataClass.swift in Sources */,
 				A73D740B1EE684DD004571A5 /* LoadingView.swift in Sources */,
 				A7894FA61EE6AE44000CC190 /* PodCatcherUser.swift in Sources */,
 				A77EDF631EE5FBE4001A24E5 /* TrackItemsFlowLayout.swift in Sources */,
+				A7A54EA11EE7109C009A5538 /* PillView.swift in Sources */,
 				A7EBA0C81EE6831F00FAAC9C /* MenuDelegate.swift in Sources */,
 				A7EBA09A1EE672A700FAAC9C /* UserDataAPIClient.swift in Sources */,
 				A77EDF5B1EE5FB3B001A24E5 /* MediaCellConstants.swift in Sources */,
