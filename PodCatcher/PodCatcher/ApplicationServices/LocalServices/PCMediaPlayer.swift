@@ -7,6 +7,8 @@ class PCMediaPlayer {
     
     var casters = [Caster]()
     
+     var myMPMusicPlayerController = MPMusicPlayerController()
+    
     func getPlaylists(completion: @escaping ([String: Caster], [Caster]?) -> Void) {
         MPMediaLibrary.requestAuthorization { auth in
             switch auth {
@@ -24,7 +26,7 @@ class PCMediaPlayer {
                 let itemCollection = self.getItemCollectionFrom(query: self.myPodcastsQuery)
                 let newTest = self.getItemListsFrom(collection: itemCollection)
                 self.getPodcastsFromMediaList(mediaLists: newTest)
-                for (i, n) in self.casts.enumerated() {
+                for (_ , n) in self.casts.enumerated() {
                     print(n.value)
                     self.casters.append(n.value)
                 }
@@ -68,7 +70,7 @@ class PCMediaPlayer {
                     casts[item.creatorName]?.assets.append(item)
                 }
             } else {
-                if let name = item.albumArtist, let title = item.title, let collectionName = item.albumTitle, let url = url, let art = art {
+                if let name = item.albumArtist, let url = url, let art = art {
                     casts[name] = Caster(name: name, artwork: art, assetURL: url, assets: [])
                 }
                 

@@ -27,6 +27,7 @@ final class StartViewController: UIViewController {
         loadingPop.showPopView(viewController: self)
         loadingPop.popView.isHidden = false
     }
+   
     
     func hideLoadingView() {
         loadingPop.popView.removeFromSuperview()

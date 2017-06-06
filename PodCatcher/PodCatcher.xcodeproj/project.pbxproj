@@ -89,6 +89,10 @@
 		A77EDF841EE613E2001A24E5 /* ApplicationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EDF831EE613E2001A24E5 /* ApplicationCoordinator.swift */; };
 		A77EDF861EE614CD001A24E5 /* StartViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EDF851EE614CD001A24E5 /* StartViewControllerDelegate.swift */; };
 		A77EDF881EE614FB001A24E5 /* ButtonFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EDF871EE614FB001A24E5 /* ButtonFactory.swift */; };
+		A7894F9E1EE69C03000CC190 /* SettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7894F9D1EE69C03000CC190 /* SettingsTests.swift */; };
+		A7894FA01EE69C1E000CC190 /* LoginTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7894F9F1EE69C1E000CC190 /* LoginTests.swift */; };
+		A7894FA21EE69E2B000CC190 /* TestMainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7894FA11EE69E2B000CC190 /* TestMainCoordinator.swift */; };
+		A7894FA41EE69E6A000CC190 /* LoginUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7894FA31EE69E6A000CC190 /* LoginUITests.swift */; };
 		A7EBA09A1EE672A700FAAC9C /* UserDataAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EBA0991EE672A700FAAC9C /* UserDataAPIClient.swift */; };
 		A7EBA09D1EE672E300FAAC9C /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EBA09C1EE672E300FAAC9C /* CoreDataStack.swift */; };
 		A7EBA0A11EE6739000FAAC9C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EBA0A01EE6739000FAAC9C /* LoginView.swift */; };
@@ -221,6 +225,10 @@
 		A77EDF831EE613E2001A24E5 /* ApplicationCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationCoordinator.swift; sourceTree = "<group>"; };
 		A77EDF851EE614CD001A24E5 /* StartViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartViewControllerDelegate.swift; sourceTree = "<group>"; };
 		A77EDF871EE614FB001A24E5 /* ButtonFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonFactory.swift; sourceTree = "<group>"; };
+		A7894F9D1EE69C03000CC190 /* SettingsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTests.swift; sourceTree = "<group>"; };
+		A7894F9F1EE69C1E000CC190 /* LoginTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginTests.swift; sourceTree = "<group>"; };
+		A7894FA11EE69E2B000CC190 /* TestMainCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestMainCoordinator.swift; sourceTree = "<group>"; };
+		A7894FA31EE69E6A000CC190 /* LoginUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginUITests.swift; sourceTree = "<group>"; };
 		A7EBA0991EE672A700FAAC9C /* UserDataAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDataAPIClient.swift; sourceTree = "<group>"; };
 		A7EBA09C1EE672E300FAAC9C /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		A7EBA0A01EE6739000FAAC9C /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -279,7 +287,6 @@
 				A73D74261EE687C7004571A5 /* Layout */,
 				A73D74271EE687CC004571A5 /* Views */,
 			);
-			name = MediaCollection;
 			path = MediaCollection;
 			sourceTree = "<group>";
 		};
@@ -292,7 +299,6 @@
 				A77EDF6A1EE5FCA2001A24E5 /* Extensions */,
 				A77EDF6E1EE5FCED001A24E5 /* Screens */,
 			);
-			name = UI;
 			path = UI;
 			sourceTree = "<group>";
 		};
@@ -302,7 +308,6 @@
 				A73D74111EE68655004571A5 /* CoreDataClient.swift */,
 				A7EBA09C1EE672E300FAAC9C /* CoreDataStack.swift */,
 			);
-			name = Data;
 			path = Data;
 			sourceTree = "<group>";
 		};
@@ -314,7 +319,6 @@
 				A73D74371EE6886B004571A5 /* Models */,
 				A73D74351EE6885E004571A5 /* Views */,
 			);
-			name = Player;
 			path = Player;
 			sourceTree = "<group>";
 		};
@@ -325,7 +329,6 @@
 				A71B272C1EE5D55E00613CF4 /* CoordinatorDelegate.swift */,
 				A71B272E1EE5D57100613CF4 /* CoordinatorType.swift */,
 			);
-			name = Coordinator;
 			path = Coordinator;
 			sourceTree = "<group>";
 		};
@@ -338,7 +341,6 @@
 				A7150EB81EE6270500E3553F /* TabControllerCoordinator.swift */,
 				A7150EB31EE621E600E3553F /* TabCoordinator.swift */,
 			);
-			name = Tab;
 			path = Tab;
 			sourceTree = "<group>";
 		};
@@ -347,7 +349,6 @@
 			children = (
 				A71B27301EE5D6F500613CF4 /* StartCoordinator.swift */,
 			);
-			name = Start;
 			path = Start;
 			sourceTree = "<group>";
 		};
@@ -368,7 +369,6 @@
 				A73D74251EE6879B004571A5 /* Models */,
 				A73D74211EE68770004571A5 /* Views */,
 			);
-			name = PodcastList;
 			path = PodcastList;
 			sourceTree = "<group>";
 		};
@@ -415,6 +415,9 @@
 				A7150EDC1EE6399200E3553F /* PlayerControllerTests.swift */,
 				A71B27091EE5D24700613CF4 /* PodCatcherTests.swift */,
 				A7150ED61EE638A900E3553F /* StartCoordinatorTests.swift */,
+				A7894F9D1EE69C03000CC190 /* SettingsTests.swift */,
+				A7894F9F1EE69C1E000CC190 /* LoginTests.swift */,
+				A7894FA11EE69E2B000CC190 /* TestMainCoordinator.swift */,
 			);
 			path = PodCatcherTests;
 			sourceTree = "<group>";
@@ -424,6 +427,7 @@
 			children = (
 				A71B27161EE5D24700613CF4 /* Info.plist */,
 				A71B27141EE5D24700613CF4 /* PodCatcherUITests.swift */,
+				A7894FA31EE69E6A000CC190 /* LoginUITests.swift */,
 			);
 			path = PodCatcherUITests;
 			sourceTree = "<group>";
@@ -438,7 +442,6 @@
 				A71B27261EE5D29100613CF4 /* MainCoordinator.swift */,
 				A71B27221EE5D27700613CF4 /* NavigationCoordinator.swift */,
 			);
-			name = Coordinators;
 			path = Coordinators;
 			sourceTree = "<group>";
 		};
@@ -449,7 +452,6 @@
 				A77EDF4E1EE5E6C4001A24E5 /* Caster.swift */,
 				A77EDF521EE5F426001A24E5 /* PodCatcherItem.swift */,
 			);
-			name = Models;
 			path = Models;
 			sourceTree = "<group>";
 		};
@@ -459,7 +461,6 @@
 				A73D740F1EE6861D004571A5 /* Ball */,
 				A73D740D1EE685FF004571A5 /* AnimationDelegate.swift */,
 			);
-			name = Animation;
 			path = Animation;
 			sourceTree = "<group>";
 		};
@@ -468,7 +469,6 @@
 			children = (
 				A7EBA0CB1EE683C900FAAC9C /* BallAnimation.swift */,
 			);
-			name = Ball;
 			path = Ball;
 			sourceTree = "<group>";
 		};
@@ -478,7 +478,6 @@
 				A73D74081EE684C4004571A5 /* LoadingPopover.swift */,
 				A73D740A1EE684DD004571A5 /* LoadingView.swift */,
 			);
-			name = Loading;
 			path = Loading;
 			sourceTree = "<group>";
 		};
@@ -488,7 +487,6 @@
 				A73D74191EE68729004571A5 /* LoginViewControllerDelegate.swift */,
 				A73D74151EE686E6004571A5 /* LoginViewDelegate.swift */,
 			);
-			name = Delegates;
 			path = Delegates;
 			sourceTree = "<group>";
 		};
@@ -497,7 +495,6 @@
 			children = (
 				A7EBA0A01EE6739000FAAC9C /* LoginView.swift */,
 			);
-			name = Views;
 			path = Views;
 			sourceTree = "<group>";
 		};
@@ -506,7 +503,6 @@
 			children = (
 				A7EBA0A21EE673AA00FAAC9C /* LoginViewController.swift */,
 			);
-			name = Controllers;
 			path = Controllers;
 			sourceTree = "<group>";
 		};
@@ -515,7 +511,6 @@
 			children = (
 				A73D74171EE68704004571A5 /* LoginViewModel.swift */,
 			);
-			name = Models;
 			path = Models;
 			sourceTree = "<group>";
 		};
@@ -524,7 +519,6 @@
 			children = (
 				A7150EC61EE6337D00E3553F /* PodcastListViewController.swift */,
 			);
-			name = Controllers;
 			path = Controllers;
 			sourceTree = "<group>";
 		};
@@ -533,7 +527,6 @@
 			children = (
 				A7150EE61EE6568B00E3553F /* PodcastListViewControllerDelegate.swift */,
 			);
-			name = Delegates;
 			path = Delegates;
 			sourceTree = "<group>";
 		};
@@ -543,7 +536,6 @@
 				A73D74221EE68781004571A5 /* Cell */,
 				A7150EEF1EE6609200E3553F /* PodcastListTopView.swift */,
 			);
-			name = Views;
 			path = Views;
 			sourceTree = "<group>";
 		};
@@ -553,7 +545,6 @@
 				A7150EDE1EE63E7200E3553F /* PodcastCell.swift */,
 				A7150EE81EE6571200E3553F /* PodcastCellModel.swift */,
 			);
-			name = Cell;
 			path = Cell;
 			sourceTree = "<group>";
 		};
@@ -562,7 +553,6 @@
 			children = (
 				A7150EE41EE6566600E3553F /* PodcasterControllState.swift */,
 			);
-			name = Models;
 			path = Models;
 			sourceTree = "<group>";
 		};
@@ -571,7 +561,6 @@
 			children = (
 				A77EDF621EE5FBE4001A24E5 /* TrackItemsFlowLayout.swift */,
 			);
-			name = Layout;
 			path = Layout;
 			sourceTree = "<group>";
 		};
@@ -581,7 +570,6 @@
 				A77EDF6D1EE5FCC9001A24E5 /* MediaCell */,
 				A7150EF31EE66C8E00E3553F /* ShowView.swift */,
 			);
-			name = Views;
 			path = Views;
 			sourceTree = "<group>";
 		};
@@ -590,7 +578,6 @@
 			children = (
 				A77EDF6F1EE5FD57001A24E5 /* MediaCollectionViewController.swift */,
 			);
-			name = Controllers;
 			path = Controllers;
 			sourceTree = "<group>";
 		};
@@ -599,7 +586,6 @@
 			children = (
 				A77EDF731EE5FDE5001A24E5 /* BaseMediaCollectionDataSource.swift */,
 			);
-			name = DataSource;
 			path = DataSource;
 			sourceTree = "<group>";
 		};
@@ -608,7 +594,6 @@
 			children = (
 				A77EDF811EE61338001A24E5 /* MediaCollectionControllerDelegate.swift */,
 			);
-			name = Delegate;
 			path = Delegate;
 			sourceTree = "<group>";
 		};
@@ -617,7 +602,6 @@
 			children = (
 				A71B273A1EE5DB8D00613CF4 /* StartViewController.swift */,
 			);
-			name = Controllers;
 			path = Controllers;
 			sourceTree = "<group>";
 		};
@@ -626,7 +610,6 @@
 			children = (
 				A71B273C1EE5DB9700613CF4 /* StartView.swift */,
 			);
-			name = Views;
 			path = Views;
 			sourceTree = "<group>";
 		};
@@ -636,7 +619,6 @@
 				A77EDF851EE614CD001A24E5 /* StartViewControllerDelegate.swift */,
 				A7150EEA1EE657D000E3553F /* StartViewDelegate.swift */,
 			);
-			name = Delegates;
 			path = Delegates;
 			sourceTree = "<group>";
 		};
@@ -645,7 +627,6 @@
 			children = (
 				A71B27321EE5D80F00613CF4 /* SplashViewController.swift */,
 			);
-			name = Controllers;
 			path = Controllers;
 			sourceTree = "<group>";
 		};
@@ -654,7 +635,6 @@
 			children = (
 				A71B27341EE5D81600613CF4 /* SplashView.swift */,
 			);
-			name = Viewa;
 			path = Viewa;
 			sourceTree = "<group>";
 		};
@@ -664,7 +644,6 @@
 				A73D74311EE68844004571A5 /* SplashViewControllerDelegate.swift */,
 				A71B27381EE5DA7E00613CF4 /* SplashViewDelegate.swift */,
 			);
-			name = Delegates;
 			path = Delegates;
 			sourceTree = "<group>";
 		};
@@ -673,7 +652,6 @@
 			children = (
 				A7150EBA1EE62DF900E3553F /* PlayerView.swift */,
 			);
-			name = Views;
 			path = Views;
 			sourceTree = "<group>";
 		};
@@ -682,7 +660,6 @@
 			children = (
 				A7150EBC1EE62E0300E3553F /* PlayerViewController.swift */,
 			);
-			name = Controllers;
 			path = Controllers;
 			sourceTree = "<group>";
 		};
@@ -691,7 +668,6 @@
 			children = (
 				A7150EF11EE66C0E00E3553F /* PlayerViewModel.swift */,
 			);
-			name = Models;
 			path = Models;
 			sourceTree = "<group>";
 		};
@@ -701,7 +677,6 @@
 				A7150EC01EE62E1700E3553F /* PlayerViewControllerDelegate.swift */,
 				A7150EBE1EE62E0D00E3553F /* PlayerViewDelegate.swift */,
 			);
-			name = Delegates;
 			path = Delegates;
 			sourceTree = "<group>";
 		};
@@ -712,7 +687,6 @@
 				A73D74421EE6891B004571A5 /* Delegates */,
 				A73D74431EE68922004571A5 /* Views */,
 			);
-			name = Settings;
 			path = Settings;
 			sourceTree = "<group>";
 		};
@@ -722,7 +696,6 @@
 				A73D74401EE68902004571A5 /* SettingsViewControllerDelegate.swift */,
 				A73D743E1EE688E6004571A5 /* SettingsViewDelegate.swift */,
 			);
-			name = Delegates;
 			path = Delegates;
 			sourceTree = "<group>";
 		};
@@ -732,7 +705,6 @@
 				A7EBA0B21EE6786400FAAC9C /* SettingsOptionView.swift */,
 				A7EBA0B01EE6784E00FAAC9C /* SettingsView.swift */,
 			);
-			name = Views;
 			path = Views;
 			sourceTree = "<group>";
 		};
@@ -741,7 +713,6 @@
 			children = (
 				A7EBA0AE1EE6783700FAAC9C /* SettingsViewController.swift */,
 			);
-			name = Controllers;
 			path = Controllers;
 			sourceTree = "<group>";
 		};
@@ -751,7 +722,6 @@
 				A73D743B1EE688AF004571A5 /* CreateAccountViewControllerDelegate.swift */,
 				A73D74391EE68890004571A5 /* CreateAccountViewDelegate.swift */,
 			);
-			name = Delegates;
 			path = Delegates;
 			sourceTree = "<group>";
 		};
@@ -760,7 +730,6 @@
 			children = (
 				A7EBA0AB1EE6775500FAAC9C /* CreateAccountViewController.swift */,
 			);
-			name = Controllers;
 			path = Controllers;
 			sourceTree = "<group>";
 		};
@@ -769,7 +738,6 @@
 			children = (
 				A7EBA0A91EE6772200FAAC9C /* CreateAccountView.swift */,
 			);
-			name = Views;
 			path = Views;
 			sourceTree = "<group>";
 		};
@@ -778,7 +746,6 @@
 			children = (
 				A7EBA0A61EE6743800FAAC9C /* TextFieldExtension.swift */,
 			);
-			name = TextField;
 			path = TextField;
 			sourceTree = "<group>";
 		};
@@ -787,7 +754,6 @@
 			children = (
 				A77EDF871EE614FB001A24E5 /* ButtonFactory.swift */,
 			);
-			name = Buttons;
 			path = Buttons;
 			sourceTree = "<group>";
 		};
@@ -796,7 +762,6 @@
 			children = (
 				A77EDF641EE5FC17001A24E5 /* EmptyView.swift */,
 			);
-			name = Views;
 			path = Views;
 			sourceTree = "<group>";
 		};
@@ -806,7 +771,6 @@
 				A7EBA0C91EE6836400FAAC9C /* NSError+Extension.swift */,
 				A7EBA0A41EE6740300FAAC9C /* String+Extension.swift */,
 			);
-			name = Extensions;
 			path = Extensions;
 			sourceTree = "<group>";
 		};
@@ -818,7 +782,6 @@
 				A71B26FD1EE5D24700613CF4 /* LaunchScreen.storyboard */,
 				A71B26F81EE5D24700613CF4 /* PodCatcher.xcdatamodeld */,
 			);
-			name = Resources;
 			path = Resources;
 			sourceTree = "<group>";
 		};
@@ -829,7 +792,6 @@
 				A73D74341EE68856004571A5 /* Delegates */,
 				A73D74331EE68851004571A5 /* Viewa */,
 			);
-			name = Splash;
 			path = Splash;
 			sourceTree = "<group>";
 		};
@@ -840,7 +802,6 @@
 				A77EDF751EE5FDFA001A24E5 /* MediaDataStore.swift */,
 				A71B27441EE5E1F200613CF4 /* PCMediaPlayer.swift */,
 			);
-			name = LocalServices;
 			path = LocalServices;
 			sourceTree = "<group>";
 		};
@@ -858,7 +819,6 @@
 				A77EDF791EE5FF93001A24E5 /* UIViewController+Extension.swift */,
 				A77EDF7B1EE5FFAB001A24E5 /* ViewType.swift */,
 			);
-			name = Extensions;
 			path = Extensions;
 			sourceTree = "<group>";
 		};
@@ -869,7 +829,6 @@
 				A73D742D1EE687FF004571A5 /* Delegates */,
 				A73D742C1EE687FA004571A5 /* Views */,
 			);
-			name = Start;
 			path = Start;
 			sourceTree = "<group>";
 		};
@@ -879,7 +838,6 @@
 				A77EDF5E1EE5FB83001A24E5 /* MediaCellModelerProtocol.swift */,
 				A77EDF5C1EE5FB5F001A24E5 /* ReusableProtocol.swift */,
 			);
-			name = Protocols;
 			path = Protocols;
 			sourceTree = "<group>";
 		};
@@ -889,7 +847,6 @@
 				A77EDF541EE5FA61001A24E5 /* MediaCell.swift */,
 				A77EDF601EE5FBA0001A24E5 /* MediaCellViewModel.swift */,
 			);
-			name = MediaCell;
 			path = MediaCell;
 			sourceTree = "<group>";
 		};
@@ -905,7 +862,6 @@
 				A77EDF681EE5FC95001A24E5 /* Splash */,
 				A77EDF6B1EE5FCB6001A24E5 /* Start */,
 			);
-			name = Screens;
 			path = Screens;
 			sourceTree = "<group>";
 		};
@@ -919,7 +875,6 @@
 				A7150EED1EE65B2300E3553F /* PlayerViewConstants.swift */,
 				A7150EE21EE6563300E3553F /* TabBarConstants.swift */,
 			);
-			name = Constants;
 			path = Constants;
 			sourceTree = "<group>";
 		};
@@ -928,7 +883,6 @@
 			children = (
 				A7EBA0991EE672A700FAAC9C /* UserDataAPIClient.swift */,
 			);
-			name = NetworkServices;
 			path = NetworkServices;
 			sourceTree = "<group>";
 		};
@@ -940,7 +894,6 @@
 				A77EDF691EE5FC9C001A24E5 /* LocalServices */,
 				A7EBA09B1EE672AF00FAAC9C /* NetworkServices */,
 			);
-			name = ApplicationServices;
 			path = ApplicationServices;
 			sourceTree = "<group>";
 		};
@@ -952,7 +905,6 @@
 				A73D74481EE68945004571A5 /* TextField */,
 				A73D744A1EE68952004571A5 /* Views */,
 			);
-			name = Elements;
 			path = Elements;
 			sourceTree = "<group>";
 		};
@@ -964,7 +916,6 @@
 				A73D741E1EE6875D004571A5 /* Models */,
 				A73D741C1EE68752004571A5 /* Views */,
 			);
-			name = Login;
 			path = Login;
 			sourceTree = "<group>";
 		};
@@ -975,7 +926,6 @@
 				A73D74451EE6892C004571A5 /* Delegates */,
 				A73D74471EE68938004571A5 /* Views */,
 			);
-			name = CreateAccount;
 			path = CreateAccount;
 			sourceTree = "<group>";
 		};
@@ -986,7 +936,6 @@
 				A73D74101EE6862E004571A5 /* Loading */,
 				A7EBA0BD1EE6822800FAAC9C /* Menu */,
 			);
-			name = Popover;
 			path = Popover;
 			sourceTree = "<group>";
 		};
@@ -999,7 +948,6 @@
 				A7EBA0C31EE682DF00FAAC9C /* MenuOptionView.swift */,
 				A7EBA0B81EE6815300FAAC9C /* MenuView.swift */,
 			);
-			name = Menu;
 			path = Menu;
 			sourceTree = "<group>";
 		};
@@ -1009,7 +957,6 @@
 				A7EBA0B61EE680DF00FAAC9C /* BasePopView.swift */,
 				A7EBA0B41EE680BE00FAAC9C /* BasePopoverAlert.swift */,
 			);
-			name = Base;
 			path = Base;
 			sourceTree = "<group>";
 		};
@@ -1152,7 +1099,10 @@
 				A7150ECF1EE637C700E3553F /* PodCatcherTests.swift in Sources */,
 				A7150ED71EE638A900E3553F /* StartCoordinatorTests.swift in Sources */,
 				A7150EDD1EE6399200E3553F /* PlayerControllerTests.swift in Sources */,
+				A7894FA01EE69C1E000CC190 /* LoginTests.swift in Sources */,
+				A7894F9E1EE69C03000CC190 /* SettingsTests.swift in Sources */,
 				A7150EDB1EE638E000E3553F /* MediaPlayerTests.swift in Sources */,
+				A7894FA21EE69E2B000CC190 /* TestMainCoordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1265,6 +1215,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A71B27151EE5D24700613CF4 /* PodCatcherUITests.swift in Sources */,
+				A7894FA41EE69E6A000CC190 /* LoginUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

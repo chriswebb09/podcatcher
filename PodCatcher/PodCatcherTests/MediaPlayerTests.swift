@@ -30,4 +30,15 @@ class MediaPlayerTests: XCTestCase {
             XCTAssertNotNil(list)
         }
     }
+    
+    func testValidEmail() {
+        var email = "chris.webb@gmail.com"
+        XCTAssertTrue(email.isValidEmail())
+        email = ""
+        XCTAssertFalse(email.isValidEmail())
+        email = "chris.webbb@gmail"
+        XCTAssertFalse(email.isValidEmail())
+        email = "chris.com"
+        XCTAssertFalse(email.isValidEmail())
+    }
 }
