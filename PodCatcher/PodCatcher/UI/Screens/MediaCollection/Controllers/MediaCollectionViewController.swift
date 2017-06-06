@@ -72,6 +72,7 @@ final class MediaCollectionViewController: UIViewController {
         view.addSubview(collectionView)
         collectionView.setupCollectionView(view: view, newLayout: TrackItemsFlowLayout())
         collectionView.collectionViewRegister(viewController: self)
+    
         collectionView.delegate = self
         collectionView.dataSource = self
         title = "Podcasts"
@@ -80,6 +81,8 @@ final class MediaCollectionViewController: UIViewController {
         buttonItem = UIBarButtonItem(image: dataSource.image, style: .plain, target: self, action: #selector(logout))
         navigationItem.setRightBarButton(buttonItem, animated: false)
         setupSearchController()
+        collectionView.backgroundColor = .darkGray
+        //collectionView.backgroundView?.backgroundColor = .black
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -8,6 +8,11 @@ class PreferencesView: UIView {
         return moreMenuButton
     }()
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        setupConstraints()
+    }
+    
     func setupConstraints() {
         setup(moreButton: moreMenuButton)
     }
@@ -17,6 +22,6 @@ class PreferencesView: UIView {
         moreButton.translatesAutoresizingMaskIntoConstraints = false
         moreButton.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         moreButton.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.5).isActive = true
-        moreButton.rightAnchor.constraint(equalTo: rightAnchor, constant: UIScreen.main.bounds.width * 0.1).isActive = true
+        moreButton.rightAnchor.constraint(equalTo: rightAnchor, constant: UIScreen.main.bounds.width * -0.1).isActive = true
     }
 }
