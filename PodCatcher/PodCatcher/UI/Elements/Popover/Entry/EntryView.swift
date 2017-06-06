@@ -1,15 +1,5 @@
 import UIKit
 
-struct PlaylistViewControllerConstants {
-    static let itemSize =  CGSize(width: UIScreen.main.bounds.width, height: 150)
-    static let mainColor = UIColor(red:0.13, green:0.21, blue:0.44, alpha:1.0)
-    static let backgroundColor = UIColor(red:0.97, green:0.97, blue:0.97, alpha:1.0)
-    static let edgeInset = UIEdgeInsets(top:10, left: 0, bottom: 60, right: 0)
-    static let collectionViewEdge = UIEdgeInsets(top:0, left: 0, bottom: 60, right: 0)
-    static let minimumSpace: CGFloat = 20
-    static let collectionItemSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 2)
-}
-
 final class EntryView: UIView {
     
     // Input for playlist name
@@ -111,51 +101,3 @@ final class EntryView: UIView {
         setup(doneButton: doneButton)
     }
 }
-
-final class NewPlaylistPopover: BasePopoverAlert {
-    
- //   var popoverState: PlaylistCreatorState = .hidden
-    
-    var popView: EntryView = {
-        let popView = EntryView()
-        popView.layer.cornerRadius = DetailPopoverConstants.cornerRadius
-        popView.backgroundColor = .white
-        popView.layer.borderColor = UIColor.black.cgColor
-        popView.layer.borderWidth = DetailPopoverConstants.borderWidth
-        popView.isUserInteractionEnabled = true
-        return popView
-    }()
-    
-    public override func showPopView(viewController: UIViewController) {
-        super.showPopView(viewController: viewController)
-        setupPop()
-       // popoverState = .enabled
-        popView.frame = CGRect(x: DetailPopoverConstants.popViewFrameX,
-                               y: DetailPopoverConstants.popViewFrameY,
-                               width: DetailPopoverConstants.popViewFrameWidth,
-                               height: DetailPopoverConstants.popViewFrameHeight)
-        popView.center = CGPoint(x: UIScreen.main.bounds.midX, y: DetailPopoverConstants.popViewFrameCenterY)
-        popView.clipsToBounds = true
-        viewController.view.addSubview(popView)
-        viewController.view.bringSubview(toFront: popView)
-        popView.isHidden = true
-    }
-}
-
-extension NewPlaylistPopover {
-    
-    
-    func setupPop() {
-        popView.configureView()
-    }
-    
-    override func hidePopView(viewController: UIViewController) {
-        guard let listname = popView.entryField.text else { return }
-       // popoverState = .hidden
-      //  delegate?.userDidEnterPlaylistName(name: listname)
-        super.hidePopView(viewController: viewController)
-        popView.isHidden = true
-        viewController.view.sendSubview(toBack: popView)
-    }
-}
-
