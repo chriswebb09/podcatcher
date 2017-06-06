@@ -5,7 +5,6 @@ final class StartView: UIView {
     weak var delegate: StartViewDelegate?
     
     // MARK: - UI Element Properties
-    var gradientLayer: CAGradientLayer!
     
     private var titleLabel: UILabel = {
         let title = UILabel()
@@ -38,20 +37,12 @@ final class StartView: UIView {
     }()
     
     override func layoutSubviews() {
-          createGradientLayer()
+        CALayer.createGradientLayer(layer: layer, bounds: bounds)
         super.layoutSubviews()
         setupElements()
         titleLabel.text = "Get started!"
         setupSelectors()
     }
-    
-    func createGradientLayer() {
-        gradientLayer = CAGradientLayer()
-        gradientLayer.frame = bounds
-        gradientLayer.colors = [UIColor(red:0.31, green:0.49, blue:0.63, alpha:1.0).cgColor, UIColor(red:0.18, green:0.27, blue:0.33, alpha:1.0).cgColor]
-        layer.addSublayer(gradientLayer)
-    }
-    
     
     private func setupElements() {
         setup(titleLabel: titleLabel)
@@ -92,6 +83,14 @@ final class StartView: UIView {
         logoView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.22).isActive = true
     }
     
+    private func sharedLayout(view: UIView) {
+        addSubview(view)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        view.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.8).isActive = true
+        view.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.1).isActive = true
+    }
+    
     private func setup(titleLabel: UILabel) {
         addSubview(titleLabel)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -102,30 +101,17 @@ final class StartView: UIView {
     }
     
     private func setup(guestUserButton: UIButton) {
-        addSubview(guestUserButton)
-        guestUserButton.translatesAutoresizingMaskIntoConstraints = false
-        guestUserButton.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        sharedLayout(view: guestUserButton)
         guestUserButton.topAnchor.constraint(equalTo: logoView.bottomAnchor, constant: UIScreen.main.bounds.height * 0.1).isActive = true
-        guestUserButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.8).isActive = true
-        guestUserButton.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.1).isActive = true
     }
     
     private func setup(loginButton: UIButton) {
-        addSubview(loginButton)
-        loginButton.translatesAutoresizingMaskIntoConstraints = false
-        loginButton.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        sharedLayout(view: loginButton)
         loginButton.topAnchor.constraint(equalTo: guestUserButton.bottomAnchor, constant: UIScreen.main.bounds.height * 0.07).isActive = true
-        loginButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.8).isActive = true
-        loginButton.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.1).isActive = true
     }
     
     private func setup(createAccountButton: UIButton) {
-        addSubview(createAccountButton)
-        createAccountButton.translatesAutoresizingMaskIntoConstraints = false
-        createAccountButton.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        sharedLayout(view: createAccountButton)
         createAccountButton.topAnchor.constraint(equalTo: userLoginButton.bottomAnchor, constant: UIScreen.main.bounds.height * 0.07).isActive = true
-       // createAccountButton.centerYAnchor.constraint(equalTo: centerYAnchor, constant: UIScreen.main.bounds.height * 0.25).isActive = true
-        createAccountButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.8).isActive = true
-        createAccountButton.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.1).isActive = true
     }
 }
