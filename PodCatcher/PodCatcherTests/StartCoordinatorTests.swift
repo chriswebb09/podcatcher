@@ -54,7 +54,6 @@ class StartCoordinatorTests: XCTestCase {
         XCTAssertNotNil(navigationController.viewControllers[2] as! CreateAccountViewController)
     }
     
-    
     func testContinueAsGuest() {
         let dataSource = BaseMediaControllerDataSource(casters: [Caster]())
         let mainCoordinator = MainCoordinator(window: UIWindow(frame: UIScreen.main.bounds), coordinator: startCoordinator)
@@ -67,5 +66,4 @@ class StartCoordinatorTests: XCTestCase {
         mainCoordinator.transitionCoordinator(type: .tabbar, dataSource: dataSource)
         XCTAssertEqual(mainCoordinator.appCoordinator.type, .tabbar)
     }
-    
 }

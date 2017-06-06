@@ -1,11 +1,3 @@
-//
-//  TestMainCoordinator.swift
-//  PodCatcher
-//
-//  Created by Christopher Webb-Orenstein on 6/6/17.
-//  Copyright © 2017 Christopher Webb-Orenstein. All rights reserved.
-//
-
 import XCTest
 @testable import PodCatcher
 
@@ -30,10 +22,32 @@ class TestMainCoordinator: XCTestCase {
         XCTAssertEqual(mainCoordinator.appCoordinator.type, .app)
     }
     
+    func testAddChild() {
+        mainCoordinator.start()
+        let startCoord = mainCoordinator.appCoordinator as! StartCoordinator
+        var viewController = CreateAccountViewController()
+        startCoord.addChild(viewController: viewController)
+        XCTAssertNotNil(startCoord.childViewControllers[1] as! CreateAccountViewController)
+        XCTAssertNoThrow(startCoord.childViewControllers[1] as! CreateAccountViewController)
+    }
+    
     func testSplash() {
         mainCoordinator.start()
         let startCoord = mainCoordinator.appCoordinator as! StartCoordinator
         XCTAssertNotNil(startCoord.childViewControllers[0] as! SplashViewController)
         XCTAssertNoThrow(startCoord.childViewControllers[0] as! SplashViewController)
+    }
+    
+    func testGoToLogin() {
+        mainCoordinator.start()
+        let startCoord = mainCoordinator.appCoordinator as! StartCoordinator
+        startCoord.skipSplash()
+        XCTAssertNotNil(startCoord.childViewControllers[1] as! StartViewController)
+        XCTAssertNoThrow(startCoord.childViewControllers[1] as! StartViewController)
+        startCoord.loginSelected()
+        var loginViewController = LoginViewController()
+        startCoord.addChild(viewController: loginViewController)
+        XCTAssertNotNil(startCoord.childViewControllers[2] as! LoginViewController)
+        XCTAssertNoThrow(startCoord.childViewControllers[2] as! LoginViewController)
     }
 }

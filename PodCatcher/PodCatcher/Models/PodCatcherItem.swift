@@ -15,6 +15,16 @@ struct MediaCatcherItem {
     var playCount: Int?
     var collectionName: String
     var audioUrl: URL?
+    var tags: [String]
+    
+    init(creatorName: String, title: String, playtime: Double, playCount: Int, collectionName: String, audioUrl: URL) {
+        self.creatorName = creatorName
+        self.title = title
+        self.playtime = playtime
+        self.collectionName = collectionName
+        self.audioUrl = audioUrl
+        self.tags = []
+    }
 }
 
 extension MediaCatcherItem: Equatable {

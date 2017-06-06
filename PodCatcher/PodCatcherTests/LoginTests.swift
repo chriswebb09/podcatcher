@@ -1,11 +1,3 @@
-//
-//  LoginTests.swift
-//  PodCatcher
-//
-//  Created by Christopher Webb-Orenstein on 6/6/17.
-//  Copyright © 2017 Christopher Webb-Orenstein. All rights reserved.
-//
-
 import XCTest
 @testable import PodCatcher
 
@@ -35,7 +27,6 @@ class LoginTests: XCTestCase {
         XCTAssert(appCoordinator.childViewControllers[0] == loginViewController)
     }
     
-    
     func testSubmitButtonEnabled() {
         let textField = UITextField()
         let loginViewModel = LoginViewModel()
@@ -45,13 +36,11 @@ class LoginTests: XCTestCase {
         XCTAssertTrue(loginView.model.submitEnabled)
     }
     
-    
     func testSubmitButtonTapped() {
         let loginTest = LoginTestDelegate()
         loginViewController.delegate = loginTest
         loginViewController.submitButtonTapped()
     }
-
 }
 
 class LoginTestDelegate: LoginViewControllerDelegate {

@@ -53,6 +53,7 @@
 		A71BFB821EE6E94900A35D8E /* PodCaster+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71BFB801EE6E94900A35D8E /* PodCaster+CoreDataProperties.swift */; };
 		A71BFB851EE6E96000A35D8E /* CasterItems+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71BFB831EE6E96000A35D8E /* CasterItems+CoreDataClass.swift */; };
 		A71BFB861EE6E96000A35D8E /* CasterItems+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71BFB841EE6E96000A35D8E /* CasterItems+CoreDataProperties.swift */; };
+		A71BFB881EE6F62B00A35D8E /* UnderLineTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71BFB871EE6F62B00A35D8E /* UnderLineTextField.swift */; };
 		A73D74091EE684C4004571A5 /* LoadingPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73D74081EE684C4004571A5 /* LoadingPopover.swift */; };
 		A73D740B1EE684DD004571A5 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73D740A1EE684DD004571A5 /* LoadingView.swift */; };
 		A73D740E1EE685FF004571A5 /* AnimationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73D740D1EE685FF004571A5 /* AnimationDelegate.swift */; };
@@ -195,6 +196,7 @@
 		A71BFB801EE6E94900A35D8E /* PodCaster+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PodCaster+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		A71BFB831EE6E96000A35D8E /* CasterItems+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CasterItems+CoreDataClass.swift"; sourceTree = "<group>"; };
 		A71BFB841EE6E96000A35D8E /* CasterItems+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CasterItems+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		A71BFB871EE6F62B00A35D8E /* UnderLineTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnderLineTextField.swift; sourceTree = "<group>"; };
 		A73D74081EE684C4004571A5 /* LoadingPopover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingPopover.swift; sourceTree = "<group>"; };
 		A73D740A1EE684DD004571A5 /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		A73D740D1EE685FF004571A5 /* AnimationDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationDelegate.swift; sourceTree = "<group>"; };
@@ -763,6 +765,7 @@
 			isa = PBXGroup;
 			children = (
 				A7EBA0A61EE6743800FAAC9C /* TextFieldExtension.swift */,
+				A71BFB871EE6F62B00A35D8E /* UnderLineTextField.swift */,
 			);
 			path = TextField;
 			sourceTree = "<group>";
@@ -1202,6 +1205,7 @@
 				A73D74301EE6881E004571A5 /* LogoConstants.swift in Sources */,
 				A7150EDF1EE63E7200E3553F /* PodcastCell.swift in Sources */,
 				A77EDF5D1EE5FB5F001A24E5 /* ReusableProtocol.swift in Sources */,
+				A71BFB881EE6F62B00A35D8E /* UnderLineTextField.swift in Sources */,
 				A71B27391EE5DA7E00613CF4 /* SplashViewDelegate.swift in Sources */,
 				A71B272B1EE5D4B800613CF4 /* TabBarController.swift in Sources */,
 				A7EBA0CC1EE683C900FAAC9C /* BallAnimation.swift in Sources */,

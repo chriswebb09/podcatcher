@@ -1,11 +1,3 @@
-//
-//  PodCatcherUITests.swift
-//  PodCatcherUITests
-//
-//  Created by Christopher Webb-Orenstein on 6/5/17.
-//  Copyright © 2017 Christopher Webb-Orenstein. All rights reserved.
-//
-
 import XCTest
 
 class PodCatcherUITests: XCTestCase {
