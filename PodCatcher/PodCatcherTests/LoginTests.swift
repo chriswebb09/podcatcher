@@ -34,4 +34,28 @@ class LoginTests: XCTestCase {
         appCoordinator.addChild(viewController: loginViewController)
         XCTAssert(appCoordinator.childViewControllers[0] == loginViewController)
     }
+    
+    
+    func testSubmitButtonEnabled() {
+        let textField = UITextField()
+        let loginViewModel = LoginViewModel()
+        textField.text = "hello@gmail.com"
+        loginView.model = loginViewModel
+        loginView.textFieldDidEndEditing(textField)
+        XCTAssertTrue(loginView.model.submitEnabled)
+    }
+    
+    
+    func testSubmitButtonTapped() {
+        let loginTest = LoginTestDelegate()
+        loginViewController.delegate = loginTest
+        loginViewController.submitButtonTapped()
+    }
+
+}
+
+class LoginTestDelegate: LoginViewControllerDelegate {
+    func loginButtonTapped(tapped: Bool) {
+        XCTAssertTrue(tapped)
+    }
 }

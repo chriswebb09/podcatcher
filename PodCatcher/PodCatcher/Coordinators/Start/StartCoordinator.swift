@@ -98,7 +98,7 @@ extension StartCoordinator: StartViewControllerDelegate {
 
 extension StartCoordinator: LoginViewControllerDelegate {
     
-    func loginButtonTapped() {
+    func loginButtonTapped(tapped: Bool) {
         print("tap")
         delegate?.transitionCoordinator(type: .tabbar, dataSource: dataSource)
     }

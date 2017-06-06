@@ -30,6 +30,6 @@ extension LoginViewController: LoginViewDelegate {
     
     func submitButtonTapped() {
         print("Submitted")
-        delegate?.loginButtonTapped()
+        delegate?.loginButtonTapped(tapped: true)
     }
 }

@@ -97,8 +97,8 @@ extension LoginView: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         guard let text = textField.text else { return }
         model.username = text
+        model.submitEnabled = true
         submitButton.isEnabled = model.submitEnabled
-        submitButton.isEnabled = true
         delegate?.usernameFieldDidAddText(text: usernameField.text)
     }
     

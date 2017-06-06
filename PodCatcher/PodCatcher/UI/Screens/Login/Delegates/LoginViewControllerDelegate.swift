@@ -1,5 +1,5 @@
 import UIKit
 
 protocol LoginViewControllerDelegate: class {
-    func loginButtonTapped()
+    func loginButtonTapped(tapped: Bool)
 }
