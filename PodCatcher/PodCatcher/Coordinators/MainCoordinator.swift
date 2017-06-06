@@ -4,6 +4,7 @@ class MainCoordinator: ApplicationCoordinator {
     
     var window: UIWindow
     var appCoordinator: Coordinator!
+    var dataSource: BaseMediaControllerDataSource!
     
     init(window: UIWindow) {
         self.window = window
@@ -36,18 +37,20 @@ extension MainCoordinator: CoordinatorDelegate {
             
         case .tabbar:
             let tabbarController = TabBarController()
-            tabbarController.dataSource = dataSource
+            self.dataSource = dataSource
+            tabbarController.dataSource = self.dataSource
             let tabbBarCoordinator = TabBarCoordinator(tabBarController: tabbarController, window: window)
-            let mediaViewController = MediaCollectionViewController(dataSource: dataSource!)
+            guard let dataSource = dataSource else { return }
+            let mediaViewController = MediaCollectionViewController(dataSource: dataSource)
             let mediaTab = UINavigationController(rootViewController: mediaViewController)
-            tabbBarCoordinator.setupMediaCoordinator(navigationController: mediaTab, dataSource: dataSource!)
+            tabbBarCoordinator.setupMediaCoordinator(navigationController: mediaTab, dataSource: dataSource)
             let mediaCoord = tabbBarCoordinator.childCoordinators[0] as! MediaTabCoordinator
             mediaCoord.delegate = self
             
             let settingsView = SettingsView()
             let settingsViewController = SettingsViewController(settingsView: settingsView)
             let settingsTab = UINavigationController(rootViewController: settingsViewController)
-            tabbBarCoordinator.setupSettingsCoordinator(navigationController: settingsTab, dataSource: dataSource!)
+            tabbBarCoordinator.setupSettingsCoordinator(navigationController: settingsTab, dataSource: dataSource)
             tabbBarCoordinator.delegate = self
             
             appCoordinator = tabbBarCoordinator

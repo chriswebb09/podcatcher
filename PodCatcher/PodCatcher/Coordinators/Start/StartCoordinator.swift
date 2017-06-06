@@ -9,6 +9,8 @@
 import UIKit
 
 class StartCoordinator: NavigationCoordinator {
+    var type: CoordinatorType = .app
+
     
     weak var delegate: CoordinatorDelegate?
     var window: UIWindow!

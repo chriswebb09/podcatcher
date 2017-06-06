@@ -3,7 +3,7 @@ import UIKit
 class MediaTabCoordinator: NavigationCoordinator {
     
     weak var delegate: CoordinatorDelegate?
-    
+    var type: CoordinatorType = .tabbar
     var dataSource: BaseMediaControllerDataSource!
     
     var childViewControllers: [UIViewController] = []

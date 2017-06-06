@@ -54,4 +54,18 @@ class StartCoordinatorTests: XCTestCase {
         XCTAssertNotNil(navigationController.viewControllers[2] as! CreateAccountViewController)
     }
     
+    
+    func testContinueAsGuest() {
+        let dataSource = BaseMediaControllerDataSource(casters: [Caster]())
+        let mainCoordinator = MainCoordinator(window: UIWindow(frame: UIScreen.main.bounds), coordinator: startCoordinator)
+        mainCoordinator.dataSource = dataSource
+        mainCoordinator.start()
+        XCTAssertEqual(navigationController.viewControllers.count, 1)
+        startCoordinator.splashViewFinishedAnimation(finished: true)
+        XCTAssertEqual(navigationController.viewControllers.count, 2)
+        XCTAssertNotNil(navigationController.viewControllers[1] as! StartViewController)
+        mainCoordinator.transitionCoordinator(type: .tabbar, dataSource: dataSource)
+        XCTAssertEqual(mainCoordinator.appCoordinator.type, .tabbar)
+    }
+    
 }
