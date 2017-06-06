@@ -28,7 +28,7 @@ class PlayerControllerTests: XCTestCase {
     
     func testPlayerController() {
         mediaPlayer.getPlaylists { collection, list in
-            var controller = PlayerViewController(index: 0, caster: list![1])
+            let controller = PlayerViewController(index: 0, caster: list![1])
             XCTAssertNotNil(controller.caster)
         }
     }

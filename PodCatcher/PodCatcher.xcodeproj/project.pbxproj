@@ -49,6 +49,10 @@
 		A71B273B1EE5DB8D00613CF4 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71B273A1EE5DB8D00613CF4 /* StartViewController.swift */; };
 		A71B273D1EE5DB9700613CF4 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71B273C1EE5DB9700613CF4 /* StartView.swift */; };
 		A71B27451EE5E1F200613CF4 /* PCMediaPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71B27441EE5E1F200613CF4 /* PCMediaPlayer.swift */; };
+		A71BFB811EE6E94900A35D8E /* PodCaster+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71BFB7F1EE6E94900A35D8E /* PodCaster+CoreDataClass.swift */; };
+		A71BFB821EE6E94900A35D8E /* PodCaster+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71BFB801EE6E94900A35D8E /* PodCaster+CoreDataProperties.swift */; };
+		A71BFB851EE6E96000A35D8E /* CasterItems+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71BFB831EE6E96000A35D8E /* CasterItems+CoreDataClass.swift */; };
+		A71BFB861EE6E96000A35D8E /* CasterItems+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71BFB841EE6E96000A35D8E /* CasterItems+CoreDataProperties.swift */; };
 		A73D74091EE684C4004571A5 /* LoadingPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73D74081EE684C4004571A5 /* LoadingPopover.swift */; };
 		A73D740B1EE684DD004571A5 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73D740A1EE684DD004571A5 /* LoadingView.swift */; };
 		A73D740E1EE685FF004571A5 /* AnimationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73D740D1EE685FF004571A5 /* AnimationDelegate.swift */; };
@@ -187,6 +191,10 @@
 		A71B273A1EE5DB8D00613CF4 /* StartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
 		A71B273C1EE5DB9700613CF4 /* StartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
 		A71B27441EE5E1F200613CF4 /* PCMediaPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCMediaPlayer.swift; sourceTree = "<group>"; };
+		A71BFB7F1EE6E94900A35D8E /* PodCaster+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PodCaster+CoreDataClass.swift"; sourceTree = "<group>"; };
+		A71BFB801EE6E94900A35D8E /* PodCaster+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PodCaster+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		A71BFB831EE6E96000A35D8E /* CasterItems+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CasterItems+CoreDataClass.swift"; sourceTree = "<group>"; };
+		A71BFB841EE6E96000A35D8E /* CasterItems+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CasterItems+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		A73D74081EE684C4004571A5 /* LoadingPopover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingPopover.swift; sourceTree = "<group>"; };
 		A73D740A1EE684DD004571A5 /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		A73D740D1EE685FF004571A5 /* AnimationDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationDelegate.swift; sourceTree = "<group>"; };
@@ -309,6 +317,10 @@
 		A7150EB71EE6246A00E3553F /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				A71BFB831EE6E96000A35D8E /* CasterItems+CoreDataClass.swift */,
+				A71BFB841EE6E96000A35D8E /* CasterItems+CoreDataProperties.swift */,
+				A71BFB7F1EE6E94900A35D8E /* PodCaster+CoreDataClass.swift */,
+				A71BFB801EE6E94900A35D8E /* PodCaster+CoreDataProperties.swift */,
 				A73D74111EE68655004571A5 /* CoreDataClient.swift */,
 				A7EBA09C1EE672E300FAAC9C /* CoreDataStack.swift */,
 			);
@@ -1141,6 +1153,7 @@
 				A71B27371EE5D87900613CF4 /* UIView+Extension.swift in Sources */,
 				A7150EE71EE6568B00E3553F /* PodcastListViewControllerDelegate.swift in Sources */,
 				A7150EC11EE62E1700E3553F /* PlayerViewControllerDelegate.swift in Sources */,
+				A71BFB821EE6E94900A35D8E /* PodCaster+CoreDataProperties.swift in Sources */,
 				A7150EEB1EE657D000E3553F /* StartViewDelegate.swift in Sources */,
 				A77EDF591EE5FAC2001A24E5 /* CALayer+Extension.swift in Sources */,
 				A73D74091EE684C4004571A5 /* LoadingPopover.swift in Sources */,
@@ -1157,6 +1170,7 @@
 				A7150EBB1EE62DF900E3553F /* PlayerView.swift in Sources */,
 				A77EDF781EE5FF72001A24E5 /* UIColor+Extension.swift in Sources */,
 				A7EBA0AA1EE6772200FAAC9C /* CreateAccountView.swift in Sources */,
+				A71BFB811EE6E94900A35D8E /* PodCaster+CoreDataClass.swift in Sources */,
 				A73D740B1EE684DD004571A5 /* LoadingView.swift in Sources */,
 				A7894FA61EE6AE44000CC190 /* PodCatcherUser.swift in Sources */,
 				A77EDF631EE5FBE4001A24E5 /* TrackItemsFlowLayout.swift in Sources */,
@@ -1166,6 +1180,7 @@
 				A73D743C1EE688AF004571A5 /* CreateAccountViewControllerDelegate.swift in Sources */,
 				A73D740E1EE685FF004571A5 /* AnimationDelegate.swift in Sources */,
 				A77EDF551EE5FA61001A24E5 /* MediaCell.swift in Sources */,
+				A71BFB851EE6E96000A35D8E /* CasterItems+CoreDataClass.swift in Sources */,
 				A73D741A1EE68729004571A5 /* LoginViewControllerDelegate.swift in Sources */,
 				A7EBA0A51EE6740300FAAC9C /* String+Extension.swift in Sources */,
 				A7894FAA1EE6DC5E000CC190 /* PreferencesViewDelegate.swift in Sources */,
@@ -1206,6 +1221,7 @@
 				A7EBA0A71EE6743800FAAC9C /* TextFieldExtension.swift in Sources */,
 				A77EDF821EE61338001A24E5 /* MediaCollectionControllerDelegate.swift in Sources */,
 				A73D74141EE68679004571A5 /* LocalStorageManager.swift in Sources */,
+				A71BFB861EE6E96000A35D8E /* CasterItems+CoreDataProperties.swift in Sources */,
 				A71B26FA1EE5D24700613CF4 /* PodCatcher.xcdatamodeld in Sources */,
 				A7EBA0B11EE6784E00FAAC9C /* SettingsView.swift in Sources */,
 				A7150EF01EE6609200E3553F /* PodcastListTopView.swift in Sources */,

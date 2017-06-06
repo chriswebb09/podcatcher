@@ -4,7 +4,7 @@ extension String {
     
     static func constructTimeString(time: Int) -> String {
         
-        var minutes = time / 60
+        let minutes = time / 60
         var timeString = String(describing: minutes)
         print(timeString)
         var timerString = ""

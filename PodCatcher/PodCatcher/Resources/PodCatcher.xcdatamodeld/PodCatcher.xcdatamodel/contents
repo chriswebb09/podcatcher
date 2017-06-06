@@ -1,4 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <elements/>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="12141" systemVersion="16F73" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="CasterItems" representedClassName="CasterItems" syncable="YES">
+        <attribute name="audioUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="collectionName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="creatorName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="playCount" optional="YES" attributeType="Integer 16" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="playTime" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="podcaster" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PodCaster" inverseName="podCasterItems" inverseEntity="PodCaster" syncable="YES"/>
+    </entity>
+    <entity name="PodCaster" representedClassName="PodCaster" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="totalPlayTime" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="podCasterItems" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CasterItems" inverseName="podcaster" inverseEntity="CasterItems" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="CasterItems" positionX="3130" positionY="113" width="128" height="150"/>
+        <element name="PodCaster" positionX="2880" positionY="171" width="128" height="90"/>
+    </elements>
 </model>

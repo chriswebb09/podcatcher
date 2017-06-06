@@ -213,7 +213,7 @@ extension MediaCollectionViewController: UISearchBarDelegate {
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        guard let barText = searchBar.text, let navcontroller = self.navigationController else { return }
+      
     }
     
     func onCancel(collectionView: UICollectionView, dataSource: BaseMediaControllerDataSource, store: MediaDataStore) {
@@ -233,7 +233,7 @@ extension MediaCollectionViewController: UISearchBarDelegate {
 extension MediaCollectionViewController: UISearchResultsUpdating {
     
     func updateSearchResultsForSearchController(searchController: UISearchController) {
-        let searchString = searchController.searchBar.text
+       
         collectionView.reloadData()
     }
     

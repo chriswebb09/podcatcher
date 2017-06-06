@@ -48,9 +48,9 @@ class PodcastCell: UICollectionViewCell {
         setupConstraints()
         self.layoutIfNeeded()
         podcastImageView.image = model.podcastImage
-        var intTime = Int(model.item.playtime)
+        let intTime = Int(model.item.playtime)
         dump(intTime)
-        var timeString = String.constructTimeString(time: intTime)
+        let timeString = String.constructTimeString(time: intTime)
         print(timeString)
         playTimeLabel.text = String.constructTimeString(time: intTime)
         podcastTitleLabel.text = model.podcastTitle

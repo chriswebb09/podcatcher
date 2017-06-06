@@ -15,8 +15,8 @@ class TestMainCoordinator: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        var window = UIWindow(frame: UIScreen.main.bounds)
-        var appCoord = StartCoordinator(navigationController: UINavigationController(), window: window)
+        let window = UIWindow(frame: UIScreen.main.bounds)
+        let appCoord = StartCoordinator(navigationController: UINavigationController(), window: window)
         mainCoordinator = MainCoordinator(window: UIWindow(frame: UIScreen.main.bounds), coordinator: appCoord)
     }
     
@@ -32,7 +32,7 @@ class TestMainCoordinator: XCTestCase {
     
     func testSplash() {
         mainCoordinator.start()
-        var startCoord = mainCoordinator.appCoordinator as! StartCoordinator
+        let startCoord = mainCoordinator.appCoordinator as! StartCoordinator
         XCTAssertNotNil(startCoord.childViewControllers[0] as! SplashViewController)
         XCTAssertNoThrow(startCoord.childViewControllers[0] as! SplashViewController)
     }

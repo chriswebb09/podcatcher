@@ -24,8 +24,8 @@ class PodcastListViewController: UIViewController, UIScrollViewDelegate {
         setupNavigationController()
         collectionView.register(PodcastCell.self)
         collectionView.backgroundColor = UIColor(red: 0.97, green: 0.97, blue: 0.97, alpha: 1.0)
-        var topFrameHeight = view.bounds.height / 2
-        var topFrameWidth = view.bounds.width
+        let topFrameHeight = view.bounds.height / 2
+        let topFrameWidth = view.bounds.width
         topView.frame = CGRect(x: 0, y: 0, width: topFrameWidth, height: topFrameHeight / 1.5)
         topView.podcastImageView.image = caster.artwork
         title = caster.name
@@ -59,7 +59,7 @@ class PodcastListViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        var offset = scrollView.contentOffset
+        let offset = scrollView.contentOffset
         if offset.y > 500 {
             UIView.animate(withDuration: 1) {
                 print(offset.y)
@@ -68,8 +68,8 @@ class PodcastListViewController: UIViewController, UIScrollViewDelegate {
             }
         } else {
             UIView.animate(withDuration: 0.5) {
-                var topFrameHeight = self.view.bounds.height / 2
-                var topFrameWidth = self.view.bounds.width
+                let topFrameHeight = self.view.bounds.height / 2
+                let topFrameWidth = self.view.bounds.width
                 self.topView.frame = CGRect(x: 0, y: 0, width: topFrameWidth, height: topFrameHeight / 1.5)
                 self.topView.podcastImageView.image = self.caster.artwork
                 self.topView.layoutSubviews()
@@ -120,7 +120,7 @@ extension PodcastListViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as PodcastCell
         if let caster = caster, let artwork = caster.artwork {
-            var model = PocastCellModel(podcastImage: artwork, podcastTitle: caster.assets[indexPath.row].title, item: caster.assets[indexPath.row])
+            let model = PocastCellModel(podcastImage: artwork, podcastTitle: caster.assets[indexPath.row].title, item: caster.assets[indexPath.row])
             cell.configureCell(model: model)
         }
         return cell
