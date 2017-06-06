@@ -7,16 +7,33 @@
 //
 
 import XCTest
+@testable import PodCatcher
 
 class TestMainCoordinator: XCTestCase {
     
+    var mainCoordinator: MainCoordinator!
+    
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        var window = UIWindow(frame: UIScreen.main.bounds)
+        var appCoord = StartCoordinator(navigationController: UINavigationController(), window: window)
+        mainCoordinator = MainCoordinator(window: UIWindow(frame: UIScreen.main.bounds), coordinator: appCoord)
     }
     
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        mainCoordinator = nil
         super.tearDown()
+    }
+    
+    func testStart() {
+        mainCoordinator.start()
+        XCTAssertEqual(mainCoordinator.appCoordinator.type, .app)
+    }
+    
+    func testSplash() {
+        mainCoordinator.start()
+        var startCoord = mainCoordinator.appCoordinator as! StartCoordinator
+        XCTAssertNotNil(startCoord.childViewControllers[0] as! SplashViewController)
+        XCTAssertNoThrow(startCoord.childViewControllers[0] as! SplashViewController)
     }
 }
