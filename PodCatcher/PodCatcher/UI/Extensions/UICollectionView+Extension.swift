@@ -33,7 +33,7 @@ extension UICollectionView {
         setup(with: newLayout)
         frame = UIScreen.main.bounds
         backgroundColor = .white
-        //  guard let tabbarHeight = self.tabBarController?.tabBar.frame.height else { return }
+       // guard let tabbarHeight = self.tabBarController?.tabBar.frame.height else { return }
         contentInset =  UIEdgeInsets(top: 0, left: 0, bottom: 70, right: 0)
     }
 }

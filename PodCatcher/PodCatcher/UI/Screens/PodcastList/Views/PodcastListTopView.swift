@@ -1,6 +1,12 @@
 import UIKit
 
+protocol TopViewDelegate: class {
+    func popBottomMenu(pop: Bool)
+}
+
 class PodcastListTopView: UIView {
+    
+    weak var delegate: TopViewDelegate?
     
     var podcastImageView: UIImageView! = {
         var podcastImageView = UIImageView()
@@ -42,6 +48,7 @@ class PodcastListTopView: UIView {
         setup(titleLabel: podcastTitleLabel)
         setup(preferencesView: preferencesView)
         preferencesView.layoutSubviews()
+        preferencesView.delegate = self
     }
     
     func setup(podcastImageView: UIImageView) {
@@ -67,7 +74,13 @@ class PodcastListTopView: UIView {
         preferencesView.translatesAutoresizingMaskIntoConstraints = false
         preferencesView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
         preferencesView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-        preferencesView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.25).isActive = true
+        preferencesView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.15).isActive = true
     }
     
+}
+
+extension PodcastListTopView: PreferencesViewDelegate {
+    func moreButtonTapped(tapped: Bool) {
+        delegate?.popBottomMenu(pop: true)
+    }
 }

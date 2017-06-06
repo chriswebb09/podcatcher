@@ -1,14 +1,18 @@
 import UIKit
 
+enum MenuActive {
+    case none, active, hidden
+}
+
 class PodcastListViewController: UIViewController, UIScrollViewDelegate {
     
     var collectionView : UICollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
     var topView = PodcastListTopView()
     var state: PodcasterControlState = .toCollection
-    
+    var menuPop = BottomMenuPopover()
     weak var delegate: PodcastListViewControllerDelegate?
     var caster: Caster!
-    
+    var menuActive: MenuActive = .none
     var leftButtonItem: UIBarButtonItem!
     
     override func viewDidLoad() {
@@ -25,7 +29,8 @@ class PodcastListViewController: UIViewController, UIScrollViewDelegate {
         topView.frame = CGRect(x: 0, y: 0, width: topFrameWidth, height: topFrameHeight / 1.5)
         topView.podcastImageView.image = caster.artwork
         title = caster.name
-      //  topView.podcastTitleLabel.text = caster.name
+        topView.delegate = self
+        //  topView.podcastTitleLabel.text = caster.name
         topView.layoutSubviews()
         view.addSubview(topView)
         collectionView.frame = CGRect(x: topView.bounds.minX, y: topView.frame.maxY, width: topFrameWidth, height: view.bounds.height)
@@ -137,6 +142,55 @@ extension PodcastListViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         state = .toPlayer
         delegate?.didSelectTrackAt(at: indexPath.row, with: caster)
+    }
+}
+
+extension PodcastListViewController: TopViewDelegate {
+    
+    func popBottomMenu(pop: Bool) {
+        // guard let model = model else { return }
+        switch menuActive {
+        case .none:
+            showMenu()
+            menuActive = .active
+        case .active:
+            dismissMenu()
+            menuActive = .hidden
+        case .hidden:
+            showMenu()
+            menuActive = .active
+        }
+    }
+    
+    func showMenu() {
+        menuPop.popView.delegate = self
+        menuPop.setupPop()
+        UIView.animate(withDuration: 0.15) { [weak self] in
+            guard let strongSelf = self else { return }
+            strongSelf.menuPop.showPopView(viewController: strongSelf)
+            strongSelf.menuPop.popView.isHidden = false
+        }
+    }
+    
+    func dismissMenu() {
+        menuPop.popView.removeFromSuperview()
+        menuPop.hidePopView(viewController: self)
+        view.sendSubview(toBack: menuPop)
+    }
+}
+
+extension PodcastListViewController: MenuDelegate {
+    
+    func optionOneTapped() {
+        print("download")
+    }
+    
+    func optionTwoTapped() {
+        print("Option two tapped")
+    }
+    
+    func optionThreeTapped() {
+        print("option three")
     }
 }
 
