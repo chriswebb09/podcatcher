@@ -6,6 +6,8 @@ enum MenuActive {
 
 class PodcastListViewController: UIViewController, UIScrollViewDelegate {
     
+     let entryPop = EntryPopover()
+    
     var collectionView : UICollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
     var topView = PodcastListTopView()
     var state: PodcasterControlState = .toCollection
@@ -146,6 +148,11 @@ extension PodcastListViewController: UICollectionViewDelegateFlowLayout {
 
 extension PodcastListViewController: TopViewDelegate {
     
+    func entryPop(pop: Bool) {
+        popEntry()
+    }
+
+    
     func popBottomMenu(pop: Bool) {
         // guard let model = model else { return }
         switch menuActive {
@@ -175,6 +182,20 @@ extension PodcastListViewController: TopViewDelegate {
         menuPop.popView.removeFromSuperview()
         menuPop.hidePopView(viewController: self)
         view.sendSubview(toBack: menuPop)
+    }
+    
+    func popEntry() {
+        UIView.animate(withDuration: 0.15) { [weak self] in
+            guard let strongSelf = self else { return }
+            strongSelf.entryPop.showPopView(viewController: strongSelf)
+            strongSelf.entryPop.popView.isHidden = false
+        }
+        entryPop.popView.doneButton.addTarget(self, action: #selector(hidePop), for: .touchUpInside)
+    }
+    
+    func hidePop() {
+        entryPop.hidePopView(viewController: self)
+        collectionView.reloadData()
     }
 }
 

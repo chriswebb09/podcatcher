@@ -2,6 +2,7 @@ import UIKit
 
 protocol TopViewDelegate: class {
     func popBottomMenu(pop: Bool)
+    func entryPop(pop: Bool)
 }
 
 class PodcastListTopView: UIView {
@@ -80,6 +81,11 @@ class PodcastListTopView: UIView {
 }
 
 extension PodcastListTopView: PreferencesViewDelegate {
+    
+    func addTagButtonTapped(tapped: Bool) {
+        delegate?.entryPop(pop: tapped)
+    }
+
     func moreButtonTapped(tapped: Bool) {
         delegate?.popBottomMenu(pop: true)
     }

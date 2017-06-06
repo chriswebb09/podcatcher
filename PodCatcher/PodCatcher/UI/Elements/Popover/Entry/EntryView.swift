@@ -63,7 +63,7 @@ final class EntryView: UIView {
     }
     
     func configureView() {
-        titleLabel.text = "Create Playlist"
+        titleLabel.text = "Add A Tag"
         layoutSubviews()
         setupConstraints()
     }
