@@ -27,7 +27,11 @@ final class TabBarController: UITabBarController {
     }
     
     func setup(with controllerOne: UIViewController, and controllerTwo: UIViewController) {
+        let normalImage = #imageLiteral(resourceName: "lightGrayPodcasts")
+        let selectedImage = #imageLiteral(resourceName: "lightGrayPodcasts")
+        controllerOne.tabBarItem =  UITabBarItem(title: nil, image: normalImage.withRenderingMode(.alwaysOriginal), selectedImage: selectedImage.withRenderingMode(.alwaysTemplate))
         let tabOne = setupTab(settingsViewController: controllerOne)
+        controllerTwo.tabBarItem =  UITabBarItem(title: nil, image: normalImage.withRenderingMode(.alwaysOriginal), selectedImage: selectedImage.withRenderingMode(.alwaysTemplate))
         let tabTwo = setupTab(settingsViewController: controllerTwo)
         setTabTitles(controllers: [tabOne, tabTwo])
     }
@@ -45,7 +49,10 @@ final class TabBarController: UITabBarController {
     }
     
     private func setupTab(settingsViewController: UIViewController) -> UINavigationController {
-        let tab = UINavigationController(rootViewController: settingsViewController)
-        return tab
+//        let normalImage = #imageLiteral(resourceName: "lightGrayPodcasts")
+//        let selectedImage = #imageLiteral(resourceName: "lightGrayPodcasts")
+//        settingsViewController.tabBarItem =  UITabBarItem(title: nil, image: normalImage.withRenderingMode(.alwaysOriginal), selectedImage: selectedImage.withRenderingMode(.alwaysTemplate))
+        return UINavigationController(rootViewController: settingsViewController)
+        
     }
 }

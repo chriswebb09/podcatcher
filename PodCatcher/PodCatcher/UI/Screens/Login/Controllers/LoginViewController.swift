@@ -18,7 +18,12 @@ class LoginViewController: UIViewController {
         view = loginView
         view.layoutSubviews()
         title = "Login"
-        navigationController?.isNavigationBarHidden = false
+        navigationController?.navigationBar.isHidden = false
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.navigationBar.isHidden = true
     }
 }
 

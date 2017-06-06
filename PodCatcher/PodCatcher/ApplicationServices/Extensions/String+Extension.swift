@@ -9,10 +9,8 @@ extension String {
         print(timeString)
         var timerString = ""
         if timeString.characters.count < 2 {
-            timerString = "0:0\(timeString)"
+            timerString = "0\(timeString):00"
         } else if timeString.characters.count <= 2 {
-            timerString = "0:\(timeString)"
-        } else {
             timerString = "\(timeString):00"
         }
         return timerString

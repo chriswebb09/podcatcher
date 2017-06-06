@@ -43,11 +43,13 @@ final class LoginView: UIView {
         backgroundColor = .white
         usernameField.delegate = self
         passwordField.delegate = self
-        
+        usernameField.layer.cornerRadius = 20
+        passwordField.layer.cornerRadius = 20
         setup(titleLabel: titleLabel)
         setup(usernamefield: usernameField)
         setup(passwordField: passwordField)
         setup(submitButton: submitButton)
+        submitButton.layer.cornerRadius = 20
         submitButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
     }
     

@@ -22,7 +22,7 @@ class PodcastCell: UICollectionViewCell {
     var playTimeLabel: UILabel = {
         var playTimeLabel = UILabel()
         playTimeLabel.sizeToFit()
-        playTimeLabel.textAlignment = .left
+        playTimeLabel.textAlignment = .right
         playTimeLabel.font = UIFont(name: "HelveticaNeue", size: 14)
         return playTimeLabel
     }()
@@ -62,16 +62,14 @@ extension PodcastCell: Reusable {
     func setupConstraints() {
         contentView.addSubview(podcastTitleLabel)
         podcastTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        podcastTitleLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor).isActive = true
+        podcastTitleLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.8).isActive = true
         podcastTitleLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: UIScreen.main.bounds.width * 0.05).isActive = true
-        podcastTitleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: UIScreen.main.bounds.height * 0.04).isActive = true
-        
+        podcastTitleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
         contentView.addSubview(playTimeLabel)
         playTimeLabel.translatesAutoresizingMaskIntoConstraints = false
-        playTimeLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor).isActive = true
-        playTimeLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: UIScreen.main.bounds.width * 0.05).isActive = true
-        playTimeLabel.topAnchor.constraint(equalTo: podcastTitleLabel.topAnchor, constant: UIScreen.main.bounds.height * 0.05).isActive = true
-        //podcastTitleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
+        playTimeLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.2).isActive = true
+        playTimeLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: UIScreen.main.bounds.width * -0.05).isActive = true
+        playTimeLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
     }
 }
 

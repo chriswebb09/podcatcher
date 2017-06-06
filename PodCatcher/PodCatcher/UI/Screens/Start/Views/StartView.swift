@@ -42,17 +42,13 @@ final class StartView: UIView {
         super.layoutSubviews()
         setupElements()
         titleLabel.text = "Get started!"
-       // backgroundColor = .lightGray
-      
         setupSelectors()
     }
     
     func createGradientLayer() {
         gradientLayer = CAGradientLayer()
         gradientLayer.frame = bounds
-       // UIColor(red:0.96, green:0.96, blue:0.96, alpha:1.0).cgColor
         gradientLayer.colors = [UIColor(red:0.31, green:0.49, blue:0.63, alpha:1.0).cgColor, UIColor(red:0.18, green:0.27, blue:0.33, alpha:1.0).cgColor]
-                               // UIColor(red:0.19, green:0.19, blue:0.19, alpha:1.0).cgColor]
         layer.addSublayer(gradientLayer)
     }
     
@@ -61,11 +57,11 @@ final class StartView: UIView {
         setup(titleLabel: titleLabel)
         setup(logoView: logoView)
         setup(guestUserButton: guestUserButton)
-        guestUserButton.layer.cornerRadius = 4
+        guestUserButton.layer.cornerRadius = 32
         setup(loginButton: userLoginButton)
-        userLoginButton.layer.cornerRadius = 4
+        userLoginButton.layer.cornerRadius = 32
         setup(createAccountButton: createAccountButton)
-        createAccountButton.layer.cornerRadius = 4
+        createAccountButton.layer.cornerRadius = 32
     }
     
     private func setupSelectors() {
@@ -92,8 +88,8 @@ final class StartView: UIView {
         logoView.translatesAutoresizingMaskIntoConstraints = false
         logoView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         logoView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: UIScreen.main.bounds.height * -0.25).isActive = true
-        logoView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.4).isActive = true
-        logoView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.2).isActive = true
+        logoView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.43).isActive = true
+        logoView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.22).isActive = true
     }
     
     private func setup(titleLabel: UILabel) {
