@@ -11,13 +11,18 @@ import XCTest
 
 class SettingsTests: XCTestCase {
     
+    var settingsView: SettingsView!
+    var settingsViewController: SettingsViewController!
+    
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        settingsView = SettingsView()
+        settingsViewController = SettingsViewController(settingsView: settingsView)
     }
     
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        settingsView = nil
+        settingsViewController = nil
         super.tearDown()
     }
 }
