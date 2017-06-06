@@ -44,6 +44,7 @@ class TestMainCoordinator: XCTestCase {
         startCoord.skipSplash()
         XCTAssertNotNil(startCoord.childViewControllers[1] as! StartViewController)
         XCTAssertNoThrow(startCoord.childViewControllers[1] as! StartViewController)
+        XCTAssertEqual(mainCoordinator.appCoordinator.type, .app)
         startCoord.loginSelected()
         let loginViewController = LoginViewController()
         startCoord.addChild(viewController: loginViewController)

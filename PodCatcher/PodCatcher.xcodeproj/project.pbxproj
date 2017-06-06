@@ -101,6 +101,7 @@
 		A7894FA61EE6AE44000CC190 /* PodCatcherUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7894FA51EE6AE44000CC190 /* PodCatcherUser.swift */; };
 		A7894FA81EE6C861000CC190 /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7894FA71EE6C861000CC190 /* PreferencesView.swift */; };
 		A7894FAA1EE6DC5E000CC190 /* PreferencesViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7894FA91EE6DC5E000CC190 /* PreferencesViewDelegate.swift */; };
+		A7A54E9F1EE70CFB009A5538 /* PopoverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A54E9E1EE70CFB009A5538 /* PopoverTests.swift */; };
 		A7EBA09A1EE672A700FAAC9C /* UserDataAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EBA0991EE672A700FAAC9C /* UserDataAPIClient.swift */; };
 		A7EBA09D1EE672E300FAAC9C /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EBA09C1EE672E300FAAC9C /* CoreDataStack.swift */; };
 		A7EBA0A11EE6739000FAAC9C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EBA0A01EE6739000FAAC9C /* LoginView.swift */; };
@@ -245,6 +246,7 @@
 		A7894FA51EE6AE44000CC190 /* PodCatcherUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodCatcherUser.swift; sourceTree = "<group>"; };
 		A7894FA71EE6C861000CC190 /* PreferencesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesView.swift; sourceTree = "<group>"; };
 		A7894FA91EE6DC5E000CC190 /* PreferencesViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesViewDelegate.swift; sourceTree = "<group>"; };
+		A7A54E9E1EE70CFB009A5538 /* PopoverTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopoverTests.swift; sourceTree = "<group>"; };
 		A7EBA0991EE672A700FAAC9C /* UserDataAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDataAPIClient.swift; sourceTree = "<group>"; };
 		A7EBA09C1EE672E300FAAC9C /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		A7EBA0A01EE6739000FAAC9C /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -439,6 +441,7 @@
 				A7894F9F1EE69C1E000CC190 /* LoginTests.swift */,
 				A7894FA11EE69E2B000CC190 /* TestMainCoordinator.swift */,
 				A71BFB891EE6FCB400A35D8E /* PodcastsListTests.swift */,
+				A7A54E9E1EE70CFB009A5538 /* PopoverTests.swift */,
 			);
 			path = PodCatcherTests;
 			sourceTree = "<group>";
@@ -1124,6 +1127,7 @@
 				A7150ED71EE638A900E3553F /* StartCoordinatorTests.swift in Sources */,
 				A71BFB8A1EE6FCB400A35D8E /* PodcastsListTests.swift in Sources */,
 				A7150EDD1EE6399200E3553F /* PlayerControllerTests.swift in Sources */,
+				A7A54E9F1EE70CFB009A5538 /* PopoverTests.swift in Sources */,
 				A7894FA01EE69C1E000CC190 /* LoginTests.swift in Sources */,
 				A7894F9E1EE69C03000CC190 /* SettingsTests.swift in Sources */,
 				A7150EDB1EE638E000E3553F /* MediaPlayerTests.swift in Sources */,

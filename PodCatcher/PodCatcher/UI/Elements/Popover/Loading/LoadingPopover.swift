@@ -32,6 +32,12 @@ final class LoadingPopover: BasePopoverAlert {
         viewController.view.addSubview(popView)
         viewController.view.bringSubview(toFront: popView)
     }
+    
+    override func hidePopView(viewController: UIViewController) {
+        super.hidePopView(viewController: viewController)
+        guard let ball = popView.ball else { return }
+        popView.stopAnimating(ball: ball)
+    }
 }
 
 extension LoadingPopover {

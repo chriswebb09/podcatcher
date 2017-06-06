@@ -24,7 +24,6 @@ class PlayerControllerTests: XCTestCase {
         }
     }
     
-    
     func testSkipButton() {
         var testDelegate = PlayerViewControllerDelegateTest()
         mediaPlayer.getPlaylists { collection, list in
