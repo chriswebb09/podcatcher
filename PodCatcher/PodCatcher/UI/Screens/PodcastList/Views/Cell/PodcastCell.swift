@@ -11,18 +11,20 @@ class PodcastCell: UICollectionViewCell {
         return teamMemberImage
     }()
     
-    var teamMemberNameLabel: UILabel = {
-        var teamMemberNameLabel = UILabel()
-        teamMemberNameLabel.sizeToFit()
-        teamMemberNameLabel.font = UIFont(name: "HelveticaNeue", size: 22)
-        return teamMemberNameLabel
+    var podcastTitleLabel: UILabel = {
+        var podcastTitleLabel = UILabel()
+        podcastTitleLabel.sizeToFit()
+        podcastTitleLabel.textAlignment = .left
+        podcastTitleLabel.font = UIFont(name: "HelveticaNeue-Light", size: 14)
+        return podcastTitleLabel
     }()
     
-    var podcastTitleLabel: UILabel = {
-        var teamMemberTitleLabel = UILabel()
-        teamMemberTitleLabel.sizeToFit()
-        teamMemberTitleLabel.font = UIFont(name: "HelveticaNeue-Light", size: 16)
-        return teamMemberTitleLabel
+    var playTimeLabel: UILabel = {
+        var playTimeLabel = UILabel()
+        playTimeLabel.sizeToFit()
+        playTimeLabel.textAlignment = .left
+        playTimeLabel.font = UIFont(name: "HelveticaNeue", size: 14)
+        return playTimeLabel
     }()
     
     override func layoutSubviews() {
@@ -46,7 +48,11 @@ class PodcastCell: UICollectionViewCell {
         setupConstraints()
         self.layoutIfNeeded()
         podcastImageView.image = model.podcastImage
-        teamMemberNameLabel.text = model.item.collectionName
+        var intTime = Int(model.item.playtime)
+        dump(intTime)
+        var timeString = String.constructTimeString(time: intTime)
+        print(timeString)
+        playTimeLabel.text = String.constructTimeString(time: intTime)
         podcastTitleLabel.text = model.podcastTitle
     }
 }
@@ -56,8 +62,16 @@ extension PodcastCell: Reusable {
     func setupConstraints() {
         contentView.addSubview(podcastTitleLabel)
         podcastTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        podcastTitleLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-        podcastTitleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
+        podcastTitleLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor).isActive = true
+        podcastTitleLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: UIScreen.main.bounds.width * 0.05).isActive = true
+        podcastTitleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: UIScreen.main.bounds.height * 0.04).isActive = true
+        
+        contentView.addSubview(playTimeLabel)
+        playTimeLabel.translatesAutoresizingMaskIntoConstraints = false
+        playTimeLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor).isActive = true
+        playTimeLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: UIScreen.main.bounds.width * 0.05).isActive = true
+        playTimeLabel.topAnchor.constraint(equalTo: podcastTitleLabel.topAnchor, constant: UIScreen.main.bounds.height * 0.05).isActive = true
+        //podcastTitleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
     }
 }
 
