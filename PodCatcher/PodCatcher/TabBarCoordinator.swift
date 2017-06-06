@@ -38,6 +38,7 @@ class TabBarCoordinator: TabControllerCoordinator, Coordinator {
         childCoordinators.append(tabCoordinator)
     }
     
+    
     func start() {
         setup()
         window.rootViewController = tabBarController

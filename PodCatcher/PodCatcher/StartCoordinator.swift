@@ -47,6 +47,16 @@ class StartCoordinator: NavigationCoordinator {
         window.makeKeyAndVisible()
     }
     
+    func skipSplash() {
+        guard let window = window else { fatalError("Window object not created") }
+        let startViewController = StartViewController()
+        startViewController.delegate = self 
+        addChild(viewController: startViewController)
+        window.rootViewController = navigationController
+        navigationController.navigationBar.isHidden = true
+        window.makeKeyAndVisible()
+    }
+    
     func addChild(viewController: UIViewController) {
         childViewControllers.append(viewController)
         navigationController.viewControllers = childViewControllers
@@ -65,14 +75,39 @@ extension StartCoordinator: SplashViewControllerDelegate {
 extension StartCoordinator: StartViewControllerDelegate {
     
     func loginSelected() {
-        delegate?.transitionCoordinator(type: .tabbar, dataSource: dataSource)
+        let loginView = LoginView()
+        let loginModel = LoginViewModel()
+        loginView.configure(model: loginModel)
+        let loginViewController = LoginViewController(loginView: loginView)
+        loginViewController.delegate = self
+        navigationController.pushViewController(loginViewController, animated: false)
     }
     
     func createAccountSelected() {
-        delegate?.transitionCoordinator(type: .tabbar, dataSource: dataSource)
+        let createAccountViewController = CreateAccountViewController()
+        createAccountViewController.delegate = self
+        navigationController.pushViewController(createAccountViewController, animated: false)
     }
     
     func continueAsGuestSelected() {
         delegate?.transitionCoordinator(type: .tabbar, dataSource: dataSource)
+    }
+}
+
+extension StartCoordinator: LoginViewControllerDelegate {
+    
+    func loginButtonTapped() {
+        print("tap")
+        delegate?.transitionCoordinator(type: .tabbar, dataSource: dataSource)
+    }
+
+}
+
+extension StartCoordinator: CreateAccountViewControllerDelegate {
+    
+    func submitButtonTapped() {
+        print("tap")
+        delegate?.transitionCoordinator(type: .tabbar, dataSource: dataSource)
+
     }
 }

@@ -27,6 +27,11 @@ class MediaTabCoordinator: NavigationCoordinator {
 
 extension MediaTabCoordinator: MediaControllerDelegate {
     
+    func logoutTapped(logout: Bool) {
+        print("tapped")
+        delegate?.transitionCoordinator(type: .app, dataSource: dataSource)
+    }
+
     func didSelectCaster(at index: Int, with playlist: Caster) {
         let podcastList = PodcastListViewController()
         podcastList.caster = playlist

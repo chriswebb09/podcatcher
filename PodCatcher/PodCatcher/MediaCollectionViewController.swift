@@ -77,7 +77,7 @@ final class MediaCollectionViewController: UIViewController {
         title = "Podcasts"
         navigationController?.isNavigationBarHidden = false
         searchController.delegate = self
-        buttonItem = UIBarButtonItem(image: dataSource.image, style: .plain, target: self, action: #selector(navigationBarSetup))
+        buttonItem = UIBarButtonItem(image: dataSource.image, style: .plain, target: self, action: #selector(logout))
         navigationItem.setRightBarButton(buttonItem, animated: false)
         setupSearchController()
     }
@@ -98,6 +98,10 @@ final class MediaCollectionViewController: UIViewController {
     func changeView(forView: UIView, withView: UIView) {
         view.sendSubview(toBack: withView)
         view.bringSubview(toFront: forView)
+    }
+    
+    func logout() {
+        delegate?.logoutTapped(logout: true)
     }
 }
 

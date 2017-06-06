@@ -1,9 +1,5 @@
 import UIKit
 
-protocol SplashViewControllerDelegate: class {
-    func splashViewFinishedAnimation(finished: Bool)
-}
-
 final class SplashViewController: UIViewController {
     
     weak var delegate: SplashViewControllerDelegate?

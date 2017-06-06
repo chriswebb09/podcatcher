@@ -1,7 +1,7 @@
 import UIKit
 
 final class StartViewController: UIViewController {
-    
+    var loadingPop = LoadingPopover()
     var startView: StartView = StartView()
     weak var delegate: StartViewControllerDelegate?
     
@@ -21,12 +21,28 @@ final class StartViewController: UIViewController {
         view.addView(view: startView, type: .full)
         startView.delegate = self
     }
+    
+    func showLoadingView(loadingPop: LoadingPopover) {
+        loadingPop.setupPop(popView: loadingPop.popView)
+        loadingPop.showPopView(viewController: self)
+        loadingPop.popView.isHidden = false
+    }
+    
+    func hideLoadingView() {
+        loadingPop.popView.removeFromSuperview()
+        loadingPop.removeFromSuperview()
+        loadingPop.hidePopView(viewController: self)
+        view.sendSubview(toBack: loadingPop)
+    }
 }
 
 extension StartViewController: StartViewDelegate {
     
     func continueAsGuestTapped() {
-        delegate?.continueAsGuestSelected()
+        showLoadingView(loadingPop: loadingPop)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.delegate?.continueAsGuestSelected()
+        }
     }
     
     func createAccountTapped() {
