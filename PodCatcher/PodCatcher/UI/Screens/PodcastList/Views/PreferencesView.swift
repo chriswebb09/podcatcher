@@ -41,8 +41,8 @@ class PreferencesView: UIView {
         addSubview(addTagButton)
         addTagButton.translatesAutoresizingMaskIntoConstraints = false
         addTagButton.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        addTagButton.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.5).isActive = true
-        addTagButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier:  0.06).isActive = true
+        addTagButton.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.8).isActive = true
+        addTagButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier:  0.07).isActive = true
         addTagButton.leftAnchor.constraint(equalTo: leftAnchor, constant: UIScreen.main.bounds.width * 0.1).isActive = true
     }
     
