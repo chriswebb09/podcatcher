@@ -25,7 +25,7 @@ class TestMainCoordinator: XCTestCase {
     func testAddChild() {
         mainCoordinator.start()
         let startCoord = mainCoordinator.appCoordinator as! StartCoordinator
-        var viewController = CreateAccountViewController()
+        let viewController = CreateAccountViewController()
         startCoord.addChild(viewController: viewController)
         XCTAssertNotNil(startCoord.childViewControllers[1] as! CreateAccountViewController)
         XCTAssertNoThrow(startCoord.childViewControllers[1] as! CreateAccountViewController)
@@ -45,9 +45,22 @@ class TestMainCoordinator: XCTestCase {
         XCTAssertNotNil(startCoord.childViewControllers[1] as! StartViewController)
         XCTAssertNoThrow(startCoord.childViewControllers[1] as! StartViewController)
         startCoord.loginSelected()
-        var loginViewController = LoginViewController()
+        let loginViewController = LoginViewController()
         startCoord.addChild(viewController: loginViewController)
         XCTAssertNotNil(startCoord.childViewControllers[2] as! LoginViewController)
         XCTAssertNoThrow(startCoord.childViewControllers[2] as! LoginViewController)
+    }
+    
+    func testGoToCreateAccount() {
+        mainCoordinator.start()
+        let startCoord = mainCoordinator.appCoordinator as! StartCoordinator
+        startCoord.skipSplash()
+        XCTAssertNotNil(startCoord.childViewControllers[1] as! StartViewController)
+        XCTAssertNoThrow(startCoord.childViewControllers[1] as! StartViewController)
+        startCoord.createAccountSelected()
+        let createAccountViewController = CreateAccountViewController()
+        startCoord.addChild(viewController: createAccountViewController)
+        XCTAssertNotNil(startCoord.childViewControllers[2] as! CreateAccountViewController)
+        XCTAssertNoThrow(startCoord.childViewControllers[2] as! CreateAccountViewController)
     }
 }
