@@ -17,4 +17,33 @@ class SettingsTests: XCTestCase {
         settingsViewController = nil
         super.tearDown()
     }
+    
+    func testOptionOneTapped() {
+        let testDelegate = SettingsTestDelegate()
+        settingsViewController.delegate = testDelegate
+        settingsViewController.settingOneTapped()
+        XCTAssertEqual(testDelegate.settingTapped, "One")
+    }
+    
+    func testOptionTwoTapped() {
+        let testDelegate = SettingsTestDelegate()
+        settingsViewController.delegate = testDelegate
+        settingsViewController.settingTwoTapped()
+        XCTAssertEqual(testDelegate.settingTapped, "Two")
+    }
+}
+
+class SettingsTestDelegate: SettingsViewControllerDelegate {
+    
+    var settingTapped: String = ""
+    
+    func settingOneTapped(tapped: Bool) {
+        XCTAssertTrue(tapped)
+        settingTapped = "One"
+    }
+    
+    func settingTwoTapped(tapped: Bool) {
+        XCTAssertTrue(tapped)
+        settingTapped = "Two"
+    }
 }

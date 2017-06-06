@@ -28,13 +28,14 @@ class SettingsViewController: UIViewController {
 }
 
 extension SettingsViewController: SettingsViewDelegate {
+    
     func settingOneTapped() {
         print("One")
-        delegate?.settingOneTapped()
+        delegate?.settingOneTapped(tapped: true)
     }
     
     func settingTwoTapped() {
         print("two")
-        delegate?.settingTwoTapped()
+        delegate?.settingTwoTapped(tapped: true)
     }
 }
