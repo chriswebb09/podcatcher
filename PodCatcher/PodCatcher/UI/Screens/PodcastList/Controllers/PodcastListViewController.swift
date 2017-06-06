@@ -114,8 +114,8 @@ extension PodcastListViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as PodcastCell
-        if let caster = caster {
-            var model = PocastCellModel(podcastImage: caster.artwork, podcastTitle: caster.assets[indexPath.row].title, item: caster.assets[indexPath.row])
+        if let caster = caster, let artwork = caster.artwork {
+            var model = PocastCellModel(podcastImage: artwork, podcastTitle: caster.assets[indexPath.row].title, item: caster.assets[indexPath.row])
             cell.configureCell(model: model)
         }
         return cell

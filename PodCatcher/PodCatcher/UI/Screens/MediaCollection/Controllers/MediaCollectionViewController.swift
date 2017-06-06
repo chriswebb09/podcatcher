@@ -121,10 +121,13 @@ extension MediaCollectionViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         viewShown = .collection
         let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as MediaCell
-        let model = MediaCellViewModel(trackName: dataSource.casters[indexPath.row].name, albumImageURL: dataSource.casters[indexPath.row].artwork)
-        cell.configureCell(with: model, withTime: 0)
-        print(indexPath.row)
-        cell.alpha = 1
+        if let artWork = dataSource.casters[indexPath.row].artwork, let name = dataSource.casters[indexPath.row].name {
+            let model = MediaCellViewModel(trackName: name, albumImageURL: artWork)
+            cell.configureCell(with: model, withTime: 0)
+            print(indexPath.row)
+            cell.alpha = 1
+        }
+       
         return cell
     }
 }

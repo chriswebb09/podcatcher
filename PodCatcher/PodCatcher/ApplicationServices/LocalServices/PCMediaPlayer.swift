@@ -7,7 +7,7 @@ class PCMediaPlayer {
     
     var casters = [Caster]()
     
-     var myMPMusicPlayerController = MPMusicPlayerController()
+    var myMPMusicPlayerController = MPMusicPlayerController()
     
     func getPlaylists(completion: @escaping ([String: Caster], [Caster]?) -> Void) {
         MPMediaLibrary.requestAuthorization { auth in
@@ -65,15 +65,24 @@ class PCMediaPlayer {
             let art = item.artwork?.image(at: CGSize(width: 200, height: 200))
             let url = item.assetURL
             if casts[item.albumArtist!] != nil {
-                if let name = item.albumArtist, let title = item.title, let collectionName = item.albumTitle {
-                    let item = MediaCatcherItem(creatorName: name, title: title, collectionName: collectionName, audioUrl: url)
+                guard let name = item.albumArtist else { return }
+                if let title = item.title, let collectionName = item.albumTitle {
+                    let item = MediaCatcherItem(creatorName: name,
+                                                title: title,
+                                                playtime: item.playbackDuration,
+                                                playCount: item.playCount,
+                                                collectionName: collectionName,
+                                                audioUrl: url)
                     casts[item.creatorName]?.assets.append(item)
                 }
             } else {
                 if let name = item.albumArtist, let url = url, let art = art {
-                    casts[name] = Caster(name: name, artwork: art, assetURL: url, assets: [])
+                    var caster = Caster()
+                    caster.name = name
+                    caster.assetURL = url
+                    caster.artwork = art
+                    casts[name] = caster
                 }
-                
             }
         }
     }

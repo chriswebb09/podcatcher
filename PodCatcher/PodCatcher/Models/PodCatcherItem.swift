@@ -11,6 +11,8 @@ import UIKit
 struct MediaCatcherItem {
     var creatorName: String
     var title: String
+    var playtime: Double
+    var playCount: Int?
     var collectionName: String
     var audioUrl: URL?
 }

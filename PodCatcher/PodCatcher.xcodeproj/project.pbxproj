@@ -93,6 +93,7 @@
 		A7894FA01EE69C1E000CC190 /* LoginTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7894F9F1EE69C1E000CC190 /* LoginTests.swift */; };
 		A7894FA21EE69E2B000CC190 /* TestMainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7894FA11EE69E2B000CC190 /* TestMainCoordinator.swift */; };
 		A7894FA41EE69E6A000CC190 /* LoginUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7894FA31EE69E6A000CC190 /* LoginUITests.swift */; };
+		A7894FA61EE6AE44000CC190 /* PodCatcherUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7894FA51EE6AE44000CC190 /* PodCatcherUser.swift */; };
 		A7EBA09A1EE672A700FAAC9C /* UserDataAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EBA0991EE672A700FAAC9C /* UserDataAPIClient.swift */; };
 		A7EBA09D1EE672E300FAAC9C /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EBA09C1EE672E300FAAC9C /* CoreDataStack.swift */; };
 		A7EBA0A11EE6739000FAAC9C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EBA0A01EE6739000FAAC9C /* LoginView.swift */; };
@@ -229,6 +230,7 @@
 		A7894F9F1EE69C1E000CC190 /* LoginTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginTests.swift; sourceTree = "<group>"; };
 		A7894FA11EE69E2B000CC190 /* TestMainCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestMainCoordinator.swift; sourceTree = "<group>"; };
 		A7894FA31EE69E6A000CC190 /* LoginUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginUITests.swift; sourceTree = "<group>"; };
+		A7894FA51EE6AE44000CC190 /* PodCatcherUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodCatcherUser.swift; sourceTree = "<group>"; };
 		A7EBA0991EE672A700FAAC9C /* UserDataAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDataAPIClient.swift; sourceTree = "<group>"; };
 		A7EBA09C1EE672E300FAAC9C /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		A7EBA0A01EE6739000FAAC9C /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -451,6 +453,7 @@
 				A71B27401EE5E1BA00613CF4 /* Audible.swift */,
 				A77EDF4E1EE5E6C4001A24E5 /* Caster.swift */,
 				A77EDF521EE5F426001A24E5 /* PodCatcherItem.swift */,
+				A7894FA51EE6AE44000CC190 /* PodCatcherUser.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1153,6 +1156,7 @@
 				A77EDF781EE5FF72001A24E5 /* UIColor+Extension.swift in Sources */,
 				A7EBA0AA1EE6772200FAAC9C /* CreateAccountView.swift in Sources */,
 				A73D740B1EE684DD004571A5 /* LoadingView.swift in Sources */,
+				A7894FA61EE6AE44000CC190 /* PodCatcherUser.swift in Sources */,
 				A77EDF631EE5FBE4001A24E5 /* TrackItemsFlowLayout.swift in Sources */,
 				A7EBA0C81EE6831F00FAAC9C /* MenuDelegate.swift in Sources */,
 				A7EBA09A1EE672A700FAAC9C /* UserDataAPIClient.swift in Sources */,
