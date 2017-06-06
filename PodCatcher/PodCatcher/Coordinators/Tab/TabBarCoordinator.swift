@@ -3,13 +3,9 @@ import UIKit
 class TabBarCoordinator: TabControllerCoordinator, Coordinator {
     
     var type: CoordinatorType = .tabbar
-    
     var tabBarController: TabBarController
-    
     weak var delegate: CoordinatorDelegate?
-    
     var window: UIWindow!
-    
     var childCoordinators: [NavigationCoordinator] = []
     
     required init(tabBarController: TabBarController) {
@@ -26,18 +22,17 @@ class TabBarCoordinator: TabControllerCoordinator, Coordinator {
     }
     
     func setupSettingsCoordinator(navigationController: UINavigationController, dataSource: BaseMediaControllerDataSource) {
-        var tabCoordinator = TabCoordinator(navigationController: navigationController)
+        let tabCoordinator = TabCoordinator(navigationController: navigationController)
         tabCoordinator.dataSource = dataSource
         childCoordinators.append(tabCoordinator)
     }
     
     func setupMediaCoordinator(navigationController: UINavigationController, dataSource: BaseMediaControllerDataSource) {
-        var tabCoordinator = MediaTabCoordinator(navigationController: navigationController)
+        let tabCoordinator = MediaTabCoordinator(navigationController: navigationController)
         tabCoordinator.start()
         tabCoordinator.dataSource = dataSource
         childCoordinators.append(tabCoordinator)
     }
-    
     
     func start() {
         setup()
