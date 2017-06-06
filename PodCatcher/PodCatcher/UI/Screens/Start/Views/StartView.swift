@@ -14,7 +14,6 @@ final class StartView: UIView {
         return title
     }()
     
-    
     private var logoView: UIImageView = {
         let logoView = UIImageView()
         logoView.image = #imageLiteral(resourceName: "logoTest")

@@ -57,40 +57,32 @@ final class CreateAccountView: UIView {
         submitButton.addTarget(self, action: #selector(submitButtonTapped), for: .touchUpInside)
     }
     
+    private func sharedLayout(view: UIView) {
+        addSubview(view)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        view.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.09).isActive = true
+        view.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.9).isActive = true
+    }
+    
     private func setup(usernameField: TextFieldExtension) {
-        addSubview(usernameField)
-        usernameField.translatesAutoresizingMaskIntoConstraints = false
-        usernameField.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        usernameField.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.09).isActive = true
-        usernameField.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.9).isActive = true
+        sharedLayout(view: usernameField)
         usernameField.topAnchor.constraint(equalTo: topAnchor, constant: UIScreen.main.bounds.height * 0.2).isActive = true
     }
     
     private func setup(emailField: TextFieldExtension) {
-        addSubview(emailField)
-        emailField.translatesAutoresizingMaskIntoConstraints = false
-        emailField.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        emailField.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.09).isActive = true
-        emailField.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.9).isActive = true
+        sharedLayout(view: emailField)
         emailField.topAnchor.constraint(equalTo: usernameField.bottomAnchor, constant: UIScreen.main.bounds.height * 0.07).isActive = true
     }
     
     
     private func setup(passwordField: TextFieldExtension) {
-        addSubview(passwordField)
-        passwordField.translatesAutoresizingMaskIntoConstraints = false
-        passwordField.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        passwordField.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.09).isActive = true
-        passwordField.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.9).isActive = true
+        sharedLayout(view: passwordField)
         passwordField.topAnchor.constraint(equalTo: emailField.bottomAnchor, constant: UIScreen.main.bounds.height * 0.07).isActive = true
     }
     
     private func setup(submitButton: UIButton) {
-        addSubview(submitButton)
-        submitButton.translatesAutoresizingMaskIntoConstraints = false
-        submitButton.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        submitButton.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.09).isActive = true
-        submitButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.9).isActive = true
+        sharedLayout(view: submitButton)
         submitButton.topAnchor.constraint(equalTo: passwordField.bottomAnchor, constant: UIScreen.main.bounds.height * 0.12).isActive = true
     }
     

@@ -14,7 +14,6 @@ final class SplashView: UIView {
         return imageView
     }()
     
-    
     // MARK: - Configure
     
     override func layoutSubviews() {
