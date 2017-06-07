@@ -8,7 +8,9 @@ class BaseMediaControllerDataSource {
 
     var casters: [Caster]! {
         didSet {
-            print(count)
+            if let user = user, casters.count == 0 {
+                self.casters = user.casts
+            }
         }
     }
     
@@ -22,5 +24,10 @@ class BaseMediaControllerDataSource {
     
     init(casters: [Caster]) {
         self.casters = casters
+        if let user = user, casters.count == 0 {
+            self.casters = user.casts
+            print(casters)
+        }
+        dump(self)
     }
 }

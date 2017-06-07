@@ -15,9 +15,11 @@ class PodCatcherUser {
     var totalTimeListening: TimeInterval?
     var customGenres: [String] = []
     var favoriteEpisodes: [String] = []
+    var casts: [Caster]
     
     init(username: String, emailAddress: String) {
         self.username = username
         self.emailAddress = emailAddress
+        self.casts = []
     }
 }

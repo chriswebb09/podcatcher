@@ -1,5 +1,12 @@
 import UIKit
 
+extension MediaCollectionViewController: UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        delegate?.didSelectCaster(at: indexPath.row, with: dataSource.casters[indexPath.row])
+    }
+}
+
 extension MediaCollectionViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -118,7 +125,6 @@ extension MediaCollectionViewController: UISearchBarDelegate {
 extension MediaCollectionViewController: UISearchResultsUpdating {
     
     func updateSearchResultsForSearchController(searchController: UISearchController) {
-        
         collectionView.reloadData()
     }
     

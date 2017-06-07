@@ -72,7 +72,6 @@ final class MediaCollectionViewController: UIViewController {
         view.addSubview(collectionView)
         collectionView.setupCollectionView(view: view, newLayout: TrackItemsFlowLayout())
         collectionView.collectionViewRegister(viewController: self)
-    
         collectionView.delegate = self
         collectionView.dataSource = self
         title = dataSource.user?.username
@@ -82,7 +81,6 @@ final class MediaCollectionViewController: UIViewController {
         navigationItem.setRightBarButton(buttonItem, animated: false)
         setupSearchController()
         collectionView.backgroundColor = .darkGray
-        //collectionView.backgroundView?.backgroundColor = .black
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -104,14 +102,11 @@ final class MediaCollectionViewController: UIViewController {
     }
     
     func logout() {
+        if dataSource.user != nil {
+            dataSource.user = nil
+        }
         delegate?.logoutTapped(logout: true)
     }
 }
 
-extension MediaCollectionViewController: UICollectionViewDelegate {
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        delegate?.didSelectCaster(at: indexPath.row, with: dataSource.casters[indexPath.row])
-    }
-}
 

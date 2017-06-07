@@ -46,7 +46,9 @@ final class LoginView: UIView {
     
     func configure(model: LoginViewModel) {
         self.model = model
-        submitButton.isEnabled = model.submitEnabled
+        self.usernameField.text = "test@gmail.com"
+        self.passwordField.text = "123456"
+        self.submitButton.isEnabled = true
     }
     
     private func sharedLayout(view: UIView) {
@@ -74,7 +76,6 @@ final class LoginView: UIView {
     
     func loginButtonTapped() {
         guard let username = usernameField.text, let password = passwordField.text else { return }
-        
         delegate?.userEntryDataSubmitted(with: username, and: password)
     }
 }
@@ -86,7 +87,6 @@ extension LoginView: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         guard let text = textField.text else { return }
         model.username = text
-        
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
