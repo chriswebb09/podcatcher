@@ -2,6 +2,8 @@ import UIKit
 
 class BaseMediaControllerDataSource {
     
+    var user: PodCatcherUser? 
+    
     var image = #imageLiteral(resourceName: "search-button").withRenderingMode(.alwaysOriginal)
 
     var casters: [Caster]! {

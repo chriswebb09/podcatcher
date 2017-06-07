@@ -75,7 +75,7 @@ final class MediaCollectionViewController: UIViewController {
     
         collectionView.delegate = self
         collectionView.dataSource = self
-        title = "Podcasts"
+        title = dataSource.user?.username
         navigationController?.isNavigationBarHidden = false
         searchController.delegate = self
         buttonItem = UIBarButtonItem(image: dataSource.image, style: .plain, target: self, action: #selector(logout))

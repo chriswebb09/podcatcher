@@ -6,7 +6,8 @@ final class LoginView: UIView {
     
     var model: LoginViewModel! {
         didSet {
-            model.submitEnabled = model.username.isValidEmail() 
+            model.submitEnabled = model.username.isValidEmail()
+            submitButton.isEnabled = model.submitEnabled
         }
     }
     
@@ -72,8 +73,9 @@ final class LoginView: UIView {
     }
     
     func loginButtonTapped() {
-        print("tapped")
-        delegate?.submitButtonTapped()
+        guard let username = usernameField.text, let password = passwordField.text else { return }
+        
+        delegate?.userEntryDataSubmitted(with: username, and: password)
     }
 }
 
@@ -84,9 +86,7 @@ extension LoginView: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         guard let text = textField.text else { return }
         model.username = text
-        model.submitEnabled = true
-        submitButton.isEnabled = model.submitEnabled
-        delegate?.usernameFieldDidAddText(text: usernameField.text)
+        
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

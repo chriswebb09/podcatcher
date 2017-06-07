@@ -9,9 +9,8 @@
 import UIKit
 
 class StartCoordinator: NavigationCoordinator {
-    var type: CoordinatorType = .app
-
     
+    var type: CoordinatorType = .app
     weak var delegate: CoordinatorDelegate?
     var window: UIWindow!
     var dataSource: BaseMediaControllerDataSource!
@@ -52,7 +51,7 @@ class StartCoordinator: NavigationCoordinator {
     func skipSplash() {
         guard let window = window else { fatalError("Window object not created") }
         let startViewController = StartViewController()
-        startViewController.delegate = self 
+        startViewController.delegate = self
         addChild(viewController: startViewController)
         window.rootViewController = navigationController
         navigationController.navigationBar.isHidden = true
@@ -98,11 +97,11 @@ extension StartCoordinator: StartViewControllerDelegate {
 
 extension StartCoordinator: LoginViewControllerDelegate {
     
-    func loginButtonTapped(tapped: Bool) {
-        print("tap")
-        delegate?.transitionCoordinator(type: .tabbar, dataSource: dataSource)
+    
+    func successfulLogin(for user: PodCatcherUser) {
+        self.dataSource.user = user
+        delegate?.transitionCoordinator(type: .tabbar, dataSource: self.dataSource)
     }
-
 }
 
 extension StartCoordinator: CreateAccountViewControllerDelegate {
@@ -110,6 +109,6 @@ extension StartCoordinator: CreateAccountViewControllerDelegate {
     func submitButtonTapped() {
         print("tap")
         delegate?.transitionCoordinator(type: .tabbar, dataSource: dataSource)
-
+        
     }
 }

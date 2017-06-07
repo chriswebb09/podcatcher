@@ -39,8 +39,10 @@ extension MainCoordinator: CoordinatorDelegate {
             let tabbarController = TabBarController()
             self.dataSource = dataSource
             tabbarController.dataSource = self.dataSource
+            
             let tabbBarCoordinator = TabBarCoordinator(tabBarController: tabbarController, window: window)
             guard let dataSource = dataSource else { return }
+            
             let mediaViewController = MediaCollectionViewController(dataSource: dataSource)
             let mediaTab = UINavigationController(rootViewController: mediaViewController)
             tabbBarCoordinator.setupMediaCoordinator(navigationController: mediaTab, dataSource: dataSource)

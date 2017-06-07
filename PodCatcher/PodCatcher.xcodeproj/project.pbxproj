@@ -77,6 +77,8 @@
 		A73DA41F1EE899A40053276E /* SettingsViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73DA41E1EE899A40053276E /* SettingsViewController+Extension.swift */; };
 		A73DA4211EE899EA0053276E /* PodcastListViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73DA4201EE899EA0053276E /* PodcastListViewController+Extension.swift */; };
 		A73DA4231EE89A060053276E /* MenuActive.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73DA4221EE89A060053276E /* MenuActive.swift */; };
+		A73DA4701EE8B7C20053276E /* MediaTabCoordinator+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73DA46F1EE8B7C20053276E /* MediaTabCoordinator+Extension.swift */; };
+		A776D1451EE8B90500400EB4 /* UserLoginAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A776D1441EE8B90500400EB4 /* UserLoginAPI.swift */; };
 		A77EDF4F1EE5E6C4001A24E5 /* Caster.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EDF4E1EE5E6C4001A24E5 /* Caster.swift */; };
 		A77EDF531EE5F426001A24E5 /* PodCatcherItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EDF521EE5F426001A24E5 /* PodCatcherItem.swift */; };
 		A77EDF551EE5FA61001A24E5 /* MediaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EDF541EE5FA61001A24E5 /* MediaCell.swift */; };
@@ -235,6 +237,8 @@
 		A73DA41E1EE899A40053276E /* SettingsViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SettingsViewController+Extension.swift"; sourceTree = "<group>"; };
 		A73DA4201EE899EA0053276E /* PodcastListViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PodcastListViewController+Extension.swift"; sourceTree = "<group>"; };
 		A73DA4221EE89A060053276E /* MenuActive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuActive.swift; sourceTree = "<group>"; };
+		A73DA46F1EE8B7C20053276E /* MediaTabCoordinator+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MediaTabCoordinator+Extension.swift"; sourceTree = "<group>"; };
+		A776D1441EE8B90500400EB4 /* UserLoginAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserLoginAPI.swift; path = PodCatcher/ApplicationServices/NetworkServices/UserLoginAPI.swift; sourceTree = SOURCE_ROOT; };
 		A77EDF4E1EE5E6C4001A24E5 /* Caster.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Caster.swift; sourceTree = "<group>"; };
 		A77EDF521EE5F426001A24E5 /* PodCatcherItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodCatcherItem.swift; sourceTree = "<group>"; };
 		A77EDF541EE5FA61001A24E5 /* MediaCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaCell.swift; sourceTree = "<group>"; };
@@ -383,7 +387,7 @@
 		A7150EC41EE631FE00E3553F /* Tab */ = {
 			isa = PBXGroup;
 			children = (
-				A7150EE01EE655F800E3553F /* MediaTabCoordinator.swift */,
+				A73DA46E1EE8B7980053276E /* MediaTab */,
 				A71B272A1EE5D4B800613CF4 /* TabBarController.swift */,
 				A71B27241EE5D28600613CF4 /* TabBarCoordinator.swift */,
 				A7150EB81EE6270500E3553F /* TabControllerCoordinator.swift */,
@@ -846,6 +850,15 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		A73DA46E1EE8B7980053276E /* MediaTab */ = {
+			isa = PBXGroup;
+			children = (
+				A7150EE01EE655F800E3553F /* MediaTabCoordinator.swift */,
+				A73DA46F1EE8B7C20053276E /* MediaTabCoordinator+Extension.swift */,
+			);
+			name = MediaTab;
+			sourceTree = "<group>";
+		};
 		A77EDF681EE5FC95001A24E5 /* Splash */ = {
 			isa = PBXGroup;
 			children = (
@@ -859,6 +872,7 @@
 		A77EDF691EE5FC9C001A24E5 /* LocalServices */ = {
 			isa = PBXGroup;
 			children = (
+				A776D1441EE8B90500400EB4 /* UserLoginAPI.swift */,
 				A73D74131EE68679004571A5 /* LocalStorageManager.swift */,
 				A77EDF751EE5FDFA001A24E5 /* MediaDataStore.swift */,
 				A71B27441EE5E1F200613CF4 /* PCMediaPlayer.swift */,
@@ -1197,6 +1211,7 @@
 				A77EDF671EE5FC38001A24E5 /* UILabel+Extension.swift in Sources */,
 				A77EDF7E1EE5FFE9001A24E5 /* CALayerConstants.swift in Sources */,
 				A7EBA0C41EE682DF00FAAC9C /* MenuOptionView.swift in Sources */,
+				A73DA4701EE8B7C20053276E /* MediaTabCoordinator+Extension.swift in Sources */,
 				A73D74181EE68704004571A5 /* LoginViewModel.swift in Sources */,
 				A7150EBF1EE62E0D00E3553F /* PlayerViewDelegate.swift in Sources */,
 				A7150EE91EE6571200E3553F /* PodcastCellModel.swift in Sources */,
@@ -1231,6 +1246,7 @@
 				A7A54EB21EE71474009A5538 /* EntryView.swift in Sources */,
 				A7150EBB1EE62DF900E3553F /* PlayerView.swift in Sources */,
 				A77EDF781EE5FF72001A24E5 /* UIColor+Extension.swift in Sources */,
+				A776D1451EE8B90500400EB4 /* UserLoginAPI.swift in Sources */,
 				A7EBA0AA1EE6772200FAAC9C /* CreateAccountView.swift in Sources */,
 				A71BFB811EE6E94900A35D8E /* PodCaster+CoreDataClass.swift in Sources */,
 				A7A54EB11EE71474009A5538 /* EntryPopoverDelegate.swift in Sources */,

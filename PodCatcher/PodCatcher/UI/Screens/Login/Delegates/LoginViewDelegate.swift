@@ -1,6 +1,5 @@
 import Foundation
 
 protocol LoginViewDelegate: class {
-    func submitButtonTapped()
-    func usernameFieldDidAddText(text: String?)
+    func userEntryDataSubmitted(with username: String, and password: String)
 }
