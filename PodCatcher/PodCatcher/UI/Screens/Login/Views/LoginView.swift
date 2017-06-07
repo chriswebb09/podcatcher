@@ -12,15 +12,6 @@ final class LoginView: UIView {
     
     // MARK: - UI Elements
     
-    private var titleLabel: UILabel = {
-        let titleLabel = UILabel()
-        titleLabel.text = "Login"
-        titleLabel.font = UIFont(name:"Avenir", size: 22)!
-        titleLabel.textColor = .black
-        titleLabel.textAlignment = .center
-        return titleLabel
-    }()
-    
     fileprivate var usernameField: TextFieldExtension = {
         return TextFieldExtension.emailField("Email")
     }()
@@ -45,7 +36,6 @@ final class LoginView: UIView {
         passwordField.delegate = self
         usernameField.layer.cornerRadius = 20
         passwordField.layer.cornerRadius = 20
-        setup(titleLabel: titleLabel)
         setup(usernamefield: usernameField)
         setup(passwordField: passwordField)
         setup(submitButton: submitButton)
@@ -66,24 +56,19 @@ final class LoginView: UIView {
         view.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.9).isActive = true
     }
     
-    private func setup(titleLabel: UILabel) {
-        sharedLayout(view: titleLabel)
-        titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor, constant: UIScreen.main.bounds.height * -0.25).isActive = true
-    }
-    
     private func setup(usernamefield: TextFieldExtension) {
         sharedLayout(view: usernameField)
-        usernamefield.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: UIScreen.main.bounds.height * 0.07).isActive = true
+        usernamefield.topAnchor.constraint(equalTo: topAnchor, constant: UIScreen.main.bounds.height * 0.25).isActive = true
     }
     
     private func setup(passwordField: TextFieldExtension) {
         sharedLayout(view: passwordField)
-        passwordField.topAnchor.constraint(equalTo: usernameField.bottomAnchor, constant: UIScreen.main.bounds.height * 0.09).isActive = true
+        passwordField.topAnchor.constraint(equalTo: usernameField.bottomAnchor, constant: UIScreen.main.bounds.height * 0.1).isActive = true
     }
     
     private func setup(submitButton: UIButton) {
         sharedLayout(view: submitButton)
-        submitButton.topAnchor.constraint(equalTo: passwordField.bottomAnchor, constant: UIScreen.main.bounds.height * 0.09).isActive = true
+        submitButton.topAnchor.constraint(equalTo: passwordField.bottomAnchor, constant: UIScreen.main.bounds.height * 0.17).isActive = true
     }
     
     func loginButtonTapped() {

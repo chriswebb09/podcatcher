@@ -91,7 +91,7 @@ extension PodcastListViewController: UICollectionViewDelegate {
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         collectionView.collectionViewLayout.invalidateLayout()
         layout.sectionInset = UIEdgeInsets(top:0, left: 0, bottom: 0, right: 0)
-        layout.itemSize = CGSize(width: 50, height: 100)
+        layout.itemSize = CGSize(width: 50, height: 50)
         collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
     }
     
@@ -108,7 +108,7 @@ extension PodcastListViewController: UICollectionViewDataSource {
     // MARK: - CollectionViewController method implementations
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width, height: view.frame.height / 6)
+        return CGSize(width: view.frame.width, height: view.frame.height / 8)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -135,7 +135,7 @@ extension PodcastListViewController: UICollectionViewDelegateFlowLayout {
     }
     
     @objc(collectionView:layout:minimumLineSpacingForSectionAtIndex:) func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 10
+        return 5
     }
     
     // MARK: - Popvoer view implmented

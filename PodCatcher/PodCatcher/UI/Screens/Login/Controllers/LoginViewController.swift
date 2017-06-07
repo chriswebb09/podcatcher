@@ -26,15 +26,3 @@ class LoginViewController: UIViewController {
         navigationController?.navigationBar.isHidden = true
     }
 }
-
-extension LoginViewController: LoginViewDelegate {
-    
-    func usernameFieldDidAddText(text: String?) {
-        print(text)
-    }
-    
-    func submitButtonTapped() {
-        print("Submitted")
-        delegate?.loginButtonTapped(tapped: true)
-    }
-}

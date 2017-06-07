@@ -69,6 +69,11 @@
 		A73D743C1EE688AF004571A5 /* CreateAccountViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73D743B1EE688AF004571A5 /* CreateAccountViewControllerDelegate.swift */; };
 		A73D743F1EE688E6004571A5 /* SettingsViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73D743E1EE688E6004571A5 /* SettingsViewDelegate.swift */; };
 		A73D74411EE68902004571A5 /* SettingsViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73D74401EE68902004571A5 /* SettingsViewControllerDelegate.swift */; };
+		A73DA4151EE898550053276E /* PlayerViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73DA4141EE898550053276E /* PlayerViewController+Extension.swift */; };
+		A73DA4171EE898840053276E /* StartViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73DA4161EE898840053276E /* StartViewController+Extension.swift */; };
+		A73DA4191EE898BB0053276E /* LoginViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73DA4181EE898BB0053276E /* LoginViewController+Extension.swift */; };
+		A73DA41B1EE899300053276E /* MediaCollectionViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73DA41A1EE899300053276E /* MediaCollectionViewController+Extension.swift */; };
+		A73DA41D1EE899610053276E /* SplashViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73DA41C1EE899610053276E /* SplashViewController+Extension.swift */; };
 		A77EDF4F1EE5E6C4001A24E5 /* Caster.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EDF4E1EE5E6C4001A24E5 /* Caster.swift */; };
 		A77EDF531EE5F426001A24E5 /* PodCatcherItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EDF521EE5F426001A24E5 /* PodCatcherItem.swift */; };
 		A77EDF551EE5FA61001A24E5 /* MediaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EDF541EE5FA61001A24E5 /* MediaCell.swift */; };
@@ -219,6 +224,11 @@
 		A73D743B1EE688AF004571A5 /* CreateAccountViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountViewControllerDelegate.swift; sourceTree = "<group>"; };
 		A73D743E1EE688E6004571A5 /* SettingsViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewDelegate.swift; sourceTree = "<group>"; };
 		A73D74401EE68902004571A5 /* SettingsViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewControllerDelegate.swift; sourceTree = "<group>"; };
+		A73DA4141EE898550053276E /* PlayerViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PlayerViewController+Extension.swift"; sourceTree = "<group>"; };
+		A73DA4161EE898840053276E /* StartViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "StartViewController+Extension.swift"; sourceTree = "<group>"; };
+		A73DA4181EE898BB0053276E /* LoginViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "LoginViewController+Extension.swift"; sourceTree = "<group>"; };
+		A73DA41A1EE899300053276E /* MediaCollectionViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MediaCollectionViewController+Extension.swift"; sourceTree = "<group>"; };
+		A73DA41C1EE899610053276E /* SplashViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SplashViewController+Extension.swift"; sourceTree = "<group>"; };
 		A77EDF4E1EE5E6C4001A24E5 /* Caster.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Caster.swift; sourceTree = "<group>"; };
 		A77EDF521EE5F426001A24E5 /* PodCatcherItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodCatcherItem.swift; sourceTree = "<group>"; };
 		A77EDF541EE5FA61001A24E5 /* MediaCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaCell.swift; sourceTree = "<group>"; };
@@ -536,6 +546,7 @@
 			isa = PBXGroup;
 			children = (
 				A7EBA0A21EE673AA00FAAC9C /* LoginViewController.swift */,
+				A73DA4181EE898BB0053276E /* LoginViewController+Extension.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -613,6 +624,7 @@
 			isa = PBXGroup;
 			children = (
 				A77EDF6F1EE5FD57001A24E5 /* MediaCollectionViewController.swift */,
+				A73DA41A1EE899300053276E /* MediaCollectionViewController+Extension.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -637,6 +649,7 @@
 			isa = PBXGroup;
 			children = (
 				A71B273A1EE5DB8D00613CF4 /* StartViewController.swift */,
+				A73DA4161EE898840053276E /* StartViewController+Extension.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -662,6 +675,7 @@
 			isa = PBXGroup;
 			children = (
 				A71B27321EE5D80F00613CF4 /* SplashViewController.swift */,
+				A73DA41C1EE899610053276E /* SplashViewController+Extension.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -695,6 +709,7 @@
 			isa = PBXGroup;
 			children = (
 				A7150EBC1EE62E0300E3553F /* PlayerViewController.swift */,
+				A73DA4141EE898550053276E /* PlayerViewController+Extension.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1165,6 +1180,7 @@
 				A7EBA0B51EE680BE00FAAC9C /* BasePopoverAlert.swift in Sources */,
 				A77EDF7A1EE5FF93001A24E5 /* UIViewController+Extension.swift in Sources */,
 				A71B26F21EE5D24700613CF4 /* AppDelegate.swift in Sources */,
+				A73DA41B1EE899300053276E /* MediaCollectionViewController+Extension.swift in Sources */,
 				A73D74321EE68844004571A5 /* SplashViewControllerDelegate.swift in Sources */,
 				A77EDF741EE5FDE5001A24E5 /* BaseMediaCollectionDataSource.swift in Sources */,
 				A73D743A1EE68890004571A5 /* CreateAccountViewDelegate.swift in Sources */,
@@ -1176,6 +1192,7 @@
 				A7150EBF1EE62E0D00E3553F /* PlayerViewDelegate.swift in Sources */,
 				A7150EE91EE6571200E3553F /* PodcastCellModel.swift in Sources */,
 				A7EBA0B91EE6815300FAAC9C /* MenuView.swift in Sources */,
+				A73DA4191EE898BB0053276E /* LoginViewController+Extension.swift in Sources */,
 				A73D74161EE686E6004571A5 /* LoginViewDelegate.swift in Sources */,
 				A77EDF801EE6007E001A24E5 /* CollectionViewAttributes.swift in Sources */,
 				A77EDF701EE5FD57001A24E5 /* MediaCollectionViewController.swift in Sources */,
@@ -1225,10 +1242,12 @@
 				A77EDF7C1EE5FFAB001A24E5 /* ViewType.swift in Sources */,
 				A77EDF721EE5FDA9001A24E5 /* UICollectionView+Extension.swift in Sources */,
 				A77EDF531EE5F426001A24E5 /* PodCatcherItem.swift in Sources */,
+				A73DA41D1EE899610053276E /* SplashViewController+Extension.swift in Sources */,
 				A71B27291EE5D31300613CF4 /* Coordinator.swift in Sources */,
 				A77EDF881EE614FB001A24E5 /* ButtonFactory.swift in Sources */,
 				A71B272D1EE5D55E00613CF4 /* CoordinatorDelegate.swift in Sources */,
 				A71B273B1EE5DB8D00613CF4 /* StartViewController.swift in Sources */,
+				A73DA4151EE898550053276E /* PlayerViewController+Extension.swift in Sources */,
 				A77EDF761EE5FDFA001A24E5 /* MediaDataStore.swift in Sources */,
 				A7EBA0B71EE680DF00FAAC9C /* BasePopView.swift in Sources */,
 				A7A54EA51EE7133C009A5538 /* EntryFieldConstants.swift in Sources */,
@@ -1259,6 +1278,7 @@
 				A73D74121EE68655004571A5 /* CoreDataClient.swift in Sources */,
 				A7A54EB01EE71474009A5538 /* EntryPopover.swift in Sources */,
 				A7EBA0A71EE6743800FAAC9C /* TextFieldExtension.swift in Sources */,
+				A73DA4171EE898840053276E /* StartViewController+Extension.swift in Sources */,
 				A77EDF821EE61338001A24E5 /* MediaCollectionControllerDelegate.swift in Sources */,
 				A73D74141EE68679004571A5 /* LocalStorageManager.swift in Sources */,
 				A71BFB861EE6E96000A35D8E /* CasterItems+CoreDataProperties.swift in Sources */,
