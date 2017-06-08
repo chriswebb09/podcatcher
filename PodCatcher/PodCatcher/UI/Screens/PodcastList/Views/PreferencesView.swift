@@ -4,6 +4,8 @@ class PreferencesView: UIView {
     
     weak var delegate: PreferencesViewDelegate?
     
+    // MARK: - UI Properties
+    
     var moreMenuButton: UIButton = {
         var moreMenuButton = UIButton()
         moreMenuButton.setImage(#imageLiteral(resourceName: "morebutton"), for: .normal)
@@ -15,6 +17,8 @@ class PreferencesView: UIView {
         addTagButton.setImage(#imageLiteral(resourceName: "circleaddwhite"), for: .normal)
         return addTagButton
     }()
+    
+    // MARK: - Configuration Methods
     
     override func layoutSubviews() {
         super.layoutSubviews()

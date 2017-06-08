@@ -1,6 +1,7 @@
 import UIKit
 
 final class StartViewController: UIViewController {
+    
     var loadingPop = LoadingPopover()
     var startView: StartView = StartView()
     weak var delegate: StartViewControllerDelegate?
@@ -27,7 +28,6 @@ final class StartViewController: UIViewController {
         loadingPop.showPopView(viewController: self)
         loadingPop.popView.isHidden = false
     }
-   
     
     func hideLoadingView() {
         loadingPop.popView.removeFromSuperview()

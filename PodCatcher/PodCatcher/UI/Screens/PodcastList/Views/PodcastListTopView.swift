@@ -4,6 +4,8 @@ class PodcastListTopView: UIView {
     
     weak var delegate: TopViewDelegate?
     
+    // MARK: - UI Properties
+    
     var podcastImageView: UIImageView! = {
         var podcastImageView = UIImageView()
         podcastImageView.layer.setCellShadow(contentView: podcastImageView)
@@ -64,7 +66,6 @@ class PodcastListTopView: UIView {
         titleLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.3).isActive = true
     }
     
-    
     func setup(preferencesView: UIView) {
         addSubview(preferencesView)
         preferencesView.translatesAutoresizingMaskIntoConstraints = false
@@ -72,8 +73,9 @@ class PodcastListTopView: UIView {
         preferencesView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         preferencesView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.18).isActive = true
     }
-    
 }
+
+// MARK: - PreferencesViewDelegate
 
 extension PodcastListTopView: PreferencesViewDelegate {
     

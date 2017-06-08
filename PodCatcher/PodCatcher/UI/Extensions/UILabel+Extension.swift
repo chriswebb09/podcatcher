@@ -14,3 +14,6 @@ extension UILabel {
     }
     
 }
+
+
+extension UICollectionViewCell: Reusable { }

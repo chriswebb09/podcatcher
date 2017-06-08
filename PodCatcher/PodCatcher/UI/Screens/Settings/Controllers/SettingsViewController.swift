@@ -2,9 +2,9 @@ import UIKit
 
 class SettingsViewController: UIViewController {
     
-    var settingsView: SettingsView!
-    
     weak var delegate: SettingsViewControllerDelegate?
+
+    var settingsView: SettingsView!
     
     init(settingsView: SettingsView) {
         self.settingsView = settingsView

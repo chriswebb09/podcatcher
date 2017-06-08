@@ -2,7 +2,7 @@ import UIKit
 
 class PodcastCell: UICollectionViewCell {
    
-    static let reuseIdentifier = "Cell"
+    // MARK: - UI Properties
     
     var podcastImageView: UIImageView = {
         var teamMemberImage = UIImageView()
@@ -26,6 +26,8 @@ class PodcastCell: UICollectionViewCell {
         playTimeLabel.font = UIFont(name: "HelveticaNeue", size: 14)
         return playTimeLabel
     }()
+    
+    // MARK: - Configuration Methods
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -55,9 +57,6 @@ class PodcastCell: UICollectionViewCell {
         playTimeLabel.text = String.constructTimeString(time: intTime)
         podcastTitleLabel.text = model.podcastTitle
     }
-}
-
-extension PodcastCell: Reusable {
     
     func setupConstraints() {
         contentView.addSubview(podcastTitleLabel)

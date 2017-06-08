@@ -1,6 +1,6 @@
 import UIKit
 
-class PodcastListViewController: UIViewController, UIScrollViewDelegate {
+class PodcastListViewController: UIViewController {
     
     let entryPop = EntryPopover()
     
@@ -76,7 +76,10 @@ class PodcastListViewController: UIViewController, UIScrollViewDelegate {
             break
         }
     }
-    
+}
+
+extension PodcastListViewController:  UIScrollViewDelegate {
+
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offset = scrollView.contentOffset
         if offset.y > 500 {

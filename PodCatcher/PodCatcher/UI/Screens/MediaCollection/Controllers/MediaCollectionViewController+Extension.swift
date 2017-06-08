@@ -1,11 +1,15 @@
 import UIKit
 
+// MARK: - UICollectionViewDelegate
+
 extension MediaCollectionViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         delegate?.didSelectCaster(at: indexPath.row, with: dataSource.casters[indexPath.row])
     }
 }
+
+// MARK: - UICollectionViewDataSource
 
 extension MediaCollectionViewController: UICollectionViewDataSource {
     

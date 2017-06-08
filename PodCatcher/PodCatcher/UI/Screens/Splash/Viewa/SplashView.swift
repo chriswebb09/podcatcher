@@ -8,13 +8,15 @@ final class SplashView: UIView {
     
     var animationDuration: Double = 0.5
     
+    // MARK: - UI Properties
+    
     var speakerZero: UIImageView = {
         let image = #imageLiteral(resourceName: "speakerblue-0")
         let imageView = UIImageView(image: image)
         return imageView
     }()
     
-    // MARK: - Configure
+    // MARK: - Configuration methods
     
     override func layoutSubviews() {
         super.layoutSubviews()

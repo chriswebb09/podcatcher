@@ -26,11 +26,6 @@ final class MediaCell: UICollectionViewCell {
         var album = UIImageView()
         return album
     }()
-}
-
-// MARK: - Resusable
-
-extension MediaCell: Reusable {
     
     private func setShadow() {
         layer.setCellShadow(contentView: contentView)

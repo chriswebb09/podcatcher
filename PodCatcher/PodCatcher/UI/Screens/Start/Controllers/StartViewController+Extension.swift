@@ -1,5 +1,7 @@
 import UIKit
 
+// MARK: - StartViewDelegate
+
 extension StartViewController: StartViewDelegate {
     
     func continueAsGuestTapped() {

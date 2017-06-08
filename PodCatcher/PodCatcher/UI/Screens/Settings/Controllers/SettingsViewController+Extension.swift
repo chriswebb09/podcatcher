@@ -1,5 +1,7 @@
 import UIKit
 
+// MARK: - SettingsViewDelegate
+
 extension SettingsViewController: SettingsViewDelegate {
     
     func settingOneTapped() {

@@ -4,7 +4,7 @@ final class StartView: UIView {
     
     weak var delegate: StartViewDelegate?
     
-    // MARK: - UI Element Properties
+    // MARK: - UI Properties
     
     private var titleLabel: UILabel = {
         let title = UILabel()
@@ -34,6 +34,8 @@ final class StartView: UIView {
         let createAccount = LoginButtonFactory(text: "Create Account", textColor: .white, buttonBorderWidth: 2, buttonBorderColor: UIColor.blue.cgColor, buttonBackgroundColor: UIColor(red:0.00, green:0.72, blue:0.82, alpha:1.0))
         return createAccount.createButton()
     }()
+    
+    // MARK: - Configuration Methods
     
     override func layoutSubviews() {
         CALayer.createGradientLayer(layer: layer, bounds: bounds)
