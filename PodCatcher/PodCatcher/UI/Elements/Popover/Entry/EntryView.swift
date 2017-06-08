@@ -38,7 +38,7 @@ final class EntryView: UIView {
         button.setTitleColor(PlaylistViewControllerConstants.mainColor, for: .normal)
         button.setTitle("Done", for: .normal)
         button.layer.borderColor = PlaylistViewControllerConstants.mainColor.cgColor
-        button.layer.borderWidth = 1.5
+        button.layer.borderWidth = EntryViewConstants.borderWidth
         if let popTitle = button.titleLabel, let font = UIFont(name: "Avenir-Book", size: 20) {
             popTitle.font = font
         }
@@ -50,7 +50,7 @@ final class EntryView: UIView {
         isUserInteractionEnabled = true
         backgroundColor = UIColor.white
         configureShadow(for: layer)
-        layer.borderWidth = 1.5
+        layer.borderWidth = EntryViewConstants.borderWidth
         layer.borderColor = PlaylistViewControllerConstants.mainColor.cgColor
     }
     
@@ -73,7 +73,7 @@ final class EntryView: UIView {
         entryField.translatesAutoresizingMaskIntoConstraints = false
         entryField.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         entryField.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        entryField.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.14).isActive = true
+        entryField.heightAnchor.constraint(equalTo: heightAnchor, multiplier: EntryViewConstants.entryFieldHeightMultiplier).isActive = true
         entryField.widthAnchor.constraint(equalTo: widthAnchor, multiplier: DetailViewConstants.fieldWidth).isActive = true
     }
     

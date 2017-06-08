@@ -66,6 +66,8 @@
 		A723A5B91EE94183002E49BF /* PodcastListTopViewConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A723A5B81EE94183002E49BF /* PodcastListTopViewConstants.swift */; };
 		A723A5BB1EE944B2002E49BF /* PodcastCellConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A723A5BA1EE944B2002E49BF /* PodcastCellConstants.swift */; };
 		A723A5BD1EE946F3002E49BF /* SettingsOptionViewConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = A723A5BC1EE946F3002E49BF /* SettingsOptionViewConstant.swift */; };
+		A723A5BF1EE94772002E49BF /* DetailPopoverConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A723A5BE1EE94772002E49BF /* DetailPopoverConstants.swift */; };
+		A723A5C11EE9480C002E49BF /* EntryViewConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A723A5C01EE9480C002E49BF /* EntryViewConstants.swift */; };
 		A73D74091EE684C4004571A5 /* LoadingPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73D74081EE684C4004571A5 /* LoadingPopover.swift */; };
 		A73D740B1EE684DD004571A5 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73D740A1EE684DD004571A5 /* LoadingView.swift */; };
 		A73D740E1EE685FF004571A5 /* AnimationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73D740D1EE685FF004571A5 /* AnimationDelegate.swift */; };
@@ -240,6 +242,8 @@
 		A723A5B81EE94183002E49BF /* PodcastListTopViewConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodcastListTopViewConstants.swift; sourceTree = "<group>"; };
 		A723A5BA1EE944B2002E49BF /* PodcastCellConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodcastCellConstants.swift; sourceTree = "<group>"; };
 		A723A5BC1EE946F3002E49BF /* SettingsOptionViewConstant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsOptionViewConstant.swift; sourceTree = "<group>"; };
+		A723A5BE1EE94772002E49BF /* DetailPopoverConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailPopoverConstants.swift; sourceTree = "<group>"; };
+		A723A5C01EE9480C002E49BF /* EntryViewConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryViewConstants.swift; sourceTree = "<group>"; };
 		A73D74081EE684C4004571A5 /* LoadingPopover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingPopover.swift; sourceTree = "<group>"; };
 		A73D740A1EE684DD004571A5 /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		A73D740D1EE685FF004571A5 /* AnimationDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationDelegate.swift; sourceTree = "<group>"; };
@@ -1002,6 +1006,8 @@
 				A723A5B81EE94183002E49BF /* PodcastListTopViewConstants.swift */,
 				A723A5BA1EE944B2002E49BF /* PodcastCellConstants.swift */,
 				A723A5BC1EE946F3002E49BF /* SettingsOptionViewConstant.swift */,
+				A723A5BE1EE94772002E49BF /* DetailPopoverConstants.swift */,
+				A723A5C01EE9480C002E49BF /* EntryViewConstants.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -1246,6 +1252,7 @@
 				A77EDF7A1EE5FF93001A24E5 /* UIViewController+Extension.swift in Sources */,
 				A71B26F21EE5D24700613CF4 /* AppDelegate.swift in Sources */,
 				A73DA41B1EE899300053276E /* MediaCollectionViewController+Extension.swift in Sources */,
+				A723A5C11EE9480C002E49BF /* EntryViewConstants.swift in Sources */,
 				A73D74321EE68844004571A5 /* SplashViewControllerDelegate.swift in Sources */,
 				A77EDF741EE5FDE5001A24E5 /* BaseMediaCollectionDataSource.swift in Sources */,
 				A73D743A1EE68890004571A5 /* CreateAccountViewDelegate.swift in Sources */,
@@ -1284,6 +1291,7 @@
 				A7150EF21EE66C0E00E3553F /* PlayerViewModel.swift in Sources */,
 				A7EBA0AF1EE6783700FAAC9C /* SettingsViewController.swift in Sources */,
 				A77EDF611EE5FBA0001A24E5 /* MediaCellViewModel.swift in Sources */,
+				A723A5BF1EE94772002E49BF /* DetailPopoverConstants.swift in Sources */,
 				A71B27231EE5D27700613CF4 /* NavigationCoordinator.swift in Sources */,
 				A723A5AB1EE935FC002E49BF /* CreatAccountViewController+Extension.swift in Sources */,
 				A71B27451EE5E1F200613CF4 /* PCMediaPlayer.swift in Sources */,
