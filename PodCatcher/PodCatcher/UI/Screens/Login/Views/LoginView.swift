@@ -35,12 +35,12 @@ final class LoginView: UIView {
         backgroundColor = .white
         usernameField.delegate = self
         passwordField.delegate = self
-        usernameField.layer.cornerRadius = 20
-        passwordField.layer.cornerRadius = 20
+        usernameField.layer.cornerRadius = LoginViewConstants.cornerRadius
+        passwordField.layer.cornerRadius = LoginViewConstants.cornerRadius
         setup(usernamefield: usernameField)
         setup(passwordField: passwordField)
         setup(submitButton: submitButton)
-        submitButton.layer.cornerRadius = 20
+        submitButton.layer.cornerRadius = LoginViewConstants.cornerRadius
         submitButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
     }
     
@@ -55,23 +55,23 @@ final class LoginView: UIView {
         addSubview(view)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        view.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.09).isActive = true
-        view.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.9).isActive = true
+        view.heightAnchor.constraint(equalTo: heightAnchor, multiplier: LoginViewConstants.sharedLayoutHeightMultiplier).isActive = true
+        view.widthAnchor.constraint(equalTo: widthAnchor, multiplier: LoginViewConstants.sharedLayoutWidthMultiplier).isActive = true
     }
     
     private func setup(usernamefield: TextFieldExtension) {
         sharedLayout(view: usernameField)
-        usernamefield.topAnchor.constraint(equalTo: topAnchor, constant: UIScreen.main.bounds.height * 0.25).isActive = true
+        usernamefield.topAnchor.constraint(equalTo: topAnchor, constant: LoginViewConstants.usernameFieldTopOffset).isActive = true
     }
     
     private func setup(passwordField: TextFieldExtension) {
         sharedLayout(view: passwordField)
-        passwordField.topAnchor.constraint(equalTo: usernameField.bottomAnchor, constant: UIScreen.main.bounds.height * 0.1).isActive = true
+        passwordField.topAnchor.constraint(equalTo: usernameField.bottomAnchor, constant: LoginViewConstants.passwordFieldTopOffset).isActive = true
     }
     
     private func setup(submitButton: UIButton) {
         sharedLayout(view: submitButton)
-        submitButton.topAnchor.constraint(equalTo: passwordField.bottomAnchor, constant: UIScreen.main.bounds.height * 0.17).isActive = true
+        submitButton.topAnchor.constraint(equalTo: passwordField.bottomAnchor, constant: LoginViewConstants.submitButtonTopOffset).isActive = true
     }
     
     func loginButtonTapped() {

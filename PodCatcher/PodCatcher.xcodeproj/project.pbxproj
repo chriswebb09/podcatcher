@@ -61,6 +61,8 @@
 		A723A5AF1EE93711002E49BF /* LoginView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A723A5AE1EE93711002E49BF /* LoginView+Extension.swift */; };
 		A723A5B11EE93BC8002E49BF /* StartViewConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A723A5B01EE93BC8002E49BF /* StartViewConstants.swift */; };
 		A723A5B31EE93C32002E49BF /* SettingsViewConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A723A5B21EE93C32002E49BF /* SettingsViewConstants.swift */; };
+		A723A5B51EE93DA2002E49BF /* CreateAccountViewConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A723A5B41EE93DA2002E49BF /* CreateAccountViewConstants.swift */; };
+		A723A5B71EE93ED9002E49BF /* LoginViewConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A723A5B61EE93ED9002E49BF /* LoginViewConstants.swift */; };
 		A73D74091EE684C4004571A5 /* LoadingPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73D74081EE684C4004571A5 /* LoadingPopover.swift */; };
 		A73D740B1EE684DD004571A5 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73D740A1EE684DD004571A5 /* LoadingView.swift */; };
 		A73D740E1EE685FF004571A5 /* AnimationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73D740D1EE685FF004571A5 /* AnimationDelegate.swift */; };
@@ -230,6 +232,8 @@
 		A723A5AE1EE93711002E49BF /* LoginView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "LoginView+Extension.swift"; sourceTree = "<group>"; };
 		A723A5B01EE93BC8002E49BF /* StartViewConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartViewConstants.swift; sourceTree = "<group>"; };
 		A723A5B21EE93C32002E49BF /* SettingsViewConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewConstants.swift; sourceTree = "<group>"; };
+		A723A5B41EE93DA2002E49BF /* CreateAccountViewConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountViewConstants.swift; sourceTree = "<group>"; };
+		A723A5B61EE93ED9002E49BF /* LoginViewConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewConstants.swift; sourceTree = "<group>"; };
 		A73D74081EE684C4004571A5 /* LoadingPopover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingPopover.swift; sourceTree = "<group>"; };
 		A73D740A1EE684DD004571A5 /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		A73D740D1EE685FF004571A5 /* AnimationDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationDelegate.swift; sourceTree = "<group>"; };
@@ -987,6 +991,8 @@
 				A723A5A81EE93116002E49BF /* PodcastListConstants.swift */,
 				A723A5B01EE93BC8002E49BF /* StartViewConstants.swift */,
 				A723A5B21EE93C32002E49BF /* SettingsViewConstants.swift */,
+				A723A5B41EE93DA2002E49BF /* CreateAccountViewConstants.swift */,
+				A723A5B61EE93ED9002E49BF /* LoginViewConstants.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -1309,6 +1315,7 @@
 				A71B273B1EE5DB8D00613CF4 /* StartViewController.swift in Sources */,
 				A73DA4151EE898550053276E /* PlayerViewController+Extension.swift in Sources */,
 				A77EDF761EE5FDFA001A24E5 /* MediaDataStore.swift in Sources */,
+				A723A5B71EE93ED9002E49BF /* LoginViewConstants.swift in Sources */,
 				A7EBA0B71EE680DF00FAAC9C /* BasePopView.swift in Sources */,
 				A7A54EA51EE7133C009A5538 /* EntryFieldConstants.swift in Sources */,
 				A7EBA0CA1EE6836400FAAC9C /* NSError+Extension.swift in Sources */,
@@ -1348,6 +1355,7 @@
 				A71B26FA1EE5D24700613CF4 /* PodCatcher.xcdatamodeld in Sources */,
 				A7EBA0B11EE6784E00FAAC9C /* SettingsView.swift in Sources */,
 				A7150EF01EE6609200E3553F /* PodcastListTopView.swift in Sources */,
+				A723A5B51EE93DA2002E49BF /* CreateAccountViewConstants.swift in Sources */,
 				A776D14D1EE907C600400EB4 /* MediaResultsStatus.swift in Sources */,
 				A71B27331EE5D80F00613CF4 /* SplashViewController.swift in Sources */,
 				A7EBA0C01EE6828A00FAAC9C /* BasePopConstants.swift in Sources */,
