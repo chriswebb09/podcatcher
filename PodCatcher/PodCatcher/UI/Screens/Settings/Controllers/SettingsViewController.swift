@@ -19,7 +19,7 @@ class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         edgesForExtendedLayout = []
-        settingsView.backgroundColor = UIColor(red:0.10, green:0.09, blue:0.12, alpha:1.0)
+        settingsView.backgroundColor = SettingsViewConstants.backgroundColor
         settingsView.layoutSubviews()
         view.addView(view: settingsView, type: .full)
         view = settingsView
