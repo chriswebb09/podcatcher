@@ -51,7 +51,7 @@ final class PlayerView: UIView {
     
     private var playtimeSliderView: UIView = {
         let preferences = UIView()
-        preferences.backgroundColor = UIColor(red:0.92, green:0.32, blue:0.33, alpha:1.0)
+        preferences.backgroundColor = PlayerViewConstants.preferencesViewBackgroundColor
         return preferences
     }()
     
@@ -82,7 +82,7 @@ final class PlayerView: UIView {
     
     private var controlsView: UIView = {
         let controls = UIView()
-        controls.backgroundColor = UIColor(red:0.10, green:0.09, blue:0.12, alpha:1.0)
+        controls.backgroundColor = PlayerViewConstants.controlsViewBackgroundColor
         return controls
     }()
     
@@ -154,8 +154,8 @@ final class PlayerView: UIView {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.centerXAnchor.constraint(equalTo: titleView.centerXAnchor).isActive = true
         titleLabel.centerYAnchor.constraint(equalTo: titleView.centerYAnchor).isActive = true
-        titleLabel.heightAnchor.constraint(equalTo: titleView.heightAnchor, multiplier: 0.5).isActive = true
-        titleLabel.widthAnchor.constraint(equalTo: titleView.widthAnchor, multiplier: 0.9).isActive = true
+        titleLabel.heightAnchor.constraint(equalTo: titleView.heightAnchor, multiplier: PlayerViewConstants.trackTitleLabelHeightMultiplier).isActive = true
+        titleLabel.widthAnchor.constraint(equalTo: titleView.widthAnchor, multiplier: PlayerViewConstants.trackTitleLabelWidthMultiplier).isActive = true
     }
     
     private func setup(albumView: UIView) {
@@ -185,7 +185,7 @@ final class PlayerView: UIView {
         playtimeSlider.translatesAutoresizingMaskIntoConstraints = false
         playtimeSlider.centerXAnchor.constraint(equalTo: playtimeSliderView.centerXAnchor).isActive = true
         playtimeSlider.centerYAnchor.constraint(equalTo: playtimeSliderView.centerYAnchor).isActive = true
-        playtimeSlider.heightAnchor.constraint(equalTo: playtimeSliderView.heightAnchor, multiplier: 0.5).isActive = true
+        playtimeSlider.heightAnchor.constraint(equalTo: playtimeSliderView.heightAnchor, multiplier: PlayerViewConstants.trackTitleLabelHeightMultiplier).isActive = true
         playtimeSlider.widthAnchor.constraint(equalTo: playtimeSliderView.widthAnchor).isActive = true
     }
     
