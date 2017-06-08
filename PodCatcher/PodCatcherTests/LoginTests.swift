@@ -49,8 +49,6 @@ class LoginTests: XCTestCase {
             let user = PodCatcherUser(username: testUsename, emailAddress: testEmail)
             user.customGenres = customGenre
             user.casts = testCasts
-            print(user.casts)
-            print(user.casts)
             self.loginViewController.delegate?.successfulLogin(for: user)
             expect.fulfill()
         }

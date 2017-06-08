@@ -1,9 +1,5 @@
 import UIKit
 
-protocol TopViewDelegate: class {
-    func popBottomMenu(pop: Bool)
-    func entryPop(pop: Bool)
-}
 
 class PodcastListTopView: UIView {
     

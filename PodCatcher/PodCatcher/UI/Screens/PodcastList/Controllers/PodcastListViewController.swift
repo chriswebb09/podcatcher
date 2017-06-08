@@ -17,12 +17,20 @@ class PodcastListViewController: UIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         edgesForExtendedLayout = []
+        setup()
+        setupTopView()
+    }
+    
+    func setup() {
         setupCollectionView()
         collectionView.dataSource = self
         collectionView.delegate = self
         setupNavigationController()
         collectionView.register(PodcastCell.self)
         collectionView.backgroundColor = UIColor(red: 0.97, green: 0.97, blue: 0.97, alpha: 1.0)
+    }
+    
+    func setupTopView() {
         let topFrameHeight = view.bounds.height / 2
         let topFrameWidth = view.bounds.width
         topView.frame = CGRect(x: 0, y: 0, width: topFrameWidth, height: topFrameHeight / 1.5)
