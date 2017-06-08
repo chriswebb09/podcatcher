@@ -63,6 +63,7 @@
 		A723A5B31EE93C32002E49BF /* SettingsViewConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A723A5B21EE93C32002E49BF /* SettingsViewConstants.swift */; };
 		A723A5B51EE93DA2002E49BF /* CreateAccountViewConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A723A5B41EE93DA2002E49BF /* CreateAccountViewConstants.swift */; };
 		A723A5B71EE93ED9002E49BF /* LoginViewConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A723A5B61EE93ED9002E49BF /* LoginViewConstants.swift */; };
+		A723A5B91EE94183002E49BF /* PodcastListTopViewConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A723A5B81EE94183002E49BF /* PodcastListTopViewConstants.swift */; };
 		A73D74091EE684C4004571A5 /* LoadingPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73D74081EE684C4004571A5 /* LoadingPopover.swift */; };
 		A73D740B1EE684DD004571A5 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73D740A1EE684DD004571A5 /* LoadingView.swift */; };
 		A73D740E1EE685FF004571A5 /* AnimationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73D740D1EE685FF004571A5 /* AnimationDelegate.swift */; };
@@ -234,6 +235,7 @@
 		A723A5B21EE93C32002E49BF /* SettingsViewConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewConstants.swift; sourceTree = "<group>"; };
 		A723A5B41EE93DA2002E49BF /* CreateAccountViewConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountViewConstants.swift; sourceTree = "<group>"; };
 		A723A5B61EE93ED9002E49BF /* LoginViewConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewConstants.swift; sourceTree = "<group>"; };
+		A723A5B81EE94183002E49BF /* PodcastListTopViewConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodcastListTopViewConstants.swift; sourceTree = "<group>"; };
 		A73D74081EE684C4004571A5 /* LoadingPopover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingPopover.swift; sourceTree = "<group>"; };
 		A73D740A1EE684DD004571A5 /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		A73D740D1EE685FF004571A5 /* AnimationDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationDelegate.swift; sourceTree = "<group>"; };
@@ -993,6 +995,7 @@
 				A723A5B21EE93C32002E49BF /* SettingsViewConstants.swift */,
 				A723A5B41EE93DA2002E49BF /* CreateAccountViewConstants.swift */,
 				A723A5B61EE93ED9002E49BF /* LoginViewConstants.swift */,
+				A723A5B81EE94183002E49BF /* PodcastListTopViewConstants.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -1260,6 +1263,7 @@
 				A7EBA0BB1EE681F400FAAC9C /* BottomMenuPopover.swift in Sources */,
 				A7150EEE1EE65B2300E3553F /* PlayerViewConstants.swift in Sources */,
 				A77EDF841EE613E2001A24E5 /* ApplicationCoordinator.swift in Sources */,
+				A723A5B91EE94183002E49BF /* PodcastListTopViewConstants.swift in Sources */,
 				A71B27371EE5D87900613CF4 /* UIView+Extension.swift in Sources */,
 				A7150EE71EE6568B00E3553F /* PodcastListViewControllerDelegate.swift in Sources */,
 				A7150EC11EE62E1700E3553F /* PlayerViewControllerDelegate.swift in Sources */,

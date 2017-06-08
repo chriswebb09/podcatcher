@@ -20,7 +20,7 @@ final class PlayerView: UIView {
     
     private var titleView: UIView = {
         let top = UIView()
-        top.backgroundColor = UIColor(red:0.92, green:0.32, blue:0.33, alpha:1.0)
+        top.backgroundColor = PlayerViewConstants.titleViewBackgroundColor
         return top
     }()
     

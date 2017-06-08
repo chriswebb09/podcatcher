@@ -22,6 +22,7 @@ struct PlayerViewConstants {
     static let controlsViewHeightMultiplier: CGFloat = 0.3
     static let thumbsHeightMultplier: CGFloat = 0.45
     static let thumbsWidthMultiplier: CGFloat = 0.04
+    static let titleViewBackgroundColor = UIColor(red:0.92, green:0.32, blue:0.33, alpha:1.0)
     static let purpleGradientColors: [CGColor] = [UIColor(red:0.20, green:0.06, blue:0.16, alpha:1.0).cgColor,
                                             UIColor(red:0.48, green:0.08, blue:0.27, alpha:1.0).cgColor]
 }
