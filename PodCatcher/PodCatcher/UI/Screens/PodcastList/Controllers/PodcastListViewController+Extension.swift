@@ -6,6 +6,9 @@ struct PodcastListConstants {
     static let size = CGSize(width: 50, height: 50)
     static let lineSpace: CGFloat = 0
     static let backgroundColor = UIColor(red: 0.97, green: 0.97, blue: 0.97, alpha: 1.0)
+    static let minimumOffset: CGFloat = 500
+    static let topFrameHeight = UIScreen.main.bounds.height / 2
+    static let topFrameWidth = UIScreen.main.bounds.width
 }
 
 // MARK: - UICollectionViewDelegate
