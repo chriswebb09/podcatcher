@@ -33,22 +33,26 @@ class PodcastCell: UICollectionViewCell {
         super.layoutSubviews()
         isUserInteractionEnabled = true
         backgroundColor = UIColor.white
-        self.contentView.layer.cornerRadius = 2.0
-        self.contentView.layer.borderWidth = 1.0
-        self.contentView.layer.borderColor = UIColor.clear.cgColor
-        self.contentView.layer.masksToBounds = true;
-        self.layer.shadowColor = UIColor.lightGray.cgColor
-        self.layer.shadowOffset = CGSize(width:0,height: 2.0)
-        self.layer.shadowRadius = 1.0
-        self.layer.shadowOpacity = 0.5
-        self.layer.masksToBounds = false;
-        self.layer.shadowPath = UIBezierPath(roundedRect:self.bounds, cornerRadius:self.contentView.layer.cornerRadius).cgPath
+        contentView.layer.cornerRadius = 2.0
+        contentView.layer.borderWidth = 1.0
+        contentView.layer.borderColor = UIColor.clear.cgColor
+        contentView.layer.masksToBounds = true
+        setShadow()
+    }
+    
+    func setShadow() {
+        layer.shadowColor = UIColor.lightGray.cgColor
+        layer.shadowOffset = CGSize(width: 0, height: 2.0)
+        layer.shadowRadius = 1.0
+        layer.shadowOpacity = 0.5
+        layer.masksToBounds = false;
+        layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: contentView.layer.cornerRadius).cgPath
     }
     
     func configureCell(model: PocastCellModel) {
         layoutSubviews()
         setupConstraints()
-        self.layoutIfNeeded()
+        layoutIfNeeded()
         podcastImageView.image = model.podcastImage
         let intTime = Int(model.item.playtime)
         dump(intTime)

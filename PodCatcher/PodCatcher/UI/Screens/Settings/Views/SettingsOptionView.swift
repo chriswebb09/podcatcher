@@ -20,7 +20,6 @@ class SettingsOptionView: UIView {
         layer.borderColor = UIColor.white.cgColor
         layer.borderWidth = SettingsOptionViewConstants.borderWidth
         isUserInteractionEnabled = true
-        
     }
     
     func setup(nameLabel: UILabel) {

@@ -34,6 +34,7 @@
 		A71853021EE9584E00911C87 /* BaseMenuPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71853011EE9584E00911C87 /* BaseMenuPopover.swift */; };
 		A71853041EE958A900911C87 /* MenuViewConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71853031EE958A900911C87 /* MenuViewConstants.swift */; };
 		A71853061EE95A7F00911C87 /* MenuOptionViewConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71853051EE95A7F00911C87 /* MenuOptionViewConstants.swift */; };
+		A71853081EE95C0E00911C87 /* PreferenceViewConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71853071EE95C0E00911C87 /* PreferenceViewConstants.swift */; };
 		A71B26F21EE5D24700613CF4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71B26F11EE5D24700613CF4 /* AppDelegate.swift */; };
 		A71B26FA1EE5D24700613CF4 /* PodCatcher.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A71B26F81EE5D24700613CF4 /* PodCatcher.xcdatamodeld */; };
 		A71B26FC1EE5D24700613CF4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A71B26FB1EE5D24700613CF4 /* Assets.xcassets */; };
@@ -209,6 +210,7 @@
 		A71853011EE9584E00911C87 /* BaseMenuPopover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseMenuPopover.swift; sourceTree = "<group>"; };
 		A71853031EE958A900911C87 /* MenuViewConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewConstants.swift; sourceTree = "<group>"; };
 		A71853051EE95A7F00911C87 /* MenuOptionViewConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuOptionViewConstants.swift; sourceTree = "<group>"; };
+		A71853071EE95C0E00911C87 /* PreferenceViewConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferenceViewConstants.swift; sourceTree = "<group>"; };
 		A71B26EE1EE5D24700613CF4 /* PodCatcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PodCatcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A71B26F11EE5D24700613CF4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A71B26F91EE5D24700613CF4 /* PodCatcher.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PodCatcher.xcdatamodel; sourceTree = "<group>"; };
@@ -1022,6 +1024,7 @@
 				A71852FF1EE9580D00911C87 /* PodcastListViewControllerConstants.swift */,
 				A71853031EE958A900911C87 /* MenuViewConstants.swift */,
 				A71853051EE95A7F00911C87 /* MenuOptionViewConstants.swift */,
+				A71853071EE95C0E00911C87 /* PreferenceViewConstants.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -1328,6 +1331,7 @@
 				A723A5B11EE93BC8002E49BF /* StartViewConstants.swift in Sources */,
 				A7EBA09A1EE672A700FAAC9C /* UserDataAPIClient.swift in Sources */,
 				A77EDF5B1EE5FB3B001A24E5 /* MediaCellConstants.swift in Sources */,
+				A71853081EE95C0E00911C87 /* PreferenceViewConstants.swift in Sources */,
 				A73D743C1EE688AF004571A5 /* CreateAccountViewControllerDelegate.swift in Sources */,
 				A71852FE1EE9527400911C87 /* EmptyViewConstants.swift in Sources */,
 				A73D740E1EE685FF004571A5 /* AnimationDelegate.swift in Sources */,
