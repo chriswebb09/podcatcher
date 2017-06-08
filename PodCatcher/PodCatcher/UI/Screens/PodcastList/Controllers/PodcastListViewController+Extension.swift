@@ -1,14 +1,29 @@
 import UIKit
 
-struct PodcastListConstants {
-    static let navFont: [String: Any] = [NSForegroundColorAttributeName: UIColor.white, NSFontAttributeName: UIFont(name: "HelveticaNeue-Thin", size: 20)]
-    static let edgeInset = UIEdgeInsets(top:0, left: 0, bottom: 0, right: 0)
-    static let size = CGSize(width: 50, height: 50)
-    static let lineSpace: CGFloat = 0
-    static let backgroundColor = UIColor(red: 0.97, green: 0.97, blue: 0.97, alpha: 1.0)
-    static let minimumOffset: CGFloat = 500
-    static let topFrameHeight = UIScreen.main.bounds.height / 2
-    static let topFrameWidth = UIScreen.main.bounds.width
+// MARK: - UIScrollViewDelegate
+
+extension PodcastListViewController: UIScrollViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offset = scrollView.contentOffset
+        if offset.y > PodcastListConstants.minimumOffset {
+            UIView.animate(withDuration: 1) {
+                print(offset.y)
+                self.topView.removeFromSuperview()
+                self.collectionView.frame = self.view.bounds
+            }
+        } else {
+            UIView.animate(withDuration: 0.5) {
+                let topFrameHeight = self.view.bounds.height / 2
+                let topFrameWidth = self.view.bounds.width
+                self.topView.frame = CGRect(x: 0, y: 0, width: topFrameWidth, height: topFrameHeight / 1.5)
+                self.topView.podcastImageView.image = self.caster.artwork
+                self.topView.layoutSubviews()
+                self.view.addSubview(self.topView)
+                self.collectionView.frame = CGRect(x: self.topView.bounds.minX, y: self.topView.frame.maxY, width: topFrameWidth, height: self.view.bounds.height)
+            }
+        }
+    }
 }
 
 // MARK: - UICollectionViewDelegate
