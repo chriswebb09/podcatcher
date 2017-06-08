@@ -27,9 +27,6 @@ final class LoadingPopover: BasePopoverAlert {
         guard let ball = popView.ball else { return }
         popView.stopAnimating(ball: ball)
     }
-}
-
-extension LoadingPopover {
     
     func setupPop(popView: LoadingView) {
         popView.configureView()

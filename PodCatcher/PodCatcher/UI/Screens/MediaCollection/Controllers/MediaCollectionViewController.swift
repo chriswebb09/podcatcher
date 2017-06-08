@@ -68,13 +68,6 @@ final class MediaCollectionViewController: UIViewController {
         collectionView.backgroundColor = .darkGray
     }
     
-    func collectionViewConfiguration() {
-        collectionView.setupCollectionView(view: view, newLayout: TrackItemsFlowLayout())
-        collectionView.collectionViewRegister(viewController: self)
-        collectionView.delegate = self
-        collectionView.dataSource = self
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tabBarController?.tabBar.isHidden = false 
@@ -93,5 +86,12 @@ final class MediaCollectionViewController: UIViewController {
             dataSource.user = nil
         }
         delegate?.logoutTapped(logout: true)
+    }
+    
+    func collectionViewConfiguration() {
+        collectionView.setupCollectionView(view: view, newLayout: TrackItemsFlowLayout())
+        collectionView.collectionViewRegister(viewController: self)
+        collectionView.delegate = self
+        collectionView.dataSource = self
     }
 }

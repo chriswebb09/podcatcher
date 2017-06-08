@@ -78,7 +78,7 @@ final class MenuView: UIView {
     }
     
     
-    private func setSharedConstraintProperties(view: UIView) {
+    private func sharedLayout(view: UIView) {
         addSubview(view)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
@@ -87,11 +87,11 @@ final class MenuView: UIView {
     }
     
     private func setupConstraints() {
-        setSharedConstraintProperties(view: optionOneView)
+        sharedLayout(view: optionOneView)
         optionOneView.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        setSharedConstraintProperties(view: optionTwoView)
+        sharedLayout(view: optionTwoView)
         optionTwoView.topAnchor.constraint(equalTo: optionOneView.bottomAnchor).isActive = true
-        setSharedConstraintProperties(view: optionThreeView)
+        sharedLayout(view: optionThreeView)
         optionThreeView.topAnchor.constraint(equalTo: optionTwoView.bottomAnchor).isActive = true
     }
 }

@@ -18,22 +18,21 @@ class BasePopView: UIView {
         return searchLabel
     }()
     
+    private func sharedLayout(view: UIView) {
+        addSubview(view)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        view.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        view.heightAnchor.constraint(equalTo: heightAnchor, multiplier: BasePopConstants.heightMultiplier).isActive = true
+        view.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
+    }
+    
     private func setupHeadBanner(headBanner: UIView) {
-        addSubview(headBanner)
-        headBanner.translatesAutoresizingMaskIntoConstraints = false
-        headBanner.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        headBanner.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        headBanner.heightAnchor.constraint(equalTo: heightAnchor, multiplier: BasePopConstants.heightMultiplier).isActive = true
-        headBanner.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
+        sharedLayout(view: headBanner)
     }
     
     private func setupAlertLabel(label: UILabel) {
-        addSubview(alertLabel)
-        alertLabel.translatesAutoresizingMaskIntoConstraints = false
-        alertLabel.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        alertLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        alertLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: BasePopConstants.heightMultiplier).isActive = true
-        alertLabel.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
+        sharedLayout(view: label)
     }
     
     private func setupConstraints() {

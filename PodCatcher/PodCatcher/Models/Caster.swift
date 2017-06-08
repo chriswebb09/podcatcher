@@ -29,11 +29,8 @@ struct Caster {
                 casterOne.artwork = image!
                 completion(testCasters)
             }
-            
         }
-     
     }
-    
 }
 
 extension Caster: Equatable {

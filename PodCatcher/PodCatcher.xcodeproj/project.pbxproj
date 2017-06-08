@@ -35,6 +35,8 @@
 		A71853041EE958A900911C87 /* MenuViewConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71853031EE958A900911C87 /* MenuViewConstants.swift */; };
 		A71853061EE95A7F00911C87 /* MenuOptionViewConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71853051EE95A7F00911C87 /* MenuOptionViewConstants.swift */; };
 		A71853081EE95C0E00911C87 /* PreferenceViewConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71853071EE95C0E00911C87 /* PreferenceViewConstants.swift */; };
+		A718530A1EE9609A00911C87 /* EntryState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71853091EE9609A00911C87 /* EntryState.swift */; };
+		A718530C1EE960C400911C87 /* PopDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718530B1EE960C400911C87 /* PopDelegate.swift */; };
 		A71B26F21EE5D24700613CF4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71B26F11EE5D24700613CF4 /* AppDelegate.swift */; };
 		A71B26FA1EE5D24700613CF4 /* PodCatcher.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A71B26F81EE5D24700613CF4 /* PodCatcher.xcdatamodeld */; };
 		A71B26FC1EE5D24700613CF4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A71B26FB1EE5D24700613CF4 /* Assets.xcassets */; };
@@ -211,6 +213,8 @@
 		A71853031EE958A900911C87 /* MenuViewConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewConstants.swift; sourceTree = "<group>"; };
 		A71853051EE95A7F00911C87 /* MenuOptionViewConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuOptionViewConstants.swift; sourceTree = "<group>"; };
 		A71853071EE95C0E00911C87 /* PreferenceViewConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferenceViewConstants.swift; sourceTree = "<group>"; };
+		A71853091EE9609A00911C87 /* EntryState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EntryState.swift; path = Entry/EntryState.swift; sourceTree = "<group>"; };
+		A718530B1EE960C400911C87 /* PopDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PopDelegate.swift; path = Entry/PopDelegate.swift; sourceTree = "<group>"; };
 		A71B26EE1EE5D24700613CF4 /* PodCatcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PodCatcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A71B26F11EE5D24700613CF4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A71B26F91EE5D24700613CF4 /* PodCatcher.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PodCatcher.xcdatamodel; sourceTree = "<group>"; };
@@ -996,6 +1000,8 @@
 				A7A54EAD1EE71474009A5538 /* EntryPopover.swift */,
 				A7A54EAE1EE71474009A5538 /* EntryPopoverDelegate.swift */,
 				A7A54EAF1EE71474009A5538 /* EntryView.swift */,
+				A71853091EE9609A00911C87 /* EntryState.swift */,
+				A718530B1EE960C400911C87 /* PopDelegate.swift */,
 			);
 			name = Entry;
 			sourceTree = "<group>";
@@ -1361,6 +1367,7 @@
 				A7EBA0CA1EE6836400FAAC9C /* NSError+Extension.swift in Sources */,
 				A71B27251EE5D28600613CF4 /* TabBarCoordinator.swift in Sources */,
 				A71853021EE9584E00911C87 /* BaseMenuPopover.swift in Sources */,
+				A718530C1EE960C400911C87 /* PopDelegate.swift in Sources */,
 				A71B27351EE5D81700613CF4 /* SplashView.swift in Sources */,
 				A73DA4211EE899EA0053276E /* PodcastListViewController+Extension.swift in Sources */,
 				A73DA41F1EE899A40053276E /* SettingsViewController+Extension.swift in Sources */,
@@ -1368,6 +1375,7 @@
 				A71853061EE95A7F00911C87 /* MenuOptionViewConstants.swift in Sources */,
 				A7150EE51EE6566600E3553F /* PodcasterControllState.swift in Sources */,
 				A73D74301EE6881E004571A5 /* LogoConstants.swift in Sources */,
+				A718530A1EE9609A00911C87 /* EntryState.swift in Sources */,
 				A7150EDF1EE63E7200E3553F /* PodcastCell.swift in Sources */,
 				A77EDF5D1EE5FB5F001A24E5 /* ReusableProtocol.swift in Sources */,
 				A71BFB881EE6F62B00A35D8E /* UnderLineTextField.swift in Sources */,

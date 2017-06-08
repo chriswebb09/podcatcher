@@ -21,7 +21,7 @@ final class MenuOptionView: UIView {
         self.iconView.image = icon
     }
     
-    private func setupOptionLabelConstraints(label: UILabel) {
+    private func setup(label: UILabel) {
         addSubview(optionLabel)
         optionLabel.translatesAutoresizingMaskIntoConstraints = false
         optionLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
@@ -31,7 +31,7 @@ final class MenuOptionView: UIView {
         
     }
     
-    private func setupIconViewConstraints(iconView: UIImageView) {
+    private func setup(iconView: UIImageView) {
         addSubview(iconView)
         iconView.translatesAutoresizingMaskIntoConstraints = false
         iconView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
@@ -42,7 +42,7 @@ final class MenuOptionView: UIView {
     
     func setupConstraints() {
         backgroundColor = .clear
-        setupOptionLabelConstraints(label: optionLabel)
-        setupIconViewConstraints(iconView: iconView)
+        setup(label: optionLabel)
+        setup(iconView: iconView)
     }
 }
