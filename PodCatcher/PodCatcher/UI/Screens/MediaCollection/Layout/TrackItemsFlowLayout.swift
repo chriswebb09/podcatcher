@@ -1,5 +1,7 @@
 import UIKit
 
+// MARK: - UICollectionViewFlowLayout
+
 class TrackItemsFlowLayout: UICollectionViewFlowLayout {
     func setup() {
         scrollDirection = .vertical

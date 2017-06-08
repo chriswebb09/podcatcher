@@ -81,6 +81,7 @@
 		A776D1451EE8B90500400EB4 /* UserLoginAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A776D1441EE8B90500400EB4 /* UserLoginAPI.swift */; };
 		A776D1471EE8CD4900400EB4 /* TopViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A776D1461EE8CD4900400EB4 /* TopViewDelegate.swift */; };
 		A776D14D1EE907C600400EB4 /* MediaResultsStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = A776D14C1EE907C600400EB4 /* MediaResultsStatus.swift */; };
+		A776D14F1EE9098400400EB4 /* PlayState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A776D14E1EE9098400400EB4 /* PlayState.swift */; };
 		A77EDF4F1EE5E6C4001A24E5 /* Caster.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EDF4E1EE5E6C4001A24E5 /* Caster.swift */; };
 		A77EDF531EE5F426001A24E5 /* PodCatcherItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EDF521EE5F426001A24E5 /* PodCatcherItem.swift */; };
 		A77EDF551EE5FA61001A24E5 /* MediaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EDF541EE5FA61001A24E5 /* MediaCell.swift */; };
@@ -243,6 +244,7 @@
 		A776D1441EE8B90500400EB4 /* UserLoginAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserLoginAPI.swift; path = PodCatcher/ApplicationServices/NetworkServices/UserLoginAPI.swift; sourceTree = SOURCE_ROOT; };
 		A776D1461EE8CD4900400EB4 /* TopViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TopViewDelegate.swift; path = PodCatcher/UI/Screens/PodcastList/Views/TopViewDelegate.swift; sourceTree = SOURCE_ROOT; };
 		A776D14C1EE907C600400EB4 /* MediaResultsStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaResultsStatus.swift; sourceTree = "<group>"; };
+		A776D14E1EE9098400400EB4 /* PlayState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayState.swift; sourceTree = "<group>"; };
 		A77EDF4E1EE5E6C4001A24E5 /* Caster.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Caster.swift; sourceTree = "<group>"; };
 		A77EDF521EE5F426001A24E5 /* PodCatcherItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodCatcherItem.swift; sourceTree = "<group>"; };
 		A77EDF541EE5FA61001A24E5 /* MediaCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaCell.swift; sourceTree = "<group>"; };
@@ -736,6 +738,7 @@
 			isa = PBXGroup;
 			children = (
 				A7150EF11EE66C0E00E3553F /* PlayerViewModel.swift */,
+				A776D14E1EE9098400400EB4 /* PlayState.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1313,6 +1316,7 @@
 				A73D74121EE68655004571A5 /* CoreDataClient.swift in Sources */,
 				A7A54EB01EE71474009A5538 /* EntryPopover.swift in Sources */,
 				A7EBA0A71EE6743800FAAC9C /* TextFieldExtension.swift in Sources */,
+				A776D14F1EE9098400400EB4 /* PlayState.swift in Sources */,
 				A73DA4171EE898840053276E /* StartViewController+Extension.swift in Sources */,
 				A77EDF821EE61338001A24E5 /* MediaCollectionControllerDelegate.swift in Sources */,
 				A73D74141EE68679004571A5 /* LocalStorageManager.swift in Sources */,

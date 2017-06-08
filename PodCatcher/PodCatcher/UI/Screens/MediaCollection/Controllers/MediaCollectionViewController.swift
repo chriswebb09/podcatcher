@@ -6,14 +6,8 @@ final class MediaCollectionViewController: UIViewController {
     
     var buttonItem: UIBarButtonItem!
     weak var delegate: MediaControllerDelegate?
-    var searchController = UISearchController(searchResultsController: nil)
-    
-    var searchBar = UISearchBar() {
-        didSet {
-            searchBar.delegate = self
-            searchBar.returnKeyType = .done
-        }
-    }
+    lazy var collectionView : UICollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
+    var emptyView = EmptyView()
     
     var searchBarActive: Bool = false {
         didSet {
@@ -26,9 +20,6 @@ final class MediaCollectionViewController: UIViewController {
             }
         }
     }
-    
-    lazy var collectionView : UICollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
-    var emptyView = EmptyView()
     
     var viewShown: ShowView = .empty {
         didSet {
@@ -63,7 +54,6 @@ final class MediaCollectionViewController: UIViewController {
     convenience init(collectionView: UICollectionView, dataSource: BaseMediaControllerDataSource, searchController: UISearchController) {
         self.init(dataSource: dataSource)
         self.collectionView = collectionView
-        self.searchController = searchController
     }
     
     override func viewDidLoad() {
@@ -76,10 +66,8 @@ final class MediaCollectionViewController: UIViewController {
         collectionView.dataSource = self
         title = dataSource.user?.username
         navigationController?.isNavigationBarHidden = false
-        searchController.delegate = self
         buttonItem = UIBarButtonItem(image: dataSource.image, style: .plain, target: self, action: #selector(logout))
         navigationItem.setRightBarButton(buttonItem, animated: false)
-        setupSearchController()
         collectionView.backgroundColor = .darkGray
     }
     
@@ -89,7 +77,6 @@ final class MediaCollectionViewController: UIViewController {
         DispatchQueue.main.async {
             self.collectionView.reloadData()
         }
-        if let searchBarText = searchBar.text, searchBarText.characters.count > 0 { searchBarActive = true }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
