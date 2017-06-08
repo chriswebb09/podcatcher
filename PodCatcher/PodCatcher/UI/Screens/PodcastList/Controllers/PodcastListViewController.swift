@@ -3,10 +3,11 @@ import UIKit
 
 class PodcastListViewController: UIViewController, UIScrollViewDelegate {
     
-     let entryPop = EntryPopover()
+    let entryPop = EntryPopover()
     
     var collectionView : UICollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
     var topView = PodcastListTopView()
+    var dataSource: BaseMediaControllerDataSource!
     var state: PodcasterControlState = .toCollection
     var menuPop = BottomMenuPopover()
     weak var delegate: PodcastListViewControllerDelegate?
@@ -16,12 +17,12 @@ class PodcastListViewController: UIViewController, UIScrollViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        edgesForExtendedLayout = []
         setup()
         setupTopView()
     }
     
     func setup() {
+        edgesForExtendedLayout = []
         setupCollectionView()
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -41,6 +42,9 @@ class PodcastListViewController: UIViewController, UIScrollViewDelegate {
         view.addSubview(topView)
         collectionView.frame = CGRect(x: topView.bounds.minX, y: topView.frame.maxY, width: topFrameWidth, height: view.bounds.height)
         view.addSubview(collectionView)
+        topView.genreLabel.text = dataSource.user?.customGenres[0]
+        topView.podcastTitleLabel.text = dataSource.user?.customGenres[0]
+        topView.playCountLabel.text = String(describing: dataSource.user?.totalTimeListening)
     }
     
     override func viewWillLayoutSubviews() {

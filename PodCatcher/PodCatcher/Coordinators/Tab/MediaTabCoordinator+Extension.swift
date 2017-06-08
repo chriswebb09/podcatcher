@@ -18,6 +18,7 @@ extension MediaTabCoordinator: MediaControllerDelegate {
     func didSelectCaster(at index: Int, with playlist: Caster) {
         let podcastList = PodcastListViewController()
         podcastList.caster = playlist
+        podcastList.dataSource = dataSource
         podcastList.delegate = self
         navigationController.viewControllers.append(podcastList)
         print("selected")

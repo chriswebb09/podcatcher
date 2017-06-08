@@ -71,7 +71,6 @@ extension PodcastListViewController: TopViewDelegate {
         popEntry()
     }
     
-    
     func popBottomMenu(pop: Bool) {
         // guard let model = model else { return }
         switch menuActive {
@@ -114,6 +113,8 @@ extension PodcastListViewController: TopViewDelegate {
     
     func hidePop() {
         entryPop.hidePopView(viewController: self)
+        guard let text = entryPop.popView.entryField.text else { return }
+        dataSource.user?.customGenres.append(text)
         collectionView.reloadData()
     }
 }

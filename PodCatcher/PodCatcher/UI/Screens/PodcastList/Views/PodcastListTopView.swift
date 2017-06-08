@@ -1,6 +1,5 @@
 import UIKit
 
-
 class PodcastListTopView: UIView {
     
     weak var delegate: TopViewDelegate?
@@ -51,8 +50,8 @@ class PodcastListTopView: UIView {
     func setup(podcastImageView: UIImageView) {
         addSubview(podcastImageView)
         podcastImageView.translatesAutoresizingMaskIntoConstraints = false
-        podcastImageView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: UIScreen.main.bounds.height * -0.04).isActive = true
-        podcastImageView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        podcastImageView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: UIScreen.main.bounds.height * -0.14).isActive = true
+        podcastImageView.centerXAnchor.constraint(equalTo: centerXAnchor, constant: UIScreen.main.bounds.height * -0.14).isActive = true
         podcastImageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.6).isActive = true
         podcastImageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.38).isActive = true
     }
