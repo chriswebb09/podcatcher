@@ -95,5 +95,3 @@ final class MediaCollectionViewController: UIViewController {
         delegate?.logoutTapped(logout: true)
     }
 }
-
-

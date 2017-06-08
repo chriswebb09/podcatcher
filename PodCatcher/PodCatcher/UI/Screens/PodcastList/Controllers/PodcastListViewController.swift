@@ -22,15 +22,11 @@ class PodcastListViewController: UIViewController {
     
     func setup() {
         edgesForExtendedLayout = []
-        setupCollectionView()
         collectionView.dataSource = self
         collectionView.delegate = self
         setupNavigationController()
         collectionView.register(PodcastCell.self)
-        collectionView.backgroundColor = UIColor(red: 0.97,
-                                                 green: 0.97,
-                                                 blue: 0.97,
-                                                 alpha: 1.0)
+        collectionView.backgroundColor = PodcastListConstants.backgroundColor
     }
     
     func setupTopView() {

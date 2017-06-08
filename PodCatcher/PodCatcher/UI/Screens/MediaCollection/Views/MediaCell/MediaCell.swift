@@ -7,7 +7,6 @@ final class MediaCell: UICollectionViewCell {
             guard let viewModel = viewModel else { return }
             trackNameLabel.text = viewModel.trackName
             albumArtView.image = viewModel.albumImageUrl
-           // albumArtView.downloadImage(url: viewModel.albumImageUrl)
         }
     }
     

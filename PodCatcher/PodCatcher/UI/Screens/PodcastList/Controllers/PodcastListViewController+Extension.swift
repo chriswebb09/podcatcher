@@ -1,25 +1,21 @@
 import UIKit
 
+struct PodcastListConstants {
+    static let navFont: [String: Any] = [NSForegroundColorAttributeName: UIColor.white, NSFontAttributeName: UIFont(name: "HelveticaNeue-Thin", size: 20)]
+    static let edgeInset = UIEdgeInsets(top:0, left: 0, bottom: 0, right: 0)
+    static let size = CGSize(width: 50, height: 50)
+    static let lineSpace: CGFloat = 0
+    static let backgroundColor = UIColor(red: 0.97, green: 0.97, blue: 0.97, alpha: 1.0)
+}
+
 // MARK: - UICollectionViewDelegate
 
 extension PodcastListViewController: UICollectionViewDelegate {
     
-    func setupCollectionView() {
-        if let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            flowLayout.scrollDirection = .vertical
-            flowLayout.minimumLineSpacing = 0
-        }
-        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        collectionView.collectionViewLayout.invalidateLayout()
-        layout.sectionInset = UIEdgeInsets(top:0, left: 0, bottom: 0, right: 0)
-        layout.itemSize = CGSize(width: 50, height: 50)
-        collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
-    }
-    
     // MARK: - Setup navbar UI
     
     func setupNavigationController() {
-        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white, NSFontAttributeName: UIFont(name: "HelveticaNeue-Thin", size: 20)]
+        navigationController?.navigationBar.titleTextAttributes = PodcastListConstants.navFont
         navigationController?.navigationBar.barTintColor = UIColor.black
     }
 }
@@ -83,8 +79,9 @@ extension PodcastListViewController: TopViewDelegate {
             showMenu()
             menuActive = .active
         case .active:
-            dismissMenu()
-            menuActive = .hidden
+              menuActive = .hidden
+            menuPop.hidePopView(viewController: self)
+            menuPop.popView.removeFromSuperview()
         case .hidden:
             showMenu()
             menuActive = .active
@@ -99,12 +96,6 @@ extension PodcastListViewController: TopViewDelegate {
             strongSelf.menuPop.showPopView(viewController: strongSelf)
             strongSelf.menuPop.popView.isHidden = false
         }
-    }
-    
-    func dismissMenu() {
-        menuPop.popView.removeFromSuperview()
-        menuPop.hidePopView(viewController: self)
-        view.sendSubview(toBack: menuPop)
     }
     
     func popEntry() {

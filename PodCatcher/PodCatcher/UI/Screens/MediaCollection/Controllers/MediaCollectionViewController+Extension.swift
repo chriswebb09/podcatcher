@@ -26,7 +26,6 @@ extension MediaCollectionViewController: UICollectionViewDataSource {
             print(indexPath.row)
             cell.alpha = 1
         }
-        
         return cell
     }
     
