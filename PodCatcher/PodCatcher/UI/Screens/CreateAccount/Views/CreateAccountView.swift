@@ -10,7 +10,7 @@ final class CreateAccountView: UIView {
         let usernameField = TextFieldExtension()
         usernameField.placeholder = "Username"
         usernameField.layer.borderColor = UIColor.lightGray.cgColor
-        usernameField.layer.borderWidth = 1
+        usernameField.layer.borderWidth = CreateAccountViewConstants.borderWidth
         return usernameField
     }()
     
@@ -18,7 +18,7 @@ final class CreateAccountView: UIView {
         let emailField = TextFieldExtension()
         emailField.placeholder = "Email"
         emailField.layer.borderColor = UIColor.lightGray.cgColor
-        emailField.layer.borderWidth = 1
+        emailField.layer.borderWidth = CreateAccountViewConstants.borderWidth
         return emailField
     }()
     
@@ -26,7 +26,7 @@ final class CreateAccountView: UIView {
         let passwordField = TextFieldExtension()
         passwordField.placeholder = "Password"
         passwordField.layer.borderColor = UIColor.lightGray.cgColor
-        passwordField.layer.borderWidth = 1
+        passwordField.layer.borderWidth = CreateAccountViewConstants.borderWidth
         return passwordField
     }()
     
@@ -37,7 +37,7 @@ final class CreateAccountView: UIView {
     }()
     
     private var submitButton: UIButton = {
-        let submitButton = BasicButtonFactory(text: "Create Account", textColor: .white, borderWidth: 2, borderColor: UIColor.blue.cgColor, backgroundColor: .lightGray)
+        let submitButton = BasicButtonFactory(text: "Create Account", textColor: .white, borderWidth: CreateAccountViewConstants.borderWidth, borderColor: UIColor.blue.cgColor, backgroundColor: .lightGray)
         return submitButton.createButton()
     }()
     
@@ -49,10 +49,10 @@ final class CreateAccountView: UIView {
         setup(emailField: emailField)
         setup(passwordField: passwordField)
         setup(submitButton: submitButton)
-        usernameField.layer.cornerRadius = 20
-        passwordField.layer.cornerRadius = 20
-        emailField.layer.cornerRadius = 20
-        submitButton.layer.cornerRadius = 20
+        usernameField.layer.cornerRadius = CreateAccountViewConstants.cornerRadius
+        passwordField.layer.cornerRadius = CreateAccountViewConstants.cornerRadius
+        emailField.layer.cornerRadius = CreateAccountViewConstants.cornerRadius
+        submitButton.layer.cornerRadius = CreateAccountViewConstants.cornerRadius
         tag = 3
         submitButton.addTarget(self, action: #selector(submitButtonTapped), for: .touchUpInside)
     }
@@ -61,32 +61,42 @@ final class CreateAccountView: UIView {
         addSubview(view)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        view.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.09).isActive = true
-        view.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.9).isActive = true
+        view.heightAnchor.constraint(equalTo: heightAnchor, multiplier: CreateAccountViewConstants.sharedHeightMultiplier).isActive = true
+        view.widthAnchor.constraint(equalTo: widthAnchor, multiplier: CreateAccountViewConstants.sharedWidthMultiplier).isActive = true
     }
     
     private func setup(usernameField: TextFieldExtension) {
         sharedLayout(view: usernameField)
-        usernameField.topAnchor.constraint(equalTo: topAnchor, constant: UIScreen.main.bounds.height * 0.2).isActive = true
+        usernameField.topAnchor.constraint(equalTo: topAnchor, constant: CreateAccountViewConstants.usernameFieldTopOffset).isActive = true
     }
     
     private func setup(emailField: TextFieldExtension) {
         sharedLayout(view: emailField)
-        emailField.topAnchor.constraint(equalTo: usernameField.bottomAnchor, constant: UIScreen.main.bounds.height * 0.07).isActive = true
+        emailField.topAnchor.constraint(equalTo: usernameField.bottomAnchor, constant: CreateAccountViewConstants.passwordFieldTopOffset).isActive = true
     }
     
     
     private func setup(passwordField: TextFieldExtension) {
         sharedLayout(view: passwordField)
-        passwordField.topAnchor.constraint(equalTo: emailField.bottomAnchor, constant: UIScreen.main.bounds.height * 0.07).isActive = true
+        passwordField.topAnchor.constraint(equalTo: emailField.bottomAnchor, constant: CreateAccountViewConstants.passwordFieldTopOffset).isActive = true
     }
     
     private func setup(submitButton: UIButton) {
         sharedLayout(view: submitButton)
-        submitButton.topAnchor.constraint(equalTo: passwordField.bottomAnchor, constant: UIScreen.main.bounds.height * 0.12).isActive = true
+        submitButton.topAnchor.constraint(equalTo: passwordField.bottomAnchor, constant: CreateAccountViewConstants.submitButtonTopOffset).isActive = true
     }
     
     func submitButtonTapped() {
         delegate?.submitButtonTapped()
     }
+}
+
+struct CreateAccountViewConstants {
+    static let borderWidth: CGFloat = 1
+    static let sharedWidthMultiplier: CGFloat =  0.9
+    static let sharedHeightMultiplier: CGFloat = 0.09
+    static let submitButtonTopOffset: CGFloat = UIScreen.main.bounds.height * 0.12
+    static let passwordFieldTopOffset: CGFloat = UIScreen.main.bounds.height * 0.07
+    static let usernameFieldTopOffset: CGFloat = UIScreen.main.bounds.height * 0.2
+    static let cornerRadius: CGFloat = 20
 }

@@ -21,17 +21,17 @@ final class StartView: UIView {
     }()
     
     private var guestUserButton: UIButton = {
-        let guestUser = BasicButtonFactory(text: "Continue As Guest", textColor: .white, borderWidth: 2, borderColor: UIColor.blue.cgColor, backgroundColor: UIColor(red:0.00, green:0.72, blue:0.82, alpha:1.0))
+        let guestUser = BasicButtonFactory(text: "Continue As Guest", textColor: .white, borderWidth: StartViewConstants.buttonBorderWidth, borderColor: UIColor.blue.cgColor, backgroundColor: StartViewConstants.buttonColor)
         return guestUser.createButton()
     }()
     
     private var userLoginButton: UIButton = {
-        let userLogin = LoginButtonFactory(text: "Log in to Account", textColor: .white, buttonBorderWidth: 2, buttonBorderColor: UIColor.blue.cgColor, buttonBackgroundColor: UIColor(red:0.00, green:0.72, blue:0.82, alpha:1.0))
+        let userLogin = LoginButtonFactory(text: "Log in to Account", textColor: .white, buttonBorderWidth: StartViewConstants.buttonBorderWidth, buttonBorderColor: UIColor.blue.cgColor, buttonBackgroundColor: StartViewConstants.buttonColor)
         return userLogin.createButton()
     }()
     
     private var createAccountButton: UIButton = {
-        let createAccount = LoginButtonFactory(text: "Create Account", textColor: .white, buttonBorderWidth: 2, buttonBorderColor: UIColor.blue.cgColor, buttonBackgroundColor: UIColor(red:0.00, green:0.72, blue:0.82, alpha:1.0))
+        let createAccount = LoginButtonFactory(text: "Create Account", textColor: .white, buttonBorderWidth: StartViewConstants.buttonBorderWidth, buttonBorderColor: UIColor.blue.cgColor, buttonBackgroundColor: StartViewConstants.buttonColor)
         return createAccount.createButton()
     }()
     
@@ -49,11 +49,11 @@ final class StartView: UIView {
         setup(titleLabel: titleLabel)
         setup(logoView: logoView)
         setup(guestUserButton: guestUserButton)
-        guestUserButton.layer.cornerRadius = 32
+        guestUserButton.layer.cornerRadius = StartViewConstants.buttonCornerRadius
         setup(loginButton: userLoginButton)
-        userLoginButton.layer.cornerRadius = 32
+        userLoginButton.layer.cornerRadius = StartViewConstants.buttonCornerRadius
         setup(createAccountButton: createAccountButton)
-        createAccountButton.layer.cornerRadius = 32
+        createAccountButton.layer.cornerRadius = StartViewConstants.buttonCornerRadius
     }
     
     private func setupSelectors() {
@@ -79,40 +79,36 @@ final class StartView: UIView {
         logoView.translatesAutoresizingMaskIntoConstraints = false
         logoView.translatesAutoresizingMaskIntoConstraints = false
         logoView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        logoView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: UIScreen.main.bounds.height * -0.25).isActive = true
-        logoView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.43).isActive = true
-        logoView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.22).isActive = true
+        logoView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: StartViewConstants.logoViewCenterYOffset).isActive = true
+        logoView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: StartViewConstants.logoViewWidthMultiplier).isActive = true
+        logoView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: StartViewConstants.logoViewHeightMultiplier).isActive = true
     }
     
     private func sharedLayout(view: UIView) {
         addSubview(view)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        view.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.8).isActive = true
-        view.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.1).isActive = true
+        view.widthAnchor.constraint(equalTo: widthAnchor, multiplier: StartViewConstants.sharedLayoutWidthMultiplier).isActive = true
+        view.heightAnchor.constraint(equalTo: heightAnchor, multiplier: StartViewConstants.sharedLayoutHeightMultiplier).isActive = true
     }
     
     private func setup(titleLabel: UILabel) {
-        addSubview(titleLabel)
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor, constant: UIScreen.main.bounds.height * -0.25).isActive = true
-        titleLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.8).isActive = true
-        titleLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.1).isActive = true
+        sharedLayout(view: titleLabel)
+        titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor, constant: StartViewConstants.titleLabelCenterYOffset).isActive = true
     }
     
     private func setup(guestUserButton: UIButton) {
         sharedLayout(view: guestUserButton)
-        guestUserButton.topAnchor.constraint(equalTo: logoView.bottomAnchor, constant: UIScreen.main.bounds.height * 0.1).isActive = true
+        guestUserButton.topAnchor.constraint(equalTo: logoView.bottomAnchor, constant: StartViewConstants.guestUserButtonBottomOffset).isActive = true
     }
     
     private func setup(loginButton: UIButton) {
         sharedLayout(view: loginButton)
-        loginButton.topAnchor.constraint(equalTo: guestUserButton.bottomAnchor, constant: UIScreen.main.bounds.height * 0.07).isActive = true
+        loginButton.topAnchor.constraint(equalTo: guestUserButton.bottomAnchor, constant: StartViewConstants.loginButtonBottomOffset).isActive = true
     }
     
     private func setup(createAccountButton: UIButton) {
         sharedLayout(view: createAccountButton)
-        createAccountButton.topAnchor.constraint(equalTo: userLoginButton.bottomAnchor, constant: UIScreen.main.bounds.height * 0.07).isActive = true
+        createAccountButton.topAnchor.constraint(equalTo: userLoginButton.bottomAnchor, constant: StartViewConstants.createAccountButtonTopOffset).isActive = true
     }
 }

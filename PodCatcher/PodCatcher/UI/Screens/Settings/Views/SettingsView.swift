@@ -36,7 +36,7 @@ class SettingsView: UIView {
         addSubview(view)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        view.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.25).isActive = true
+        view.heightAnchor.constraint(equalTo: heightAnchor, multiplier: SettingsViewConstants.sharedHeightMultiplier).isActive = true
         view.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
     }
     
