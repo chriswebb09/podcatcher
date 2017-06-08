@@ -37,6 +37,9 @@
 		A71853081EE95C0E00911C87 /* PreferenceViewConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71853071EE95C0E00911C87 /* PreferenceViewConstants.swift */; };
 		A718530A1EE9609A00911C87 /* EntryState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71853091EE9609A00911C87 /* EntryState.swift */; };
 		A718530C1EE960C400911C87 /* PopDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718530B1EE960C400911C87 /* PopDelegate.swift */; };
+		A718530E1EE9626500911C87 /* BasicButtonFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718530D1EE9626500911C87 /* BasicButtonFactory.swift */; };
+		A71853101EE9628800911C87 /* LoginButtonFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718530F1EE9628800911C87 /* LoginButtonFactory.swift */; };
+		A71853121EE962BA00911C87 /* BallIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71853111EE962BA00911C87 /* BallIndicatorView.swift */; };
 		A71B26F21EE5D24700613CF4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71B26F11EE5D24700613CF4 /* AppDelegate.swift */; };
 		A71B26FA1EE5D24700613CF4 /* PodCatcher.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A71B26F81EE5D24700613CF4 /* PodCatcher.xcdatamodeld */; };
 		A71B26FC1EE5D24700613CF4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A71B26FB1EE5D24700613CF4 /* Assets.xcassets */; };
@@ -215,6 +218,9 @@
 		A71853071EE95C0E00911C87 /* PreferenceViewConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferenceViewConstants.swift; sourceTree = "<group>"; };
 		A71853091EE9609A00911C87 /* EntryState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EntryState.swift; path = Entry/EntryState.swift; sourceTree = "<group>"; };
 		A718530B1EE960C400911C87 /* PopDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PopDelegate.swift; path = Entry/PopDelegate.swift; sourceTree = "<group>"; };
+		A718530D1EE9626500911C87 /* BasicButtonFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicButtonFactory.swift; sourceTree = "<group>"; };
+		A718530F1EE9628800911C87 /* LoginButtonFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginButtonFactory.swift; sourceTree = "<group>"; };
+		A71853111EE962BA00911C87 /* BallIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BallIndicatorView.swift; sourceTree = "<group>"; };
 		A71B26EE1EE5D24700613CF4 /* PodCatcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PodCatcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A71B26F11EE5D24700613CF4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A71B26F91EE5D24700613CF4 /* PodCatcher.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PodCatcher.xcdatamodel; sourceTree = "<group>"; };
@@ -570,6 +576,7 @@
 			isa = PBXGroup;
 			children = (
 				A7EBA0CB1EE683C900FAAC9C /* BallAnimation.swift */,
+				A71853111EE962BA00911C87 /* BallIndicatorView.swift */,
 			);
 			path = Ball;
 			sourceTree = "<group>";
@@ -872,6 +879,8 @@
 			isa = PBXGroup;
 			children = (
 				A77EDF871EE614FB001A24E5 /* ButtonFactory.swift */,
+				A718530D1EE9626500911C87 /* BasicButtonFactory.swift */,
+				A718530F1EE9628800911C87 /* LoginButtonFactory.swift */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -1347,11 +1356,13 @@
 				A723A5A91EE93116002E49BF /* PodcastListConstants.swift in Sources */,
 				A71853001EE9580D00911C87 /* PodcastListViewControllerConstants.swift in Sources */,
 				A73D741A1EE68729004571A5 /* LoginViewControllerDelegate.swift in Sources */,
+				A71853101EE9628800911C87 /* LoginButtonFactory.swift in Sources */,
 				A7EBA0A51EE6740300FAAC9C /* String+Extension.swift in Sources */,
 				A7894FAA1EE6DC5E000CC190 /* PreferencesViewDelegate.swift in Sources */,
 				A7150EF41EE66C8E00E3553F /* ShowView.swift in Sources */,
 				A77EDF7C1EE5FFAB001A24E5 /* ViewType.swift in Sources */,
 				A77EDF721EE5FDA9001A24E5 /* UICollectionView+Extension.swift in Sources */,
+				A71853121EE962BA00911C87 /* BallIndicatorView.swift in Sources */,
 				A77EDF531EE5F426001A24E5 /* PodCatcherItem.swift in Sources */,
 				A73DA41D1EE899610053276E /* SplashViewController+Extension.swift in Sources */,
 				A71B27291EE5D31300613CF4 /* Coordinator.swift in Sources */,
@@ -1377,6 +1388,7 @@
 				A73D74301EE6881E004571A5 /* LogoConstants.swift in Sources */,
 				A718530A1EE9609A00911C87 /* EntryState.swift in Sources */,
 				A7150EDF1EE63E7200E3553F /* PodcastCell.swift in Sources */,
+				A718530E1EE9626500911C87 /* BasicButtonFactory.swift in Sources */,
 				A77EDF5D1EE5FB5F001A24E5 /* ReusableProtocol.swift in Sources */,
 				A71BFB881EE6F62B00A35D8E /* UnderLineTextField.swift in Sources */,
 				A71B27391EE5DA7E00613CF4 /* SplashViewDelegate.swift in Sources */,
