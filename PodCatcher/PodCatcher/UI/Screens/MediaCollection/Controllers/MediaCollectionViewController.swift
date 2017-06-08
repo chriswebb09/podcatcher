@@ -82,9 +82,6 @@ final class MediaCollectionViewController: UIViewController {
     }
     
     func logout() {
-        if dataSource.user != nil {
-            dataSource.user = nil
-        }
         delegate?.logoutTapped(logout: true)
     }
     

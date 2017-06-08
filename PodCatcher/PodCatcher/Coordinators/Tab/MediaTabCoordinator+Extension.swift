@@ -12,6 +12,9 @@ extension MediaTabCoordinator: MediaControllerDelegate {
     
     func logoutTapped(logout: Bool) {
         print("tapped")
+        if dataSource.user != nil {
+            dataSource.user = nil
+        }
         delegate?.transitionCoordinator(type: .app, dataSource: dataSource)
     }
     

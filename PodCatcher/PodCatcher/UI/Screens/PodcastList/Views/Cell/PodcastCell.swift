@@ -1,7 +1,7 @@
 import UIKit
 
 class PodcastCell: UICollectionViewCell {
-   
+    
     // MARK: - UI Properties
     
     var podcastImageView: UIImageView = {
@@ -37,16 +37,7 @@ class PodcastCell: UICollectionViewCell {
         contentView.layer.borderWidth = 1.0
         contentView.layer.borderColor = UIColor.clear.cgColor
         contentView.layer.masksToBounds = true
-        setShadow()
-    }
-    
-    func setShadow() {
-        layer.shadowColor = UIColor.lightGray.cgColor
-        layer.shadowOffset = CGSize(width: 0, height: 2.0)
-        layer.shadowRadius = 1.0
-        layer.shadowOpacity = 0.5
-        layer.masksToBounds = false;
-        layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: contentView.layer.cornerRadius).cgPath
+        layer.podcastCell(viewRadius: contentView.layer.cornerRadius)
     }
     
     func configureCell(model: PocastCellModel) {
@@ -55,9 +46,7 @@ class PodcastCell: UICollectionViewCell {
         layoutIfNeeded()
         podcastImageView.image = model.podcastImage
         let intTime = Int(model.item.playtime)
-        dump(intTime)
         let timeString = String.constructTimeString(time: intTime)
-        print(timeString)
         playTimeLabel.text = String.constructTimeString(time: intTime)
         podcastTitleLabel.text = model.podcastTitle
     }

@@ -3,6 +3,7 @@ import UIKit
 final class EntryPopover: BasePopoverAlert {
     
     var state: EntryState = .hidden
+    
     weak var delegate: EntryPopoverDelegate?
     
     var popView: EntryView = {

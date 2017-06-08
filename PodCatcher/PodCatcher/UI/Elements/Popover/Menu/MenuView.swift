@@ -31,7 +31,6 @@ final class MenuView: UIView {
         return optionThree
     }()
     
-    
     override func layoutSubviews() {
         super.layoutSubviews()
         backgroundColor = MenuViewConstants.backgroundColor
@@ -76,7 +75,6 @@ final class MenuView: UIView {
         optionThreeView.set(with: "Delete From Phone", and: #imageLiteral(resourceName: "dot-circle-icon-white"))
         addSelectors()
     }
-    
     
     private func sharedLayout(view: UIView) {
         addSubview(view)

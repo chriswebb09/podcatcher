@@ -22,27 +22,17 @@ final class SplashView: UIView {
         super.layoutSubviews()
         addSubview(speakerZero)
         frame = UIScreen.main.bounds
-        setupConstraints(logoImageView:speakerZero)
+        setup(logoImageView: speakerZero)
         backgroundColor = .white
     }
     
-    func setupImageView(logoImageView: UIImageView) {
+    func setup(logoImageView: UIImageView) {
         addSubview(logoImageView)
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
         logoImageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: LogoConstants.logoImageWidth).isActive = true
         logoImageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: LogoConstants.logoImageHeight).isActive = true
         logoImageView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         logoImageView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-    }
-    
-    private func setupConstraints(logoImageView: UIImageView) {
-        addSubview(logoImageView)
-        logoImageView.translatesAutoresizingMaskIntoConstraints = false
-        logoImageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: LogoConstants.logoImageWidth).isActive = true
-        logoImageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: LogoConstants.logoImageHeight).isActive = true
-        logoImageView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        logoImageView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        setupImageView(logoImageView: speakerZero)
     }
     
     // MARK: - Animation

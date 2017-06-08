@@ -35,5 +35,3 @@ extension MediaCollectionViewController: UICollectionViewDataSource {
         navigationItem.rightBarButtonItem?.tintColor = .darkGray
     }
 }
-
-

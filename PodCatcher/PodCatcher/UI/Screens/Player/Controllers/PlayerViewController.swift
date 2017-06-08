@@ -4,7 +4,7 @@ final class PlayerViewController: UIViewController {
     
     weak var delegate: PlayerViewControllerDelegate?
     
-    // MARK: - Properties
+    // MARK: - UI Properties
     
     fileprivate var playerView: PlayerView!
     var playerState: PlayState!

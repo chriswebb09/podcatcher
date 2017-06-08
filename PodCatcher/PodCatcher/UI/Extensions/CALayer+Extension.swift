@@ -19,4 +19,13 @@ extension CALayer {
         layer.addSublayer(gradientLayer)
     }
     
+    func podcastCell(viewRadius: CGFloat) {
+        shadowColor = UIColor.lightGray.cgColor
+        shadowOffset = CGSize(width: 0, height: 2.0)
+        shadowRadius = 1.0
+        shadowOpacity = 0.5
+        masksToBounds = false;
+        shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: viewRadius).cgPath
+    }
+    
 }

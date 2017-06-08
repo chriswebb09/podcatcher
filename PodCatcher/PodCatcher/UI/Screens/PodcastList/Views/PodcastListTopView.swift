@@ -53,7 +53,7 @@ class PodcastListTopView: UIView {
         addSubview(podcastImageView)
         podcastImageView.translatesAutoresizingMaskIntoConstraints = false
         podcastImageView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: PodcastListTopViewConstants.podcastImageViewCenterYOffset).isActive = true
-        podcastImageView.centerXAnchor.constraint(equalTo: centerXAnchor, constant: PodcastListTopViewConstants.podcastImageViewCenterYOffset).isActive = true
+        podcastImageView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         podcastImageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: PodcastListTopViewConstants.podcastImageViewHeightMultiplier).isActive = true
         podcastImageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: PodcastListTopViewConstants.podcastImageViewWidthMultiplier).isActive = true
     }

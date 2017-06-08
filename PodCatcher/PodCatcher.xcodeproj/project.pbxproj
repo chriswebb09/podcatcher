@@ -326,7 +326,7 @@
 		A7894FA71EE6C861000CC190 /* PreferencesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesView.swift; sourceTree = "<group>"; };
 		A7894FA91EE6DC5E000CC190 /* PreferencesViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesViewDelegate.swift; sourceTree = "<group>"; };
 		A7A54E9E1EE70CFB009A5538 /* PopoverTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopoverTests.swift; sourceTree = "<group>"; };
-		A7A54EA01EE7109C009A5538 /* PillView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PillView.swift; sourceTree = "<group>"; };
+		A7A54EA01EE7109C009A5538 /* PillView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PillView.swift; path = ../PillView.swift; sourceTree = "<group>"; };
 		A7A54EA41EE7133C009A5538 /* EntryFieldConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryFieldConstants.swift; sourceTree = "<group>"; };
 		A7A54EAD1EE71474009A5538 /* EntryPopover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EntryPopover.swift; path = Entry/EntryPopover.swift; sourceTree = "<group>"; };
 		A7A54EAE1EE71474009A5538 /* EntryPopoverDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EntryPopoverDelegate.swift; path = Entry/EntryPopoverDelegate.swift; sourceTree = "<group>"; };
@@ -476,6 +476,15 @@
 				A73D74211EE68770004571A5 /* Views */,
 			);
 			path = PodcastList;
+			sourceTree = "<group>";
+		};
+		A71853131EE9638800911C87 /* States */ = {
+			isa = PBXGroup;
+			children = (
+				A7150EF31EE66C8E00E3553F /* ShowView.swift */,
+				A776D14C1EE907C600400EB4 /* MediaResultsStatus.swift */,
+			);
+			name = States;
 			sourceTree = "<group>";
 		};
 		A71B26E51EE5D24700613CF4 = {
@@ -685,8 +694,7 @@
 			isa = PBXGroup;
 			children = (
 				A77EDF6D1EE5FCC9001A24E5 /* MediaCell */,
-				A7150EF31EE66C8E00E3553F /* ShowView.swift */,
-				A776D14C1EE907C600400EB4 /* MediaResultsStatus.swift */,
+				A71853131EE9638800911C87 /* States */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -888,6 +896,7 @@
 		A73D744A1EE68952004571A5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A7A54EA01EE7109C009A5538 /* PillView.swift */,
 				A77EDF641EE5FC17001A24E5 /* EmptyView.swift */,
 			);
 			path = Views;
@@ -1070,7 +1079,6 @@
 				A7EBA0BC1EE6821B00FAAC9C /* Popover */,
 				A73D74481EE68945004571A5 /* TextField */,
 				A73D744A1EE68952004571A5 /* Views */,
-				A7A54EA01EE7109C009A5538 /* PillView.swift */,
 			);
 			path = Elements;
 			sourceTree = "<group>";
