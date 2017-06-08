@@ -24,16 +24,16 @@ final class EmptyView: UIView {
     private func setup(musicIcon: UIView) {
         addSubview(musicIcon)
         musicIcon.translatesAutoresizingMaskIntoConstraints = false
-        musicIcon.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.18).isActive = true
-        musicIcon.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.35).isActive = true
+        musicIcon.heightAnchor.constraint(equalTo: heightAnchor, multiplier: EmptyViewConstants.musicIconHeightMultiplier).isActive = true
+        musicIcon.widthAnchor.constraint(equalTo: widthAnchor, multiplier: EmptyViewConstants.musicIconWidthMutliplier).isActive = true
         musicIcon.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        musicIcon.centerYAnchor.constraint(equalTo: centerYAnchor, constant: UIScreen.main.bounds.height * -0.16).isActive = true
+        musicIcon.centerYAnchor.constraint(equalTo: centerYAnchor, constant: EmptyViewConstants.musicIconCenterYOffset).isActive = true
     }
     
     private func setup(infoLabel: UILabel) {
         addSubview(infoLabel)
         infoLabel.translatesAutoresizingMaskIntoConstraints = false
-        infoLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.35).isActive = true
+        infoLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: EmptyViewConstants.musicIconWidthMutliplier).isActive = true
         infoLabel.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
         infoLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         infoLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true

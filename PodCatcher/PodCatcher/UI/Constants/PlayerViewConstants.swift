@@ -3,6 +3,7 @@ import UIKit
 struct PlayerViewConstants {
     static let preferencesViewBackgroundColor = UIColor(red:0.92, green:0.32, blue:0.33, alpha:1.0)
     static let controlsViewBackgroundColor = UIColor(red:0.10, green:0.09, blue:0.12, alpha:1.0)
+    static let buttonWidthMultiplier: CGFloat = 0.2
     static let backButtonWidthMultiplier: CGFloat = 0.09
     static let backButtonHeightMultiplier: CGFloat = 0.11
     static let backButtonCenterYOffset: CGFloat = -0.08

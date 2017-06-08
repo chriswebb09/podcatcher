@@ -205,9 +205,9 @@ final class PlayerView: UIView {
     
     private func setup(playButton: UIButton, pauseButton: UIButton) {
         setup(trackButton: playButton)
-        playButton.widthAnchor.constraint(equalTo: controlsView.widthAnchor, multiplier: 0.2).isActive = true
+        playButton.widthAnchor.constraint(equalTo: controlsView.widthAnchor, multiplier: PlayerViewConstants.buttonWidthMultiplier).isActive = true
         setup(trackButton: pauseButton)
-        pauseButton.widthAnchor.constraint(equalTo: controlsView.widthAnchor, multiplier: 0.2).isActive = true
+        pauseButton.widthAnchor.constraint(equalTo: controlsView.widthAnchor, multiplier: PlayerViewConstants.buttonWidthMultiplier).isActive = true
     }
     
     private func skipButtonsSharedLayout(controlsView: UIView, button: UIButton) {

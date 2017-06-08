@@ -2,16 +2,15 @@ import UIKit
 
 class PodcastListViewController: UIViewController {
     
-    let entryPop = EntryPopover()
-    
-    var collectionView : UICollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
-    var topView = PodcastListTopView()
     var dataSource: BaseMediaControllerDataSource!
     var state: PodcasterControlState = .toCollection
-    var menuPop = BottomMenuPopover()
     weak var delegate: PodcastListViewControllerDelegate?
     var caster: Caster!
     var menuActive: MenuActive = .none
+    let entryPop = EntryPopover()
+    var collectionView : UICollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
+    var topView = PodcastListTopView()
+    var menuPop = BottomMenuPopover()
     var leftButtonItem: UIBarButtonItem!
     
     override func viewDidLoad() {
@@ -73,7 +72,11 @@ class PodcastListViewController: UIViewController {
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         collectionView.collectionViewLayout.invalidateLayout()
         layout.sectionInset = UIEdgeInsets(top:0, left: 0, bottom: 0, right: 0)
-        layout.itemSize = CGSize(width: 50, height: 100)
+        layout.itemSize = PodcastListViewControllerConstants.itemSize
         collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
     }
+}
+
+struct PodcastListViewControllerConstants {
+    static let itemSize: CGSize = CGSize(width: 50, height: 100)
 }
