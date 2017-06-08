@@ -60,15 +60,19 @@ final class MediaCollectionViewController: UIViewController {
         super.viewDidLoad()
         edgesForExtendedLayout = []
         view.addSubview(collectionView)
-        collectionView.setupCollectionView(view: view, newLayout: TrackItemsFlowLayout())
-        collectionView.collectionViewRegister(viewController: self)
-        collectionView.delegate = self
-        collectionView.dataSource = self
+        collectionViewConfiguration()
         title = dataSource.user?.username
         navigationController?.isNavigationBarHidden = false
         buttonItem = UIBarButtonItem(image: dataSource.image, style: .plain, target: self, action: #selector(logout))
         navigationItem.setRightBarButton(buttonItem, animated: false)
         collectionView.backgroundColor = .darkGray
+    }
+    
+    func collectionViewConfiguration() {
+        collectionView.setupCollectionView(view: view, newLayout: TrackItemsFlowLayout())
+        collectionView.collectionViewRegister(viewController: self)
+        collectionView.delegate = self
+        collectionView.dataSource = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
