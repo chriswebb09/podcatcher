@@ -61,15 +61,14 @@ class PodcastCell: UICollectionViewCell {
     func setupConstraints() {
         contentView.addSubview(podcastTitleLabel)
         podcastTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        podcastTitleLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.8).isActive = true
-        podcastTitleLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: UIScreen.main.bounds.width * 0.05).isActive = true
+        podcastTitleLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: PodcastCellConstants.podcastTitleLabelWidthMultiplier).isActive = true
+        podcastTitleLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: PodcastCellConstants.podcastTitleLabelLeftOffset).isActive = true
         podcastTitleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
         contentView.addSubview(playTimeLabel)
         playTimeLabel.translatesAutoresizingMaskIntoConstraints = false
-        playTimeLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.2).isActive = true
-        playTimeLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: UIScreen.main.bounds.width * -0.05).isActive = true
+        playTimeLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: PodcastCellConstants.playtimeLabelWidthMultiplier).isActive = true
+        playTimeLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: PodcastCellConstants.playtimeLabelRightOffset).isActive = true
         playTimeLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
     }
 }
-
 

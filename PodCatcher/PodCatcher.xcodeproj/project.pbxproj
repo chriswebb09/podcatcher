@@ -64,6 +64,7 @@
 		A723A5B51EE93DA2002E49BF /* CreateAccountViewConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A723A5B41EE93DA2002E49BF /* CreateAccountViewConstants.swift */; };
 		A723A5B71EE93ED9002E49BF /* LoginViewConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A723A5B61EE93ED9002E49BF /* LoginViewConstants.swift */; };
 		A723A5B91EE94183002E49BF /* PodcastListTopViewConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A723A5B81EE94183002E49BF /* PodcastListTopViewConstants.swift */; };
+		A723A5BB1EE944B2002E49BF /* PodcastCellConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A723A5BA1EE944B2002E49BF /* PodcastCellConstants.swift */; };
 		A73D74091EE684C4004571A5 /* LoadingPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73D74081EE684C4004571A5 /* LoadingPopover.swift */; };
 		A73D740B1EE684DD004571A5 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73D740A1EE684DD004571A5 /* LoadingView.swift */; };
 		A73D740E1EE685FF004571A5 /* AnimationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73D740D1EE685FF004571A5 /* AnimationDelegate.swift */; };
@@ -236,6 +237,7 @@
 		A723A5B41EE93DA2002E49BF /* CreateAccountViewConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountViewConstants.swift; sourceTree = "<group>"; };
 		A723A5B61EE93ED9002E49BF /* LoginViewConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewConstants.swift; sourceTree = "<group>"; };
 		A723A5B81EE94183002E49BF /* PodcastListTopViewConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodcastListTopViewConstants.swift; sourceTree = "<group>"; };
+		A723A5BA1EE944B2002E49BF /* PodcastCellConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodcastCellConstants.swift; sourceTree = "<group>"; };
 		A73D74081EE684C4004571A5 /* LoadingPopover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingPopover.swift; sourceTree = "<group>"; };
 		A73D740A1EE684DD004571A5 /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		A73D740D1EE685FF004571A5 /* AnimationDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationDelegate.swift; sourceTree = "<group>"; };
@@ -996,6 +998,7 @@
 				A723A5B41EE93DA2002E49BF /* CreateAccountViewConstants.swift */,
 				A723A5B61EE93ED9002E49BF /* LoginViewConstants.swift */,
 				A723A5B81EE94183002E49BF /* PodcastListTopViewConstants.swift */,
+				A723A5BA1EE944B2002E49BF /* PodcastCellConstants.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -1360,6 +1363,7 @@
 				A7EBA0B11EE6784E00FAAC9C /* SettingsView.swift in Sources */,
 				A7150EF01EE6609200E3553F /* PodcastListTopView.swift in Sources */,
 				A723A5B51EE93DA2002E49BF /* CreateAccountViewConstants.swift in Sources */,
+				A723A5BB1EE944B2002E49BF /* PodcastCellConstants.swift in Sources */,
 				A776D14D1EE907C600400EB4 /* MediaResultsStatus.swift in Sources */,
 				A71B27331EE5D80F00613CF4 /* SplashViewController.swift in Sources */,
 				A7EBA0C01EE6828A00FAAC9C /* BasePopConstants.swift in Sources */,
