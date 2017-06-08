@@ -20,15 +20,6 @@ class PodcastListViewController: UIViewController {
         setupTopView()
     }
     
-    func setup() {
-        edgesForExtendedLayout = []
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        setupNavigationController()
-        collectionView.register(PodcastCell.self)
-        collectionView.backgroundColor = PodcastListConstants.backgroundColor
-    }
-    
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         collectionView.collectionViewLayout.invalidateLayout()
@@ -50,6 +41,15 @@ class PodcastListViewController: UIViewController {
         }
     }
     
+    func setup() {
+        edgesForExtendedLayout = []
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        setupNavigationController()
+        collectionView.register(PodcastCell.self)
+        collectionView.backgroundColor = PodcastListConstants.backgroundColor
+    }
+    
     func setupTopView() {
         topView.frame = CGRect(x: 0, y: 0, width: PodcastListConstants.topFrameWidth, height: PodcastListConstants.topFrameHeight / 1.5)
         topView.podcastImageView.image = caster.artwork
@@ -63,5 +63,17 @@ class PodcastListViewController: UIViewController {
         topView.genreLabel.text = user.customGenres[0]
         topView.podcastTitleLabel.text = dataSource.user?.customGenres[0]
         topView.playCountLabel.text = String(describing: dataSource.user?.totalTimeListening)
+    }
+    
+    func setupCollectionView() {
+        if let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            flowLayout.scrollDirection = .vertical
+            flowLayout.minimumLineSpacing = 0
+        }
+        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        collectionView.collectionViewLayout.invalidateLayout()
+        layout.sectionInset = UIEdgeInsets(top:0, left: 0, bottom: 0, right: 0)
+        layout.itemSize = CGSize(width: 50, height: 100)
+        collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
     }
 }

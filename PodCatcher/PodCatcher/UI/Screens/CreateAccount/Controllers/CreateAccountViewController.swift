@@ -23,12 +23,3 @@ class CreateAccountViewController: UIViewController {
         navigationController?.navigationBar.isHidden = true
     }
 }
-
-// MARK: - CreateAccountViewDelegate
-
-extension CreateAccountViewController: CreateAccountViewDelegate {
-    
-    func submitButtonTapped() {
-        delegate?.submitButtonTapped()
-    }
-}

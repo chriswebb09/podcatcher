@@ -56,6 +56,9 @@
 		A71BFB881EE6F62B00A35D8E /* UnderLineTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71BFB871EE6F62B00A35D8E /* UnderLineTextField.swift */; };
 		A71BFB8A1EE6FCB400A35D8E /* PodcastsListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71BFB891EE6FCB400A35D8E /* PodcastsListTests.swift */; };
 		A723A5A91EE93116002E49BF /* PodcastListConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A723A5A81EE93116002E49BF /* PodcastListConstants.swift */; };
+		A723A5AB1EE935FC002E49BF /* CreatAccountViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A723A5AA1EE935FC002E49BF /* CreatAccountViewController+Extension.swift */; };
+		A723A5AD1EE936AF002E49BF /* PodcastListTopView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A723A5AC1EE936AF002E49BF /* PodcastListTopView+Extension.swift */; };
+		A723A5AF1EE93711002E49BF /* LoginView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A723A5AE1EE93711002E49BF /* LoginView+Extension.swift */; };
 		A73D74091EE684C4004571A5 /* LoadingPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73D74081EE684C4004571A5 /* LoadingPopover.swift */; };
 		A73D740B1EE684DD004571A5 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73D740A1EE684DD004571A5 /* LoadingView.swift */; };
 		A73D740E1EE685FF004571A5 /* AnimationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73D740D1EE685FF004571A5 /* AnimationDelegate.swift */; };
@@ -220,6 +223,9 @@
 		A71BFB871EE6F62B00A35D8E /* UnderLineTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnderLineTextField.swift; sourceTree = "<group>"; };
 		A71BFB891EE6FCB400A35D8E /* PodcastsListTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodcastsListTests.swift; sourceTree = "<group>"; };
 		A723A5A81EE93116002E49BF /* PodcastListConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodcastListConstants.swift; sourceTree = "<group>"; };
+		A723A5AA1EE935FC002E49BF /* CreatAccountViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CreatAccountViewController+Extension.swift"; sourceTree = "<group>"; };
+		A723A5AC1EE936AF002E49BF /* PodcastListTopView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PodcastListTopView+Extension.swift"; sourceTree = "<group>"; };
+		A723A5AE1EE93711002E49BF /* LoginView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "LoginView+Extension.swift"; sourceTree = "<group>"; };
 		A73D74081EE684C4004571A5 /* LoadingPopover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingPopover.swift; sourceTree = "<group>"; };
 		A73D740A1EE684DD004571A5 /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		A73D740D1EE685FF004571A5 /* AnimationDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationDelegate.swift; sourceTree = "<group>"; };
@@ -556,6 +562,7 @@
 			isa = PBXGroup;
 			children = (
 				A7EBA0A01EE6739000FAAC9C /* LoginView.swift */,
+				A723A5AE1EE93711002E49BF /* LoginView+Extension.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -599,6 +606,7 @@
 			children = (
 				A73D74221EE68781004571A5 /* Cell */,
 				A7150EEF1EE6609200E3553F /* PodcastListTopView.swift */,
+				A723A5AC1EE936AF002E49BF /* PodcastListTopView+Extension.swift */,
 				A7894FA71EE6C861000CC190 /* PreferencesView.swift */,
 				A776D1461EE8CD4900400EB4 /* TopViewDelegate.swift */,
 				A7894FA91EE6DC5E000CC190 /* PreferencesViewDelegate.swift */,
@@ -804,6 +812,7 @@
 			isa = PBXGroup;
 			children = (
 				A7EBA0AB1EE6775500FAAC9C /* CreateAccountViewController.swift */,
+				A723A5AA1EE935FC002E49BF /* CreatAccountViewController+Extension.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1242,6 +1251,7 @@
 				A71B27371EE5D87900613CF4 /* UIView+Extension.swift in Sources */,
 				A7150EE71EE6568B00E3553F /* PodcastListViewControllerDelegate.swift in Sources */,
 				A7150EC11EE62E1700E3553F /* PlayerViewControllerDelegate.swift in Sources */,
+				A723A5AF1EE93711002E49BF /* LoginView+Extension.swift in Sources */,
 				A71BFB821EE6E94900A35D8E /* PodCaster+CoreDataProperties.swift in Sources */,
 				A7150EEB1EE657D000E3553F /* StartViewDelegate.swift in Sources */,
 				A77EDF591EE5FAC2001A24E5 /* CALayer+Extension.swift in Sources */,
@@ -1252,6 +1262,7 @@
 				A7EBA0AF1EE6783700FAAC9C /* SettingsViewController.swift in Sources */,
 				A77EDF611EE5FBA0001A24E5 /* MediaCellViewModel.swift in Sources */,
 				A71B27231EE5D27700613CF4 /* NavigationCoordinator.swift in Sources */,
+				A723A5AB1EE935FC002E49BF /* CreatAccountViewController+Extension.swift in Sources */,
 				A71B27451EE5E1F200613CF4 /* PCMediaPlayer.swift in Sources */,
 				A7EBA0C61EE6830400FAAC9C /* DetailViewConstants.swift in Sources */,
 				A71B273D1EE5DB9700613CF4 /* StartView.swift in Sources */,
@@ -1273,6 +1284,7 @@
 				A73D743C1EE688AF004571A5 /* CreateAccountViewControllerDelegate.swift in Sources */,
 				A73D740E1EE685FF004571A5 /* AnimationDelegate.swift in Sources */,
 				A77EDF551EE5FA61001A24E5 /* MediaCell.swift in Sources */,
+				A723A5AD1EE936AF002E49BF /* PodcastListTopView+Extension.swift in Sources */,
 				A71BFB851EE6E96000A35D8E /* CasterItems+CoreDataClass.swift in Sources */,
 				A723A5A91EE93116002E49BF /* PodcastListConstants.swift in Sources */,
 				A73D741A1EE68729004571A5 /* LoginViewControllerDelegate.swift in Sources */,

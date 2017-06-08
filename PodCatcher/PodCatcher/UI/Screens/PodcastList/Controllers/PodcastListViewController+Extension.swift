@@ -24,11 +24,6 @@ extension PodcastListViewController: UIScrollViewDelegate {
             }
         }
     }
-}
-
-// MARK: - UICollectionViewDelegate
-
-extension PodcastListViewController: UICollectionViewDelegate {
     
     // MARK: - Setup navbar UI
     
@@ -38,13 +33,19 @@ extension PodcastListViewController: UICollectionViewDelegate {
     }
 }
 
-// MARK: - UICollectionViewDataSource 
+// MARK: - UICollectionViewDelegate
+
+extension PodcastListViewController: UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        state = .toPlayer
+        delegate?.didSelectTrackAt(at: indexPath.row, with: caster)
+    }
+}
+
+// MARK: - UICollectionViewDataSource
 
 extension PodcastListViewController: UICollectionViewDataSource {
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width, height: view.frame.height / 8)
-    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if let caster = caster {
@@ -67,19 +68,16 @@ extension PodcastListViewController: UICollectionViewDataSource {
 
 extension PodcastListViewController: UICollectionViewDelegateFlowLayout {
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: view.frame.width, height: view.frame.height / 8)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top:0, left: 0, bottom: 10, right: 0)
     }
     
     @objc(collectionView:layout:minimumLineSpacingForSectionAtIndex:) func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 5
-    }
-    
-    // MARK: - Popvoer view implmented
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        state = .toPlayer
-        delegate?.didSelectTrackAt(at: indexPath.row, with: caster)
+        return 10
     }
 }
 
@@ -97,7 +95,7 @@ extension PodcastListViewController: TopViewDelegate {
             showMenu()
             menuActive = .active
         case .active:
-              menuActive = .hidden
+            menuActive = .hidden
             menuPop.hidePopView(viewController: self)
             menuPop.popView.removeFromSuperview()
         case .hidden:

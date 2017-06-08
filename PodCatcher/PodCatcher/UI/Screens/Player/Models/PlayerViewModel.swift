@@ -7,5 +7,4 @@ struct PlayerViewModel {
     var time: Int = 0
     var progress: Float = 0
     let imageUrl: UIImage
-    
 }
