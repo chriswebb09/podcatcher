@@ -1,6 +1,5 @@
 import UIKit
 
-
 class PodcastListViewController: UIViewController, UIScrollViewDelegate {
     
     let entryPop = EntryPopover()
@@ -28,19 +27,28 @@ class PodcastListViewController: UIViewController, UIScrollViewDelegate {
         collectionView.delegate = self
         setupNavigationController()
         collectionView.register(PodcastCell.self)
-        collectionView.backgroundColor = UIColor(red: 0.97, green: 0.97, blue: 0.97, alpha: 1.0)
+        collectionView.backgroundColor = UIColor(red: 0.97,
+                                                 green: 0.97,
+                                                 blue: 0.97,
+                                                 alpha: 1.0)
     }
     
     func setupTopView() {
         let topFrameHeight = view.bounds.height / 2
         let topFrameWidth = view.bounds.width
-        topView.frame = CGRect(x: 0, y: 0, width: topFrameWidth, height: topFrameHeight / 1.5)
+        topView.frame = CGRect(x: 0,
+                               y: 0,
+                               width: topFrameWidth,
+                               height: topFrameHeight / 1.5)
         topView.podcastImageView.image = caster.artwork
         title = caster.name
         topView.delegate = self
         topView.layoutSubviews()
         view.addSubview(topView)
-        collectionView.frame = CGRect(x: topView.bounds.minX, y: topView.frame.maxY, width: topFrameWidth, height: view.bounds.height)
+        collectionView.frame = CGRect(x: topView.bounds.minX,
+                                      y: topView.frame.maxY,
+                                      width: topFrameWidth,
+                                      height: view.bounds.height)
         view.addSubview(collectionView)
         topView.genreLabel.text = dataSource.user?.customGenres[0]
         topView.podcastTitleLabel.text = dataSource.user?.customGenres[0]
@@ -80,11 +88,17 @@ class PodcastListViewController: UIViewController, UIScrollViewDelegate {
             UIView.animate(withDuration: 0.5) {
                 let topFrameHeight = self.view.bounds.height / 2
                 let topFrameWidth = self.view.bounds.width
-                self.topView.frame = CGRect(x: 0, y: 0, width: topFrameWidth, height: topFrameHeight / 1.5)
+                self.topView.frame = CGRect(x: 0,
+                                            y: 0,
+                                            width: topFrameWidth,
+                                            height: topFrameHeight / 1.5)
                 self.topView.podcastImageView.image = self.caster.artwork
                 self.topView.layoutSubviews()
                 self.view.addSubview(self.topView)
-                self.collectionView.frame = CGRect(x: self.topView.bounds.minX, y: self.topView.frame.maxY, width: topFrameWidth, height: self.view.bounds.height)
+                self.collectionView.frame = CGRect(x: self.topView.bounds.minX,
+                                                   y: self.topView.frame.maxY,
+                                                   width: topFrameWidth,
+                                                   height: self.view.bounds.height)
             }
         }
     }
