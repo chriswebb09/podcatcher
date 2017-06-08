@@ -29,13 +29,6 @@ final class EntryPopover: BasePopoverAlert {
         viewController.view.bringSubview(toFront: popView)
         popView.isHidden = true
     }
-}
-
-extension EntryPopover {
-    
-    func setupPop() {
-        popView.configureView()
-    }
     
     override func hidePopView(viewController: UIViewController) {
         guard let listname = popView.entryField.text else { return }
@@ -45,5 +38,8 @@ extension EntryPopover {
         popView.isHidden = true
         viewController.view.sendSubview(toBack: popView)
     }
+    
+    func setupPop() {
+        popView.configureView()
+    }
 }
-

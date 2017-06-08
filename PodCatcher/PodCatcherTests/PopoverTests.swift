@@ -12,14 +12,17 @@ import XCTest
 class PopoverTests: XCTestCase {
     
     var loadingPop: LoadingPopover!
+    var entryPop: EntryPopover!
     
     override func setUp() {
         super.setUp()
+        entryPop = EntryPopover()
         loadingPop = LoadingPopover()
     }
     
     override func tearDown() {
         loadingPop = nil
+        entryPop = nil
         super.tearDown()
     }
     
@@ -53,5 +56,6 @@ class PopoverTests: XCTestCase {
         loadingPop.hidePopView(viewController: viewController)
         viewController.view.sendSubview(toBack: loadingPop)
     }
+
 }
 

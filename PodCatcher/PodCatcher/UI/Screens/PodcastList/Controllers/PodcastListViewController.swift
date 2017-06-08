@@ -50,7 +50,8 @@ class PodcastListViewController: UIViewController, UIScrollViewDelegate {
                                       width: topFrameWidth,
                                       height: view.bounds.height)
         view.addSubview(collectionView)
-        topView.genreLabel.text = dataSource.user?.customGenres[0]
+        guard let user = dataSource.user else { return }
+        topView.genreLabel.text = user.customGenres[0]
         topView.podcastTitleLabel.text = dataSource.user?.customGenres[0]
         topView.playCountLabel.text = String(describing: dataSource.user?.totalTimeListening)
     }

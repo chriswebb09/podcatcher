@@ -26,7 +26,9 @@ class PodcastsListTests: XCTestCase {
     func testSetCaster() {
         var caster = Caster()
         caster.name = "Test Name"
+        let dataSource = BaseMediaControllerDataSource(casters: [caster])
         podcastsListViewController.caster = caster
+        podcastsListViewController.dataSource = dataSource
         podcastsListViewController.viewDidLoad()
         XCTAssertEqual(podcastsListViewController.title, "Test Name")
     }
