@@ -83,10 +83,6 @@ final class MediaCollectionViewController: UIViewController {
         }
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-    }
-    
     func changeView(forView: UIView, withView: UIView) {
         view.sendSubview(toBack: withView)
         view.bringSubview(toFront: forView)
