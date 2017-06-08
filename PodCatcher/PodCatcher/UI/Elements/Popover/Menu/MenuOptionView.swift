@@ -25,9 +25,9 @@ final class MenuOptionView: UIView {
         addSubview(optionLabel)
         optionLabel.translatesAutoresizingMaskIntoConstraints = false
         optionLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        optionLabel.centerXAnchor.constraint(equalTo: centerXAnchor, constant: UIScreen.main.bounds.width * -0.1).isActive = true
-        optionLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.5).isActive = true
-        optionLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.4).isActive = true
+        optionLabel.centerXAnchor.constraint(equalTo: centerXAnchor, constant: MenuOptionViewConstants.optionLabelCenterYOffset).isActive = true
+        optionLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: MenuOptionViewConstants.optionLabelHeightMultiplier).isActive = true
+        optionLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: MenuOptionViewConstants.optionLabelWidthMultiplier).isActive = true
         
     }
     
@@ -35,9 +35,9 @@ final class MenuOptionView: UIView {
         addSubview(iconView)
         iconView.translatesAutoresizingMaskIntoConstraints = false
         iconView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        iconView.centerXAnchor.constraint(equalTo: centerXAnchor, constant: UIScreen.main.bounds.width * 0.25).isActive = true
-        iconView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.35).isActive = true
-        iconView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.08).isActive = true
+        iconView.centerXAnchor.constraint(equalTo: centerXAnchor, constant: MenuOptionViewConstants.iconViewCenterXOffset).isActive = true
+        iconView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: MenuOptionViewConstants.iconViewHeightAnchor).isActive = true
+        iconView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: MenuOptionViewConstants.iconViewWidthAnchor).isActive = true
     }
     
     func setupConstraints() {
@@ -45,6 +45,4 @@ final class MenuOptionView: UIView {
         setupOptionLabelConstraints(label: optionLabel)
         setupIconViewConstraints(iconView: iconView)
     }
-    
 }
- 

@@ -76,7 +76,3 @@ class PodcastListViewController: UIViewController {
         collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
     }
 }
-
-struct PodcastListViewControllerConstants {
-    static let itemSize: CGSize = CGSize(width: 50, height: 100)
-}

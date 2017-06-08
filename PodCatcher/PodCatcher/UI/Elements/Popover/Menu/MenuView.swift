@@ -9,7 +9,7 @@ final class MenuView: UIView {
         optionOne.setupConstraints()
         optionOne.isUserInteractionEnabled = true
         optionOne.layer.borderColor = UIColor.white.cgColor
-        optionOne.layer.borderWidth = 1
+        optionOne.layer.borderWidth = MenuViewConstants.optionBorderWidth
         return optionOne
     }()
     
@@ -18,7 +18,7 @@ final class MenuView: UIView {
         optionTwo.setupConstraints()
         optionTwo.isUserInteractionEnabled = true
         optionTwo.layer.borderColor = UIColor.white.cgColor
-        optionTwo.layer.borderWidth = 1
+        optionTwo.layer.borderWidth = MenuViewConstants.optionBorderWidth
         return optionTwo
     }()
     
@@ -27,15 +27,15 @@ final class MenuView: UIView {
         optionThree.setupConstraints()
         optionThree.isUserInteractionEnabled = true
         optionThree.layer.borderColor = UIColor.white.cgColor
-        optionThree.layer.borderWidth = 1
+        optionThree.layer.borderWidth = MenuViewConstants.optionBorderWidth
         return optionThree
     }()
     
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        backgroundColor = UIColor(red:0.09, green:0.14, blue:0.31, alpha:1.0)
-        alpha = 0.98
+        backgroundColor = MenuViewConstants.backgroundColor
+        alpha = MenuViewConstants.alpha
         isUserInteractionEnabled = true
         layer.cornerRadius = DetailViewConstants.cornerRadius
         layer.borderWidth = DetailViewConstants.borderWidth
@@ -83,7 +83,7 @@ final class MenuView: UIView {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         view.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
-        view.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.3).isActive = true
+        view.heightAnchor.constraint(equalTo: heightAnchor, multiplier: MenuViewConstants.sharedHeightMultiplier).isActive = true
     }
     
     private func setupConstraints() {
