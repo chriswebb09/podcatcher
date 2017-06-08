@@ -78,7 +78,9 @@ class PodcastListViewController: UIViewController {
     }
 }
 
-extension PodcastListViewController:  UIScrollViewDelegate {
+// MARK: - UIScrollViewDelegate
+
+extension PodcastListViewController: UIScrollViewDelegate {
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offset = scrollView.contentOffset

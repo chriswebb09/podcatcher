@@ -78,10 +78,6 @@ extension MediaCollectionViewController: UISearchBarDelegate {
         }
     }
     
-    func setSearchBarActive() {
-        self.searchBarActive = true
-    }
-    
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         searchBar.setShowsCancelButton(false, animated: false)
         searchBarActive = false

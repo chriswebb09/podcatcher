@@ -1,5 +1,7 @@
 import UIKit
 
+// MARK: - UICollectionViewDelegate
+
 extension PodcastListViewController: UICollectionViewDelegate {
     
     func setupCollectionView() {
@@ -22,9 +24,9 @@ extension PodcastListViewController: UICollectionViewDelegate {
     }
 }
 
+// MARK: - UICollectionViewDataSource 
+
 extension PodcastListViewController: UICollectionViewDataSource {
-    
-    // MARK: - CollectionViewController method implementations
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width, height: view.frame.height / 8)
@@ -47,6 +49,8 @@ extension PodcastListViewController: UICollectionViewDataSource {
     }
 }
 
+// MARK: - UICollectionViewDelegateFlowLayout
+
 extension PodcastListViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -65,6 +69,8 @@ extension PodcastListViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
+// MARK: - TopViewDelegate
+
 extension PodcastListViewController: TopViewDelegate {
     
     func entryPop(pop: Bool) {
@@ -72,7 +78,6 @@ extension PodcastListViewController: TopViewDelegate {
     }
     
     func popBottomMenu(pop: Bool) {
-        // guard let model = model else { return }
         switch menuActive {
         case .none:
             showMenu()
@@ -118,6 +123,8 @@ extension PodcastListViewController: TopViewDelegate {
         collectionView.reloadData()
     }
 }
+
+// MARK: - MenuDelegate
 
 extension PodcastListViewController: MenuDelegate {
     

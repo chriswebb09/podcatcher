@@ -80,6 +80,7 @@
 		A73DA4701EE8B7C20053276E /* MediaTabCoordinator+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73DA46F1EE8B7C20053276E /* MediaTabCoordinator+Extension.swift */; };
 		A776D1451EE8B90500400EB4 /* UserLoginAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A776D1441EE8B90500400EB4 /* UserLoginAPI.swift */; };
 		A776D1471EE8CD4900400EB4 /* TopViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A776D1461EE8CD4900400EB4 /* TopViewDelegate.swift */; };
+		A776D14D1EE907C600400EB4 /* MediaResultsStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = A776D14C1EE907C600400EB4 /* MediaResultsStatus.swift */; };
 		A77EDF4F1EE5E6C4001A24E5 /* Caster.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EDF4E1EE5E6C4001A24E5 /* Caster.swift */; };
 		A77EDF531EE5F426001A24E5 /* PodCatcherItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EDF521EE5F426001A24E5 /* PodCatcherItem.swift */; };
 		A77EDF551EE5FA61001A24E5 /* MediaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EDF541EE5FA61001A24E5 /* MediaCell.swift */; };
@@ -241,6 +242,7 @@
 		A73DA46F1EE8B7C20053276E /* MediaTabCoordinator+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MediaTabCoordinator+Extension.swift"; sourceTree = "<group>"; };
 		A776D1441EE8B90500400EB4 /* UserLoginAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserLoginAPI.swift; path = PodCatcher/ApplicationServices/NetworkServices/UserLoginAPI.swift; sourceTree = SOURCE_ROOT; };
 		A776D1461EE8CD4900400EB4 /* TopViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TopViewDelegate.swift; path = PodCatcher/UI/Screens/PodcastList/Views/TopViewDelegate.swift; sourceTree = SOURCE_ROOT; };
+		A776D14C1EE907C600400EB4 /* MediaResultsStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaResultsStatus.swift; sourceTree = "<group>"; };
 		A77EDF4E1EE5E6C4001A24E5 /* Caster.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Caster.swift; sourceTree = "<group>"; };
 		A77EDF521EE5F426001A24E5 /* PodCatcherItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodCatcherItem.swift; sourceTree = "<group>"; };
 		A77EDF541EE5FA61001A24E5 /* MediaCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaCell.swift; sourceTree = "<group>"; };
@@ -631,6 +633,7 @@
 			children = (
 				A77EDF6D1EE5FCC9001A24E5 /* MediaCell */,
 				A7150EF31EE66C8E00E3553F /* ShowView.swift */,
+				A776D14C1EE907C600400EB4 /* MediaResultsStatus.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1317,6 +1320,7 @@
 				A71B26FA1EE5D24700613CF4 /* PodCatcher.xcdatamodeld in Sources */,
 				A7EBA0B11EE6784E00FAAC9C /* SettingsView.swift in Sources */,
 				A7150EF01EE6609200E3553F /* PodcastListTopView.swift in Sources */,
+				A776D14D1EE907C600400EB4 /* MediaResultsStatus.swift in Sources */,
 				A71B27331EE5D80F00613CF4 /* SplashViewController.swift in Sources */,
 				A7EBA0C01EE6828A00FAAC9C /* BasePopConstants.swift in Sources */,
 				A73D743F1EE688E6004571A5 /* SettingsViewDelegate.swift in Sources */,

@@ -1,5 +1,7 @@
 import UIKit
 
+// MARK: - LoginViewDelegate
+
 extension LoginViewController: LoginViewDelegate {
     
     func userEntryDataSubmitted(with username: String, and password: String) {

@@ -64,6 +64,8 @@ class StartCoordinator: NavigationCoordinator {
     }
 }
 
+
+
 extension StartCoordinator: SplashViewControllerDelegate {
     
     func splashViewFinishedAnimation(finished: Bool) {

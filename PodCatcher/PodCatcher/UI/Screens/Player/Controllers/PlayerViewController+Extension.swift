@@ -8,6 +8,8 @@
 
 import UIKit
 
+// MARK: - PlayerViewDelegate
+
 extension PlayerViewController: PlayerViewDelegate {
     
     func backButtonTapped() {

@@ -1,5 +1,7 @@
 import UIKit
 
+ // MARK: - SplashViewDelegate
+
 extension SplashViewController: SplashViewDelegate {
     
     func animationIsComplete() {
