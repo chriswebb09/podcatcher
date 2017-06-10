@@ -49,7 +49,8 @@ extension MainCoordinator: CoordinatorDelegate {
             let mediaCoord = tabbBarCoordinator.childCoordinators[0] as! MediaTabCoordinator
             mediaCoord.delegate = self
             
-            let settingsView = SettingsView()
+            let model = SettingsViewModel(firstSettingOptionText: "OptionOne", secondSettingOptionText: "OptionTwo")
+            let settingsView = SettingsView(frame: CGRect.zero, model: model)
             let settingsViewController = SettingsViewController(settingsView: settingsView)
             let settingsTab = UINavigationController(rootViewController: settingsViewController)
             tabbBarCoordinator.setupSettingsCoordinator(navigationController: settingsTab, dataSource: dataSource)

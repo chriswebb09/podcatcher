@@ -1,9 +1,14 @@
 import UIKit
 
+struct SettingsViewModel {
+    var firstSettingOptionText: String
+    var secondSettingOptionText: String
+}
+
 class SettingsView: UIView {
     
     weak var delegate: SettingsViewDelegate?
-    
+    var model: SettingsViewModel!
     // MARK: - UI Element Properties
     
     var settingOneView: SettingsOptionView = {
@@ -16,10 +21,24 @@ class SettingsView: UIView {
         return settingTwo
     }()
     
+    var settingsStackView: UIStackView = {
+        var settingsStack = UIStackView()
+        return settingsStack
+    }()
+    
+    init(frame: CGRect, model: SettingsViewModel) {
+        self.model = model
+        super.init(frame: frame)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
-        settingOneView.set(settingName: "Setting One")
-        settingTwoView.set(settingName: "Setting Two")
+        settingOneView.set(settingName: model.firstSettingOptionText)
+        settingTwoView.set(settingName: model.secondSettingOptionText)
         setup(settingOptionOne: settingOneView)
         setup(settingOptionTwo: settingTwoView)
         addSelectors()
@@ -30,6 +49,11 @@ class SettingsView: UIView {
         settingOneView.addGestureRecognizer(settingOneTapped)
         let settingTwoTapped = UITapGestureRecognizer(target: self, action: #selector(settingsTwoTapped))
         settingTwoView.addGestureRecognizer(settingTwoTapped)
+    }
+    
+    func configure(model: SettingsViewModel) {
+        self.model = model
+        layoutSubviews()
     }
     
     func sharedLayout(view: UIView) {

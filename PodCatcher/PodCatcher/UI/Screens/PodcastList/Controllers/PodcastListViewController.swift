@@ -1,5 +1,19 @@
 import UIKit
 
+protocol CollectionViewProtocol: class {
+    var collectionView: UICollectionView { get set }
+}
+
+extension CollectionViewProtocol {
+    
+    func setup(dataSource: UICollectionViewDataSource, delegate: UICollectionViewDelegate) {
+        collectionView.dataSource = dataSource
+        collectionView.delegate = delegate
+        collectionView.register(PodcastCell.self)
+        collectionView.backgroundColor = PodcastListConstants.backgroundColor
+    }
+}
+
 class PodcastListViewController: UIViewController {
     
     var dataSource: BaseMediaControllerDataSource!
@@ -40,13 +54,14 @@ class PodcastListViewController: UIViewController {
         }
     }
     
+}
+
+extension PodcastListViewController: CollectionViewProtocol {
+
     func setup() {
         edgesForExtendedLayout = []
-        collectionView.dataSource = self
-        collectionView.delegate = self
+        setup(dataSource: self, delegate: self)
         setupNavigationController()
-        collectionView.register(PodcastCell.self)
-        collectionView.backgroundColor = PodcastListConstants.backgroundColor
     }
     
     func setupTopView() {
@@ -63,16 +78,5 @@ class PodcastListViewController: UIViewController {
         topView.podcastTitleLabel.text = dataSource.user?.customGenres[0]
         topView.playCountLabel.text = String(describing: dataSource.user?.totalTimeListening)
     }
-    
-    func setupCollectionView() {
-        if let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            flowLayout.scrollDirection = .vertical
-            flowLayout.minimumLineSpacing = 0
-        }
-        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        collectionView.collectionViewLayout.invalidateLayout()
-        layout.sectionInset = UIEdgeInsets(top:0, left: 0, bottom: 0, right: 0)
-        layout.itemSize = PodcastListViewControllerConstants.itemSize
-        collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
-    }
+
 }

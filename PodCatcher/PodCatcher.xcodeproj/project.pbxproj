@@ -29,6 +29,7 @@
 		A7150EF01EE6609200E3553F /* PodcastListTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7150EEF1EE6609200E3553F /* PodcastListTopView.swift */; };
 		A7150EF21EE66C0E00E3553F /* PlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7150EF11EE66C0E00E3553F /* PlayerViewModel.swift */; };
 		A7150EF41EE66C8E00E3553F /* ShowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7150EF31EE66C8E00E3553F /* ShowView.swift */; };
+		A71765541EEA19400006DC3C /* TagsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71765531EEA19400006DC3C /* TagsView.swift */; };
 		A71852FE1EE9527400911C87 /* EmptyViewConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71852FD1EE9527400911C87 /* EmptyViewConstants.swift */; };
 		A71853001EE9580D00911C87 /* PodcastListViewControllerConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71852FF1EE9580D00911C87 /* PodcastListViewControllerConstants.swift */; };
 		A71853021EE9584E00911C87 /* BaseMenuPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71853011EE9584E00911C87 /* BaseMenuPopover.swift */; };
@@ -166,6 +167,7 @@
 		A7EBA0C81EE6831F00FAAC9C /* MenuDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EBA0C71EE6831F00FAAC9C /* MenuDelegate.swift */; };
 		A7EBA0CA1EE6836400FAAC9C /* NSError+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EBA0C91EE6836400FAAC9C /* NSError+Extension.swift */; };
 		A7EBA0CC1EE683C900FAAC9C /* BallAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EBA0CB1EE683C900FAAC9C /* BallAnimation.swift */; };
+		A7F85E201EE9D7A00066F7CC /* LoadingOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F85E1F1EE9D7A00066F7CC /* LoadingOperation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -210,6 +212,7 @@
 		A7150EEF1EE6609200E3553F /* PodcastListTopView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodcastListTopView.swift; sourceTree = "<group>"; };
 		A7150EF11EE66C0E00E3553F /* PlayerViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerViewModel.swift; sourceTree = "<group>"; };
 		A7150EF31EE66C8E00E3553F /* ShowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowView.swift; sourceTree = "<group>"; };
+		A71765531EEA19400006DC3C /* TagsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagsView.swift; sourceTree = "<group>"; };
 		A71852FD1EE9527400911C87 /* EmptyViewConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyViewConstants.swift; sourceTree = "<group>"; };
 		A71852FF1EE9580D00911C87 /* PodcastListViewControllerConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodcastListViewControllerConstants.swift; sourceTree = "<group>"; };
 		A71853011EE9584E00911C87 /* BaseMenuPopover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseMenuPopover.swift; sourceTree = "<group>"; };
@@ -353,6 +356,7 @@
 		A7EBA0C71EE6831F00FAAC9C /* MenuDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuDelegate.swift; sourceTree = "<group>"; };
 		A7EBA0C91EE6836400FAAC9C /* NSError+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSError+Extension.swift"; sourceTree = "<group>"; };
 		A7EBA0CB1EE683C900FAAC9C /* BallAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BallAnimation.swift; sourceTree = "<group>"; };
+		A7F85E1F1EE9D7A00066F7CC /* LoadingOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingOperation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -660,6 +664,7 @@
 				A7894FA71EE6C861000CC190 /* PreferencesView.swift */,
 				A776D1461EE8CD4900400EB4 /* TopViewDelegate.swift */,
 				A7894FA91EE6DC5E000CC190 /* PreferencesViewDelegate.swift */,
+				A71765531EEA19400006DC3C /* TagsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1068,6 +1073,7 @@
 				A73D744B1EE68968004571A5 /* Extensions */,
 				A77EDF691EE5FC9C001A24E5 /* LocalServices */,
 				A7EBA09B1EE672AF00FAAC9C /* NetworkServices */,
+				A7F85E1F1EE9D7A00066F7CC /* LoadingOperation.swift */,
 			);
 			path = ApplicationServices;
 			sourceTree = "<group>";
@@ -1320,6 +1326,7 @@
 				A723A5B91EE94183002E49BF /* PodcastListTopViewConstants.swift in Sources */,
 				A71B27371EE5D87900613CF4 /* UIView+Extension.swift in Sources */,
 				A7150EE71EE6568B00E3553F /* PodcastListViewControllerDelegate.swift in Sources */,
+				A71765541EEA19400006DC3C /* TagsView.swift in Sources */,
 				A7150EC11EE62E1700E3553F /* PlayerViewControllerDelegate.swift in Sources */,
 				A723A5AF1EE93711002E49BF /* LoginView+Extension.swift in Sources */,
 				A723A5B31EE93C32002E49BF /* SettingsViewConstants.swift in Sources */,
@@ -1342,6 +1349,7 @@
 				A7A54EB21EE71474009A5538 /* EntryView.swift in Sources */,
 				A7150EBB1EE62DF900E3553F /* PlayerView.swift in Sources */,
 				A77EDF781EE5FF72001A24E5 /* UIColor+Extension.swift in Sources */,
+				A7F85E201EE9D7A00066F7CC /* LoadingOperation.swift in Sources */,
 				A776D1451EE8B90500400EB4 /* UserLoginAPI.swift in Sources */,
 				A7EBA0AA1EE6772200FAAC9C /* CreateAccountView.swift in Sources */,
 				A71BFB811EE6E94900A35D8E /* PodCaster+CoreDataClass.swift in Sources */,

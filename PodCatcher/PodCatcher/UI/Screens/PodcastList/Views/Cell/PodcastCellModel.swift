@@ -1,6 +1,6 @@
 import UIKit
 
-struct PocastCellModel {
+struct PodcastCellViewModel {
     var podcastImage: UIImage
     var podcastTitle: String
     var item: MediaCatcherItem

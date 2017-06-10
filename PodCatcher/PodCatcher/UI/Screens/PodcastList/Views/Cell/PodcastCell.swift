@@ -40,7 +40,7 @@ class PodcastCell: UICollectionViewCell {
         layer.podcastCell(viewRadius: contentView.layer.cornerRadius)
     }
     
-    func configureCell(model: PocastCellModel) {
+    func configureCell(model: PodcastCellViewModel) {
         layoutSubviews()
         setupConstraints()
         layoutIfNeeded()

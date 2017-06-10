@@ -20,9 +20,10 @@ class SettingsViewController: UIViewController {
         super.viewDidLoad()
         edgesForExtendedLayout = []
         settingsView.backgroundColor = SettingsViewConstants.backgroundColor
-        settingsView.layoutSubviews()
+        let model = SettingsViewModel(firstSettingOptionText: "OptionOne", secondSettingOptionText: "OptionTwo")
         view.addView(view: settingsView, type: .full)
         view = settingsView
+        settingsView.configure(model: model)
         title = "Settings"
     }
 }
