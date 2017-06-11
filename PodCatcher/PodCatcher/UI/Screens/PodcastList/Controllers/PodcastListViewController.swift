@@ -1,19 +1,5 @@
 import UIKit
 
-protocol CollectionViewProtocol: class {
-    var collectionView: UICollectionView { get set }
-}
-
-extension CollectionViewProtocol {
-    
-    func setup(dataSource: UICollectionViewDataSource, delegate: UICollectionViewDelegate) {
-        collectionView.dataSource = dataSource
-        collectionView.delegate = delegate
-        collectionView.register(PodcastCell.self)
-        collectionView.backgroundColor = PodcastListConstants.backgroundColor
-    }
-}
-
 class PodcastListViewController: UIViewController {
     
     var dataSource: BaseMediaControllerDataSource!
@@ -53,10 +39,9 @@ class PodcastListViewController: UIViewController {
             break
         }
     }
-    
 }
 
-extension PodcastListViewController: CollectionViewProtocol {
+extension PodcastListViewController: PodcastCollectionViewProtocol {
 
     func setup() {
         edgesForExtendedLayout = []
