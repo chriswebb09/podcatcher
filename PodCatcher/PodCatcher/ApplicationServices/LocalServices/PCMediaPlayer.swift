@@ -67,13 +67,14 @@ class PCMediaPlayer {
             if casts[item.albumArtist!] != nil {
                 guard let name = item.albumArtist else { return }
                 if let title = item.title, let collectionName = item.albumTitle, let audioUrl = url {
-                    let item = MediaCatcherItem(creatorName: name,
+                    var newItem = MediaCatcherItem(creatorName: name,
                                                 title: title,
                                                 playtime: item.playbackDuration,
                                                 playCount: item.playCount,
                                                 collectionName: collectionName,
                                                 audioUrl: audioUrl)
-                    casts[item.creatorName]?.assets.append(item)
+                    newItem.audioItem = item
+                    casts[newItem.creatorName]?.assets.append(newItem)
                 }
             } else {
                 if let name = item.albumArtist, let url = url, let art = art {

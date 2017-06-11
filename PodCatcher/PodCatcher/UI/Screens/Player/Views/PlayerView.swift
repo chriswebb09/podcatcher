@@ -10,6 +10,7 @@ final class PlayerView: UIView {
         didSet {
             titleLabel.text = model.title
             albumImageView.image = model.imageUrl
+            totalPlayTimeLabel.text = model.totalTime
             model.timer = Timer.init()
         }
     }
@@ -26,7 +27,7 @@ final class PlayerView: UIView {
         let title = UILabel()
         title.textColor = .white
         title.textAlignment = .center
-        title.font = UIFont(name: "Avenir-Light", size: 16)
+        title.font = UIFont(name: "Avenir-Light", size: 14)
         return title
     }()
     
@@ -70,11 +71,16 @@ final class PlayerView: UIView {
     
     private var currentPlayTimeLabel: UILabel = {
         let currentPlayTime = UILabel()
+        currentPlayTime.textColor = .white
+        currentPlayTime.text = "0:00"
+        currentPlayTime.font = UIFont(name: "Avenir-Light", size: 12)
         return currentPlayTime
     }()
     
     private var totalPlayTimeLabel: UILabel = {
         let totalPlayTime = UILabel()
+        totalPlayTime.textColor = .white
+        totalPlayTime.font = UIFont(name: "Avenir-Light", size: 12)
         return totalPlayTime
     }()
     
@@ -216,6 +222,25 @@ final class PlayerView: UIView {
         button.centerYAnchor.constraint(equalTo: controlsView.centerYAnchor, constant: UIScreen.main.bounds.height * -0.05).isActive = true
     }
     
+    func setup(totalTimeLabel: UILabel) {
+        controlsView.addSubview(totalPlayTimeLabel)
+        totalPlayTimeLabel.translatesAutoresizingMaskIntoConstraints = false
+        totalPlayTimeLabel.widthAnchor.constraint(equalTo: controlsView.widthAnchor, multiplier: PlayerViewConstants.backButtonWidthMultiplier).isActive = true
+        totalPlayTimeLabel.heightAnchor.constraint(equalTo: controlsView.heightAnchor, multiplier: PlayerViewConstants.backButtonHeightMultiplier).isActive = true
+        totalPlayTimeLabel.topAnchor.constraint(equalTo: controlsView.topAnchor).isActive = true
+        totalPlayTimeLabel.rightAnchor.constraint(equalTo: controlsView.rightAnchor).isActive = true
+    }
+    
+    func setup(currentTimeLabel: UILabel) {
+        controlsView.addSubview(currentTimeLabel)
+        currentTimeLabel.translatesAutoresizingMaskIntoConstraints = false
+        currentTimeLabel.widthAnchor.constraint(equalTo: controlsView.widthAnchor, multiplier: PlayerViewConstants.backButtonWidthMultiplier).isActive = true
+        currentTimeLabel.heightAnchor.constraint(equalTo: controlsView.heightAnchor, multiplier: PlayerViewConstants.backButtonHeightMultiplier).isActive = true
+        currentTimeLabel.topAnchor.constraint(equalTo: controlsView.topAnchor).isActive = true
+        currentTimeLabel.leftAnchor.constraint(equalTo: controlsView.leftAnchor).isActive = true
+        //totalPlayTimeLabel.rightAnchor.constraint(equalTo: controlsView.rightAnchor).isActive = true
+    }
+    
     private func setup(skipButton: UIButton, backButton: UIButton) {
         skipButtonsSharedLayout(controlsView: controlsView, button: skipButton)
         skipButton.rightAnchor.constraint(equalTo: controlsView.rightAnchor, constant: UIScreen.main.bounds.width * -0.16).isActive = true
@@ -254,6 +279,8 @@ final class PlayerView: UIView {
         setup(skipButton: skipButton, backButton: backButton)
         setup(volumeControlsView: volumeControlsView)
         setup(volumeSlider: volumeSlider)
+        setup(totalTimeLabel: totalPlayTimeLabel)
+        setup(currentTimeLabel: currentPlayTimeLabel)
         addSelectors()
     }
     

@@ -13,12 +13,10 @@ import UIKit
 extension PlayerViewController: PlayerViewDelegate {
     
     func backButtonTapped() {
-        guard var index = index else { return }
         index -= 1
     }
     
     func skipButtonTapped() {
-        guard var index = index, index > 0 else { return }
         index += 1
     }
     
@@ -27,6 +25,29 @@ extension PlayerViewController: PlayerViewDelegate {
     }
     
     func playButtonTapped() {
+        player.play(player: player.player)
+    }
+}
+
+extension PlayerViewController: TrackPlayerDelegate {
+    
+    func trackFinishedPlaying() {
         
     }
+
+    func trackDurationCalculated(stringTime: String, timeValue: Float64) {
+        DispatchQueue.main.async {
+            self.playerViewModel.totalTime = stringTime
+            self.setModel(model: self.playerViewModel)
+        }
+        
+        print(stringTime)
+        print(timeValue)
+    }
+
+    func updateProgress(progress: Double) {
+        print(progress)
+    }
+
+    
 }

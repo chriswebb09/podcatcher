@@ -5,6 +5,7 @@ class PlayerViewModel {
     var timer: Timer?
     var progressIncrementer: Float = 0
     var time: Int = 0
+    var totalTime: String?
     var progress: Float = 0
     let imageUrl: UIImage
     

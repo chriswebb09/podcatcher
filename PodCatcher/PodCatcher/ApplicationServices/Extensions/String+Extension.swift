@@ -2,18 +2,10 @@ import Foundation
 
 extension String {
     
-    static func constructTimeString(time: Int) -> String {
-        
-        let minutes = time / 60
-        var timeString = String(describing: minutes)
-        print(timeString)
-        var timerString = ""
-        if timeString.characters.count < 2 {
-            timerString = "0\(timeString):00"
-        } else if timeString.characters.count <= 2 {
-            timerString = "\(timeString):00"
-        }
-        return timerString
+    static func constructTimeString(time: Double) -> String {
+        let minutes = Int(time / 60)
+        let seconds = Int(time.truncatingRemainder(dividingBy: 60))
+        return  "\(minutes):\(seconds)"
     }
     
     // String extension check that itself for valid email pattern and returns boolean

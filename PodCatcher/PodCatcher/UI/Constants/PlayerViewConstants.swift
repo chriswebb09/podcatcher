@@ -13,7 +13,7 @@ struct PlayerViewConstants {
     static let trackTitleViewHeightMultiplier: CGFloat = 0.04
     static let trackTitleLabelHeightMultiplier: CGFloat = 0.5
     static let trackTitleLabelCenterYOffset: CGFloat =  0.5
-    static let trackTitleLabelWidthMultiplier: CGFloat =  0.9
+    static let trackTitleLabelWidthMultiplier: CGFloat =  0.95
     static let artworkViewHeightMultiplier: CGFloat = 0.6
     static let albumWidthMultiplier: CGFloat = 0.4
     static let albumHeightMultiplier: CGFloat = 0.5

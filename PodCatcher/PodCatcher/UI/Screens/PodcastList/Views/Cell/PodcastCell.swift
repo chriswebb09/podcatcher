@@ -46,8 +46,8 @@ class PodcastCell: UICollectionViewCell {
         layoutIfNeeded()
         podcastImageView.image = model.podcastImage
         let intTime = Int(model.item.playtime)
-        let timeString = String.constructTimeString(time: intTime)
-        playTimeLabel.text = String.constructTimeString(time: intTime)
+        let timeString = String.constructTimeString(time: model.item.playtime)
+        playTimeLabel.text = String.constructTimeString(time: model.item.playtime)
         podcastTitleLabel.text = model.podcastTitle
     }
     
