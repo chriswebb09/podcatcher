@@ -29,7 +29,7 @@ final class PlayerViewController: UIViewController {
         edgesForExtendedLayout = []
         guard caster.assets.count > 0 else { return }
         guard let artwork = caster.artwork else { return }
-        setModel(model: PlayerViewModel(title: caster.assets[index].title, timer: nil, progressIncrementer: 0, time: 0, progress: 0, imageUrl: artwork))
+        setModel(model: PlayerViewModel(image: artwork, title: caster.assets[index].title))
         view.addView(view: playerView, type: .full)
         title = caster.assets[index].collectionName
         playerState = .queued

@@ -14,8 +14,6 @@ final class PlayerView: UIView {
         }
     }
     
-    private var timer: Timer?
-    
     // MARK: - UI Element Properties
     
     private var titleView: UIView = {
@@ -215,15 +213,14 @@ final class PlayerView: UIView {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.widthAnchor.constraint(equalTo: controlsView.widthAnchor, multiplier: PlayerViewConstants.backButtonWidthMultiplier).isActive = true
         button.heightAnchor.constraint(equalTo: controlsView.heightAnchor, multiplier: PlayerViewConstants.backButtonHeightMultiplier).isActive = true
+        button.centerYAnchor.constraint(equalTo: controlsView.centerYAnchor, constant: UIScreen.main.bounds.height * -0.05).isActive = true
     }
     
     private func setup(skipButton: UIButton, backButton: UIButton) {
         skipButtonsSharedLayout(controlsView: controlsView, button: skipButton)
         skipButton.rightAnchor.constraint(equalTo: controlsView.rightAnchor, constant: UIScreen.main.bounds.width * -0.16).isActive = true
-        skipButton.centerYAnchor.constraint(equalTo: controlsView.centerYAnchor, constant: UIScreen.main.bounds.height * -0.05).isActive = true
         skipButtonsSharedLayout(controlsView: controlsView, button: backButton)
         backButton.leftAnchor.constraint(equalTo: controlsView.leftAnchor, constant: UIScreen.main.bounds.width * 0.15).isActive = true
-        backButton.centerYAnchor.constraint(equalTo: controlsView.centerYAnchor, constant: UIScreen.main.bounds.height * -0.05).isActive = true
     }
     
     private func setup(volumeControlsView: UIView) {
@@ -238,7 +235,7 @@ final class PlayerView: UIView {
     private func setup(volumeSlider: UISlider) {
         volumeControlsView.addSubview(volumeSlider)
         volumeSlider.translatesAutoresizingMaskIntoConstraints = false
-        volumeSlider.centerXAnchor.constraint(equalTo: volumeControlsView.centerXAnchor).isActive = true
+        volumeSlider.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         volumeSlider.centerYAnchor.constraint(equalTo: volumeControlsView.topAnchor).isActive = true
         volumeSlider.heightAnchor.constraint(equalTo: volumeControlsView.heightAnchor, multiplier: 0.5).isActive = true
         volumeSlider.widthAnchor.constraint(equalTo: volumeControlsView.widthAnchor, multiplier: 0.7).isActive = true
@@ -277,52 +274,34 @@ final class PlayerView: UIView {
     @objc private func playButtonTapped() {
         let timerDic: NSMutableDictionary = ["count": model.time]
         setTimer(timerDict: timerDic)
-        switchButtonAlpha(for: pauseButton, withButton: playButton)
+        model.switchButtonAlpha(for: pauseButton, withButton: playButton)
         delegate?.playButtonTapped()
     }
     
-    private func switchButtonAlpha(for button: UIButton, withButton: UIButton) {
-        button.alpha = 1
-        withButton.alpha = 0
-    }
-    
     @objc private func pauseButtonTapped() {
-        guard let countDict = timer?.userInfo as? NSMutableDictionary else { return }
-        pauseTime(countdict: countDict)
-        switchButtonAlpha(for: playButton, withButton: pauseButton)
+        guard let countDict = model.timer?.userInfo as? NSMutableDictionary else { return }
+        model.pauseTime(countdict: countDict)
+        model.switchButtonAlpha(for: playButton, withButton: pauseButton)
         delegate?.pauseButtonTapped()
     }
     
     @objc private func skipButtonTapped() {
-        playButton.alpha = 1
-        playtimeSlider.value = 0
-        timer?.invalidate()
+        model.reset(playButton: playButton, pauseButton: pauseButton, slider: playtimeSlider)
         delegate?.skipButtonTapped()
     }
     
     @objc private func backButtonTapped() {
-        playButton.alpha = 1
-        playtimeSlider.value = 0
-        timer?.invalidate()
+        model.reset(playButton: playButton, pauseButton: pauseButton, slider: playtimeSlider)
         delegate?.backButtonTapped()
     }
     
     private func setTimer(timerDict: NSMutableDictionary) {
-        timer?.invalidate()
-        timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(updateTime), userInfo: timerDict, repeats: true)
-    }
-    
-    private func pauseTime(countdict: NSMutableDictionary) {
-        guard var model = model else { return }
-        if let count = countdict["count"] as? Int {
-            countdict["count"] = count
-            model.time = count
-            timer?.invalidate()
-        }
+        model.timer?.invalidate()
+        model.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(updateTime), userInfo: timerDict, repeats: true)
     }
     
     @objc private func updateTime() {
-        guard let countDict = timer?.userInfo as? NSMutableDictionary else { return }
+        guard let countDict = model.timer?.userInfo as? NSMutableDictionary else { return }
         guard let count = countDict["count"] as? Int else { return }
         model.time = count + 1
         model.progressIncrementer += 0.001

@@ -40,7 +40,6 @@ final class TabBarController: UITabBarController {
         setTabTitles(controllers: controllers)
     }
     
-    
     func setTabTitles(controllers: [UINavigationController]) {
         viewControllers = controllers
         tabBar.items?[0].title = "Tracks"
@@ -49,9 +48,6 @@ final class TabBarController: UITabBarController {
     }
     
     private func setupTab(settingsViewController: UIViewController) -> UINavigationController {
-//        let normalImage = #imageLiteral(resourceName: "lightGrayPodcasts")
-//        let selectedImage = #imageLiteral(resourceName: "lightGrayPodcasts")
-//        settingsViewController.tabBarItem =  UITabBarItem(title: nil, image: normalImage.withRenderingMode(.alwaysOriginal), selectedImage: selectedImage.withRenderingMode(.alwaysTemplate))
         return UINavigationController(rootViewController: settingsViewController)
         
     }
