@@ -23,7 +23,7 @@ class PodcastCell: UICollectionViewCell {
         var playTimeLabel = UILabel()
         playTimeLabel.sizeToFit()
         playTimeLabel.textAlignment = .right
-        playTimeLabel.font = UIFont(name: "HelveticaNeue", size: 14)
+        playTimeLabel.font = UIFont(name: "HelveticaNeue-Medium", size: 14)
         return playTimeLabel
     }()
     

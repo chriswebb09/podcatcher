@@ -9,13 +9,13 @@
 import UIKit
 
 class PodCatcherUser {
-    
+    var userId: String = ""
     var username: String
     var emailAddress: String
     var totalTimeListening: Double = 0 
     var customGenres: [String] = []
     var favoriteEpisodes: [String] = []
-    var favoriteCasts: [Caster] = [] 
+    var favoriteCasts: [String : Caster] = [:]
     var casts: [Caster]
     
     init(username: String, emailAddress: String) {

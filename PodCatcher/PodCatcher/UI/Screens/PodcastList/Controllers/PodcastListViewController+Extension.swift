@@ -121,11 +121,11 @@ extension PodcastListViewController: TopViewDelegate {
     }
     
     func hidePop() {
-        // topView.genreLabel.text = dataSource?.user?.customGenres.last
-        
         entryPop.hidePopView(viewController: self)
         guard let text = entryPop.popView.entryField.text else { return }
         dataSource.user?.customGenres.append(text)
+        guard let name = caster.name else { return }
+        UpdateData.update((name, text))
         topView.podcastTitleLabel.text = dataSource.user?.customGenres.last
         collectionView.reloadData()
     }
@@ -136,7 +136,9 @@ extension PodcastListViewController: TopViewDelegate {
 extension PodcastListViewController: MenuDelegate {
     
     func optionOneTapped() {
-        dataSource.user?.favoriteCasts.append(caster)
+        guard let user = dataSource?.user, let casterName = caster.name else { return }
+        user.favoriteCasts[casterName] = caster
+       // dataSource.user?.favoriteCasts.append(caster)
         print("download")
     }
     

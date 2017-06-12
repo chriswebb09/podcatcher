@@ -25,6 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         mainCoordinator = MainCoordinator(window: window!)
         mainCoordinator.start()
         FirebaseApp.configure()
+        coreDataStack.loadDefaultDataIfFirstLaunch()
         return true
     }
     

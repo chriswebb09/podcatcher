@@ -23,10 +23,7 @@ class CoreDataStack {
     
     
     private func applicationDocumentsDirectory() -> URL {
-        return FileManager.default
-            .urls(for: FileManager.SearchPathDirectory.documentDirectory,
-                  in: FileManager.SearchPathDomainMask.userDomainMask)
-            .first!
+        return FileManager.default.urls(for: FileManager.SearchPathDirectory.documentDirectory, in: FileManager.SearchPathDomainMask.userDomainMask).first!
     }
     
     lazy var managedObjectModel: NSManagedObjectModel = {

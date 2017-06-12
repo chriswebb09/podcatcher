@@ -105,7 +105,6 @@
 		A73DA4211EE899EA0053276E /* PodcastListViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73DA4201EE899EA0053276E /* PodcastListViewController+Extension.swift */; };
 		A73DA4231EE89A060053276E /* MenuActive.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73DA4221EE89A060053276E /* MenuActive.swift */; };
 		A73DA4701EE8B7C20053276E /* MediaTabCoordinator+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73DA46F1EE8B7C20053276E /* MediaTabCoordinator+Extension.swift */; };
-		A776D1451EE8B90500400EB4 /* UserLoginAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A776D1441EE8B90500400EB4 /* UserLoginAPI.swift */; };
 		A776D1471EE8CD4900400EB4 /* TopViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A776D1461EE8CD4900400EB4 /* TopViewDelegate.swift */; };
 		A776D14D1EE907C600400EB4 /* MediaResultsStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = A776D14C1EE907C600400EB4 /* MediaResultsStatus.swift */; };
 		A776D14F1EE9098400400EB4 /* PlayState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A776D14E1EE9098400400EB4 /* PlayState.swift */; };
@@ -175,6 +174,10 @@
 		A7EBA0CC1EE683C900FAAC9C /* BallAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EBA0CB1EE683C900FAAC9C /* BallAnimation.swift */; };
 		A7F85E201EE9D7A00066F7CC /* LoadingOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F85E1F1EE9D7A00066F7CC /* LoadingOperation.swift */; };
 		A7FFD4BC1EEF370D00853480 /* NetworkDatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FFD4BB1EEF370D00853480 /* NetworkDatabaseManager.swift */; };
+		A7FFD4BE1EEF41E400853480 /* PodCatcherUserFavorites.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FFD4BD1EEF41E400853480 /* PodCatcherUserFavorites.swift */; };
+		A7FFD4C31EEF5CB500853480 /* UpdateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FFD4C21EEF5CB500853480 /* UpdateAccountViewController.swift */; };
+		A7FFD4C51EEF5CC700853480 /* UpdateAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FFD4C41EEF5CC700853480 /* UpdateAccountView.swift */; };
+		A7FFD4C71EEF5CE900853480 /* UpdateAccountViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FFD4C61EEF5CE900853480 /* UpdateAccountViewControllerDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -305,7 +308,6 @@
 		A73DA4201EE899EA0053276E /* PodcastListViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PodcastListViewController+Extension.swift"; sourceTree = "<group>"; };
 		A73DA4221EE89A060053276E /* MenuActive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuActive.swift; sourceTree = "<group>"; };
 		A73DA46F1EE8B7C20053276E /* MediaTabCoordinator+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MediaTabCoordinator+Extension.swift"; sourceTree = "<group>"; };
-		A776D1441EE8B90500400EB4 /* UserLoginAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserLoginAPI.swift; path = PodCatcher/ApplicationServices/NetworkServices/UserLoginAPI.swift; sourceTree = SOURCE_ROOT; };
 		A776D1461EE8CD4900400EB4 /* TopViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TopViewDelegate.swift; path = PodCatcher/UI/Screens/PodcastList/Views/TopViewDelegate.swift; sourceTree = SOURCE_ROOT; };
 		A776D14C1EE907C600400EB4 /* MediaResultsStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaResultsStatus.swift; sourceTree = "<group>"; };
 		A776D14E1EE9098400400EB4 /* PlayState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayState.swift; sourceTree = "<group>"; };
@@ -375,6 +377,10 @@
 		A7EBA0CB1EE683C900FAAC9C /* BallAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BallAnimation.swift; sourceTree = "<group>"; };
 		A7F85E1F1EE9D7A00066F7CC /* LoadingOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingOperation.swift; sourceTree = "<group>"; };
 		A7FFD4BB1EEF370D00853480 /* NetworkDatabaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkDatabaseManager.swift; sourceTree = "<group>"; };
+		A7FFD4BD1EEF41E400853480 /* PodCatcherUserFavorites.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodCatcherUserFavorites.swift; sourceTree = "<group>"; };
+		A7FFD4C21EEF5CB500853480 /* UpdateAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UpdateAccountViewController.swift; path = UpdateAccount/Controllers/UpdateAccountViewController.swift; sourceTree = "<group>"; };
+		A7FFD4C41EEF5CC700853480 /* UpdateAccountView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UpdateAccountView.swift; path = UpdateAccount/Views/UpdateAccountView.swift; sourceTree = "<group>"; };
+		A7FFD4C61EEF5CE900853480 /* UpdateAccountViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UpdateAccountViewControllerDelegate.swift; path = UpdateAccount/Delegates/UpdateAccountViewControllerDelegate.swift; sourceTree = "<group>"; };
 		B95326DB5E3AF822CC27DDB7 /* Pods-PodCatcherTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PodCatcherTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PodCatcherTests/Pods-PodCatcherTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C13D79C98B2FE9CADBCF74EF /* Pods_PodCatcher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PodCatcher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1F83CB47E32DCF0D36B4EDC /* Pods-PodCatcherTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PodCatcherTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PodCatcherTests/Pods-PodCatcherTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -615,6 +621,7 @@
 				A77EDF4E1EE5E6C4001A24E5 /* Caster.swift */,
 				A77EDF521EE5F426001A24E5 /* PodCatcherItem.swift */,
 				A7894FA51EE6AE44000CC190 /* PodCatcherUser.swift */,
+				A7FFD4BD1EEF41E400853480 /* PodCatcherUserFavorites.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -994,7 +1001,6 @@
 		A77EDF691EE5FC9C001A24E5 /* LocalServices */ = {
 			isa = PBXGroup;
 			children = (
-				A776D1441EE8B90500400EB4 /* UserLoginAPI.swift */,
 				A73D74131EE68679004571A5 /* LocalStorageManager.swift */,
 				A77EDF751EE5FDFA001A24E5 /* MediaDataStore.swift */,
 				A71B27441EE5E1F200613CF4 /* PCMediaPlayer.swift */,
@@ -1059,6 +1065,7 @@
 				A73D743D1EE688D2004571A5 /* Settings */,
 				A77EDF681EE5FC95001A24E5 /* Splash */,
 				A77EDF6B1EE5FCB6001A24E5 /* Start */,
+				A7FFD4C11EEF5C7F00853480 /* UpdateAccount */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -1188,6 +1195,16 @@
 				A7EBA0B41EE680BE00FAAC9C /* BasePopoverAlert.swift */,
 			);
 			path = Base;
+			sourceTree = "<group>";
+		};
+		A7FFD4C11EEF5C7F00853480 /* UpdateAccount */ = {
+			isa = PBXGroup;
+			children = (
+				A7FFD4C21EEF5CB500853480 /* UpdateAccountViewController.swift */,
+				A7FFD4C41EEF5CC700853480 /* UpdateAccountView.swift */,
+				A7FFD4C61EEF5CE900853480 /* UpdateAccountViewControllerDelegate.swift */,
+			);
+			name = UpdateAccount;
 			sourceTree = "<group>";
 		};
 		E5C82AD37CE68C4E2BAD567B /* Pods */ = {
@@ -1504,6 +1521,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A7EBA0B51EE680BE00FAAC9C /* BasePopoverAlert.swift in Sources */,
+				A7FFD4C51EEF5CC700853480 /* UpdateAccountView.swift in Sources */,
 				A77EDF7A1EE5FF93001A24E5 /* UIViewController+Extension.swift in Sources */,
 				A7B840CB1EECD7160049BB78 /* NavigationCoordinator.swift in Sources */,
 				A71B26F21EE5D24700613CF4 /* AppDelegate.swift in Sources */,
@@ -1538,6 +1556,7 @@
 				A7150EE71EE6568B00E3553F /* PodcastListViewControllerDelegate.swift in Sources */,
 				A71765541EEA19400006DC3C /* TagsView.swift in Sources */,
 				A7150EC11EE62E1700E3553F /* PlayerViewControllerDelegate.swift in Sources */,
+				A7FFD4C71EEF5CE900853480 /* UpdateAccountViewControllerDelegate.swift in Sources */,
 				A723A5AF1EE93711002E49BF /* LoginView+Extension.swift in Sources */,
 				A723A5B31EE93C32002E49BF /* SettingsViewConstants.swift in Sources */,
 				A7FFD4BC1EEF370D00853480 /* NetworkDatabaseManager.swift in Sources */,
@@ -1550,6 +1569,7 @@
 				A7150EF21EE66C0E00E3553F /* PlayerViewModel.swift in Sources */,
 				A7EBA0AF1EE6783700FAAC9C /* SettingsViewController.swift in Sources */,
 				A77EDF611EE5FBA0001A24E5 /* MediaCellViewModel.swift in Sources */,
+				A7FFD4BE1EEF41E400853480 /* PodCatcherUserFavorites.swift in Sources */,
 				A723A5BF1EE94772002E49BF /* DetailPopoverConstants.swift in Sources */,
 				A723A5AB1EE935FC002E49BF /* CreatAccountViewController+Extension.swift in Sources */,
 				A71B27451EE5E1F200613CF4 /* PCMediaPlayer.swift in Sources */,
@@ -1560,7 +1580,6 @@
 				A7150EBB1EE62DF900E3553F /* PlayerView.swift in Sources */,
 				A77EDF781EE5FF72001A24E5 /* UIColor+Extension.swift in Sources */,
 				A7F85E201EE9D7A00066F7CC /* LoadingOperation.swift in Sources */,
-				A776D1451EE8B90500400EB4 /* UserLoginAPI.swift in Sources */,
 				A7EBA0AA1EE6772200FAAC9C /* CreateAccountView.swift in Sources */,
 				A71BFB811EE6E94900A35D8E /* PodCaster+CoreDataClass.swift in Sources */,
 				A7A54EB11EE71474009A5538 /* EntryPopoverDelegate.swift in Sources */,
@@ -1609,6 +1628,7 @@
 				A718530C1EE960C400911C87 /* PopDelegate.swift in Sources */,
 				A71B27351EE5D81700613CF4 /* SplashView.swift in Sources */,
 				A73DA4211EE899EA0053276E /* PodcastListViewController+Extension.swift in Sources */,
+				A7FFD4C31EEF5CB500853480 /* UpdateAccountViewController.swift in Sources */,
 				A73DA41F1EE899A40053276E /* SettingsViewController+Extension.swift in Sources */,
 				A71B272F1EE5D57100613CF4 /* CoordinatorType.swift in Sources */,
 				A71853061EE95A7F00911C87 /* MenuOptionViewConstants.swift in Sources */,
