@@ -14,6 +14,9 @@ import CoreMedia
 extension PlayerViewController: PlayerViewDelegate {
     func updateTimeValue(time: Double) {
         print("Time mult \(time * 200)")
+        if let user = user {
+            user.totalTimeListening += time
+        }
         var timeTrans = CMTime(value: CMTimeValue(time * 100), timescale: 1)
         player.player.seek(to: timeTrans)
         print("Updated time \(time)")

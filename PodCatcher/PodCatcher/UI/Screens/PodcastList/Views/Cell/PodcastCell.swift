@@ -37,7 +37,7 @@ class PodcastCell: UICollectionViewCell {
         contentView.layer.borderWidth = 1.0
         contentView.layer.borderColor = UIColor.clear.cgColor
         contentView.layer.masksToBounds = true
-        layer.podcastCell(viewRadius: contentView.layer.cornerRadius)
+        layer.podcastCell(viewRadius: contentView.layer.cornerRadius - 10)
     }
     
     func configureCell(model: PodcastCellViewModel) {

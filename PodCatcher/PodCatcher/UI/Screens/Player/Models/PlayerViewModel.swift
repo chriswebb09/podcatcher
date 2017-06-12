@@ -47,8 +47,8 @@ class PlayerViewModel {
         }
         if time >= 60 {
             print(time)
-            var minutes = time / 60
-            var seconds = time % 10
+            let minutes = time / 60
+            let seconds = time % 10
             timerString = "\(minutes):0\(seconds)"
         }
         

@@ -39,7 +39,6 @@ final class LoginView: UIView {
         var field = usernameField as! UnderlineTextField
         field.setup()
         field.placeholder = "Username"
-       // usernameField.layer.cornerRadius = LoginViewConstants.cornerRadius
         passwordField.layer.cornerRadius = LoginViewConstants.cornerRadius
         setup(usernamefield: usernameField)
         setup(passwordField: passwordField)

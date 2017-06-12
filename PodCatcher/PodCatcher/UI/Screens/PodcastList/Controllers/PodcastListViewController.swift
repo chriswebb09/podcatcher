@@ -60,8 +60,7 @@ extension PodcastListViewController: PodcastCollectionViewProtocol {
         collectionView.frame = CGRect(x: topView.bounds.minX, y: topView.frame.maxY, width: PodcastListConstants.topFrameWidth, height: PodcastListConstants.topFrameHeight)
         view.addSubview(collectionView)
         guard let user = dataSource.user else { return }
-        topView.genreLabel.text = user.customGenres[0]
-        topView.podcastTitleLabel.text = dataSource.user?.customGenres[0]
+     
         topView.playCountLabel.text = String(describing: dataSource.user?.totalTimeListening)
     }
 }

@@ -22,8 +22,8 @@ extension CALayer {
     func podcastCell(viewRadius: CGFloat) {
         shadowColor = UIColor.lightGray.cgColor
         shadowOffset = CGSize(width: 0, height: 2.0)
-        shadowRadius = 1.0
-        shadowOpacity = 0.5
+        shadowRadius = 0.5
+        shadowOpacity = 0.3
         masksToBounds = false;
         shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: viewRadius).cgPath
     }

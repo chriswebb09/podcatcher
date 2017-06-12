@@ -12,14 +12,16 @@ final class PlayerViewController: UIViewController {
     var caster: Caster
     var player: AudioFilePlayer
     var index: Int
+    var user: PodCatcherUser?
     var playerViewModel: PlayerViewModel!
     
-    init(playerView: PlayerView = PlayerView(), index: Int, caster: Caster) {
+    init(playerView: PlayerView = PlayerView(), index: Int, caster: Caster, user: PodCatcherUser?) {
         self.playerView = playerView
         self.index = index
         self.caster = caster
         self.player = AudioFilePlayer(url: caster.assets[index].audioUrl!)
         self.playerState = .queued
+        self.user = user
         super.init(nibName: nil, bundle: nil)
         edgesForExtendedLayout = []
         guard caster.assets.count > 0 else { return }

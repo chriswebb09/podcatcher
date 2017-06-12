@@ -29,10 +29,9 @@ extension MediaTabCoordinator: MediaControllerDelegate {
 }
 
 extension MediaTabCoordinator: PodcastListViewControllerDelegate {
-    
-    func didSelectTrackAt(at index: Int, with playlist: Caster) {
+    func didSelectPodcastAt(at index: Int, with podcast: Caster) {
         let playerView = PlayerView()
-        let playerViewController = PlayerViewController(playerView: playerView, index: index, caster: playlist)
+        let playerViewController = PlayerViewController(playerView: playerView, index: index, caster: podcast, user: dataSource.user)
         navigationController.viewControllers.append(playerViewController)
         print("selected")
     }

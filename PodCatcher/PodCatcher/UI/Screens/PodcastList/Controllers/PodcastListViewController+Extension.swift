@@ -39,7 +39,7 @@ extension PodcastListViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         state = .toPlayer
-        delegate?.didSelectTrackAt(at: indexPath.row, with: caster)
+        delegate?.didSelectPodcastAt(at: indexPath.row, with: caster)
     }
 }
 
@@ -72,12 +72,8 @@ extension PodcastListViewController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: view.frame.width, height: view.frame.height / 8)
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top:0, left: 0, bottom: 10, right: 0)
-    }
-    
     @objc(collectionView:layout:minimumLineSpacingForSectionAtIndex:) func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 10
+        return 2
     }
 }
 
@@ -115,6 +111,7 @@ extension PodcastListViewController: TopViewDelegate {
     }
     
     func popEntry() {
+        self.hideKeyboardWhenTappedAround()
         UIView.animate(withDuration: 0.15) { [weak self] in
             guard let strongSelf = self else { return }
             strongSelf.entryPop.showPopView(viewController: strongSelf)
@@ -124,9 +121,12 @@ extension PodcastListViewController: TopViewDelegate {
     }
     
     func hidePop() {
+        // topView.genreLabel.text = dataSource?.user?.customGenres.last
+        
         entryPop.hidePopView(viewController: self)
         guard let text = entryPop.popView.entryField.text else { return }
         dataSource.user?.customGenres.append(text)
+        topView.podcastTitleLabel.text = dataSource.user?.customGenres.last
         collectionView.reloadData()
     }
 }
@@ -136,6 +136,7 @@ extension PodcastListViewController: TopViewDelegate {
 extension PodcastListViewController: MenuDelegate {
     
     func optionOneTapped() {
+        dataSource.user?.favoriteCasts.append(caster)
         print("download")
     }
     

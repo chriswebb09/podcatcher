@@ -11,17 +11,12 @@ final class TabBarController: UITabBarController {
     
     override func viewDidLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        setupTabBar(tabBar: tabBar, view: view)
+        setupTabBar()
     }
     
     // General dimensions and look of tabbar
     
-    private func setupTabBar(tabBar: UITabBar, view: UIView) {
-        var tabFrame = tabBar.frame
-        let tabBarHeight = view.frame.height * Tabbar.tabbarFrameHeight
-        tabFrame.size.height = tabBarHeight
-        tabFrame.origin.y = view.frame.size.height - tabBarHeight
-        tabBar.frame = tabFrame
+    private func setupTabBar() {
         tabBar.isTranslucent = true
         tabBar.tintColor = UIColor(red:0.92, green:0.32, blue:0.33, alpha:1.0)
     }

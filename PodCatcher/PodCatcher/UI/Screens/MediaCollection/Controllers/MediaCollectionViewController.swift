@@ -52,9 +52,11 @@ final class MediaCollectionViewController: UIViewController {
         collectionViewConfiguration()
         title = dataSource.user?.username
         navigationController?.isNavigationBarHidden = false
-        buttonItem = UIBarButtonItem(image: dataSource.image, style: .plain, target: self, action: #selector(logout))
+        buttonItem = UIBarButtonItem(title: "Log Out", style: .done, target: self, action: #selector(logout))
         navigationItem.setRightBarButton(buttonItem, animated: false)
         collectionView.backgroundColor = .darkGray
+        guard let frame = tabBarController?.tabBar.frame else { return }
+        collectionView.frame = CGRect(x: view.bounds.minX, y: view.frame.minY, width: view.frame.width, height: view.frame.height - frame.height)
     }
     
     override func viewWillAppear(_ animated: Bool) {

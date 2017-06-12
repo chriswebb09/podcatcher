@@ -70,7 +70,7 @@ final class MenuView: UIView {
     func configureView() {
         layoutSubviews()
         setupConstraints()
-        optionOneView.set(with: "Download To Phone", and: #imageLiteral(resourceName: "cloud-circle-white"))
+        optionOneView.set(with: "Add To Favorites", and: #imageLiteral(resourceName: "cloud-circle-white"))
         optionTwoView.set(with: "Remove From Playlist", and: #imageLiteral(resourceName: "circle-x-white"))
         optionThreeView.set(with: "Delete From Phone", and: #imageLiteral(resourceName: "dot-circle-icon-white"))
         addSelectors()
