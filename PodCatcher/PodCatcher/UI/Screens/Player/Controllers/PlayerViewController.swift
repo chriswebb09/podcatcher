@@ -30,6 +30,7 @@ final class PlayerViewController: UIViewController {
         playerView.delegate = self
         view.addView(view: playerView, type: .full)
         title = caster.assets[index].collectionName
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -38,6 +39,7 @@ final class PlayerViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tabBarController?.tabBar.alpha = 0
+        navigationController?.navigationBar.backItem?.title = "Podcast"
     }
     
     override func viewDidDisappear(_ animated: Bool) {

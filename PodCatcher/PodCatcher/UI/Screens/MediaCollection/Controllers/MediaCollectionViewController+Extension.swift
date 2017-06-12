@@ -29,9 +29,8 @@ extension MediaCollectionViewController: UICollectionViewDataSource {
         return cell
     }
     
-    func setupNavigationBar(navController: UINavigationController, searchController: UISearchController) {
+    func setupNavigationBar(navController: UINavigationController) {
         navController.navigationBar.barTintColor = UIColor(red:0.92, green:0.32, blue:0.33, alpha:1.0)
-        searchController.hidesNavigationBarDuringPresentation = false
         navigationItem.rightBarButtonItem?.tintColor = .darkGray
     }
 }

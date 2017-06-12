@@ -1,5 +1,5 @@
 import UIKit
 
 protocol PodcastListViewControllerDelegate: class {
-    func didSelectTrackAt(at index: Int, with playlist: Caster)
+    func didSelectTrackAt(at index: Int, with podcast: Caster)
 }

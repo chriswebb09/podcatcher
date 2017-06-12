@@ -8,7 +8,8 @@ class SettingsTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        settingsView = SettingsView()
+        var settingsViewModel = SettingsViewModel(firstSettingOptionText: "one", secondSettingOptionText: "two")
+     //   settingsView = SettingsView(frame: UIScreen.main, model: <#T##SettingsViewModel#>)
         settingsViewController = SettingsViewController(settingsView: settingsView)
     }
     

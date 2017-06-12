@@ -17,6 +17,7 @@ class PodcastListViewController: UIViewController {
         super.viewDidLoad()
         setup()
         setupTopView()
+        navigationItem.rightBarButtonItem?.title = "Podcasts"
     }
     
     override func viewWillLayoutSubviews() {
@@ -63,5 +64,4 @@ extension PodcastListViewController: PodcastCollectionViewProtocol {
         topView.podcastTitleLabel.text = dataSource.user?.customGenres[0]
         topView.playCountLabel.text = String(describing: dataSource.user?.totalTimeListening)
     }
-
 }

@@ -5,21 +5,10 @@ final class MediaCollectionViewController: UIViewController {
     // MARK: - Properties
     
     var buttonItem: UIBarButtonItem!
+    
     weak var delegate: MediaControllerDelegate?
     lazy var collectionView : UICollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
     var emptyView = EmptyView()
-    
-    var searchBarActive: Bool = false {
-        didSet {
-            if searchBarActive == true {
-                navigationItem.rightBarButtonItems = []
-            } else {
-                if let buttonItem = buttonItem {
-                    navigationItem.rightBarButtonItems = [buttonItem]
-                }
-            }
-        }
-    }
     
     var viewShown: ShowView = .empty {
         didSet {
@@ -51,7 +40,7 @@ final class MediaCollectionViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    convenience init(collectionView: UICollectionView, dataSource: BaseMediaControllerDataSource, searchController: UISearchController) {
+    convenience init(collectionView: UICollectionView, dataSource: BaseMediaControllerDataSource) {
         self.init(dataSource: dataSource)
         self.collectionView = collectionView
     }
@@ -75,12 +64,10 @@ final class MediaCollectionViewController: UIViewController {
             self.collectionView.reloadData()
         }
     }
-    
-    func changeView(forView: UIView, withView: UIView) {
-        view.sendSubview(toBack: withView)
-        view.bringSubview(toFront: forView)
-    }
-    
+}
+
+extension MediaCollectionViewController: CollectionViewProtocol {
+
     func logout() {
         delegate?.logoutTapped(logout: true)
     }

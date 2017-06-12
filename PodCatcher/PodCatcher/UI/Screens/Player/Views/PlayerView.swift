@@ -340,8 +340,6 @@ final class PlayerView: UIView {
         print("Slider value \(playtimeSlider.value)")
     }
     
-  
-    
     func updateProgressBar(value: Double) {
         guard var model = model else { return }
         let floatValue = Float(value)

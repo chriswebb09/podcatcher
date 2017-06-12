@@ -28,6 +28,10 @@ class PodcastListTopView: UIView {
         return genreLabel
     }()
     
+    var tags: TagsView = {
+        return TagsView()
+    }()
+    
     var preferencesView: PreferencesView = {
         var preferencesView = PreferencesView()
         preferencesView.layoutSubviews()
@@ -39,12 +43,16 @@ class PodcastListTopView: UIView {
         setupConstraints()
         backgroundColor = .lightGray
         layer.setCellShadow(contentView: self)
+        var pillOne = PillView()
+        pillOne.configure(tag: "Test One")
+        tags.configure(pills: [pillOne])
     }
     
     func setupConstraints() {
         setup(podcastImageView: podcastImageView)
         setup(titleLabel: podcastTitleLabel)
         setup(preferencesView: preferencesView)
+        setup(tagsView: tags)
         preferencesView.layoutSubviews()
         preferencesView.delegate = self
     }
@@ -72,5 +80,13 @@ class PodcastListTopView: UIView {
         preferencesView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
         preferencesView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         preferencesView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: PodcastListTopViewConstants.preferencesViewHeightMultiplier).isActive = true
+    }
+    
+    func setup(tagsView: TagsView) {
+        addSubview(tagsView)
+        tagsView.translatesAutoresizingMaskIntoConstraints = false
+        tagsView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
+        tagsView.bottomAnchor.constraint(equalTo: preferencesView.topAnchor).isActive = true
+        tagsView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: PodcastListTopViewConstants.preferencesViewHeightMultiplier).isActive = true
     }
 }

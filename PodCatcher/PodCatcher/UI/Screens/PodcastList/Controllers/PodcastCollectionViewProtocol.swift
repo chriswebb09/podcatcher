@@ -8,9 +8,11 @@
 
 import UIKit
 
-protocol PodcastCollectionViewProtocol: class {
+protocol CollectionViewProtocol: class {
     var collectionView: UICollectionView { get set }
 }
+
+protocol PodcastCollectionViewProtocol: CollectionViewProtocol { }
 
 extension PodcastCollectionViewProtocol {
     

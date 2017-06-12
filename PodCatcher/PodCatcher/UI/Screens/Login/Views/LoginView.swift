@@ -13,8 +13,9 @@ final class LoginView: UIView {
     
     // MARK: - UI Elements
     
-    fileprivate var usernameField: TextFieldExtension = {
-        return TextFieldExtension.emailField("Email")
+    fileprivate var usernameField: UITextField = {
+        var field = TextFieldExtension.emailField("Email")
+        return UnderlineTextField(frame: field.frame)
     }()
     
     private var passwordField: TextFieldExtension = {
@@ -35,7 +36,10 @@ final class LoginView: UIView {
         backgroundColor = .white
         usernameField.delegate = self
         passwordField.delegate = self
-        usernameField.layer.cornerRadius = LoginViewConstants.cornerRadius
+        var field = usernameField as! UnderlineTextField
+        field.setup()
+        field.placeholder = "Username"
+       // usernameField.layer.cornerRadius = LoginViewConstants.cornerRadius
         passwordField.layer.cornerRadius = LoginViewConstants.cornerRadius
         setup(usernamefield: usernameField)
         setup(passwordField: passwordField)
@@ -59,7 +63,7 @@ final class LoginView: UIView {
         view.widthAnchor.constraint(equalTo: widthAnchor, multiplier: LoginViewConstants.sharedLayoutWidthMultiplier).isActive = true
     }
     
-    private func setup(usernamefield: TextFieldExtension) {
+    private func setup(usernamefield: UITextField) {
         sharedLayout(view: usernameField)
         usernamefield.topAnchor.constraint(equalTo: topAnchor, constant: LoginViewConstants.usernameFieldTopOffset).isActive = true
     }

@@ -15,3 +15,10 @@ extension UIViewController {
     }
     
 }
+
+extension UIViewController {
+    func changeView(forView: UIView, withView: UIView) {
+        view.sendSubview(toBack: withView)
+        view.bringSubview(toFront: forView)
+    }
+}
