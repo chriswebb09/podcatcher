@@ -49,7 +49,7 @@ final class LoginView: UIView {
     
     func configure(model: LoginViewModel) {
         self.model = model
-        self.usernameField.text = "test@gmail.com"
+        self.usernameField.text = "chris@gnail.com"
         self.passwordField.text = "123456"
         self.submitButton.isEnabled = true
     }

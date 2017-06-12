@@ -44,7 +44,8 @@ final class CreateAccountView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         backgroundColor = .white
-        
+        emailField.delegate = self 
+        usernameField.delegate = self
         setup(usernameField: usernameField)
         setup(emailField: emailField)
         setup(passwordField: passwordField)
@@ -87,6 +88,19 @@ final class CreateAccountView: UIView {
     }
     
     func submitButtonTapped() {
+        guard let email = emailField.text else { return }
+        guard let password = passwordField.text else { return }
+        UserDataAPIClient.createUserAccount(email: email, password: password)
         delegate?.submitButtonTapped()
+    }
+}
+
+extension CreateAccountView: UITextFieldDelegate {
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        endEditing(true)
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        endEditing(true)
+        return true
     }
 }

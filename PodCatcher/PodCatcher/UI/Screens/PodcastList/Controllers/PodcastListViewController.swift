@@ -6,6 +6,7 @@ class PodcastListViewController: UIViewController {
     var state: PodcasterControlState = .toCollection
     weak var delegate: PodcastListViewControllerDelegate?
     var caster: Caster!
+    var index: Int!
     var menuActive: MenuActive = .none
     let entryPop = EntryPopover()
     var collectionView : UICollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
@@ -60,7 +61,6 @@ extension PodcastListViewController: PodcastCollectionViewProtocol {
         collectionView.frame = CGRect(x: topView.bounds.minX, y: topView.frame.maxY, width: PodcastListConstants.topFrameWidth, height: PodcastListConstants.topFrameHeight)
         view.addSubview(collectionView)
         guard let user = dataSource.user else { return }
-     
         topView.playCountLabel.text = String(describing: dataSource.user?.totalTimeListening)
     }
 }

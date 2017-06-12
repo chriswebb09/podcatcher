@@ -1,4 +1,5 @@
 import UIKit
+import Firebase
 
 class MainCoordinator: ApplicationCoordinator {
     
@@ -29,6 +30,13 @@ extension MainCoordinator: CoordinatorDelegate {
     func transitionCoordinator(type: CoordinatorType, dataSource: BaseMediaControllerDataSource?) {
         switch type {
         case .app:
+            let firebaseAuth = Auth.auth()
+            do {
+                try firebaseAuth.signOut()
+            } catch let signOutError as NSError {
+                print ("Error signing out: %@", signOutError)
+            }
+            
             let newCoordinator = StartCoordinator(navigationController: UINavigationController(), window: window)
             newCoordinator.delegate = self
             newCoordinator.skipSplash()
