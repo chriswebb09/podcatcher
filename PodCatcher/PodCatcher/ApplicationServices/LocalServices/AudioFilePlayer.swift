@@ -62,7 +62,7 @@ final class AudioFilePlayer: NSObject, AVAssetResourceLoaderDelegate, Playable {
         }
         
         set {
-            let newTime = CMTimeMakeWithSeconds(newValue, 1)
+            let newTime = CMTimeMakeWithSeconds(newValue, 10)
             player.seek(to: newTime, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero)
         }
     }

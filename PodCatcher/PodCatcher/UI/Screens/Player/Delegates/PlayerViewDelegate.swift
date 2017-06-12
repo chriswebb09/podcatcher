@@ -5,4 +5,5 @@ protocol PlayerViewDelegate: class {
     func pauseButtonTapped()
     func skipButtonTapped()
     func backButtonTapped()
+    func updateTimeValue(time: Double)
 }

@@ -4,8 +4,12 @@ class PlayerViewModel {
     let title: String
     var timer: Timer?
     var progressIncrementer: Float = 0
+    
+    var playTimeIncrement: Float = 0.1
     var time: Int = 0
-    var totalTime: String?
+    
+    var totalTimeString: String?
+    
     var progress: Float = 0
     let imageUrl: UIImage
     
@@ -32,4 +36,23 @@ class PlayerViewModel {
         slider.value = 0
         timer?.invalidate()
     }
+    
+    func constructTimeString(time: Int) -> String {
+        var timeString = String(describing: time)
+        var timerString = ""
+        if timeString.characters.count < 2 {
+            timerString = "0:0\(timeString)"
+        } else if timeString.characters.count == 2 {
+            timerString = "0:\(timeString)"
+        }
+        if time >= 60 {
+            print(time)
+            var minutes = time / 60
+            var seconds = time % 10
+            timerString = "\(minutes):0\(seconds)"
+        }
+        
+        return timerString
+    }
+
 }

@@ -10,7 +10,8 @@ final class PlayerView: UIView {
         didSet {
             titleLabel.text = model.title
             albumImageView.image = model.imageUrl
-            totalPlayTimeLabel.text = model.totalTime
+            totalPlayTimeLabel.text = model.totalTimeString
+            
             model.timer = Timer.init()
         }
     }
@@ -238,7 +239,6 @@ final class PlayerView: UIView {
         currentTimeLabel.heightAnchor.constraint(equalTo: controlsView.heightAnchor, multiplier: PlayerViewConstants.backButtonHeightMultiplier).isActive = true
         currentTimeLabel.topAnchor.constraint(equalTo: controlsView.topAnchor).isActive = true
         currentTimeLabel.leftAnchor.constraint(equalTo: controlsView.leftAnchor).isActive = true
-        //totalPlayTimeLabel.rightAnchor.constraint(equalTo: controlsView.rightAnchor).isActive = true
     }
     
     private func setup(skipButton: UIButton, backButton: UIButton) {
@@ -295,7 +295,12 @@ final class PlayerView: UIView {
     // MARK: - Methods
     
     @objc private func sliderValueChanged() {
+        print("Playtime slider \(playtimeSlider.value)")
         print(playtimeSlider.value)
+        var testString = model.constructTimeString(time: Int(playtimeSlider.value * 100))
+        print("TEST STRING \(testString)")
+        currentPlayTimeLabel.text = testString
+        delegate?.updateTimeValue(time: Double(playtimeSlider.value))
     }
     
     @objc private func playButtonTapped() {
@@ -331,8 +336,20 @@ final class PlayerView: UIView {
         guard let countDict = model.timer?.userInfo as? NSMutableDictionary else { return }
         guard let count = countDict["count"] as? Int else { return }
         model.time = count + 1
-        model.progressIncrementer += 0.001
-        playtimeSlider.value += model.progressIncrementer
-        model.progress = playtimeSlider.value
+        playtimeSlider.value += model.playTimeIncrement
+        print("Slider value \(playtimeSlider.value)")
+    }
+    
+  
+    
+    func updateProgressBar(value: Double) {
+        guard var model = model else { return }
+        let floatValue = Float(value)
+        print("FLOAT \(floatValue)")
+        model.progress += floatValue
+        var testValue = model.progress * 100
+        var testString = model.constructTimeString(time: Int(testValue))
+        print("TEST STRING \(testString)")
+        currentPlayTimeLabel.text = testString
     }
 }

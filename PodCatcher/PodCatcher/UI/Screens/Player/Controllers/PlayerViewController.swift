@@ -1,5 +1,4 @@
 import UIKit
-import MediaPlayer
 import AVFoundation
 
 final class PlayerViewController: UIViewController {
@@ -8,7 +7,7 @@ final class PlayerViewController: UIViewController {
     
     // MARK: - UI Properties
     
-    fileprivate var playerView: PlayerView
+    var playerView: PlayerView
     var playerState: PlayState
     var caster: Caster
     var player: AudioFilePlayer
@@ -21,25 +20,21 @@ final class PlayerViewController: UIViewController {
         self.caster = caster
         self.player = AudioFilePlayer(url: caster.assets[index].audioUrl!)
         self.playerState = .queued
-        
         super.init(nibName: nil, bundle: nil)
         edgesForExtendedLayout = []
         guard caster.assets.count > 0 else { return }
         guard let artwork = caster.artwork else { return }
         self.playerViewModel = PlayerViewModel(image: artwork, title: caster.assets[index].title)
-        setModel(model: playerViewModel)
+        setModel(model: PlayerViewModel(image: artwork, title: caster.assets[index].title))
+        initPlayer(url: caster.assets[index].audioUrl!)
         playerView.delegate = self
         view.addView(view: playerView, type: .full)
         title = caster.assets[index].collectionName
-        guard let url = caster.assets[index].audioUrl else { return }
-        dump(url)
-        initPlayer(url: url)
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tabBarController?.tabBar.alpha = 0
