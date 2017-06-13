@@ -21,7 +21,6 @@ final class BottomMenuPopover: BasePopoverMenu {
                                               height: viewController.view.bounds.height * 0)
             strongSelf.popView.center = CGPoint(x: UIScreen.main.bounds.midX, y: UIScreen.main.bounds.height * 0.45)
             strongSelf.layoutIfNeeded()
-            print(strongSelf.popView.frame)
             strongSelf.popView.alpha = 0
         }
         

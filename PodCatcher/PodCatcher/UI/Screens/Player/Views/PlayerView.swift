@@ -295,8 +295,6 @@ final class PlayerView: UIView {
     // MARK: - Methods
     
     @objc private func sliderValueChanged() {
-        print("Playtime slider \(playtimeSlider.value)")
-        print(playtimeSlider.value)
         let testString = model.constructTimeString(time: Int(playtimeSlider.value * 100))
         print("TEST STRING \(testString)")
         currentPlayTimeLabel.text = testString

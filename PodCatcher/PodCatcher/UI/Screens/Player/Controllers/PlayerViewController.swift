@@ -32,7 +32,6 @@ final class PlayerViewController: UIViewController {
         playerView.delegate = self
         view.addView(view: playerView, type: .full)
         title = caster.assets[index].collectionName
-        
     }
     
     required init?(coder aDecoder: NSCoder) {

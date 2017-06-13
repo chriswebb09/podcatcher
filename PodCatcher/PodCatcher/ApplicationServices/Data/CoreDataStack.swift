@@ -12,7 +12,7 @@ class CoreDataStack {
     lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator = {
         let coordinator = NSPersistentStoreCoordinator(managedObjectModel:
             self.managedObjectModel)
-        let storeURL = self.applicationDocumentsDirectory().appendingPathComponent("CoffeeTimer.sqlite")
+        let storeURL = self.applicationDocumentsDirectory().appendingPathComponent("PodCatcher.sqlite")
         do {
             try coordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: storeURL, options: nil)
         } catch {
@@ -27,7 +27,7 @@ class CoreDataStack {
     }
     
     lazy var managedObjectModel: NSManagedObjectModel = {
-        let modelURL = Bundle.main.url(forResource: "CoffeeTimer", withExtension: "momd")!
+        let modelURL = Bundle.main.url(forResource: "PodCatcher", withExtension: "momd")!
         return NSManagedObjectModel(contentsOf: modelURL)!
     }()
     

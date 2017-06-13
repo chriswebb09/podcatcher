@@ -5,15 +5,10 @@ class TagsView: UIView {
     var pillViews: [PillView]!
     
     func configure(pills: [PillView]) {
-        dump(pills)
         for (index, pill) in pills.enumerated() {
-            print(index)
-            print(pill)
             if index == 0 {
-                print(index)
                 setup(firstPill: pill)
             } else if index > 0 && index <  pills.count {
-                print(index)
                 let previousPill = pills[index - 1]
                 setup(with: pill, and: previousPill)
             }

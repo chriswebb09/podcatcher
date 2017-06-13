@@ -26,8 +26,6 @@ class BaseMediaControllerDataSource {
         self.casters = casters
         if let user = user, casters.count == 0 {
             self.casters = user.casts
-            print(casters)
         }
-        dump(self)
     }
 }

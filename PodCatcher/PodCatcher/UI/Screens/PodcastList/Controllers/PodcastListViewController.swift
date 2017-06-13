@@ -6,13 +6,22 @@ class PodcastListViewController: UIViewController {
     var state: PodcasterControlState = .toCollection
     weak var delegate: PodcastListViewControllerDelegate?
     var caster: Caster!
-    var index: Int!
+    var index: Int
     var menuActive: MenuActive = .none
     let entryPop = EntryPopover()
     var collectionView : UICollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
     var topView = PodcastListTopView()
     var menuPop = BottomMenuPopover()
     var leftButtonItem: UIBarButtonItem!
+    
+    init(index: Int) {
+        self.index = index
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,27 +49,5 @@ class PodcastListViewController: UIViewController {
         case .toPlayer:
             break
         }
-    }
-}
-
-extension PodcastListViewController: PodcastCollectionViewProtocol {
-
-    func setup() {
-        edgesForExtendedLayout = []
-        setup(dataSource: self, delegate: self)
-        setupNavigationController()
-    }
-    
-    func setupTopView() {
-        topView.frame = CGRect(x: 0, y: 0, width: PodcastListConstants.topFrameWidth, height: PodcastListConstants.topFrameHeight / 1.5)
-        topView.podcastImageView.image = caster.artwork
-        title = caster.name
-        topView.delegate = self
-        topView.layoutSubviews()
-        view.addSubview(topView)
-        collectionView.frame = CGRect(x: topView.bounds.minX, y: topView.frame.maxY, width: PodcastListConstants.topFrameWidth, height: PodcastListConstants.topFrameHeight)
-        view.addSubview(collectionView)
-        guard let user = dataSource.user else { return }
-        topView.playCountLabel.text = String(describing: dataSource.user?.totalTimeListening)
     }
 }

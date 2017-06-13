@@ -8,7 +8,6 @@ class UserDataAPIClient {
             guard let uid = user?.uid else { return }
             setData.setup(email: email, id: uid)
             setData.setup(userPlaytime: 0, id: uid)
-            dump(user)
         }
     }
     

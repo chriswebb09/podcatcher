@@ -10,34 +10,13 @@ import Foundation
 import AVFoundation
 import MediaPlayer
 
-protocol TrackPlayerDelegate: class {
-    func updateProgress(progress: Double)
-    func trackDurationCalculated(stringTime: String, timeValue: Float64)
-    func trackFinishedPlaying()
-}
-
-protocol Playable {
-    var url: URL { get set }
-    var currentTime: Double  { get set }
-    weak var delegate: TrackPlayerDelegate? { get set }
-    var timeObserver: Any? { get set }
-    var player: AVPlayer { get set }
-    func play()
-    func setUrl(with url: URL)
-    func setUrl(from string: String?)
-    func getTrackDuration(asset: AVURLAsset)
-    func observePlayTime()
-    func playerItemDidReachEnd(notification: NSNotification)
-    func removePlayTimeObserver(timeObserver: Any?)
-}
-
 let audioCache = NSCache<NSString, AVURLAsset>()
 
 final class AudioFilePlayer: NSObject, AVAssetResourceLoaderDelegate, Playable {
     
     var url: URL
     
-    weak var delegate: TrackPlayerDelegate?
+    weak var delegate: AudioFilePlayerDelegate?
     
     lazy var asset: AVURLAsset = {
         var asset: AVURLAsset = AVURLAsset(url: self.url)

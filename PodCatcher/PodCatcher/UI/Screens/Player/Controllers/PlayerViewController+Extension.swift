@@ -45,10 +45,10 @@ extension PlayerViewController: PlayerViewDelegate {
     }
 }
 
-extension PlayerViewController: TrackPlayerDelegate {
+extension PlayerViewController: AudioFilePlayerDelegate {
     
     func trackFinishedPlaying() {
-        
+        print("Finished")
     }
     
     func trackDurationCalculated(stringTime: String, timeValue: Float64) {

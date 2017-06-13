@@ -68,16 +68,4 @@ class MediaCollectionViewController: UIViewController {
     }
 }
 
-extension MediaCollectionViewController: CollectionViewProtocol {
 
-    func logout() {
-        delegate?.logoutTapped(logout: true)
-    }
-    
-    func collectionViewConfiguration() {
-        collectionView.setupCollectionView(view: view, newLayout: TrackItemsFlowLayout())
-        collectionView.collectionViewRegister(viewController: self)
-        collectionView.delegate = self
-        collectionView.dataSource = self
-    }
-}

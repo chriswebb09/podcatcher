@@ -27,7 +27,6 @@ class PCMediaPlayer {
                 let newTest = self.getItemListsFrom(collection: itemCollection)
                 self.getPodcastsFromMediaList(mediaLists: newTest)
                 for (_ , n) in self.casts.enumerated() {
-                    print(n.value)
                     self.casters.append(n.value)
                 }
                 DispatchQueue.main.async {
