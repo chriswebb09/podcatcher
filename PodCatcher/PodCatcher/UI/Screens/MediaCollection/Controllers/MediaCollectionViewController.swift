@@ -50,7 +50,7 @@ final class MediaCollectionViewController: UIViewController {
         edgesForExtendedLayout = []
         view.addSubview(collectionView)
         collectionViewConfiguration()
-        title = dataSource.user?.username
+        title = "Podcasts"
         navigationController?.isNavigationBarHidden = false
         buttonItem = UIBarButtonItem(title: "Log Out", style: .done, target: self, action: #selector(logout))
         navigationItem.setRightBarButton(buttonItem, animated: false)

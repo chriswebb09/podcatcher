@@ -13,12 +13,14 @@ target 'PodCatcher' do
 
   target 'PodCatcherTests' do
     inherit! :search_paths
+    pod 'Firebase'
     # Pods for testing
   end
 
   target 'PodCatcherUITests' do
     inherit! :search_paths
     # Pods for testing
+    pod 'Firebase'
   end
 
 end

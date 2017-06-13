@@ -2,6 +2,6 @@ import Foundation
 
 struct UpdateAccountViewModel {
     var username: String = ""
-    var password: String = ""
+    var email: String = ""
     var submitEnabled: Bool = false
 }

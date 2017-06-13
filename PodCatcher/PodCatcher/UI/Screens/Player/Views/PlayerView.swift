@@ -297,7 +297,7 @@ final class PlayerView: UIView {
     @objc private func sliderValueChanged() {
         print("Playtime slider \(playtimeSlider.value)")
         print(playtimeSlider.value)
-        var testString = model.constructTimeString(time: Int(playtimeSlider.value * 100))
+        let testString = model.constructTimeString(time: Int(playtimeSlider.value * 100))
         print("TEST STRING \(testString)")
         currentPlayTimeLabel.text = testString
         delegate?.updateTimeValue(time: Double(playtimeSlider.value))
@@ -341,12 +341,12 @@ final class PlayerView: UIView {
     }
     
     func updateProgressBar(value: Double) {
-        guard var model = model else { return }
+        guard let model = model else { return }
         let floatValue = Float(value)
         print("FLOAT \(floatValue)")
         model.progress += floatValue
-        var testValue = model.progress * 100
-        var testString = model.constructTimeString(time: Int(testValue))
+        let testValue = model.progress * 100
+        let testString = model.constructTimeString(time: Int(testValue))
         print("TEST STRING \(testString)")
         currentPlayTimeLabel.text = testString
     }

@@ -36,7 +36,7 @@ final class LoginView: UIView {
         backgroundColor = .white
         usernameField.delegate = self
         passwordField.delegate = self
-        var field = usernameField as! UnderlineTextField
+        let field = usernameField as! UnderlineTextField
         field.setup()
         field.placeholder = "Username"
         passwordField.layer.cornerRadius = LoginViewConstants.cornerRadius

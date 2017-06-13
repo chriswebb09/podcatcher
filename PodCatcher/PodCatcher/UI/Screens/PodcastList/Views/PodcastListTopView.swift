@@ -43,7 +43,7 @@ class PodcastListTopView: UIView {
         setupConstraints()
         backgroundColor = .lightGray
         layer.setCellShadow(contentView: self)
-        var pillOne = PillView()
+        let pillOne = PillView()
         pillOne.configure(tag: "Test One")
         tags.configure(pills: [pillOne])
     }

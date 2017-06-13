@@ -1,11 +1,3 @@
-//
-//  SettingsTabCoordinator.swift
-//  PodCatcher
-//
-//  Created by Christopher Webb-Orenstein on 6/12/17.
-//  Copyright © 2017 Christopher Webb-Orenstein. All rights reserved.
-//
-
 import UIKit
 
 class SettingsTabCoordinator: NavigationCoordinator {
@@ -36,21 +28,27 @@ class SettingsTabCoordinator: NavigationCoordinator {
 extension SettingsTabCoordinator: SettingsViewControllerDelegate {
     
     func settingTwoTapped(tapped: Bool) {
-        print("TWO TAP")
-        var updateAccountView = UpdateAccountView()
-        var updateAccountViewController = UpdateAccountViewController()
+        let updateAccountViewController = UpdateAccountViewController()
         updateAccountViewController.dataSource = dataSource
+        updateAccountViewController.delegate = self
         navigationController.viewControllers.append(updateAccountViewController)
     }
 
     func settingOneTapped(tapped: Bool) {
-        print("ONE TAP")
-        var updateAccountView = UpdateAccountView()
-        var updateAccountViewController = UpdateAccountViewController()
+        let updateAccountViewController = UpdateAccountViewController()
         updateAccountViewController.dataSource = dataSource
+        updateAccountViewController.delegate = self
         navigationController.viewControllers.append(updateAccountViewController)
-       // navigationController.viewControllers.append(
+    }    
+}
+
+extension SettingsTabCoordinator: UpdateAccountViewControllerDelegate {
+    func updated(username: String) {
+        print(username)
+    }
+    
+    func updated(email: String) {
+        
     }
 
-    
 }

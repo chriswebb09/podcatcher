@@ -2,18 +2,24 @@ import UIKit
 
 class UpdateAccountView: UIView {
     
+    weak var delegate: UpdateAccountViewDelegate?
+    
     var model: UpdateAccountViewModel! {
         didSet {
             usernameField.text = model.username
-            //model.submitEnabled = model.username.isValidEmail()
+            emailField.text = model.email
         }
     }
     
     // MARK: - UI Elements
     
-    fileprivate var usernameField: UITextField = {
-        var field = TextFieldExtension.emailField("Email")
-        return UnderlineTextField(frame: field.frame)
+    fileprivate var usernameField: UnderlineTextField = {
+        var test = UnderlineTextField()
+        return UnderlineTextField()
+    }()
+    
+    fileprivate var emailField: UnderlineTextField = {
+        return UnderlineTextField()
     }()
     
     // MARK: - Configuration Methods
@@ -22,10 +28,14 @@ class UpdateAccountView: UIView {
         tag = 1
         super.layoutSubviews()
         backgroundColor = .white
-        var field = usernameField as! UnderlineTextField
-        field.setup()
-        field.placeholder = "Username"
+        usernameField.setup()
+        usernameField.placeholder = "Username"
+        usernameField.delegate = self
+        emailField.setup()
+        emailField.placeholder = "Email"
+        emailField.delegate = self
         setup(usernamefield: usernameField)
+        setup(emailField: emailField)
     }
     
     func configure(model: UpdateAccountViewModel) {
@@ -45,8 +55,21 @@ class UpdateAccountView: UIView {
         usernamefield.topAnchor.constraint(equalTo: topAnchor, constant: LoginViewConstants.usernameFieldTopOffset).isActive = true
     }
     
-    private func setup(passwordField: TextFieldExtension) {
-        sharedLayout(view: passwordField)
-        passwordField.topAnchor.constraint(equalTo: usernameField.bottomAnchor, constant: LoginViewConstants.passwordFieldTopOffset).isActive = true
+    private func setup(emailField: UITextField) {
+        sharedLayout(view: emailField)
+        emailField.topAnchor.constraint(equalTo: usernameField.bottomAnchor, constant: LoginViewConstants.passwordFieldTopOffset).isActive = true
+    }
+}
+
+extension UpdateAccountView: UITextFieldDelegate {
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField == usernameField {
+            guard let text = textField.text else { return }
+            delegate?.usernameUpdated(username: text)
+        } else if textField == emailField {
+            guard let text = textField.text, text.isValidEmail() else { return }
+            delegate?.emailUpdated(email: text)
+        }
     }
 }

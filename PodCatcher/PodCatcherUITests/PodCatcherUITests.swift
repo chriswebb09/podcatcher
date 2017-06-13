@@ -1,4 +1,6 @@
 import XCTest
+import Firebase
+
 @testable import PodCatcher
 
 //class PodCatcherUITests: XCTestCase {

@@ -20,7 +20,8 @@ class PlayerControllerTests: XCTestCase {
     func testPlayerController() {
         mediaPlayer.getPlaylists { collection, list in
             guard let list = list, list.count > 0 else { return }
-            self.playerViewController = PlayerViewController(index: 0, caster: list[1])
+            self.playerViewController = PlayerViewController(index: 0, caster: list[1], user: nil)
+           // self.playerViewController = PlayerViewController(index: 0, caster: list[1])
             XCTAssertNotNil(self.playerViewController.caster)
         }
     }
@@ -29,7 +30,7 @@ class PlayerControllerTests: XCTestCase {
         let testDelegate = PlayerViewControllerDelegateTest()
         mediaPlayer.getPlaylists { collection, list in
             guard let list = list, list.count > 0 else { return }
-            self.playerViewController = PlayerViewController(index: 0, caster: list[1])
+            self.playerViewController = PlayerViewController(index: 0, caster: list[1], user: nil)
             XCTAssertNotNil(self.playerViewController.caster)
             self.playerViewController.delegate = testDelegate
             self.playerViewController.skipButtonTapped()
@@ -42,7 +43,7 @@ class PlayerControllerTests: XCTestCase {
         mediaPlayer.getPlaylists { collection, list in
             guard let list = list else { return }
             guard list.count > 0 else { return }
-            self.playerViewController = PlayerViewController(index: 0, caster: list[1])
+            self.playerViewController = PlayerViewController(index: 0, caster: list[1], user: nil)
             XCTAssertNotNil(self.playerViewController.caster)
             self.playerViewController.delegate = testDelegate
             self.playerViewController.backButtonTapped()

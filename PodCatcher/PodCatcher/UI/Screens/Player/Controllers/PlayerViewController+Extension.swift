@@ -17,7 +17,7 @@ extension PlayerViewController: PlayerViewDelegate {
         if let user = user {
             user.totalTimeListening += time
         }
-        var timeTrans = CMTime(value: CMTimeValue(time * 100), timescale: 1)
+        let timeTrans = CMTime(value: CMTimeValue(time * 100), timescale: 1)
         player.player.seek(to: timeTrans)
         print("Updated time \(time)")
         print("Updated trans time \(timeTrans.value)")

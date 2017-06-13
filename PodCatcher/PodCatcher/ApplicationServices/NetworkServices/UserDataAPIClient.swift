@@ -11,7 +11,7 @@ import Firebase
 class UserDataAPIClient {
     
     static func createUserAccount(email: String, password: String) {
-        var setData = SetData()
+        let setData = SetData()
         Auth.auth().createUser(withEmail: email, password: password) { user, error in
             guard let uid = user?.uid else { return }
             setData.setup(email: email, id: uid)
