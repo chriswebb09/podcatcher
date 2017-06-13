@@ -23,7 +23,7 @@ class SettingsViewController: UIViewController {
         super.viewDidLoad()
         edgesForExtendedLayout = []
         settingsView.backgroundColor = SettingsViewConstants.backgroundColor
-        let model = SettingsViewModel(firstSettingOptionText: "Favorite Podcasts", secondSettingOptionText: "OptionTwo")
+        let model = SettingsViewModel(firstSettingOptionText: "Favorite Podcasts", secondSettingOptionText: "Profile Settings")
         view.addView(view: settingsView, type: .full)
         view = settingsView
         settingsView.configure(model: model)

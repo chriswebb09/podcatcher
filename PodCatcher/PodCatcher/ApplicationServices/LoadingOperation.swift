@@ -1,18 +1,11 @@
-//
-//  LoadingOperation.swift
-//  PodCatcher
-//
-//  Created by Christopher Webb-Orenstein on 6/8/17.
-//  Copyright © 2017 Christopher Webb-Orenstein. All rights reserved.
-//
-
 import UIKit
 
 class DataLoadOperation: Operation {
+    
     var test: String?
-    //var loadingCompleteHandler: ((EmojiRating) -> ())?
     
     var loadingCompletion: ((String) -> Void)?
+    
     private let _test:  String
     
     init(_ test: String) {

@@ -21,7 +21,6 @@ class PlayerControllerTests: XCTestCase {
         mediaPlayer.getPlaylists { collection, list in
             guard let list = list, list.count > 0 else { return }
             self.playerViewController = PlayerViewController(index: 0, caster: list[1], user: nil)
-           // self.playerViewController = PlayerViewController(index: 0, caster: list[1])
             XCTAssertNotNil(self.playerViewController.caster)
         }
     }

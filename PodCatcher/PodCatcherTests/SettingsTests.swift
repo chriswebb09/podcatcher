@@ -10,9 +10,8 @@ class SettingsTests: XCTestCase {
         super.setUp()
         let settingsViewModel = SettingsViewModel(firstSettingOptionText: "one", secondSettingOptionText: "two")
         settingsView = SettingsView(frame: UIScreen.main.bounds, model: settingsViewModel)
-        var dataSource = BaseMediaControllerDataSource(casters: [])
+        let dataSource = BaseMediaControllerDataSource(casters: [])
         settingsViewController = SettingsViewController(settingsView: settingsView, dataSource: dataSource)
-            //SettingsViewController(settingsView: settingsView)
     }
     
     override func tearDown() {

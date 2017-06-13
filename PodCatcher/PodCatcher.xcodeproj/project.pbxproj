@@ -139,6 +139,9 @@
 		A7894FA61EE6AE44000CC190 /* PodCatcherUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7894FA51EE6AE44000CC190 /* PodCatcherUser.swift */; };
 		A7894FA81EE6C861000CC190 /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7894FA71EE6C861000CC190 /* PreferencesView.swift */; };
 		A7894FAA1EE6DC5E000CC190 /* PreferencesViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7894FA91EE6DC5E000CC190 /* PreferencesViewDelegate.swift */; };
+		A7905B061EEF779500199246 /* UpdateData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7905B051EEF779500199246 /* UpdateData.swift */; };
+		A7905B081EEF77C800199246 /* PullData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7905B071EEF77C800199246 /* PullData.swift */; };
+		A7905B0A1EEF791800199246 /* FavoritePodcastsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7905B091EEF791800199246 /* FavoritePodcastsViewController.swift */; };
 		A7A54E9F1EE70CFB009A5538 /* PopoverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A54E9E1EE70CFB009A5538 /* PopoverTests.swift */; };
 		A7A54EA51EE7133C009A5538 /* EntryFieldConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A54EA41EE7133C009A5538 /* EntryFieldConstants.swift */; };
 		A7A54EB01EE71474009A5538 /* EntryPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A54EAD1EE71474009A5538 /* EntryPopover.swift */; };
@@ -345,6 +348,9 @@
 		A7894FA51EE6AE44000CC190 /* PodCatcherUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodCatcherUser.swift; sourceTree = "<group>"; };
 		A7894FA71EE6C861000CC190 /* PreferencesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesView.swift; sourceTree = "<group>"; };
 		A7894FA91EE6DC5E000CC190 /* PreferencesViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesViewDelegate.swift; sourceTree = "<group>"; };
+		A7905B051EEF779500199246 /* UpdateData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateData.swift; sourceTree = "<group>"; };
+		A7905B071EEF77C800199246 /* PullData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PullData.swift; sourceTree = "<group>"; };
+		A7905B091EEF791800199246 /* FavoritePodcastsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FavoritePodcastsViewController.swift; path = FavoritePodcasts/Controllers/FavoritePodcastsViewController.swift; sourceTree = "<group>"; };
 		A7A54E9E1EE70CFB009A5538 /* PopoverTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopoverTests.swift; sourceTree = "<group>"; };
 		A7A54EA41EE7133C009A5538 /* EntryFieldConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryFieldConstants.swift; sourceTree = "<group>"; };
 		A7A54EAD1EE71474009A5538 /* EntryPopover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EntryPopover.swift; path = Entry/EntryPopover.swift; sourceTree = "<group>"; };
@@ -1070,8 +1076,17 @@
 				A77EDF681EE5FC95001A24E5 /* Splash */,
 				A77EDF6B1EE5FCB6001A24E5 /* Start */,
 				A7FFD4C11EEF5C7F00853480 /* UpdateAccount */,
+				A7905B0B1EEF795C00199246 /* FavoritePodcasts */,
 			);
 			path = Screens;
+			sourceTree = "<group>";
+		};
+		A7905B0B1EEF795C00199246 /* FavoritePodcasts */ = {
+			isa = PBXGroup;
+			children = (
+				A7905B091EEF791800199246 /* FavoritePodcastsViewController.swift */,
+			);
+			name = FavoritePodcasts;
 			sourceTree = "<group>";
 		};
 		A7A54EA81EE71391009A5538 /* Entry */ = {
@@ -1120,6 +1135,8 @@
 			children = (
 				A7EBA0991EE672A700FAAC9C /* UserDataAPIClient.swift */,
 				A7FFD4BB1EEF370D00853480 /* NetworkDatabaseManager.swift */,
+				A7905B051EEF779500199246 /* UpdateData.swift */,
+				A7905B071EEF77C800199246 /* PullData.swift */,
 			);
 			path = NetworkServices;
 			sourceTree = "<group>";
@@ -1581,6 +1598,7 @@
 				A7FFD4C51EEF5CC700853480 /* UpdateAccountView.swift in Sources */,
 				A77EDF7A1EE5FF93001A24E5 /* UIViewController+Extension.swift in Sources */,
 				A7B840CB1EECD7160049BB78 /* NavigationCoordinator.swift in Sources */,
+				A7905B061EEF779500199246 /* UpdateData.swift in Sources */,
 				A71B26F21EE5D24700613CF4 /* AppDelegate.swift in Sources */,
 				A73DA41B1EE899300053276E /* MediaCollectionViewController+Extension.swift in Sources */,
 				A723A5C11EE9480C002E49BF /* EntryViewConstants.swift in Sources */,
@@ -1591,6 +1609,7 @@
 				A77EDF5F1EE5FB83001A24E5 /* MediaCellModelerProtocol.swift in Sources */,
 				A77EDF671EE5FC38001A24E5 /* UILabel+Extension.swift in Sources */,
 				A77EDF7E1EE5FFE9001A24E5 /* CALayerConstants.swift in Sources */,
+				A7905B0A1EEF791800199246 /* FavoritePodcastsViewController.swift in Sources */,
 				A7EBA0C41EE682DF00FAAC9C /* MenuOptionView.swift in Sources */,
 				A73DA4701EE8B7C20053276E /* MediaTabCoordinator+Extension.swift in Sources */,
 				A73D74181EE68704004571A5 /* LoginViewModel.swift in Sources */,
@@ -1604,6 +1623,7 @@
 				A77EDF801EE6007E001A24E5 /* CollectionViewAttributes.swift in Sources */,
 				A77EDF701EE5FD57001A24E5 /* MediaCollectionViewController.swift in Sources */,
 				A7150EE31EE6563300E3553F /* TabBarConstants.swift in Sources */,
+				A7905B081EEF77C800199246 /* PullData.swift in Sources */,
 				A77EDF4F1EE5E6C4001A24E5 /* Caster.swift in Sources */,
 				A7EBA0BB1EE681F400FAAC9C /* BottomMenuPopover.swift in Sources */,
 				A7150EEE1EE65B2300E3553F /* PlayerViewConstants.swift in Sources */,

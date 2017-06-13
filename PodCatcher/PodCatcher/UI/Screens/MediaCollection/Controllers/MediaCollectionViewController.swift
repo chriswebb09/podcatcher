@@ -1,6 +1,6 @@
 import UIKit
 
-final class MediaCollectionViewController: UIViewController {
+class MediaCollectionViewController: UIViewController {
     
     // MARK: - Properties
     
