@@ -37,8 +37,8 @@ final class TabBarController: UITabBarController {
     
     func setTabTitles(controllers: [UINavigationController]) {
         viewControllers = controllers
-        tabBar.items?[0].title = "Tracks"
-        tabBar.items?[1].title = "Playlist"
+        tabBar.items?[0].title = "Podcasts"
+        tabBar.items?[1].title = "Settings"
         selectedIndex = 0
     }
     

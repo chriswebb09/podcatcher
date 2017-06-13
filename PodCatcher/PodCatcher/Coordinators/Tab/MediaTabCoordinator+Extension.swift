@@ -29,6 +29,7 @@ extension MediaTabCoordinator: MediaControllerDelegate {
 }
 
 extension MediaTabCoordinator: PodcastListViewControllerDelegate {
+    
     func didSelectPodcastAt(at index: Int, with podcast: Caster) {
         let playerView = PlayerView()
         let playerViewController = PlayerViewController(playerView: playerView, index: index, caster: podcast, user: dataSource.user)
@@ -36,4 +37,3 @@ extension MediaTabCoordinator: PodcastListViewControllerDelegate {
         print("selected")
     }
 }
-

@@ -22,7 +22,8 @@ class TabBarCoordinator: TabControllerCoordinator, Coordinator {
     }
     
     func setupSettingsCoordinator(navigationController: UINavigationController, dataSource: BaseMediaControllerDataSource) {
-        let tabCoordinator = TabCoordinator(navigationController: navigationController)
+        let tabCoordinator = SettingsTabCoordinator(navigationController: navigationController)
+        tabCoordinator.start()
         tabCoordinator.dataSource = dataSource
         childCoordinators.append(tabCoordinator)
     }

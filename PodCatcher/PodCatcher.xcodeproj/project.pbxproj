@@ -178,6 +178,8 @@
 		A7FFD4C31EEF5CB500853480 /* UpdateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FFD4C21EEF5CB500853480 /* UpdateAccountViewController.swift */; };
 		A7FFD4C51EEF5CC700853480 /* UpdateAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FFD4C41EEF5CC700853480 /* UpdateAccountView.swift */; };
 		A7FFD4C71EEF5CE900853480 /* UpdateAccountViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FFD4C61EEF5CE900853480 /* UpdateAccountViewControllerDelegate.swift */; };
+		A7FFD4CB1EEF600200853480 /* SettingsTabCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FFD4CA1EEF600200853480 /* SettingsTabCoordinator.swift */; };
+		A7FFD4CD1EEF643400853480 /* UpdateAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FFD4CC1EEF643400853480 /* UpdateAccountViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -381,6 +383,8 @@
 		A7FFD4C21EEF5CB500853480 /* UpdateAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UpdateAccountViewController.swift; path = UpdateAccount/Controllers/UpdateAccountViewController.swift; sourceTree = "<group>"; };
 		A7FFD4C41EEF5CC700853480 /* UpdateAccountView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UpdateAccountView.swift; path = UpdateAccount/Views/UpdateAccountView.swift; sourceTree = "<group>"; };
 		A7FFD4C61EEF5CE900853480 /* UpdateAccountViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UpdateAccountViewControllerDelegate.swift; path = UpdateAccount/Delegates/UpdateAccountViewControllerDelegate.swift; sourceTree = "<group>"; };
+		A7FFD4CA1EEF600200853480 /* SettingsTabCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTabCoordinator.swift; sourceTree = "<group>"; };
+		A7FFD4CC1EEF643400853480 /* UpdateAccountViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UpdateAccountViewModel.swift; path = UpdateAccount/UpdateAccountViewModel.swift; sourceTree = "<group>"; };
 		B95326DB5E3AF822CC27DDB7 /* Pods-PodCatcherTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PodCatcherTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PodCatcherTests/Pods-PodCatcherTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C13D79C98B2FE9CADBCF74EF /* Pods_PodCatcher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PodCatcher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1F83CB47E32DCF0D36B4EDC /* Pods-PodCatcherTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PodCatcherTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PodCatcherTests/Pods-PodCatcherTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -500,6 +504,7 @@
 				A71B27241EE5D28600613CF4 /* TabBarCoordinator.swift */,
 				A7150EB81EE6270500E3553F /* TabControllerCoordinator.swift */,
 				A7150EB31EE621E600E3553F /* TabCoordinator.swift */,
+				A7FFD4CA1EEF600200853480 /* SettingsTabCoordinator.swift */,
 			);
 			path = Tab;
 			sourceTree = "<group>";
@@ -1203,6 +1208,7 @@
 				A7FFD4C21EEF5CB500853480 /* UpdateAccountViewController.swift */,
 				A7FFD4C41EEF5CC700853480 /* UpdateAccountView.swift */,
 				A7FFD4C61EEF5CE900853480 /* UpdateAccountViewControllerDelegate.swift */,
+				A7FFD4CC1EEF643400853480 /* UpdateAccountViewModel.swift */,
 			);
 			name = UpdateAccount;
 			sourceTree = "<group>";
@@ -1627,6 +1633,7 @@
 				A71853021EE9584E00911C87 /* BaseMenuPopover.swift in Sources */,
 				A718530C1EE960C400911C87 /* PopDelegate.swift in Sources */,
 				A71B27351EE5D81700613CF4 /* SplashView.swift in Sources */,
+				A7FFD4CD1EEF643400853480 /* UpdateAccountViewModel.swift in Sources */,
 				A73DA4211EE899EA0053276E /* PodcastListViewController+Extension.swift in Sources */,
 				A7FFD4C31EEF5CB500853480 /* UpdateAccountViewController.swift in Sources */,
 				A73DA41F1EE899A40053276E /* SettingsViewController+Extension.swift in Sources */,
@@ -1671,6 +1678,7 @@
 				A71B27331EE5D80F00613CF4 /* SplashViewController.swift in Sources */,
 				A7EBA0C01EE6828A00FAAC9C /* BasePopConstants.swift in Sources */,
 				A73D743F1EE688E6004571A5 /* SettingsViewDelegate.swift in Sources */,
+				A7FFD4CB1EEF600200853480 /* SettingsTabCoordinator.swift in Sources */,
 				A7EBA0A11EE6739000FAAC9C /* LoginView.swift in Sources */,
 				A7EBA0A31EE673AA00FAAC9C /* LoginViewController.swift in Sources */,
 				A7150EE11EE655F800E3553F /* MediaTabCoordinator.swift in Sources */,
