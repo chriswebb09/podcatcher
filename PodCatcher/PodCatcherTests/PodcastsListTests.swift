@@ -7,7 +7,7 @@ class PodcastsListTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        podcastsListViewController = PodcastListViewController()
+        podcastsListViewController = PodcastListViewController(index: 0)
     }
     
     override func tearDown() {

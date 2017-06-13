@@ -40,6 +40,16 @@ class LoginTests: XCTestCase {
         let loginTest = LoginTestDelegate()
         loginViewController.delegate = loginTest
         loginViewController.userEntryDataSubmitted(with: "Link@link.com", and: "123456")
+        let expect = expectation(description: "User exists")
+        UserDataAPIClient.loginToAccount(email: "Link@link.com", password: "123456") { user in
+            XCTAssertNotNil(user)
+            expect.fulfill()
+        }
+        waitForExpectations(timeout: 4) { error in
+            if let error = error {
+                XCTFail("waitForExpectationsWithTimeout error: \(error)")
+            }
+        }
     }
 }
 

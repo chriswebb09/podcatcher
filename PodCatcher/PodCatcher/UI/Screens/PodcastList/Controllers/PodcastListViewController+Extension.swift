@@ -1,5 +1,7 @@
 import UIKit
 
+// MARK: - PodcastCollectionViewProtocol
+
 extension PodcastListViewController: PodcastCollectionViewProtocol {
     
     func setup() {
@@ -159,7 +161,7 @@ extension PodcastListViewController: MenuDelegate {
     func optionOneTapped() {
         guard let user = dataSource?.user, let casterName = caster.name else { return }
         user.favoriteCasts[casterName] = caster
-       // dataSource.user?.favoriteCasts.append(caster)
+        // dataSource.user?.favoriteCasts.append(caster)
         print("download")
     }
     

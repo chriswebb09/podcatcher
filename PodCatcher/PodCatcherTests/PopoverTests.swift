@@ -39,7 +39,7 @@ class PopoverTests: XCTestCase {
     func showLoadingView(loadingPop: LoadingPopover, viewController: UIViewController) {
         loadingPop.setupPop(popView: loadingPop.popView)
         loadingPop.showPopView(viewController: viewController)
-        loadingPop.popView.isHidden = false
+        XCTAssertFalse(loadingPop.popView.isHidden)
     }
     
     func hideLoadingView(viewController: UIViewController) {
@@ -47,6 +47,7 @@ class PopoverTests: XCTestCase {
         loadingPop.removeFromSuperview()
         loadingPop.hidePopView(viewController: viewController)
         viewController.view.sendSubview(toBack: loadingPop)
+        XCTAssertFalse(loadingPop.popView.isHidden)
     }
 
 }

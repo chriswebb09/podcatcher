@@ -1,6 +1,7 @@
 import UIKit
 
 class PlayerViewModel {
+    
     let title: String
     var timer: Timer?
     var progressIncrementer: Float = 0
