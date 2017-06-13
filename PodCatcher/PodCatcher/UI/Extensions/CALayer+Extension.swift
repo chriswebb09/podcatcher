@@ -11,6 +11,19 @@ extension CALayer {
         shadowOpacity = 0.7
     }
     
+    static func layerWith(size: CGSize, color: UIColor) -> CALayer {
+        let layer: CAShapeLayer = CAShapeLayer()
+        let path: UIBezierPath = UIBezierPath()
+        path.addArc(withCenter: CGPoint(x: size.width , y: size.height),
+                    radius: size.width / 2,
+                    startAngle: 0,
+                    endAngle: CGFloat(2 * Double.pi),
+                    clockwise: false)
+        layer.fillColor = color.cgColor
+        layer.path = path.cgPath
+        layer.frame = CGRect(x: 0, y: 0, width: size.width / 2, height: size.height / 2)
+        return layer
+    }
     
     static func createGradientLayer(layer: CALayer, bounds: CGRect) {
         let gradientLayer = CAGradientLayer()

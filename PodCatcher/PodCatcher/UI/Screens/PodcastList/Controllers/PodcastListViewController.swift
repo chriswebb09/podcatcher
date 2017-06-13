@@ -2,7 +2,7 @@ import UIKit
 
 class PodcastListViewController: UIViewController {
     
-    var dataSource: BaseMediaControllerDataSource!
+    var dataSource: BaseMediaControllerDataSource
     var state: PodcasterControlState = .toCollection
     weak var delegate: PodcastListViewControllerDelegate?
     var caster: Caster!
@@ -14,8 +14,9 @@ class PodcastListViewController: UIViewController {
     var menuPop = BottomMenuPopover()
     var leftButtonItem: UIBarButtonItem!
     
-    init(index: Int) {
+    init(index: Int, dataSource: BaseMediaControllerDataSource) {
         self.index = index
+        self.dataSource = dataSource
         super.init(nibName: nil, bundle: nil)
     }
     

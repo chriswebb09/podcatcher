@@ -13,13 +13,16 @@ final class LoginView: UIView {
     
     // MARK: - UI Elements
     
-    fileprivate var usernameField: UITextField = {
-        var field = TextFieldExtension.emailField("Email")
-        return UnderlineTextField(frame: field.frame)
+    fileprivate var usernameField: UnderlineTextField = {
+        var usernameField = UnderlineTextField()
+        usernameField.placeholder = "Email"
+        return usernameField
     }()
     
-    private var passwordField: TextFieldExtension = {
-        return TextFieldExtension.passwordField()
+    private var passwordField: UnderlineTextField = {
+        var passwordField = UnderlineTextField()
+        passwordField.isSecureTextEntry = true
+        return passwordField
     }()
     
     fileprivate var submitButton: UIButton = {
@@ -36,14 +39,12 @@ final class LoginView: UIView {
         backgroundColor = .white
         usernameField.delegate = self
         passwordField.delegate = self
-        let field = usernameField as! UnderlineTextField
-        field.setup()
-        field.placeholder = "Username"
-        passwordField.layer.cornerRadius = LoginViewConstants.cornerRadius
+        usernameField.setup()
+        passwordField.setup()
         setup(usernamefield: usernameField)
         setup(passwordField: passwordField)
         setup(submitButton: submitButton)
-        submitButton.layer.cornerRadius = LoginViewConstants.cornerRadius
+        submitButton.layer.cornerRadius = 10
         submitButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
     }
     
@@ -67,7 +68,7 @@ final class LoginView: UIView {
         usernamefield.topAnchor.constraint(equalTo: topAnchor, constant: LoginViewConstants.usernameFieldTopOffset).isActive = true
     }
     
-    private func setup(passwordField: TextFieldExtension) {
+    private func setup(passwordField: UITextField) {
         sharedLayout(view: passwordField)
         passwordField.topAnchor.constraint(equalTo: usernameField.bottomAnchor, constant: LoginViewConstants.passwordFieldTopOffset).isActive = true
     }

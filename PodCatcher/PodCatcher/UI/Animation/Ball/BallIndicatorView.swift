@@ -35,7 +35,7 @@ final class BallIndicatorView: UIView {
         isHidden = true
     }
     
-    final func startAnimating() {
+   func startAnimating() {
         isHidden = false
         isAnimating = true
         layer.speed = 1
@@ -52,7 +52,6 @@ final class BallIndicatorView: UIView {
         isAnimating = false
         layer.sublayers?.removeAll()
     }
-    
     
     private func setUpAnimation(ballAnimation: BallAnimation) {
         let animationType: AnimationDelegate = ballAnimation

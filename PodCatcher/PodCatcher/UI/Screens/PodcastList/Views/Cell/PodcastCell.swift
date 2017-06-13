@@ -31,6 +31,7 @@ class PodcastCell: UICollectionViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth, .flexibleTopMargin, .flexibleBottomMargin]
         isUserInteractionEnabled = true
         backgroundColor = UIColor.white
         contentView.layer.cornerRadius = 2.0
@@ -52,6 +53,7 @@ class PodcastCell: UICollectionViewCell {
     }
     
     func setupConstraints() {
+        self.updateConstraintsIfNeeded()
         contentView.addSubview(podcastTitleLabel)
         podcastTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         podcastTitleLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: PodcastCellConstants.podcastTitleLabelWidthMultiplier).isActive = true

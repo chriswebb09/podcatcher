@@ -5,19 +5,15 @@ class TagsView: UIView {
     var pillViews: [PillView]!
     
     func configure(pills: [PillView]) {
-        for (index, pill) in pills.enumerated() {
+        for index in 0..<pills.count {
             if index == 0 {
-                setup(firstPill: pill)
-            } else if index > 0 && index <  pills.count {
+                setup(firstPill: pills[index])
+            }  else if index > 0 && index <  pills.count {
                 let previousPill = pills[index - 1]
-                setup(with: pill, and: previousPill)
-            }
-            if index == pills.count {
-                break
+                setup(with: pills[index], and: previousPill)
             }
         }
     }
-    
     
     func sharedLayout(view: UIView) {
         addSubview(view)
@@ -34,6 +30,6 @@ class TagsView: UIView {
     
     func setup(firstPill: PillView) {
         sharedLayout(view: firstPill)
-        firstPill.leftAnchor.constraint(equalTo: leftAnchor, constant: frame.width * 0.1).isActive = true
+        firstPill.leftAnchor.constraint(equalTo: leftAnchor, constant: frame.width * 0.2).isActive = true
     }
 }

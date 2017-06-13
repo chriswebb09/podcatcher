@@ -19,6 +19,12 @@ extension PodcastListViewController: PodcastCollectionViewProtocol {
         view.addSubview(topView)
         collectionView.frame = CGRect(x: topView.bounds.minX, y: topView.frame.maxY, width: PodcastListConstants.topFrameWidth, height: PodcastListConstants.topFrameHeight)
         view.addSubview(collectionView)
+        let pillOne = PillView()
+        pillOne.configure(tag: "Test One")
+        
+        let pillTwo = PillView()
+        pillTwo.configure(tag: "Test Two")
+        topView.tags.configure(pills: [pillOne, pillTwo])
         guard let user = dataSource.user else { return }
         topView.playCountLabel.text = String(describing: dataSource.user?.totalTimeListening)
     }
@@ -31,19 +37,25 @@ extension PodcastListViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offset = scrollView.contentOffset
         if offset.y > PodcastListConstants.minimumOffset {
-            UIView.animate(withDuration: 1) {
+            UIView.animate(withDuration: 0.02) {
                 self.topView.removeFromSuperview()
                 self.collectionView.frame = self.view.bounds
+                self.view.updateConstraintsIfNeeded()
+                self.collectionView.updateConstraintsIfNeeded()
+                self.collectionView.setNeedsLayout()
             }
         } else {
-            UIView.animate(withDuration: 0.5) {
+            UIView.animate(withDuration: 0.05) {
                 let topFrameHeight = self.view.bounds.height / 2
                 let topFrameWidth = self.view.bounds.width
-                self.topView.frame = CGRect(x: 0, y: 0, width: topFrameWidth, height: topFrameHeight / 1.5)
+                guard var navHeight = self.navigationController?.navigationBar.frame.height else { return }
+                self.topView.frame = CGRect(x: 0, y: 0, width: PodcastListConstants.topFrameWidth, height: PodcastListConstants.topFrameHeight / 1.5)
+                //CGRect(x: 0, y: 0, width: topFrameWidth, height: topFrameHeight / 1.5)
                 self.topView.podcastImageView.image = self.caster.artwork
                 self.topView.layoutSubviews()
                 self.view.addSubview(self.topView)
                 self.collectionView.frame = CGRect(x: self.topView.bounds.minX, y: self.topView.frame.maxY, width: topFrameWidth, height: self.view.bounds.height)
+                self.collectionView.updateConstraintsIfNeeded()
             }
         }
     }
@@ -95,8 +107,8 @@ extension PodcastListViewController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: view.frame.width, height: view.frame.height / 8)
     }
     
-    @objc(collectionView:layout:minimumLineSpacingForSectionAtIndex:) func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 2
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 2.5
     }
 }
 
@@ -159,9 +171,8 @@ extension PodcastListViewController: TopViewDelegate {
 extension PodcastListViewController: MenuDelegate {
     
     func optionOneTapped() {
-        guard let user = dataSource?.user, let casterName = caster.name else { return }
+        guard let user = dataSource.user, let casterName = dataSource.casters[index].name else { return }
         user.favoriteCasts[casterName] = caster
-        // dataSource.user?.favoriteCasts.append(caster)
         print("download")
     }
     

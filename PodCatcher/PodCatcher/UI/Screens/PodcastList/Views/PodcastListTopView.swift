@@ -37,15 +37,12 @@ class PodcastListTopView: UIView {
         preferencesView.layoutSubviews()
         return preferencesView
     }()
-
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         setupConstraints()
         backgroundColor = .lightGray
         layer.setCellShadow(contentView: self)
-        let pillOne = PillView()
-        pillOne.configure(tag: "Test One")
-        tags.configure(pills: [pillOne])
     }
     
     func setupConstraints() {

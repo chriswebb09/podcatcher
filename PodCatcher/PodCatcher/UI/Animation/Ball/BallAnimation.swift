@@ -10,20 +10,6 @@ final class BallAnimation: AnimationDelegate {
         self.size = size
     }
     
-    func layerWith(size: CGSize, color: UIColor) -> CALayer {
-        let layer: CAShapeLayer = CAShapeLayer()
-        let path: UIBezierPath = UIBezierPath()
-        path.addArc(withCenter: CGPoint(x: size.width , y: size.height),
-                    radius: size.width / 2,
-                    startAngle: 0,
-                    endAngle: CGFloat(2 * Double.pi),
-                    clockwise: false)
-        layer.fillColor = color.cgColor
-        layer.path = path.cgPath
-        layer.frame = CGRect(x: 0, y: 0, width: size.width / 2, height: size.height / 2)
-        return layer
-    }
-    
     func setUpAnimation(in layer: CALayer, size: CGSize, color: UIColor) {
         
         let circleSpacing: CGFloat = 40
@@ -37,6 +23,7 @@ final class BallAnimation: AnimationDelegate {
         let animation = CAKeyframeAnimation(keyPath: "transform.scale")
         
         // Animation
+        
         animation.keyTimes = [0, 0.3, 1]
         animation.timingFunctions = [timingFunction, timingFunction]
         animation.values = [1, 0.3, 1]
@@ -45,8 +32,9 @@ final class BallAnimation: AnimationDelegate {
         animation.isRemovedOnCompletion = false
         
         // Draw circles
+        
         for i in 0 ..< 3 {
-            let circle = layerWith(size: CGSize(width: circleSize, height: circleSize), color: color)
+            let circle = CALayer.layerWith(size: CGSize(width: circleSize, height: circleSize), color: color)
             let frame = CGRect(x: x + circleSize * CGFloat(i) + circleSpacing * CGFloat(i) / 4,
                                y: y,
                                width: circleSize / 4,
