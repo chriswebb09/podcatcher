@@ -11,8 +11,4 @@ class PodCatcherTests: XCTestCase {
     override func tearDown() {
         super.tearDown()
     }
-    
-    func testSignIn() {
-
-    }
 }

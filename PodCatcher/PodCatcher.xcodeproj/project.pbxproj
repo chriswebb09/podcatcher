@@ -142,6 +142,7 @@
 		A7905B061EEF779500199246 /* UpdateData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7905B051EEF779500199246 /* UpdateData.swift */; };
 		A7905B081EEF77C800199246 /* PullData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7905B071EEF77C800199246 /* PullData.swift */; };
 		A7905B0A1EEF791800199246 /* FavoritePodcastsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7905B091EEF791800199246 /* FavoritePodcastsViewController.swift */; };
+		A7905B101EEF7CC100199246 /* APIClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7905B0F1EEF7CC100199246 /* APIClientTests.swift */; };
 		A7A54E9F1EE70CFB009A5538 /* PopoverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A54E9E1EE70CFB009A5538 /* PopoverTests.swift */; };
 		A7A54EA51EE7133C009A5538 /* EntryFieldConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A54EA41EE7133C009A5538 /* EntryFieldConstants.swift */; };
 		A7A54EB01EE71474009A5538 /* EntryPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A54EAD1EE71474009A5538 /* EntryPopover.swift */; };
@@ -351,6 +352,7 @@
 		A7905B051EEF779500199246 /* UpdateData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateData.swift; sourceTree = "<group>"; };
 		A7905B071EEF77C800199246 /* PullData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PullData.swift; sourceTree = "<group>"; };
 		A7905B091EEF791800199246 /* FavoritePodcastsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FavoritePodcastsViewController.swift; path = FavoritePodcasts/Controllers/FavoritePodcastsViewController.swift; sourceTree = "<group>"; };
+		A7905B0F1EEF7CC100199246 /* APIClientTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIClientTests.swift; sourceTree = "<group>"; };
 		A7A54E9E1EE70CFB009A5538 /* PopoverTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopoverTests.swift; sourceTree = "<group>"; };
 		A7A54EA41EE7133C009A5538 /* EntryFieldConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryFieldConstants.swift; sourceTree = "<group>"; };
 		A7A54EAD1EE71474009A5538 /* EntryPopover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EntryPopover.swift; path = Entry/EntryPopover.swift; sourceTree = "<group>"; };
@@ -601,6 +603,7 @@
 				A7894FA11EE69E2B000CC190 /* TestMainCoordinator.swift */,
 				A71BFB891EE6FCB400A35D8E /* PodcastsListTests.swift */,
 				A7A54E9E1EE70CFB009A5538 /* PopoverTests.swift */,
+				A7905B0F1EEF7CC100199246 /* APIClientTests.swift */,
 			);
 			path = PodCatcherTests;
 			sourceTree = "<group>";
@@ -1084,9 +1087,17 @@
 		A7905B0B1EEF795C00199246 /* FavoritePodcasts */ = {
 			isa = PBXGroup;
 			children = (
-				A7905B091EEF791800199246 /* FavoritePodcastsViewController.swift */,
+				A7905B0C1EEF7A7E00199246 /* Controllers */,
 			);
 			name = FavoritePodcasts;
+			sourceTree = "<group>";
+		};
+		A7905B0C1EEF7A7E00199246 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				A7905B091EEF791800199246 /* FavoritePodcastsViewController.swift */,
+			);
+			name = Controllers;
 			sourceTree = "<group>";
 		};
 		A7A54EA81EE71391009A5538 /* Entry */ = {
@@ -1581,6 +1592,7 @@
 				A7150ECF1EE637C700E3553F /* PodCatcherTests.swift in Sources */,
 				A7150ED71EE638A900E3553F /* StartCoordinatorTests.swift in Sources */,
 				A71BFB8A1EE6FCB400A35D8E /* PodcastsListTests.swift in Sources */,
+				A7905B101EEF7CC100199246 /* APIClientTests.swift in Sources */,
 				A7150EDD1EE6399200E3553F /* PlayerControllerTests.swift in Sources */,
 				A7A54E9F1EE70CFB009A5538 /* PopoverTests.swift in Sources */,
 				A7894FA01EE69C1E000CC190 /* LoginTests.swift in Sources */,
