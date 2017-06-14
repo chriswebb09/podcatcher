@@ -5,10 +5,9 @@ class PlayerViewModel {
     let title: String
     var timer: Timer?
     var progressIncrementer: Float = 0
-    
+
     var playTimeIncrement: Float = 0.1
     var time: Int = 0
-    
     var totalTimeString: String?
     
     var progress: Float = 0

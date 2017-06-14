@@ -4,7 +4,8 @@ class PillView: UIView {
     
     var tagLabel: UILabel = {
         var tagLabel = UILabel()
-        tagLabel.font = UIFont(name: "Avenir-Book", size: 12)!
+        tagLabel.font = UIFont(name: "Avenir-Book", size: 10)!
+        tagLabel.textColor = .white
         tagLabel.textAlignment = .center
         return tagLabel
     }()
@@ -26,7 +27,9 @@ class PillView: UIView {
     
     func configure(tag: String) {
         tagLabel.text = tag
-        backgroundColor = .green
-        layer.cornerRadius = 12
+        backgroundColor = .mainColor
+        layer.cornerRadius = 10
+        layer.borderColor = UIColor.white.cgColor
+        layer.borderWidth = 1
     }
 }

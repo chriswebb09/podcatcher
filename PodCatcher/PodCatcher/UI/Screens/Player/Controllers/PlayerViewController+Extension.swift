@@ -14,13 +14,14 @@ import CoreMedia
 extension PlayerViewController: PlayerViewDelegate {
     
     func updateTimeValue(time: Double) {
-        if let user = user {
-            user.totalTimeListening += time
-        }
-        let timeTrans = CMTime(value: CMTimeValue(time * 100), timescale: 1)
-        player.player.seek(to: timeTrans)
+        
+        let newTime = CMTime(seconds: time, preferredTimescale: 1)
+        player.player.seek(to: newTime)
+        
         DispatchQueue.main.async {
-            self.playerView.updateProgressBar(value: time / 100)
+            let normalizedTime = Float(self.player.currentTime * 100.0 / self.player.duration)
+            let string = self.playerViewModel.constructTimeString(time: Int(normalizedTime))
+            self.playerView.currentPlayTimeLabel.text = string
         }
     }
     
@@ -37,6 +38,7 @@ extension PlayerViewController: PlayerViewDelegate {
     }
     
     func playButtonTapped() {
+        player.delegate = self
         player.play(player: player.player)
         player.observePlayTime()
     }
@@ -57,10 +59,10 @@ extension PlayerViewController: AudioFilePlayerDelegate {
     }
     
     func updateProgress(progress: Double) {
-        print(progress)
+        let normalizedTime = Float(player.currentTime * 100.0 / player.duration)
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }
-            strongSelf.playerView.updateProgressBar(value: progress)
+            strongSelf.playerView.update(progressBarValue: normalizedTime)
         }
     }
 }

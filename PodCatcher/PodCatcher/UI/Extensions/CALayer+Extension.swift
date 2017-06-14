@@ -11,7 +11,7 @@ extension CALayer {
         shadowOpacity = 0.7
     }
     
-    static func layerWith(size: CGSize, color: UIColor) -> CALayer {
+    static func drawCircleLayerWith(size: CGSize, color: UIColor) -> CALayer {
         let layer: CAShapeLayer = CAShapeLayer()
         let path: UIBezierPath = UIBezierPath()
         path.addArc(withCenter: CGPoint(x: size.width , y: size.height),

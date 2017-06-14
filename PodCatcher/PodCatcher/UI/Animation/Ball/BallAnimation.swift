@@ -13,7 +13,7 @@ final class BallAnimation: AnimationDelegate {
     func setUpAnimation(in layer: CALayer, size: CGSize, color: UIColor) {
         
         let circleSpacing: CGFloat = 40
-        let circleSize: CGFloat = (size.width - 2 * circleSpacing) / 3
+        let circleSize: CGFloat = (size.width - 2 * circleSpacing) / 4
         let x: CGFloat = (layer.bounds.size.width - size.width)
         let y: CGFloat = (layer.bounds.size.height - circleSize) / 2
         let duration: CFTimeInterval = 0.75
@@ -34,7 +34,7 @@ final class BallAnimation: AnimationDelegate {
         // Draw circles
         
         for i in 0 ..< 3 {
-            let circle = CALayer.layerWith(size: CGSize(width: circleSize, height: circleSize), color: color)
+            let circle = CALayer.drawCircleLayerWith(size: CGSize(width: circleSize, height: circleSize), color: color)
             let frame = CGRect(x: x + circleSize * CGFloat(i) + circleSpacing * CGFloat(i) / 4,
                                y: y,
                                width: circleSize / 4,

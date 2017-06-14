@@ -60,6 +60,9 @@ final class PlayerView: UIView {
         slider.thumbTintColor = .white
         let thumbImage = #imageLiteral(resourceName: "arrow2").scaleToSize(CGSize(width: 20, height: 20))
         slider.setThumbImage(thumbImage, for: .normal)
+        slider.setThumbImage(thumbImage, for: .selected)
+        slider.minimumValue = 0
+        slider.maximumValue = 100
         slider.tintColor = .white
         slider.isUserInteractionEnabled = true
         return slider
@@ -70,7 +73,7 @@ final class PlayerView: UIView {
         return playtimeView
     }()
     
-    private var currentPlayTimeLabel: UILabel = {
+    var currentPlayTimeLabel: UILabel = {
         let currentPlayTime = UILabel()
         currentPlayTime.textColor = .white
         currentPlayTime.text = "0:00"
@@ -223,7 +226,7 @@ final class PlayerView: UIView {
         button.centerYAnchor.constraint(equalTo: controlsView.centerYAnchor, constant: UIScreen.main.bounds.height * -0.05).isActive = true
     }
     
-    func setup(totalTimeLabel: UILabel) {
+    private func setup(totalTimeLabel: UILabel) {
         controlsView.addSubview(totalPlayTimeLabel)
         totalPlayTimeLabel.translatesAutoresizingMaskIntoConstraints = false
         totalPlayTimeLabel.widthAnchor.constraint(equalTo: controlsView.widthAnchor, multiplier: PlayerViewConstants.backButtonWidthMultiplier).isActive = true
@@ -232,7 +235,7 @@ final class PlayerView: UIView {
         totalPlayTimeLabel.rightAnchor.constraint(equalTo: controlsView.rightAnchor).isActive = true
     }
     
-    func setup(currentTimeLabel: UILabel) {
+    private func setup(currentTimeLabel: UILabel) {
         controlsView.addSubview(currentTimeLabel)
         currentTimeLabel.translatesAutoresizingMaskIntoConstraints = false
         currentTimeLabel.widthAnchor.constraint(equalTo: controlsView.widthAnchor, multiplier: PlayerViewConstants.backButtonWidthMultiplier).isActive = true
@@ -295,22 +298,17 @@ final class PlayerView: UIView {
     // MARK: - Methods
     
     @objc private func sliderValueChanged() {
-        let testString = model.constructTimeString(time: Int(playtimeSlider.value * 100))
-        print("TEST STRING \(testString)")
-        currentPlayTimeLabel.text = testString
+        let timeString = model.constructTimeString(time: Int(playtimeSlider.value * 100))
+        currentPlayTimeLabel.text = timeString
         delegate?.updateTimeValue(time: Double(playtimeSlider.value))
     }
     
     @objc private func playButtonTapped() {
-        let timerDic: NSMutableDictionary = ["count": model.time]
-        setTimer(timerDict: timerDic)
         model.switchButtonAlpha(for: pauseButton, withButton: playButton)
         delegate?.playButtonTapped()
     }
     
     @objc private func pauseButtonTapped() {
-        guard let countDict = model.timer?.userInfo as? NSMutableDictionary else { return }
-        model.pauseTime(countdict: countDict)
         model.switchButtonAlpha(for: playButton, withButton: pauseButton)
         delegate?.pauseButtonTapped()
     }
@@ -325,27 +323,9 @@ final class PlayerView: UIView {
         delegate?.backButtonTapped()
     }
     
-    private func setTimer(timerDict: NSMutableDictionary) {
-        model.timer?.invalidate()
-        model.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(updateTime), userInfo: timerDict, repeats: true)
-    }
-    
-    @objc private func updateTime() {
-        guard let countDict = model.timer?.userInfo as? NSMutableDictionary else { return }
-        guard let count = countDict["count"] as? Int else { return }
-        model.time = count + 1
-        playtimeSlider.value += model.playTimeIncrement
-        print("Slider value \(playtimeSlider.value)")
-    }
-    
-    func updateProgressBar(value: Double) {
-        guard let model = model else { return }
-        let floatValue = Float(value)
-        print("FLOAT \(floatValue)")
-        model.progress += floatValue
-        let testValue = model.progress * 100
-        let testString = model.constructTimeString(time: Int(testValue))
-        print("TEST STRING \(testString)")
-        currentPlayTimeLabel.text = testString
+    func update(progressBarValue: Float) {
+        playtimeSlider.value = progressBarValue
+        let timeString = model.constructTimeString(time: Int(playtimeSlider.value))
+        currentPlayTimeLabel.text = timeString
     }
 }
