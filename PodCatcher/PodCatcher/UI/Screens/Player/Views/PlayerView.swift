@@ -11,8 +11,6 @@ final class PlayerView: UIView {
             titleLabel.text = model.title
             albumImageView.image = model.imageUrl
             totalPlayTimeLabel.text = model.totalTimeString
-            
-            model.timer = Timer.init()
         }
     }
     
@@ -298,7 +296,7 @@ final class PlayerView: UIView {
     // MARK: - Methods
     
     @objc private func sliderValueChanged() {
-        let timeString = model.constructTimeString(time: Int(playtimeSlider.value * 100))
+        let timeString = String.constructTimeString(time: Double(playtimeSlider.value * 100))
         currentPlayTimeLabel.text = timeString
         delegate?.updateTimeValue(time: Double(playtimeSlider.value))
     }
@@ -325,7 +323,7 @@ final class PlayerView: UIView {
     
     func update(progressBarValue: Float) {
         playtimeSlider.value = progressBarValue
-        let timeString = model.constructTimeString(time: Int(playtimeSlider.value))
+        let timeString = String.constructTimeString(time: Double(playtimeSlider.value))
         currentPlayTimeLabel.text = timeString
     }
 }

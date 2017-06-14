@@ -16,4 +16,28 @@ extension String {
         let result = emailTest.evaluate(with: self)
         return result
     }
+    
+//    func reset(playButton: UIButton, pauseButton: UIButton, slider: UISlider) {
+//        switchButtonAlpha(for: pauseButton, withButton: playButton)
+//        slider.value = 0
+//        
+//    }
+    
+    static func constructTimeString(time: Int) -> String {
+        var timeString = String(describing: time)
+        var timerString = ""
+        if timeString.characters.count < 2 {
+            timerString = "0:0\(timeString)"
+        } else if timeString.characters.count == 2 {
+            timerString = "0:\(timeString)"
+        }
+        if time >= 60 {
+            print(time)
+            let minutes = time / 60
+            let seconds = time % 10
+            timerString = "\(minutes):0\(seconds)"
+        }
+        
+        return timerString
+    }
 }

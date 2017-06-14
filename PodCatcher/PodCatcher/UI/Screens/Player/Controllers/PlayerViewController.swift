@@ -59,32 +59,5 @@ final class PlayerViewController: UIViewController {
         player.delegate = self
     }
     
-    func getHoursMinutesSecondsFrom(seconds: Double) -> (hours: Int, minutes: Int, seconds: Int) {
-        let secs = Int(seconds)
-        let hours = secs / 3600
-        let minutes = (secs % 3600) / 60
-        let seconds = (secs % 3600) % 60
-        return (hours, minutes, seconds)
-    }
-    
-    func formatTimeFor(seconds: Double) -> String {
-        let result = getHoursMinutesSecondsFrom(seconds: seconds)
-        let hoursString = "\(result.hours)"
-        var minutesString = "\(result.minutes)"
-        if minutesString.characters.count == 1 {
-            minutesString = "0\(result.minutes)"
-        }
-        var secondsString = "\(result.seconds)"
-        if secondsString.characters.count == 1 {
-            secondsString = "0\(result.seconds)"
-        }
-        var time = "\(hoursString):"
-        if result.hours >= 1 {
-            time.append("\(minutesString):\(secondsString)")
-        }
-        else {
-            time = "\(minutesString):\(secondsString)"
-        }
-        return time
-    }
+
 }

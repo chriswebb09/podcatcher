@@ -20,8 +20,8 @@ extension PlayerViewController: PlayerViewDelegate {
         
         DispatchQueue.main.async {
             let normalizedTime = Float(self.player.currentTime * 100.0 / self.player.duration)
-            let string = self.playerViewModel.constructTimeString(time: Int(normalizedTime))
-            self.playerView.currentPlayTimeLabel.text = string
+            let timeString = String.constructTimeString(time: Int(normalizedTime))
+            self.playerView.currentPlayTimeLabel.text = timeString
         }
     }
     
@@ -53,7 +53,6 @@ extension PlayerViewController: AudioFilePlayerDelegate {
     func trackDurationCalculated(stringTime: String, timeValue: Float64) {
         DispatchQueue.main.async {
             self.playerViewModel.totalTimeString = stringTime
-            self.playerViewModel.playTimeIncrement = self.playerViewModel.playTimeIncrement / Float(timeValue)
             self.setModel(model: self.playerViewModel)
         }
     }
