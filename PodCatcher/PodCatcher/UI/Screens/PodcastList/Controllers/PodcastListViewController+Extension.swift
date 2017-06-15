@@ -1,7 +1,5 @@
 import UIKit
 
-
-
 // MARK: - PodcastCollectionViewProtocol
 
 extension PodcastListViewController: PodcastCollectionViewProtocol {
@@ -14,7 +12,7 @@ extension PodcastListViewController: PodcastCollectionViewProtocol {
     func configureTopView() {
         topView.frame = CGRect(x: 0, y: 0, width: PodcastListConstants.topFrameWidth, height: PodcastListConstants.topFrameHeight / 1.3)
         if let caster = caster {
-              topView.podcastImageView.image = caster.artwork
+            topView.podcastImageView.image = caster.artwork
         }
         topView.delegate = self
         topView.layoutSubviews()
@@ -76,13 +74,6 @@ extension PodcastListViewController: UIScrollViewDelegate {
             }
         }
     }
-    
-    // MARK: - Setup navbar UI
-    
-//    func setupNavigationController() {
-//        navigationController?.navigationBar.titleTextAttributes = PodcastListConstants.navFont
-//        navigationController?.navigationBar.barTintColor = UIColor.black
-//    }
 }
 
 // MARK: - UICollectionViewDelegate
@@ -191,7 +182,6 @@ extension PodcastListViewController: TopViewDelegate {
         guard let name = caster.name else { return }
         UpdateData.update((name, text))
         topSetup()
-        // topView.podcastTitleLabel.text = dataSource.user?.customGenres.last
         collectionView.reloadData()
         caster.tags.append(text)
     }

@@ -18,7 +18,6 @@ class PodcastListViewController: UIViewController {
         self.index = index
         self.dataSource = dataSource
         super.init(nibName: nil, bundle: nil)
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -36,7 +35,6 @@ class PodcastListViewController: UIViewController {
         } else {
             title = "Podcast"
         }
-        
     }
     
     override func viewWillLayoutSubviews() {
