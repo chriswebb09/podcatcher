@@ -22,7 +22,8 @@ extension PodcastListViewController: PodcastCollectionViewProtocol {
     }
     
     func setupView() {
-        collectionView.frame = CGRect(x: topView.bounds.minX, y: topView.frame.maxY, width: PodcastListConstants.topFrameWidth, height: PodcastListConstants.topFrameHeight)
+        guard let tabHeight = self.tabBarController?.tabBar.frame.height else { return }
+        collectionView.frame = CGRect(x: topView.bounds.minX, y: topView.frame.maxY, width: PodcastListConstants.topFrameWidth, height: self.view.frame.height - tabHeight)
         if let caster = caster, caster.assets.count > 0 {
             view.addSubview(collectionView)
         } else {
@@ -65,7 +66,7 @@ extension PodcastListViewController: UIScrollViewDelegate {
                     self.collectionView.updateConstraintsIfNeeded()
                     self.collectionView.setNeedsLayout()
                 }
-             
+                
             }
         } else {
             UIView.animate(withDuration: 0.01) {
@@ -78,7 +79,7 @@ extension PodcastListViewController: UIScrollViewDelegate {
                     self.collectionView.frame = CGRect(x: self.topView.bounds.minX, y: self.topView.frame.maxY, width: self.view.bounds.width, height: self.view.bounds.height - tabHeight)
                     self.collectionView.updateConstraintsIfNeeded()
                 }
-              
+                
             }
         }
     }
@@ -161,7 +162,7 @@ extension PodcastListViewController: TopViewDelegate {
         if dataSource.user != nil {
             menuPop.popView.delegate = self
             menuPop.setupPop()
-            var tap = UITapGestureRecognizer(target: self, action: #selector(hideMenu))
+            let tap = UITapGestureRecognizer(target: self, action: #selector(hideMenu))
             view.addGestureRecognizer(tap)
             collectionView.addGestureRecognizer(tap)
             topView.addGestureRecognizer(tap)

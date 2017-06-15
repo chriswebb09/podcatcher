@@ -11,10 +11,10 @@ class UserDataAPIClient {
         }
     }
     
-    static func loginToAccount(email: String, password: String, completion: @escaping(User) -> Void) {
+    static func loginToAccount(email: String, password: String, completion: @escaping(User?, Error?) -> Void) {
         Auth.auth().signIn(withEmail: email, password: password) { user, error in
             guard let user = user else { return }
-            completion(user)
+            completion(user, nil)
         }
     }
 }

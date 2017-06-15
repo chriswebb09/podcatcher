@@ -53,7 +53,11 @@ class MediaCollectionViewController: UIViewController {
         collectionViewConfiguration()
         title = "Podcasts"
         if dataSource.user != nil {
-              buttonItem = UIBarButtonItem(title: "Log Out", style: .done, target: self, action: #selector(logout))
+            buttonItem = UIBarButtonItem(title: "Log Out", style: .done, target: self, action: #selector(logout))
+            buttonItem.setTitleTextAttributes([
+                NSFontAttributeName: UIFont(name:"Avenir", size: 16)!,
+                NSForegroundColorAttributeName: PlayerViewConstants.titleViewBackgroundColor],
+                                              for: .normal)
         }
         navigationItem.setRightBarButton(buttonItem, animated: false)
         collectionView.backgroundColor = .darkGray
@@ -63,7 +67,7 @@ class MediaCollectionViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        tabBarController?.tabBar.isHidden = false 
+        tabBarController?.tabBar.isHidden = false
         DispatchQueue.main.async {
             self.collectionView.reloadData()
         }

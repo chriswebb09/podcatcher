@@ -1,7 +1,7 @@
 import UIKit
 
 extension UIViewController {
-
+    
     func setupDefaultUI() {
         let cancelButtonAttributes: NSDictionary = [NSForegroundColorAttributeName: UIColor.textColor]
         UIBarButtonItem.appearance().setTitleTextAttributes(cancelButtonAttributes as? [String : AnyObject], for: .normal)
@@ -14,7 +14,7 @@ extension UIViewController {
         view.sendSubview(toBack: withView)
         view.bringSubview(toFront: forView)
     }
-
+    
     func hideKeyboardWhenTappedAround() {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
         tap.cancelsTouchesInView = false

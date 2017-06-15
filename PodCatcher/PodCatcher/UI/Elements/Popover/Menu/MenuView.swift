@@ -33,7 +33,7 @@ final class MenuView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        backgroundColor = MenuViewConstants.backgroundColor
+        backgroundColor = PlayerViewConstants.titleViewBackgroundColor
         alpha = MenuViewConstants.alpha
         isUserInteractionEnabled = true
         layer.cornerRadius = DetailViewConstants.cornerRadius

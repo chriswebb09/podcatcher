@@ -16,12 +16,3 @@ class UpdateAccountViewController: UIViewController {
     }
 }
 
-extension UpdateAccountViewController: UpdateAccountViewDelegate {
-    func emailUpdated(email: String) {
-        delegate?.updated(email: email)
-    }
-    
-    func usernameUpdated(username: String) {
-        delegate?.updated(username: username)
-    }
-}

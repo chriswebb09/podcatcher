@@ -42,7 +42,5 @@ extension SettingsViewController: GuestUserViewDelegate {
         print("Tapped")
         delegate?.guestUserSignInTapped(tapped: true)
     }
-
-    
 }
 

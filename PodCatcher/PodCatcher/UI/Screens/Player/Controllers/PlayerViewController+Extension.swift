@@ -39,6 +39,7 @@ extension PlayerViewController: PlayerViewDelegate {
         guard let player = player else { return }
         player.player.pause()
         delegate?.pauseButtonTapped()
+        UpdateData.update(Int(player.currentTime))
     }
     
     func playButtonTapped() {

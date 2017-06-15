@@ -16,10 +16,11 @@ struct EmptyCastsViewConstants {
 
 class EmptyCastsView: UIView {
     
-    private var infoLabel: UILabel = UILabel.setupInfoLabel(infoText: "No podcasts found...")
+    private var infoLabel: UILabel = UILabel.setupInfoLabel(infoText: "No podcasts...yet.")
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        infoLabel.textColor = PlayerViewConstants.titleViewBackgroundColor
         backgroundColor = .white
         setup(infoLabel: infoLabel)
     }
