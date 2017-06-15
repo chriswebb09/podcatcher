@@ -8,13 +8,13 @@ class PreferencesView: UIView {
     
     var moreMenuButton: UIButton = {
         var moreMenuButton = UIButton()
-        moreMenuButton.setImage(#imageLiteral(resourceName: "morebutton"), for: .normal)
+        moreMenuButton.setImage(#imageLiteral(resourceName: "more-button-white"), for: .normal)
         return moreMenuButton
     }()
     
     var addTagButton: UIButton = {
         var addTagButton = UIButton()
-        addTagButton.setImage(#imageLiteral(resourceName: "circleaddwhite"), for: .normal)
+       // addTagButton.setImage(#imageLiteral(resourceName: "circleaddwhite"), for: .normal)
         return addTagButton
     }()
     

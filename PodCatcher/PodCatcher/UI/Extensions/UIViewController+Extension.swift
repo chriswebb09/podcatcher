@@ -1,11 +1,7 @@
 import UIKit
 
 extension UIViewController {
-    func setSearchBarColor(searchBar: UISearchBar) {
-        let textFieldInsideSearchBar = searchBar.value(forKey: "searchField") as? UITextField
-        textFieldInsideSearchBar?.textColor = .white
-    }
-    
+
     func setupDefaultUI() {
         let cancelButtonAttributes: NSDictionary = [NSForegroundColorAttributeName: UIColor.textColor]
         UIBarButtonItem.appearance().setTitleTextAttributes(cancelButtonAttributes as? [String : AnyObject], for: .normal)
@@ -14,16 +10,11 @@ extension UIViewController {
         UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).tintColor = .white
     }
     
-}
-
-extension UIViewController {
     func changeView(forView: UIView, withView: UIView) {
         view.sendSubview(toBack: withView)
         view.bringSubview(toFront: forView)
     }
-}
 
-extension UIViewController {
     func hideKeyboardWhenTappedAround() {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
         tap.cancelsTouchesInView = false

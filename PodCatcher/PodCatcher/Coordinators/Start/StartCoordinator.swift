@@ -14,7 +14,7 @@ class StartCoordinator: NavigationCoordinator {
     weak var delegate: CoordinatorDelegate?
     var window: UIWindow!
     var dataSource: BaseMediaControllerDataSource!
-    let player = PCMediaPlayer()
+    let fetcher = PCMediaPlayer()
     var childViewControllers: [UIViewController] = []
     
     var navigationController: UINavigationController {
@@ -31,10 +31,12 @@ class StartCoordinator: NavigationCoordinator {
         self.init(navigationController: navigationController)
         self.window = window
         
-        player.getPlaylists { casts, lists in
-            let listSet = Set(lists!)
-            DispatchQueue.main.async {
-                self.dataSource = BaseMediaControllerDataSource(casters: Array(listSet))
+        fetcher.getPlaylists { [weak self] casts, lists in
+            if let strongSelf = self, let lists = lists {
+                let listSet = Set(lists)
+                DispatchQueue.main.async {
+                    strongSelf.dataSource = BaseMediaControllerDataSource(casters: Array(listSet))
+                }
             }
         }
     }
@@ -63,8 +65,6 @@ class StartCoordinator: NavigationCoordinator {
         navigationController.viewControllers = childViewControllers
     }
 }
-
-
 
 extension StartCoordinator: SplashViewControllerDelegate {
     

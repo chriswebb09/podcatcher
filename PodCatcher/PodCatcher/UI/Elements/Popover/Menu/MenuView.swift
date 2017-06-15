@@ -71,7 +71,7 @@ final class MenuView: UIView {
         layoutSubviews()
         setupConstraints()
         optionOneView.set(with: "Add To Favorites", and: #imageLiteral(resourceName: "cloud-circle-white"))
-        optionTwoView.set(with: "Remove From Playlist", and: #imageLiteral(resourceName: "circle-x-white"))
+        optionTwoView.set(with: "Tag Podcast", and: #imageLiteral(resourceName: "circle-x-white"))
         optionThreeView.set(with: "Delete From Phone", and: #imageLiteral(resourceName: "dot-circle-icon-white"))
         addSelectors()
     }

@@ -5,7 +5,7 @@ class SettingsViewController: UIViewController {
     weak var delegate: SettingsViewControllerDelegate?
     
     var dataSource: BaseMediaControllerDataSource
-
+    
     var settingsView: SettingsView!
     
     init(settingsView: SettingsView, dataSource: BaseMediaControllerDataSource) {
@@ -23,11 +23,26 @@ class SettingsViewController: UIViewController {
         super.viewDidLoad()
         edgesForExtendedLayout = []
         settingsView.backgroundColor = SettingsViewConstants.backgroundColor
-        let model = SettingsViewModel(firstSettingOptionText: "Favorite Podcasts", secondSettingOptionText: "Profile Settings")
-        view.addView(view: settingsView, type: .full)
-        view = settingsView
-        settingsView.configure(model: model)
         title = "Settings"
+        if dataSource.user != nil {
+            let model = SettingsViewModel(firstSettingOptionText: "Favorite Podcasts", secondSettingOptionText: "Profile Settings")
+            view.addView(view: settingsView, type: .full)
+            view = settingsView
+            settingsView.configure(model: model)
+        } else {
+            let guestView = GuestUserView(frame: view.frame)
+            guestView.delegate = self
+            view.addView(view: guestView, type: .full)
+        }
     }
+}
+
+extension SettingsViewController: GuestUserViewDelegate {
+    func signIntoAccount(tapped: Bool) {
+        print("Tapped")
+        delegate?.guestUserSignInTapped(tapped: true)
+    }
+
+    
 }
 

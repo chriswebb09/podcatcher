@@ -2,15 +2,13 @@ import MediaPlayer
 
 class PCMediaPlayer {
     
-    var myPodcastsQuery: MPMediaQuery!
+    var podcastsQuery: MPMediaQuery!
     var casts = [String: Caster]()
     
     var casters = [Caster]()
-    
-    var myMPMusicPlayerController = MPMusicPlayerController()
-    
+  
     func getPlaylists(completion: @escaping ([String: Caster], [Caster]?) -> Void) {
-        MPMediaLibrary.requestAuthorization { auth in
+        MPMediaLibrary.requestAuthorization { [weak self] auth in
             switch auth {
             case .denied:
                 fatalError()
@@ -19,18 +17,22 @@ class PCMediaPlayer {
             case .restricted:
                 return
             case .authorized:
-                if self.myPodcastsQuery == nil {
-                    self.myPodcastsQuery = MPMediaQuery.podcasts()
-                }
-                
-                let itemCollection = self.getItemCollectionFrom(query: self.myPodcastsQuery)
-                let newTest = self.getItemListsFrom(collection: itemCollection)
-                self.getPodcastsFromMediaList(mediaLists: newTest)
-                for (_ , n) in self.casts.enumerated() {
-                    self.casters.append(n.value)
-                }
-                DispatchQueue.main.async {
-                    completion(self.casts, self.casters)
+                if let strongSelf = self {
+                    
+                    
+                    if strongSelf.podcastsQuery == nil {
+                        strongSelf.podcastsQuery = MPMediaQuery.podcasts()
+                    }
+                    
+                    let itemCollection = strongSelf.getItemCollectionFrom(query: strongSelf.podcastsQuery)
+                    let newTest = strongSelf.getItemListsFrom(collection: itemCollection)
+                    strongSelf.getPodcastsFromMediaList(mediaLists: newTest)
+                    for (_ , n) in strongSelf.casts.enumerated() {
+                        strongSelf.casters.append(n.value)
+                    }
+                    DispatchQueue.main.async {
+                        completion(strongSelf.casts, strongSelf.casters)
+                    }
                 }
                 
             }
@@ -38,7 +40,7 @@ class PCMediaPlayer {
     }
     
     func getItemCollectionFrom(query: MPMediaQuery) -> [MPMediaItemCollection]? {
-        guard let myPodcastsQuery = myPodcastsQuery else { return nil }
+        guard let myPodcastsQuery = podcastsQuery else { return nil }
         let podcasts = myPodcastsQuery.collections
         return podcasts
     }
@@ -67,11 +69,11 @@ class PCMediaPlayer {
                 guard let name = item.albumArtist else { return }
                 if let title = item.title, let collectionName = item.albumTitle, let audioUrl = url {
                     var newItem = MediaCatcherItem(creatorName: name,
-                                                title: title,
-                                                playtime: item.playbackDuration,
-                                                playCount: item.playCount,
-                                                collectionName: collectionName,
-                                                audioUrl: audioUrl)
+                                                   title: title,
+                                                   playtime: item.playbackDuration,
+                                                   playCount: item.playCount,
+                                                   collectionName: collectionName,
+                                                   audioUrl: audioUrl)
                     newItem.audioItem = item
                     casts[newItem.creatorName]?.assets.append(newItem)
                 }

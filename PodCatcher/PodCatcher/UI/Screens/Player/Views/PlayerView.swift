@@ -6,7 +6,7 @@ final class PlayerView: UIView {
     
     // MARK: - Data Properties
     
-    private var model: PlayerViewModel! {
+    var model: PlayerViewModel! {
         didSet {
             titleLabel.text = model.title
             albumImageView.image = model.imageUrl
@@ -73,6 +73,7 @@ final class PlayerView: UIView {
     
     var currentPlayTimeLabel: UILabel = {
         let currentPlayTime = UILabel()
+        currentPlayTime.textAlignment = .left
         currentPlayTime.textColor = .white
         currentPlayTime.text = "0:00"
         currentPlayTime.font = UIFont(name: "Avenir-Light", size: 12)
@@ -81,6 +82,7 @@ final class PlayerView: UIView {
     
     private var totalPlayTimeLabel: UILabel = {
         let totalPlayTime = UILabel()
+        totalPlayTime.textAlignment = .right
         totalPlayTime.textColor = .white
         totalPlayTime.font = UIFont(name: "Avenir-Light", size: 12)
         return totalPlayTime
@@ -204,7 +206,7 @@ final class PlayerView: UIView {
     private func setup(trackButton: UIButton) {
         controlsView.addSubview(trackButton)
         trackButton.translatesAutoresizingMaskIntoConstraints = false
-        trackButton.heightAnchor.constraint(equalTo: controlsView.heightAnchor, multiplier: 0.35).isActive = true
+        trackButton.heightAnchor.constraint(equalTo: controlsView.heightAnchor, multiplier: 0.36).isActive = true
         trackButton.centerYAnchor.constraint(equalTo: controlsView.centerYAnchor, constant: UIScreen.main.bounds.height * -0.05).isActive = true
         trackButton.centerXAnchor.constraint(equalTo: controlsView.centerXAnchor).isActive = true
     }
@@ -296,9 +298,9 @@ final class PlayerView: UIView {
     // MARK: - Methods
     
     @objc private func sliderValueChanged() {
-        let timeString = String.constructTimeString(time: Double(playtimeSlider.value * 100))
+        let timeString = String.constructTimeString(time: Double(playtimeSlider.value))
         currentPlayTimeLabel.text = timeString
-        delegate?.updateTimeValue(time: Double(playtimeSlider.value))
+        delegate?.updateTimeValue(time: Double(playtimeSlider.value * 2))
     }
     
     @objc private func playButtonTapped() {
@@ -323,7 +325,5 @@ final class PlayerView: UIView {
     
     func update(progressBarValue: Float) {
         playtimeSlider.value = progressBarValue
-        let timeString = String.constructTimeString(time: Double(playtimeSlider.value))
-        currentPlayTimeLabel.text = timeString
     }
 }

@@ -4,6 +4,7 @@ class PlayerViewModel {
     
     let title: String
     var totalTimeString: String?
+    var currentTimeString: String = "0:00"
     let imageUrl: UIImage
     
     init(image: UIImage, title: String) {

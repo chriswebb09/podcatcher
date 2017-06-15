@@ -13,8 +13,8 @@ final class EmptyView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         setup(musicIcon: musicIcon)
+        backgroundColor = .white
         setup(infoLabel: infoLabel)
-        backgroundColor = CollectionViewAttributes.backgroundColor
     }
     
     func configure() {

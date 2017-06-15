@@ -28,7 +28,7 @@ class PillView: UIView {
     func configure(tag: String) {
         tagLabel.text = tag
         backgroundColor = .mainColor
-        layer.cornerRadius = 10
+        layer.cornerRadius = 8
         layer.borderColor = UIColor.white.cgColor
         layer.borderWidth = 1
     }

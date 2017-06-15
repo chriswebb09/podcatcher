@@ -12,8 +12,6 @@ extension UILabel {
         infoLabel.text = "Add to your playlist..."
         return infoLabel
     }
-    
 }
-
 
 extension UICollectionViewCell: Reusable { }

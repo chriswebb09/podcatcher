@@ -4,8 +4,18 @@ extension String {
     
     static func constructTimeString(time: Double) -> String {
         let minutes = Int(time / 60)
+        print(time)
         let seconds = Int(time.truncatingRemainder(dividingBy: 60))
-        return  "\(minutes):\(seconds)"
+        
+        print("Seconds \(seconds)")
+        var timerString = ""
+        if seconds < 10 {
+            timerString = "\(minutes):0\(seconds)"
+        } else {
+            timerString = "\(minutes):\(seconds)"
+        }
+        print(timerString)
+        return timerString
     }
     
     // String extension check that itself for valid email pattern and returns boolean
@@ -17,11 +27,7 @@ extension String {
         return result
     }
     
-//    func reset(playButton: UIButton, pauseButton: UIButton, slider: UISlider) {
-//        switchButtonAlpha(for: pauseButton, withButton: playButton)
-//        slider.value = 0
-//        
-//    }
+    // MARK: - Helpers
     
     static func constructTimeString(time: Int) -> String {
         var timeString = String(describing: time)
@@ -35,9 +41,12 @@ extension String {
             print(time)
             let minutes = time / 60
             let seconds = time % 10
-            timerString = "\(minutes):0\(seconds)"
+            if seconds < 10 {
+                timerString = "\(minutes):0\(seconds)"
+            } else {
+                timerString = "\(minutes):\(seconds)"
+            }
         }
-        
         return timerString
     }
 }

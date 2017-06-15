@@ -26,6 +26,9 @@ class SettingsTabCoordinator: NavigationCoordinator {
 }
 
 extension SettingsTabCoordinator: SettingsViewControllerDelegate {
+    func guestUserSignInTapped(tapped: Bool) {
+        delegate?.transitionCoordinator(type: .app, dataSource: dataSource)
+    }
     
     func settingTwoTapped(tapped: Bool) {
         let updateAccountViewController = UpdateAccountViewController()

@@ -5,7 +5,7 @@ struct PlayerViewConstants {
     static let controlsViewBackgroundColor = UIColor(red:0.10, green:0.09, blue:0.12, alpha:1.0)
     static let buttonWidthMultiplier: CGFloat = 0.2
     static let backButtonWidthMultiplier: CGFloat = 0.09
-    static let backButtonHeightMultiplier: CGFloat = 0.11
+    static let backButtonHeightMultiplier: CGFloat = 0.14
     static let backButtonCenterYOffset: CGFloat = -0.08
     static let progressViewWidthMultiplier: CGFloat = 0.6
     static let progressViewHeightMultiplier: CGFloat = 0.005

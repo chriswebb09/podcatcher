@@ -82,6 +82,9 @@
 		A723A5BD1EE946F3002E49BF /* SettingsOptionViewConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = A723A5BC1EE946F3002E49BF /* SettingsOptionViewConstant.swift */; };
 		A723A5BF1EE94772002E49BF /* DetailPopoverConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A723A5BE1EE94772002E49BF /* DetailPopoverConstants.swift */; };
 		A723A5C11EE9480C002E49BF /* EntryViewConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A723A5C01EE9480C002E49BF /* EntryViewConstants.swift */; };
+		A72597911EF1AC5500179301 /* GuestUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72597901EF1AC5500179301 /* GuestUserView.swift */; };
+		A72697A61EF0D88300D406BB /* FavoritePodcastsViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72697A51EF0D88300D406BB /* FavoritePodcastsViewControllerDelegate.swift */; };
+		A72697A81EF0DA7D00D406BB /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72697A71EF0DA7D00D406BB /* UIImage+Extension.swift */; };
 		A73D74091EE684C4004571A5 /* LoadingPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73D74081EE684C4004571A5 /* LoadingPopover.swift */; };
 		A73D740B1EE684DD004571A5 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73D740A1EE684DD004571A5 /* LoadingView.swift */; };
 		A73D740E1EE685FF004571A5 /* AnimationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73D740D1EE685FF004571A5 /* AnimationDelegate.swift */; };
@@ -295,6 +298,9 @@
 		A723A5BC1EE946F3002E49BF /* SettingsOptionViewConstant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsOptionViewConstant.swift; sourceTree = "<group>"; };
 		A723A5BE1EE94772002E49BF /* DetailPopoverConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailPopoverConstants.swift; sourceTree = "<group>"; };
 		A723A5C01EE9480C002E49BF /* EntryViewConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryViewConstants.swift; sourceTree = "<group>"; };
+		A72597901EF1AC5500179301 /* GuestUserView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuestUserView.swift; sourceTree = "<group>"; };
+		A72697A51EF0D88300D406BB /* FavoritePodcastsViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FavoritePodcastsViewControllerDelegate.swift; path = FavoritePodcasts/Delegates/FavoritePodcastsViewControllerDelegate.swift; sourceTree = "<group>"; };
+		A72697A71EF0DA7D00D406BB /* UIImage+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		A73D74081EE684C4004571A5 /* LoadingPopover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingPopover.swift; sourceTree = "<group>"; };
 		A73D740A1EE684DD004571A5 /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		A73D740D1EE685FF004571A5 /* AnimationDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationDelegate.swift; sourceTree = "<group>"; };
@@ -974,6 +980,7 @@
 			children = (
 				A7B840CC1EECD7530049BB78 /* PillView.swift */,
 				A77EDF641EE5FC17001A24E5 /* EmptyView.swift */,
+				A72597901EF1AC5500179301 /* GuestUserView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1043,6 +1050,7 @@
 				A71B27361EE5D87900613CF4 /* UIView+Extension.swift */,
 				A77EDF791EE5FF93001A24E5 /* UIViewController+Extension.swift */,
 				A77EDF7B1EE5FFAB001A24E5 /* ViewType.swift */,
+				A72697A71EF0DA7D00D406BB /* UIImage+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1097,6 +1105,7 @@
 			isa = PBXGroup;
 			children = (
 				A7905B0C1EEF7A7E00199246 /* Controllers */,
+				A72697A51EF0D88300D406BB /* FavoritePodcastsViewControllerDelegate.swift */,
 			);
 			name = FavoritePodcasts;
 			sourceTree = "<group>";
@@ -1702,6 +1711,7 @@
 				A723A5A91EE93116002E49BF /* PodcastListConstants.swift in Sources */,
 				A71853001EE9580D00911C87 /* PodcastListViewControllerConstants.swift in Sources */,
 				A73D741A1EE68729004571A5 /* LoginViewControllerDelegate.swift in Sources */,
+				A72697A61EF0D88300D406BB /* FavoritePodcastsViewControllerDelegate.swift in Sources */,
 				A71853101EE9628800911C87 /* LoginButtonFactory.swift in Sources */,
 				A7EBA0A51EE6740300FAAC9C /* String+Extension.swift in Sources */,
 				A7894FAA1EE6DC5E000CC190 /* PreferencesViewDelegate.swift in Sources */,
@@ -1726,6 +1736,7 @@
 				A7EBA0CA1EE6836400FAAC9C /* NSError+Extension.swift in Sources */,
 				A71B27251EE5D28600613CF4 /* TabBarCoordinator.swift in Sources */,
 				A71853021EE9584E00911C87 /* BaseMenuPopover.swift in Sources */,
+				A72697A81EF0DA7D00D406BB /* UIImage+Extension.swift in Sources */,
 				A718530C1EE960C400911C87 /* PopDelegate.swift in Sources */,
 				A71B27351EE5D81700613CF4 /* SplashView.swift in Sources */,
 				A7FFD4CD1EEF643400853480 /* UpdateAccountViewModel.swift in Sources */,
@@ -1743,6 +1754,7 @@
 				A77EDF5D1EE5FB5F001A24E5 /* ReusableProtocol.swift in Sources */,
 				A71BFB881EE6F62B00A35D8E /* UnderLineTextField.swift in Sources */,
 				A71B27391EE5DA7E00613CF4 /* SplashViewDelegate.swift in Sources */,
+				A72597911EF1AC5500179301 /* GuestUserView.swift in Sources */,
 				A71853041EE958A900911C87 /* MenuViewConstants.swift in Sources */,
 				A71B272B1EE5D4B800613CF4 /* TabBarController.swift in Sources */,
 				A7EBA0CC1EE683C900FAAC9C /* BallAnimation.swift in Sources */,

@@ -10,7 +10,11 @@ import Foundation
 import AVFoundation
 import MediaPlayer
 
-let audioCache = NSCache<NSString, AVURLAsset>()
+let audioCache: NSCache<NSString, AVURLAsset> = {
+    var cache = NSCache<NSString, AVURLAsset>()
+    cache.countLimit = 10
+    return cache
+}()
 
 final class AudioFilePlayer: NSObject, AVAssetResourceLoaderDelegate, Playable {
     
@@ -36,12 +40,13 @@ final class AudioFilePlayer: NSObject, AVAssetResourceLoaderDelegate, Playable {
     }()
     
     var currentTime: Double {
+        
         get {
             return CMTimeGetSeconds(player.currentTime())
         }
         
         set {
-            let newTime = CMTimeMakeWithSeconds(newValue, 10)
+            let newTime = CMTimeMakeWithSeconds(newValue, 1000)
             player.seek(to: newTime, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero)
         }
     }

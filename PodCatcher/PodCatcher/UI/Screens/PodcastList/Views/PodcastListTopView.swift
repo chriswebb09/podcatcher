@@ -83,7 +83,8 @@ class PodcastListTopView: UIView {
         addSubview(tagsView)
         tagsView.translatesAutoresizingMaskIntoConstraints = false
         tagsView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
+        tagsView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         tagsView.bottomAnchor.constraint(equalTo: preferencesView.topAnchor).isActive = true
-        tagsView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: PodcastListTopViewConstants.preferencesViewHeightMultiplier).isActive = true
+        tagsView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: PodcastListTopViewConstants.tagsViewHeightMultiplier).isActive = true
     }
 }

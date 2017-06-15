@@ -8,7 +8,7 @@ class MediaCollectionViewController: UIViewController {
     
     weak var delegate: MediaControllerDelegate?
     lazy var collectionView : UICollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
-    var emptyView = EmptyView()
+    var emptyView = EmptyView(frame: UIScreen.main.bounds)
     
     var viewShown: ShowView = .empty {
         didSet {
@@ -49,10 +49,13 @@ class MediaCollectionViewController: UIViewController {
         super.viewDidLoad()
         edgesForExtendedLayout = []
         view.addSubview(collectionView)
+        view.addSubview(emptyView)
         collectionViewConfiguration()
         title = "Podcasts"
         navigationController?.isNavigationBarHidden = false
-        buttonItem = UIBarButtonItem(title: "Log Out", style: .done, target: self, action: #selector(logout))
+        if dataSource.user != nil {
+              buttonItem = UIBarButtonItem(title: "Log Out", style: .done, target: self, action: #selector(logout))
+        }
         navigationItem.setRightBarButton(buttonItem, animated: false)
         collectionView.backgroundColor = .darkGray
         guard let frame = tabBarController?.tabBar.frame else { return }

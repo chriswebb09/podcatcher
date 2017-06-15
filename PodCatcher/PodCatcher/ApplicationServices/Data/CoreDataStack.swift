@@ -31,11 +31,13 @@ class CoreDataStack {
         return NSManagedObjectModel(contentsOf: modelURL)!
     }()
     
-    func loadDefaultDataIfFirstLaunch() {
+    func loadDefaultOnFirstLaunch() -> Bool {
         let key = "hasLaunchedBefore"
         let launchedBefore = UserDefaults.standard.bool(forKey: key)
         if launchedBefore == false {
             UserDefaults.standard.set(true, forKey: key)
+            return false
         }
+        return true
     }
 }

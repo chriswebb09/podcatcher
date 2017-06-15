@@ -10,7 +10,7 @@ final class PlayerViewController: UIViewController {
     var playerView: PlayerView
     var playerState: PlayState
     var caster: Caster
-    var player: AudioFilePlayer
+    var player: AudioFilePlayer?
     var index: Int
     var user: PodCatcherUser?
     var playerViewModel: PlayerViewModel!
@@ -28,7 +28,8 @@ final class PlayerViewController: UIViewController {
         guard let artwork = caster.artwork else { return }
         self.playerViewModel = PlayerViewModel(image: artwork, title: caster.assets[index].title)
         setModel(model: PlayerViewModel(image: artwork, title: caster.assets[index].title))
-        initPlayer(url: caster.assets[index].audioUrl!)
+        guard var url = caster.assets[index].audioUrl else { return }
+        initPlayer(url: url)
         playerView.delegate = self
         view.addView(view: playerView, type: .full)
         title = caster.assets[index].collectionName
@@ -48,6 +49,8 @@ final class PlayerViewController: UIViewController {
         super.viewDidDisappear(animated)
         navigationController?.popViewController(animated: true)
         tabBarController?.tabBar.alpha = 1
+        player?.player.pause()
+        player = nil
     }
     
     func setModel(model: PlayerViewModel) {
@@ -55,9 +58,8 @@ final class PlayerViewController: UIViewController {
     }
     
     func initPlayer(url: URL)  {
+        guard var player = player else { return }
         player = AudioFilePlayer(url: url)
         player.delegate = self
     }
-    
-
 }

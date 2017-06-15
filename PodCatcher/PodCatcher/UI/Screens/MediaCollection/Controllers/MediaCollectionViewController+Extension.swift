@@ -28,6 +28,9 @@ extension MediaCollectionViewController: UICollectionViewDelegate {
 extension MediaCollectionViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if dataSource.count == 0 {
+            self.viewShown = .empty
+        }
         return dataSource.count
     }
     

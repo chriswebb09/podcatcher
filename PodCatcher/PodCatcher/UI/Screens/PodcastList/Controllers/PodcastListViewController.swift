@@ -17,7 +17,9 @@ class PodcastListViewController: UIViewController {
     init(index: Int, dataSource: BaseMediaControllerDataSource) {
         self.index = index
         self.dataSource = dataSource
+        
         super.init(nibName: nil, bundle: nil)
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -27,8 +29,13 @@ class PodcastListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-        setupTopView()
+        configureTopView()
+        caster.tags = ["Test one", "test two"]
         navigationItem.rightBarButtonItem?.title = "Podcasts"
+        if dataSource.user == nil {
+            topView.preferencesView.moreMenuButton.isHidden = true
+        }
+        title = caster.name
     }
     
     override func viewWillLayoutSubviews() {

@@ -23,7 +23,25 @@ extension MediaTabCoordinator: PodcastListViewControllerDelegate {
     func didSelectPodcastAt(at index: Int, with podcast: Caster) {
         let playerView = PlayerView()
         let playerViewController = PlayerViewController(playerView: playerView, index: index, caster: podcast, user: dataSource.user)
+        playerViewController.delegate = self
         navigationController.viewControllers.append(playerViewController)
         print("selected")
     }
+}
+
+extension MediaTabCoordinator: PlayerViewControllerDelegate {
+    
+    func skipButtonTapped() {
+        print("skipped")
+    }
+
+    func pauseButtonTapped() {
+        print("paused")
+    }
+
+    func playButtonTapped() {
+        print("play")
+    }
+
+    
 }

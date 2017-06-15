@@ -61,11 +61,13 @@ extension MainCoordinator: CoordinatorDelegate {
             let settingsView = SettingsView(frame: CGRect.zero, model: model)
             let settingsViewController = SettingsViewController(settingsView: settingsView, dataSource: dataSource)
             let settingsTab = UINavigationController(rootViewController: settingsViewController)
-            //let settingsCoord = tabbBarCoordinator.childCoordinators[1] as! SettingsViewControllerDelegate
-           // settingsCoord.
+
+
             
             tabbBarCoordinator.setupSettingsCoordinator(navigationController: settingsTab, dataSource: dataSource)
             tabbBarCoordinator.delegate = self
+            let settingsCoord = tabbBarCoordinator.childCoordinators[1] as! SettingsTabCoordinator
+            settingsCoord.delegate = self
             
             appCoordinator = tabbBarCoordinator
             start()

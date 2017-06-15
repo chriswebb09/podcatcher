@@ -15,7 +15,7 @@ class PodcastCell: UICollectionViewCell {
         var podcastTitleLabel = UILabel()
         podcastTitleLabel.sizeToFit()
         podcastTitleLabel.textAlignment = .left
-        podcastTitleLabel.font = UIFont(name: "HelveticaNeue-Light", size: 14)
+        podcastTitleLabel.font = UIFont(name: "HelveticaNeue-Light", size: 12)
         return podcastTitleLabel
     }()
     
@@ -23,7 +23,7 @@ class PodcastCell: UICollectionViewCell {
         var playTimeLabel = UILabel()
         playTimeLabel.sizeToFit()
         playTimeLabel.textAlignment = .right
-        playTimeLabel.font = UIFont(name: "HelveticaNeue-Medium", size: 14)
+        playTimeLabel.font = UIFont(name: "HelveticaNeue-Medium", size: 12)
         return playTimeLabel
     }()
     
@@ -46,8 +46,6 @@ class PodcastCell: UICollectionViewCell {
         setupConstraints()
         layoutIfNeeded()
         podcastImageView.image = model.podcastImage
-        let intTime = Int(model.item.playtime)
-        let timeString = String.constructTimeString(time: model.item.playtime)
         playTimeLabel.text = String.constructTimeString(time: model.item.playtime)
         podcastTitleLabel.text = model.podcastTitle
     }

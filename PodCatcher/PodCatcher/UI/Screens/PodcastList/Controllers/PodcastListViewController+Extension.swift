@@ -1,5 +1,7 @@
 import UIKit
 
+
+
 // MARK: - PodcastCollectionViewProtocol
 
 extension PodcastListViewController: PodcastCollectionViewProtocol {
@@ -10,23 +12,41 @@ extension PodcastListViewController: PodcastCollectionViewProtocol {
         setupNavigationController()
     }
     
-    func setupTopView() {
-        topView.frame = CGRect(x: 0, y: 0, width: PodcastListConstants.topFrameWidth, height: PodcastListConstants.topFrameHeight / 1.5)
+    func configureTopView() {
+        topView.frame = CGRect(x: 0, y: 0, width: PodcastListConstants.topFrameWidth, height: PodcastListConstants.topFrameHeight / 1.3)
         topView.podcastImageView.image = caster.artwork
-        title = caster.name
         topView.delegate = self
         topView.layoutSubviews()
         view.addSubview(topView)
+        setupView()
+        topSetup()
+    }
+    
+    func setupView() {
         collectionView.frame = CGRect(x: topView.bounds.minX, y: topView.frame.maxY, width: PodcastListConstants.topFrameWidth, height: PodcastListConstants.topFrameHeight)
-        view.addSubview(collectionView)
-        let pillOne = PillView()
-        pillOne.configure(tag: "Test One")
-        
-        let pillTwo = PillView()
-        pillTwo.configure(tag: "Test Two")
-        topView.tags.configure(pills: [pillOne, pillTwo])
+        if caster.assets.count > 0 {
+            view.addSubview(collectionView)
+        } else {
+            let emptyView = EmptyView(frame: CGRect(x: topView.bounds.minX, y: topView.frame.maxY, width: PodcastListConstants.topFrameWidth, height: PodcastListConstants.topFrameHeight + 10))
+            emptyView.backgroundColor = .white
+            view.backgroundColor = .white
+            emptyView.layoutSubviews()
+            view.addSubview(emptyView)
+        }
+    }
+    
+    func topSetup() {
         guard let user = dataSource.user else { return }
-        topView.playCountLabel.text = String(describing: dataSource.user?.totalTimeListening)
+        var tagviews = [PillView]()
+        for item in caster.tags {
+            let pill = PillView()
+            pill.configure(tag: item)
+            tagviews.append(pill)
+            DispatchQueue.main.async {
+                self.topView.tags.configure(pills: tagviews)
+            }
+        }
+        topView.playCountLabel.text = String(describing: user.totalTimeListening)
     }
 }
 
@@ -46,15 +66,11 @@ extension PodcastListViewController: UIScrollViewDelegate {
             }
         } else {
             UIView.animate(withDuration: 0.05) {
-                let topFrameHeight = self.view.bounds.height / 2
-                let topFrameWidth = self.view.bounds.width
-                guard var navHeight = self.navigationController?.navigationBar.frame.height else { return }
                 self.topView.frame = CGRect(x: 0, y: 0, width: PodcastListConstants.topFrameWidth, height: PodcastListConstants.topFrameHeight / 1.5)
-                //CGRect(x: 0, y: 0, width: topFrameWidth, height: topFrameHeight / 1.5)
                 self.topView.podcastImageView.image = self.caster.artwork
                 self.topView.layoutSubviews()
                 self.view.addSubview(self.topView)
-                self.collectionView.frame = CGRect(x: self.topView.bounds.minX, y: self.topView.frame.maxY, width: topFrameWidth, height: self.view.bounds.height)
+                self.collectionView.frame = CGRect(x: self.topView.bounds.minX, y: self.topView.frame.maxY, width: self.view.bounds.width, height: self.view.bounds.height)
                 self.collectionView.updateConstraintsIfNeeded()
             }
         }
@@ -104,11 +120,11 @@ extension PodcastListViewController: UICollectionViewDataSource {
 extension PodcastListViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width, height: view.frame.height / 8)
+        return PodcastListViewControllerConstants.size
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 2.5
+        return PodcastListViewControllerConstants.space
     }
 }
 
@@ -136,12 +152,14 @@ extension PodcastListViewController: TopViewDelegate {
     }
     
     func showMenu() {
-        menuPop.popView.delegate = self
-        menuPop.setupPop()
-        UIView.animate(withDuration: 0.15) { [weak self] in
-            guard let strongSelf = self else { return }
-            strongSelf.menuPop.showPopView(viewController: strongSelf)
-            strongSelf.menuPop.popView.isHidden = false
+        if dataSource.user != nil {
+            menuPop.popView.delegate = self
+            menuPop.setupPop()
+            UIView.animate(withDuration: 0.15) { [weak self] in
+                guard let strongSelf = self else { return }
+                strongSelf.menuPop.showPopView(viewController: strongSelf)
+                strongSelf.menuPop.popView.isHidden = false
+            }
         }
     }
     
@@ -161,8 +179,10 @@ extension PodcastListViewController: TopViewDelegate {
         dataSource.user?.customGenres.append(text)
         guard let name = caster.name else { return }
         UpdateData.update((name, text))
-        topView.podcastTitleLabel.text = dataSource.user?.customGenres.last
+        topSetup()
+        // topView.podcastTitleLabel.text = dataSource.user?.customGenres.last
         collectionView.reloadData()
+        caster.tags.append(text)
     }
 }
 
@@ -177,6 +197,7 @@ extension PodcastListViewController: MenuDelegate {
     }
     
     func optionTwoTapped() {
+        popEntry()
         print("Option two tapped")
     }
     
