@@ -6,23 +6,28 @@ class PullData {
         
         var ref: DatabaseReference!
         ref = Database.database().reference()
-        let userID = Auth.auth().currentUser?.uid
+        guard let userID = Auth.auth().currentUser?.uid else { return }
         
-        ref.child("users").child(userID!).observeSingleEvent(of: .value, with: { snapshot in
-            
-            // Get user value
-            
+        ref.child("users").child(userID).observeSingleEvent(of: .value, with: { snapshot in
+
             let value = snapshot.value as? NSDictionary
             let username = value?["username"] as? String ?? ""
             let email = value?["email"] as? String ?? ""
-            let genres = value?["genres"] as? String ?? ""
+            let genres = value?["genres"] as? NSDictionary
             let user = PodCatcherUser(username: username, emailAddress: email)
-            user.customGenres = [genres]
+            let keys = genres?.allKeys as! [String]
+            for key in keys {
+                guard let genre = genres?[key] else { return }
+                var data = genre as! NSDictionary
+                for (_, n) in data.enumerated() {
+                    print(n.value)
+                }
+            }
+            user.customGenres = keys
             completion(user)
-            
-        }) { (error) in
-            
+        }) { error in
             print(error.localizedDescription)
         }
+        
     }
 }

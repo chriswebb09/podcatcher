@@ -7,7 +7,7 @@ final class MenuOptionView: UIView {
         option.textColor = .white
         option.backgroundColor = .clear
         option.font = UIFont(name: "Avenir-Book", size: 15)
-        option.textAlignment = .right
+        option.textAlignment = .left
         return option
     }()
     
@@ -25,7 +25,7 @@ final class MenuOptionView: UIView {
         addSubview(optionLabel)
         optionLabel.translatesAutoresizingMaskIntoConstraints = false
         optionLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        optionLabel.centerXAnchor.constraint(equalTo: centerXAnchor, constant: MenuOptionViewConstants.optionLabelCenterYOffset).isActive = true
+        optionLabel.centerXAnchor.constraint(equalTo: centerXAnchor, constant: MenuOptionViewConstants.optionLabelCenterXOffset).isActive = true
         optionLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: MenuOptionViewConstants.optionLabelHeightMultiplier).isActive = true
         optionLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: MenuOptionViewConstants.optionLabelWidthMultiplier).isActive = true
         

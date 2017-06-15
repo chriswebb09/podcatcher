@@ -13,7 +13,7 @@ class SetData {
         let userRef = usersRef.child(id)
         let date = Date()
         userRef.child("joinDate").setValue(String(describing: date))
-        userRef.child("email").setValue(email)
+        userRef.child("email").setValue(email.lowercased())
     }
     
     func setup(userPlaytime: Int, id: String) {

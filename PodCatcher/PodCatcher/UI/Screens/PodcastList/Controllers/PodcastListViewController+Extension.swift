@@ -56,21 +56,29 @@ extension PodcastListViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offset = scrollView.contentOffset
         if offset.y > PodcastListConstants.minimumOffset {
-            UIView.animate(withDuration: 0.02) {
-                self.topView.removeFromSuperview()
-                self.collectionView.frame = self.view.bounds
-                self.view.updateConstraintsIfNeeded()
-                self.collectionView.updateConstraintsIfNeeded()
-                self.collectionView.setNeedsLayout()
+            UIView.animate(withDuration: 1) {
+                DispatchQueue.main.async {
+                    self.topView.frame = CGRect(x: 0, y: -50, width: PodcastListConstants.topFrameWidth, height: PodcastListConstants.topFrameHeight / 2)
+                    self.topView.removeFromSuperview()
+                    self.collectionView.frame = self.view.bounds
+                    self.view.updateConstraintsIfNeeded()
+                    self.collectionView.updateConstraintsIfNeeded()
+                    self.collectionView.setNeedsLayout()
+                }
+             
             }
         } else {
-            UIView.animate(withDuration: 0.05) {
-                self.topView.frame = CGRect(x: 0, y: 0, width: PodcastListConstants.topFrameWidth, height: PodcastListConstants.topFrameHeight / 1.5)
-                self.topView.podcastImageView.image = self.caster.artwork
-                self.topView.layoutSubviews()
-                self.view.addSubview(self.topView)
-                self.collectionView.frame = CGRect(x: self.topView.bounds.minX, y: self.topView.frame.maxY, width: self.view.bounds.width, height: self.view.bounds.height)
-                self.collectionView.updateConstraintsIfNeeded()
+            UIView.animate(withDuration: 0.01) {
+                DispatchQueue.main.async {
+                    guard let tabHeight = self.tabBarController?.tabBar.frame.height else { return }
+                    self.topView.frame = CGRect(x: 0, y: 0, width: PodcastListConstants.topFrameWidth, height: PodcastListConstants.topFrameHeight / 1.5)
+                    self.topView.podcastImageView.image = self.caster.artwork
+                    self.topView.layoutSubviews()
+                    self.view.addSubview(self.topView)
+                    self.collectionView.frame = CGRect(x: self.topView.bounds.minX, y: self.topView.frame.maxY, width: self.view.bounds.width, height: self.view.bounds.height - tabHeight)
+                    self.collectionView.updateConstraintsIfNeeded()
+                }
+              
             }
         }
     }

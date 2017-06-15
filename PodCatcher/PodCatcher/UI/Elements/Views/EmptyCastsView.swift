@@ -34,6 +34,6 @@ class EmptyCastsView: UIView {
         infoLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: EmptyCastsViewConstants.musicIconWidthMutliplier).isActive = true
         infoLabel.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
         infoLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        infoLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        infoLabel.centerYAnchor.constraint(equalTo: centerYAnchor, constant: UIScreen.main.bounds.height * -0.05).isActive = true
     }
 }

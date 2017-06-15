@@ -16,10 +16,10 @@ final class BottomMenuPopover: BasePopoverMenu {
                 return
             }
             strongSelf.popView.frame = CGRect(x: viewController.view.bounds.width,
-                                              y: viewController.view.bounds.height * 6.5,
-                                              width: viewController.view.bounds.width * 0,
-                                              height: viewController.view.bounds.height * 0)
-            strongSelf.popView.center = CGPoint(x: UIScreen.main.bounds.midX, y: UIScreen.main.bounds.height * 0.45)
+                                              y: viewController.view.bounds.height * 5,
+                                              width: 0,
+                                              height: 0)
+            strongSelf.popView.center = CGPoint(x: UIScreen.main.bounds.midX, y: UIScreen.main.bounds.height * 0.1)
             strongSelf.layoutIfNeeded()
             strongSelf.popView.alpha = 0
         }
@@ -34,9 +34,9 @@ final class BottomMenuPopover: BasePopoverMenu {
                 }
                 strongSelf.popView.alpha = 1
                 strongSelf.popView.frame = CGRect(x: viewController.view.bounds.width * 0.001,
-                                                  y: viewController.view.bounds.height * 0.58,
+                                                  y: viewController.view.bounds.height * 0.45,
                                                   width: viewController.view.bounds.width,
-                                                  height: viewController.view.bounds.height * 0.42)
+                                                  height: viewController.view.bounds.height * 0.55)
                 strongSelf.layoutIfNeeded()
             }
         }
