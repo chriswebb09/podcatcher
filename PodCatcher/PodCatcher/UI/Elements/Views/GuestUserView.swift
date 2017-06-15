@@ -9,8 +9,7 @@ class GuestUserView: UIView {
     weak var delegate: GuestUserViewDelegate?
     
     private var infoLabel: UILabel = {
-        let infoLabel = UILabel.setupInfoLabel()
-        infoLabel.text = "Sign in to customize settings!"
+        let infoLabel = UILabel.setupInfoLabel(infoText: "Sign in to customize settings!")
         infoLabel.isUserInteractionEnabled = true
         return infoLabel
     }()

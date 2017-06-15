@@ -45,8 +45,8 @@ extension MediaCollectionViewController: UICollectionViewDataSource {
         return cell
     }
     
-    func setupNavigationBar(navController: UINavigationController) {
-        navController.navigationBar.barTintColor = UIColor(red:0.92, green:0.32, blue:0.33, alpha:1.0)
-        navigationItem.rightBarButtonItem?.tintColor = .darkGray
-    }
+//    func setupNavigationBar(navController: UINavigationController) {
+//        navController.navigationBar.barTintColor = UIColor(red:0.92, green:0.32, blue:0.33, alpha:1.0)
+//        navigationItem.rightBarButtonItem?.tintColor = .darkGray
+//    }
 }

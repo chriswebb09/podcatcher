@@ -22,7 +22,6 @@ class PillView: UIView {
         tagLabel.heightAnchor.constraint(equalTo: heightAnchor).isActive = true
         tagLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         tagLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        
     }
     
     func configure(tag: String) {

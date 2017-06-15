@@ -137,6 +137,12 @@ final class PlayerView: UIView {
         return slider
     }()
     
+    private var volumeIcon: UIImageView = {
+        let volumeIcon = #imageLiteral(resourceName: "volume-white")
+        let iconView = UIImageView(image: volumeIcon)
+        return iconView
+    }()
+    
     // MARK: - Configuration Methods
     
     func configure(with model: PlayerViewModel) {
@@ -266,7 +272,16 @@ final class PlayerView: UIView {
         volumeSlider.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         volumeSlider.centerYAnchor.constraint(equalTo: volumeControlsView.topAnchor).isActive = true
         volumeSlider.heightAnchor.constraint(equalTo: volumeControlsView.heightAnchor, multiplier: 0.5).isActive = true
-        volumeSlider.widthAnchor.constraint(equalTo: volumeControlsView.widthAnchor, multiplier: 0.7).isActive = true
+        volumeSlider.widthAnchor.constraint(equalTo: volumeControlsView.widthAnchor, multiplier: 0.6).isActive = true
+    }
+    
+    private func setup(volumeImageView: UIImageView) {
+        volumeControlsView.addSubview(volumeImageView)
+        volumeImageView.translatesAutoresizingMaskIntoConstraints = false
+        volumeImageView.rightAnchor.constraint(equalTo: volumeSlider.leftAnchor, constant: UIScreen.main.bounds.width * -0.05).isActive = true
+        volumeImageView.topAnchor.constraint(equalTo: volumeControlsView.topAnchor).isActive = true
+        volumeImageView.heightAnchor.constraint(equalTo: volumeControlsView.heightAnchor, multiplier: 0.3).isActive = true
+        volumeImageView.widthAnchor.constraint(equalTo: volumeControlsView.widthAnchor, multiplier: 0.06).isActive = true
     }
     
     private func setupViews() {
@@ -284,6 +299,7 @@ final class PlayerView: UIView {
         setup(volumeSlider: volumeSlider)
         setup(totalTimeLabel: totalPlayTimeLabel)
         setup(currentTimeLabel: currentPlayTimeLabel)
+        setup(volumeImageView: volumeIcon)
         addSelectors()
     }
     

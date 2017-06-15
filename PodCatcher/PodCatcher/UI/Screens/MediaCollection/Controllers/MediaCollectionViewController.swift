@@ -52,7 +52,6 @@ class MediaCollectionViewController: UIViewController {
         view.addSubview(emptyView)
         collectionViewConfiguration()
         title = "Podcasts"
-   //     navigationController?.isNavigationBarHidden = false
         if dataSource.user != nil {
               buttonItem = UIBarButtonItem(title: "Log Out", style: .done, target: self, action: #selector(logout))
         }

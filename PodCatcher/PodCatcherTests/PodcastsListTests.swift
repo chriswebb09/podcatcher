@@ -7,22 +7,15 @@ class PodcastsListTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        podcastsListViewController = PodcastListViewController(index: 0)
+        var caster = Caster()
+        caster.name = "Test Name"
+        var dataSource = BaseMediaControllerDataSource(casters: [caster])
+        podcastsListViewController = PodcastListViewController(index: 0, dataSource: dataSource)
     }
     
     override func tearDown() {
         podcastsListViewController = nil
         super.tearDown()
-    }
-    
-    func testSetCaster() {
-        var caster = Caster()
-        caster.name = "Test Name"
-        let dataSource = BaseMediaControllerDataSource(casters: [caster])
-        podcastsListViewController.caster = caster
-        podcastsListViewController.dataSource = dataSource
-        podcastsListViewController.viewDidLoad()
-        XCTAssertEqual(podcastsListViewController.title, "Test Name")
     }
     
 }

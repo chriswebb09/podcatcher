@@ -48,4 +48,8 @@ class SettingsTestDelegate: SettingsViewControllerDelegate {
         XCTAssertTrue(tapped)
         settingTapped = "Two"
     }
+    
+    func guestUserSignInTapped(tapped: Bool) {
+        XCTAssertTrue(tapped)
+    }
 }

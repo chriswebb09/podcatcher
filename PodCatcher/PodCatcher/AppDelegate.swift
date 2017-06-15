@@ -40,7 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).backgroundColor = UIColor(red:0.92, green:0.32, blue:0.33, alpha:1.0)
         UINavigationBar.appearance().tintColor = UIColor(red:0.92, green:0.32, blue:0.33, alpha:1.0)
         UINavigationBar.appearance().titleTextAttributes = [
-            NSFontAttributeName: UIFont(name:"Avenir", size:20),
+            NSFontAttributeName: UIFont(name:"Avenir", size: 18),
             NSForegroundColorAttributeName: UIColor.darkGray
         ]
     }

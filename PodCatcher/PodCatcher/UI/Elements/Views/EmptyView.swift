@@ -2,7 +2,7 @@ import UIKit
 
 final class EmptyView: UIView {
     
-    private var infoLabel: UILabel = UILabel.setupInfoLabel()
+    private var infoLabel: UILabel = UILabel.setupInfoLabel(infoText: "Sign in to customize settings!")
     
     private var musicIcon: UIImageView = {
         var musicIcon = UIImageView()

@@ -14,7 +14,7 @@ class StartCoordinator: NavigationCoordinator {
     weak var delegate: CoordinatorDelegate?
     var window: UIWindow!
     var dataSource: BaseMediaControllerDataSource!
-    let fetcher = PCMediaPlayer()
+    var store = PodcatcherDataStore()
     var childViewControllers: [UIViewController] = []
     
     var navigationController: UINavigationController {
@@ -30,14 +30,8 @@ class StartCoordinator: NavigationCoordinator {
     convenience init(navigationController: UINavigationController, window: UIWindow) {
         self.init(navigationController: navigationController)
         self.window = window
-        
-        fetcher.getPlaylists { [weak self] casts, lists in
-            if let strongSelf = self, let lists = lists {
-                let listSet = Set(lists)
-                DispatchQueue.main.async {
-                    strongSelf.dataSource = BaseMediaControllerDataSource(casters: Array(listSet))
-                }
-            }
+        store.pullPodcastsFromUser { list in
+            self.dataSource =  BaseMediaControllerDataSource(casters: list)
         }
     }
     
@@ -115,6 +109,5 @@ extension StartCoordinator: CreateAccountViewControllerDelegate {
     func submitButtonTapped() {
         print("tap")
         delegate?.transitionCoordinator(type: .tabbar, dataSource: dataSource)
-        
     }
 }

@@ -9,12 +9,13 @@ extension PodcastListViewController: PodcastCollectionViewProtocol {
     func setup() {
         edgesForExtendedLayout = []
         setup(dataSource: self, delegate: self)
-        setupNavigationController()
     }
     
     func configureTopView() {
         topView.frame = CGRect(x: 0, y: 0, width: PodcastListConstants.topFrameWidth, height: PodcastListConstants.topFrameHeight / 1.3)
-        topView.podcastImageView.image = caster.artwork
+        if let caster = caster {
+              topView.podcastImageView.image = caster.artwork
+        }
         topView.delegate = self
         topView.layoutSubviews()
         view.addSubview(topView)
@@ -24,10 +25,10 @@ extension PodcastListViewController: PodcastCollectionViewProtocol {
     
     func setupView() {
         collectionView.frame = CGRect(x: topView.bounds.minX, y: topView.frame.maxY, width: PodcastListConstants.topFrameWidth, height: PodcastListConstants.topFrameHeight)
-        if caster.assets.count > 0 {
+        if let caster = caster, caster.assets.count > 0 {
             view.addSubview(collectionView)
         } else {
-            let emptyView = EmptyView(frame: CGRect(x: topView.bounds.minX, y: topView.frame.maxY, width: PodcastListConstants.topFrameWidth, height: PodcastListConstants.topFrameHeight + 10))
+            let emptyView = EmptyCastsView(frame: CGRect(x: topView.bounds.minX, y: topView.frame.maxY, width: PodcastListConstants.topFrameWidth, height: PodcastListConstants.topFrameHeight + 10))
             emptyView.backgroundColor = .white
             view.backgroundColor = .white
             emptyView.layoutSubviews()
@@ -78,10 +79,10 @@ extension PodcastListViewController: UIScrollViewDelegate {
     
     // MARK: - Setup navbar UI
     
-    func setupNavigationController() {
-        navigationController?.navigationBar.titleTextAttributes = PodcastListConstants.navFont
-        navigationController?.navigationBar.barTintColor = UIColor.black
-    }
+//    func setupNavigationController() {
+//        navigationController?.navigationBar.titleTextAttributes = PodcastListConstants.navFont
+//        navigationController?.navigationBar.barTintColor = UIColor.black
+//    }
 }
 
 // MARK: - UICollectionViewDelegate

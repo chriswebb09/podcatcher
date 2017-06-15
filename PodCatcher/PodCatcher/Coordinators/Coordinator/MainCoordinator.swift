@@ -36,7 +36,6 @@ extension MainCoordinator: CoordinatorDelegate {
             } catch let signOutError as NSError {
                 print ("Error signing out: %@", signOutError)
             }
-            
             let newCoordinator = StartCoordinator(navigationController: UINavigationController(), window: window)
             newCoordinator.delegate = self
             newCoordinator.skipSplash()
@@ -61,8 +60,6 @@ extension MainCoordinator: CoordinatorDelegate {
             let settingsView = SettingsView(frame: CGRect.zero, model: model)
             let settingsViewController = SettingsViewController(settingsView: settingsView, dataSource: dataSource)
             let settingsTab = UINavigationController(rootViewController: settingsViewController)
-
-
             
             tabbBarCoordinator.setupSettingsCoordinator(navigationController: settingsTab, dataSource: dataSource)
             tabbBarCoordinator.delegate = self
