@@ -23,10 +23,8 @@ final class BottomMenuPopover: BasePopoverMenu {
             strongSelf.layoutIfNeeded()
             strongSelf.popView.alpha = 0
         }
-        
         viewController.view.addSubview(popView)
         viewController.view.bringSubview(toFront: popView)
-        
         UIView.animate(withDuration: 5) {
             DispatchQueue.main.async { [weak self] in
                 guard let strongSelf = self else {
@@ -40,11 +38,9 @@ final class BottomMenuPopover: BasePopoverMenu {
                 strongSelf.layoutIfNeeded()
             }
         }
-        
         let tap = UIGestureRecognizer(target: self, action: #selector(hidePopView(viewController:)))
         containerView.addGestureRecognizer(tap)
     }
-    
     
     public override func hidePopView(viewController: UIViewController) {
         super.hidePopView(viewController: viewController)
