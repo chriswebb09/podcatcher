@@ -15,7 +15,7 @@ class PodcastCell: UICollectionViewCell {
         var podcastTitleLabel = UILabel()
         podcastTitleLabel.sizeToFit()
         podcastTitleLabel.textAlignment = .left
-        podcastTitleLabel.font = UIFont(name: "HelveticaNeue-Light", size: 12)
+        podcastTitleLabel.font = UIFont(name: "HelveticaNeue-Light", size: 11)
         return podcastTitleLabel
     }()
     
@@ -23,7 +23,7 @@ class PodcastCell: UICollectionViewCell {
         var playTimeLabel = UILabel()
         playTimeLabel.sizeToFit()
         playTimeLabel.textAlignment = .right
-        playTimeLabel.font = UIFont(name: "HelveticaNeue-Medium", size: 12)
+        playTimeLabel.font = UIFont(name: "HelveticaNeue-Medium", size: 11)
         return playTimeLabel
     }()
     

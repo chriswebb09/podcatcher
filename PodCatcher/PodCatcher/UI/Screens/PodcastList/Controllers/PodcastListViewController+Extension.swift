@@ -151,10 +151,20 @@ extension PodcastListViewController: TopViewDelegate {
         }
     }
     
+    func hideMenu() {
+        menuActive = .hidden
+        menuPop.hidePopView(viewController: self)
+        menuPop.popView.removeFromSuperview()
+    }
+    
     func showMenu() {
         if dataSource.user != nil {
             menuPop.popView.delegate = self
             menuPop.setupPop()
+            var tap = UITapGestureRecognizer(target: self, action: #selector(hideMenu))
+            view.addGestureRecognizer(tap)
+            collectionView.addGestureRecognizer(tap)
+            topView.addGestureRecognizer(tap)
             UIView.animate(withDuration: 0.15) { [weak self] in
                 guard let strongSelf = self else { return }
                 strongSelf.menuPop.showPopView(viewController: strongSelf)

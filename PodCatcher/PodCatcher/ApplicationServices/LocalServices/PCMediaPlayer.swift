@@ -4,9 +4,8 @@ class PCMediaPlayer {
     
     var podcastsQuery: MPMediaQuery!
     var casts = [String: Caster]()
-    
     var casters = [Caster]()
-  
+    
     func getPlaylists(completion: @escaping ([String: Caster], [Caster]?) -> Void) {
         MPMediaLibrary.requestAuthorization { [weak self] auth in
             switch auth {
@@ -18,14 +17,11 @@ class PCMediaPlayer {
                 return
             case .authorized:
                 if let strongSelf = self {
-                    
-                    
                     if strongSelf.podcastsQuery == nil {
                         strongSelf.podcastsQuery = MPMediaQuery.podcasts()
                     }
-                    
                     let itemCollection = strongSelf.getItemCollectionFrom(query: strongSelf.podcastsQuery)
-                    let newTest = strongSelf.getItemListsFrom(collection: itemCollection)
+                    guard let newTest = strongSelf.getItemListsFrom(collection: itemCollection) else { return }
                     strongSelf.getPodcastsFromMediaList(mediaLists: newTest)
                     for (_ , n) in strongSelf.casts.enumerated() {
                         strongSelf.casters.append(n.value)
@@ -34,7 +30,6 @@ class PCMediaPlayer {
                         completion(strongSelf.casts, strongSelf.casters)
                     }
                 }
-                
             }
         }
     }
@@ -46,14 +41,16 @@ class PCMediaPlayer {
     }
     
     
-    func getItemListsFrom(collection: [MPMediaItemCollection]?) -> [[MPMediaItem]] {
-        var itemy: [[MPMediaItem]] = []
-        for item in collection! {
-            itemy.append(item.items)
+    func getItemListsFrom(collection: [MPMediaItemCollection]?) -> [[MPMediaItem]]? {
+        var items: [[MPMediaItem]] = []
+        guard let collection = collection else {
+            return nil
         }
-        return itemy
+        for item in collection {
+            items.append(item.items)
+        }
+        return items
     }
-    
     
     func getPodcastsFromMediaList(mediaLists: [[MPMediaItem]]) {
         for list in mediaLists {
