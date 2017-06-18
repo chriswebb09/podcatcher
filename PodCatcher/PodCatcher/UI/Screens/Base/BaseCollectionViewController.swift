@@ -1,6 +1,7 @@
 import UIKit
 
 class BaseCollectionViewController: BaseViewController {
+    
     lazy var collectionView : UICollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
     var leftButtonItem: UIBarButtonItem!
     var background = UIView()
