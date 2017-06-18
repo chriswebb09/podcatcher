@@ -54,6 +54,19 @@ class PodcastListTopView: UIView {
         preferencesView.delegate = self
     }
     
+    func configure(tags: [String], timeListen: String) {
+        var tagviews = [PillView]()
+        for item in tags {
+            let pill = PillView()
+            pill.configure(tag: item)
+            tagviews.append(pill)
+            DispatchQueue.main.async {
+                self.tags.configure(pills: tagviews)
+            }
+        }
+        playCountLabel.text = String(describing: timeListen)
+    }
+    
     func setup(podcastImageView: UIImageView) {
         addSubview(podcastImageView)
         podcastImageView.translatesAutoresizingMaskIntoConstraints = false

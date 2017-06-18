@@ -25,19 +25,21 @@ extension CALayer {
         return layer
     }
     
-    static func createGradientLayer(layer: CALayer, bounds: CGRect) {
+    static func createGradientLayer(with colors: [CGColor], layer: CALayer, bounds: CGRect) {
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = bounds
-        gradientLayer.colors = [UIColor(red:0.31, green:0.49, blue:0.63, alpha:1.0).cgColor, UIColor(red:0.18, green:0.27, blue:0.33, alpha:1.0).cgColor]
+        gradientLayer.colors = colors 
+            //[UIColor(red:0.31, green:0.49, blue:0.63, alpha:1.0).cgColor, UIColor(red:0.18, green:0.27, blue:0.33, alpha:1.0).cgColor]
         layer.addSublayer(gradientLayer)
+        
     }
     
     func podcastCell(viewRadius: CGFloat) {
-        shadowColor = UIColor.lightGray.cgColor
+        shadowColor = UIColor.white.cgColor
         shadowOffset = CGSize(width: 0, height: 2.0)
-        shadowRadius = 0.5
-        shadowOpacity = 0.3
-        masksToBounds = false;
+        shadowRadius = 5
+        shadowOpacity = 0.08
+        masksToBounds = true
         shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: viewRadius).cgPath
     }
     

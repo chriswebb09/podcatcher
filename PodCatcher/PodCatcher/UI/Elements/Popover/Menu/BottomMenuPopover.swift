@@ -52,9 +52,19 @@ final class BottomMenuPopover: BasePopoverMenu {
         controller.view.sendSubview(toBack: self)
     }
     
+    
+    func hideMenu(controller: UIViewController) {
+        hidePopView(viewController: controller)
+        popView.removeFromSuperview()
+    }
+    
+    
     func setupPop() {
         popView.isUserInteractionEnabled = true
         popView.configureView()
         popView.layer.borderWidth = 1.5
     }
 }
+
+
+

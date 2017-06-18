@@ -18,7 +18,7 @@ class PullData {
             let keys = genres?.allKeys as! [String]
             for key in keys {
                 guard let genre = genres?[key] else { return }
-                var data = genre as! NSDictionary
+                let data = genre as! NSDictionary
                 for (_, n) in data.enumerated() {
                     print(n.value)
                 }

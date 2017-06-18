@@ -1,17 +1,19 @@
-//
-//  PlayerViewController+Extension.swift
-//  PodCatcher
-//
-//  Created by Christopher Webb-Orenstein on 6/7/17.
-//  Copyright © 2017 Christopher Webb-Orenstein. All rights reserved.
-//
-
 import UIKit
 import CoreMedia
 
 // MARK: - PlayerViewDelegate
 
 extension PlayerViewController: PlayerViewDelegate {
+    
+    func setModel(model: PlayerViewModel) {
+        playerView.configure(with: model)
+    }
+    
+    func initPlayer(url: URL)  {
+        guard var player = player else { return }
+        player = AudioFilePlayer(url: url)
+        player.delegate = self
+    }
     
     func updateTimeValue(time: Double) {
         guard let player = player else { return }

@@ -24,6 +24,7 @@ class PCMediaPlayer {
                     guard let newTest = strongSelf.getItemListsFrom(collection: itemCollection) else { return }
                     strongSelf.getPodcastsFromMediaList(mediaLists: newTest)
                     for (_ , n) in strongSelf.casts.enumerated() {
+                        print(n)
                         strongSelf.casters.append(n.value)
                     }
                     DispatchQueue.main.async {
@@ -62,7 +63,7 @@ class PCMediaPlayer {
         for item in list {
             let art = item.artwork?.image(at: CGSize(width: 200, height: 200))
             let url = item.assetURL
-            if casts[item.albumArtist!] != nil {
+            if let  artist = item.albumArtist, casts[artist] != nil {
                 guard let name = item.albumArtist else { return }
                 if let title = item.title, let collectionName = item.albumTitle, let audioUrl = url {
                     var newItem = MediaCatcherItem(creatorName: name,
@@ -86,4 +87,3 @@ class PCMediaPlayer {
         }
     }
 }
-

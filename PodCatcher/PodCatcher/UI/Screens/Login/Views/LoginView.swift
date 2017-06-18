@@ -6,28 +6,31 @@ final class LoginView: UIView {
     
     var model: LoginViewModel! {
         didSet {
-            model.submitEnabled = model.username.isValidEmail()
-            submitButton.isEnabled = model.submitEnabled
+            submitButton.isEnabled = model.validContent
+            submitButton.backgroundColor = model.buttonColor
+            dump(model.buttonColor)
         }
     }
     
     // MARK: - UI Elements
     
-    fileprivate var usernameField: UnderlineTextField = {
+    var usernameField: UITextField = {
         var usernameField = UnderlineTextField()
         usernameField.placeholder = "Email"
+       // usernameField.setup()
         return usernameField
     }()
     
     private var passwordField: UnderlineTextField = {
         var passwordField = UnderlineTextField()
+      
         passwordField.isSecureTextEntry = true
         return passwordField
     }()
     
     fileprivate var submitButton: UIButton = {
         var borderColor = UIColor.lightText.cgColor
-        let submitButton = BasicButtonFactory(text: "Login", textColor: .white, borderWidth: 2, borderColor: borderColor, backgroundColor: .mainColor)
+        let submitButton = BasicButtonFactory(text: "Login", textColor: .white, borderWidth: 2, borderColor: borderColor, backgroundColor: .lightText)
         return submitButton.createButton()
     }()
     
@@ -39,8 +42,13 @@ final class LoginView: UIView {
         backgroundColor = .white
         usernameField.delegate = self
         passwordField.delegate = self
-        usernameField.setup()
+        passwordField.setupPasswordField()
         passwordField.setup()
+        var emailField = usernameField as! UnderlineTextField
+        emailField.setupEmailField()
+        emailField.setup()
+        usernameField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        passwordField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         setup(usernamefield: usernameField)
         setup(passwordField: passwordField)
         setup(submitButton: submitButton)
@@ -50,9 +58,9 @@ final class LoginView: UIView {
     
     func configure(model: LoginViewModel) {
         self.model = model
-        self.usernameField.text = "Link@link.com"
-        self.passwordField.text = "123456"
-        self.submitButton.isEnabled = true
+        usernameField.text = "Link@link.com"
+        passwordField.text = "123456"
+        submitButton.isEnabled = true
     }
     
     private func sharedLayout(view: UIView) {

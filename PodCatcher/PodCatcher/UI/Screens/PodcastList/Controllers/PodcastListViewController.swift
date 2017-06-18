@@ -1,22 +1,28 @@
 import UIKit
 
-class PodcastListViewController: UIViewController {
+class PodcastListViewController: BaseCollectionViewController {
     
     var dataSource: BaseMediaControllerDataSource
     var state: PodcasterControlState = .toCollection
     weak var delegate: PodcastListViewControllerDelegate?
-    var caster: Caster!
-    var index: Int
+    var caster: Caster
     var menuActive: MenuActive = .none
+    
+    var index: Int {
+        didSet {
+            caster = dataSource.casters[index]
+        }
+    }
+    
     let entryPop = EntryPopover()
-    var collectionView : UICollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
     var topView = PodcastListTopView()
     var menuPop = BottomMenuPopover()
-    var leftButtonItem: UIBarButtonItem!
     
     init(index: Int, dataSource: BaseMediaControllerDataSource) {
         self.index = index
         self.dataSource = dataSource
+        
+        caster = dataSource.casters[index]
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -28,24 +34,23 @@ class PodcastListViewController: UIViewController {
         super.viewDidLoad()
         setup()
         configureTopView()
-        navigationItem.rightBarButtonItem?.title = "Podcasts"
-        if let caster = caster, dataSource.user == nil {
-            topView.preferencesView.moreMenuButton.isHidden = true
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "plus-red"), style: .plain, target: self, action: #selector(hidePop))
+        background.frame = view.frame
+        view.addSubview(background)
+        CALayer.createGradientLayer(with: [UIColor.white.cgColor, UIColor.black.cgColor],
+                                    layer: background.layer,
+                                    bounds: background.bounds)
+        view.sendSubview(toBack: background)
+        if let user = dataSource.user {
+            print(caster.assets)
+            
             title = caster.name
+            let timeString = String(describing: user.totalTimeListening)
+            topView.configure(tags: user.customGenres, timeListen: timeString)
         } else {
+            topView.preferencesView.moreMenuButton.isHidden = true
             title = "Podcast"
         }
-    }
-    
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        collectionView.collectionViewLayout.invalidateLayout()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        tabBarController?.tabBar.isHidden = false
-        tabBarController?.tabBar.alpha = 1
     }
     
     override func viewDidDisappear(_ animated: Bool) {

@@ -13,9 +13,9 @@ extension SettingsTabCoordinator: SettingsViewControllerDelegate {
     }
     
     func settingOneTapped(tapped: Bool) {
-        let updateAccountViewController = UpdateAccountViewController()
+        let updateAccountViewController = FavoritePodcastsViewController(dataSource: dataSource)
         updateAccountViewController.dataSource = dataSource
-        updateAccountViewController.delegate = self
+      //  updateAccountViewController.delegate = self
         navigationController.viewControllers.append(updateAccountViewController)
     }
 }

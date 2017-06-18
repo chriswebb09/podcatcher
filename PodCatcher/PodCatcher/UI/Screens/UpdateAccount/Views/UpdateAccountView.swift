@@ -21,7 +21,6 @@ class UpdateAccountView: UIView {
     
     var editUserNameButton: UIButton = {
         var editButton = UIButton()
-        // editButton.titleLabel?.text = "Edit"
         editButton.setTitle("Edit", for: .normal)
         return editButton
     }()

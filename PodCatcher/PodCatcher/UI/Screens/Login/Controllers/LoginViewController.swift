@@ -1,5 +1,19 @@
 import UIKit
 
+protocol LoadingViewProtocol {
+    var loadingPop: LoadingPopover { get set }
+}
+
+extension LoadingViewProtocol {
+    func showLoadingView(loadingPop: LoadingPopover, controller: UIViewController) {
+        loadingPop.show(controller: controller)
+    }
+    
+    func hideLoadingView(loadingPop: LoadingPopover, controller: UIViewController) {
+        loadingPop.hidePopView(viewController: controller)
+    }
+}
+
 class LoginViewController: UIViewController {
     
     var loginView = LoginView()
@@ -19,24 +33,12 @@ class LoginViewController: UIViewController {
         view = loginView
         view.layoutSubviews()
         title = "Login"
+        hideKeyboardWhenTappedAround()
         navigationController?.navigationBar.isHidden = false
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.navigationBar.isHidden = true
-    }
-    
-    func showLoadingView(loadingPop: LoadingPopover) {
-        loadingPop.setupPop(popView: loadingPop.popView)
-        loadingPop.showPopView(viewController: self)
-        loadingPop.popView.isHidden = false
-    }
-    
-    func hideLoadingView() {
-        loadingPop.popView.removeFromSuperview()
-        loadingPop.removeFromSuperview()
-        loadingPop.hidePopView(viewController: self)
-        view.sendSubview(toBack: loadingPop)
     }
 }

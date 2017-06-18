@@ -138,7 +138,7 @@ final class PlayerView: UIView {
     }()
     
     private var volumeIcon: UIImageView = {
-        let volumeIcon = #imageLiteral(resourceName: "volume-white")
+        let volumeIcon = #imageLiteral(resourceName: "low-volume-white")
         let iconView = UIImageView(image: volumeIcon)
         return iconView
     }()
@@ -212,8 +212,8 @@ final class PlayerView: UIView {
     private func setup(trackButton: UIButton) {
         controlsView.addSubview(trackButton)
         trackButton.translatesAutoresizingMaskIntoConstraints = false
-        trackButton.heightAnchor.constraint(equalTo: controlsView.heightAnchor, multiplier: 0.36).isActive = true
-        trackButton.centerYAnchor.constraint(equalTo: controlsView.centerYAnchor, constant: UIScreen.main.bounds.height * -0.05).isActive = true
+        trackButton.heightAnchor.constraint(equalTo: controlsView.heightAnchor, multiplier: 0.4).isActive = true
+        trackButton.centerYAnchor.constraint(equalTo: controlsView.centerYAnchor, constant: UIScreen.main.bounds.height * -0.04).isActive = true
         trackButton.centerXAnchor.constraint(equalTo: controlsView.centerXAnchor).isActive = true
     }
     
@@ -229,7 +229,7 @@ final class PlayerView: UIView {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.widthAnchor.constraint(equalTo: controlsView.widthAnchor, multiplier: PlayerViewConstants.backButtonWidthMultiplier).isActive = true
         button.heightAnchor.constraint(equalTo: controlsView.heightAnchor, multiplier: PlayerViewConstants.backButtonHeightMultiplier).isActive = true
-        button.centerYAnchor.constraint(equalTo: controlsView.centerYAnchor, constant: UIScreen.main.bounds.height * -0.05).isActive = true
+        button.centerYAnchor.constraint(equalTo: controlsView.centerYAnchor, constant: UIScreen.main.bounds.height * -0.04).isActive = true
     }
     
     private func setup(totalTimeLabel: UILabel) {
@@ -262,7 +262,7 @@ final class PlayerView: UIView {
         volumeControlsView.translatesAutoresizingMaskIntoConstraints = false
         volumeControlsView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         volumeControlsView.bottomAnchor.constraint(equalTo: controlsView.bottomAnchor).isActive = true
-        volumeControlsView.heightAnchor.constraint(equalTo: controlsView.heightAnchor, multiplier: 0.3).isActive = true
+        volumeControlsView.heightAnchor.constraint(equalTo: controlsView.heightAnchor, multiplier: 0.28).isActive = true
         volumeControlsView.widthAnchor.constraint(equalTo: controlsView.widthAnchor).isActive = true
     }
     
@@ -272,15 +272,15 @@ final class PlayerView: UIView {
         volumeSlider.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         volumeSlider.centerYAnchor.constraint(equalTo: volumeControlsView.topAnchor).isActive = true
         volumeSlider.heightAnchor.constraint(equalTo: volumeControlsView.heightAnchor, multiplier: 0.5).isActive = true
-        volumeSlider.widthAnchor.constraint(equalTo: volumeControlsView.widthAnchor, multiplier: 0.6).isActive = true
+        volumeSlider.widthAnchor.constraint(equalTo: volumeControlsView.widthAnchor, multiplier: 0.7).isActive = true
     }
     
     private func setup(volumeImageView: UIImageView) {
         volumeControlsView.addSubview(volumeImageView)
         volumeImageView.translatesAutoresizingMaskIntoConstraints = false
         volumeImageView.rightAnchor.constraint(equalTo: volumeSlider.leftAnchor, constant: UIScreen.main.bounds.width * -0.05).isActive = true
-        volumeImageView.topAnchor.constraint(equalTo: volumeControlsView.topAnchor).isActive = true
-        volumeImageView.heightAnchor.constraint(equalTo: volumeControlsView.heightAnchor, multiplier: 0.3).isActive = true
+        volumeImageView.centerYAnchor.constraint(equalTo: volumeControlsView.topAnchor).isActive = true
+        volumeImageView.heightAnchor.constraint(equalTo: volumeControlsView.heightAnchor, multiplier: 0.5).isActive = true
         volumeImageView.widthAnchor.constraint(equalTo: volumeControlsView.widthAnchor, multiplier: 0.06).isActive = true
     }
     

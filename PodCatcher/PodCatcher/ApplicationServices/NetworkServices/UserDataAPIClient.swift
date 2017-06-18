@@ -1,5 +1,11 @@
 import Firebase
 
+typealias JSON = [String : Any]
+
+enum Response {
+    case success(JSON), failed(Error)
+}
+
 class UserDataAPIClient {
     
     static func createUserAccount(email: String, password: String) {

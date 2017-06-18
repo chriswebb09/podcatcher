@@ -2,6 +2,7 @@ import UIKit
 import MediaPlayer
 
 struct MediaCatcherItem {
+    
     var creatorName: String
     var title: String
     var playtime: Double
@@ -10,6 +11,7 @@ struct MediaCatcherItem {
     var audioUrl: URL?
     var audioItem: MPMediaItem?
     var tags: [String]
+    var details: String = "" 
     
     init(creatorName: String, title: String, playtime: Double, playCount: Int, collectionName: String, audioUrl: URL) {
         self.creatorName = creatorName

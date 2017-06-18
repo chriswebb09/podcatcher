@@ -28,7 +28,7 @@ final class PlayerViewController: UIViewController {
         guard let artwork = caster.artwork else { return }
         self.playerViewModel = PlayerViewModel(image: artwork, title: caster.assets[index].title)
         setModel(model: PlayerViewModel(image: artwork, title: caster.assets[index].title))
-        guard var url = caster.assets[index].audioUrl else { return }
+        guard let url = caster.assets[index].audioUrl else { return }
         initPlayer(url: url)
         playerView.delegate = self
         view.addView(view: playerView, type: .full)
@@ -51,15 +51,5 @@ final class PlayerViewController: UIViewController {
         tabBarController?.tabBar.alpha = 1
         player?.player.pause()
         player = nil
-    }
-    
-    func setModel(model: PlayerViewModel) {
-        playerView.configure(with: model)
-    }
-    
-    func initPlayer(url: URL)  {
-        guard var player = player else { return }
-        player = AudioFilePlayer(url: url)
-        player.delegate = self
     }
 }

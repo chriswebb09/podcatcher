@@ -5,48 +5,35 @@ import UIKit
 extension PodcastListViewController: PodcastCollectionViewProtocol {
     
     func setup() {
-        edgesForExtendedLayout = []
+        guard let tabHeight = self.tabBarController?.tabBar.frame.height else { return }
+        collectionView.frame = CGRect(x: topView.bounds.minX + 10, y: topView.frame.maxY + 10, width: view.bounds.width - 20, height: view.bounds.height - (tabHeight * 2.5))
         setup(dataSource: self, delegate: self)
     }
     
     func configureTopView() {
-        topView.frame = CGRect(x: 0, y: 0, width: PodcastListConstants.topFrameWidth, height: PodcastListConstants.topFrameHeight / 1.3)
-        if let caster = caster {
-            topView.podcastImageView.image = caster.artwork
-        }
+        topView.frame = CGRect(x: 0, y: 0, width: PodcastListConstants.topFrameWidth, height: PodcastListConstants.topFrameHeight / 1.2)
+        topView.podcastImageView.image = caster.artwork
         topView.delegate = self
         topView.layoutSubviews()
         view.addSubview(topView)
+        view.bringSubview(toFront: topView)
         setupView()
-        topSetup()
     }
     
     func setupView() {
         guard let tabHeight = self.tabBarController?.tabBar.frame.height else { return }
-        collectionView.frame = CGRect(x: topView.bounds.minX, y: topView.frame.maxY, width: PodcastListConstants.topFrameWidth, height: self.view.frame.height - tabHeight)
-        if let caster = caster, caster.assets.count > 0 {
+        collectionView.frame = CGRect(x: topView.bounds.minX + 5, y: topView.frame.maxY + 60, width: view.bounds.width - 10, height: view.bounds.height - (tabHeight * 2.2))
+        collectionView.autoresizingMask = [.flexibleHeight, .flexibleWidth, .flexibleTopMargin, .flexibleBottomMargin]
+        collectionView.backgroundColor = .clear
+        
+        if caster.assets.count > 0 {
             view.addSubview(collectionView)
         } else {
             let emptyView = EmptyCastsView(frame: CGRect(x: topView.bounds.minX, y: topView.frame.maxY, width: PodcastListConstants.topFrameWidth, height: PodcastListConstants.topFrameHeight + 10))
             emptyView.backgroundColor = .white
-            view.backgroundColor = .white
             emptyView.layoutSubviews()
             view.addSubview(emptyView)
         }
-    }
-    
-    func topSetup() {
-        guard let user = dataSource.user else { return }
-        var tagviews = [PillView]()
-        for item in caster.tags {
-            let pill = PillView()
-            pill.configure(tag: item)
-            tagviews.append(pill)
-            DispatchQueue.main.async {
-                self.topView.tags.configure(pills: tagviews)
-            }
-        }
-        topView.playCountLabel.text = String(describing: user.totalTimeListening)
     }
 }
 
@@ -55,33 +42,7 @@ extension PodcastListViewController: PodcastCollectionViewProtocol {
 extension PodcastListViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let offset = scrollView.contentOffset
-        if offset.y > PodcastListConstants.minimumOffset {
-            UIView.animate(withDuration: 1) {
-                DispatchQueue.main.async {
-                    self.topView.frame = CGRect(x: 0, y: -50, width: PodcastListConstants.topFrameWidth, height: PodcastListConstants.topFrameHeight / 2)
-                    self.topView.removeFromSuperview()
-                    self.collectionView.frame = self.view.bounds
-                    self.view.updateConstraintsIfNeeded()
-                    self.collectionView.updateConstraintsIfNeeded()
-                    self.collectionView.setNeedsLayout()
-                }
-                
-            }
-        } else {
-            UIView.animate(withDuration: 0.01) {
-                DispatchQueue.main.async {
-                    guard let tabHeight = self.tabBarController?.tabBar.frame.height else { return }
-                    self.topView.frame = CGRect(x: 0, y: 0, width: PodcastListConstants.topFrameWidth, height: PodcastListConstants.topFrameHeight / 1.5)
-                    self.topView.podcastImageView.image = self.caster.artwork
-                    self.topView.layoutSubviews()
-                    self.view.addSubview(self.topView)
-                    self.collectionView.frame = CGRect(x: self.topView.bounds.minX, y: self.topView.frame.maxY, width: self.view.bounds.width, height: self.view.bounds.height - tabHeight)
-                    self.collectionView.updateConstraintsIfNeeded()
-                }
-                
-            }
-        }
+    
     }
 }
 
@@ -100,15 +61,12 @@ extension PodcastListViewController: UICollectionViewDelegate {
 extension PodcastListViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if let caster = caster {
-            return caster.assets.count
-        }
-        return 0
+        return caster.assets.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as PodcastCell
-        if let caster = caster, let artwork = caster.artwork {
+        if let artwork = caster.artwork {
             let model = PodcastCellViewModel(podcastImage: artwork, podcastTitle: caster.assets[indexPath.row].title, item: caster.assets[indexPath.row])
             cell.configureCell(model: model)
         }
@@ -138,30 +96,22 @@ extension PodcastListViewController: TopViewDelegate {
     }
     
     func popBottomMenu(pop: Bool) {
-        switch menuActive {
-        case .none:
+        if pop {
+            menuPop.popView.delegate = self
+            menuPop.setupPop()
             showMenu()
-            menuActive = .active
-        case .active:
-            menuActive = .hidden
-            menuPop.hidePopView(viewController: self)
-            menuPop.popView.removeFromSuperview()
-        case .hidden:
-            showMenu()
-            menuActive = .active
         }
     }
     
+    
     func hideMenu() {
         menuActive = .hidden
-        menuPop.hidePopView(viewController: self)
-        menuPop.popView.removeFromSuperview()
+        menuPop.hideMenu(controller: self)
     }
     
     func showMenu() {
+        hideKeyboardWhenTappedAround()
         if dataSource.user != nil {
-            menuPop.popView.delegate = self
-            menuPop.setupPop()
             let tap = UITapGestureRecognizer(target: self, action: #selector(hideMenu))
             view.addGestureRecognizer(tap)
             collectionView.addGestureRecognizer(tap)
@@ -175,7 +125,7 @@ extension PodcastListViewController: TopViewDelegate {
     }
     
     func popEntry() {
-        self.hideKeyboardWhenTappedAround()
+        
         UIView.animate(withDuration: 0.15) { [weak self] in
             guard let strongSelf = self else { return }
             strongSelf.entryPop.showPopView(viewController: strongSelf)
@@ -187,10 +137,14 @@ extension PodcastListViewController: TopViewDelegate {
     func hidePop() {
         entryPop.hidePopView(viewController: self)
         guard let text = entryPop.popView.entryField.text else { return }
-        dataSource.user?.customGenres.append(text)
+        guard let user = dataSource.user else { return }
+        user.customGenres.append(text)
         guard let name = caster.name else { return }
         UpdateData.update((name, text))
-        topSetup()
+        user.favoriteCasts[text] = caster
+        dump(user)
+        let timeString = String(describing: user.totalTimeListening)
+        topView.configure(tags: user.customGenres, timeListen: timeString)
         collectionView.reloadData()
         caster.tags.append(text)
     }

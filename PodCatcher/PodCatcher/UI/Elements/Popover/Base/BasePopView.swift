@@ -1,5 +1,9 @@
 import UIKit
 
+protocol PopviewDelegate: class {
+    
+}
+
 class BasePopView: UIView {
     
     // View with title ect.

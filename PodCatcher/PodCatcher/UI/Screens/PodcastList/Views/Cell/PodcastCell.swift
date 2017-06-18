@@ -4,17 +4,19 @@ class PodcastCell: UICollectionViewCell {
     
     // MARK: - UI Properties
     
-    var podcastImageView: UIImageView = {
-        var teamMemberImage = UIImageView()
-        teamMemberImage.layer.borderWidth = 2
-        teamMemberImage.clipsToBounds = true
-        return teamMemberImage
+    var colorBackgroundView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        view.alpha = 0.05
+        return view
     }()
     
     var podcastTitleLabel: UILabel = {
         var podcastTitleLabel = UILabel()
-        podcastTitleLabel.sizeToFit()
-        podcastTitleLabel.textAlignment = .left
+        podcastTitleLabel.numberOfLines = 0
+       // podcastTitleLabel.sizeToFit()
+        podcastTitleLabel.textAlignment = .center
+        podcastTitleLabel.textColor = .white
         podcastTitleLabel.font = UIFont(name: "HelveticaNeue-Light", size: 11)
         return podcastTitleLabel
     }()
@@ -23,6 +25,7 @@ class PodcastCell: UICollectionViewCell {
         var playTimeLabel = UILabel()
         playTimeLabel.sizeToFit()
         playTimeLabel.textAlignment = .right
+        playTimeLabel.textColor = .white
         playTimeLabel.font = UIFont(name: "HelveticaNeue-Medium", size: 11)
         return playTimeLabel
     }()
@@ -33,19 +36,19 @@ class PodcastCell: UICollectionViewCell {
         super.layoutSubviews()
         contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth, .flexibleTopMargin, .flexibleBottomMargin]
         isUserInteractionEnabled = true
-        backgroundColor = UIColor.white
-        contentView.layer.cornerRadius = 2.0
-        contentView.layer.borderWidth = 1.0
         contentView.layer.borderColor = UIColor.clear.cgColor
         contentView.layer.masksToBounds = true
-        layer.podcastCell(viewRadius: contentView.layer.cornerRadius - 10)
+        layer.podcastCell(viewRadius: contentView.layer.cornerRadius + 20)
     }
     
     func configureCell(model: PodcastCellViewModel) {
         layoutSubviews()
         setupConstraints()
         layoutIfNeeded()
-        podcastImageView.image = model.podcastImage
+        colorBackgroundView.frame = contentView.frame
+        contentView.addSubview(colorBackgroundView)
+        contentView.sendSubview(toBack: colorBackgroundView)
+      //  podcastImageView.image = model.podcastImage
         playTimeLabel.text = String.constructTimeString(time: model.item.playtime)
         podcastTitleLabel.text = model.podcastTitle
     }

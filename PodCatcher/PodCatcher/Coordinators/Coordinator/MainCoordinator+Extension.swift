@@ -1,4 +1,5 @@
 import UIKit
+import Firebase
 
 extension MainCoordinator: CoordinatorDelegate {
     
@@ -20,6 +21,9 @@ extension MainCoordinator: CoordinatorDelegate {
         case .tabbar:
             let tabbarController = TabBarController()
             self.dataSource = dataSource
+            if let user = dataSource?.user {
+                user.customGenres = ["Test one", "test two"]
+            }
             tabbarController.dataSource = self.dataSource
             
             let tabbBarCoordinator = TabBarCoordinator(tabBarController: tabbarController, window: window)

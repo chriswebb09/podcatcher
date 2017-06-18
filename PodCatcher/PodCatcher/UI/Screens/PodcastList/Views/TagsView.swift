@@ -25,7 +25,7 @@ class TagsView: UIView {
     
     func setup(with currentPill: PillView, and previousPill: PillView) {
         sharedLayout(view: currentPill)
-        currentPill.leftAnchor.constraint(equalTo: previousPill.rightAnchor, constant: frame.width * 0.08).isActive = true
+        currentPill.leftAnchor.constraint(equalTo: previousPill.rightAnchor, constant: frame.width * 0.075).isActive = true
     }
     
     func setup(firstPill: PillView) {

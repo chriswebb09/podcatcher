@@ -108,6 +108,8 @@
 		A73DA4211EE899EA0053276E /* PodcastListViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73DA4201EE899EA0053276E /* PodcastListViewController+Extension.swift */; };
 		A73DA4231EE89A060053276E /* MenuActive.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73DA4221EE89A060053276E /* MenuActive.swift */; };
 		A73DA4701EE8B7C20053276E /* MediaTabCoordinator+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73DA46F1EE8B7C20053276E /* MediaTabCoordinator+Extension.swift */; };
+		A75BBB291EF43126002F4EB6 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75BBB281EF43126002F4EB6 /* HeaderView.swift */; };
+		A75BBB2B1EF4605B002F4EB6 /* StartCoordinator+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75BBB2A1EF4605B002F4EB6 /* StartCoordinator+Extension.swift */; };
 		A776D1471EE8CD4900400EB4 /* TopViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A776D1461EE8CD4900400EB4 /* TopViewDelegate.swift */; };
 		A776D14D1EE907C600400EB4 /* MediaResultsStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = A776D14C1EE907C600400EB4 /* MediaResultsStatus.swift */; };
 		A776D14F1EE9098400400EB4 /* PlayState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A776D14E1EE9098400400EB4 /* PlayState.swift */; };
@@ -162,12 +164,14 @@
 		A7AA09D11EF27EFC003A8F8A /* UpdateAccountConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7AA09D01EF27EFC003A8F8A /* UpdateAccountConstants.swift */; };
 		A7AA09D31EF2DB5A003A8F8A /* MainCoordinator+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7AA09D21EF2DB5A003A8F8A /* MainCoordinator+Extension.swift */; };
 		A7AA09D51EF2DB9B003A8F8A /* SettingsTabCoordinator+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7AA09D41EF2DB9B003A8F8A /* SettingsTabCoordinator+Extension.swift */; };
-		A7B840C11EEC99E60049BB78 /* PodcastCollectionViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B840C01EEC99E60049BB78 /* PodcastCollectionViewProtocol.swift */; };
 		A7B840C71EECD70E0049BB78 /* ApplicationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B840C61EECD70E0049BB78 /* ApplicationCoordinator.swift */; };
 		A7B840CA1EECD7160049BB78 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B840C81EECD7160049BB78 /* MainCoordinator.swift */; };
 		A7B840CB1EECD7160049BB78 /* NavigationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B840C91EECD7160049BB78 /* NavigationCoordinator.swift */; };
 		A7B840CD1EECD7530049BB78 /* PillView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B840CC1EECD7530049BB78 /* PillView.swift */; };
 		A7B840CF1EEDDDE70049BB78 /* AudioFilePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B840CE1EEDDDE70049BB78 /* AudioFilePlayer.swift */; };
+		A7B8C3981EF6E18E001AFFA1 /* BaseCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B8C3961EF6E18E001AFFA1 /* BaseCollectionViewController.swift */; };
+		A7B8C3991EF6E18E001AFFA1 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B8C3971EF6E18E001AFFA1 /* BaseViewController.swift */; };
+		A7B8C39B1EF6E28F001AFFA1 /* PodcastCollectionViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B8C39A1EF6E28F001AFFA1 /* PodcastCollectionViewProtocol.swift */; };
 		A7EBA09A1EE672A700FAAC9C /* UserDataAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EBA0991EE672A700FAAC9C /* UserDataAPIClient.swift */; };
 		A7EBA09D1EE672E300FAAC9C /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EBA09C1EE672E300FAAC9C /* CoreDataStack.swift */; };
 		A7EBA0A11EE6739000FAAC9C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EBA0A01EE6739000FAAC9C /* LoginView.swift */; };
@@ -332,6 +336,8 @@
 		A73DA4201EE899EA0053276E /* PodcastListViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PodcastListViewController+Extension.swift"; sourceTree = "<group>"; };
 		A73DA4221EE89A060053276E /* MenuActive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuActive.swift; sourceTree = "<group>"; };
 		A73DA46F1EE8B7C20053276E /* MediaTabCoordinator+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MediaTabCoordinator+Extension.swift"; sourceTree = "<group>"; };
+		A75BBB281EF43126002F4EB6 /* HeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		A75BBB2A1EF4605B002F4EB6 /* StartCoordinator+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "StartCoordinator+Extension.swift"; sourceTree = "<group>"; };
 		A776D1461EE8CD4900400EB4 /* TopViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TopViewDelegate.swift; path = PodCatcher/UI/Screens/PodcastList/Views/TopViewDelegate.swift; sourceTree = SOURCE_ROOT; };
 		A776D14C1EE907C600400EB4 /* MediaResultsStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaResultsStatus.swift; sourceTree = "<group>"; };
 		A776D14E1EE9098400400EB4 /* PlayState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayState.swift; sourceTree = "<group>"; };
@@ -386,12 +392,14 @@
 		A7AA09D01EF27EFC003A8F8A /* UpdateAccountConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateAccountConstants.swift; sourceTree = "<group>"; };
 		A7AA09D21EF2DB5A003A8F8A /* MainCoordinator+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MainCoordinator+Extension.swift"; sourceTree = "<group>"; };
 		A7AA09D41EF2DB9B003A8F8A /* SettingsTabCoordinator+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SettingsTabCoordinator+Extension.swift"; sourceTree = "<group>"; };
-		A7B840C01EEC99E60049BB78 /* PodcastCollectionViewProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodcastCollectionViewProtocol.swift; sourceTree = "<group>"; };
 		A7B840C61EECD70E0049BB78 /* ApplicationCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationCoordinator.swift; sourceTree = "<group>"; };
 		A7B840C81EECD7160049BB78 /* MainCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		A7B840C91EECD7160049BB78 /* NavigationCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationCoordinator.swift; sourceTree = "<group>"; };
 		A7B840CC1EECD7530049BB78 /* PillView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PillView.swift; sourceTree = "<group>"; };
 		A7B840CE1EEDDDE70049BB78 /* AudioFilePlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioFilePlayer.swift; sourceTree = "<group>"; };
+		A7B8C3961EF6E18E001AFFA1 /* BaseCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseCollectionViewController.swift; path = Base/BaseCollectionViewController.swift; sourceTree = "<group>"; };
+		A7B8C3971EF6E18E001AFFA1 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseViewController.swift; path = Base/BaseViewController.swift; sourceTree = "<group>"; };
+		A7B8C39A1EF6E28F001AFFA1 /* PodcastCollectionViewProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodcastCollectionViewProtocol.swift; sourceTree = "<group>"; };
 		A7EBA0991EE672A700FAAC9C /* UserDataAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDataAPIClient.swift; sourceTree = "<group>"; };
 		A7EBA09C1EE672E300FAAC9C /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		A7EBA0A01EE6739000FAAC9C /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -549,6 +557,7 @@
 			isa = PBXGroup;
 			children = (
 				A71B27301EE5D6F500613CF4 /* StartCoordinator.swift */,
+				A75BBB2A1EF4605B002F4EB6 /* StartCoordinator+Extension.swift */,
 			);
 			path = Start;
 			sourceTree = "<group>";
@@ -736,7 +745,6 @@
 			children = (
 				A7150EC61EE6337D00E3553F /* PodcastListViewController.swift */,
 				A73DA4201EE899EA0053276E /* PodcastListViewController+Extension.swift */,
-				A7B840C01EEC99E60049BB78 /* PodcastCollectionViewProtocol.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1086,9 +1094,11 @@
 		A77EDF6C1EE5FCBC001A24E5 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				A7B8C39A1EF6E28F001AFFA1 /* PodcastCollectionViewProtocol.swift */,
 				A77EDF5E1EE5FB83001A24E5 /* MediaCellModelerProtocol.swift */,
 				A77EDF5C1EE5FB5F001A24E5 /* ReusableProtocol.swift */,
 				A7905B151EEF7E5100199246 /* Playable.swift */,
+				A75BBB281EF43126002F4EB6 /* HeaderView.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -1115,6 +1125,8 @@
 				A77EDF6B1EE5FCB6001A24E5 /* Start */,
 				A7FFD4C11EEF5C7F00853480 /* UpdateAccount */,
 				A7905B0B1EEF795C00199246 /* FavoritePodcasts */,
+				A7B8C3961EF6E18E001AFFA1 /* BaseCollectionViewController.swift */,
+				A7B8C3971EF6E18E001AFFA1 /* BaseViewController.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -1658,6 +1670,7 @@
 				A73DA41B1EE899300053276E /* MediaCollectionViewController+Extension.swift in Sources */,
 				A723A5C11EE9480C002E49BF /* EntryViewConstants.swift in Sources */,
 				A7B840C71EECD70E0049BB78 /* ApplicationCoordinator.swift in Sources */,
+				A7B8C3981EF6E18E001AFFA1 /* BaseCollectionViewController.swift in Sources */,
 				A73D74321EE68844004571A5 /* SplashViewControllerDelegate.swift in Sources */,
 				A77EDF741EE5FDE5001A24E5 /* BaseMediaCollectionDataSource.swift in Sources */,
 				A73D743A1EE68890004571A5 /* CreateAccountViewDelegate.swift in Sources */,
@@ -1685,6 +1698,7 @@
 				A7150EEE1EE65B2300E3553F /* PlayerViewConstants.swift in Sources */,
 				A723A5B91EE94183002E49BF /* PodcastListTopViewConstants.swift in Sources */,
 				A71B27371EE5D87900613CF4 /* UIView+Extension.swift in Sources */,
+				A7B8C39B1EF6E28F001AFFA1 /* PodcastCollectionViewProtocol.swift in Sources */,
 				A7B840CD1EECD7530049BB78 /* PillView.swift in Sources */,
 				A7150EE71EE6568B00E3553F /* PodcastListViewControllerDelegate.swift in Sources */,
 				A71765541EEA19400006DC3C /* TagsView.swift in Sources */,
@@ -1698,6 +1712,7 @@
 				A77EDF591EE5FAC2001A24E5 /* CALayer+Extension.swift in Sources */,
 				A73D74091EE684C4004571A5 /* LoadingPopover.swift in Sources */,
 				A77EDF651EE5FC17001A24E5 /* EmptyView.swift in Sources */,
+				A75BBB291EF43126002F4EB6 /* HeaderView.swift in Sources */,
 				A7EBA09D1EE672E300FAAC9C /* CoreDataStack.swift in Sources */,
 				A7150EF21EE66C0E00E3553F /* PlayerViewModel.swift in Sources */,
 				A7EBA0AF1EE6783700FAAC9C /* SettingsViewController.swift in Sources */,
@@ -1723,7 +1738,6 @@
 				A77EDF631EE5FBE4001A24E5 /* TrackItemsFlowLayout.swift in Sources */,
 				A7EBA0C81EE6831F00FAAC9C /* MenuDelegate.swift in Sources */,
 				A723A5B11EE93BC8002E49BF /* StartViewConstants.swift in Sources */,
-				A7B840C11EEC99E60049BB78 /* PodcastCollectionViewProtocol.swift in Sources */,
 				A7EBA09A1EE672A700FAAC9C /* UserDataAPIClient.swift in Sources */,
 				A77EDF5B1EE5FB3B001A24E5 /* MediaCellConstants.swift in Sources */,
 				A71853081EE95C0E00911C87 /* PreferenceViewConstants.swift in Sources */,
@@ -1751,6 +1765,7 @@
 				A77EDF881EE614FB001A24E5 /* ButtonFactory.swift in Sources */,
 				A71B272D1EE5D55E00613CF4 /* CoordinatorDelegate.swift in Sources */,
 				A71B273B1EE5DB8D00613CF4 /* StartViewController.swift in Sources */,
+				A7B8C3991EF6E18E001AFFA1 /* BaseViewController.swift in Sources */,
 				A7B840CF1EEDDDE70049BB78 /* AudioFilePlayer.swift in Sources */,
 				A73DA4151EE898550053276E /* PlayerViewController+Extension.swift in Sources */,
 				A77EDF761EE5FDFA001A24E5 /* MediaDataStore.swift in Sources */,
@@ -1774,6 +1789,7 @@
 				A7905B141EEF7DC900199246 /* AudioFilePlayerDelegate.swift in Sources */,
 				A7150EE51EE6566600E3553F /* PodcasterControllState.swift in Sources */,
 				A73D74301EE6881E004571A5 /* LogoConstants.swift in Sources */,
+				A75BBB2B1EF4605B002F4EB6 /* StartCoordinator+Extension.swift in Sources */,
 				A718530A1EE9609A00911C87 /* EntryState.swift in Sources */,
 				A7150EDF1EE63E7200E3553F /* PodcastCell.swift in Sources */,
 				A718530E1EE9626500911C87 /* BasicButtonFactory.swift in Sources */,

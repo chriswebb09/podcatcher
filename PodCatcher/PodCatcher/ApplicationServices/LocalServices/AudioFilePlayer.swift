@@ -1,20 +1,5 @@
-//
-//  AudioFilePlayer.swift
-//  PodCatcher
-//
-//  Created by Christopher Webb-Orenstein on 6/11/17.
-//  Copyright © 2017 Christopher Webb-Orenstein. All rights reserved.
-//
-
 import Foundation
 import AVFoundation
-import MediaPlayer
-
-let audioCache: NSCache<NSString, AVURLAsset> = {
-    var cache = NSCache<NSString, AVURLAsset>()
-    cache.countLimit = 10
-    return cache
-}()
 
 final class AudioFilePlayer: NSObject, AVAssetResourceLoaderDelegate, Playable {
     

@@ -37,6 +37,11 @@ final class MediaCell: UICollectionViewCell {
         viewModel  = model
         albumArtView.image = model.albumImageUrl
         layoutSubviews()
+        DispatchQueue.main.asyncAfter(deadline: .now() + withTime) {
+            UIView.animate(withDuration: 0.05) {
+                self.alpha = 1
+            }
+        }
     }
     
     override func layoutSubviews() {
