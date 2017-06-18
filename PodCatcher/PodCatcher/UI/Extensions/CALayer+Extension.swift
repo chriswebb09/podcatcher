@@ -29,7 +29,6 @@ extension CALayer {
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = bounds
         gradientLayer.colors = colors 
-            //[UIColor(red:0.31, green:0.49, blue:0.63, alpha:1.0).cgColor, UIColor(red:0.18, green:0.27, blue:0.33, alpha:1.0).cgColor]
         layer.addSublayer(gradientLayer)
         
     }
@@ -41,12 +40,6 @@ extension CALayer {
         shadowOpacity = 0.2
         masksToBounds = false;
         shadowPath = UIBezierPath(roundedRect:self.bounds, cornerRadius: viewRadius).cgPath
-//        shadowColor = UIColor.black.cgColor
-//        shadowOffset = CGSize(width: 0, height: 2.0)
-//        shadowRadius = 5
-//        shadowOpacity = 1
-//        masksToBounds = true
-//        shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: viewRadius).cgPath
     }
     
 }

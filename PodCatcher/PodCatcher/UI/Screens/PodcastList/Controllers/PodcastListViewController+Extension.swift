@@ -47,22 +47,18 @@ extension PodcastListViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offset = scrollView.contentOffset
+        let fullScreenCollectionView = CGRect(x: view.bounds.minX, y: view.bounds.minY, width: view.bounds.width, height: view.bounds.height)
+        let updatedTopViewFrame = CGRect(x: 0, y: 0, width: PodcastListConstants.topFrameWidth, height: PodcastListConstants.topFrameHeight / 1.2)
         if offset.y > PodcastListConstants.minimumOffset {
             
             UIView.animate(withDuration: 0.5) {
                 self.topView.removeFromSuperview()
                 self.topView.alpha = 0
-                self.collectionView.frame = CGRect(x: self.view.bounds.minX,
-                                                   y: self.view.bounds.minY,
-                                                   width: self.view.bounds.width,
-                                                   height: self.view.bounds.height)
+                self.collectionView.frame = fullScreenCollectionView
             }
         } else {
             UIView.animate(withDuration: 0.15) {
-                self.topView.frame = CGRect(x: 0,
-                                            y: 0,
-                                            width: PodcastListConstants.topFrameWidth,
-                                            height: PodcastListConstants.topFrameHeight / 1.2)
+                self.topView.frame = updatedTopViewFrame
                 self.topView.alpha = 1
                 self.topView.podcastImageView.image = self.caster.artwork
                 self.topView.layoutSubviews()
