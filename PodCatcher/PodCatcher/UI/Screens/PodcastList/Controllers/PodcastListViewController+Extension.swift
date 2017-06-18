@@ -9,10 +9,7 @@ extension PodcastListViewController: PodcastCollectionViewProtocol {
     }
     
     func configureTopView() {
-        topView.frame = CGRect(x: 0,
-                               y: 0,
-                               width: PodcastListConstants.topFrameWidth,
-                               height: PodcastListConstants.topFrameHeight / 1.2)
+        topView.frame = PodcastListConstants.topFrame
         topView.podcastImageView.image = caster.artwork
         topView.delegate = self
         topView.layoutSubviews()
