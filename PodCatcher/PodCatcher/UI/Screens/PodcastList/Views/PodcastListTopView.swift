@@ -41,7 +41,7 @@ class PodcastListTopView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         setupConstraints()
-        backgroundColor = .lightGray
+        backgroundColor = .white
         layer.setCellShadow(contentView: self)
     }
     

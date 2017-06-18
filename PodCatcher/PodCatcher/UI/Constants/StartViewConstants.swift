@@ -18,7 +18,7 @@ struct StartViewConstants {
     static let logoViewHeightMultiplier: CGFloat = 0.22
     static let logoViewCenterYOffset: CGFloat = UIScreen.main.bounds.height * -0.25
     static let titleLabelCenterYOffset: CGFloat = UIScreen.main.bounds.height * -0.25
-    static let guestUserButtonBottomOffset: CGFloat = UIScreen.main.bounds.height * 0.1
-    static let loginButtonBottomOffset: CGFloat = UIScreen.main.bounds.height * 0.07
-    static let createAccountButtonTopOffset: CGFloat = UIScreen.main.bounds.height * 0.07
+    static let guestUserButtonBottomOffset: CGFloat = UIScreen.main.bounds.height * 0.13
+    static let loginButtonBottomOffset: CGFloat = UIScreen.main.bounds.height * 0.09
+    static let createAccountButtonTopOffset: CGFloat = UIScreen.main.bounds.height * 0.08
 }

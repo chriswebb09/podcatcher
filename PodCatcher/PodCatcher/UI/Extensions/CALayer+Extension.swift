@@ -8,7 +8,7 @@ extension CALayer {
         shadowColor = UIColor.black.cgColor
         shadowOffset = CGSize(width: shadowOffsetWidth, height: shadowOffsetHeight)
         shadowRadius =  1.8
-        shadowOpacity = 0.7
+        shadowOpacity = 0.8
     }
     
     static func drawCircleLayerWith(size: CGSize, color: UIColor) -> CALayer {
@@ -35,12 +35,18 @@ extension CALayer {
     }
     
     func podcastCell(viewRadius: CGFloat) {
-        shadowColor = UIColor.white.cgColor
+        shadowColor = UIColor.lightGray.cgColor
         shadowOffset = CGSize(width: 0, height: 2.0)
-        shadowRadius = 5
-        shadowOpacity = 0.08
-        masksToBounds = true
-        shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: viewRadius).cgPath
+        shadowRadius = 3
+        shadowOpacity = 0.2
+        masksToBounds = false;
+        shadowPath = UIBezierPath(roundedRect:self.bounds, cornerRadius: viewRadius).cgPath
+//        shadowColor = UIColor.black.cgColor
+//        shadowOffset = CGSize(width: 0, height: 2.0)
+//        shadowRadius = 5
+//        shadowOpacity = 1
+//        masksToBounds = true
+//        shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: viewRadius).cgPath
     }
     
 }

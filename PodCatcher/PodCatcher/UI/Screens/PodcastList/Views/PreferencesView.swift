@@ -18,7 +18,7 @@ class PreferencesView: UIView {
         super.layoutSubviews()
         setupConstraints()
         moreMenuButton.addTarget(self, action: #selector(moreButtonTapped), for: .touchUpInside)
-        backgroundColor = .darkGray
+        backgroundColor = .lightGray
     }
     
     func setupConstraints() {

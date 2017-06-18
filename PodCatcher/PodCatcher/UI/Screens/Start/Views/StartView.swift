@@ -3,7 +3,7 @@ import UIKit
 final class StartView: UIView {
     
     weak var delegate: StartViewDelegate?
-    
+   
     // MARK: - UI Properties
     
     private var titleLabel: UILabel = {
@@ -16,29 +16,39 @@ final class StartView: UIView {
     
     private var logoView: UIImageView = {
         let logoView = UIImageView()
-        logoView.image = #imageLiteral(resourceName: "logoTest")
+        logoView.image = #imageLiteral(resourceName: "wavelogo")
+      //  logoView.image = #imageLiteral(resourceName: "podcatchlogo")
+       // logoView.image =
         return logoView
     }()
     
     private var guestUserButton: UIButton = {
-        let guestUser = BasicButtonFactory(text: "Continue As Guest", textColor: .white, borderWidth: StartViewConstants.buttonBorderWidth, borderColor: UIColor.blue.cgColor, backgroundColor: StartViewConstants.buttonColor)
+        let guestUser = BasicButtonFactory(text: "Continue As Guest", textColor: .white, borderWidth: StartViewConstants.buttonBorderWidth, borderColor: UIColor.blue.cgColor, backgroundColor: UIColor.mainColor)
         return guestUser.createButton()
     }()
     
     private var userLoginButton: UIButton = {
-        let userLogin = LoginButtonFactory(text: "Log in to Account", textColor: .white, buttonBorderWidth: StartViewConstants.buttonBorderWidth, buttonBorderColor: UIColor.blue.cgColor, buttonBackgroundColor: StartViewConstants.buttonColor)
+        let userLogin = LoginButtonFactory(text: "Log in to Account", textColor: .white, buttonBorderWidth: StartViewConstants.buttonBorderWidth, buttonBorderColor: UIColor.blue.cgColor, buttonBackgroundColor: UIColor.mainColor)
         return userLogin.createButton()
     }()
     
     private var createAccountButton: UIButton = {
-        let createAccount = LoginButtonFactory(text: "Create Account", textColor: .white, buttonBorderWidth: StartViewConstants.buttonBorderWidth, buttonBorderColor: UIColor.blue.cgColor, buttonBackgroundColor: StartViewConstants.buttonColor)
-        return createAccount.createButton()
+        let createAccount = UIButton()
+        var text = "Don't have an account?"
+        
+        var attributes = [NSFontAttributeName : UIFont.systemFont(ofSize: 19.0), NSForegroundColorAttributeName : UIColor.white,NSUnderlineStyleAttributeName : 1] as [String : Any]
+        var attributedString = NSMutableAttributedString(string:"")
+        let buttonTitleStr = NSMutableAttributedString(string:"Don't have an account?", attributes: attributes)
+        attributedString.append(buttonTitleStr)
+        createAccount.setAttributedTitle(attributedString, for: .normal)
+        return createAccount
     }()
     
     // MARK: - Configuration Methods
     
     override func layoutSubviews() {
-        CALayer.createGradientLayer(with: [UIColor(red:0.31, green:0.49, blue:0.63, alpha:1.0).cgColor, UIColor(red:0.18, green:0.27, blue:0.33, alpha:1.0).cgColor], layer: layer, bounds: bounds)
+        CALayer.createGradientLayer(with: [UIColor.white.cgColor, UIColor.gray.cgColor], layer: layer, bounds: bounds)
+
         super.layoutSubviews()
         setupElements()
         titleLabel.text = "Get started!"
@@ -49,11 +59,11 @@ final class StartView: UIView {
         setup(titleLabel: titleLabel)
         setup(logoView: logoView)
         setup(guestUserButton: guestUserButton)
-        guestUserButton.layer.cornerRadius = StartViewConstants.buttonCornerRadius
+        guestUserButton.layer.cornerRadius = 10
         setup(loginButton: userLoginButton)
-        userLoginButton.layer.cornerRadius = StartViewConstants.buttonCornerRadius
+        userLoginButton.layer.cornerRadius = 10
         setup(createAccountButton: createAccountButton)
-        createAccountButton.layer.cornerRadius = StartViewConstants.buttonCornerRadius
+        createAccountButton.layer.cornerRadius = 10
     }
     
     private func setupSelectors() {
@@ -80,8 +90,8 @@ final class StartView: UIView {
         logoView.translatesAutoresizingMaskIntoConstraints = false
         logoView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         logoView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: StartViewConstants.logoViewCenterYOffset).isActive = true
-        logoView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: StartViewConstants.logoViewWidthMultiplier).isActive = true
-        logoView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: StartViewConstants.logoViewHeightMultiplier).isActive = true
+        logoView.widthAnchor.constraint(equalTo: widthAnchor, constant: UIScreen.main.bounds.width * 0.005).isActive = true
+        logoView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.08).isActive = true
     }
     
     private func sharedLayout(view: UIView) {

@@ -5,13 +5,14 @@ import UIKit
 extension PodcastListViewController: PodcastCollectionViewProtocol {
     
     func setup() {
-        guard let tabHeight = self.tabBarController?.tabBar.frame.height else { return }
-        collectionView.frame = CGRect(x: topView.bounds.minX + 10, y: topView.frame.maxY + 10, width: view.bounds.width - 20, height: view.bounds.height - (tabHeight * 2.5))
         setup(dataSource: self, delegate: self)
     }
     
     func configureTopView() {
-        topView.frame = CGRect(x: 0, y: 0, width: PodcastListConstants.topFrameWidth, height: PodcastListConstants.topFrameHeight / 1.2)
+        topView.frame = CGRect(x: 0,
+                               y: 0,
+                               width: PodcastListConstants.topFrameWidth,
+                               height: PodcastListConstants.topFrameHeight / 1.2)
         topView.podcastImageView.image = caster.artwork
         topView.delegate = self
         topView.layoutSubviews()
@@ -21,15 +22,18 @@ extension PodcastListViewController: PodcastCollectionViewProtocol {
     }
     
     func setupView() {
-        guard let tabHeight = self.tabBarController?.tabBar.frame.height else { return }
-        collectionView.frame = CGRect(x: topView.bounds.minX + 5, y: topView.frame.maxY + 60, width: view.bounds.width - 10, height: view.bounds.height - (tabHeight * 2.2))
+        guard let tabBar = self.tabBarController?.tabBar else { return }
+        guard let navHeight = navigationController?.navigationBar.frame.height else { return }
+        collectionView.frame = CGRect(x: topView.bounds.minX, y: topView.frame.maxY + (tabBar.frame.height + 10), width: view.bounds.width, height: view.bounds.height - (topView.frame.height - tabBar.frame.height))
         collectionView.autoresizingMask = [.flexibleHeight, .flexibleWidth, .flexibleTopMargin, .flexibleBottomMargin]
         collectionView.backgroundColor = .clear
-        
         if caster.assets.count > 0 {
             view.addSubview(collectionView)
         } else {
-            let emptyView = EmptyCastsView(frame: CGRect(x: topView.bounds.minX, y: topView.frame.maxY, width: PodcastListConstants.topFrameWidth, height: PodcastListConstants.topFrameHeight + 10))
+            let emptyView = EmptyCastsView(frame: CGRect(x: topView.bounds.minX,
+                                                         y: topView.frame.maxY,
+                                                         width: PodcastListConstants.topFrameWidth,
+                                                         height: PodcastListConstants.topFrameHeight + 10))
             emptyView.backgroundColor = .white
             emptyView.layoutSubviews()
             view.addSubview(emptyView)
@@ -42,7 +46,33 @@ extension PodcastListViewController: PodcastCollectionViewProtocol {
 extension PodcastListViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-    
+        let offset = scrollView.contentOffset
+        if offset.y > PodcastListConstants.minimumOffset {
+            
+            UIView.animate(withDuration: 0.5) {
+                self.topView.removeFromSuperview()
+                self.topView.alpha = 0
+                self.collectionView.frame = CGRect(x: self.view.bounds.minX,
+                                                   y: self.view.bounds.minY,
+                                                   width: self.view.bounds.width,
+                                                   height: self.view.bounds.height)
+            }
+        } else {
+            UIView.animate(withDuration: 0.15) {
+                self.topView.frame = CGRect(x: 0,
+                                            y: 0,
+                                            width: PodcastListConstants.topFrameWidth,
+                                            height: PodcastListConstants.topFrameHeight / 1.2)
+                self.topView.alpha = 1
+                self.topView.podcastImageView.image = self.caster.artwork
+                self.topView.layoutSubviews()
+                self.view.addSubview(self.topView)
+                self.collectionView.frame = CGRect(x: self.topView.bounds.minX,
+                                                   y: self.topView.frame.maxY,
+                                                   width: self.view.bounds.width,
+                                                   height: self.view.bounds.height)
+            }
+        }
     }
 }
 
@@ -102,7 +132,6 @@ extension PodcastListViewController: TopViewDelegate {
             showMenu()
         }
     }
-    
     
     func hideMenu() {
         menuActive = .hidden

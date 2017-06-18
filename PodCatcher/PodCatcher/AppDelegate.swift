@@ -24,7 +24,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let window = window, coreDataStack.loadDefaultOnFirstLaunch() {
             let startCoordinator = StartCoordinator(navigationController: UINavigationController(), window: window)
             mainCoordinator = MainCoordinator(window: window, coordinator: startCoordinator)
-            startCoordinator.skipSplash()
+            //startCoordinator.skipSplash()
+            mainCoordinator = MainCoordinator(window: window)
+            mainCoordinator.start()
         } else if let window = window {
             mainCoordinator = MainCoordinator(window: window)
             mainCoordinator.start()

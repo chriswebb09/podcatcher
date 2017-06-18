@@ -37,16 +37,11 @@ class PodcastListViewController: BaseCollectionViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "plus-red"), style: .plain, target: self, action: #selector(hidePop))
         background.frame = view.frame
         view.addSubview(background)
-        CALayer.createGradientLayer(with: [UIColor.white.cgColor, UIColor.black.cgColor],
-                                    layer: background.layer,
-                                    bounds: background.bounds)
         view.sendSubview(toBack: background)
         if let user = dataSource.user {
-            print(caster.assets)
-            
             title = caster.name
             let timeString = String(describing: user.totalTimeListening)
-            topView.configure(tags: user.customGenres, timeListen: timeString)
+            topView.configure(tags: [], timeListen: timeString)
         } else {
             topView.preferencesView.moreMenuButton.isHidden = true
             title = "Podcast"
