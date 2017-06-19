@@ -23,5 +23,14 @@ Podcast App
 <img src="https://raw.githubusercontent.com/chriswebb09/podcatcher/master/Resource/createaccount.png">
 </p>
 
+<p align="center">
+<img src="https://raw.githubusercontent.com/chriswebb09/podcatcher/master/Resource/podcast-list.jpg">
+</p>
+
+
+<p align="center">
+<img src="https://raw.githubusercontent.com/chriswebb09/podcatcher/master/Resource/podcast-list-full.jpg">
+</p>
+
 
 
