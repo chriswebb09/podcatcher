@@ -14,11 +14,9 @@ class PodcastCell: UICollectionViewCell {
     var podcastTitleLabel: UILabel = {
         var podcastTitleLabel = UILabel()
         podcastTitleLabel.numberOfLines = 0
-        // podcastTitleLabel.sizeToFit()
         podcastTitleLabel.textAlignment = .left
         podcastTitleLabel.textColor = .darkGray
-        //podcastTitleLabel.textColor = UIColor(red:0.96, green:0.26, blue:0.21, alpha:1.0)
-        podcastTitleLabel.font = UIFont(name: "AppleSDGothicNeo-Medium", size: 12)
+        podcastTitleLabel.font = UIFont(name: "AppleSDGothicNeo-Medium", size: 11)
         return podcastTitleLabel
     }()
     
