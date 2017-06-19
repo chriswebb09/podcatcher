@@ -18,6 +18,6 @@ Podcast App
 </p>
 <br>
 
+<p>
 <img src="https://raw.githubusercontent.com/chriswebb09/podcatcher/master/Resource/podcast-list-full.jpg" align="center">
-
-
+</p>
