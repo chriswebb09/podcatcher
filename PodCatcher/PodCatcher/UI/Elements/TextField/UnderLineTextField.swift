@@ -3,26 +3,26 @@ import UIKit
 class UnderlineTextField: UITextField {
     
     override func leftViewRect(forBounds bounds: CGRect) -> CGRect {
-        var newBounds = CGRect(x: bounds.origin.x + 30,
-                               y: bounds.origin.y + 12,
+        let newBounds = CGRect(x: bounds.origin.x + 30,
+                               y: bounds.origin.y + 8,
                                width: bounds.width + 12,
                                height: bounds.height)
-    
+        
         var textRect = super.leftViewRect(forBounds: newBounds)
         textRect.origin.x += 5
         return textRect
     }
-
+    
     
     override func textRect(forBounds bounds: CGRect) -> CGRect {
-        return CGRect(x: bounds.origin.x + 60,
+        return CGRect(x: bounds.origin.x + 50,
                       y: bounds.origin.y + 12,
                       width: bounds.width + 12,
                       height: bounds.height)
     }
     
     override func editingRect(forBounds bounds: CGRect) -> CGRect {
-        return CGRect(x: bounds.origin.x + 60,
+        return CGRect(x: bounds.origin.x + 50,
                       y: bounds.origin.y + 12,
                       width: bounds.width + 12,
                       height: bounds.height)
@@ -32,6 +32,7 @@ class UnderlineTextField: UITextField {
         let border = CALayer()
         let width = CGFloat(1.0)
         border.borderColor = UIColor.darkGray.cgColor
+        
         border.frame = CGRect(x: 0, y: frame.size.height - width, width:  frame.size.width, height: frame.size.height)
         border.borderWidth = width
         layer.addSublayer(border)
@@ -43,19 +44,60 @@ class UnderlineTextField: UITextField {
 extension UnderlineTextField {
     
     func setupPasswordField() {
-        var image = #imageLiteral(resourceName: "lock")
+        var image = #imageLiteral(resourceName: "lock").withRenderingMode(.alwaysTemplate)
         leftViewMode = UITextFieldViewMode.always
-        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 30, height: 28))
         imageView.image = image
+        imageView.tintColor = .lightGray
         leftView = imageView
+        let attributedString = NSMutableAttributedString(string: "●●●●●●●")
+        attributedString.addAttribute(NSKernAttributeName, value: CGFloat(1.5), range: NSRange(location: 0, length: attributedString.length))
+        let fontAttribute = [NSFontAttributeName: UIFont.systemFont(ofSize: 12.0)]
+        attributedString.addAttributes(fontAttribute, range: NSRange(location: 0, length: attributedString.length))
+        attributedPlaceholder = attributedString
+        textColor = .lightGray
+        if let text = text {
+            let attributedString = NSMutableAttributedString(string: text)
+            attributedString.addAttribute(NSKernAttributeName, value: CGFloat(1.0), range: NSRange(location: 0, length: attributedString.length))
+            attributedText = attributedString
+        }
     }
     
     func setupEmailField() {
-        var image = #imageLiteral(resourceName: "mail")
+        var image = #imageLiteral(resourceName: "mail-cropped").withRenderingMode(.alwaysTemplate)
         leftViewMode = UITextFieldViewMode.always
-        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 30, height: 20))
+        imageView.tintColor = .lightGray
         imageView.image = image
         leftView = imageView
+        let attributedString = NSMutableAttributedString(string: "Email Address")
+        attributedString.addAttribute(NSKernAttributeName, value: CGFloat(1.5), range: NSRange(location: 0, length: attributedString.length))
+        let fontAttribute = [NSFontAttributeName: UIFont.systemFont(ofSize: 14.0)]
+        attributedString.addAttributes(fontAttribute, range: NSRange(location: 0, length: attributedString.length))
+        attributedPlaceholder = attributedString
+        if let text = text {
+            let attributedString = NSMutableAttributedString(string: text)
+            attributedString.addAttribute(NSKernAttributeName, value: CGFloat(1.0), range: NSRange(location: 0, length: attributedString.length))
+            attributedText = attributedString
+        }
     }
-
+    
+    func setupUserField() {
+        var image = #imageLiteral(resourceName: "user").withRenderingMode(.alwaysTemplate)
+        leftViewMode = UITextFieldViewMode.always
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 32, height: 28))
+        imageView.tintColor = .lightGray
+        imageView.image = image
+        leftView = imageView
+        let attributedString = NSMutableAttributedString(string: "Username")
+        attributedString.addAttribute(NSKernAttributeName, value: CGFloat(1.5), range: NSRange(location: 0, length: attributedString.length))
+        let fontAttribute = [NSFontAttributeName: UIFont.systemFont(ofSize: 14.0)]
+        attributedString.addAttributes(fontAttribute, range: NSRange(location: 0, length: attributedString.length))
+        attributedPlaceholder = attributedString
+        if let text = text {
+            let attributedString = NSMutableAttributedString(string: text)
+            attributedString.addAttribute(NSKernAttributeName, value: CGFloat(1.0), range: NSRange(location: 0, length: attributedString.length))
+            attributedText = attributedString
+        }
+    }
 }

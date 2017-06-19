@@ -17,18 +17,16 @@ final class StartView: UIView {
     private var logoView: UIImageView = {
         let logoView = UIImageView()
         logoView.image = #imageLiteral(resourceName: "wavelogo")
-      //  logoView.image = #imageLiteral(resourceName: "podcatchlogo")
-       // logoView.image =
         return logoView
     }()
     
     private var guestUserButton: UIButton = {
-        let guestUser = BasicButtonFactory(text: "Continue As Guest", textColor: .white, borderWidth: StartViewConstants.buttonBorderWidth, borderColor: UIColor.blue.cgColor, backgroundColor: UIColor.mainColor)
+        let guestUser = BasicButtonFactory(text: "Continue", textColor: .white, borderWidth: StartViewConstants.buttonBorderWidth, borderColor: UIColor.blue.cgColor, backgroundColor: UIColor.mainColor)
         return guestUser.createButton()
     }()
     
     private var userLoginButton: UIButton = {
-        let userLogin = LoginButtonFactory(text: "Log in to Account", textColor: .white, buttonBorderWidth: StartViewConstants.buttonBorderWidth, buttonBorderColor: UIColor.blue.cgColor, buttonBackgroundColor: UIColor.mainColor)
+        let userLogin = LoginButtonFactory(text: "Login", textColor: .white, buttonBorderWidth: StartViewConstants.buttonBorderWidth, buttonBorderColor: UIColor.blue.cgColor, buttonBackgroundColor: UIColor.mainColor)
         return userLogin.createButton()
     }()
     
@@ -36,7 +34,7 @@ final class StartView: UIView {
         let createAccount = UIButton()
         var text = "Don't have an account?"
         
-        var attributes = [NSFontAttributeName : UIFont.systemFont(ofSize: 19.0), NSForegroundColorAttributeName : UIColor.white,NSUnderlineStyleAttributeName : 1] as [String : Any]
+        var attributes = [NSFontAttributeName : UIFont.systemFont(ofSize: 16.0), NSForegroundColorAttributeName : UIColor.white,NSUnderlineStyleAttributeName : 1] as [String : Any]
         var attributedString = NSMutableAttributedString(string:"")
         let buttonTitleStr = NSMutableAttributedString(string:"Don't have an account?", attributes: attributes)
         attributedString.append(buttonTitleStr)
@@ -47,7 +45,7 @@ final class StartView: UIView {
     // MARK: - Configuration Methods
     
     override func layoutSubviews() {
-        CALayer.createGradientLayer(with: [UIColor.white.cgColor, UIColor.gray.cgColor], layer: layer, bounds: bounds)
+        CALayer.createGradientLayer(with: [UIColor.white.cgColor, UIColor.lightGray.cgColor], layer: layer, bounds: bounds)
 
         super.layoutSubviews()
         setupElements()

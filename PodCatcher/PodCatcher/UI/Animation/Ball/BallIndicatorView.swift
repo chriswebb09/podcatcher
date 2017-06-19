@@ -21,8 +21,8 @@ final class BallIndicatorView: UIView {
     }
     
     init(frame: CGRect?, color: UIColor? = nil, padding: CGFloat? = nil) {
-        super.init(frame: frame!)
-        guard let frame = frame else { return }
+        guard let frame = frame else { fatalError("Frame does not exist") }
+        super.init(frame: frame)
         let animationWidth = frame.size.width * 0.5
         let animationHeight = frame.height * 0.4
         animationRect = CGRect(x: frame.size.width,

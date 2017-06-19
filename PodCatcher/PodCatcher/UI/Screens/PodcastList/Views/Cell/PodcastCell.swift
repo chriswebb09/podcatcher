@@ -50,12 +50,8 @@ class PodcastCell: UICollectionViewCell {
         colorBackgroundView.frame = contentView.frame
         contentView.addSubview(colorBackgroundView)
         contentView.sendSubview(toBack: colorBackgroundView)
-        //  podcastImageView.image = model.podcastImage
         playTimeLabel.text = String.constructTimeString(time: model.item.playtime)
         podcastTitleLabel.text = model.podcastTitle
-        contentView.layer.borderColor = UIColor.lightGray.cgColor
-        contentView.layer.borderWidth = 1
-        
     }
     
     func setupConstraints() {

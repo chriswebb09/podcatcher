@@ -17,13 +17,11 @@ final class LoginView: UIView {
     var usernameField: UITextField = {
         var usernameField = UnderlineTextField()
         usernameField.placeholder = "Email"
-       // usernameField.setup()
         return usernameField
     }()
     
     private var passwordField: UnderlineTextField = {
         var passwordField = UnderlineTextField()
-      
         passwordField.isSecureTextEntry = true
         return passwordField
     }()

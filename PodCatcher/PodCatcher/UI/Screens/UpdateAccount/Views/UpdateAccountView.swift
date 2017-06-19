@@ -14,12 +14,12 @@ class UpdateAccountView: UIView {
     
     // MARK: - UI Elements
     
-    var usernameLabel: UILabel = {
+    private lazy var usernameLabel: UILabel = {
         var label = UILabel()
         return label
     }()
     
-    var editUserNameButton: UIButton = {
+    lazy var editUserNameButton: UIButton = {
         var editButton = UIButton()
         editButton.setTitle("Edit", for: .normal)
         return editButton

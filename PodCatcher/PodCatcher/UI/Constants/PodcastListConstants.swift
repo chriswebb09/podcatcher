@@ -10,5 +10,6 @@ struct PodcastListConstants {
     static let topFrameHeight = UIScreen.main.bounds.height / 2
     static let topFrameWidth = UIScreen.main.bounds.width
     static let topFrame = CGRect(x: 0, y: 0, width: PodcastListConstants.topFrameWidth, height: PodcastListConstants.topFrameHeight / 1.2)
+    static let emptyCastViewFrame = CGRect(x: PodcastListConstants.topFrame.minX, y: PodcastListConstants.topFrame.maxY, width: PodcastListConstants.topFrameWidth, height: PodcastListConstants.topFrameHeight + 10)
 }
 

@@ -5,6 +5,8 @@ import UIKit
 extension LoginView: UITextFieldDelegate {
     
     func textFieldDidChange(_ textField: UITextField) {
+        textField.textColor = .black
+        textField.leftView?.tintColor = .black
         guard let text = textField.text else { return }
         if textField == usernameField {
             model.username = text
@@ -12,12 +14,19 @@ extension LoginView: UITextFieldDelegate {
             model.password = text
         }
     }
-
+    
     func textFieldDidEndEditing(_ textField: UITextField) {
         guard let text = textField.text else { return }
+        textField.leftView?.tintColor = .black
         if textField == usernameField {
+            if !text.isValidEmail() {
+                textField.textColor = .red
+            }
             model.username = text
         } else {
+            if text.characters.count < 6 {
+                textField.textColor = .red
+            }
             model.password = text
         }
     }

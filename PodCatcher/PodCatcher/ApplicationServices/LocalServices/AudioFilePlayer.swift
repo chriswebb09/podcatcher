@@ -58,11 +58,16 @@ final class AudioFilePlayer: NSObject, AVAssetResourceLoaderDelegate, Playable {
     
     convenience override init() {
         self.init()
+        
         self.url = URL(string: "test")!
     }
     
     func play() {
         play(player: player)
+    }
+    
+    func pause(){
+        player.pause()
     }
     
     func setUrl(from string: String?) {

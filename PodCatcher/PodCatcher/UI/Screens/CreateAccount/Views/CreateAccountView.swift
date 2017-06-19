@@ -4,58 +4,88 @@ final class CreateAccountView: UIView {
     
     weak var delegate: CreateAccountViewDelegate?
     
-    // MARK: - UI Element Properties
+    var model: LoginViewModel! {
+        didSet {
+            submitButton.isEnabled = model.validContent
+            submitButton.backgroundColor = model.buttonColor
+            dump(model.buttonColor)
+        }
+    }
     
-    var usernameField: TextFieldExtension = {
-        let usernameField = TextFieldExtension()
+    // MARK: - UI Elements
+    
+    var usernameField: UITextField = {
+        var usernameField = UnderlineTextField()
         usernameField.placeholder = "Username"
-        usernameField.layer.borderColor = UIColor.lightGray.cgColor
-        usernameField.layer.borderWidth = CreateAccountViewConstants.borderWidth
         return usernameField
     }()
     
-    var emailField: TextFieldExtension = {
-        let emailField = TextFieldExtension()
-        emailField.placeholder = "Email"
-        emailField.layer.borderColor = UIColor.lightGray.cgColor
-        emailField.layer.borderWidth = CreateAccountViewConstants.borderWidth
-        return emailField
+    var emailField: UITextField = {
+        var usernameField = UnderlineTextField()
+        usernameField.placeholder = "Email"
+        return usernameField
     }()
     
-    var passwordField: TextFieldExtension = {
-        let passwordField = TextFieldExtension()
-        passwordField.placeholder = "Password"
-        passwordField.layer.borderColor = UIColor.lightGray.cgColor
-        passwordField.layer.borderWidth = CreateAccountViewConstants.borderWidth
+    var confirmEmailField: UITextField = {
+        var usernameField = UnderlineTextField()
+        usernameField.placeholder = "Email"
+        return usernameField
+    }()
+    
+    private var passwordField: UITextField = {
+        var passwordField = UnderlineTextField()
+        passwordField.isSecureTextEntry = true
         return passwordField
     }()
     
-    var confirmPasswordField: TextFieldExtension = {
-        let confirmPasswordField = TextFieldExtension()
-        confirmPasswordField.layer.borderColor = UIColor.lightGray.cgColor
-        return confirmPasswordField
-    }()
-    
-    private var submitButton: UIButton = {
-        let submitButton = BasicButtonFactory(text: "Create Account", textColor: .white, borderWidth: CreateAccountViewConstants.borderWidth, borderColor: UIColor.blue.cgColor, backgroundColor: .lightGray)
+    fileprivate var submitButton: UIButton = {
+        var borderColor = UIColor.lightText.cgColor
+        let submitButton = BasicButtonFactory(text: "Submit", textColor: .white, borderWidth: 2, borderColor: borderColor, backgroundColor: .mainColor)
         return submitButton.createButton()
     }()
     
+    // MARK: - Configuration Methods
+    
     override func layoutSubviews() {
+        tag = 1
         super.layoutSubviews()
         backgroundColor = .white
-        emailField.delegate = self 
+        
+        let usernameField = self.usernameField as! UnderlineTextField
+        let emailField = self.emailField as! UnderlineTextField
+        let confirmEmailField = self.confirmEmailField as! UnderlineTextField
+        let passwordField = self.passwordField as! UnderlineTextField
+        emailField.setupEmailField()
+        emailField.setup()
+        usernameField.setupUserField()
+        usernameField.setup()
+        confirmEmailField.setupEmailField()
+        confirmEmailField.setup()
+        let attributedString = NSMutableAttributedString(string: "Confirm Email Address")
+        attributedString.addAttribute(NSKernAttributeName, value: CGFloat(1.5), range: NSRange(location: 0, length: attributedString.length))
+        let fontAttribute = [NSFontAttributeName: UIFont.systemFont(ofSize: 14.0)]
+        attributedString.addAttributes(fontAttribute, range: NSRange(location: 0, length: attributedString.length))
+        confirmEmailField.attributedPlaceholder = attributedString
+        passwordField.setupPasswordField()
+        passwordField.setup()
+        setup(usernamefield: usernameField)
+        setup(emailField: self.emailField)
         usernameField.delegate = self
-        setup(usernameField: usernameField)
-        setup(emailField: emailField)
+        passwordField.delegate = self
+        usernameField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        passwordField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        setup(confirmEmailField: confirmEmailField)
         setup(passwordField: passwordField)
         setup(submitButton: submitButton)
-        usernameField.layer.cornerRadius = CreateAccountViewConstants.cornerRadius
-        passwordField.layer.cornerRadius = CreateAccountViewConstants.cornerRadius
-        emailField.layer.cornerRadius = CreateAccountViewConstants.cornerRadius
-        submitButton.layer.cornerRadius = CreateAccountViewConstants.cornerRadius
-        tag = 3
+        submitButton.layer.cornerRadius = 10
         submitButton.addTarget(self, action: #selector(submitButtonTapped), for: .touchUpInside)
+    }
+    
+    func configure(model: LoginViewModel) {
+        self.model = model
+        usernameField.text = "Link@link.com"
+        passwordField.text = "123456"
+        submitButton.isEnabled = true
     }
     
     private func sharedLayout(view: UIView) {
@@ -66,36 +96,55 @@ final class CreateAccountView: UIView {
         view.widthAnchor.constraint(equalTo: widthAnchor, multiplier: CreateAccountViewConstants.sharedWidthMultiplier).isActive = true
     }
     
-    private func setup(usernameField: TextFieldExtension) {
+    private func setup(usernamefield: UITextField) {
         sharedLayout(view: usernameField)
-        usernameField.topAnchor.constraint(equalTo: topAnchor, constant: CreateAccountViewConstants.usernameFieldTopOffset).isActive = true
+        usernamefield.topAnchor.constraint(equalTo: topAnchor, constant: UIScreen.main.bounds.height * 0.08).isActive = true
     }
     
-    private func setup(emailField: TextFieldExtension) {
+    private func setup(emailField: UITextField) {
         sharedLayout(view: emailField)
-        emailField.topAnchor.constraint(equalTo: usernameField.bottomAnchor, constant: CreateAccountViewConstants.passwordFieldTopOffset).isActive = true
+        emailField.topAnchor.constraint(equalTo: usernameField.bottomAnchor, constant: UIScreen.main.bounds.height * 0.045).isActive = true
     }
     
+    private func setup(confirmEmailField: UITextField) {
+        sharedLayout(view: confirmEmailField)
+        confirmEmailField.topAnchor.constraint(equalTo: emailField.bottomAnchor, constant: UIScreen.main.bounds.height * 0.045).isActive = true
+    }
     
-    private func setup(passwordField: TextFieldExtension) {
+    private func setup(passwordField: UITextField) {
         sharedLayout(view: passwordField)
-        passwordField.topAnchor.constraint(equalTo: emailField.bottomAnchor, constant: CreateAccountViewConstants.passwordFieldTopOffset).isActive = true
+        passwordField.topAnchor.constraint(equalTo: confirmEmailField.bottomAnchor, constant: UIScreen.main.bounds.height * 0.045).isActive = true
     }
     
     private func setup(submitButton: UIButton) {
         sharedLayout(view: submitButton)
-        submitButton.topAnchor.constraint(equalTo: passwordField.bottomAnchor, constant: CreateAccountViewConstants.submitButtonTopOffset).isActive = true
+        submitButton.topAnchor.constraint(equalTo: passwordField.bottomAnchor, constant: LoginViewConstants.submitButtonTopOffset).isActive = true
     }
     
     func submitButtonTapped() {
-        guard let email = emailField.text else { return }
-        guard let password = passwordField.text else { return }
-        UserDataAPIClient.createUserAccount(email: email, password: password)
+        guard let username = usernameField.text, let password = passwordField.text else { return }
         delegate?.submitButtonTapped()
     }
 }
 
+
 extension CreateAccountView: UITextFieldDelegate {
+    
+    func textFieldDidChange(_ textField: UITextField) {
+        textField.textColor = .black
+        
+        guard let text = textField.text else { return }
+        if textField == usernameField {
+            model.username = text
+        } else {
+            model.password = text
+        }
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.placeholder = "" 
+    }
+    
     func textFieldDidEndEditing(_ textField: UITextField) {
         endEditing(true)
     }

@@ -28,13 +28,34 @@ extension PlayerViewController: PlayerViewDelegate {
     
     func backButtonTapped() {
         guard index > 0 else { return }
+        guard let player = player else { return }
+        player.pause()
+       // player.player.pause()
         index -= 1
+        guard let url = caster.assets[index].audioUrl else { return }
+        
+        guard let artwork = caster.artwork else { return }
+        self.playerViewModel = PlayerViewModel(image: artwork, title: caster.assets[index].title)
+        setModel(model: PlayerViewModel(image: artwork, title: caster.assets[index].title))
+        initPlayer(url: url)
+      //  player.player.play()
         delegate?.skipButtonTapped()
     }
     
     func skipButtonTapped() {
-        guard index <= caster.assets.count else { return }
+        guard index < caster.assets.count - 1 else { return }
+        guard let player = player else { return }
+     //   player.player.pause()
+        player.pause()
         index += 1
+        guard let url = caster.assets[index].audioUrl else { return }
+        
+        guard let artwork = caster.artwork else { return }
+        self.playerViewModel = PlayerViewModel(image: artwork, title: caster.assets[index].title)
+        setModel(model: PlayerViewModel(image: artwork, title: caster.assets[index].title))
+        initPlayer(url: url)
+       // player.player.play()
+        delegate?.skipButtonTapped()
     }
     
     func pauseButtonTapped() {

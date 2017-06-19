@@ -27,10 +27,7 @@ extension PodcastListViewController: PodcastCollectionViewProtocol {
         if caster.assets.count > 0 {
             view.addSubview(collectionView)
         } else {
-            let emptyView = EmptyCastsView(frame: CGRect(x: topView.bounds.minX,
-                                                         y: topView.frame.maxY,
-                                                         width: PodcastListConstants.topFrameWidth,
-                                                         height: PodcastListConstants.topFrameHeight + 10))
+            let emptyView = EmptyCastsView(frame: PodcastListConstants.emptyCastViewFrame)
             emptyView.backgroundColor = .white
             emptyView.layoutSubviews()
             view.addSubview(emptyView)
@@ -44,14 +41,13 @@ extension PodcastListViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offset = scrollView.contentOffset
-        let fullScreenCollectionView = CGRect(x: view.bounds.minX, y: view.bounds.minY, width: view.bounds.width, height: view.bounds.height)
         let updatedTopViewFrame = CGRect(x: 0, y: 0, width: PodcastListConstants.topFrameWidth, height: PodcastListConstants.topFrameHeight / 1.2)
         if offset.y > PodcastListConstants.minimumOffset {
             
             UIView.animate(withDuration: 0.5) {
                 self.topView.removeFromSuperview()
                 self.topView.alpha = 0
-                self.collectionView.frame = fullScreenCollectionView
+                self.collectionView.frame = self.view.bounds
             }
         } else {
             UIView.animate(withDuration: 0.15) {
