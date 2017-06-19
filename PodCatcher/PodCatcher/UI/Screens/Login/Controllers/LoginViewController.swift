@@ -21,7 +21,7 @@ class LoginViewController: BaseViewController {
         title = "Login"
         hideKeyboardWhenTappedAround()
         navigationController?.navigationBar.isHidden = false
-         navigationController?.navigationBar.barTintColor = UIColor.lightText
+        navigationController?.navigationBar.barTintColor = .lightText
     }
     
     override func viewWillDisappear(_ animated: Bool) {

@@ -16,12 +16,9 @@ class CreateAccountViewController: UIViewController {
         view.layoutSubviews()
         title = "Create Account"
         hideKeyboardWhenTappedAround()
-       // setupDefaultUI()
         navigationController?.navigationBar.isHidden = false
-      //  navigationController?.navigationBar.barTintColor = .white
         navigationController?.navigationBar.isTranslucent = true
-        navigationController?.navigationBar.barTintColor = UIColor.white
-      //  navigationController?.navigationBar.barTintColor = .lightGray
+        navigationController?.navigationBar.barTintColor = .white
     }
     
     override func viewWillDisappear(_ animated: Bool) {
