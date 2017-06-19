@@ -10,14 +10,14 @@ Podcast App
 </p>
 
 <p>
-#Login - Create Account
+
 <img src="https://raw.githubusercontent.com/chriswebb09/podcatcher/master/Resource/loginscreen.png" align="left">
 <img src="https://raw.githubusercontent.com/chriswebb09/podcatcher/master/Resource/createaccount.png" align="right">
 </p>
 
 <p>
 <br>
-#Podcast List
+
 <img src="https://raw.githubusercontent.com/chriswebb09/podcatcher/master/Resource/podcasts.jpg" align="right"> 
 <img src="https://raw.githubusercontent.com/chriswebb09/podcatcher/master/Resource/podcast-list.jpg" align="left">
 </p>
@@ -25,7 +25,6 @@ Podcast App
 
 
 <p>
-#Podcasts
 <img src="https://raw.githubusercontent.com/chriswebb09/podcatcher/master/Resource/podcast-list-full.jpg" align="left">
 <img src="https://raw.githubusercontent.com/chriswebb09/podcatcher/master/Resource/player-13.jpg" align="right"> 
 </p>
