@@ -23,5 +23,9 @@ Podcast App
 
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/chriswebb09/podcatcher/master/Resource/podcast-list-full.jpg" align="center">
+<img src="https://raw.githubusercontent.com/chriswebb09/podcatcher/master/Resource/podcast-list-full.jpg" align="left">
+<img src="https://raw.githubusercontent.com/chriswebb09/podcatcher/master/Resource/player-13.jpg" align="right"> 
 </p>
+
+
+
