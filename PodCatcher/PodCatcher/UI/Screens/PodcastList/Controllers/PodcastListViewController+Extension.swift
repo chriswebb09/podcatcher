@@ -143,7 +143,6 @@ extension PodcastListViewController: TopViewDelegate {
     }
     
     func popEntry() {
-        
         UIView.animate(withDuration: 0.15) { [weak self] in
             guard let strongSelf = self else { return }
             strongSelf.entryPop.showPopView(viewController: strongSelf)
@@ -160,7 +159,6 @@ extension PodcastListViewController: TopViewDelegate {
         guard let name = caster.name else { return }
         UpdateData.update((name, text))
         user.favoriteCasts[text] = caster
-        dump(user)
         let timeString = String(describing: user.totalTimeListening)
         topView.configure(tags: user.customGenres, timeListen: timeString)
         collectionView.reloadData()

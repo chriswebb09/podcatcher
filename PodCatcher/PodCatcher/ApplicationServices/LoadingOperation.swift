@@ -14,13 +14,7 @@ class DataLoadOperation: Operation {
     
     override func main() {
         if isCancelled { return }
-        
-        let randomDelayTime = arc4random_uniform(2000) + 500
-        usleep(randomDelayTime * 1000)
-        
-        if isCancelled { return }
         self.test = _test
-        
         if let loadingCompletion = loadingCompletion {
             DispatchQueue.main.async {
                 loadingCompletion(self._test)

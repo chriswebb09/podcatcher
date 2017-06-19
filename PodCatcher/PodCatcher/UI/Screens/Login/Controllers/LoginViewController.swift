@@ -1,6 +1,6 @@
 import UIKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: BaseViewController {
     
     var loginView = LoginView()
     var loadingPop = LoadingPopover()
@@ -21,6 +21,7 @@ class LoginViewController: UIViewController {
         title = "Login"
         hideKeyboardWhenTappedAround()
         navigationController?.navigationBar.isHidden = false
+         navigationController?.navigationBar.barTintColor = UIColor.lightText
     }
     
     override func viewWillDisappear(_ animated: Bool) {

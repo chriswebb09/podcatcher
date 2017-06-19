@@ -24,9 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let window = window, coreDataStack.loadDefaultOnFirstLaunch() {
             let startCoordinator = StartCoordinator(navigationController: UINavigationController(), window: window)
             mainCoordinator = MainCoordinator(window: window, coordinator: startCoordinator)
-            //startCoordinator.skipSplash()
-            mainCoordinator = MainCoordinator(window: window)
-            mainCoordinator.start()
+            startCoordinator.skipSplash()
         } else if let window = window {
             mainCoordinator = MainCoordinator(window: window)
             mainCoordinator.start()
@@ -38,12 +36,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func setupUI() {
         let placeholderAttributes: [String : AnyObject] = [NSFontAttributeName: UIFont.systemFont(ofSize: UIFont.systemFontSize)]
         let attributedPlaceholder: NSAttributedString = NSAttributedString(string: "Search", attributes: placeholderAttributes)
-        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).attributedPlaceholder = attributedPlaceholder
-        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).backgroundColor = UIColor(red:0.92, green:0.32, blue:0.33, alpha:1.0)
-        UINavigationBar.appearance().tintColor = UIColor(red:0.92, green:0.32, blue:0.33, alpha:1.0)
+        UINavigationBar.appearance().tintColor = UIColor.mainColor
         UINavigationBar.appearance().titleTextAttributes = [
             NSFontAttributeName: UIFont(name:"Avenir", size: 18),
-            NSForegroundColorAttributeName: UIColor.darkGray
+            NSForegroundColorAttributeName: UIColor.mainColor,
+            NSBackgroundColorAttributeName: UIColor.white
         ]
     }
     
