@@ -237,8 +237,8 @@ final class PlayerView: UIView {
         totalPlayTimeLabel.translatesAutoresizingMaskIntoConstraints = false
         totalPlayTimeLabel.widthAnchor.constraint(equalTo: controlsView.widthAnchor, multiplier: PlayerViewConstants.backButtonWidthMultiplier).isActive = true
         totalPlayTimeLabel.heightAnchor.constraint(equalTo: controlsView.heightAnchor, multiplier: PlayerViewConstants.backButtonHeightMultiplier).isActive = true
-        totalPlayTimeLabel.topAnchor.constraint(equalTo: controlsView.topAnchor).isActive = true
-        totalPlayTimeLabel.rightAnchor.constraint(equalTo: controlsView.rightAnchor).isActive = true
+        totalPlayTimeLabel.topAnchor.constraint(equalTo: controlsView.topAnchor, constant: UIScreen.main.bounds.height * 0.0004).isActive = true
+        totalPlayTimeLabel.rightAnchor.constraint(equalTo: controlsView.rightAnchor, constant: UIScreen.main.bounds.width * -0.04).isActive = true
     }
     
     private func setup(currentTimeLabel: UILabel) {
@@ -246,8 +246,8 @@ final class PlayerView: UIView {
         currentTimeLabel.translatesAutoresizingMaskIntoConstraints = false
         currentTimeLabel.widthAnchor.constraint(equalTo: controlsView.widthAnchor, multiplier: PlayerViewConstants.backButtonWidthMultiplier).isActive = true
         currentTimeLabel.heightAnchor.constraint(equalTo: controlsView.heightAnchor, multiplier: PlayerViewConstants.backButtonHeightMultiplier).isActive = true
-        currentTimeLabel.topAnchor.constraint(equalTo: controlsView.topAnchor).isActive = true
-        currentTimeLabel.leftAnchor.constraint(equalTo: controlsView.leftAnchor).isActive = true
+        currentTimeLabel.topAnchor.constraint(equalTo: controlsView.topAnchor, constant: UIScreen.main.bounds.height * 0.0004).isActive = true
+        currentTimeLabel.leftAnchor.constraint(equalTo: controlsView.leftAnchor, constant: UIScreen.main.bounds.width * 0.04).isActive = true
     }
     
     private func setup(skipButton: UIButton, backButton: UIButton) {
@@ -269,19 +269,20 @@ final class PlayerView: UIView {
     private func setup(volumeSlider: UISlider) {
         volumeControlsView.addSubview(volumeSlider)
         volumeSlider.translatesAutoresizingMaskIntoConstraints = false
-        volumeSlider.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        volumeSlider.rightAnchor.constraint(equalTo: volumeControlsView.rightAnchor, constant: UIScreen.main.bounds.width * -0.16).isActive = true
+            ///.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         volumeSlider.centerYAnchor.constraint(equalTo: volumeControlsView.topAnchor).isActive = true
         volumeSlider.heightAnchor.constraint(equalTo: volumeControlsView.heightAnchor, multiplier: 0.5).isActive = true
-        volumeSlider.widthAnchor.constraint(equalTo: volumeControlsView.widthAnchor, multiplier: 0.7).isActive = true
+        volumeSlider.widthAnchor.constraint(equalTo: volumeControlsView.widthAnchor, multiplier: 0.6).isActive = true
     }
     
     private func setup(volumeImageView: UIImageView) {
         volumeControlsView.addSubview(volumeImageView)
         volumeImageView.translatesAutoresizingMaskIntoConstraints = false
-        volumeImageView.rightAnchor.constraint(equalTo: volumeSlider.leftAnchor, constant: UIScreen.main.bounds.width * -0.05).isActive = true
+        volumeImageView.leftAnchor.constraint(equalTo: volumeControlsView.leftAnchor, constant: UIScreen.main.bounds.width * 0.15).isActive = true
         volumeImageView.centerYAnchor.constraint(equalTo: volumeControlsView.topAnchor).isActive = true
-        volumeImageView.heightAnchor.constraint(equalTo: volumeControlsView.heightAnchor, multiplier: 0.5).isActive = true
-        volumeImageView.widthAnchor.constraint(equalTo: volumeControlsView.widthAnchor, multiplier: 0.06).isActive = true
+        volumeImageView.heightAnchor.constraint(equalTo: volumeControlsView.heightAnchor, multiplier: 0.35).isActive = true
+        volumeImageView.widthAnchor.constraint(equalTo: volumeControlsView.widthAnchor, multiplier: 0.04).isActive = true
     }
     
     private func setupViews() {
