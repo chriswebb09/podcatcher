@@ -1,13 +1,4 @@
-os:
-- osx
-env:
-  - SWIFT_VERSION=3.0
-language: generic
-sudo: required
-dist: trusty
+language: objective-c
 osx_image: xcode8.3
-before_install:
-  - brew update
-  - brew outdated xctool || brew upgrade xctool
 script:
- - xcodebuild -scheme PodCatcher -workspace PodCatcher.xcworkspace -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 6S,OS=9.1' build test
+ - xcodebuild -scheme PodCatcher -workspace PodCatcher.xcworkspace -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 6S,OS=10.3’ build test
