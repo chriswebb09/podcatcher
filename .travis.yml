@@ -1,4 +1,4 @@
 language: objective-c
 osx_image: xcode8.3
 script:
- - xcodebuild -scheme PodCatcher -workspace PodCatcher.xcworkspace -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 6S,OS=10.3’ build test
+ - xcodebuild -scheme PodCatcherTests -workspace PodCatcher.xcworkspace -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 6S,OS=10.3’ build test
