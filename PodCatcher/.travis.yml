@@ -1,6 +1,8 @@
 os:
 - linux
 - osx
+env:
+  - SWIFT_VERSION=3.0
 language: objective-c
 sudo: required
 osx_image: xcode8.3
