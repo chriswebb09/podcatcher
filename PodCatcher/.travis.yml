@@ -1,0 +1,5 @@
+language: objective-c  #1
+osx_image: xcode8.3 #2
+xcode_project: PodCatcher.xcodeproj
+xcode_scheme: PodCatcher #4
+xcode_sdk: phonesimulator10.0
