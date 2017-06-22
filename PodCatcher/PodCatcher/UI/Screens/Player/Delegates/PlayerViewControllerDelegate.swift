@@ -1,7 +1,7 @@
 import Foundation
 
 protocol PlayerViewControllerDelegate: class {
-    func playButtonTapped()
-    func pauseButtonTapped()
-    func skipButtonTapped()
+    func playButton(tapped: Bool)
+    func pauseButton(tapped: Bool)
+    func skipButton(tapped: Bool)
 }

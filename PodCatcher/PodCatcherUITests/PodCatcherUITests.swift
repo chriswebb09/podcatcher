@@ -3,32 +3,48 @@ import Firebase
 
 @testable import PodCatcher
 
-//class PodCatcherUITests: XCTestCase {
-//    
-//    override func setUp() {
-//        super.setUp()
-//        
-//        // Put setup code here. This method is called before the invocation of each test method in the class.
-//        
-//        // In UI tests it is usually best to stop immediately when a failure occurs.
-//        continueAfterFailure = false
-//        // UI tests must launch the application that they test. Doing this in setup will make sure it happens for each test method.
-//        XCUIApplication().launch()
-//        
-//        // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
-//    }
-//    
-//    override func tearDown() {
-//        // Put teardown code here. This method is called after the invocation of each test method in the class.
-//        super.tearDown()
-//    }
-//    
-//    func testStart() {
-//        let app = XCUIApplication()
-//        app.launch()
-//        app.buttons["Continue As Guest"].tap()
-//        app.collectionViews
-//        XCTAssertEqual(app.title, "Podcasts")
-//    }
-//    
-//}
+class PodCatcherUITests: XCTestCase {
+    let app = XCUIApplication()
+    
+    override func setUp() {
+        super.setUp()
+        continueAfterFailure = false
+        app.launch()
+    }
+    
+    override func tearDown() {
+        super.tearDown()
+    }
+    
+    func testStart() {
+        XCTAssert(app.buttons["Continue"].exists)
+        XCTAssert(app.buttons["Login"].exists)
+        XCTAssert(app.buttons["Don't have an account?"].exists)
+    }
+    
+    func testLogin() {
+        XCTAssert(app.buttons["Continue"].exists)
+        XCTAssert(app.buttons["Login"].exists)
+        XCTAssert(app.buttons["Don't have an account?"].exists)
+        app.buttons["Login"].tap()
+        XCTAssert(app.navigationBars.staticTexts["Login"].exists)
+        XCTAssert(app.textFields["Email Address"].exists)
+        XCTAssert(app.buttons["Login"].exists)
+    }
+    
+    func testBack() {
+        XCTAssert(app.buttons["Continue"].exists)
+        XCTAssert(app.buttons["Login"].exists)
+        XCTAssert(app.buttons["Don't have an account?"].exists)
+        app.buttons["Login"].tap()
+        XCTAssert(app.navigationBars.buttons["Back"].exists)
+    }
+    
+    func testCreateAccount() {
+        XCTAssert(app.buttons["Continue"].exists)
+        XCTAssert(app.buttons["Login"].exists)
+        XCTAssert(app.buttons["Don't have an account?"].exists)
+        app.buttons["Don't have an account?"].tap()
+        XCTAssert(app.navigationBars.buttons["Back"].exists)
+    }
+}

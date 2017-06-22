@@ -30,7 +30,6 @@ extension PlayerViewController: PlayerViewDelegate {
         guard index > 0 else { return }
         guard let player = player else { return }
         player.pause()
-       // player.player.pause()
         index -= 1
         guard let url = caster.assets[index].audioUrl else { return }
         
@@ -38,14 +37,12 @@ extension PlayerViewController: PlayerViewDelegate {
         self.playerViewModel = PlayerViewModel(image: artwork, title: caster.assets[index].title)
         setModel(model: PlayerViewModel(image: artwork, title: caster.assets[index].title))
         initPlayer(url: url)
-      //  player.player.play()
-        delegate?.skipButtonTapped()
+        delegate?.skipButton(tapped: true)
     }
     
     func skipButtonTapped() {
         guard index < caster.assets.count - 1 else { return }
         guard let player = player else { return }
-     //   player.player.pause()
         player.pause()
         index += 1
         guard let url = caster.assets[index].audioUrl else { return }
@@ -54,14 +51,13 @@ extension PlayerViewController: PlayerViewDelegate {
         self.playerViewModel = PlayerViewModel(image: artwork, title: caster.assets[index].title)
         setModel(model: PlayerViewModel(image: artwork, title: caster.assets[index].title))
         initPlayer(url: url)
-       // player.player.play()
-        delegate?.skipButtonTapped()
+        delegate?.skipButton(tapped: true)
     }
     
     func pauseButtonTapped() {
         guard let player = player else { return }
         player.player.pause()
-        delegate?.pauseButtonTapped()
+        delegate?.pauseButton(tapped: true)
         UpdateData.update(Int(player.currentTime))
     }
     
@@ -70,7 +66,7 @@ extension PlayerViewController: PlayerViewDelegate {
         player.delegate = self
         player.play(player: player.player)
         player.observePlayTime()
-        delegate?.playButtonTapped()
+        delegate?.playButton(tapped: true)
     }
 }
 

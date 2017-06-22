@@ -1,10 +1,22 @@
 import UIKit
 
 struct LoginViewModel {
-    var username: String = ""
-    var password: String = ""
+    var username: String = "" {
+        didSet {
+            print(validContent)
+            print(validContentColor)
+        }
+    }
+    var password: String = "" {
+        didSet {
+            print(validContent)
+            print(validContentColor)
+        }
+    }
     
-    var submitEnabled: Bool = false
+    var submitEnabled: Bool {
+        return self.validContent
+    }
     
     var validContent: Bool {
         if username.isValidEmail() && password.characters.count >= 6 {

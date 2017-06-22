@@ -8,7 +8,6 @@ final class LoginView: UIView {
         didSet {
             submitButton.isEnabled = model.validContent
             submitButton.backgroundColor = model.buttonColor
-            dump(model.buttonColor)
         }
     }
     
@@ -20,9 +19,10 @@ final class LoginView: UIView {
         return usernameField
     }()
     
-    private var passwordField: UnderlineTextField = {
+    private var passwordField: UITextField = {
         var passwordField = UnderlineTextField()
         passwordField.isSecureTextEntry = true
+        passwordField.setupPasswordField()
         return passwordField
     }()
     
@@ -38,6 +38,7 @@ final class LoginView: UIView {
         tag = 1
         super.layoutSubviews()
         backgroundColor = .white
+        var passwordField = self.passwordField as! UnderlineTextField
         usernameField.delegate = self
         passwordField.delegate = self
         passwordField.setupPasswordField()
@@ -56,8 +57,8 @@ final class LoginView: UIView {
     
     func configure(model: LoginViewModel) {
         self.model = model
-        usernameField.text = "Link@link.com"
-        passwordField.text = "123456"
+       // usernameField.text = "Link@link.com"
+       // passwordField.text = "123456"
         submitButton.isEnabled = true
     }
     

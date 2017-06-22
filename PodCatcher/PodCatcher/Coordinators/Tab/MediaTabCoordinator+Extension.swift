@@ -29,16 +29,15 @@ extension MediaTabCoordinator: PodcastListViewControllerDelegate {
 }
 
 extension MediaTabCoordinator: PlayerViewControllerDelegate {
-    
-    func skipButtonTapped() {
-        print("skipped")
+    func skipButton(tapped: Bool) {
+        print("SkipButton tapped \(tapped)")
     }
 
-    func pauseButtonTapped() {
-        print("paused")
+    func pauseButton(tapped: Bool) {
+         print("PauseButton tapped \(tapped)")
     }
 
-    func playButtonTapped() {
-        print("play")
+    func playButton(tapped: Bool) {
+         print("PlayButton tapped \(tapped)")
     }
 }

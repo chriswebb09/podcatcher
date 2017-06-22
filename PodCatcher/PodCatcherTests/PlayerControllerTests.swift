@@ -57,15 +57,15 @@ class PlayerControllerTests: XCTestCase {
 
 class PlayerViewControllerDelegateTest: PlayerViewControllerDelegate {
     
-    func playButtonTapped() {
+    func playButton(tapped: Bool) {
         
     }
     
-    func pauseButtonTapped() {
+    func pauseButton(tapped: Bool) {
         
     }
     
-    func skipButtonTapped() {
+    func skipButton(tapped: Bool) {
         
     }
 }

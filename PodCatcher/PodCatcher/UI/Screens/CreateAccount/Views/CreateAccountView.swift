@@ -83,8 +83,8 @@ final class CreateAccountView: UIView {
     
     func configure(model: LoginViewModel) {
         self.model = model
-        usernameField.text = "Link@link.com"
-        passwordField.text = "123456"
+   //     usernameField.text = "Link@link.com"
+   //     passwordField.text = "123456"
         submitButton.isEnabled = true
     }
     

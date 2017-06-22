@@ -21,6 +21,13 @@ class MediaPlayerTests: XCTestCase {
         }
     }
     
+    func testConstructTimeString() {
+        var time = String.constructTimeString(time: 869.844)
+        XCTAssertEqual(time, "14:29")
+        time = String.constructTimeString(time: 0.0)
+        XCTAssertEqual(time, "0:00")
+    }
+    
     func testValidEmail() {
         var email = "chris.webb@gmail.com"
         XCTAssertTrue(email.isValidEmail())

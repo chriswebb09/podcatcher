@@ -50,7 +50,7 @@ extension UnderlineTextField {
         imageView.image = image
         imageView.tintColor = .lightGray
         leftView = imageView
-        let attributedString = NSMutableAttributedString(string: "●●●●●●●")
+        let attributedString = NSMutableAttributedString(string: "Password")
         attributedString.addAttribute(NSKernAttributeName, value: CGFloat(1.5), range: NSRange(location: 0, length: attributedString.length))
         let fontAttribute = [NSFontAttributeName: UIFont.systemFont(ofSize: 12.0)]
         attributedString.addAttributes(fontAttribute, range: NSRange(location: 0, length: attributedString.length))
@@ -61,6 +61,8 @@ extension UnderlineTextField {
             attributedString.addAttribute(NSKernAttributeName, value: CGFloat(1.0), range: NSRange(location: 0, length: attributedString.length))
             attributedText = attributedString
         }
+        
+        accessibilityLabel = "password-field"
     }
     
     func setupEmailField() {
