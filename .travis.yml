@@ -1,0 +1,7 @@
+language: objective-c
+sudo: required
+dist: trusty
+osx_image: xcode8.3
+script:
+  - xcodebuild -version
+  - xcodebuild -project PodCatcher.xcworkspace -scheme Podcatcher
