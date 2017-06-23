@@ -5,7 +5,8 @@ import UIKit
 extension LoginView: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height * 0.5)
+        configureSmall()
+        delegate?.loginViewFocus()
     }
     
     func textFieldDidChange(_ textField: UITextField) {

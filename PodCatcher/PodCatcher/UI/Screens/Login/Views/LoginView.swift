@@ -57,8 +57,6 @@ final class LoginView: UIView {
     
     func configure(model: LoginViewModel) {
         self.model = model
-       // usernameField.text = "Link@link.com"
-       // passwordField.text = "123456"
         submitButton.isEnabled = true
     }
     
@@ -89,4 +87,27 @@ final class LoginView: UIView {
         guard let username = usernameField.text, let password = passwordField.text else { return }
         delegate?.userEntryDataSubmitted(with: username, and: password)
     }
+    
+    private func sharedSmallLayout(view: UIView) {
+        view.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        view.heightAnchor.constraint(equalTo: heightAnchor, multiplier: LoginViewConstants.sharedLayoutHeightMultiplier).isActive = true
+        view.widthAnchor.constraint(equalTo: widthAnchor, multiplier: LoginViewConstants.sharedLayoutWidthMultiplier).isActive = true
+    }
+    
+    private func setupSmall(usernamefield: UITextField) {
+        sharedSmallLayout(view: usernameField)
+        usernamefield.topAnchor.constraint(equalTo: topAnchor, constant: LoginViewConstants.usernameSmallFieldTopOffset).isActive = true
+    }
+    
+    private func setupSmall(passwordField: UITextField) {
+        sharedSmallLayout(view: passwordField)
+        passwordField.topAnchor.constraint(equalTo: usernameField.bottomAnchor, constant: LoginViewConstants.passwordSmallFieldTopOffset).isActive = true
+    }
+    
+    
+    func configureSmall() {
+        setupSmall(usernamefield: usernameField)
+        setupSmall(passwordField: passwordField)
+    }
+    
 }

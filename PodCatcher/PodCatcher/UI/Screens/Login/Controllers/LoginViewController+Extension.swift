@@ -3,6 +3,12 @@ import UIKit
 // MARK: - LoginViewDelegate
 
 extension LoginViewController: LoginViewDelegate, LoadingViewProtocol {
+    func loginViewFocus() {
+        loginView.autoresizingMask = [.flexibleHeight, .flexibleWidth, .flexibleTopMargin, .flexibleBottomMargin]
+        view.layoutSubviews()
+        loginView.layoutSubviews()
+    }
+
     
     func userEntryDataSubmitted(with username: String, and password: String) {
         showLoadingView(loadingPop: loadingPop, controller: self)
