@@ -2,6 +2,10 @@ language: objective-c
 sudo: required
 dist: trusty
 osx_image: xcode8.3
+before_install:
+  - export IOS_SIMULATOR_UDID=`instruments -s devices | grep "iPhone 6 (9.3" | awk -F '[ ]' '{print $4}' | awk -F '[\[]' '{print $2}' | sed 's/.$//'`
+  - echo $IOS_SIMULATOR_UDID
+  - open -a "simulator" --args -CurrentDeviceUDID $IOS_SIMULATOR_UDID
 script:
   - xcodebuild -version
   - xcodebuild -project PodCatcher.xcworkspace -scheme Podcatcher
