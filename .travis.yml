@@ -1,4 +1,3 @@
-# yaml
 language: objective-c
 sudo: required
 dist: trusty
