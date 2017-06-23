@@ -177,6 +177,7 @@
 		A7BA68821EFCE0150032FE48 /* MediaCollectionConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BA68811EFCE0150032FE48 /* MediaCollectionConstants.swift */; };
 		A7BA68841EFCE0430032FE48 /* PodcastListDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BA68831EFCE0430032FE48 /* PodcastListDataSource.swift */; };
 		A7BA68861EFCE1520032FE48 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BA68851EFCE1520032FE48 /* SettingsViewModel.swift */; };
+		A7BA688A1EFD1EF40032FE48 /* ChooseUserNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BA68891EFD1EF40032FE48 /* ChooseUserNameView.swift */; };
 		A7EBA09A1EE672A700FAAC9C /* UserDataAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EBA0991EE672A700FAAC9C /* UserDataAPIClient.swift */; };
 		A7EBA09D1EE672E300FAAC9C /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EBA09C1EE672E300FAAC9C /* CoreDataStack.swift */; };
 		A7EBA0A11EE6739000FAAC9C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EBA0A01EE6739000FAAC9C /* LoginView.swift */; };
@@ -408,6 +409,7 @@
 		A7BA68811EFCE0150032FE48 /* MediaCollectionConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaCollectionConstants.swift; sourceTree = "<group>"; };
 		A7BA68831EFCE0430032FE48 /* PodcastListDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodcastListDataSource.swift; sourceTree = "<group>"; };
 		A7BA68851EFCE1520032FE48 /* SettingsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		A7BA68891EFD1EF40032FE48 /* ChooseUserNameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChooseUserNameView.swift; sourceTree = "<group>"; };
 		A7EBA0991EE672A700FAAC9C /* UserDataAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDataAPIClient.swift; sourceTree = "<group>"; };
 		A7EBA09C1EE672E300FAAC9C /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		A7EBA0A01EE6739000FAAC9C /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -978,6 +980,7 @@
 			isa = PBXGroup;
 			children = (
 				A7EBA0A91EE6772200FAAC9C /* CreateAccountView.swift */,
+				A7BA68891EFD1EF40032FE48 /* ChooseUserNameView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1715,6 +1718,7 @@
 				A7150EEB1EE657D000E3553F /* StartViewDelegate.swift in Sources */,
 				A77EDF591EE5FAC2001A24E5 /* CALayer+Extension.swift in Sources */,
 				A73D74091EE684C4004571A5 /* LoadingPopover.swift in Sources */,
+				A7BA688A1EFD1EF40032FE48 /* ChooseUserNameView.swift in Sources */,
 				A77EDF651EE5FC17001A24E5 /* EmptyView.swift in Sources */,
 				A75BBB291EF43126002F4EB6 /* HeaderView.swift in Sources */,
 				A7EBA09D1EE672E300FAAC9C /* CoreDataStack.swift in Sources */,

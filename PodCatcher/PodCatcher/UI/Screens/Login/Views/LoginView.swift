@@ -14,13 +14,13 @@ final class LoginView: UIView {
     
     // MARK: - UI Elements
     
-    var usernameField: UITextField = {
+    var emailField: UITextField = {
         var usernameField = UnderlineTextField()
         usernameField.placeholder = "Email"
         return usernameField
     }()
     
-    private var passwordField: UITextField = {
+    var passwordField: UITextField = {
         var passwordField = UnderlineTextField()
         passwordField.isSecureTextEntry = true
         passwordField.setupPasswordField()
@@ -40,20 +40,21 @@ final class LoginView: UIView {
         super.layoutSubviews()
         backgroundColor = .white
         var passwordField = self.passwordField as! UnderlineTextField
-        usernameField.delegate = self
+        self.emailField.delegate = self
         passwordField.delegate = self
         passwordField.setupPasswordField()
         passwordField.setup()
-        var emailField = usernameField as! UnderlineTextField
+        var emailField = self.emailField as! UnderlineTextField
         emailField.setupEmailField()
         emailField.setup()
-        usernameField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        emailField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         passwordField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-        setup(usernamefield: usernameField)
+        setup(emailField: emailField)
         setup(passwordField: passwordField)
         setup(submitButton: submitButton)
         submitButton.layer.cornerRadius = 10
         submitButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
+        emailField.autocorrectionType = .no
     }
     
     func configure(model: LoginViewModel) {
@@ -69,14 +70,14 @@ final class LoginView: UIView {
         view.widthAnchor.constraint(equalTo: widthAnchor, multiplier: LoginViewConstants.sharedLayoutWidthMultiplier).isActive = true
     }
     
-    private func setup(usernamefield: UITextField) {
-        sharedLayout(view: usernameField)
-        usernamefield.topAnchor.constraint(equalTo: topAnchor, constant: LoginViewConstants.usernameFieldTopOffset).isActive = true
+    private func setup(emailField: UITextField) {
+        sharedLayout(view: emailField)
+        emailField.topAnchor.constraint(equalTo: topAnchor, constant: LoginViewConstants.usernameFieldTopOffset).isActive = true
     }
     
     private func setup(passwordField: UITextField) {
         sharedLayout(view: passwordField)
-        passwordField.topAnchor.constraint(equalTo: usernameField.bottomAnchor, constant: LoginViewConstants.passwordFieldTopOffset).isActive = true
+        passwordField.topAnchor.constraint(equalTo: emailField.bottomAnchor, constant: LoginViewConstants.passwordFieldTopOffset).isActive = true
     }
     
     private func setup(submitButton: UIButton) {
@@ -85,7 +86,7 @@ final class LoginView: UIView {
     }
     
     func loginButtonTapped() {
-        guard let username = usernameField.text, let password = passwordField.text else { return }
+        guard let username = emailField.text, let password = passwordField.text else { return }
         delegate?.userEntryDataSubmitted(with: username, and: password)
     }
 }

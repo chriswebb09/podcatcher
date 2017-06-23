@@ -9,10 +9,10 @@ extension LoginView: UITextFieldDelegate {
     }
     
     func textFieldDidChange(_ textField: UITextField) {
+        guard let text = textField.text, text.characters.count > 0 else { return }
         textField.textColor = .black
         textField.leftView?.tintColor = .black
-        guard let text = textField.text else { return }
-        if textField == usernameField {
+        if textField == emailField {
             model.username = text
         } else {
             model.password = text
@@ -20,9 +20,9 @@ extension LoginView: UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        guard let text = textField.text else { return }
+        guard let text = textField.text, text.characters.count > 0 else { return }
         textField.leftView?.tintColor = .black
-        if textField == usernameField {
+        if textField == emailField {
             if !text.isValidEmail() {
                 textField.textColor = .red
             }
@@ -36,8 +36,8 @@ extension LoginView: UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        endEditing(true)
+        let nextField = (textField == emailField) ? passwordField : emailField
+        nextField.becomeFirstResponder()
         return true
     }
 }
