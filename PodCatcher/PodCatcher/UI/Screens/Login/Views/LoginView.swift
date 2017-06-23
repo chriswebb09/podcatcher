@@ -95,8 +95,13 @@ final class LoginView: UIView {
     }
     
     private func setupSmall(usernamefield: UITextField) {
+        self.layoutSubviews()
+        self.layoutIfNeeded()
         sharedSmallLayout(view: usernameField)
+        layoutIfNeeded()
+        
         usernamefield.topAnchor.constraint(equalTo: topAnchor, constant: LoginViewConstants.usernameSmallFieldTopOffset).isActive = true
+        layoutSubviews()
     }
     
     private func setupSmall(passwordField: UITextField) {

@@ -6,6 +6,8 @@ extension LoginView: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         configureSmall()
+        updateConstraintsIfNeeded()
+        layoutIfNeeded()
         delegate?.loginViewFocus()
     }
     

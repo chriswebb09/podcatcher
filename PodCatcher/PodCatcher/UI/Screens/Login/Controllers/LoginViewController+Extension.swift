@@ -4,9 +4,12 @@ import UIKit
 
 extension LoginViewController: LoginViewDelegate, LoadingViewProtocol {
     func loginViewFocus() {
+        self.view.layoutIfNeeded()
         loginView.autoresizingMask = [.flexibleHeight, .flexibleWidth, .flexibleTopMargin, .flexibleBottomMargin]
-        view.layoutSubviews()
-        loginView.layoutSubviews()
+        self.view.layoutIfNeeded()
+        loginView.layoutIfNeeded()
+//        view.layoutSubviews()
+//        loginView.layoutSubviews()
     }
 
     
