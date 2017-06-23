@@ -1,6 +1,5 @@
 language: objective-c
 osx_image: xcode8
 script:
-  - cd Examples
   - xcodebuild -version
   - xcodebuild -project PodCatcher.xcworkspace -scheme Podcatcher -sdk 
