@@ -4,4 +4,5 @@ dist: trusty
 osx_image: xcode8.3
 script:
   - xcodebuild -version
-  - xcodebuild -workspace PodCatcher.xcworkspace -scheme PodCatcher -configuration Debug  clean build
+  - xcodebuild -workspace PodCatcher.xcworkspace -scheme PodCatcher -configuration Debug  
+clean build
