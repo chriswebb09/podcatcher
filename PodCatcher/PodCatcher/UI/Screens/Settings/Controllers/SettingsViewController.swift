@@ -37,10 +37,3 @@ class SettingsViewController: UIViewController {
     }
 }
 
-extension SettingsViewController: GuestUserViewDelegate {
-    func signIntoAccount(tapped: Bool) {
-        print("Tapped")
-        delegate?.guestUserSignInTapped(tapped: true)
-    }
-}
-

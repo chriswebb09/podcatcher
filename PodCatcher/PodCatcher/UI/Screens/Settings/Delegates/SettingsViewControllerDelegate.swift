@@ -1,7 +1,7 @@
 import Foundation
 
 protocol SettingsViewControllerDelegate: class {
-    func settingOneTapped(tapped: Bool)
-    func settingTwoTapped(tapped: Bool)
-    func guestUserSignInTapped(tapped: Bool)
+    func settingOne(tapped: Bool)
+    func settingTwo(tapped: Bool)
+    func guestUserSignIn(tapped: Bool)
 }

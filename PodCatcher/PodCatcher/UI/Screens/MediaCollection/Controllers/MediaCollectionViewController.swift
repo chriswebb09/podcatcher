@@ -1,21 +1,18 @@
 import UIKit
 
-struct MediaCollectionConstants {
-    static let stringAttributes = [
-        NSFontAttributeName: UIFont(name:"Avenir", size: 16)!,
-        NSForegroundColorAttributeName: PlayerViewConstants.titleViewBackgroundColor]
-}
-
 class MediaCollectionViewController: BaseCollectionViewController {
     
     // MARK: - Properties
     
-    var buttonItem: UIBarButtonItem!
-    
     weak var delegate: MediaControllerDelegate?
+    var dataSource: MediaCollectionDataSource
+    
+    // MARK: - UI Properties
+    
+    var buttonItem: UIBarButtonItem!
     var emptyView = EmptyView(frame: UIScreen.main.bounds)
     
-    var viewShown: ShowView = .empty {
+    var viewShown: ShowView {
         didSet {
             switch viewShown {
             case .empty:
@@ -26,19 +23,16 @@ class MediaCollectionViewController: BaseCollectionViewController {
         }
     }
     
-    var dataSource: BaseMediaControllerDataSource {
-        didSet {
-            if dataSource.casters.count > 0 {
-                viewShown = .collection
-            } else {
-                viewShown = .empty
-            }
-        }
-    }
-    
     init(dataSource: BaseMediaControllerDataSource) {
-        self.dataSource = dataSource
+        let mediaDataSource = MediaCollectionDataSource(casters: dataSource.casters)
+        self.dataSource = mediaDataSource
+        self.viewShown = self.dataSource.viewShown
         super.init(nibName: nil, bundle: nil)
+        if dataSource.user != nil {
+            buttonItem = UIBarButtonItem(title: "Log Out", style: .done, target: self, action: #selector(logout))
+            buttonItem.setTitleTextAttributes(MediaCollectionConstants.stringAttributes, for: .normal)
+            navigationItem.setRightBarButton(buttonItem, animated: false)
+        }
     }
     
     required public init(coder aDecoder: NSCoder) {
@@ -54,16 +48,12 @@ class MediaCollectionViewController: BaseCollectionViewController {
         super.viewDidLoad()
         view.addSubview(emptyView)
         collectionViewConfiguration()
-        if dataSource.user != nil {
-            buttonItem = UIBarButtonItem(title: "Log Out", style: .done, target: self, action: #selector(logout))
-            buttonItem.setTitleTextAttributes(MediaCollectionConstants.stringAttributes, for: .normal)
-        }
         title = "Podcasts"
-        navigationItem.setRightBarButton(buttonItem, animated: false)
         collectionView.setupBackground(frame: view.bounds)
         guard let background = collectionView.backgroundView else { return }
-        CALayer.createGradientLayer(with: [UIColor.gray.cgColor, UIColor.darkGray.cgColor], layer: background.layer, bounds: collectionView.bounds)
-        
+        CALayer.createGradientLayer(with: [UIColor.gray.cgColor, UIColor.darkGray.cgColor],
+                                    layer: background.layer,
+                                    bounds: collectionView.bounds)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -74,5 +64,3 @@ class MediaCollectionViewController: BaseCollectionViewController {
         }
     }
 }
-
-

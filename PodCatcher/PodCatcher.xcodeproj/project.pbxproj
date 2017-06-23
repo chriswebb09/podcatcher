@@ -174,6 +174,10 @@
 		A7B8C3981EF6E18E001AFFA1 /* BaseCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B8C3961EF6E18E001AFFA1 /* BaseCollectionViewController.swift */; };
 		A7B8C3991EF6E18E001AFFA1 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B8C3971EF6E18E001AFFA1 /* BaseViewController.swift */; };
 		A7B8C39B1EF6E28F001AFFA1 /* PodcastCollectionViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B8C39A1EF6E28F001AFFA1 /* PodcastCollectionViewProtocol.swift */; };
+		A7BA68801EFCDFCE0032FE48 /* MediaCollectionDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BA687F1EFCDFCE0032FE48 /* MediaCollectionDataSource.swift */; };
+		A7BA68821EFCE0150032FE48 /* MediaCollectionConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BA68811EFCE0150032FE48 /* MediaCollectionConstants.swift */; };
+		A7BA68841EFCE0430032FE48 /* PodcastListDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BA68831EFCE0430032FE48 /* PodcastListDataSource.swift */; };
+		A7BA68861EFCE1520032FE48 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BA68851EFCE1520032FE48 /* SettingsViewModel.swift */; };
 		A7EBA09A1EE672A700FAAC9C /* UserDataAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EBA0991EE672A700FAAC9C /* UserDataAPIClient.swift */; };
 		A7EBA09D1EE672E300FAAC9C /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EBA09C1EE672E300FAAC9C /* CoreDataStack.swift */; };
 		A7EBA0A11EE6739000FAAC9C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EBA0A01EE6739000FAAC9C /* LoginView.swift */; };
@@ -404,6 +408,10 @@
 		A7B8C3961EF6E18E001AFFA1 /* BaseCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseCollectionViewController.swift; path = Base/BaseCollectionViewController.swift; sourceTree = "<group>"; };
 		A7B8C3971EF6E18E001AFFA1 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseViewController.swift; path = Base/BaseViewController.swift; sourceTree = "<group>"; };
 		A7B8C39A1EF6E28F001AFFA1 /* PodcastCollectionViewProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodcastCollectionViewProtocol.swift; sourceTree = "<group>"; };
+		A7BA687F1EFCDFCE0032FE48 /* MediaCollectionDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaCollectionDataSource.swift; sourceTree = "<group>"; };
+		A7BA68811EFCE0150032FE48 /* MediaCollectionConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaCollectionConstants.swift; sourceTree = "<group>"; };
+		A7BA68831EFCE0430032FE48 /* PodcastListDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodcastListDataSource.swift; sourceTree = "<group>"; };
+		A7BA68851EFCE1520032FE48 /* SettingsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		A7EBA0991EE672A700FAAC9C /* UserDataAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDataAPIClient.swift; sourceTree = "<group>"; };
 		A7EBA09C1EE672E300FAAC9C /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		A7EBA0A01EE6739000FAAC9C /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -790,6 +798,7 @@
 			children = (
 				A7150EE41EE6566600E3553F /* PodcasterControllState.swift */,
 				A73DA4221EE89A060053276E /* MenuActive.swift */,
+				A7BA68831EFCE0430032FE48 /* PodcastListDataSource.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -824,6 +833,7 @@
 			isa = PBXGroup;
 			children = (
 				A77EDF731EE5FDE5001A24E5 /* BaseMediaCollectionDataSource.swift */,
+				A7BA687F1EFCDFCE0032FE48 /* MediaCollectionDataSource.swift */,
 			);
 			path = DataSource;
 			sourceTree = "<group>";
@@ -947,6 +957,7 @@
 			children = (
 				A7EBA0B21EE6786400FAAC9C /* SettingsOptionView.swift */,
 				A7EBA0B01EE6784E00FAAC9C /* SettingsView.swift */,
+				A7BA68851EFCE1520032FE48 /* SettingsViewModel.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1192,6 +1203,7 @@
 				A71853051EE95A7F00911C87 /* MenuOptionViewConstants.swift */,
 				A71853071EE95C0E00911C87 /* PreferenceViewConstants.swift */,
 				A7AA09D01EF27EFC003A8F8A /* UpdateAccountConstants.swift */,
+				A7BA68811EFCE0150032FE48 /* MediaCollectionConstants.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -1686,6 +1698,7 @@
 				A77EDF7E1EE5FFE9001A24E5 /* CALayerConstants.swift in Sources */,
 				A7905B0A1EEF791800199246 /* FavoritePodcastsViewController.swift in Sources */,
 				A7EBA0C41EE682DF00FAAC9C /* MenuOptionView.swift in Sources */,
+				A7BA68821EFCE0150032FE48 /* MediaCollectionConstants.swift in Sources */,
 				A73DA4701EE8B7C20053276E /* MediaTabCoordinator+Extension.swift in Sources */,
 				A73D74181EE68704004571A5 /* LoginViewModel.swift in Sources */,
 				A7150EBF1EE62E0D00E3553F /* PlayerViewDelegate.swift in Sources */,
@@ -1742,6 +1755,7 @@
 				A7A54EB11EE71474009A5538 /* EntryPopoverDelegate.swift in Sources */,
 				A73D740B1EE684DD004571A5 /* LoadingView.swift in Sources */,
 				A7894FA61EE6AE44000CC190 /* PodCatcherUser.swift in Sources */,
+				A7BA68841EFCE0430032FE48 /* PodcastListDataSource.swift in Sources */,
 				A77EDF631EE5FBE4001A24E5 /* TrackItemsFlowLayout.swift in Sources */,
 				A7EBA0C81EE6831F00FAAC9C /* MenuDelegate.swift in Sources */,
 				A723A5B11EE93BC8002E49BF /* StartViewConstants.swift in Sources */,
@@ -1788,8 +1802,10 @@
 				A718530C1EE960C400911C87 /* PopDelegate.swift in Sources */,
 				A71B27351EE5D81700613CF4 /* SplashView.swift in Sources */,
 				A7FFD4CD1EEF643400853480 /* UpdateAccountViewModel.swift in Sources */,
+				A7BA68801EFCDFCE0032FE48 /* MediaCollectionDataSource.swift in Sources */,
 				A73DA4211EE899EA0053276E /* PodcastListViewController+Extension.swift in Sources */,
 				A7FFD4C31EEF5CB500853480 /* UpdateAccountViewController.swift in Sources */,
+				A7BA68861EFCE1520032FE48 /* SettingsViewModel.swift in Sources */,
 				A73DA41F1EE899A40053276E /* SettingsViewController+Extension.swift in Sources */,
 				A71B272F1EE5D57100613CF4 /* CoordinatorType.swift in Sources */,
 				A71853061EE95A7F00911C87 /* MenuOptionViewConstants.swift in Sources */,

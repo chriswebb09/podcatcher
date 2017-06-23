@@ -1,6 +1,6 @@
 import Foundation
 
 protocol SettingsViewDelegate: class {
-    func settingOneTapped()
-    func settingTwoTapped()
+    func settingOne(tapped: Bool)
+    func settingTwo(tapped: Bool)
 }

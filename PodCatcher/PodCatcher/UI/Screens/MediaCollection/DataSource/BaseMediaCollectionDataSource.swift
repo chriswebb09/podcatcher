@@ -1,6 +1,6 @@
 import UIKit
 
-class BaseMediaControllerDataSource {
+class BaseMediaControllerDataSource: NSObject {
     
     var user: PodCatcherUser? 
     

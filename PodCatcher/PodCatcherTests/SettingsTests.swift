@@ -23,14 +23,14 @@ class SettingsTests: XCTestCase {
     func testOptionOneTapped() {
         let testDelegate = SettingsTestDelegate()
         settingsViewController.delegate = testDelegate
-        settingsViewController.settingOneTapped()
+        settingsViewController.settingOne(tapped: true)
         XCTAssertEqual(testDelegate.settingTapped, "One")
     }
     
     func testOptionTwoTapped() {
         let testDelegate = SettingsTestDelegate()
         settingsViewController.delegate = testDelegate
-        settingsViewController.settingTwoTapped()
+        settingsViewController.settingTwo(tapped: true)
         XCTAssertEqual(testDelegate.settingTapped, "Two")
     }
 }
@@ -39,17 +39,17 @@ class SettingsTestDelegate: SettingsViewControllerDelegate {
     
     var settingTapped: String = ""
     
-    func settingOneTapped(tapped: Bool) {
+    func settingOne(tapped: Bool) {
         XCTAssertTrue(tapped)
         settingTapped = "One"
     }
     
-    func settingTwoTapped(tapped: Bool) {
+    func settingTwo(tapped: Bool) {
         XCTAssertTrue(tapped)
         settingTapped = "Two"
     }
     
-    func guestUserSignInTapped(tapped: Bool) {
+    func guestUserSignIn(tapped: Bool) {
         XCTAssertTrue(tapped)
     }
 }

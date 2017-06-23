@@ -1,22 +1,23 @@
 import UIKit
 
 extension SettingsTabCoordinator: SettingsViewControllerDelegate {
-    func guestUserSignInTapped(tapped: Bool) {
-        delegate?.transitionCoordinator(type: .app, dataSource: dataSource)
+    
+    func settingOne(tapped: Bool) {
+        let updateAccountViewController = FavoritePodcastsViewController(dataSource: dataSource)
+        let mediaDataSource = MediaCollectionDataSource(casters: dataSource.casters)
+        updateAccountViewController.dataSource = mediaDataSource
+        navigationController.viewControllers.append(updateAccountViewController)
     }
     
-    func settingTwoTapped(tapped: Bool) {
+    func settingTwo(tapped: Bool) {
         let updateAccountViewController = UpdateAccountViewController()
         updateAccountViewController.dataSource = dataSource
         updateAccountViewController.delegate = self
         navigationController.viewControllers.append(updateAccountViewController)
     }
     
-    func settingOneTapped(tapped: Bool) {
-        let updateAccountViewController = FavoritePodcastsViewController(dataSource: dataSource)
-        updateAccountViewController.dataSource = dataSource
-      //  updateAccountViewController.delegate = self
-        navigationController.viewControllers.append(updateAccountViewController)
+    func guestUserSignIn(tapped: Bool) {
+        delegate?.transitionCoordinator(type: .app, dataSource: dataSource)
     }
 }
 
@@ -26,6 +27,6 @@ extension SettingsTabCoordinator: UpdateAccountViewControllerDelegate {
     }
     
     func updated(email: String) {
-        
+        print(email)
     }
 }

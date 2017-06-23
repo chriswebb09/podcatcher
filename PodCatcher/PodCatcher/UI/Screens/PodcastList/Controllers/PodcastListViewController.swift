@@ -2,27 +2,20 @@ import UIKit
 
 class PodcastListViewController: BaseCollectionViewController {
     
-    var dataSource: BaseMediaControllerDataSource
+    var dataSource: PodcastListDataSource
     var state: PodcasterControlState = .toCollection
     weak var delegate: PodcastListViewControllerDelegate?
-    var caster: Caster
+    
     var menuActive: MenuActive = .none
-    
-    var index: Int {
-        didSet {
-            caster = dataSource.casters[index]
-        }
-    }
-    
     let entryPop = EntryPopover()
     var topView = PodcastListTopView()
     var menuPop = BottomMenuPopover()
     
     init(index: Int, dataSource: BaseMediaControllerDataSource) {
-        self.index = index
-        self.dataSource = dataSource
-        
-        caster = dataSource.casters[index]
+        var podcastListDataSource = PodcastListDataSource(casters: dataSource.casters)
+        podcastListDataSource.index = index
+        podcastListDataSource.caster = dataSource.casters[index]
+        self.dataSource = podcastListDataSource
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -32,14 +25,14 @@ class PodcastListViewController: BaseCollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setup()
+        setup(dataSource: self, delegate: self)
         configureTopView()
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "plus-red"), style: .plain, target: self, action: #selector(hidePop))
         background.frame = view.frame
         view.addSubview(background)
         view.sendSubview(toBack: background)
         if let user = dataSource.user {
-            title = caster.name
+            title = dataSource.caster.name
             let timeString = String(describing: user.totalTimeListening)
             topView.configure(tags: [], timeListen: timeString)
         } else {
@@ -52,7 +45,7 @@ class PodcastListViewController: BaseCollectionViewController {
         super.viewDidDisappear(animated)
         switch state {
         case .toCollection:
-            navigationController?.popViewController(animated: animated)
+            navigationController?.popViewController(animated: false)
         case .toPlayer:
             break
         }

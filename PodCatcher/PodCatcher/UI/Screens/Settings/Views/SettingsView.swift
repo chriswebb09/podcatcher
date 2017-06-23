@@ -1,14 +1,10 @@
 import UIKit
 
-struct SettingsViewModel {
-    var firstSettingOptionText: String
-    var secondSettingOptionText: String
-}
-
 class SettingsView: UIView {
     
     weak var delegate: SettingsViewDelegate?
     var model: SettingsViewModel!
+    
     // MARK: - UI Element Properties
     
     var settingOneView: SettingsOptionView = {
@@ -75,10 +71,10 @@ class SettingsView: UIView {
     }
     
     func settingsOneTapped() {
-        delegate?.settingOneTapped()
+        delegate?.settingOne(tapped: true)
     }
     
     func settingsTwoTapped() {
-        delegate?.settingTwoTapped()
+        delegate?.settingTwo(tapped: true)
     }
 }

@@ -3,7 +3,7 @@ import UIKit
 extension MediaCollectionViewController: CollectionViewProtocol {
     
     func logout() {
-        delegate?.logoutTapped(logout: true)
+        delegate?.logout(tapped: true)
     }
     
     func collectionViewConfiguration() {
@@ -28,19 +28,13 @@ extension MediaCollectionViewController: UICollectionViewDelegate {
 extension MediaCollectionViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if dataSource.count == 0 {
-            self.viewShown = .empty
+        if dataSource.collectionView(collectionView, numberOfItemsInSection: 0) > 0 {
+            viewShown = .collection
         }
-        return dataSource.count
+        return dataSource.collectionView(collectionView, numberOfItemsInSection: 0)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        viewShown = .collection
-        let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as MediaCell
-        if let artWork = dataSource.casters[indexPath.row].artwork, let name = dataSource.casters[indexPath.row].name {
-            let model = MediaCellViewModel(trackName: name, albumImageURL: artWork)
-            cell.configureCell(with: model, withTime: (Double(indexPath.row) * 0.01))
-        }
-        return cell
+        return dataSource.collectionView(collectionView, cellForItemAt: indexPath)
     }
 }

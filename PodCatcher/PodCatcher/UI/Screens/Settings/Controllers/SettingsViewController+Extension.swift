@@ -1,16 +1,22 @@
 import UIKit
 
+// MARK: - GuestUserViewDelegate
+
+extension SettingsViewController: GuestUserViewDelegate {
+    func signIntoAccount(tapped: Bool) {
+        delegate?.guestUserSignIn(tapped: true)
+    }
+}
+
 // MARK: - SettingsViewDelegate
 
 extension SettingsViewController: SettingsViewDelegate {
     
-    func settingOneTapped() {
-        print("One")
-        delegate?.settingOneTapped(tapped: true)
+    func settingOne(tapped: Bool) {
+        delegate?.settingOne(tapped: tapped)
     }
     
-    func settingTwoTapped() {
-        print("two")
-        delegate?.settingTwoTapped(tapped: true)
+    func settingTwo(tapped: Bool) {
+        delegate?.settingTwo(tapped: tapped)
     }
 }

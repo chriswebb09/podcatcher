@@ -2,5 +2,5 @@ import Foundation
 
 protocol MediaControllerDelegate: class {
     func didSelect(at index: Int)
-    func logoutTapped(logout: Bool)
+    func logout(tapped: Bool)
 }

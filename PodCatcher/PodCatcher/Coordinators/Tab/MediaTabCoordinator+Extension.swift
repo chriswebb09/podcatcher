@@ -1,20 +1,19 @@
 import UIKit
 
 extension MediaTabCoordinator: MediaControllerDelegate {
-    
-    func didSelect(at index: Int) {
-        let podcastList = PodcastListViewController(index: index, dataSource: dataSource)
-        podcastList.caster = dataSource.casters[index]
-        podcastList.delegate = self
-        navigationController.viewControllers.append(podcastList)
-    }
-
-    
-    func logoutTapped(logout: Bool) {
+    func logout(tapped: Bool) {
         if dataSource.user != nil {
             dataSource.user = nil
         }
         delegate?.transitionCoordinator(type: .app, dataSource: dataSource)
+    }
+    
+    
+    func didSelect(at index: Int) {
+        let podcastList = PodcastListViewController(index: index, dataSource: dataSource)
+        //   podcastList.caster = dataSource.casters[index]
+        podcastList.delegate = self
+        navigationController.viewControllers.append(podcastList)
     }
 }
 
@@ -32,12 +31,12 @@ extension MediaTabCoordinator: PlayerViewControllerDelegate {
     func skipButton(tapped: Bool) {
         print("SkipButton tapped \(tapped)")
     }
-
+    
     func pauseButton(tapped: Bool) {
-         print("PauseButton tapped \(tapped)")
+        print("PauseButton tapped \(tapped)")
     }
-
+    
     func playButton(tapped: Bool) {
-         print("PlayButton tapped \(tapped)")
+        print("PlayButton tapped \(tapped)")
     }
 }

@@ -4,13 +4,9 @@ import UIKit
 
 extension PodcastListViewController: PodcastCollectionViewProtocol {
     
-    func setup() {
-        setup(dataSource: self, delegate: self)
-    }
-    
     func configureTopView() {
         topView.frame = PodcastListConstants.topFrame
-        topView.podcastImageView.image = caster.artwork
+        topView.podcastImageView.image = dataSource.caster.artwork
         topView.delegate = self
         topView.layoutSubviews()
         view.addSubview(topView)
@@ -20,11 +16,10 @@ extension PodcastListViewController: PodcastCollectionViewProtocol {
     
     func setupView() {
         guard let tabBar = self.tabBarController?.tabBar else { return }
-        guard let navHeight = navigationController?.navigationBar.frame.height else { return }
         collectionView.frame = CGRect(x: topView.bounds.minX, y: topView.frame.maxY + (tabBar.frame.height + 10), width: view.bounds.width, height: view.bounds.height - (topView.frame.height - tabBar.frame.height))
         collectionView.autoresizingMask = [.flexibleHeight, .flexibleWidth, .flexibleTopMargin, .flexibleBottomMargin]
         collectionView.backgroundColor = .clear
-        if caster.assets.count > 0 {
+        if dataSource.caster.assets.count > 0 {
             view.addSubview(collectionView)
         } else {
             let emptyView = EmptyCastsView(frame: PodcastListConstants.emptyCastViewFrame)
@@ -41,9 +36,8 @@ extension PodcastListViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offset = scrollView.contentOffset
-        let updatedTopViewFrame = CGRect(x: 0, y: 0, width: PodcastListConstants.topFrameWidth, height: PodcastListConstants.topFrameHeight / 1.2)
+        let updatedTopViewFrame = dataSource.updatedTopViewFrame
         if offset.y > PodcastListConstants.minimumOffset {
-            
             UIView.animate(withDuration: 0.5) {
                 self.topView.removeFromSuperview()
                 self.topView.alpha = 0
@@ -53,7 +47,7 @@ extension PodcastListViewController: UIScrollViewDelegate {
             UIView.animate(withDuration: 0.15) {
                 self.topView.frame = updatedTopViewFrame
                 self.topView.alpha = 1
-                self.topView.podcastImageView.image = self.caster.artwork
+                self.topView.podcastImageView.image = self.dataSource.caster.artwork
                 self.topView.layoutSubviews()
                 self.view.addSubview(self.topView)
                 self.collectionView.frame = CGRect(x: self.topView.bounds.minX,
@@ -71,7 +65,7 @@ extension PodcastListViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         state = .toPlayer
-        delegate?.didSelectPodcastAt(at: indexPath.row, with: caster)
+        delegate?.didSelectPodcastAt(at: indexPath.row, with: dataSource.caster)
     }
 }
 
@@ -80,16 +74,11 @@ extension PodcastListViewController: UICollectionViewDelegate {
 extension PodcastListViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return caster.assets.count
+        return dataSource.collectionView(collectionView, numberOfItemsInSection: 0)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as PodcastCell
-        if let artwork = caster.artwork {
-            let model = PodcastCellViewModel(podcastImage: artwork, podcastTitle: caster.assets[indexPath.row].title, item: caster.assets[indexPath.row])
-            cell.configureCell(model: model)
-        }
-        return cell
+        return dataSource.collectionView(collectionView, cellForItemAt: indexPath)
     }
 }
 
@@ -115,11 +104,9 @@ extension PodcastListViewController: TopViewDelegate {
     }
     
     func popBottomMenu(pop: Bool) {
-        if pop {
-            menuPop.popView.delegate = self
-            menuPop.setupPop()
-            showMenu()
-        }
+        menuPop.popView.delegate = self
+        menuPop.setupPop()
+        showMenu()
     }
     
     func hideMenu() {
@@ -156,13 +143,13 @@ extension PodcastListViewController: TopViewDelegate {
         guard let text = entryPop.popView.entryField.text else { return }
         guard let user = dataSource.user else { return }
         user.customGenres.append(text)
-        guard let name = caster.name else { return }
+        guard let name = dataSource.caster.name else { return }
         UpdateData.update((name, text))
-        user.favoriteCasts[text] = caster
+        user.favoriteCasts[text] = dataSource.caster
         let timeString = String(describing: user.totalTimeListening)
         topView.configure(tags: user.customGenres, timeListen: timeString)
         collectionView.reloadData()
-        caster.tags.append(text)
+        dataSource.caster.tags.append(text)
     }
 }
 
@@ -171,14 +158,12 @@ extension PodcastListViewController: TopViewDelegate {
 extension PodcastListViewController: MenuDelegate {
     
     func optionOneTapped() {
-        guard let user = dataSource.user, let casterName = dataSource.casters[index].name else { return }
-        user.favoriteCasts[casterName] = caster
-        print("download")
+        guard let user = dataSource.user, let casterName = dataSource.caster.name else { return }
+        user.favoriteCasts[casterName] = dataSource.caster
     }
     
     func optionTwoTapped() {
         popEntry()
-        print("Option two tapped")
     }
     
     func optionThreeTapped() {
