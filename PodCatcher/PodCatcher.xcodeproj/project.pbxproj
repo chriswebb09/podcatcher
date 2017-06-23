@@ -272,7 +272,6 @@
 		A71B26FB1EE5D24700613CF4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A71B26FE1EE5D24700613CF4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A71B27001EE5D24700613CF4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A71B27091EE5D24700613CF4 /* PodCatcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodCatcherTests.swift; sourceTree = "<group>"; };
 		A71B270B1EE5D24700613CF4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A71B27101EE5D24700613CF4 /* PodCatcherUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PodCatcherUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A71B27141EE5D24700613CF4 /* PodCatcherUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodCatcherUITests.swift; sourceTree = "<group>"; };
@@ -633,7 +632,6 @@
 				A71B270B1EE5D24700613CF4 /* Info.plist */,
 				A7150EDA1EE638E000E3553F /* MediaPlayerTests.swift */,
 				A7150EDC1EE6399200E3553F /* PlayerControllerTests.swift */,
-				A71B27091EE5D24700613CF4 /* PodCatcherTests.swift */,
 				A7150ED61EE638A900E3553F /* StartCoordinatorTests.swift */,
 				A7894F9D1EE69C03000CC190 /* SettingsTests.swift */,
 				A7894F9F1EE69C1E000CC190 /* LoginTests.swift */,
