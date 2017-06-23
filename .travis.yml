@@ -4,8 +4,10 @@ sudo: required
 dist: trusty
 osx_image: xcode8.3
 before_install:
-  - rvm use system
-  - sudo gem install cocoapods -v '0.39.0'
+  - cd PodCatcher
+  - gem install cocoapods --pre
+  - pod install
+  - cd ..
   - curl -sSL https://rvm.io/mpapis.asc | gpg2 --import -
 xcode_workspace: PodCatcher/PodCatcher.xcworkspace
 xcode_scheme: PodCatcherTests
