@@ -6,7 +6,5 @@ xcode_workspace: PodCatcher.xcworkspace
 xcode_scheme: PodCatcherTests
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update          ; fi
-script: 
-  - rvm get stable 
-  - xcodebuild -version
-  - xcodebuild -workspace PodCatcher.xcworkspace -scheme PodCatcher -configuration Release  
+script: rvm get stable && xcodebuild -workspace PodCatcher.xcworkspace -destination "platform=IOS Simulator,name=iPhone 5s" -scheme Pods-PodCatcher build && xcodebuild -workspace PodCatcher.xcworkspace -destination "platform=IOS Simulator,name=iPhone 5s" -scheme PodCatcherTests test
+
