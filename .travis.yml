@@ -1,24 +1,11 @@
-os: osx
-language: objective-c
-sudo: required
+before_install: "ios_simulator_udid=$(instruments -s devices | grep \"$ios_device ($ios_version)\" | sed -E 's/.*\\[([0-9A-F-]+)\\].*/\\1/g') echo \"Prelaunching iOS simulator with UDID $ios_simulator_udid\" open -a \"simulator\" --args -CurrentDeviceUDID $ios_simulator_udid - cd PodCatcher - gem install cocoapods --pre - pod repo update - pod install - cd .. - curl -sSL https://rvm.io/mpapis.asc | gpg2 --import -"
 dist: trusty
+language: objective-c
+matrix: 
+  - "DESTINATION=\"OS=10.3.1,name=iPhone 6s\" SCHEME=\"$IOS_FRAMEWORK_SCHEME\""
+os: osx
 osx_image: xcode8.3
-matrix:
-  - DESTINATION="OS=10.3.1,name=iPhone 6s" SCHEME="$IOS_FRAMEWORK_SCHEME"
-before_install:
-  - export IOS_SIMULATOR_UDID=`instruments -s devices | grep "iPhone 6s (10.3” | awk -F '[ ]' '{print $4}' | awk -F '[\[]' '{print $2}' | sed 's/.$//'`
-  - echo $IOS_SIMULATOR_UDID
-  - open -a "simulator" --args -CurrentDeviceUDID $IOS_SIMULATOR_UDID
-  - cd PodCatcher
-  - gem install cocoapods --pre
-  - pod repo update
-  - pod install
-  - cd ..
-  - curl -sSL https://rvm.io/mpapis.asc | gpg2 --import -
-xcode_workspace: PodCatcher/PodCatcher.xcworkspace
+script: "rvm get stable  && xcodebuild test -workspace PodCatcher/PodCatcher.xcworkspace -destination \"platform=IOS Simulator,name=iPhone 6s\" -scheme PodCatcher build && xcodebuild -workspace PodCatcher/PodCatcher.xcworkspace -destination \"platform=IOS Simulator,name=iPhone 6s\" -scheme PodCatcherTests"
+sudo: required
 xcode_scheme: PodCatcherTests
-script: rvm get stable  && xcodebuild test -workspace PodCatcher/PodCatcher.xcworkspace -destination "platform=IOS Simulator,name=iPhone 6s" -scheme PodCatcher build && xcodebuild -workspace PodCatcher/PodCatcher.xcworkspace -destination "platform=IOS Simulator,name=iPhone 6s" -scheme PodCatcherTests 
-
-
-
-
+xcode_workspace: PodCatcher/PodCatcher.xcworkspace
