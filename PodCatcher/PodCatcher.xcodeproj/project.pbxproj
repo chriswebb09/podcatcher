@@ -18,7 +18,6 @@
 		A7150EBF1EE62E0D00E3553F /* PlayerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7150EBE1EE62E0D00E3553F /* PlayerViewDelegate.swift */; };
 		A7150EC11EE62E1700E3553F /* PlayerViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7150EC01EE62E1700E3553F /* PlayerViewControllerDelegate.swift */; };
 		A7150EC71EE6337D00E3553F /* PodcastListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7150EC61EE6337D00E3553F /* PodcastListViewController.swift */; };
-		A7150ECF1EE637C700E3553F /* PodCatcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7150ECE1EE637C700E3553F /* PodCatcherTests.swift */; };
 		A7150ED71EE638A900E3553F /* StartCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7150ED61EE638A900E3553F /* StartCoordinatorTests.swift */; };
 		A7150EDB1EE638E000E3553F /* MediaPlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7150EDA1EE638E000E3553F /* MediaPlayerTests.swift */; };
 		A7150EDD1EE6399200E3553F /* PlayerControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7150EDC1EE6399200E3553F /* PlayerControllerTests.swift */; };
@@ -241,8 +240,6 @@
 		A7150EC01EE62E1700E3553F /* PlayerViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerViewControllerDelegate.swift; sourceTree = "<group>"; };
 		A7150EC61EE6337D00E3553F /* PodcastListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodcastListViewController.swift; sourceTree = "<group>"; };
 		A7150ECC1EE637C700E3553F /* PodCatcherTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PodCatcherTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		A7150ECE1EE637C700E3553F /* PodCatcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodCatcherTests.swift; sourceTree = "<group>"; };
-		A7150ED01EE637C700E3553F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A7150ED61EE638A900E3553F /* StartCoordinatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartCoordinatorTests.swift; sourceTree = "<group>"; };
 		A7150EDA1EE638E000E3553F /* MediaPlayerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaPlayerTests.swift; sourceTree = "<group>"; };
 		A7150EDC1EE6399200E3553F /* PlayerControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerControllerTests.swift; sourceTree = "<group>"; };
@@ -574,15 +571,6 @@
 			path = Start;
 			sourceTree = "<group>";
 		};
-		A7150ECD1EE637C700E3553F /* PodCatcherTests */ = {
-			isa = PBXGroup;
-			children = (
-				A7150ED01EE637C700E3553F /* Info.plist */,
-				A7150ECE1EE637C700E3553F /* PodCatcherTests.swift */,
-			);
-			path = PodCatcherTests;
-			sourceTree = "<group>";
-		};
 		A7150EEC1EE658D900E3553F /* PodcastList */ = {
 			isa = PBXGroup;
 			children = (
@@ -608,7 +596,6 @@
 			children = (
 				A71B26F01EE5D24700613CF4 /* PodCatcher */,
 				A71B27081EE5D24700613CF4 /* PodCatcherTests */,
-				A7150ECD1EE637C700E3553F /* PodCatcherTests */,
 				A71B27131EE5D24700613CF4 /* PodCatcherUITests */,
 				A71B26EF1EE5D24700613CF4 /* Products */,
 				E5C82AD37CE68C4E2BAD567B /* Pods */,
@@ -1662,7 +1649,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A7905B121EEF7D7900199246 /* AudioFilePlayerTests.swift in Sources */,
-				A7150ECF1EE637C700E3553F /* PodCatcherTests.swift in Sources */,
 				A7150ED71EE638A900E3553F /* StartCoordinatorTests.swift in Sources */,
 				A71BFB8A1EE6FCB400A35D8E /* PodcastsListTests.swift in Sources */,
 				A7905B101EEF7CC100199246 /* APIClientTests.swift in Sources */,
