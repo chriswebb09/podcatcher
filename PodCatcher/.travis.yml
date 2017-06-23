@@ -1,17 +1,7 @@
-os:
-- linux
-- osx
-env:
-  - SWIFT_VERSION=3.0
-language: generic
+language: objective-c
 sudo: required
 dist: trusty
 osx_image: xcode8.3
-before_install:
-  - brew update
-  - brew outdated xctool || brew upgrade xctool
-install:
-- curl -sL https://gist.github.com/kylef/5c0475ff02b7c7671d2a/raw/621ef9b29bbb852fdfd2e10ed147b321d792c1e4/swiftenv-install.sh | bash
 script:
-xcodebuild \
--workspace PodCatcher.xcworkspace -scheme PodCatcher  
+  - xcodebuild -version
+  - xcodebuild -project PodCatcher.xcworkspace -scheme Podcatcher
