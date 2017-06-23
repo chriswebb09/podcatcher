@@ -1,3 +1,4 @@
+os: osx
 language: objective-c
 sudo: required
 dist: trusty
@@ -6,5 +7,6 @@ xcode_workspace: PodCatcher.xcworkspace
 xcode_scheme: PodCatcherTests
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update          ; fi
-script: rvm get stable && xcodebuild -workspace PodCatcher.xcworkspace -destination "platform=IOS Simulator,name=iPhone 5s" -scheme Pods-PodCatcher build && xcodebuild -workspace PodCatcher.xcworkspace -destination "platform=IOS Simulator,name=iPhone 5s" -scheme PodCatcherTests test
+script: rvm get stable  && xcodebuild -workspace PodCatcher.xcworkspace -destination "platform=IOS Simulator,name=iPhone 6s" -scheme Pods-PodCatcher build && xcodebuild -workspace PodCatcher.xcworkspace -destination "platform=IOS Simulator,name=iPhone 6s" -scheme PodCatcherTests 
+
 
