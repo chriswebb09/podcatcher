@@ -4,6 +4,10 @@ import UIKit
 
 extension LoginView: UITextFieldDelegate {
     
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height * 0.5)
+    }
+    
     func textFieldDidChange(_ textField: UITextField) {
         textField.textColor = .black
         textField.leftView?.tintColor = .black
