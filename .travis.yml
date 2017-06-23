@@ -2,8 +2,11 @@ language: objective-c
 sudo: required
 dist: trusty
 osx_image: xcode8.3
+xcode_workspace: PodCatcher.xcworkspace
+xcode_scheme: PodCatcherTests
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update          ; fi
-script:
+script: 
+  - rvm get stable 
   - xcodebuild -version
   - xcodebuild -workspace PodCatcher.xcworkspace -scheme PodCatcher -configuration Release  
