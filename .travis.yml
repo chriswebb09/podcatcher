@@ -6,6 +6,7 @@ osx_image: xcode8.3
 before_install:
   - cd PodCatcher
   - gem install cocoapods --pre
+  - pod repo update
   - pod install
   - cd ..
   - curl -sSL https://rvm.io/mpapis.asc | gpg2 --import -
