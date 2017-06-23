@@ -5,7 +5,7 @@ dist: trusty
 osx_image: xcode8.3
 before_install:
   - gpg2 --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
-xcode_workspace: PodCatcher.xcworkspace
+xcode_workspace: PodCatcher/PodCatcher.xcworkspace
 xcode_scheme: PodCatcherTests
 script: rvm get stable  && xcodebuild -workspace PodCatcher.xcworkspace -destination "platform=IOS Simulator,name=iPhone 6s" -scheme Pods-PodCatcher build && xcodebuild -workspace PodCatcher.xcworkspace -destination "platform=IOS Simulator,name=iPhone 6s" -scheme PodCatcherTests 
 
