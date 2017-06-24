@@ -1,5 +1,9 @@
 import UIKit
 
+class FavoritePodcastsBuilder {
+    
+}
+
 extension SettingsTabCoordinator: SettingsViewControllerDelegate {
     
     func settingOne(tapped: Bool) {

@@ -1,7 +1,7 @@
-import XCTest
-import Firebase
-
-@testable import PodCatcher
+//import XCTest
+//import Firebase
+//
+//@testable import PodCatcher
 
 //class PodCatcherUITests: XCTestCase {
 //    let app = XCUIApplication()

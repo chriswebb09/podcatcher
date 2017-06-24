@@ -12,11 +12,7 @@ extension StartCoordinator: SplashViewControllerDelegate {
 extension StartCoordinator: StartViewControllerDelegate {
     
     func loginSelected() {
-        let loginView = LoginView()
-        let loginModel = LoginViewModel()
-        loginView.configure(model: loginModel)
-        let loginViewController = LoginViewController(loginView: loginView)
-        loginViewController.delegate = self
+        let loginViewController = LoginBuilder.build(delegate: self)
         navigationController.pushViewController(loginViewController, animated: false)
     }
     
@@ -45,8 +41,8 @@ extension StartCoordinator: LoginViewControllerDelegate {
 }
 
 extension StartCoordinator: CreateAccountViewControllerDelegate {
-    
-    func submitButtonTapped() {
+    func submitButton(tapped: Bool) {
         delegate?.transitionCoordinator(type: .tabbar, dataSource: dataSource)
     }
 }
+

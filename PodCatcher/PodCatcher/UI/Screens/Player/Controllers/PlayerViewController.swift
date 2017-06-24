@@ -1,7 +1,7 @@
 import UIKit
 import AVFoundation
 
-final class PlayerViewController: UIViewController {
+final class PlayerViewController: BaseViewController {
     
     weak var delegate: PlayerViewControllerDelegate?
     
@@ -9,6 +9,7 @@ final class PlayerViewController: UIViewController {
     
     var playerView: PlayerView
     var playerState: PlayState
+    var dataSource: PodcastListDataSource! 
     var caster: Caster
     var player: AudioFilePlayer?
     var index: Int
@@ -23,7 +24,6 @@ final class PlayerViewController: UIViewController {
         self.playerState = .queued
         self.user = user
         super.init(nibName: nil, bundle: nil)
-        edgesForExtendedLayout = []
         guard caster.assets.count > 0 else { return }
         guard let artwork = caster.artwork else { return }
         self.playerViewModel = PlayerViewModel(image: artwork, title: caster.assets[index].title)

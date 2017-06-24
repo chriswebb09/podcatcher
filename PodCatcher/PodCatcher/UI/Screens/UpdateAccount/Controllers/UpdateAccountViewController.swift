@@ -1,6 +1,6 @@
 import UIKit
 
-class UpdateAccountViewController: UIViewController {
+class UpdateAccountViewController: BaseViewController {
     
     weak var delegate: UpdateAccountViewControllerDelegate?
     var updateAccountView = UpdateAccountView()

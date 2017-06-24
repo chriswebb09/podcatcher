@@ -1,6 +1,6 @@
 import UIKit
 
-class SettingsViewController: UIViewController {
+class SettingsViewController: BaseViewController {
     
     weak var delegate: SettingsViewControllerDelegate?
     
@@ -21,7 +21,6 @@ class SettingsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        edgesForExtendedLayout = []
         settingsView.backgroundColor = SettingsViewConstants.backgroundColor
         title = "Settings"
         if dataSource.user != nil {

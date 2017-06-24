@@ -3,12 +3,14 @@ import UIKit
 class BaseCollectionViewController: BaseViewController {
     
     lazy var collectionView : UICollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
-    var leftButtonItem: UIBarButtonItem!
+    var emptyView = EmptyView(frame: UIScreen.main.bounds)
     var background = UIView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(collectionView)
+        view.addSubview(emptyView)
+        collectionView.setupBackground(frame: view.bounds)
         collectionView.autoresizingMask = [.flexibleHeight, .flexibleWidth, .flexibleTopMargin, .flexibleBottomMargin]
         guard let frame = tabBarController?.tabBar.frame else { return }
         collectionView.frame = CGRect(x: view.bounds.minX, y: view.frame.minY, width: view.frame.width, height: view.frame.height - frame.height)

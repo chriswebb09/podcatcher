@@ -40,3 +40,9 @@ extension MediaTabCoordinator: PlayerViewControllerDelegate {
         print("PlayButton tapped \(tapped)")
     }
 }
+
+class PlayerBuilder {
+    class func build(delegate: PlayerViewControllerDelegate, index: Int) {
+        
+    }
+}

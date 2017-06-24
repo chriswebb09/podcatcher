@@ -25,3 +25,13 @@ extension UIViewController {
         view.endEditing(true)
     }
 }
+
+extension UIViewController {
+    func showLoadingView(loadingPop: LoadingPopover) {
+        loadingPop.show(controller: self)
+    }
+    
+    func hideLoadingView(loadingPop: LoadingPopover) {
+        loadingPop.hidePopView(viewController: self)
+    }
+}

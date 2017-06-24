@@ -22,17 +22,4 @@ final class StartViewController: UIViewController {
         view.addView(view: startView, type: .full)
         startView.delegate = self
     }
-    
-    func showLoadingView(loadingPop: LoadingPopover) {
-        loadingPop.setupPop(popView: loadingPop.popView)
-        loadingPop.showPopView(viewController: self)
-        loadingPop.popView.isHidden = false
-    }
-    
-    func hideLoadingView() {
-        loadingPop.popView.removeFromSuperview()
-        loadingPop.removeFromSuperview()
-        loadingPop.hidePopView(viewController: self)
-        view.sendSubview(toBack: loadingPop)
-    }
 }

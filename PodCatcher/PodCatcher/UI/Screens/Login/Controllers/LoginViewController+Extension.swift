@@ -2,21 +2,18 @@ import UIKit
 
 // MARK: - LoginViewDelegate
 
-extension LoginViewController: LoginViewDelegate, LoadingViewProtocol {
+extension LoginViewController: LoginViewDelegate {
     func loginViewFocus() {
-
+        // Implement shift
     }
-
     
     func userEntryDataSubmitted(with username: String, and password: String) {
-        showLoadingView(loadingPop: loadingPop, controller: self)
+        
+        showLoadingView(loadingPop: loadingPop)
         PodCatcherUserDataStore.userSignIn(username: username, password: password) { user, error in
-            dump(user)
-            dump(error)
-            
             if let error = error {
                 print(error.localizedDescription)
-                self.hideLoadingView(loadingPop: self.loadingPop, controller: self)
+                self.hideLoadingView(loadingPop: self.loadingPop)
             }
             if let user = user {
                 self.delegate?.successfulLogin(for: user)

@@ -1,5 +1,5 @@
 import Foundation
 
 protocol CreateAccountViewDelegate: class {
-    func submitButtonTapped()
+    func submitButton(tapped: Bool)
 }

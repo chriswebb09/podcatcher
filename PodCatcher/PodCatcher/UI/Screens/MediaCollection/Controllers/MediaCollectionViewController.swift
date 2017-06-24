@@ -9,9 +9,6 @@ class MediaCollectionViewController: BaseCollectionViewController {
     
     // MARK: - UI Properties
     
-    var buttonItem: UIBarButtonItem!
-    var emptyView = EmptyView(frame: UIScreen.main.bounds)
-    
     var viewShown: ShowView {
         didSet {
             switch viewShown {
@@ -29,9 +26,9 @@ class MediaCollectionViewController: BaseCollectionViewController {
         self.viewShown = self.dataSource.viewShown
         super.init(nibName: nil, bundle: nil)
         if dataSource.user != nil {
-            buttonItem = UIBarButtonItem(title: "Log Out", style: .done, target: self, action: #selector(logout))
-            buttonItem.setTitleTextAttributes(MediaCollectionConstants.stringAttributes, for: .normal)
-            navigationItem.setRightBarButton(buttonItem, animated: false)
+            rightButtonItem = UIBarButtonItem(title: "Log Out", style: .done, target: self, action: #selector(logout))
+            rightButtonItem.setTitleTextAttributes(MediaCollectionConstants.stringAttributes, for: .normal)
+            navigationItem.setRightBarButton(rightButtonItem, animated: false)
         }
     }
     
@@ -46,11 +43,10 @@ class MediaCollectionViewController: BaseCollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(emptyView)
         collectionViewConfiguration()
         title = "Podcasts"
-        collectionView.setupBackground(frame: view.bounds)
         guard let background = collectionView.backgroundView else { return }
+        
         CALayer.createGradientLayer(with: [UIColor.gray.cgColor, UIColor.darkGray.cgColor],
                                     layer: background.layer,
                                     bounds: collectionView.bounds)

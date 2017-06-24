@@ -1,6 +1,6 @@
 import UIKit
 
-final class SplashViewController: UIViewController {
+final class SplashViewController: BaseViewController {
     
     weak var delegate: SplashViewControllerDelegate?
     

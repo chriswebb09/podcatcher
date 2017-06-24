@@ -4,7 +4,7 @@ import UIKit
 
 extension CreateAccountViewController: CreateAccountViewDelegate {
     
-    func submitButtonTapped() {
-        delegate?.submitButtonTapped()
+    func submitButton(tapped: Bool) {
+        delegate?.submitButton(tapped: tapped)
     }
 }

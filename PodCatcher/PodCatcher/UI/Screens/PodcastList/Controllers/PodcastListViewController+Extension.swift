@@ -17,7 +17,6 @@ extension PodcastListViewController: PodcastCollectionViewProtocol {
     func setupView() {
         guard let tabBar = self.tabBarController?.tabBar else { return }
         collectionView.frame = CGRect(x: topView.bounds.minX, y: topView.frame.maxY + (tabBar.frame.height + 10), width: view.bounds.width, height: view.bounds.height - (topView.frame.height - tabBar.frame.height))
-        collectionView.autoresizingMask = [.flexibleHeight, .flexibleWidth, .flexibleTopMargin, .flexibleBottomMargin]
         collectionView.backgroundColor = .clear
         if dataSource.caster.assets.count > 0 {
             view.addSubview(collectionView)

@@ -4,21 +4,7 @@ final class CreateAccountView: UIView {
     
     weak var delegate: CreateAccountViewDelegate?
     
-//    var model: LoginViewModel! {
-//        didSet {
-//            submitButton.isEnabled = model.validContent
-//            submitButton.backgroundColor = model.buttonColor
-//            dump(model.buttonColor)
-//        }
-//    }
-    
     // MARK: - UI Elements
-    
-//    var usernameField: UITextField = {
-//        var usernameField = UnderlineTextField()
-//        usernameField.placeholder = "Username"
-//        return usernameField
-//    }()
     
     var emailField: UITextField = {
         var usernameField = UnderlineTextField()
@@ -50,15 +36,11 @@ final class CreateAccountView: UIView {
         tag = 1
         super.layoutSubviews()
         backgroundColor = .white
-        
-   //     let usernameField = self.usernameField as! UnderlineTextField
         let emailField = self.emailField as! UnderlineTextField
         let confirmEmailField = self.confirmEmailField as! UnderlineTextField
         let passwordField = self.passwordField as! UnderlineTextField
         emailField.setupEmailField()
         emailField.setup()
-       // usernameField.setupUserField()
-       // usernameField.setup()
         confirmEmailField.setupEmailField()
         confirmEmailField.setup()
         let attributedString = NSMutableAttributedString(string: "Confirm Email Address")
@@ -68,12 +50,9 @@ final class CreateAccountView: UIView {
         confirmEmailField.attributedPlaceholder = attributedString
         passwordField.setupPasswordField()
         passwordField.setup()
-       // setup(usernamefield: usernameField)
         setup(emailField: self.emailField)
-      //  usernameField.delegate = self
         passwordField.delegate = self
-      //  usernameField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-       // passwordField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        passwordField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         setup(confirmEmailField: confirmEmailField)
         setup(passwordField: passwordField)
         setup(submitButton: submitButton)
@@ -82,9 +61,6 @@ final class CreateAccountView: UIView {
     }
     
     func configure(model: LoginViewModel) {
-       // self.model = model
-   //     usernameField.text = "Link@link.com"
-   //     passwordField.text = "123456"
         submitButton.isEnabled = true
     }
     
@@ -117,34 +93,7 @@ final class CreateAccountView: UIView {
     }
     
     func submitButtonTapped() {
-       // guard let username = usernameField.text, let password = passwordField.text else { return }
-        delegate?.submitButtonTapped()
-    }
-}
-
-
-extension CreateAccountView: UITextFieldDelegate {
-//    
-//    func textFieldDidChange(_ textField: UITextField) {
-//        textField.textColor = .black
-//        
-//        guard let text = textField.text else { return }
-//        if textField == emailField {
-//            model.username = text
-//        } else {
-//            model.password = text
-//        }
-//    }
-    
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        textField.placeholder = "" 
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        endEditing(true)
-    }
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        endEditing(true)
-        return true
+        guard let email = emailField.text, let password = passwordField.text else { return }
+        delegate?.submitButton(tapped: true)
     }
 }
