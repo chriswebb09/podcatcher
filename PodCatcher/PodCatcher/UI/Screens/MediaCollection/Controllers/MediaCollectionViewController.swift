@@ -10,7 +10,6 @@ class MediaCollectionViewController: BaseCollectionViewController {
     // MARK: - UI Properties
     
     var buttonItem: UIBarButtonItem!
- //  var emptyView = EmptyView(frame: UIScreen.main.bounds)
     
     var viewShown: ShowView {
         didSet {
