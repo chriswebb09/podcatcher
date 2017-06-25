@@ -7,7 +7,7 @@ class FavoritePodcastsViewController: MediaCollectionViewController {
         collectionView.reloadData()
     }
     
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+ override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         var count = 0
         if let user = dataSource.user {
             for (i, n) in user.favoriteCasts {

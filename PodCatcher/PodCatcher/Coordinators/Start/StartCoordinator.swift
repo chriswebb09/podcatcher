@@ -1,11 +1,3 @@
-//
-//  StartCoordinator.swift
-//  PodCatcher
-//
-//  Created by Christopher Webb-Orenstein on 6/5/17.
-//  Copyright © 2017 Christopher Webb-Orenstein. All rights reserved.
-//
-
 import UIKit
 
 class StartCoordinator: NavigationCoordinator {
@@ -13,7 +5,7 @@ class StartCoordinator: NavigationCoordinator {
     var type: CoordinatorType = .app
     weak var delegate: CoordinatorDelegate?
     var window: UIWindow!
-    var dataSource: BaseMediaControllerDataSource!
+    var dataSource = BaseMediaControllerDataSource(casters: [])
     var store = PodcatcherDataStore()
     var childViewControllers: [UIViewController] = []
     
@@ -25,14 +17,14 @@ class StartCoordinator: NavigationCoordinator {
     
     init(navigationController: UINavigationController = UINavigationController()) {
         self.navigationController = navigationController
+        store.pullPodcastsFromUser { casts in
+            self.dataSource.casters = casts 
+        }
     }
     
     convenience init(navigationController: UINavigationController, window: UIWindow) {
         self.init(navigationController: navigationController)
         self.window = window
-        store.pullPodcastsFromUser { list in
-            self.dataSource =  BaseMediaControllerDataSource(casters: list)
-        }
     }
     
     func start() {

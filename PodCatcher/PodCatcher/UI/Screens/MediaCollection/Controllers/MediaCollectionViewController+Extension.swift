@@ -15,7 +15,6 @@ extension MediaCollectionViewController: CollectionViewProtocol {
 }
 
 // MARK: - UICollectionViewDelegate
-
 extension MediaCollectionViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -24,7 +23,6 @@ extension MediaCollectionViewController: UICollectionViewDelegate {
 }
 
 // MARK: - UICollectionViewDataSource
-
 extension MediaCollectionViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -38,3 +36,42 @@ extension MediaCollectionViewController: UICollectionViewDataSource {
         return dataSource.collectionView(collectionView, cellForItemAt: indexPath)
     }
 }
+
+
+//extension MediaCollectionViewController: CollectionViewProtocol {
+//    
+//    func logout() {
+//        delegate?.logout(tapped: true)
+//    }
+//    
+//    func collectionViewConfiguration() {
+//        collectionView.setupCollectionView(view: view, newLayout: TrackItemsFlowLayout())
+//        collectionView.collectionViewRegister(viewController: self)
+//        collectionView.delegate = self
+//        collectionView.dataSource = dataSource
+//    }
+//}
+//
+//// MARK: - UICollectionViewDelegate
+//
+//extension MediaCollectionViewController: UICollectionViewDelegate {
+//    
+//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        delegate?.didSelect(at: indexPath.row)
+//    }
+//}
+//
+//extension MediaCollectionViewController: MenuDelegate {
+//    
+//    func optionThreeTapped() {
+//        
+//    }
+//    
+//    func optionTwoTapped() {
+//        
+//    }
+//    
+//    func optionOneTapped() {
+//        
+//    }
+//}

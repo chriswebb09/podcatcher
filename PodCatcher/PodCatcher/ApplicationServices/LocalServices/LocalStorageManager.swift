@@ -10,12 +10,4 @@ final class LocalStorageManager {
         }
         return nil
     }
-    
-    static func localFileExistsForImage(_ string: String) -> Bool {
-        if let localUrl = LocalStorageManager.localFilePathForUrl(string) {
-            var isDir : ObjCBool = false
-            return FileManager.default.fileExists(atPath: localUrl.path , isDirectory: &isDir)
-        }
-        return false
-    }
 }

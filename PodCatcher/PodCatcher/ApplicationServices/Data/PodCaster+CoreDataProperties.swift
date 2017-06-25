@@ -1,9 +1,9 @@
 //
 //  PodCaster+CoreDataProperties.swift
-//  PodCatcher
+//  
 //
-//  Created by Christopher Webb-Orenstein on 6/6/17.
-//  Copyright © 2017 Christopher Webb-Orenstein. All rights reserved.
+//  Created by Christopher Webb-Orenstein on 6/25/17.
+//
 //
 
 import Foundation
@@ -18,6 +18,7 @@ extension PodCaster {
 
     @NSManaged public var name: String?
     @NSManaged public var totalPlayTime: Double
+    @NSManaged public var image: NSData?
     @NSManaged public var podCasterItems: NSSet?
 
 }

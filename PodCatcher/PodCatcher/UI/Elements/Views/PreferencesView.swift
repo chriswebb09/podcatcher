@@ -17,7 +17,7 @@ class PreferencesView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         setupConstraints()
-        moreMenuButton.addTarget(self, action: #selector(moreButtonTapped), for: .touchUpInside)
+        moreMenuButton.addTarget(self, action: #selector(moreButton(tapped:)), for: .touchUpInside)
         backgroundColor = .lightGray
     }
     
@@ -32,13 +32,12 @@ class PreferencesView: UIView {
         moreButton.heightAnchor.constraint(equalTo: heightAnchor, multiplier: PreferencesViewConstants.tagButtonHeightMultiplier).isActive = true
         moreButton.rightAnchor.constraint(equalTo: rightAnchor, constant: PreferencesViewConstants.moreButtonRightOffset).isActive = true
     }
-    func moreButtonTapped() {
-        print("More tapped")
-        delegate?.moreButton(tapped: true)
+    func moreButton(tapped: Bool) {
+        delegate?.moreButton(tapped: tapped)
     }
     
-    func addTagButtonTapped() {
+    func addTagButton(tapped: Bool) {
         print("tag tapped")
-        delegate?.addTagButton(tapped: true)
+        delegate?.addTagButton(tapped: tapped)
     }
 }

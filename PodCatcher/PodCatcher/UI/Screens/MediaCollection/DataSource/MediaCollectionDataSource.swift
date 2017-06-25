@@ -1,6 +1,7 @@
 import UIKit
 
 class MediaCollectionDataSource: BaseMediaControllerDataSource {
+    
     var viewShown: ShowView {
         if casters.count > 0 {
             return .collection
@@ -16,7 +17,9 @@ extension MediaCollectionDataSource: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as MediaCell
         if let artWork = casters[indexPath.row].artwork, let name = casters[indexPath.row].name {
             let model = MediaCellViewModel(trackName: name, albumImageURL: artWork)
-            cell.configureCell(with: model, withTime: (Double(indexPath.row) * 0.01))
+            DispatchQueue.main.async {
+                cell.configureCell(with: model, withTime: (Double(indexPath.row) * 0.01))
+            }
         }
         return cell
     }

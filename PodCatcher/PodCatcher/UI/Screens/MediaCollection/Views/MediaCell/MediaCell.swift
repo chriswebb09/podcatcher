@@ -5,21 +5,11 @@ final class MediaCell: UICollectionViewCell {
     fileprivate var viewModel: MediaCellViewModel? {
         didSet {
             guard let viewModel = viewModel else { return }
-            trackNameLabel.text = viewModel.trackName
             albumArtView.image = viewModel.albumImageUrl
         }
     }
     
     // MARK: - UI Element Properties
-    
-    fileprivate var trackNameLabel: UILabel = {
-        var trackName = UILabel()
-        trackName.backgroundColor = .white
-        trackName.font = MediaCellConstants.smallFont
-        trackName.textAlignment = .center
-        trackName.numberOfLines = 0
-        return trackName
-    }()
     
     fileprivate var albumArtView: UIImageView = {
         var album = UIImageView()
@@ -34,13 +24,11 @@ final class MediaCell: UICollectionViewCell {
     
     func configureCell(with model: MediaCellViewModel, withTime: Double) {
         alpha = 0
-        viewModel  = model
-        albumArtView.image = model.albumImageUrl
-        layoutSubviews()
-        DispatchQueue.main.asyncAfter(deadline: .now() + withTime) {
-            UIView.animate(withDuration: 0.05) {
-                self.alpha = 1
-            }
+        self.viewModel  = model
+        self.albumArtView.image = model.albumImageUrl
+        self.layoutSubviews()
+        UIView.animate(withDuration: withTime) {
+            self.alpha = 1
         }
     }
     
@@ -52,7 +40,6 @@ final class MediaCell: UICollectionViewCell {
     private func viewConfigurations() {
         setShadow()
         setup(albumArtView: albumArtView)
-        setup(trackNameLabel: trackNameLabel)
     }
     
     private func setup(albumArtView: UIImageView) {
@@ -63,12 +50,9 @@ final class MediaCell: UICollectionViewCell {
         albumArtView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
     }
     
-    private func setup(trackNameLabel: UILabel) {
-        contentView.addSubview(trackNameLabel)
-        trackNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        trackNameLabel.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: MediaCellConstants.labelHeightMultiplier).isActive = true
-        trackNameLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor).isActive = true
-        trackNameLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        albumArtView.image = nil
     }
 }
 

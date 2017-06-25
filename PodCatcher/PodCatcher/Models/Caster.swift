@@ -1,9 +1,16 @@
 import UIKit
+import CoreData
 
 struct Caster {
+    var podCasters: [NSManagedObject] = []
     
     var name: String?
-    var artwork: UIImage?
+    var artwork: UIImage? {
+        didSet {
+            guard let artwork = artwork else { return }
+            save(image: artwork)
+        }
+    }
     var assetURL: URL?
     var tags: [String]
     var assets: [MediaCatcherItem]
@@ -34,6 +41,23 @@ struct Caster {
             }
         }
     }
+    
+    mutating func save(image: UIImage) {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
+        let imageData = UIImageJPEGRepresentation(image, 1.0)
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let entity = NSEntityDescription.entity(forEntityName: "PodCaster", in: managedContext)!
+        let podCaster = NSManagedObject(entity: entity, insertInto: managedContext)
+        podCaster.setValue(imageData, forKeyPath: "image")
+        do {
+            try managedContext.save()
+            podCasters.append(podCaster)
+        } catch let error as NSError {
+            print("Could not save. \(error), \(error.userInfo)")
+        }
+    }
 }
 
 extension Caster: Equatable {
@@ -43,9 +67,9 @@ extension Caster: Equatable {
 }
 
 extension Caster: Hashable {
-
+    
     var hashValue: Int {
         guard let name = name else { return 0 }
-        return name.hashValue 
+        return name.hashValue
     }
 }

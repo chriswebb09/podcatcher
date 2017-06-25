@@ -1,22 +1,18 @@
 import UIKit
 import CoreData
 import Firebase
-import ReachabilitySwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     var mainCoordinator: MainCoordinator!
-    
-    var reachability: Reachability?
-    lazy var coreDataStack = CoreDataStack()
+    var backgroundSessionCompletionHandler: (() -> Void)?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        NotificationCenter.default.addObserver(self, selector: #selector(reachabilityChanged(_:)),name: ReachabilityChangedNotification, object: reachability)
         setupUI()
         window = UIWindow(frame: UIScreen.main.bounds)
-        if let window = window, coreDataStack.loadDefaultOnFirstLaunch() {
+        if let window = window, UserDefaults.loadDefaultOnFirstLaunch() {
             let startCoordinator = StartCoordinator(navigationController: UINavigationController(), window: window)
             mainCoordinator = MainCoordinator(window: window, coordinator: startCoordinator)
             startCoordinator.skipSplash()
@@ -28,6 +24,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
+    func application(_ application: UIApplication, handleEventsForBackgroundURLSession identifier: String, completionHandler: @escaping () -> Void) {
+        backgroundSessionCompletionHandler = completionHandler
+    }
+    
     func setupUI() {
         let fontAttribute = UIFont(name:"Avenir", size: 18) as Any
         UINavigationBar.appearance().tintColor = UIColor.mainColor
@@ -36,40 +36,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             NSForegroundColorAttributeName: UIColor.mainColor,
             NSBackgroundColorAttributeName: UIColor.white
         ]
-    }
-    
-    func startNotifier() {
-        do {
-            try reachability?.startNotifier()
-        } catch {
-            return
-        }
-    }
-    
-    
-    func stopNotifier() {
-        reachability?.stopNotifier()
-        NotificationCenter.default.removeObserver(self, name: ReachabilityChangedNotification, object: nil)
-        reachability = nil
-    }
-    
-    
-    func reachabilityChanged(_ note: Notification) {
-        let reachability = note.object as! Reachability
-        if reachability.isReachable {
-            if reachability.isReachableViaWiFi {
-                print("Reachable via WiFi")
-            } else {
-                print("Reachable via Cellular")
-            }
-        } else {
-            print("Network not reachable")
-        }
-    }
-    
-    func applicationWillResignActive(_ application: UIApplication) {
-        // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-        // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
     }
     
     func applicationWillTerminate(_ application: UIApplication) {

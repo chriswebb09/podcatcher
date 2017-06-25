@@ -40,6 +40,7 @@ class TabBarCoordinator: TabControllerCoordinator, Coordinator {
     func setupMediaCoordinator(navigationController: UINavigationController, dataSource: BaseMediaControllerDataSource) {
         let tabCoordinator = MediaTabCoordinator(navigationController: navigationController)
         tabCoordinator.start()
+        dump(dataSource)
         tabCoordinator.dataSource = dataSource
         childCoordinators.append(tabCoordinator)
     }

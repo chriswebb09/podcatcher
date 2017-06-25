@@ -1,10 +1,15 @@
 import UIKit
 
-fileprivate let imageCache = NSCache<NSString, UIImage>()
+let imageCache: NSCache<NSString, UIImage> = {
+    var cache = NSCache<NSString, UIImage>()
+    cache.totalCostLimit = 10
+    return cache
+}()
 
 extension UIImageView {
     
     func downloadImage(url: URL) {
+
         if let cachedImage = imageCache.object(forKey: url.absoluteString as NSString) {
             self.image = cachedImage
             return

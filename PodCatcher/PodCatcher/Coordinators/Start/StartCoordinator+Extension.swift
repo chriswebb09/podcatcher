@@ -30,6 +30,11 @@ extension StartCoordinator: StartViewControllerDelegate {
 extension StartCoordinator: LoginViewControllerDelegate {
     
     func successfulLogin(for user: PodCatcherUser) {
+        if dataSource.casters.count < 0 {
+            let newDataSource = BaseMediaControllerDataSource(casters: user.casts)
+            self.dataSource = newDataSource
+        }
+        user.casts = dataSource.casters
         dataSource.user = user
         delegate?.transitionCoordinator(type: .tabbar, dataSource: self.dataSource)
     }
