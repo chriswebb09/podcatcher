@@ -97,9 +97,11 @@
 		A72697A81EF0DA7D00D406BB /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72697A71EF0DA7D00D406BB /* UIImage+Extension.swift */; };
 		A73043DD1EFC678F00959932 /* UpdateAccountInfoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73043DC1EFC678F00959932 /* UpdateAccountInfoTests.swift */; };
 		A731727D1F00450B006A6A24 /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = A731727C1F00450B006A6A24 /* Playlist.swift */; };
-		A731727F1F00458A006A6A24 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = A731727E1F00458A006A6A24 /* File.swift */; };
 		A73172811F00466C006A6A24 /* LocalStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73172801F00466C006A6A24 /* LocalStorageManager.swift */; };
 		A73172831F004883006A6A24 /* PlaylistItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73172821F004883006A6A24 /* PlaylistItem.swift */; };
+		A731728B1F004964006A6A24 /* Download.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73172881F004963006A6A24 /* Download.swift */; };
+		A731728C1F004964006A6A24 /* DownloadDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73172891F004963006A6A24 /* DownloadDelegate.swift */; };
+		A731728D1F004964006A6A24 /* DownloadStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = A731728A1F004963006A6A24 /* DownloadStatus.swift */; };
 		A73D74091EE684C4004571A5 /* LoadingPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73D74081EE684C4004571A5 /* LoadingPopover.swift */; };
 		A73D740B1EE684DD004571A5 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73D740A1EE684DD004571A5 /* LoadingView.swift */; };
 		A73D740E1EE685FF004571A5 /* AnimationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73D740D1EE685FF004571A5 /* AnimationDelegate.swift */; };
@@ -340,9 +342,11 @@
 		A72697A71EF0DA7D00D406BB /* UIImage+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		A73043DC1EFC678F00959932 /* UpdateAccountInfoTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateAccountInfoTests.swift; sourceTree = "<group>"; };
 		A731727C1F00450B006A6A24 /* Playlist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Playlist.swift; sourceTree = "<group>"; };
-		A731727E1F00458A006A6A24 /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		A73172801F00466C006A6A24 /* LocalStorageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalStorageManager.swift; sourceTree = "<group>"; };
 		A73172821F004883006A6A24 /* PlaylistItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistItem.swift; sourceTree = "<group>"; };
+		A73172881F004963006A6A24 /* Download.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Download.swift; path = Download/Download.swift; sourceTree = "<group>"; };
+		A73172891F004963006A6A24 /* DownloadDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DownloadDelegate.swift; path = Download/DownloadDelegate.swift; sourceTree = "<group>"; };
+		A731728A1F004963006A6A24 /* DownloadStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DownloadStatus.swift; path = Download/DownloadStatus.swift; sourceTree = "<group>"; };
 		A73D74081EE684C4004571A5 /* LoadingPopover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingPopover.swift; sourceTree = "<group>"; };
 		A73D740A1EE684DD004571A5 /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		A73D740D1EE685FF004571A5 /* AnimationDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationDelegate.swift; sourceTree = "<group>"; };
@@ -699,7 +703,7 @@
 				A7894FA51EE6AE44000CC190 /* PodCatcherUser.swift */,
 				A7FFD4BD1EEF41E400853480 /* PodCatcherUserFavorites.swift */,
 				A731727C1F00450B006A6A24 /* Playlist.swift */,
-				A731727E1F00458A006A6A24 /* File.swift */,
+				A731728E1F00496D006A6A24 /* Download */,
 				A73172821F004883006A6A24 /* PlaylistItem.swift */,
 			);
 			path = Models;
@@ -737,6 +741,16 @@
 				A73D740D1EE685FF004571A5 /* AnimationDelegate.swift */,
 			);
 			name = Delegates;
+			sourceTree = "<group>";
+		};
+		A731728E1F00496D006A6A24 /* Download */ = {
+			isa = PBXGroup;
+			children = (
+				A73172881F004963006A6A24 /* Download.swift */,
+				A73172891F004963006A6A24 /* DownloadDelegate.swift */,
+				A731728A1F004963006A6A24 /* DownloadStatus.swift */,
+			);
+			name = Download;
 			sourceTree = "<group>";
 		};
 		A73D740C1EE685E8004571A5 /* Animation */ = {
@@ -1794,7 +1808,6 @@
 				A73D74091EE684C4004571A5 /* LoadingPopover.swift in Sources */,
 				A731727D1F00450B006A6A24 /* Playlist.swift in Sources */,
 				A7BA688A1EFD1EF40032FE48 /* ChooseUserNameView.swift in Sources */,
-				A731727F1F00458A006A6A24 /* File.swift in Sources */,
 				A77EDF651EE5FC17001A24E5 /* EmptyView.swift in Sources */,
 				A75BBB291EF43126002F4EB6 /* HeaderView.swift in Sources */,
 				A7150EF21EE66C0E00E3553F /* PlayerViewModel.swift in Sources */,
@@ -1804,6 +1817,7 @@
 				A7FFD4BE1EEF41E400853480 /* PodCatcherUserFavorites.swift in Sources */,
 				A7FFD4D51EEF6DBF00853480 /* UpdateAccountViewDelegate.swift in Sources */,
 				A723A5BF1EE94772002E49BF /* DetailPopoverConstants.swift in Sources */,
+				A731728C1F004964006A6A24 /* DownloadDelegate.swift in Sources */,
 				A723A5AB1EE935FC002E49BF /* CreatAccountViewController+Extension.swift in Sources */,
 				A71B27451EE5E1F200613CF4 /* PCMediaPlayer.swift in Sources */,
 				A7252A8A1EFF29F40034EA93 /* PreferencesViewDelegate.swift in Sources */,
@@ -1875,6 +1889,7 @@
 				A71853061EE95A7F00911C87 /* MenuOptionViewConstants.swift in Sources */,
 				A7905B141EEF7DC900199246 /* AudioFilePlayerDelegate.swift in Sources */,
 				A7150EE51EE6566600E3553F /* PodcasterControllState.swift in Sources */,
+				A731728D1F004964006A6A24 /* DownloadStatus.swift in Sources */,
 				A73D74301EE6881E004571A5 /* LogoConstants.swift in Sources */,
 				A75BBB2B1EF4605B002F4EB6 /* StartCoordinator+Extension.swift in Sources */,
 				A718530A1EE9609A00911C87 /* EntryState.swift in Sources */,
@@ -1893,6 +1908,7 @@
 				A7EBA0B31EE6786400FAAC9C /* SettingsOptionView.swift in Sources */,
 				A7150EBD1EE62E0300E3553F /* PlayerViewController.swift in Sources */,
 				A7DB573C1EFFBFEE00D40197 /* CasterItems+CoreDataClass.swift in Sources */,
+				A731728B1F004964006A6A24 /* Download.swift in Sources */,
 				A7EBA0C21EE682B200FAAC9C /* BaseMenuPopoverAlert.swift in Sources */,
 				A7252A781EFF1F300034EA93 /* SplashView.swift in Sources */,
 				A71B27311EE5D6F500613CF4 /* StartCoordinator.swift in Sources */,
