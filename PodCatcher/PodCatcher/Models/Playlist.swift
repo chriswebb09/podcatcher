@@ -1,22 +1,14 @@
 import UIKit
 
-
-final class PlaylistItem {
-    //var track: Track?
-    var next: PlaylistItem?
-    weak var previous: PlaylistItem?
-}
-
-
 final class Playlist {
     
-    private var head: PlaylistItem?
+    var head: PlaylistItem?
     
-    dynamic var id: String? = ""
-    dynamic var name: String? = ""
-    dynamic var current: Bool = false
+    var id: String? = ""
+    var name: String? = ""
+    var current: Bool = false
     
-    dynamic var itemCount: Int = 0
+    var itemCount: Int = 0
     
     var isEmpty: Bool? {
         return head == nil
@@ -44,16 +36,12 @@ final class Playlist {
             newPlaylistItem?.previous = lastItem
             lastItem.next = newPlaylistItem
         }
-        //        else if head == nil {
-        //            head = newPlaylistItem
-        //        }
     }
     
     func printAllKeys() {
         var current: PlaylistItem! = head
         var index = 1
         while current != nil {
-           // print(current.track?.previewUrl ?? "track does not have preview url")
             index += 1
             current = current.next
         }
@@ -82,45 +70,4 @@ final class Playlist {
             head = currentTrack
         }
     }
-    
-//    func removeFromPlaylist(for playlistItem: PlaylistItem?) -> Track? {
-//        let previous = playlistItem?.previous
-//        let next = playlistItem?.next
-//        
-//        if let previous = previous {
-//            previous.next = next
-//        } else {
-//            head = next
-//        }
-//        next?.previous = previous
-//        
-//        playlistItem?.previous = nil
-//        playlistItem?.next = nil
-//        guard let trackItem = playlistItem?.track else { return nil }
-//        return trackItem
-//    }
-//    
-//    func removeAll() {
-//        var track = head
-//        
-//        while let next = track?.next {
-//            track?.previous = nil
-//            track = nil
-//            track = next
-//        }
-//        head = nil
-//        itemCount = 0
-//    }
-//    
-//    
-//    func contains(playlistItem item: PlaylistItem) -> Bool {
-//        guard let currentTrack = head else { return false }
-//        while currentTrack != item && currentTrack.next != nil {
-//            guard let currentTrack = currentTrack.next else { return false }
-//            if currentTrack == item {
-//                return true
-//            }
-//        }
-//        return false
-//    }
 }
