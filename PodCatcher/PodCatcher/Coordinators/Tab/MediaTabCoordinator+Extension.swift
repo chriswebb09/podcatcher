@@ -1,13 +1,13 @@
 import UIKit
 
 extension MediaTabCoordinator: MediaControllerDelegate {
+    
     func logout(tapped: Bool) {
         if dataSource.user != nil {
             dataSource.user = nil
         }
         delegate?.transitionCoordinator(type: .app, dataSource: dataSource)
     }
-    
     
     func didSelect(at index: Int) {
         let podcastList = PodcastListViewController(index: index, dataSource: dataSource)

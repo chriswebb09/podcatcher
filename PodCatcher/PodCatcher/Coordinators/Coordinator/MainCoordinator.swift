@@ -1,11 +1,13 @@
 import UIKit
 import Firebase
+import ReachabilitySwift
 
 class MainCoordinator: ApplicationCoordinator {
     
     var window: UIWindow
     var appCoordinator: Coordinator!
     var dataSource: BaseMediaControllerDataSource!
+    let reachability = Reachability()!
     
     init(window: UIWindow) {
         self.window = window

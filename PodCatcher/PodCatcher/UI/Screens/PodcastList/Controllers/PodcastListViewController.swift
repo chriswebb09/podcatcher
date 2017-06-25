@@ -13,12 +13,26 @@ class PodcastListViewController: BaseCollectionViewController {
     var topView = PodcastListTopView()
     var menuPop = BottomMenuPopover()
     
+    var viewShown: ShowView {
+        didSet {
+            switch viewShown {
+            case .empty:
+                changeView(forView: emptyView, withView: collectionView)
+            case .collection:
+                changeView(forView: collectionView, withView: emptyView)
+            }
+        }
+    }
+    
     init(index: Int, dataSource: BaseMediaControllerDataSource) {
         let podcastListDataSource = PodcastListDataSource(casters: dataSource.casters)
         podcastListDataSource.index = index
         podcastListDataSource.caster = dataSource.casters[index]
         self.dataSource = podcastListDataSource
+        self.viewShown = .collection
+        
         super.init(nibName: nil, bundle: nil)
+        self.topView.delegate = self
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -32,13 +46,15 @@ class PodcastListViewController: BaseCollectionViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "plus-red"), style: .plain, target: self, action: #selector(hidePop))
         background.frame = view.frame
         view.addSubview(background)
+        emptyView.alpha = 0
+        topView.delegate = self
         view.sendSubview(toBack: background)
         if let user = dataSource.user {
             title = dataSource.caster.name
             let timeString = String(describing: user.totalTimeListening)
             topView.configure(tags: [], timeListen: timeString)
         } else {
-            topView.preferencesView.moreMenuButton.isHidden = true
+            
             title = "Podcast"
         }
     }

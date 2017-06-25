@@ -1,6 +1,6 @@
 import Foundation
 
 protocol PreferencesViewDelegate: class {
-    func moreButtonTapped(tapped: Bool)
-    func addTagButtonTapped(tapped: Bool)
+    func moreButton(tapped: Bool)
+    func addTagButton(tapped: Bool)
 }

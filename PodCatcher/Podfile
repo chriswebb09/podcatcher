@@ -10,6 +10,7 @@ target 'PodCatcher' do
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
   pod 'Firebase/Database'
+  pod 'ReachabilitySwift', '~> 3'
 
   target 'PodCatcherTests' do
     inherit! :search_paths

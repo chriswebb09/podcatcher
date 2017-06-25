@@ -1,10 +1,9 @@
 import UIKit
 
-final class BottomMenuPopover: BasePopoverMenu {
+final class SideMenuPopover: BasePopoverMenu {
     
     var popView: MenuView = {
         let popView = MenuView()
-      //  popView.backgroundColor = PlayerViewConstants.titleViewBackgroundColor
         popView.isUserInteractionEnabled = true
         return popView
     }()
@@ -21,10 +20,10 @@ final class BottomMenuPopover: BasePopoverMenu {
                 }
                 
                 strongSelf.popView.alpha = 1
-                strongSelf.popView.frame = CGRect(x: viewController.view.bounds.width * 0.001,
-                                                  y: viewController.view.bounds.height * 0.45,
+                strongSelf.popView.frame = CGRect(x: viewController.view.bounds.minX,
+                                                  y: viewController.view.bounds.minY,
                                                   width: viewController.view.bounds.width,
-                                                  height: viewController.view.bounds.height * 0.55)
+                                                  height: viewController.view.bounds.height)
                 strongSelf.layoutIfNeeded()
             }
         }

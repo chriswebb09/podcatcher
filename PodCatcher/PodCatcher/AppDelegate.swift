@@ -1,6 +1,7 @@
 import UIKit
 import CoreData
 import Firebase
+import ReachabilitySwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -8,9 +9,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var mainCoordinator: MainCoordinator!
     
+    var reachability: Reachability?
     lazy var coreDataStack = CoreDataStack()
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        NotificationCenter.default.addObserver(self, selector: #selector(reachabilityChanged(_:)),name: ReachabilityChangedNotification, object: reachability)
         setupUI()
         window = UIWindow(frame: UIScreen.main.bounds)
         if let window = window, coreDataStack.loadDefaultOnFirstLaunch() {
@@ -26,14 +29,42 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func setupUI() {
-        let placeholderAttributes: [String : AnyObject] = [NSFontAttributeName: UIFont.systemFont(ofSize: UIFont.systemFontSize)]
-        let attributedPlaceholder: NSAttributedString = NSAttributedString(string: "Search", attributes: placeholderAttributes)
+        let fontAttribute = UIFont(name:"Avenir", size: 18) as Any
         UINavigationBar.appearance().tintColor = UIColor.mainColor
         UINavigationBar.appearance().titleTextAttributes = [
-            NSFontAttributeName: UIFont(name:"Avenir", size: 18),
+            NSFontAttributeName: fontAttribute,
             NSForegroundColorAttributeName: UIColor.mainColor,
             NSBackgroundColorAttributeName: UIColor.white
         ]
+    }
+    
+    func startNotifier() {
+        do {
+            try reachability?.startNotifier()
+        } catch {
+            return
+        }
+    }
+    
+    
+    func stopNotifier() {
+        reachability?.stopNotifier()
+        NotificationCenter.default.removeObserver(self, name: ReachabilityChangedNotification, object: nil)
+        reachability = nil
+    }
+    
+    
+    func reachabilityChanged(_ note: Notification) {
+        let reachability = note.object as! Reachability
+        if reachability.isReachable {
+            if reachability.isReachableViaWiFi {
+                print("Reachable via WiFi")
+            } else {
+                print("Reachable via Cellular")
+            }
+        } else {
+            print("Network not reachable")
+        }
     }
     
     func applicationWillResignActive(_ application: UIApplication) {
@@ -95,6 +126,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
+    
+    
     
 }
 

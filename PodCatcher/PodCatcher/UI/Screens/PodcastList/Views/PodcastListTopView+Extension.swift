@@ -3,12 +3,13 @@ import UIKit
 // MARK: - PreferencesViewDelegate
 
 extension PodcastListTopView: PreferencesViewDelegate {
-    
-    func addTagButtonTapped(tapped: Bool) {
-        delegate?.entryPop(pop: tapped)
+    func addTagButton(tapped: Bool) {
+        print("tag")
+        delegate?.entryPop(popped: tapped)
     }
-    
-    func moreButtonTapped(tapped: Bool) {
-        delegate?.popBottomMenu(pop: true)
+
+    func moreButton(tapped: Bool) {
+        print("more")
+        delegate?.popBottomMenu(popped: tapped)
     }
 }

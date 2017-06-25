@@ -1,12 +1,12 @@
 import UIKit
 
-class MediaCollectionViewController: BaseCollectionViewController {
+@objc class MediaCollectionViewController: BaseCollectionViewController {
     
     // MARK: - Properties
     
     weak var delegate: MediaControllerDelegate?
     var dataSource: MediaCollectionDataSource
-    
+     var sideMenuPop = SideMenuPopover()
     // MARK: - UI Properties
     
     var viewShown: ShowView {
@@ -26,9 +26,11 @@ class MediaCollectionViewController: BaseCollectionViewController {
         self.viewShown = self.dataSource.viewShown
         super.init(nibName: nil, bundle: nil)
         if dataSource.user != nil {
-            rightButtonItem = UIBarButtonItem(title: "Log Out", style: .done, target: self, action: #selector(logout))
-            rightButtonItem.setTitleTextAttributes(MediaCollectionConstants.stringAttributes, for: .normal)
+            rightButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "menu-red"), style: .done, target: self, action: #selector(popMenu))
             navigationItem.setRightBarButton(rightButtonItem, animated: false)
+            leftButtonItem = UIBarButtonItem(title: "Log Out", style: .done, target: self, action: #selector(logout))
+            leftButtonItem.setTitleTextAttributes(MediaCollectionConstants.stringAttributes, for: .normal)
+            navigationItem.setLeftBarButton(leftButtonItem, animated: false)
         }
     }
     
@@ -41,12 +43,15 @@ class MediaCollectionViewController: BaseCollectionViewController {
         self.collectionView = collectionView
     }
     
+    func menu() {
+        print("menu")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionViewConfiguration()
         title = "Podcasts"
         guard let background = collectionView.backgroundView else { return }
-        
         CALayer.createGradientLayer(with: [UIColor.gray.cgColor, UIColor.darkGray.cgColor],
                                     layer: background.layer,
                                     bounds: collectionView.bounds)
@@ -59,4 +64,30 @@ class MediaCollectionViewController: BaseCollectionViewController {
             self.collectionView.reloadData()
         }
     }
+    
+    dynamic func popMenu() {
+        // sideMenuPop.popView.delegate = self
+        sideMenuPop.setupPop()
+        showSideMenu()
+        dump(sideMenuPop)
+        
+    }
+    
+    dynamic func hideSideMenu() {
+        // menuActive = .hidden
+        sideMenuPop.hideMenu(controller: self)
+    }
+    
+    dynamic func showSideMenu() {
+        hideKeyboardWhenTappedAround()
+        let tap = UITapGestureRecognizer(target: self, action: #selector(hideSideMenu))
+        view.addGestureRecognizer(tap)
+        collectionView.addGestureRecognizer(tap)
+        //  topView.addGestureRecognizer(tap)
+        UIView.animate(withDuration: 0.15) {
+            self.sideMenuPop.showPopView(viewController: self)
+            self.sideMenuPop.popView.isHidden = false
+        }
+    }
+
 }

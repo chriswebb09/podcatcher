@@ -1,14 +1,17 @@
 import UIKit
 
-class TabCoordinator: NavigationCoordinator {
+class FavoritesTabCoordinator: NavigationCoordinator {
     
-    var type: CoordinatorType = .tabbar
     weak var delegate: CoordinatorDelegate?
+    var type: CoordinatorType = .tabbar
     var dataSource: BaseMediaControllerDataSource!
+    
+    var childViewControllers: [UIViewController] = []
     var navigationController: UINavigationController
     
     required init(navigationController: UINavigationController) {
         self.navigationController = navigationController
+        self.childViewControllers = navigationController.viewControllers
     }
     
     convenience init(navigationController: UINavigationController, controller: UIViewController) {
@@ -17,14 +20,18 @@ class TabCoordinator: NavigationCoordinator {
     }
     
     func start() {
+        let favoritesController = navigationController.viewControllers[0] as! FavoritePodcastsViewController
+        favoritesController.delegate = self
+    }
+}
+
+extension FavoritesTabCoordinator: MediaControllerDelegate {
     
+    func logout(tapped: Bool) {
+        
     }
     
-    fileprivate func showMediaController(mediaCollectionController: MediaCollectionViewController) {
-        addChild(viewController: mediaCollectionController)
-    }
-    
-    func addChild(viewController: UIViewController) {
-        navigationController.viewControllers.append(viewController)
+    func didSelect(at index: Int) {
+        
     }
 }

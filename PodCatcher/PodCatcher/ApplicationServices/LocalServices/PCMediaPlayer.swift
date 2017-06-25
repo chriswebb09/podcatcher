@@ -2,7 +2,7 @@ import MediaPlayer
 
 class PCMediaPlayer {
     
-    var podcastsQuery: MPMediaQuery!
+    var podcastsQuery: MPMediaQuery = MPMediaQuery.podcasts()
     var casts = [String: Caster]()
     var casters = [Caster]()
     
@@ -16,28 +16,30 @@ class PCMediaPlayer {
             case .restricted:
                 return
             case .authorized:
+                
                 if let strongSelf = self {
-                    if strongSelf.podcastsQuery == nil {
-                        strongSelf.podcastsQuery = MPMediaQuery.podcasts()
+                  
+                    DispatchQueue.global().async {
+                        let itemCollection = strongSelf.getItemCollectionFrom(query: strongSelf.podcastsQuery)
+                        guard let newTest = strongSelf.getItemListsFrom(collection: itemCollection) else { return }
+                        strongSelf.getPodcastsFromMediaList(mediaLists: newTest)
+                        for (_ , n) in strongSelf.casts.enumerated() {
+                            print(n)
+                            strongSelf.casters.append(n.value)
+                        }
+                        DispatchQueue.main.async {
+                            completion(strongSelf.casts, strongSelf.casters)
+                        }
+                        
                     }
-                    let itemCollection = strongSelf.getItemCollectionFrom(query: strongSelf.podcastsQuery)
-                    guard let newTest = strongSelf.getItemListsFrom(collection: itemCollection) else { return }
-                    strongSelf.getPodcastsFromMediaList(mediaLists: newTest)
-                    for (_ , n) in strongSelf.casts.enumerated() {
-                        print(n)
-                        strongSelf.casters.append(n.value)
-                    }
-                    DispatchQueue.main.async {
-                        completion(strongSelf.casts, strongSelf.casters)
-                    }
+                    
                 }
             }
         }
     }
     
     func getItemCollectionFrom(query: MPMediaQuery) -> [MPMediaItemCollection]? {
-        guard let myPodcastsQuery = podcastsQuery else { return nil }
-        let podcasts = myPodcastsQuery.collections
+        let podcasts = podcastsQuery.collections
         return podcasts
     }
     

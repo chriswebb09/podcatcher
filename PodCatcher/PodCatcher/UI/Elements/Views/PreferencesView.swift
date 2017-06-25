@@ -33,10 +33,12 @@ class PreferencesView: UIView {
         moreButton.rightAnchor.constraint(equalTo: rightAnchor, constant: PreferencesViewConstants.moreButtonRightOffset).isActive = true
     }
     func moreButtonTapped() {
-        delegate?.moreButtonTapped(tapped: true)
+        print("More tapped")
+        delegate?.moreButton(tapped: true)
     }
     
     func addTagButtonTapped() {
-        delegate?.addTagButtonTapped(tapped: true)
+        print("tag tapped")
+        delegate?.addTagButton(tapped: true)
     }
 }

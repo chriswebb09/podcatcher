@@ -50,7 +50,6 @@ class StartCoordinator: NavigationCoordinator {
         startViewController.delegate = self
         addChild(viewController: startViewController)
         window.rootViewController = navigationController
-        navigationController.navigationBar.isHidden = true
         window.makeKeyAndVisible()
     }
     

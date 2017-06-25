@@ -35,6 +35,12 @@ extension MainCoordinator: CoordinatorDelegate {
             let mediaCoord = tabbBarCoordinator.childCoordinators[0] as! MediaTabCoordinator
             mediaCoord.delegate = self
             
+            let favoritesViewController = FavoritePodcastsViewController(dataSource: dataSource)
+            let favoritesTab = UINavigationController(rootViewController: favoritesViewController)
+            tabbBarCoordinator.setupFavoritesCoordinator(navigationController: favoritesTab, dataSource: dataSource)
+            let favoritesCoord = tabbBarCoordinator.childCoordinators[1] as! FavoritesTabCoordinator
+            favoritesCoord.delegate = self
+            
             let model = SettingsViewModel(firstSettingOptionText: "OptionOne", secondSettingOptionText: "OptionTwo")
             let settingsView = SettingsView(frame: CGRect.zero, model: model)
             let settingsViewController = SettingsViewController(settingsView: settingsView, dataSource: dataSource)
@@ -42,7 +48,7 @@ extension MainCoordinator: CoordinatorDelegate {
             
             tabbBarCoordinator.setupSettingsCoordinator(navigationController: settingsTab, dataSource: dataSource)
             tabbBarCoordinator.delegate = self
-            let settingsCoord = tabbBarCoordinator.childCoordinators[1] as! SettingsTabCoordinator
+            let settingsCoord = tabbBarCoordinator.childCoordinators[2] as! SettingsTabCoordinator
             settingsCoord.delegate = self
             
             appCoordinator = tabbBarCoordinator

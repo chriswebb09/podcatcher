@@ -60,6 +60,8 @@ final class LoginView: UIView {
     func configure(model: LoginViewModel) {
         self.model = model
         submitButton.isEnabled = true
+        emailField.text = "Link@link.com"
+        passwordField.text = "123456"
     }
     
     private func sharedLayout(view: UIView) {

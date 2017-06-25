@@ -1,6 +1,6 @@
 import UIKit
 
-final class MenuOptionView: UIView {
+final class SideMenuOptionView: UIView {
     
     private var optionLabel: UILabel = {
         let option = UILabel()

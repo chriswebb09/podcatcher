@@ -30,6 +30,13 @@ class TabBarCoordinator: TabControllerCoordinator, Coordinator {
         childCoordinators.append(tabCoordinator)
     }
     
+    func setupFavoritesCoordinator(navigationController: UINavigationController, dataSource: BaseMediaControllerDataSource) {
+        let tabCoordinator = FavoritesTabCoordinator(navigationController: navigationController)
+        tabCoordinator.start()
+        tabCoordinator.dataSource = dataSource
+        childCoordinators.append(tabCoordinator)
+    }
+    
     func setupMediaCoordinator(navigationController: UINavigationController, dataSource: BaseMediaControllerDataSource) {
         let tabCoordinator = MediaTabCoordinator(navigationController: navigationController)
         tabCoordinator.start()
@@ -43,7 +50,7 @@ class TabBarCoordinator: TabControllerCoordinator, Coordinator {
     }
     
     func setup() {
-        tabBarController.setTabTitles(controllers: [childCoordinators[0].navigationController, childCoordinators[1].navigationController])
+        tabBarController.setTabTitles(controllers: [childCoordinators[0].navigationController, childCoordinators[1].navigationController, childCoordinators[2].navigationController])
     }
 }
 

@@ -1,6 +1,6 @@
 import Foundation
 
 protocol TopViewDelegate: class {
-    func popBottomMenu(pop: Bool)
-    func entryPop(pop: Bool)
+    func popBottomMenu(popped: Bool)
+    func entryPop(popped: Bool)
 }

@@ -12,6 +12,7 @@ extension PodcastListViewController: PodcastCollectionViewProtocol {
         view.addSubview(topView)
         view.bringSubview(toFront: topView)
         setupView()
+        topView.delegate = self
     }
     
     func setupView() {
@@ -26,6 +27,7 @@ extension PodcastListViewController: PodcastCollectionViewProtocol {
             emptyView.layoutSubviews()
             view.addSubview(emptyView)
         }
+        topView.delegate = self
     }
 }
 
@@ -73,6 +75,9 @@ extension PodcastListViewController: UICollectionViewDelegate {
 extension PodcastListViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if dataSource.caster.assets.count > 0 {
+            viewShown = .collection
+        }
         return dataSource.collectionView(collectionView, numberOfItemsInSection: 0)
     }
     
@@ -98,11 +103,11 @@ extension PodcastListViewController: UICollectionViewDelegateFlowLayout {
 
 extension PodcastListViewController: TopViewDelegate {
     
-    func entryPop(pop: Bool) {
+    func entryPop(popped: Bool) {
         popEntry()
     }
     
-    func popBottomMenu(pop: Bool) {
+    func popBottomMenu(popped: Bool) {
         menuPop.popView.delegate = self
         menuPop.setupPop()
         showMenu()
@@ -115,16 +120,13 @@ extension PodcastListViewController: TopViewDelegate {
     
     func showMenu() {
         hideKeyboardWhenTappedAround()
-        if dataSource.user != nil {
-            let tap = UITapGestureRecognizer(target: self, action: #selector(hideMenu))
-            view.addGestureRecognizer(tap)
-            collectionView.addGestureRecognizer(tap)
-            topView.addGestureRecognizer(tap)
-            UIView.animate(withDuration: 0.15) { [weak self] in
-                guard let strongSelf = self else { return }
-                strongSelf.menuPop.showPopView(viewController: strongSelf)
-                strongSelf.menuPop.popView.isHidden = false
-            }
+        let tap = UITapGestureRecognizer(target: self, action: #selector(hideMenu))
+        view.addGestureRecognizer(tap)
+        collectionView.addGestureRecognizer(tap)
+        topView.addGestureRecognizer(tap)
+        UIView.animate(withDuration: 0.15) {
+            self.menuPop.showPopView(viewController: self)
+            self.menuPop.popView.isHidden = false
         }
     }
     

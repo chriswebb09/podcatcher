@@ -1,8 +1,13 @@
 import UIKit
 
-final class MenuView: UIView {
+final class SideMenuView: UIView {
     
     weak var delegate: MenuDelegate?
+    
+    private var backgroundView: UIView = {
+        let backgroundView = UIView()
+        return backgroundView
+    }()
     
     private var optionOneView: MenuOptionView = {
         let optionOne = MenuOptionView()
@@ -78,8 +83,8 @@ final class MenuView: UIView {
     private func sharedLayout(view: UIView) {
         addSubview(view)
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        view.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.9).isActive = true
+        view.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+        view.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5).isActive = true
         view.heightAnchor.constraint(equalTo: heightAnchor, multiplier: MenuViewConstants.sharedHeightMultiplier).isActive = true
     }
     
