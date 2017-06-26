@@ -2,6 +2,8 @@ import UIKit
 
 final class TracksViewController: BaseListViewController {
     
+    var items = [PodcastSearchResult]()
+    
     var buttonItem: UIBarButtonItem!
     
     let searchController = UISearchController(searchResultsController: nil)
@@ -26,8 +28,13 @@ final class TracksViewController: BaseListViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        hideKeyboardWhenTappedAround()
         searchController.delegate = self
-        // buttonItem = UIBarButtonItem(image: dataSource.image, style: .plain, target: self, action: #selector(navigationBarSetup))
+        collectionView.register(TrackCell.self)
+        collectionView.dataSource = self
+        collectionView.delegate = self
+       // collectionViewRegister(collectionView: collectionView, viewController: self, identifier: MediaCell.reuseIdentifier)
+        buttonItem = UIBarButtonItem(image: dataSource.image, style: .plain, target: self, action: #selector(navigationBarSetup))
         navigationItem.setRightBarButton(buttonItem, animated: false)
         setupSearchController()
     }
@@ -103,9 +110,10 @@ extension TracksViewController: UISearchControllerDelegate {
     
     func searchBarHasInput() {
         collectionView.reloadData()
+        dataSource.items.removeAll()
         dataSource.store.searchForTracks { [weak self] playlist, error in
             guard let playlist = playlist, let strongSelf = self else { return }
-            //strongSelf.dataSource.playlist = playlist
+            strongSelf.dataSource.items = playlist
             strongSelf.collectionView.reloadData()
             strongSelf.collectionView.performBatchUpdates ({
                 DispatchQueue.main.async {
@@ -118,6 +126,7 @@ extension TracksViewController: UISearchControllerDelegate {
             })
         }
     }
+
     
     func searchOnTextChange(text: String, store: TrackDataStore, navController: UINavigationController) {
         dataSource.store.setSearch(term: text)
@@ -142,12 +151,12 @@ extension TracksViewController: UISearchResultsUpdating {
     func updateSearchResultsForSearchController(searchController: UISearchController) {
         let searchString = searchController.searchBar.text
         if searchString != nil {
-           // dataSource.playlist.removeAll()
+            dataSource.items.removeAll()
             if let searchString = searchString {
                self.dataSource.store.setSearch(term: searchString)
                 self.dataSource.store.searchForTracks { [weak self] tracks, error in
                     guard let strongSelf = self, let tracks = tracks else { return }
-                    //strongSelf.dataSource.playlist = tracks
+                    strongSelf.dataSource.items = tracks
                 }
             }
         }
@@ -164,7 +173,7 @@ extension TracksViewController: UISearchResultsUpdating {
 extension TracksViewController: UISearchBarDelegate {
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        //dataSource.playlist.removeAll()
+        dataSource.items.removeAll()
         contentState = .none
         collectionView.reloadData()
         navigationItem.setRightBarButton(buttonItem, animated: false)

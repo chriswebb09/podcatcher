@@ -47,9 +47,10 @@ final class iTunesAPIClient: NSObject {
                 completion(.failed(error))
             } else {
                 do {
-                    let responseObject = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
+                    guard let responseObject = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any] else { return }
                     DispatchQueue.main.async {
-                        completion(.success(responseObject!))
+                        print(responseObject)
+                        completion(.success(responseObject))
                     }
                 } catch {
                     print(error.localizedDescription)

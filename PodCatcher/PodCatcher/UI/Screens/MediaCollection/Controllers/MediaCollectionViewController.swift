@@ -7,6 +7,8 @@ class MediaCollectionViewController: BaseCollectionViewController {
     weak var delegate: MediaControllerDelegate?
     var dataSource: MediaCollectionDataSource
     
+    var sideMenuPop = SideMenuPopover()
+    
     // MARK: - UI Properties
     
     var buttonItem: UIBarButtonItem!
@@ -27,10 +29,13 @@ class MediaCollectionViewController: BaseCollectionViewController {
         self.dataSource = mediaDataSource
         self.viewShown = self.dataSource.viewShown
         super.init(nibName: nil, bundle: nil)
+        
         if dataSource.user != nil {
             buttonItem = UIBarButtonItem(title: "Log Out", style: .done, target: self, action: #selector(logout))
             buttonItem.setTitleTextAttributes(MediaCollectionConstants.stringAttributes, for: .normal)
-            navigationItem.setRightBarButton(buttonItem, animated: false)
+            rightButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "menu-red"), style: .done, target: self, action: #selector(popBottomMenu(popped:)))
+            navigationItem.setRightBarButton(rightButtonItem, animated: false)
+            navigationItem.setLeftBarButton(buttonItem, animated: false)
         }
     }
     
@@ -54,8 +59,29 @@ class MediaCollectionViewController: BaseCollectionViewController {
                                     bounds: collectionView.bounds)
     }
     
+    func showMenu() {
+        hideKeyboardWhenTappedAround()
+        let tap = UITapGestureRecognizer(target: self, action: #selector(hideMenu))
+        view.addGestureRecognizer(tap)
+        collectionView.addGestureRecognizer(tap)
+        UIView.animate(withDuration: 0.15) {
+            self.sideMenuPop.showPopView(viewController: self)
+            self.sideMenuPop.popView.isHidden = false
+        }
+    }
+    
+    func popBottomMenu(popped: Bool) {
+        sideMenuPop.setupPop()
+        showMenu()
+    }
+    
+    func hideMenu() {
+        sideMenuPop.hideMenu(controller: self)
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tabBarController?.tabBar.isHidden = false
     }
 }
+

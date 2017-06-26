@@ -35,7 +35,10 @@ extension MainCoordinator: CoordinatorDelegate {
             let mediaCoord = tabbBarCoordinator.childCoordinators[0] as! MediaTabCoordinator
             mediaCoord.delegate = self
             
-            let favoritesViewController = FavoritePodcastsViewController(dataSource: dataSource)
+            var tracksDataStore = TrackDataStore()
+            let trackDataSource = ListControllerDataSource(store: tracksDataStore)
+            let favoritesViewController = TracksViewController(dataSource: trackDataSource)
+                ///FavoritePodcastsViewController(dataSource: dataSource)
             let favoritesTab = UINavigationController(rootViewController: favoritesViewController)
             tabbBarCoordinator.setupFavoritesCoordinator(navigationController: favoritesTab, dataSource: dataSource)
             let favoritesCoord = tabbBarCoordinator.childCoordinators[1] as! FavoritesTabCoordinator

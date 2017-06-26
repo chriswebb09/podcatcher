@@ -7,21 +7,25 @@ class TrackDataStore {
         searchTerm = term
     }
     
-    func searchForTracks(completion: @escaping (_ playlist: Playlist? , _ error: Error?) -> Void) {
+    func searchForTracks(completion: @escaping (_ results: [PodcastSearchResult]? , _ error: Error?) -> Void) {
+        var newResults = [PodcastSearchResult]()
         iTunesAPIClient.search(for: searchTerm) { response in
             switch response {
             case .success(let data):
-                let tracksData = data["results"] as! [[String: Any]]
-                let playlist: Playlist? = Playlist()
-                tracksData.forEach { data in
-                    let newItem: PlaylistItem? = PlaylistItem()
-                    playlist?.append(newPlaylistItem: newItem)
+                let resultsData = data["results"] as! [[String: Any]]
+                
+                resultsData.forEach { results in
+                    var newResult = PodcastSearchResult()
+                    let artUrl = results["artworkUrl600"] as? String
+                    newResult.podcastArtUrlString = artUrl
+                    newResults.append(newResult)
                 }
-                completion(playlist, nil)
+                
+                completion(newResults, nil)
+
             case .failed(let error):
                 completion(nil, error)
             }
         }
     }
-    
 }

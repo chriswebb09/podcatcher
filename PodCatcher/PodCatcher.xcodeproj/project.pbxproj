@@ -15,6 +15,11 @@
 		A708D9EA1EFF8C13004D927A /* SideMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A708D9E91EFF8C13004D927A /* SideMenuView.swift */; };
 		A708D9EC1EFF8C47004D927A /* SideMenuOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A708D9EB1EFF8C47004D927A /* SideMenuOptionView.swift */; };
 		A708D9EE1EFF8CB2004D927A /* SideMenuPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = A708D9ED1EFF8CB2004D927A /* SideMenuPopover.swift */; };
+		A71384BD1F006DF3003B9C9E /* SearchResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71384BC1F006DF3003B9C9E /* SearchResults.swift */; };
+		A71384BF1F00706F003B9C9E /* TrackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71384BE1F00706F003B9C9E /* TrackCell.swift */; };
+		A71384C11F00729E003B9C9E /* TrackCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71384C01F00729E003B9C9E /* TrackCellViewModel.swift */; };
+		A71384C31F0072C3003B9C9E /* TrackCellConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71384C21F0072C3003B9C9E /* TrackCellConstants.swift */; };
+		A71384C51F00A28A003B9C9E /* ListControllerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71384C41F00A28A003B9C9E /* ListControllerDataSource.swift */; };
 		A7150EB41EE621E600E3553F /* TabCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7150EB31EE621E600E3553F /* TabCoordinator.swift */; };
 		A7150EB91EE6270500E3553F /* TabControllerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7150EB81EE6270500E3553F /* TabControllerCoordinator.swift */; };
 		A7150EBB1EE62DF900E3553F /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7150EBA1EE62DF900E3553F /* PlayerView.swift */; };
@@ -261,6 +266,11 @@
 		A708D9E91EFF8C13004D927A /* SideMenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SideMenuView.swift; path = Popover/SideMenuView.swift; sourceTree = "<group>"; };
 		A708D9EB1EFF8C47004D927A /* SideMenuOptionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SideMenuOptionView.swift; path = Popover/SideMenuOptionView.swift; sourceTree = "<group>"; };
 		A708D9ED1EFF8CB2004D927A /* SideMenuPopover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SideMenuPopover.swift; path = Popover/SideMenuPopover.swift; sourceTree = "<group>"; };
+		A71384BC1F006DF3003B9C9E /* SearchResults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResults.swift; sourceTree = "<group>"; };
+		A71384BE1F00706F003B9C9E /* TrackCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TrackCell.swift; path = AddPodcasts/TrackCell.swift; sourceTree = "<group>"; };
+		A71384C01F00729E003B9C9E /* TrackCellViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TrackCellViewModel.swift; path = AddPodcasts/TrackCellViewModel.swift; sourceTree = "<group>"; };
+		A71384C21F0072C3003B9C9E /* TrackCellConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TrackCellConstants.swift; path = AddPodcasts/TrackCellConstants.swift; sourceTree = "<group>"; };
+		A71384C41F00A28A003B9C9E /* ListControllerDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ListControllerDataSource.swift; path = AddPodcasts/ListControllerDataSource.swift; sourceTree = "<group>"; };
 		A7150EB31EE621E600E3553F /* TabCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabCoordinator.swift; sourceTree = "<group>"; };
 		A7150EB81EE6270500E3553F /* TabControllerCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabControllerCoordinator.swift; sourceTree = "<group>"; };
 		A7150EBA1EE62DF900E3553F /* PlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
@@ -727,6 +737,7 @@
 				A731727C1F00450B006A6A24 /* Playlist.swift */,
 				A731728E1F00496D006A6A24 /* Download */,
 				A73172821F004883006A6A24 /* PlaylistItem.swift */,
+				A71384BC1F006DF3003B9C9E /* SearchResults.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -734,6 +745,7 @@
 		A7252A791EFF23CE0034EA93 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				A73172921F004AB1006A6A24 /* BaseListViewController.swift */,
 				A77EDF731EE5FDE5001A24E5 /* BaseMediaCollectionDataSource.swift */,
 				A7B8C3961EF6E18E001AFFA1 /* BaseCollectionViewController.swift */,
 				A7B8C3971EF6E18E001AFFA1 /* BaseViewController.swift */,
@@ -779,7 +791,6 @@
 			isa = PBXGroup;
 			children = (
 				A731728F1F004A61006A6A24 /* AddPodcastsViewController.swift */,
-				A73172921F004AB1006A6A24 /* BaseListViewController.swift */,
 				A7754E791F0060390076029E /* TrackDataStore.swift */,
 				A7754E7B1F0060D10076029E /* TrackContentState.swift */,
 				A7754E7D1F0060FC0076029E /* TrackStateProtocol.swift */,
@@ -787,6 +798,10 @@
 				A7754E811F00615A0076029E /* TracksDataSourceProtocol.swift */,
 				A7754E831F0061870076029E /* TrackCellCollectionProtocol.swift */,
 				A7754E851F0061B40076029E /* OpenPlayerProtocol.swift */,
+				A71384BE1F00706F003B9C9E /* TrackCell.swift */,
+				A71384C21F0072C3003B9C9E /* TrackCellConstants.swift */,
+				A71384C01F00729E003B9C9E /* TrackCellViewModel.swift */,
+				A71384C41F00A28A003B9C9E /* ListControllerDataSource.swift */,
 			);
 			name = AddPodcastsViewController;
 			sourceTree = "<group>";
@@ -1804,6 +1819,7 @@
 				A77EDF741EE5FDE5001A24E5 /* BaseMediaCollectionDataSource.swift in Sources */,
 				A73D743A1EE68890004571A5 /* CreateAccountViewDelegate.swift in Sources */,
 				A77EDF5F1EE5FB83001A24E5 /* MediaCellModelerProtocol.swift in Sources */,
+				A71384BF1F00706F003B9C9E /* TrackCell.swift in Sources */,
 				A73172811F00466C006A6A24 /* LocalStorageManager.swift in Sources */,
 				A77EDF671EE5FC38001A24E5 /* UILabel+Extension.swift in Sources */,
 				A77EDF7E1EE5FFE9001A24E5 /* CALayerConstants.swift in Sources */,
@@ -1815,6 +1831,7 @@
 				A73D74181EE68704004571A5 /* LoginViewModel.swift in Sources */,
 				A7150EBF1EE62E0D00E3553F /* PlayerViewDelegate.swift in Sources */,
 				A7150EE91EE6571200E3553F /* PodcastCellModel.swift in Sources */,
+				A71384C51F00A28A003B9C9E /* ListControllerDataSource.swift in Sources */,
 				A7EBA0B91EE6815300FAAC9C /* MenuView.swift in Sources */,
 				A73DA4191EE898BB0053276E /* LoginViewController+Extension.swift in Sources */,
 				A776D1471EE8CD4900400EB4 /* TopViewDelegate.swift in Sources */,
@@ -1858,6 +1875,7 @@
 				A77EDF611EE5FBA0001A24E5 /* MediaCellViewModel.swift in Sources */,
 				A7FFD4BE1EEF41E400853480 /* PodCatcherUserFavorites.swift in Sources */,
 				A7FFD4D51EEF6DBF00853480 /* UpdateAccountViewDelegate.swift in Sources */,
+				A71384BD1F006DF3003B9C9E /* SearchResults.swift in Sources */,
 				A723A5BF1EE94772002E49BF /* DetailPopoverConstants.swift in Sources */,
 				A731728C1F004964006A6A24 /* DownloadDelegate.swift in Sources */,
 				A723A5AB1EE935FC002E49BF /* CreatAccountViewController+Extension.swift in Sources */,
@@ -1919,6 +1937,7 @@
 				A7A54EA51EE7133C009A5538 /* EntryFieldConstants.swift in Sources */,
 				A7EBA0CA1EE6836400FAAC9C /* NSError+Extension.swift in Sources */,
 				A71B27251EE5D28600613CF4 /* TabBarCoordinator.swift in Sources */,
+				A71384C31F0072C3003B9C9E /* TrackCellConstants.swift in Sources */,
 				A7754E861F0061B40076029E /* OpenPlayerProtocol.swift in Sources */,
 				A7BD12CE1EFF78AB0040FAE5 /* iTunesAPIClient.swift in Sources */,
 				A71853021EE9584E00911C87 /* BaseMenuPopover.swift in Sources */,
@@ -1984,6 +2003,7 @@
 				A708D9EE1EFF8CB2004D927A /* SideMenuPopover.swift in Sources */,
 				A71B27331EE5D80F00613CF4 /* SplashViewController.swift in Sources */,
 				A7EBA0C01EE6828A00FAAC9C /* BasePopConstants.swift in Sources */,
+				A71384C11F00729E003B9C9E /* TrackCellViewModel.swift in Sources */,
 				A73D743F1EE688E6004571A5 /* SettingsViewDelegate.swift in Sources */,
 				A744140D1EFFD8A90075B585 /* Response.swift in Sources */,
 				A7AA09CF1EF27EB9003A8F8A /* UpdateAccountView+Extension.swift in Sources */,

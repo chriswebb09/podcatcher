@@ -2,9 +2,9 @@ import UIKit
 
 class BaseListViewController: UIViewController {
     
-    var dataSource: TracksDataSource
+    var dataSource: ListControllerDataSource
     
-    init(dataSource: TracksDataSource) {
+    init(dataSource: ListControllerDataSource) {
         self.dataSource = dataSource
         super.init(nibName: nil, bundle: nil)
     }
@@ -67,7 +67,7 @@ extension BaseListViewController: TrackCellCollectionProtocol {
 extension BaseListViewController: UICollectionViewDelegate, OpenPlayerProtocol {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 0
+        return dataSource.count
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -80,8 +80,7 @@ extension BaseListViewController: UICollectionViewDelegate, OpenPlayerProtocol {
 extension BaseListViewController:  UICollectionViewDataSource  {
     
     @objc(collectionView:cellForItemAtIndexPath:) func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return UICollectionViewCell()
-        
+        return dataSource.cellInstance(collectionView: collectionView, indexPath: indexPath)
     }
 }
 

@@ -20,8 +20,8 @@ class FavoritesTabCoordinator: NavigationCoordinator {
     }
     
     func start() {
-        let favoritesController = navigationController.viewControllers[0] as! FavoritePodcastsViewController
-        favoritesController.delegate = self
+        let favoritesController = navigationController.viewControllers[0] as! TracksViewController
+        //favoritesController.delegate = self
     }
 }
 
