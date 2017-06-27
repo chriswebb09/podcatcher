@@ -61,6 +61,7 @@
 		A71A5BBC1F02137100254BE2 /*  SearchResultListViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71A5BBB1F02137100254BE2 /*  SearchResultListViewController+Extension.swift */; };
 		A71A5BBE1F02141C00254BE2 /* ResultsParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71A5BBD1F02141C00254BE2 /* ResultsParser.swift */; };
 		A71A5BC01F02178800254BE2 /* SearchViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71A5BBF1F02178800254BE2 /* SearchViewControllerDelegate.swift */; };
+		A71A5BC21F0217D100254BE2 /* SearchViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71A5BC11F0217D100254BE2 /* SearchViewController+Extension.swift */; };
 		A71B26F21EE5D24700613CF4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71B26F11EE5D24700613CF4 /* AppDelegate.swift */; };
 		A71B26FA1EE5D24700613CF4 /* PodCatcher.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A71B26F81EE5D24700613CF4 /* PodCatcher.xcdatamodeld */; };
 		A71B26FC1EE5D24700613CF4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A71B26FB1EE5D24700613CF4 /* Assets.xcassets */; };
@@ -114,7 +115,7 @@
 		A731728B1F004964006A6A24 /* Download.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73172881F004963006A6A24 /* Download.swift */; };
 		A731728C1F004964006A6A24 /* DownloadDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73172891F004963006A6A24 /* DownloadDelegate.swift */; };
 		A731728D1F004964006A6A24 /* DownloadStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = A731728A1F004963006A6A24 /* DownloadStatus.swift */; };
-		A73172901F004A61006A6A24 /* AddPodcastsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A731728F1F004A61006A6A24 /* AddPodcastsViewController.swift */; };
+		A73172901F004A61006A6A24 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A731728F1F004A61006A6A24 /* SearchViewController.swift */; };
 		A73172931F004AB1006A6A24 /* BaseListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73172921F004AB1006A6A24 /* BaseListViewController.swift */; };
 		A73D74091EE684C4004571A5 /* LoadingPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73D74081EE684C4004571A5 /* LoadingPopover.swift */; };
 		A73D740B1EE684DD004571A5 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73D740A1EE684DD004571A5 /* LoadingView.swift */; };
@@ -320,6 +321,7 @@
 		A71A5BBB1F02137100254BE2 /*  SearchResultListViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = " SearchResultListViewController+Extension.swift"; path = "SearchResult/ SearchResultListViewController+Extension.swift"; sourceTree = "<group>"; };
 		A71A5BBD1F02141C00254BE2 /* ResultsParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ResultsParser.swift; path = SearchResult/ResultsParser.swift; sourceTree = "<group>"; };
 		A71A5BBF1F02178800254BE2 /* SearchViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchViewControllerDelegate.swift; path = AddPodcasts/SearchViewControllerDelegate.swift; sourceTree = "<group>"; };
+		A71A5BC11F0217D100254BE2 /* SearchViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "SearchViewController+Extension.swift"; path = "AddPodcasts/SearchViewController+Extension.swift"; sourceTree = "<group>"; };
 		A71B26EE1EE5D24700613CF4 /* PodCatcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PodCatcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A71B26F11EE5D24700613CF4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A71B26F91EE5D24700613CF4 /* PodCatcher.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PodCatcher.xcdatamodel; sourceTree = "<group>"; };
@@ -382,7 +384,7 @@
 		A73172881F004963006A6A24 /* Download.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Download.swift; path = Download/Download.swift; sourceTree = "<group>"; };
 		A73172891F004963006A6A24 /* DownloadDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DownloadDelegate.swift; path = Download/DownloadDelegate.swift; sourceTree = "<group>"; };
 		A731728A1F004963006A6A24 /* DownloadStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DownloadStatus.swift; path = Download/DownloadStatus.swift; sourceTree = "<group>"; };
-		A731728F1F004A61006A6A24 /* AddPodcastsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddPodcastsViewController.swift; path = AddPodcasts/AddPodcastsViewController.swift; sourceTree = "<group>"; };
+		A731728F1F004A61006A6A24 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchViewController.swift; path = AddPodcasts/SearchViewController.swift; sourceTree = "<group>"; };
 		A73172921F004AB1006A6A24 /* BaseListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseListViewController.swift; path = AddPodcasts/BaseListViewController.swift; sourceTree = "<group>"; };
 		A73D74081EE684C4004571A5 /* LoadingPopover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingPopover.swift; sourceTree = "<group>"; };
 		A73D740A1EE684DD004571A5 /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
@@ -826,7 +828,8 @@
 		A73172911F004A67006A6A24 /* SearchViewController */ = {
 			isa = PBXGroup;
 			children = (
-				A731728F1F004A61006A6A24 /* AddPodcastsViewController.swift */,
+				A731728F1F004A61006A6A24 /* SearchViewController.swift */,
+				A71A5BC11F0217D100254BE2 /* SearchViewController+Extension.swift */,
 				A7754E791F0060390076029E /* TrackDataStore.swift */,
 				A7754E7B1F0060D10076029E /* TrackContentState.swift */,
 				A7754E7D1F0060FC0076029E /* TrackStateProtocol.swift */,
@@ -2009,7 +2012,7 @@
 				A72597911EF1AC5500179301 /* GuestUserView.swift in Sources */,
 				A71853041EE958A900911C87 /* MenuViewConstants.swift in Sources */,
 				A71B272B1EE5D4B800613CF4 /* TabBarController.swift in Sources */,
-				A73172901F004A61006A6A24 /* AddPodcastsViewController.swift in Sources */,
+				A73172901F004A61006A6A24 /* SearchViewController.swift in Sources */,
 				A7EBA0CC1EE683C900FAAC9C /* BallAnimation.swift in Sources */,
 				A7150EB91EE6270500E3553F /* TabControllerCoordinator.swift in Sources */,
 				A71A5BBC1F02137100254BE2 /*  SearchResultListViewController+Extension.swift in Sources */,
@@ -2052,6 +2055,7 @@
 				A744140D1EFFD8A90075B585 /* Response.swift in Sources */,
 				A7AA09CF1EF27EB9003A8F8A /* UpdateAccountView+Extension.swift in Sources */,
 				A7AA09D31EF2DB5A003A8F8A /* MainCoordinator+Extension.swift in Sources */,
+				A71A5BC21F0217D100254BE2 /* SearchViewController+Extension.swift in Sources */,
 				A7252A891EFF29F40034EA93 /* PreferencesView.swift in Sources */,
 				A7754E7E1F0060FC0076029E /* TrackStateProtocol.swift in Sources */,
 				A7FFD4CB1EEF600200853480 /* SettingsTabCoordinator.swift in Sources */,
