@@ -33,9 +33,21 @@ extension FavoritesTabCoordinator: SearchViewControllerDelegate {
     }
     
     func didSelect(at index: Int) {
+        print("INDEX")
+        print(index)
+        dump(trackListDataSource.items)
         var item = trackListDataSource.items[index]
         let resultsList = SearchResultListViewController(index: index)
         resultsList.item = item as! CasterSearchResult
+        guard let feedUrlString = resultsList.item.feedUrl else { return }
+        print(feedUrlString)
+        RSSFeedAPIClient.requestFeed(for: feedUrlString) { response in
+            guard let items = response.0 else { return }
+            resultsList.newItems = items
+            DispatchQueue.main.async {
+                resultsList.collectionView.reloadData()
+            }
+        }
         navigationController.viewControllers.append(resultsList)
     }
 }

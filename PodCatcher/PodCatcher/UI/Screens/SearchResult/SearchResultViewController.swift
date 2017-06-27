@@ -11,7 +11,8 @@ class SearchResultListViewController: BaseCollectionViewController {
     let entryPop = EntryPopover()
     var topView = PodcastListTopView()
     var menuPop = BottomMenuPopover()
-    
+    var sideMenuPop = SideMenuPopover()
+
     var viewShown: ShowView {
         didSet {
             switch viewShown {
@@ -41,22 +42,10 @@ class SearchResultListViewController: BaseCollectionViewController {
         background.frame = view.frame
         view.addSubview(background)
         emptyView.alpha = 0
+        edgesForExtendedLayout = []
         topView.delegate = self
         view.sendSubview(toBack: background)
         collectionView.register(PodcastResultCell.self)
-        guard let feedUrlString = item.feedUrl else { return }
-        RSSFeedAPIClient.requestFeed(for: feedUrlString) { response in
-            guard let items = response.0 else { return }
-            self.newItems = items
-            dump(items)
-            DispatchQueue.main.async {
-                self.collectionView.reloadData()
-            }
-            print(response.0?.count)
-//            for (i, n) in response.enumerated() {
-//                
-//            }
-        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -69,4 +58,6 @@ class SearchResultListViewController: BaseCollectionViewController {
         }
     }
 }
+
+
 

@@ -1,0 +1,56 @@
+import Foundation
+
+class RSSParser: NSObject {
+    
+    
+    let recordKey = "item"
+    let dictionaryKeys = ["itunes:summary", "tunes:subtitle", "enclosure", "itunes:duration", "title"]
+    
+    var results = [[String: String]]()
+    var currentDictionary: [String: String]!
+    var currentValue: String?
+    
+    
+    func parseResponse(data: Data, completion: @escaping ([[String: String]]) -> Void) {
+        let parser = XMLParser(data: data)
+        parser.delegate = self
+        if parser.parse() {
+            completion(self.results)
+        }
+    }
+}
+
+extension RSSParser: XMLParserDelegate {
+    
+    func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
+        if elementName == recordKey {
+            currentDictionary = [String : String]()
+        } else if elementName == "enclosure" {
+            if currentDictionary == nil {
+                currentDictionary = [String : String]()
+            }
+            currentDictionary["audio"] = attributeDict["url"]
+        } else if dictionaryKeys.contains(elementName) {
+            currentValue = ""
+        }
+    }
+    
+    func parser(_ parser: XMLParser, foundCharacters string: String) {
+        currentValue? += string
+    }
+    
+    func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
+        if elementName == "enclosure" {
+            print(elementName)
+            currentValue = nil
+            return
+        }
+        if elementName == recordKey {
+            results.append(currentDictionary)
+            currentDictionary = nil
+        } else if dictionaryKeys.contains(elementName) && currentDictionary != nil {
+            currentDictionary[elementName] = currentValue
+            currentValue = nil
+        }
+    }
+}

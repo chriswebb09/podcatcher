@@ -49,6 +49,7 @@ class PodcastResultCell: UICollectionViewCell {
         contentView.addSubview(colorBackgroundView)
         contentView.sendSubview(toBack: colorBackgroundView)
         podcastTitleLabel.text = model.podcastTitle
+        playTimeLabel.text = model.playtimeLabel
     }
     
     func setupConstraints() {

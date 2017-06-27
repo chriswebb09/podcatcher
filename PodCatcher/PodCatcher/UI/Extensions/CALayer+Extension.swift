@@ -7,9 +7,6 @@ extension CALayer {
         line.frame = CGRect(x: 0, y: frame.height - 1, width: frame.width, height: 1)
         line.backgroundColor = color.cgColor
         return line
-//        var bottomLine = CALayer()
-//        bottomLine.frame = CGRectMake(0.0, myTextField.frame.height - 1, myTextField.frame.width, 1.0)
-//        bottomLine.backgroundColor = UIColor.whiteColor().CGColor
     }
     
     func setCellShadow(contentView: UIView) {
@@ -40,7 +37,14 @@ extension CALayer {
         gradientLayer.frame = bounds
         gradientLayer.colors = colors 
         layer.addSublayer(gradientLayer)
-        
+    }
+    
+    
+    static func buildGradientLayer(with colors: [CGColor], layer: CALayer, bounds: CGRect) -> CAGradientLayer {
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = bounds
+        gradientLayer.colors = colors
+        return gradientLayer
     }
     
     func podcastCell(viewRadius: CGFloat) {
