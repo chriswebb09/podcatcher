@@ -6,7 +6,7 @@ class SearchResultListViewController: BaseCollectionViewController {
     var state: PodcasterControlState = .toCollection
     
     weak var delegate: PodcastListViewControllerDelegate?
-    
+    var newItems = [[String:String]]()
     var menuActive: MenuActive = .none
     let entryPop = EntryPopover()
     var topView = PodcastListTopView()
@@ -25,7 +25,6 @@ class SearchResultListViewController: BaseCollectionViewController {
     
     init(index: Int) {
         self.viewShown = .collection
-        
         super.init(nibName: nil, bundle: nil)
         self.topView.delegate = self
     }
@@ -45,6 +44,19 @@ class SearchResultListViewController: BaseCollectionViewController {
         topView.delegate = self
         view.sendSubview(toBack: background)
         collectionView.register(PodcastResultCell.self)
+        guard let feedUrlString = item.feedUrl else { return }
+        RSSFeedAPIClient.requestFeed(for: feedUrlString) { response in
+            guard let items = response.0 else { return }
+            self.newItems = items
+            dump(items)
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+            print(response.0?.count)
+//            for (i, n) in response.enumerated() {
+//                
+//            }
+        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {

@@ -6,7 +6,7 @@ class ListControllerDataSource: TracksDataSource {
         return items.count
     }
     
-    var image = #imageLiteral(resourceName: "search-button").withRenderingMode(.alwaysOriginal)
+    var image = #imageLiteral(resourceName: "search-button").withRenderingMode(.alwaysTemplate)
     var items = [PodcastSearchResult]()
     var store: TrackDataStore
     

@@ -68,15 +68,18 @@ extension SearchResultListViewController: UICollectionViewDelegate {
 extension SearchResultListViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return item.episodes.count
+        return newItems.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as PodcastResultCell
-        
-        let model = PodcastResultCellViewModel(podcastTitle: item.episodes[indexPath.row].title)
-        cell.configureCell(model: model)
-        
+        if let title = newItems[indexPath.row]["itunes:subtitle"] {
+            DispatchQueue.main.async {
+                let model = PodcastResultCellViewModel(podcastTitle: title)
+                cell.configureCell(model: model)
+            }
+            
+        }
         return cell
     }
 }

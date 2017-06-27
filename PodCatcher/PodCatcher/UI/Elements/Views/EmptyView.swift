@@ -2,18 +2,25 @@ import UIKit
 
 final class EmptyView: UIView {
     
-    private var infoLabel: UILabel = UILabel.setupInfoLabel(infoText: "No Podcasts Have Been Added")
+    private var infoLabel: UILabel = {
+        var label = UILabel.setupInfoLabel(infoText: "No Podcasts Have Been Added")
+        label.textColor = .mainColor
+        return label
+    }()
     
     private var musicIcon: UIImageView = {
         var musicIcon = UIImageView()
-        musicIcon.image = #imageLiteral(resourceName: "headphones-blue")
+        musicIcon.image = #imageLiteral(resourceName: "headphones-blue").withRenderingMode(.alwaysTemplate)
+        musicIcon.tintColor = .mainColor
         return musicIcon
     }()
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        CALayer.createGradientLayer(with: [UIColor.white.cgColor, UIColor.lightGray.cgColor],
+                                    layer: layer,
+                                    bounds: bounds)
         setup(musicIcon: musicIcon)
-        backgroundColor = .white
         setup(infoLabel: infoLabel)
     }
     

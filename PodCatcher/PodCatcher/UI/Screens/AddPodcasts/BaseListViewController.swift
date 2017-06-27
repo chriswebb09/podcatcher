@@ -69,28 +69,3 @@ extension BaseListViewController: UICollectionViewDelegate, OpenPlayerProtocol {
         delegate?.didSelect(at: indexPath.row)
     }
 }
-
-//extension BaseListViewController:  UICollectionViewDataSource  {
-//    
-//    @objc(collectionView:cellForItemAtIndexPath:) func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//      
-//        let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as TrackCell
-//        //cell.alpha = 0
-//        cell.setAlpha()
-//        if let urlString = dataSource.items[indexPath.row].podcastArtUrlString, let url = URL(string: urlString) {
-//            let cellViewModel = TrackCellViewModel(albumImageUrl: url)
-//            DispatchQueue.main.async {
-//                 cell.alpha = 0
-//            }
-//           
-//            cell.configureCell(with: cellViewModel, withTime: (Double(indexPath.row) * 0.1))
-//        }
-////        UIView.animate(withDuration: (Double(indexPath.row) * 0.1)) {
-////
-////            cell.alpha = 1
-////        }
-//        return cell
-//        //return dataSource.cellInstance(collectionView: collectionView, indexPath: indexPath)
-//    }
-//}
-

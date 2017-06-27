@@ -27,6 +27,7 @@ final class SearchViewController: BaseListViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Search"
         navigationController?.navigationBar.backgroundColor = .white
         edgesForExtendedLayout = [.bottom, .top, .left, .right, .all]
         searchController.delegate = self
@@ -34,12 +35,13 @@ final class SearchViewController: BaseListViewController {
         collectionView.dataSource = self
         collectionView.delegate = self
         buttonItem = UIBarButtonItem(image: dataSource.image, style: .plain, target: self, action: #selector(navigationBarSetup))
+        buttonItem.tintColor = .mainColor
         navigationItem.setRightBarButton(buttonItem, animated: false)
         setupSearchController()
-        CALayer.createGradientLayer(with: [UIColor.gray.cgColor, UIColor.darkGray.cgColor],
+        CALayer.createGradientLayer(with: [UIColor.white.cgColor, UIColor.lightGray.cgColor],
                                     layer: view.layer,
                                     bounds: collectionView.bounds)
-        collectionView.backgroundColor = .darkGray
+        collectionView.backgroundColor = .lightGray
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -87,8 +89,8 @@ extension SearchViewController: UICollectionViewDataSource {
         if let urlString = dataSource.items[indexPath.row].podcastArtUrlString, let url = URL(string: urlString) {
             let cellViewModel = TrackCellViewModel(albumImageUrl: url)
             cell.configureCell(with: cellViewModel, withTime: 0)
-            DispatchQueue.main.asyncAfter(deadline: .now() + (Double(indexPath.row) * 0.1)) {
-                UIView.animate(withDuration: (Double(indexPath.row) * 0.2)) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + rowTime) {
+                UIView.animate(withDuration: rowTime) {
                     cell.alpha = 1
                 }
             }
@@ -98,7 +100,7 @@ extension SearchViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as TrackCell
         cell.alpha = 0
-        let rowTime = (Double(indexPath.row % 5)) / 10
+        let rowTime = (Double(indexPath.row % 5)) / 8
         setTrackCell(indexPath: indexPath, cell: cell, rowTime: rowTime)
         return cell
     }

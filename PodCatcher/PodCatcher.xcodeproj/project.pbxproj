@@ -223,6 +223,7 @@
 		A7E45F831F02388A0063AC0F /* TermSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7E45F821F02388A0063AC0F /* TermSearchResult.swift */; };
 		A7E45F851F02392C0063AC0F /* URLRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7E45F841F02392C0063AC0F /* URLRouter.swift */; };
 		A7E45F871F0239480063AC0F /* URLConstructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7E45F861F0239480063AC0F /* URLConstructor.swift */; };
+		A7E45F891F025D690063AC0F /* RSSFeedAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7E45F881F025D690063AC0F /* RSSFeedAPI.swift */; };
 		A7EBA09A1EE672A700FAAC9C /* UserDataAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EBA0991EE672A700FAAC9C /* UserDataAPIClient.swift */; };
 		A7EBA0A11EE6739000FAAC9C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EBA0A01EE6739000FAAC9C /* LoginView.swift */; };
 		A7EBA0A31EE673AA00FAAC9C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EBA0A21EE673AA00FAAC9C /* LoginViewController.swift */; };
@@ -497,6 +498,7 @@
 		A7E45F821F02388A0063AC0F /* TermSearchResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermSearchResult.swift; sourceTree = "<group>"; };
 		A7E45F841F02392C0063AC0F /* URLRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLRouter.swift; sourceTree = "<group>"; };
 		A7E45F861F0239480063AC0F /* URLConstructor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLConstructor.swift; sourceTree = "<group>"; };
+		A7E45F881F025D690063AC0F /* RSSFeedAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSSFeedAPI.swift; sourceTree = "<group>"; };
 		A7EBA0991EE672A700FAAC9C /* UserDataAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDataAPIClient.swift; sourceTree = "<group>"; };
 		A7EBA0A01EE6739000FAAC9C /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		A7EBA0A21EE673AA00FAAC9C /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -1387,6 +1389,7 @@
 				A7905B051EEF779500199246 /* UpdateData.swift */,
 				A7905B071EEF77C800199246 /* PullData.swift */,
 				A7BD12CD1EFF78AB0040FAE5 /* iTunesAPIClient.swift */,
+				A7E45F881F025D690063AC0F /* RSSFeedAPI.swift */,
 				A744140C1EFFD8A90075B585 /* Response.swift */,
 				A71640391EFFDB6300895082 /* ReachabilityNotification.swift */,
 				A7E45F841F02392C0063AC0F /* URLRouter.swift */,
@@ -2027,6 +2030,7 @@
 				A71A5BBA1F02134D00254BE2 /* PodcastResultsCellViewModel.swift in Sources */,
 				A77EDF5D1EE5FB5F001A24E5 /* ReusableProtocol.swift in Sources */,
 				A71BFB881EE6F62B00A35D8E /* UnderLineTextField.swift in Sources */,
+				A7E45F891F025D690063AC0F /* RSSFeedAPI.swift in Sources */,
 				A71B27391EE5DA7E00613CF4 /* SplashViewDelegate.swift in Sources */,
 				A72597911EF1AC5500179301 /* GuestUserView.swift in Sources */,
 				A71853041EE958A900911C87 /* MenuViewConstants.swift in Sources */,
