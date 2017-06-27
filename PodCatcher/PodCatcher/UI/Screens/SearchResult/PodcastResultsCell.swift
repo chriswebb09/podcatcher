@@ -1,4 +1,3 @@
-
 import UIKit
 
 class PodcastResultCell: UICollectionViewCell {
@@ -66,9 +65,3 @@ class PodcastResultCell: UICollectionViewCell {
         playTimeLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
     }
 }
-
-
-
-
-
-

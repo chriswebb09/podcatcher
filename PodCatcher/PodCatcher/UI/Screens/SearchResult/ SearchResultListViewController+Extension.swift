@@ -27,7 +27,30 @@ extension SearchResultListViewController: PodcastCollectionViewProtocol {
 // MARK: - UIScrollViewDelegate
 
 extension SearchResultListViewController: UIScrollViewDelegate {
-    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offset = scrollView.contentOffset
+        let updatedTopViewFrame = CGRect(x: 0, y: 0, width: PodcastListConstants.topFrameWidth, height: PodcastListConstants.topFrameHeight / 1.2)
+        // let updatedTopViewFrame = dataSource.updatedTopViewFrame
+        if offset.y > PodcastListConstants.minimumOffset {
+            UIView.animate(withDuration: 0.5) {
+                self.topView.removeFromSuperview()
+                self.topView.alpha = 0
+                self.collectionView.frame = self.view.bounds
+            }
+        } else {
+            UIView.animate(withDuration: 0.15) {
+                self.topView.frame = updatedTopViewFrame
+                self.topView.alpha = 1
+                //  self.topView.podcastImageView.image = self.dataSource.caster.artwork
+                self.topView.layoutSubviews()
+                self.view.addSubview(self.topView)
+                self.collectionView.frame = CGRect(x: self.topView.bounds.minX,
+                                                   y: self.topView.frame.maxY,
+                                                   width: self.view.bounds.width,
+                                                   height: self.view.bounds.height)
+            }
+        }
+    }
     
 }
 
@@ -121,7 +144,7 @@ extension SearchResultListViewController: TopViewDelegate {
 extension SearchResultListViewController: MenuDelegate {
     
     func optionOneTapped() {
-        
+        // Implement
     }
     
     func optionTwoTapped() {
