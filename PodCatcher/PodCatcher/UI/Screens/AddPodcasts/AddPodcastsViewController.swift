@@ -1,20 +1,10 @@
 import UIKit
 
-protocol SearchViewControllerDelegate: class {
-    func didSelect(at index: Int)
-    func logout(tapped: Bool)
-}
-
 final class SearchViewController: BaseListViewController {
     
     var items = [PodcastSearchResult]()
-    
     var segmentControl = UISegmentedControl()
-    
     var buttonItem: UIBarButtonItem!
-    
-   
-    
     let searchController = UISearchController(searchResultsController: nil)
     
     fileprivate var searchBar = UISearchBar() {
@@ -191,4 +181,3 @@ extension SearchViewController: UISearchBarDelegate {
         searchBarActive = false
     }
 }
-

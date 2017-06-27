@@ -60,6 +60,7 @@
 		A71A5BBA1F02134D00254BE2 /* PodcastResultsCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71A5BB91F02134D00254BE2 /* PodcastResultsCellViewModel.swift */; };
 		A71A5BBC1F02137100254BE2 /*  SearchResultListViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71A5BBB1F02137100254BE2 /*  SearchResultListViewController+Extension.swift */; };
 		A71A5BBE1F02141C00254BE2 /* ResultsParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71A5BBD1F02141C00254BE2 /* ResultsParser.swift */; };
+		A71A5BC01F02178800254BE2 /* SearchViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71A5BBF1F02178800254BE2 /* SearchViewControllerDelegate.swift */; };
 		A71B26F21EE5D24700613CF4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71B26F11EE5D24700613CF4 /* AppDelegate.swift */; };
 		A71B26FA1EE5D24700613CF4 /* PodCatcher.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A71B26F81EE5D24700613CF4 /* PodCatcher.xcdatamodeld */; };
 		A71B26FC1EE5D24700613CF4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A71B26FB1EE5D24700613CF4 /* Assets.xcassets */; };
@@ -318,6 +319,7 @@
 		A71A5BB91F02134D00254BE2 /* PodcastResultsCellViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PodcastResultsCellViewModel.swift; path = SearchResult/PodcastResultsCellViewModel.swift; sourceTree = "<group>"; };
 		A71A5BBB1F02137100254BE2 /*  SearchResultListViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = " SearchResultListViewController+Extension.swift"; path = "SearchResult/ SearchResultListViewController+Extension.swift"; sourceTree = "<group>"; };
 		A71A5BBD1F02141C00254BE2 /* ResultsParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ResultsParser.swift; path = SearchResult/ResultsParser.swift; sourceTree = "<group>"; };
+		A71A5BBF1F02178800254BE2 /* SearchViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchViewControllerDelegate.swift; path = AddPodcasts/SearchViewControllerDelegate.swift; sourceTree = "<group>"; };
 		A71B26EE1EE5D24700613CF4 /* PodCatcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PodCatcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A71B26F11EE5D24700613CF4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A71B26F91EE5D24700613CF4 /* PodCatcher.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PodCatcher.xcdatamodel; sourceTree = "<group>"; };
@@ -836,6 +838,7 @@
 				A71384C01F00729E003B9C9E /* TrackCellViewModel.swift */,
 				A71384C41F00A28A003B9C9E /* ListControllerDataSource.swift */,
 				A71A5BBD1F02141C00254BE2 /* ResultsParser.swift */,
+				A71A5BBF1F02178800254BE2 /* SearchViewControllerDelegate.swift */,
 			);
 			name = SearchViewController;
 			sourceTree = "<group>";
@@ -1905,6 +1908,7 @@
 				A731727D1F00450B006A6A24 /* Playlist.swift in Sources */,
 				A7BA688A1EFD1EF40032FE48 /* ChooseUserNameView.swift in Sources */,
 				A77EDF651EE5FC17001A24E5 /* EmptyView.swift in Sources */,
+				A71A5BC01F02178800254BE2 /* SearchViewControllerDelegate.swift in Sources */,
 				A75BBB291EF43126002F4EB6 /* HeaderView.swift in Sources */,
 				A7150EF21EE66C0E00E3553F /* PlayerViewModel.swift in Sources */,
 				A7252A811EFF29240034EA93 /* LoadingOperation.swift in Sources */,
