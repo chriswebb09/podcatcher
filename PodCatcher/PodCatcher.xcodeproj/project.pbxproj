@@ -221,6 +221,8 @@
 		A7E45F7F1F0238450063AC0F /* Episode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7E45F7E1F0238450063AC0F /* Episode.swift */; };
 		A7E45F811F0238680063AC0F /* PodcastSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7E45F801F0238680063AC0F /* PodcastSearchResult.swift */; };
 		A7E45F831F02388A0063AC0F /* TermSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7E45F821F02388A0063AC0F /* TermSearchResult.swift */; };
+		A7E45F851F02392C0063AC0F /* URLRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7E45F841F02392C0063AC0F /* URLRouter.swift */; };
+		A7E45F871F0239480063AC0F /* URLConstructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7E45F861F0239480063AC0F /* URLConstructor.swift */; };
 		A7EBA09A1EE672A700FAAC9C /* UserDataAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EBA0991EE672A700FAAC9C /* UserDataAPIClient.swift */; };
 		A7EBA0A11EE6739000FAAC9C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EBA0A01EE6739000FAAC9C /* LoginView.swift */; };
 		A7EBA0A31EE673AA00FAAC9C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EBA0A21EE673AA00FAAC9C /* LoginViewController.swift */; };
@@ -493,6 +495,8 @@
 		A7E45F7E1F0238450063AC0F /* Episode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Episode.swift; sourceTree = "<group>"; };
 		A7E45F801F0238680063AC0F /* PodcastSearchResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodcastSearchResult.swift; sourceTree = "<group>"; };
 		A7E45F821F02388A0063AC0F /* TermSearchResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermSearchResult.swift; sourceTree = "<group>"; };
+		A7E45F841F02392C0063AC0F /* URLRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLRouter.swift; sourceTree = "<group>"; };
+		A7E45F861F0239480063AC0F /* URLConstructor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLConstructor.swift; sourceTree = "<group>"; };
 		A7EBA0991EE672A700FAAC9C /* UserDataAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDataAPIClient.swift; sourceTree = "<group>"; };
 		A7EBA0A01EE6739000FAAC9C /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		A7EBA0A21EE673AA00FAAC9C /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -1385,6 +1389,8 @@
 				A7BD12CD1EFF78AB0040FAE5 /* iTunesAPIClient.swift */,
 				A744140C1EFFD8A90075B585 /* Response.swift */,
 				A71640391EFFDB6300895082 /* ReachabilityNotification.swift */,
+				A7E45F841F02392C0063AC0F /* URLRouter.swift */,
+				A7E45F861F0239480063AC0F /* URLConstructor.swift */,
 			);
 			path = NetworkServices;
 			sourceTree = "<group>";
@@ -1861,6 +1867,7 @@
 				A73DA41B1EE899300053276E /* MediaCollectionViewController+Extension.swift in Sources */,
 				A723A5C11EE9480C002E49BF /* EntryViewConstants.swift in Sources */,
 				A7252A7E1EFF29130034EA93 /* PodcatcherDataStore.swift in Sources */,
+				A7E45F871F0239480063AC0F /* URLConstructor.swift in Sources */,
 				A7B840C71EECD70E0049BB78 /* ApplicationCoordinator.swift in Sources */,
 				A7B8C3981EF6E18E001AFFA1 /* BaseCollectionViewController.swift in Sources */,
 				A73D74321EE68844004571A5 /* SplashViewControllerDelegate.swift in Sources */,
@@ -2074,6 +2081,7 @@
 				A7EBA0A11EE6739000FAAC9C /* LoginView.swift in Sources */,
 				A7EBA0A31EE673AA00FAAC9C /* LoginViewController.swift in Sources */,
 				A716403A1EFFDB6300895082 /* ReachabilityNotification.swift in Sources */,
+				A7E45F851F02392C0063AC0F /* URLRouter.swift in Sources */,
 				A7150EE11EE655F800E3553F /* MediaTabCoordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

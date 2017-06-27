@@ -1,30 +1,5 @@
 import UIKit
 
-enum URLRouter {
-    
-    case base, path
-    
-    var url: String {
-        switch self {
-        case .base:
-            return "https://itunes.apple.com"
-        case .path:
-            return "/search?country=US&media=podcast&entity=podcast&limit=100&term="
-        }
-    }
-}
-
-struct URLConstructor {
-    
-    var searchTerm: String
-    
-    func build(searchTerm: String) -> URL? {
-        let encodedQuery = searchTerm.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
-        let urlString = URLRouter.base.url + URLRouter.path.url + encodedQuery
-        return URL(string: urlString)
-    }
-}
-
 typealias DataTaskCompletionHandler = (Data?, URLResponse?, Error?) -> Void
 
 final class iTunesAPIClient: NSObject {
