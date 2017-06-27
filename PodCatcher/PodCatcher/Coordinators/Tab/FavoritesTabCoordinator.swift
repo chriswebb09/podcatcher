@@ -27,7 +27,6 @@ class FavoritesTabCoordinator: NavigationCoordinator {
     }
 }
 
-
 extension FavoritesTabCoordinator: SearchViewControllerDelegate {
     func logout(tapped: Bool) {
         
@@ -37,21 +36,6 @@ extension FavoritesTabCoordinator: SearchViewControllerDelegate {
         var item = trackListDataSource.items[index]
         let resultsList = SearchResultListViewController(index: index)
         resultsList.item = item as! CasterSearchResult
-         navigationController.viewControllers.append(resultsList)
-        //let podcastList =
-            //PodcastListViewController(index: index, dataSource: dataSource)
+        navigationController.viewControllers.append(resultsList)
     }
-    
-    
 }
-
-//extension FavoritesTabCoordinator: MediaControllerDelegate {
-//
-//    func logout(tapped: Bool) {
-//
-//    }
-//
-//    func didSelect(at index: Int) {
-//
-//    }
-//}

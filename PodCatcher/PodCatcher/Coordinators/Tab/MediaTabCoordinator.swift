@@ -24,4 +24,3 @@ class MediaTabCoordinator: NavigationCoordinator {
         mediaController.delegate = self
     }
 }
-

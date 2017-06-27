@@ -24,4 +24,3 @@ class SettingsTabCoordinator: NavigationCoordinator {
         settingsViewController.delegate = self
     }
 }
-

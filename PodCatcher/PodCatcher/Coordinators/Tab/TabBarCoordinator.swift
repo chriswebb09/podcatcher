@@ -54,5 +54,3 @@ class TabBarCoordinator: TabControllerCoordinator, Coordinator {
         tabBarController.setTabTitles(controllers: [childCoordinators[0].navigationController, childCoordinators[1].navigationController, childCoordinators[2].navigationController])
     }
 }
-
-
