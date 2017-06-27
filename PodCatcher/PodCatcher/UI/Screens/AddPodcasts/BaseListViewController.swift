@@ -41,13 +41,6 @@ class BaseListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        #if CLEAR_CACHES
-            let cachesFolderItems = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true)
-            for item in cachesFolderItems {
-                try? FileManager.default.removeItem(atPath: item)
-            }
-        #endif
-        edgesForExtendedLayout = []
         setupCollectionView(collectionView: collectionView, view: view, newLayout: TrackItemsFlowLayout())
         collectionView.isHidden = true
         setupDefaultUI()
@@ -73,18 +66,31 @@ extension BaseListViewController: UICollectionViewDelegate, OpenPlayerProtocol {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
         delegate?.didSelect(at: indexPath.row)
-//        let destinationViewController = UIViewController()
-//        
-//        navigationController?.pushViewController(destinationViewController, animated: false)
     }
 }
 
-extension BaseListViewController:  UICollectionViewDataSource  {
-    
-    @objc(collectionView:cellForItemAtIndexPath:) func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return dataSource.cellInstance(collectionView: collectionView, indexPath: indexPath)
-    }
-}
+//extension BaseListViewController:  UICollectionViewDataSource  {
+//    
+//    @objc(collectionView:cellForItemAtIndexPath:) func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//      
+//        let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as TrackCell
+//        //cell.alpha = 0
+//        cell.setAlpha()
+//        if let urlString = dataSource.items[indexPath.row].podcastArtUrlString, let url = URL(string: urlString) {
+//            let cellViewModel = TrackCellViewModel(albumImageUrl: url)
+//            DispatchQueue.main.async {
+//                 cell.alpha = 0
+//            }
+//           
+//            cell.configureCell(with: cellViewModel, withTime: (Double(indexPath.row) * 0.1))
+//        }
+////        UIView.animate(withDuration: (Double(indexPath.row) * 0.1)) {
+////
+////            cell.alpha = 1
+////        }
+//        return cell
+//        //return dataSource.cellInstance(collectionView: collectionView, indexPath: indexPath)
+//    }
+//}
 

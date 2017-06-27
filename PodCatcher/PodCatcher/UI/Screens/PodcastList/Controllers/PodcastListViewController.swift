@@ -3,9 +3,7 @@ import UIKit
 class PodcastListViewController: BaseCollectionViewController {
     
     var dataSource: PodcastListDataSource
-    
     var state: PodcasterControlState = .toCollection
-    
     weak var delegate: PodcastListViewControllerDelegate?
     
     var menuActive: MenuActive = .none
@@ -54,7 +52,6 @@ class PodcastListViewController: BaseCollectionViewController {
             let timeString = String(describing: user.totalTimeListening)
             topView.configure(tags: [], timeListen: timeString)
         } else {
-            
             title = "Podcast"
         }
     }

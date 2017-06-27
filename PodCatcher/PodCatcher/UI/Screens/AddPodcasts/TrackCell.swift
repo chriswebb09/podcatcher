@@ -23,12 +23,8 @@ final internal class TrackCell: UICollectionViewCell {
     }
     
     func configureCell(with model: TrackCellViewModel, withTime: Double) {
-        alpha = 0
-        viewModel  = model
+        viewModel = model
         layoutSubviews()
-        UIView.animate(withDuration: withTime) {
-            self.alpha = 1
-        }
     }
     
     override func layoutSubviews() {
@@ -49,5 +45,10 @@ final internal class TrackCell: UICollectionViewCell {
         albumArtView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: TrackCellConstants.albumHeightMultiplier).isActive = true
         albumArtView.widthAnchor.constraint(equalTo: contentView.widthAnchor).isActive = true
         albumArtView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        albumArtView.image = nil
     }
 }

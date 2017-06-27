@@ -13,7 +13,6 @@ class PodcastListDataSource: BaseMediaControllerDataSource {
             return .empty
         }
     }
-    
     let updatedTopViewFrame = CGRect(x: 0, y: 0, width: PodcastListConstants.topFrameWidth, height: PodcastListConstants.topFrameHeight / 1.2)
 }
 

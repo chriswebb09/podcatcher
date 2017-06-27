@@ -21,7 +21,7 @@ class ResultsParser {
         return searchResults
     }
     
-    class func parse(resultsData: [[String: Any]]) -> [CasterSearchResult] {
+    static func parse(resultsData: [[String: Any]]) -> [CasterSearchResult] {
         var data = [[String]]()
         
         resultsData.forEach { resultingData in

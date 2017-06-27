@@ -7,9 +7,7 @@ class ListControllerDataSource: TracksDataSource {
     }
     
     var image = #imageLiteral(resourceName: "search-button").withRenderingMode(.alwaysOriginal)
-    
     var items = [PodcastSearchResult]()
-    
     var store: TrackDataStore
     
     init(store: TrackDataStore) {
@@ -20,11 +18,10 @@ class ListControllerDataSource: TracksDataSource {
         let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as TrackCell
         if let urlString = items[indexPath.row].podcastArtUrlString, let url = URL(string: urlString) {
             let cellViewModel = TrackCellViewModel(albumImageUrl: url)
-            cell.configureCell(with: cellViewModel, withTime: (Double(indexPath.row) * 0.01))
+            cell.configureCell(with: cellViewModel, withTime: (Double(indexPath.row) * 0.1))
         }
         return cell
     }
-    
 }
 
 extension ListControllerDataSource: TrackStateProtocol {

@@ -27,6 +27,8 @@ final class SearchViewController: BaseListViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.navigationBar.backgroundColor = .white
+        edgesForExtendedLayout = [.bottom, .top, .left, .right, .all]
         searchController.delegate = self
         collectionView.register(TrackCell.self)
         collectionView.dataSource = self
@@ -76,3 +78,28 @@ final class SearchViewController: BaseListViewController {
     }
 }
 
+extension SearchViewController: UICollectionViewDataSource {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return dataSource.items.count
+    }
+    
+    fileprivate func setTrackCell(indexPath: IndexPath, cell: TrackCell, rowTime: Double) {
+        if let urlString = dataSource.items[indexPath.row].podcastArtUrlString, let url = URL(string: urlString) {
+            let cellViewModel = TrackCellViewModel(albumImageUrl: url)
+            cell.configureCell(with: cellViewModel, withTime: 0)
+            DispatchQueue.main.asyncAfter(deadline: .now() + (Double(indexPath.row) * 0.1)) {
+                UIView.animate(withDuration: (Double(indexPath.row) * 0.2)) {
+                    cell.alpha = 1
+                }
+            }
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as TrackCell
+        cell.alpha = 0
+        let rowTime = (Double(indexPath.row % 5)) / 10
+        setTrackCell(indexPath: indexPath, cell: cell, rowTime: rowTime)
+        return cell
+    }
+}

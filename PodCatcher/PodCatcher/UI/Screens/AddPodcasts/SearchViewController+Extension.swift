@@ -51,7 +51,6 @@ extension SearchViewController: UISearchControllerDelegate {
         }
     }
     
-    
     func searchOnTextChange(text: String, store: TrackDataStore, navController: UINavigationController) {
         dataSource.store.setSearch(term: text)
         searchBarActive = true

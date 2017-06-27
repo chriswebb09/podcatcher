@@ -1,6 +1,7 @@
 import UIKit
 
 class TrackDataStore {
+    
     var searchTerm: String = ""
     
     func setSearch(term: String) {
@@ -12,7 +13,7 @@ class TrackDataStore {
             switch response {
             case .success(let data):
                 let resultsData = data["results"] as! [[String: Any]]
-                var results = ResultsParser.parse(resultsData: resultsData)
+                let results = ResultsParser.parse(resultsData: resultsData)
                 completion(results, nil)
             case .failed(let error):
                 completion(nil, error)
