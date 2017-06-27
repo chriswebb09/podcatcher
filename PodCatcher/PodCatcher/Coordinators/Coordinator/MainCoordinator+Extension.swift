@@ -37,7 +37,7 @@ extension MainCoordinator: CoordinatorDelegate {
             
             var tracksDataStore = TrackDataStore()
             let trackDataSource = ListControllerDataSource(store: tracksDataStore)
-            let favoritesViewController = TracksViewController(dataSource: trackDataSource)
+            let favoritesViewController = SearchViewController(dataSource: trackDataSource)
                 ///FavoritePodcastsViewController(dataSource: dataSource)
             let favoritesTab = UINavigationController(rootViewController: favoritesViewController)
             tabbBarCoordinator.setupFavoritesCoordinator(navigationController: favoritesTab, dataSource: dataSource)

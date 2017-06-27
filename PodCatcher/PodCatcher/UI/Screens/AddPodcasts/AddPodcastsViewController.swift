@@ -1,10 +1,19 @@
 import UIKit
 
-final class TracksViewController: BaseListViewController {
+protocol SearchViewControllerDelegate: class {
+    func didSelect(at index: Int)
+    func logout(tapped: Bool)
+}
+
+final class SearchViewController: BaseListViewController {
     
     var items = [PodcastSearchResult]()
     
+    var segmentControl = UISegmentedControl()
+    
     var buttonItem: UIBarButtonItem!
+    
+   
     
     let searchController = UISearchController(searchResultsController: nil)
     
@@ -28,15 +37,17 @@ final class TracksViewController: BaseListViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        hideKeyboardWhenTappedAround()
         searchController.delegate = self
         collectionView.register(TrackCell.self)
         collectionView.dataSource = self
         collectionView.delegate = self
-       // collectionViewRegister(collectionView: collectionView, viewController: self, identifier: MediaCell.reuseIdentifier)
         buttonItem = UIBarButtonItem(image: dataSource.image, style: .plain, target: self, action: #selector(navigationBarSetup))
         navigationItem.setRightBarButton(buttonItem, animated: false)
         setupSearchController()
+        CALayer.createGradientLayer(with: [UIColor.gray.cgColor, UIColor.darkGray.cgColor],
+                                    layer: view.layer,
+                                    bounds: collectionView.bounds)
+        collectionView.backgroundColor = .darkGray
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -77,7 +88,7 @@ final class TracksViewController: BaseListViewController {
 
 // MARK: - UISearchController Delegate
 
-extension TracksViewController: UISearchControllerDelegate {
+extension SearchViewController: UISearchControllerDelegate {
     
     func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
         searchBar.setShowsCancelButton(true, animated: true)
@@ -126,7 +137,7 @@ extension TracksViewController: UISearchControllerDelegate {
             })
         }
     }
-
+    
     
     func searchOnTextChange(text: String, store: TrackDataStore, navController: UINavigationController) {
         dataSource.store.setSearch(term: text)
@@ -146,14 +157,14 @@ extension TracksViewController: UISearchControllerDelegate {
 
 // MARK: - UISearchResultsUpdating
 
-extension TracksViewController: UISearchResultsUpdating {
+extension SearchViewController: UISearchResultsUpdating {
     
     func updateSearchResultsForSearchController(searchController: UISearchController) {
         let searchString = searchController.searchBar.text
         if searchString != nil {
             dataSource.items.removeAll()
             if let searchString = searchString {
-               self.dataSource.store.setSearch(term: searchString)
+                self.dataSource.store.setSearch(term: searchString)
                 self.dataSource.store.searchForTracks { [weak self] tracks, error in
                     guard let strongSelf = self, let tracks = tracks else { return }
                     strongSelf.dataSource.items = tracks
@@ -170,7 +181,7 @@ extension TracksViewController: UISearchResultsUpdating {
 
 // MARK: - UISearchBarDelegate
 
-extension TracksViewController: UISearchBarDelegate {
+extension SearchViewController: UISearchBarDelegate {
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         dataSource.items.removeAll()

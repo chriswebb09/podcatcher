@@ -4,10 +4,6 @@ import UIKit
 
 extension LoginView: UITextFieldDelegate {
     
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        delegate?.loginViewFocus()
-    }
-    
     func textFieldDidChange(_ textField: UITextField) {
         guard let text = textField.text, text.characters.count > 0 else { return }
         textField.textColor = .black

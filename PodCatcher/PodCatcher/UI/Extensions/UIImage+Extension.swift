@@ -1,11 +1,3 @@
-//
-//  UIImage+Extension.swift
-//  PodCatcher
-//
-//  Created by Christopher Webb-Orenstein on 6/13/17.
-//  Copyright © 2017 Christopher Webb-Orenstein. All rights reserved.
-//
-
 import UIKit
 
 extension UIImage {
@@ -35,4 +27,44 @@ extension UIImage {
         })
         task.resume()
     }
+    
+    static func rotate(image: UIImage, withRotation radians: CGFloat) -> UIImage? {
+        
+        guard let cgImage = image.cgImage else { return nil }
+        
+        let maxSize = CGFloat(max(image.size.width, image.size.height))
+        let intMaxSize = Int(maxSize)
+        guard let colorSpace = cgImage.colorSpace else { return nil }
+        
+        guard let context = CGContext.init(data: nil,
+                                           width: intMaxSize,
+                                           height: intMaxSize,
+                                           bitsPerComponent: cgImage.bitsPerComponent,
+                                           bytesPerRow: 0,
+                                           space: colorSpace,
+                                           bitmapInfo: cgImage.bitmapInfo.rawValue) else { return nil }
+        
+        var drawRect = CGRect.zero
+        drawRect.size = image.size
+        
+        let originX = (maxSize - image.size.width) * 0.5
+        let originY = (maxSize - image.size.height) * 0.5
+        
+        let drawOrigin = CGPoint(x: originX, y: originY)
+        
+        drawRect.origin = drawOrigin
+        
+        var transform = CGAffineTransform.identity
+        let transformer = maxSize * 0.5
+        transform = transform.translatedBy(x: transformer, y: transformer)
+        transform = transform.rotated(by: radians)
+        let translater = maxSize * -0.5
+        transform = transform.translatedBy(x: translater, y: translater)
+        
+        context.concatenate(transform)
+        context.draw(cgImage, in: drawRect)
+        guard let rotatedImage = context.makeImage() else { return nil }
+        return UIImage(cgImage: rotatedImage)
+    }
 }
+

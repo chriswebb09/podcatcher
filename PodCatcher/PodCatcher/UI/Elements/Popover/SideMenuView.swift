@@ -6,33 +6,28 @@ final class SideMenuView: UIView {
     
     private var backgroundView: UIView = {
         let backgroundView = UIView()
+        backgroundView.backgroundColor = .black
         return backgroundView
     }()
     
-    private var optionOneView: MenuOptionView = {
-        let optionOne = MenuOptionView()
+    private var optionOneView: SideMenuOptionView = {
+        let optionOne = SideMenuOptionView()
         optionOne.setupConstraints()
         optionOne.isUserInteractionEnabled = true
-        optionOne.layer.borderColor = UIColor.white.cgColor
-        optionOne.layer.borderWidth = MenuViewConstants.optionBorderWidth
         return optionOne
     }()
     
-    private var optionTwoView: MenuOptionView = {
-        let optionTwo = MenuOptionView()
+    private var optionTwoView: SideMenuOptionView = {
+        let optionTwo = SideMenuOptionView()
         optionTwo.setupConstraints()
         optionTwo.isUserInteractionEnabled = true
-        optionTwo.layer.borderColor = UIColor.white.cgColor
-        optionTwo.layer.borderWidth = MenuViewConstants.optionBorderWidth
         return optionTwo
     }()
     
-    private var optionThreeView: MenuOptionView = {
-        let optionThree = MenuOptionView()
+    private var optionThreeView: SideMenuOptionView = {
+        let optionThree = SideMenuOptionView()
         optionThree.setupConstraints()
         optionThree.isUserInteractionEnabled = true
-        optionThree.layer.borderColor = UIColor.white.cgColor
-        optionThree.layer.borderWidth = MenuViewConstants.optionBorderWidth
         return optionThree
     }()
     
@@ -42,7 +37,6 @@ final class SideMenuView: UIView {
         isUserInteractionEnabled = true
         layer.cornerRadius = DetailViewConstants.cornerRadius
         layer.borderWidth = DetailViewConstants.borderWidth
-        layer.borderColor = UIColor.clear.cgColor
         layer.shadowColor = UIColor.lightGray.cgColor
         layer.shadowRadius = DetailViewConstants.borderWidth
         layer.shadowOpacity = DetailViewConstants.shadowOpacity
@@ -73,27 +67,51 @@ final class SideMenuView: UIView {
     
     func configureView() {
         layoutSubviews()
+        setup(backgroundView: backgroundView)
         setupConstraints()
-        optionOneView.set(with: "Add To Favorites", and: #imageLiteral(resourceName: "cloud-circle-white"))
-        optionTwoView.set(with: "Tag Podcast", and: #imageLiteral(resourceName: "circle-x-white"))
-        optionThreeView.set(with: "Delete From Phone", and: #imageLiteral(resourceName: "dot-circle-icon-white"))
+        optionOneView.set(title: "Add To Favorites")
+        optionTwoView.set(title: "Tag Podcasts")
+        optionThreeView.set(title: "Delete From Phone")
         addSelectors()
+        
+        DispatchQueue.main.async {
+            let lineOne = CALayer()
+            lineOne.frame = CGRect(x: 0, y: self.optionOneView.frame.height - 1, width: self.optionOneView.frame.width, height: 1)
+            lineOne.backgroundColor = UIColor.white.cgColor
+            let lineTwo = CALayer()
+            lineTwo.frame = CGRect(x: 0, y: self.optionTwoView.frame.height - 1, width: self.optionTwoView.frame.width, height: 1)
+            lineTwo.backgroundColor = UIColor.white.cgColor
+            let lineThree = CALayer()
+            lineThree.frame = CGRect(x: 0, y: self.optionThreeView.frame.height - 1, width: self.optionThreeView.frame.width, height: 1)
+            lineThree.backgroundColor = UIColor.white.cgColor
+            self.optionThreeView.layer.addSublayer(lineThree)
+            self.optionTwoView.layer.addSublayer(lineTwo)
+            self.optionOneView.layer.addSublayer(lineOne)
+        }
+    }
+    
+    func setup(backgroundView: UIView) {
+        addSubview(backgroundView)
+        backgroundView.translatesAutoresizingMaskIntoConstraints = false
+        backgroundView.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+        backgroundView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
+        backgroundView.heightAnchor.constraint(equalTo: heightAnchor).isActive = true
     }
     
     private func sharedLayout(view: UIView) {
-        addSubview(view)
+        backgroundView.addSubview(view)
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-        view.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5).isActive = true
-        view.heightAnchor.constraint(equalTo: heightAnchor, multiplier: MenuViewConstants.sharedHeightMultiplier).isActive = true
+        view.rightAnchor.constraint(equalTo: backgroundView.rightAnchor).isActive = true
+        view.widthAnchor.constraint(equalTo: backgroundView.widthAnchor).isActive = true
+        view.heightAnchor.constraint(equalTo: backgroundView.heightAnchor, multiplier: MenuViewConstants.sharedHeightMultiplier).isActive = true
     }
     
     private func setupConstraints() {
         sharedLayout(view: optionOneView)
-        optionOneView.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        optionOneView.topAnchor.constraint(equalTo: topAnchor, constant: UIScreen.main.bounds.height * 0.001).isActive = true
         sharedLayout(view: optionTwoView)
-        optionTwoView.topAnchor.constraint(equalTo: optionOneView.bottomAnchor, constant: UIScreen.main.bounds.height * 0.01).isActive = true
+        optionTwoView.topAnchor.constraint(equalTo: optionOneView.bottomAnchor, constant: UIScreen.main.bounds.height * 0.000).isActive = true
         sharedLayout(view: optionThreeView)
-        optionThreeView.topAnchor.constraint(equalTo: optionTwoView.bottomAnchor, constant: UIScreen.main.bounds.height * 0.01).isActive = true
+        optionThreeView.topAnchor.constraint(equalTo: optionTwoView.bottomAnchor, constant: UIScreen.main.bounds.height * 0.000).isActive = true
     }
 }

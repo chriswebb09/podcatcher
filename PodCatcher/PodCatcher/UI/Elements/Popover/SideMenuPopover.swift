@@ -2,37 +2,25 @@ import UIKit
 
 final class SideMenuPopover: BasePopoverMenu {
     
-    var popView: MenuView = {
-        let popView = MenuView()
+    var popView: SideMenuView = {
+        let popView = SideMenuView()
         popView.isUserInteractionEnabled = true
+        popView.autoresizingMask = [.flexibleHeight, .flexibleWidth, .flexibleTopMargin, .flexibleBottomMargin]
         return popView
     }()
     
     public override func showPopView(viewController: UIViewController) {
-        super.showPopView(viewController: viewController)
         viewController.view.addSubview(popView)
-        viewController.view.bringSubview(toFront: popView)
-        
-        UIView.animate(withDuration: 0.5) {
-            DispatchQueue.main.async { [weak self] in
-                guard let strongSelf = self else {
-                    return
-                }
-                
-                strongSelf.popView.alpha = 1
-                strongSelf.popView.frame = CGRect(x: viewController.view.bounds.minX,
-                                                  y: viewController.view.bounds.minY,
-                                                  width: viewController.view.bounds.width,
-                                                  height: viewController.view.bounds.height)
-                strongSelf.layoutIfNeeded()
-            }
-        }
-        let tap = UIGestureRecognizer(target: self, action: #selector(hidePopView(viewController:)))
-        containerView.addGestureRecognizer(tap)
+        popView.translatesAutoresizingMaskIntoConstraints = false
+        popView.widthAnchor.constraint(equalTo: viewController.view.widthAnchor, multiplier: 0.5).isActive = true
+        popView.heightAnchor.constraint(equalTo: viewController.view.heightAnchor).isActive = true
+        popView.rightAnchor.constraint(equalTo: viewController.view.rightAnchor).isActive = true
+        popView.topAnchor.constraint(equalTo: viewController.view.topAnchor).isActive = true
     }
     
     public override func hidePopView(viewController: UIViewController) {
         super.hidePopView(viewController: viewController)
+        
     }
     
     func dismissMenu(controller: UIViewController) {

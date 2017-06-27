@@ -17,11 +17,9 @@ class LoginViewController: BaseViewController {
         loginView.frame = UIScreen.main.bounds
         loginView.delegate = self
         view = loginView
-        view.autoresizingMask = [.flexibleHeight, .flexibleWidth, .flexibleTopMargin, .flexibleBottomMargin]
-        loginView.autoresizingMask = [.flexibleHeight, .flexibleWidth, .flexibleTopMargin, .flexibleBottomMargin]
         view.layoutSubviews()
         title = "Login"
-        hideKeyboardWhenTappedAround()
+   
         navigationController?.navigationBar.isHidden = false
         navigationController?.navigationBar.barTintColor = .lightText
     }

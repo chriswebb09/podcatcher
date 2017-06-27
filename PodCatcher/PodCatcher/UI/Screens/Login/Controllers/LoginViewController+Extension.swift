@@ -3,12 +3,8 @@ import UIKit
 // MARK: - LoginViewDelegate
 
 extension LoginViewController: LoginViewDelegate {
-    func loginViewFocus() {
-        // Implement shift
-    }
-    
+
     func userEntryDataSubmitted(with username: String, and password: String) {
-        
         showLoadingView(loadingPop: loadingPop)
         PodCatcherUserDataStore.userSignIn(username: username, password: password) { user, error in
             if let error = error {

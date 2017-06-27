@@ -10,7 +10,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var backgroundSessionCompletionHandler: (() -> Void)?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        setupUI()
+        ApplicationStyling.setupUI()
         window = UIWindow(frame: UIScreen.main.bounds)
         if let window = window, UserDefaults.loadDefaultOnFirstLaunch() {
             let startCoordinator = StartCoordinator(navigationController: UINavigationController(), window: window)
@@ -26,16 +26,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, handleEventsForBackgroundURLSession identifier: String, completionHandler: @escaping () -> Void) {
         backgroundSessionCompletionHandler = completionHandler
-    }
-    
-    func setupUI() {
-        let fontAttribute = UIFont(name:"Avenir", size: 18) as Any
-        UINavigationBar.appearance().tintColor = UIColor.mainColor
-        UINavigationBar.appearance().titleTextAttributes = [
-            NSFontAttributeName: fontAttribute,
-            NSForegroundColorAttributeName: UIColor.mainColor,
-            NSBackgroundColorAttributeName: UIColor.white
-        ]
     }
     
     func applicationWillTerminate(_ application: UIApplication) {
@@ -85,6 +75,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             do {
                 try context.save()
             } catch {
+                print(error.localizedDescription)
                 // Replace this implementation with code to handle the error appropriately.
                 // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
                 let nserror = error as NSError

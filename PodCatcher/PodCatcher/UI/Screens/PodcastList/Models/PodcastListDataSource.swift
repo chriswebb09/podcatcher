@@ -21,10 +21,10 @@ extension PodcastListDataSource: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as PodcastCell
-        if let artwork = caster.artwork {
-            let model = PodcastCellViewModel(podcastImage: artwork, podcastTitle: caster.assets[indexPath.row].title, item: caster.assets[indexPath.row])
+       
+            let model = PodcastCellViewModel(podcastTitle: caster.assets[indexPath.row].title, item: caster.assets[indexPath.row])
             cell.configureCell(model: model)
-        }
+        
         return cell
     }
     

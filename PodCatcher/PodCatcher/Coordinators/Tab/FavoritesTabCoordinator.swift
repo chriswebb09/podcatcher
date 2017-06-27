@@ -5,6 +5,7 @@ class FavoritesTabCoordinator: NavigationCoordinator {
     weak var delegate: CoordinatorDelegate?
     var type: CoordinatorType = .tabbar
     var dataSource: BaseMediaControllerDataSource!
+    var trackListDataSource: ListControllerDataSource!
     
     var childViewControllers: [UIViewController] = []
     var navigationController: UINavigationController
@@ -20,18 +21,37 @@ class FavoritesTabCoordinator: NavigationCoordinator {
     }
     
     func start() {
-        let favoritesController = navigationController.viewControllers[0] as! TracksViewController
-        //favoritesController.delegate = self
+        let favoritesController = navigationController.viewControllers[0] as! SearchViewController
+        trackListDataSource = favoritesController.dataSource
+        favoritesController.delegate = self
     }
 }
 
-extension FavoritesTabCoordinator: MediaControllerDelegate {
-    
+
+extension FavoritesTabCoordinator: SearchViewControllerDelegate {
     func logout(tapped: Bool) {
         
     }
     
     func didSelect(at index: Int) {
-        
+        var item = trackListDataSource.items[index]
+        let resultsList = SearchResultListViewController(index: index)
+        resultsList.item = item as! CasterSearchResult
+         navigationController.viewControllers.append(resultsList)
+        //let podcastList =
+            //PodcastListViewController(index: index, dataSource: dataSource)
     }
+    
+    
 }
+
+//extension FavoritesTabCoordinator: MediaControllerDelegate {
+//
+//    func logout(tapped: Bool) {
+//
+//    }
+//
+//    func didSelect(at index: Int) {
+//
+//    }
+//}

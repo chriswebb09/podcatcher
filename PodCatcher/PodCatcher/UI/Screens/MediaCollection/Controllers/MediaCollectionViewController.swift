@@ -60,10 +60,12 @@ class MediaCollectionViewController: BaseCollectionViewController {
     }
     
     func showMenu() {
-        hideKeyboardWhenTappedAround()
         let tap = UITapGestureRecognizer(target: self, action: #selector(hideMenu))
         view.addGestureRecognizer(tap)
         collectionView.addGestureRecognizer(tap)
+        rightButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "menu-red"), style: .done, target: self, action: #selector(hideMenu))
+        navigationItem.setRightBarButton(rightButtonItem, animated: false)
+
         UIView.animate(withDuration: 0.15) {
             self.sideMenuPop.showPopView(viewController: self)
             self.sideMenuPop.popView.isHidden = false
@@ -77,6 +79,8 @@ class MediaCollectionViewController: BaseCollectionViewController {
     
     func hideMenu() {
         sideMenuPop.hideMenu(controller: self)
+        rightButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "menu-red"), style: .done, target: self, action: #selector(popBottomMenu(popped:)))
+        navigationItem.setRightBarButton(rightButtonItem, animated: false)
     }
     
     override func viewWillAppear(_ animated: Bool) {

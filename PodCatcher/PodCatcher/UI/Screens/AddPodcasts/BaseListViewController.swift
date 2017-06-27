@@ -4,6 +4,8 @@ class BaseListViewController: UIViewController {
     
     var dataSource: ListControllerDataSource
     
+    weak var delegate: SearchViewControllerDelegate?
+    
     init(dataSource: ListControllerDataSource) {
         self.dataSource = dataSource
         super.init(nibName: nil, bundle: nil)
@@ -71,9 +73,11 @@ extension BaseListViewController: UICollectionViewDelegate, OpenPlayerProtocol {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let destinationViewController = UIViewController()
-       
-        navigationController?.pushViewController(destinationViewController, animated: false)
+        
+        delegate?.didSelect(at: indexPath.row)
+//        let destinationViewController = UIViewController()
+//        
+//        navigationController?.pushViewController(destinationViewController, animated: false)
     }
 }
 

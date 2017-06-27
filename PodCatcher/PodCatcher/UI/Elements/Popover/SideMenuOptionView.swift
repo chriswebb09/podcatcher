@@ -16,12 +16,10 @@ final class SideMenuOptionView: UIView {
         return icon
     }()
     
-    func set(with text: String, and icon: UIImage) {
-        optionLabel.text = text
-        iconView.image = icon
-        backgroundColor = PlayerViewConstants.titleViewBackgroundColor
+    func set(title: String) {
+        optionLabel.text = title
     }
-    
+
     private func setup(label: UILabel) {
         addSubview(optionLabel)
         optionLabel.translatesAutoresizingMaskIntoConstraints = false

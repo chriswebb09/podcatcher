@@ -2,11 +2,12 @@ import UIKit
 
 // MARK: - PodcastCollectionViewProtocol
 
-extension PodcastListViewController: PodcastCollectionViewProtocol {
+extension SearchResultListViewController: PodcastCollectionViewProtocol {
     
     func configureTopView() {
         topView.frame = PodcastListConstants.topFrame
-        topView.podcastImageView.image = dataSource.caster.artwork
+        guard let urlString = item.podcastArtUrlString, let url = URL(string: urlString) else { return }
+        topView.podcastImageView.downloadImage(url: url)
         topView.delegate = self
         topView.layoutSubviews()
         view.addSubview(topView)
@@ -19,76 +20,47 @@ extension PodcastListViewController: PodcastCollectionViewProtocol {
         guard let tabBar = self.tabBarController?.tabBar else { return }
         collectionView.frame = CGRect(x: topView.bounds.minX, y: topView.frame.maxY + (tabBar.frame.height + 10), width: view.bounds.width, height: view.bounds.height - (topView.frame.height - tabBar.frame.height))
         collectionView.backgroundColor = .clear
-        if dataSource.caster.assets.count > 0 {
-            view.addSubview(collectionView)
-        } else {
-            let emptyView = EmptyCastsView(frame: PodcastListConstants.emptyCastViewFrame)
-            emptyView.backgroundColor = .white
-            emptyView.layoutSubviews()
-            view.addSubview(emptyView)
-        }
-        topView.delegate = self
+        
     }
 }
 
 // MARK: - UIScrollViewDelegate
 
-extension PodcastListViewController: UIScrollViewDelegate {
+extension SearchResultListViewController: UIScrollViewDelegate {
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let offset = scrollView.contentOffset
-        let updatedTopViewFrame = dataSource.updatedTopViewFrame
-        if offset.y > PodcastListConstants.minimumOffset {
-            UIView.animate(withDuration: 0.5) {
-                self.topView.removeFromSuperview()
-                self.topView.alpha = 0
-                self.collectionView.frame = self.view.bounds
-            }
-        } else {
-            UIView.animate(withDuration: 0.15) {
-                self.topView.frame = updatedTopViewFrame
-                self.topView.alpha = 1
-                self.topView.podcastImageView.image = self.dataSource.caster.artwork
-                self.topView.layoutSubviews()
-                self.view.addSubview(self.topView)
-                self.collectionView.frame = CGRect(x: self.topView.bounds.minX,
-                                                   y: self.topView.frame.maxY,
-                                                   width: self.view.bounds.width,
-                                                   height: self.view.bounds.height)
-            }
-        }
-    }
+    
 }
 
 // MARK: - UICollectionViewDelegate
 
-extension PodcastListViewController: UICollectionViewDelegate {
+extension SearchResultListViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         state = .toPlayer
-        delegate?.didSelectPodcastAt(at: indexPath.row, with: dataSource.caster)
     }
 }
 
 // MARK: - UICollectionViewDataSource
 
-extension PodcastListViewController: UICollectionViewDataSource {
+extension SearchResultListViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if dataSource.caster.assets.count > 0 {
-            viewShown = .collection
-        }
-        return dataSource.collectionView(collectionView, numberOfItemsInSection: 0)
+        return item.episodes.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return dataSource.collectionView(collectionView, cellForItemAt: indexPath)
+        let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as PodcastResultCell
+        
+        let model = PodcastResultCellViewModel(podcastTitle: item.episodes[indexPath.row].title)
+        cell.configureCell(model: model)
+        
+        return cell
     }
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
 
-extension PodcastListViewController: UICollectionViewDelegateFlowLayout {
+extension SearchResultListViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return PodcastListViewControllerConstants.size
@@ -101,7 +73,7 @@ extension PodcastListViewController: UICollectionViewDelegateFlowLayout {
 
 // MARK: - TopViewDelegate
 
-extension PodcastListViewController: TopViewDelegate {
+extension SearchResultListViewController: TopViewDelegate {
     
     func entryPop(popped: Bool) {
         popEntry()
@@ -141,25 +113,15 @@ extension PodcastListViewController: TopViewDelegate {
     func hidePop() {
         entryPop.hidePopView(viewController: self)
         guard let text = entryPop.popView.entryField.text else { return }
-        guard let user = dataSource.user else { return }
-        user.customGenres.append(text)
-        guard let name = dataSource.caster.name else { return }
-        UpdateData.update((name, text))
-        user.favoriteCasts[text] = dataSource.caster
-        let timeString = String(describing: user.totalTimeListening)
-        topView.configure(tags: user.customGenres, timeListen: timeString)
-        collectionView.reloadData()
-        dataSource.caster.tags.append(text)
     }
 }
 
 // MARK: - MenuDelegate
 
-extension PodcastListViewController: MenuDelegate {
+extension SearchResultListViewController: MenuDelegate {
     
     func optionOneTapped() {
-        guard let user = dataSource.user, let casterName = dataSource.caster.name else { return }
-        user.favoriteCasts[casterName] = dataSource.caster
+        
     }
     
     func optionTwoTapped() {

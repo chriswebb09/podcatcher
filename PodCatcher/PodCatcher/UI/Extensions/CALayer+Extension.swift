@@ -2,6 +2,16 @@ import UIKit
 
 extension CALayer {
     
+    static func drawBottomBorder(frame: CGRect, color: UIColor) -> CALayer {
+        var line = CALayer()
+        line.frame = CGRect(x: 0, y: frame.height - 1, width: frame.width, height: 1)
+        line.backgroundColor = color.cgColor
+        return line
+//        var bottomLine = CALayer()
+//        bottomLine.frame = CGRectMake(0.0, myTextField.frame.height - 1, myTextField.frame.width, 1.0)
+//        bottomLine.backgroundColor = UIColor.whiteColor().CGColor
+    }
+    
     func setCellShadow(contentView: UIView) {
         let shadowOffsetWidth: CGFloat = contentView.bounds.height * CALayerConstants.shadowWidthMultiplier
         let shadowOffsetHeight: CGFloat = contentView.bounds.width * CALayerConstants.shadowHeightMultiplier
