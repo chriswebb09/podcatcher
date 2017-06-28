@@ -14,7 +14,7 @@ class BaseCollectionViewController: BaseViewController {
         view.sendSubview(toBack: background)
         view.addSubview(collectionView)
         view.addSubview(emptyView)
-        
+         edgesForExtendedLayout = []
         collectionView.setupBackground(frame: view.bounds)
         collectionView.autoresizingMask = [.flexibleHeight, .flexibleWidth, .flexibleTopMargin, .flexibleBottomMargin]
         guard let frame = tabBarController?.tabBar.frame else { return }

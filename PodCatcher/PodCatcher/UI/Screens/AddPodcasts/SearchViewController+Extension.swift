@@ -2,6 +2,45 @@ import UIKit
 
 extension SearchViewController: UICollectionViewDataSource {
     
+    func navigationBarSetup() {
+        guard let navController = self.navigationController else { return }
+        searchBar = searchController.searchBar
+        searchController.hidesNavigationBarDuringPresentation = false
+        searchController.searchBar.frame = CGRect(x: UIScreen.main.bounds.minX, y: navController.navigationBar.frame.maxY, width: UIScreen.main.bounds.width, height: 0)
+        collectionView.frame = CGRect(x: UIScreen.main.bounds.minX, y: 0, width: UIScreen.main.bounds.width, height: view.frame.height)
+        view.addSubview(searchBar)
+        let textFieldInsideSearchBar = searchBar.value(forKey: "searchField") as? UITextField
+        textFieldInsideSearchBar?.textColor = .white
+        textFieldInsideSearchBar?.leftView?.alpha = 0
+    }
+    
+    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+        }
+    }
+    
+    func setSearchBarActive() {
+        self.searchBarActive = true
+    }
+    
+    func searchBarTextDidEndEditing(searchBar: UISearchBar) {
+        searchBar.setShowsCancelButton(false, animated: false)
+        searchBarActive = false
+    }
+    
+    func popBottomMenu(popped: Bool) {
+        sideMenuPop.setupPop()
+        showMenu()
+    }
+    
+    func emptyViewShower() {
+        setSearchBarActive()
+        willPresentSearchController(searchController)
+        view.bringSubview(toFront: collectionView)
+        dump(collectionView.delegate)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return dataSource.items.count
     }
@@ -40,8 +79,6 @@ extension SearchViewController: TrackCellCollectionProtocol {
 extension SearchViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(indexPath.row)
-        print("Delegate")
         delegate?.didSelect(at: indexPath.row)
     }
 }
@@ -49,6 +86,7 @@ extension SearchViewController: UICollectionViewDelegate {
 // MARK: - UISearchController Delegate
 
 extension SearchViewController: UISearchControllerDelegate {
+    
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         print("text")
         setSearchBarActive()

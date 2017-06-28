@@ -15,6 +15,7 @@ extension MediaCollectionViewController: CollectionViewProtocol {
 }
 
 // MARK: - UICollectionViewDelegate
+
 extension MediaCollectionViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -23,6 +24,7 @@ extension MediaCollectionViewController: UICollectionViewDelegate {
 }
 
 // MARK: - UICollectionViewDataSource
+
 extension MediaCollectionViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

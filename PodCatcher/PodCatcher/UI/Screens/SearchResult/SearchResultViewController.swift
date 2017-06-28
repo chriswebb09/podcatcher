@@ -12,7 +12,6 @@ class SearchResultListViewController: BaseCollectionViewController {
     let entryPop = EntryPopover()
     var topView = PodcastListTopView()
     var menuPop = BottomMenuPopover()
-    var sideMenuPop = SideMenuPopover()
 
     var viewShown: ShowView {
         didSet {

@@ -1,8 +1,7 @@
 import UIKit
 
 final class SearchViewController: BaseCollectionViewController {
-    
-    var sideMenuPop = SideMenuPopover()
+   
     var items = [PodcastSearchResult]()
     var searchBarBoundsY: CGFloat!
     
@@ -12,8 +11,6 @@ final class SearchViewController: BaseCollectionViewController {
             searchController.view.frame = CGRect.zero
         }
     }
-    
-    var slideState: SlideMenuState = .hidden
     var gradLayer: CAGradientLayer!
     
     var searchBarActive: Bool = false {
@@ -56,17 +53,13 @@ final class SearchViewController: BaseCollectionViewController {
                                                bounds: collectionView.bounds)
         view.layer.addSublayer(gradLayer)
         navigationController?.navigationBar.backgroundColor = .white
-        edgesForExtendedLayout = []
+    
         searchController.delegate = self
         collectionView.register(TrackCell.self)
         navigationBarSetup()
-        rightButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "menu-red"), style: .done, target: self, action: #selector(popBottomMenu(popped:)))
+        rightButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "menu-red"), style: .done, target: self, action: #selector(showMenu))
         navigationItem.setRightBarButton(rightButtonItem, animated: false)
-        searchController.dimsBackgroundDuringPresentation = false
-        searchController.definesPresentationContext = false
-        searchController.searchResultsUpdater = self
-        searchController.searchBar.delegate = self
-        
+        searchControllerConfigure()
         searchBar.delegate = self
         definesPresentationContext = false
         collectionView.backgroundColor = .lightGray
@@ -86,70 +79,10 @@ final class SearchViewController: BaseCollectionViewController {
         searchController.searchBar.isHidden = true
     }
     
-    func navigationBarSetup() {
-        guard let navController = self.navigationController else { return }
-        searchBar = searchController.searchBar
-        searchController.hidesNavigationBarDuringPresentation = false
-        searchController.searchBar.frame = CGRect(x: UIScreen.main.bounds.minX, y: navController.navigationBar.frame.maxY, width: UIScreen.main.bounds.width, height: 0)
-        collectionView.frame = CGRect(x: UIScreen.main.bounds.minX, y: 0, width: UIScreen.main.bounds.width, height: view.frame.height)
-        view.addSubview(searchBar)
-    }
-    
-    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
-        DispatchQueue.main.async {
-            self.collectionView.reloadData()
-        }
-    }
-    
-    func setSearchBarActive() {
-        self.searchBarActive = true
-    }
-    
-    func searchBarTextDidEndEditing(searchBar: UISearchBar) {
-        searchBar.setShowsCancelButton(false, animated: false)
-        searchBarActive = false
-    }
-    
-    func showMenu() {
-        print("here")
-        
-        switch slideState {
-        case .hidden:
-            searchController.searchBar.resignFirstResponder()
-            
-            slideState = .shown
-            searchBarActive = false
-            
-            searchController.searchBar.resignFirstResponder()
-            self.view.bringSubview(toFront: self.sideMenuPop.popView)
-            UIView.animate(withDuration: 0.15) {
-                self.sideMenuPop.showPopView(viewController: self)
-                dump(self.sideMenuPop)
-                DispatchQueue.main.async {
-                    self.view.bringSubview(toFront: self.sideMenuPop)
-                    self.view.bringSubview(toFront: self.sideMenuPop.popView)
-                }
-                
-                self.sideMenuPop.popView.isHidden = false
-            }
-        case .shown:
-            print("here")
-            sideMenuPop.dismissMenu(controller: self)
-            sideMenuPop.hideMenu(controller: self)
-            slideState = .hidden
-        }
-    }
-    
-    func popBottomMenu(popped: Bool) {
-        sideMenuPop.setupPop()
-        showMenu()
-    }
-    
-    func emptyViewShower() {
-        setSearchBarActive()
-        willPresentSearchController(searchController)
-        view.bringSubview(toFront: collectionView)
-        dump(collectionView.delegate)
+    func searchControllerConfigure() {
+        searchController.dimsBackgroundDuringPresentation = false
+        searchController.definesPresentationContext = false
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.delegate = self
     }
 }
-
