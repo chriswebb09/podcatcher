@@ -8,7 +8,6 @@ class CasterSearchResult: PodcastSearchResult {
     var episodes = [Episodes]()
     var id: String!
     var feedUrl: String?
-    //var audioUrl: String?
 }
 
 extension CasterSearchResult: Equatable {
@@ -16,6 +15,4 @@ extension CasterSearchResult: Equatable {
     static func ==(lhs: CasterSearchResult, rhs: CasterSearchResult) -> Bool {
         return lhs.id == rhs.id
     }
-
-    
 }

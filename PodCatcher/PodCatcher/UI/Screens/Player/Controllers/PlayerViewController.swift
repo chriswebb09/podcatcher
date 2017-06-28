@@ -22,7 +22,9 @@ final class PlayerViewController: BaseViewController {
         self.index = index
         self.caster = caster
         self.testIndex = index - 1
-        self.player = AudioFilePlayer(url: caster.assets[testIndex].audioUrl!)
+        if let url = caster.assets[testIndex].audioUrl {
+            self.player = AudioFilePlayer(url: url)
+        }
         self.playerState = .queued
         self.user = user
         super.init(nibName: nil, bundle: nil)
