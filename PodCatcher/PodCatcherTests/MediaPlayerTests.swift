@@ -16,7 +16,7 @@ class MediaPlayerTests: XCTestCase {
     }
     
     func testMediaPlayerGetItems() {
-        mediaPlayer.getPlaylists { items, list in
+        mediaPlayer.getPlaylists { list in
             XCTAssertNotNil(list)
         }
     }
