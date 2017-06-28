@@ -13,6 +13,7 @@ final class MenuOptionView: UIView {
     
     private var iconView: UIImageView = {
         var icon = UIImageView()
+        icon.isHidden = true
         return icon
     }()
     

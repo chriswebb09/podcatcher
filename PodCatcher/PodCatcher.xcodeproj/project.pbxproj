@@ -213,6 +213,7 @@
 		A7BA68861EFCE1520032FE48 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BA68851EFCE1520032FE48 /* SettingsViewModel.swift */; };
 		A7BA688A1EFD1EF40032FE48 /* ChooseUserNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BA68891EFD1EF40032FE48 /* ChooseUserNameView.swift */; };
 		A7BD12CE1EFF78AB0040FAE5 /* iTunesAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BD12CD1EFF78AB0040FAE5 /* iTunesAPIClient.swift */; };
+		A7CC48DA1F035CBE00FDE93F /* SlideMenuState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7CC48D91F035CBE00FDE93F /* SlideMenuState.swift */; };
 		A7DB573B1EFFBFEE00D40197 /* PodCaster+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DB57371EFFBFEE00D40197 /* PodCaster+CoreDataClass.swift */; };
 		A7DB573C1EFFBFEE00D40197 /* CasterItems+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DB57381EFFBFEE00D40197 /* CasterItems+CoreDataClass.swift */; };
 		A7DB573D1EFFBFEE00D40197 /* CasterItems+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DB57391EFFBFEE00D40197 /* CasterItems+CoreDataProperties.swift */; };
@@ -488,6 +489,7 @@
 		A7BA68851EFCE1520032FE48 /* SettingsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		A7BA68891EFD1EF40032FE48 /* ChooseUserNameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChooseUserNameView.swift; sourceTree = "<group>"; };
 		A7BD12CD1EFF78AB0040FAE5 /* iTunesAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = iTunesAPIClient.swift; sourceTree = "<group>"; };
+		A7CC48D91F035CBE00FDE93F /* SlideMenuState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SlideMenuState.swift; path = AddPodcasts/SlideMenuState.swift; sourceTree = "<group>"; };
 		A7DB57371EFFBFEE00D40197 /* PodCaster+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PodCaster+CoreDataClass.swift"; sourceTree = "<group>"; };
 		A7DB57381EFFBFEE00D40197 /* CasterItems+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CasterItems+CoreDataClass.swift"; sourceTree = "<group>"; };
 		A7DB57391EFFBFEE00D40197 /* CasterItems+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CasterItems+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -851,6 +853,7 @@
 				A71384C01F00729E003B9C9E /* TrackCellViewModel.swift */,
 				A71384C41F00A28A003B9C9E /* ListControllerDataSource.swift */,
 				A71A5BBF1F02178800254BE2 /* SearchViewControllerDelegate.swift */,
+				A7CC48D91F035CBE00FDE93F /* SlideMenuState.swift */,
 			);
 			name = SearchViewController;
 			sourceTree = "<group>";
@@ -2015,6 +2018,7 @@
 				A7FFD4C31EEF5CB500853480 /* UpdateAccountViewController.swift in Sources */,
 				A7BA68861EFCE1520032FE48 /* SettingsViewModel.swift in Sources */,
 				A73DA41F1EE899A40053276E /* SettingsViewController+Extension.swift in Sources */,
+				A7CC48DA1F035CBE00FDE93F /* SlideMenuState.swift in Sources */,
 				A71B272F1EE5D57100613CF4 /* CoordinatorType.swift in Sources */,
 				A73172831F004883006A6A24 /* PlaylistItem.swift in Sources */,
 				A71853061EE95A7F00911C87 /* MenuOptionViewConstants.swift in Sources */,

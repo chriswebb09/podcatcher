@@ -120,7 +120,7 @@ final class PlayerView: UIView {
     
     private var moreButton: UIButton = {
         var moreButton = UIButton()
-        moreButton.setImage(#imageLiteral(resourceName: "morebutton"), for: .normal)
+        moreButton.setImage(#imageLiteral(resourceName: "more-button-white"), for: .normal)
         return moreButton
     }()
     

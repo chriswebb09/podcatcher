@@ -34,8 +34,8 @@ extension PlayerViewController: PlayerViewDelegate {
         guard let url = caster.assets[index].audioUrl else { return }
         
         guard let artwork = caster.artwork else { return }
-        self.playerViewModel = PlayerViewModel(image: artwork, title: caster.assets[index].title)
-        setModel(model: PlayerViewModel(image: artwork, title: caster.assets[index].title))
+        self.playerViewModel = PlayerViewModel(image: artwork, title: caster.assets[testIndex].title)
+        setModel(model: PlayerViewModel(image: artwork, title: caster.assets[testIndex].title))
         initPlayer(url: url)
         delegate?.skipButton(tapped: true)
     }
@@ -45,11 +45,11 @@ extension PlayerViewController: PlayerViewDelegate {
         guard let player = player else { return }
         player.pause()
         index += 1
-        guard let url = caster.assets[index].audioUrl else { return }
+        guard let url = caster.assets[testIndex].audioUrl else { return }
         
         guard let artwork = caster.artwork else { return }
-        self.playerViewModel = PlayerViewModel(image: artwork, title: caster.assets[index].title)
-        setModel(model: PlayerViewModel(image: artwork, title: caster.assets[index].title))
+        self.playerViewModel = PlayerViewModel(image: artwork, title: caster.assets[testIndex].title)
+        setModel(model: PlayerViewModel(image: artwork, title: caster.assets[testIndex].title))
         initPlayer(url: url)
         delegate?.skipButton(tapped: true)
     }

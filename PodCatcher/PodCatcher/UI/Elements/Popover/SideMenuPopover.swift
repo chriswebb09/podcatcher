@@ -11,6 +11,8 @@ final class SideMenuPopover: BasePopoverMenu {
     
     public override func showPopView(viewController: UIViewController) {
         viewController.view.addSubview(popView)
+        viewController.view.bringSubview(toFront: self)
+        popView.isHidden = false
         popView.translatesAutoresizingMaskIntoConstraints = false
         popView.widthAnchor.constraint(equalTo: viewController.view.widthAnchor, multiplier: 0.5).isActive = true
         popView.heightAnchor.constraint(equalTo: viewController.view.heightAnchor).isActive = true
@@ -20,18 +22,16 @@ final class SideMenuPopover: BasePopoverMenu {
     
     public override func hidePopView(viewController: UIViewController) {
         super.hidePopView(viewController: viewController)
-        
+        popView.isHidden = true
     }
     
     func dismissMenu(controller: UIViewController) {
-        removeFromSuperview()
         hidePopView(viewController: controller)
         controller.view.sendSubview(toBack: self)
     }
     
     func hideMenu(controller: UIViewController) {
         hidePopView(viewController: controller)
-        popView.removeFromSuperview()
     }
     
     func setupPop() {

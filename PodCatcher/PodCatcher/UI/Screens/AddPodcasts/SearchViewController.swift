@@ -7,8 +7,13 @@ final class SearchViewController: BaseCollectionViewController {
     var searchBarBoundsY: CGFloat!
     
     var segmentControl = UISegmentedControl()
-    let searchController = UISearchController(searchResultsController: nil)
+    var searchController = UISearchController(searchResultsController: nil) {
+        didSet {
+            searchController.view.frame = CGRect.zero
+        }
+    }
     
+    var slideState: SlideMenuState = .hidden
     var gradLayer: CAGradientLayer!
     
     var searchBarActive: Bool = false {
@@ -61,13 +66,13 @@ final class SearchViewController: BaseCollectionViewController {
         searchController.definesPresentationContext = false
         searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
+        
         searchBar.delegate = self
         definesPresentationContext = false
         collectionView.backgroundColor = .lightGray
         gradLayer.isHidden = true
         var tap = UITapGestureRecognizer(target: self, action: #selector(emptyViewShower))
         emptyView.addGestureRecognizer(tap)
-        //view.sendSubview(toBack: emptyView)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -106,26 +111,38 @@ final class SearchViewController: BaseCollectionViewController {
     }
     
     func showMenu() {
-        let tap = UITapGestureRecognizer(target: self, action: #selector(hideMenu))
-        view.addGestureRecognizer(tap)
-        collectionView.addGestureRecognizer(tap)
-        rightButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "menu-red"), style: .done, target: self, action: #selector(hideMenu))
-        navigationItem.setRightBarButton(rightButtonItem, animated: false)
-        UIView.animate(withDuration: 0.15) {
-            self.sideMenuPop.showPopView(viewController: self)
-            self.sideMenuPop.popView.isHidden = false
+        print("here")
+        
+        switch slideState {
+        case .hidden:
+            searchController.searchBar.resignFirstResponder()
+            
+            slideState = .shown
+            searchBarActive = false
+            
+            searchController.searchBar.resignFirstResponder()
+            self.view.bringSubview(toFront: self.sideMenuPop.popView)
+            UIView.animate(withDuration: 0.15) {
+                self.sideMenuPop.showPopView(viewController: self)
+                dump(self.sideMenuPop)
+                DispatchQueue.main.async {
+                    self.view.bringSubview(toFront: self.sideMenuPop)
+                    self.view.bringSubview(toFront: self.sideMenuPop.popView)
+                }
+                
+                self.sideMenuPop.popView.isHidden = false
+            }
+        case .shown:
+            print("here")
+            sideMenuPop.dismissMenu(controller: self)
+            sideMenuPop.hideMenu(controller: self)
+            slideState = .hidden
         }
     }
     
     func popBottomMenu(popped: Bool) {
         sideMenuPop.setupPop()
         showMenu()
-    }
-    
-    func hideMenu() {
-        sideMenuPop.hideMenu(controller: self)
-        rightButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "menu-red"), style: .done, target: self, action: #selector(popBottomMenu(popped:)))
-        navigationItem.setRightBarButton(rightButtonItem, animated: false)
     }
     
     func emptyViewShower() {

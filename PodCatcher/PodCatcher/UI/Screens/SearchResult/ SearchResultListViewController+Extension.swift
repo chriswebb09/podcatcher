@@ -30,7 +30,6 @@ extension SearchResultListViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offset = scrollView.contentOffset
         let updatedTopViewFrame = CGRect(x: 0, y: 0, width: PodcastListConstants.topFrameWidth, height: PodcastListConstants.topFrameHeight / 1.2)
-        // let updatedTopViewFrame = dataSource.updatedTopViewFrame
         if offset.y > PodcastListConstants.minimumOffset {
             UIView.animate(withDuration: 0.5) {
                 self.topView.removeFromSuperview()
@@ -41,7 +40,6 @@ extension SearchResultListViewController: UIScrollViewDelegate {
             UIView.animate(withDuration: 0.15) {
                 self.topView.frame = updatedTopViewFrame
                 self.topView.alpha = 1
-                //  self.topView.podcastImageView.image = self.dataSource.caster.artwork
                 self.topView.layoutSubviews()
                 self.view.addSubview(self.topView)
                 self.collectionView.frame = CGRect(x: self.topView.bounds.minX,
@@ -60,6 +58,15 @@ extension SearchResultListViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         state = .toPlayer
+        var caster = Caster()
+        caster.artwork = topView.podcastImageView.image
+        guard let artist = item.podcastArtist else { return }
+        let title = item.episodes[indexPath.row].title
+        if let title = newItems[indexPath.row]["audio"], let url = URL(string: title) {
+            var mediaItem = MediaCatcherItem(creatorName: artist, title: title, playtime: 0, playCount: 0, collectionName: artist, audioUrl: url)
+            caster.assets.append(mediaItem)
+        }
+        delegate?.didSelectPodcastAt(at: caster.assets.count, with: caster)
     }
 }
 

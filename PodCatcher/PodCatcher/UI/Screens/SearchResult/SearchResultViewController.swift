@@ -6,7 +6,8 @@ class SearchResultListViewController: BaseCollectionViewController {
     var state: PodcasterControlState = .toCollection
     
     weak var delegate: PodcastListViewControllerDelegate?
-    var newItems = [[String:String]]()
+    
+    var newItems = [[String : String]]()
     var menuActive: MenuActive = .none
     let entryPop = EntryPopover()
     var topView = PodcastListTopView()
@@ -58,6 +59,3 @@ class SearchResultListViewController: BaseCollectionViewController {
         }
     }
 }
-
-
-

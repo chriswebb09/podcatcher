@@ -4,7 +4,7 @@ class RSSParser: NSObject {
     
     
     let recordKey = "item"
-    let dictionaryKeys = ["itunes:summary", "tunes:subtitle", "enclosure", "itunes:duration", "title"]
+    let dictionaryKeys = ["itunes:summary", "tunes:subtitle", "enclosure", "itunes:duration", "title", "audio/mp3"]
     
     var results = [[String: String]]()
     var currentDictionary: [String: String]!
@@ -26,10 +26,12 @@ extension RSSParser: XMLParserDelegate {
         if elementName == recordKey {
             currentDictionary = [String : String]()
         } else if elementName == "enclosure" {
-            if currentDictionary == nil {
-                currentDictionary = [String : String]()
+            if let item = attributeDict["url"], item.hasSuffix(".mp3") {
+                if currentDictionary == nil {
+                    currentDictionary = [String : String]()
+                }
+                currentDictionary["audio"] = item
             }
-            currentDictionary["audio"] = attributeDict["url"]
         } else if dictionaryKeys.contains(elementName) {
             currentValue = ""
         }

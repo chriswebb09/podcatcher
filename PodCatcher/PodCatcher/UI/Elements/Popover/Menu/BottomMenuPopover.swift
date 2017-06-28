@@ -4,7 +4,6 @@ final class BottomMenuPopover: BasePopoverMenu {
     
     var popView: MenuView = {
         let popView = MenuView()
-      //  popView.backgroundColor = PlayerViewConstants.titleViewBackgroundColor
         popView.isUserInteractionEnabled = true
         return popView
     }()

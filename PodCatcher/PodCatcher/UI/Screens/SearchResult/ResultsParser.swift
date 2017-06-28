@@ -7,7 +7,7 @@ class ResultsParser {
         var searchResults = [String: CasterSearchResult]()
         data.forEach { array in
             guard let id = array.last else { return }
-            let episode = Episodes(title: array[2], date: array[4], description: "test", duration: 29134)
+            let episode = Episodes(title: array[2], date: array[4], description: "test", duration: 29134, audioUrlString: nil)
             if searchResults[id] != nil {
                 searchResults[id]?.episodes.append(episode)
             } else {

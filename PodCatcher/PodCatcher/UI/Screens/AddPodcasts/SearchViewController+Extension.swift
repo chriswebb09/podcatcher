@@ -74,14 +74,12 @@ extension SearchViewController: UISearchControllerDelegate {
     
     func searchBarHasInput() {
         collectionView.reloadData()
-        /// dataSource.items.removeAll()
         dataSource.store.searchForTracks { [weak self] playlist, error in
             guard let playlist = playlist, let strongSelf = self else { return }
             strongSelf.dataSource.items = playlist
             strongSelf.collectionView.reloadData()
             strongSelf.collectionView.performBatchUpdates ({
                 DispatchQueue.main.async {
-                    // strongSelf.contentState = .results
                     strongSelf.collectionView.reloadItems(at: strongSelf.collectionView.indexPathsForVisibleItems)
                     strongSelf.collectionView.isHidden = false
                     strongSelf.view.bringSubview(toFront: strongSelf.collectionView)
@@ -133,10 +131,7 @@ extension SearchViewController: UISearchResultsUpdating {
     }
     
     func willPresentSearchController(_ searchController: UISearchController) {
-        view.addSubview(self.searchController.searchBar)
         view.addSubview(searchBar)
-        dump(self.searchController.searchBar)
-        view.bringSubview(toFront: searchBar)
         view.bringSubview(toFront: collectionView)
     }
 }
@@ -146,12 +141,8 @@ extension SearchViewController: UISearchResultsUpdating {
 extension SearchViewController: UISearchBarDelegate {
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        //        dataSource.items.removeAll()
-        // contentState = .none
+        dataSource.items.removeAll()
         collectionView.reloadData()
         searchBarActive = false
-        
-        
-        self.collectionView(self.collectionView, didSelectItemAt: IndexPath(item: 1, section: 1))
     }
 }

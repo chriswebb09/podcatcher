@@ -13,6 +13,7 @@ final class PlayerViewController: BaseViewController {
     var caster: Caster
     var player: AudioFilePlayer?
     var index: Int
+    var testIndex: Int
     var user: PodCatcherUser?
     var playerViewModel: PlayerViewModel!
     
@@ -20,19 +21,20 @@ final class PlayerViewController: BaseViewController {
         self.playerView = playerView
         self.index = index
         self.caster = caster
-        self.player = AudioFilePlayer(url: caster.assets[index].audioUrl!)
+        self.testIndex = index - 1
+        self.player = AudioFilePlayer(url: caster.assets[testIndex].audioUrl!)
         self.playerState = .queued
         self.user = user
         super.init(nibName: nil, bundle: nil)
         guard caster.assets.count > 0 else { return }
         guard let artwork = caster.artwork else { return }
-        self.playerViewModel = PlayerViewModel(image: artwork, title: caster.assets[index].title)
-        setModel(model: PlayerViewModel(image: artwork, title: caster.assets[index].title))
-        guard let url = caster.assets[index].audioUrl else { return }
+        self.playerViewModel = PlayerViewModel(image: artwork, title: caster.assets[testIndex].title)
+        setModel(model: PlayerViewModel(image: artwork, title: caster.assets[testIndex].title))
+        guard let url = caster.assets[testIndex].audioUrl else { return }
         initPlayer(url: url)
         playerView.delegate = self
         view.addView(view: playerView, type: .full)
-        title = caster.assets[index].collectionName
+        title = caster.assets[testIndex].collectionName
     }
     
     required init?(coder aDecoder: NSCoder) {

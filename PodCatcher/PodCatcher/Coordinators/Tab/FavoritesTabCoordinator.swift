@@ -29,18 +29,18 @@ class FavoritesTabCoordinator: NavigationCoordinator {
 
 extension FavoritesTabCoordinator: SearchViewControllerDelegate {
     func logout(tapped: Bool) {
-        
+        if dataSource.user != nil {
+            dataSource.user = nil
+        }
+        delegate?.transitionCoordinator(type: .app, dataSource: dataSource)
     }
     
     func didSelect(at index: Int) {
-        print("INDEX")
-        print(index)
-        dump(trackListDataSource.items)
-        var item = trackListDataSource.items[index]
+        let item = trackListDataSource.items[index]
         let resultsList = SearchResultListViewController(index: index)
+        resultsList.delegate = self
         resultsList.item = item as! CasterSearchResult
         guard let feedUrlString = resultsList.item.feedUrl else { return }
-        print(feedUrlString)
         RSSFeedAPIClient.requestFeed(for: feedUrlString) { response in
             guard let items = response.0 else { return }
             resultsList.newItems = items
@@ -49,5 +49,29 @@ extension FavoritesTabCoordinator: SearchViewControllerDelegate {
             }
         }
         navigationController.viewControllers.append(resultsList)
+    }
+}
+
+extension FavoritesTabCoordinator: PodcastListViewControllerDelegate {
+    
+    func didSelectPodcastAt(at index: Int, with podcast: Caster) {
+        let playerView = PlayerView()
+        let playerViewController = PlayerViewController(playerView: playerView, index: index, caster: podcast, user: dataSource.user)
+        playerViewController.delegate = self
+        navigationController.viewControllers.append(playerViewController)
+    }
+}
+
+extension FavoritesTabCoordinator: PlayerViewControllerDelegate {
+    func skipButton(tapped: Bool) {
+        
+    }
+
+    func pauseButton(tapped: Bool) {
+        
+    }
+
+    func playButton(tapped: Bool) {
+        
     }
 }
