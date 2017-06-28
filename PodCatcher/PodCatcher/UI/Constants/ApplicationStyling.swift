@@ -3,10 +3,13 @@ import UIKit
 class ApplicationStyling {
     
     static func setupUI() {
-        let fontAttribute = UIFont(name:"Avenir", size: 18) as Any
+        let titleFontAttribute = UIFont(name:"Avenir", size: 20) as Any
+        let buttonFontAttribute = UIFont(name:"Avenir", size: 18) as Any
+       // let customFont = UIFont(name: "customFontName", size: 17.0)!
+        UIBarButtonItem.appearance().setTitleTextAttributes([NSFontAttributeName: buttonFontAttribute], for: .normal)
         UINavigationBar.appearance().tintColor = UIColor.mainColor
         UINavigationBar.appearance().titleTextAttributes = [
-            NSFontAttributeName: fontAttribute,
+            NSFontAttributeName: titleFontAttribute,
             NSForegroundColorAttributeName: UIColor.mainColor,
             NSBackgroundColorAttributeName: UIColor.white
         ]

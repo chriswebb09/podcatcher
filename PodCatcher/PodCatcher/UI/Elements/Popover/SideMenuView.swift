@@ -7,6 +7,7 @@ final class SideMenuView: UIView {
     private var backgroundView: UIView = {
         let backgroundView = UIView()
         backgroundView.backgroundColor = .black
+        backgroundView.alpha = 0.8
         return backgroundView
     }()
     

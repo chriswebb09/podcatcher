@@ -10,8 +10,11 @@ class ListControllerDataSource: TracksDataSource {
     var items = [PodcastSearchResult]()
     var store: TrackDataStore
     
-    init(store: TrackDataStore) {
+    var user: PodCatcherUser?
+    
+    init(store: TrackDataStore, user: PodCatcherUser?) {
         self.store = store
+        self.user = user 
     }
     
     func cellInstance(collectionView: UICollectionView, indexPath: IndexPath) -> UICollectionViewCell {

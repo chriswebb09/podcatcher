@@ -53,12 +53,17 @@ final class SearchViewController: BaseCollectionViewController {
                                                bounds: collectionView.bounds)
         view.layer.addSublayer(gradLayer)
         navigationController?.navigationBar.backgroundColor = .white
-    
+        title = "PodCatcher"
         searchController.delegate = self
         collectionView.register(TrackCell.self)
         navigationBarSetup()
-        rightButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "menu-red"), style: .done, target: self, action: #selector(showMenu))
-        navigationItem.setRightBarButton(rightButtonItem, animated: false)
+        if dataSource.user != nil {
+            leftButtonItem = UIBarButtonItem(title: "Log Out", style: .done, target: self, action: #selector(logout))
+            leftButtonItem.setTitleTextAttributes(MediaCollectionConstants.stringAttributes, for: .normal)
+            rightButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "menu-red"), style: .done, target: self, action: #selector(popBottomMenu(popped:)))
+            navigationItem.setRightBarButton(rightButtonItem, animated: false)
+            navigationItem.setLeftBarButton(leftButtonItem, animated: false)
+        }
         searchControllerConfigure()
         searchBar.delegate = self
         definesPresentationContext = false
@@ -84,5 +89,9 @@ final class SearchViewController: BaseCollectionViewController {
         searchController.definesPresentationContext = false
         searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
+    }
+    
+    func logout() {
+        delegate?.logout(tapped: true)
     }
 }

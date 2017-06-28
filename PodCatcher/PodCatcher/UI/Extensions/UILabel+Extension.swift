@@ -6,7 +6,7 @@ extension UILabel {
         let infoLabel: UILabel = UILabel()
         infoLabel.textAlignment = .center
         infoLabel.textColor = UIColor(red:0.13, green:0.21, blue:0.44, alpha:1.0)
-        if let font = UIFont(name: "Avenir-Book", size: 18) {
+        if let font = UIFont(name: "Avenir-Book", size: 20) {
             infoLabel.font = font
         }
         infoLabel.text = infoText

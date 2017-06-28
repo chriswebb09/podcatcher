@@ -52,9 +52,6 @@ class MediaCollectionViewController: BaseCollectionViewController {
         title = "Podcasts"
         collectionView.setupBackground(frame: view.bounds)
         guard let background = collectionView.backgroundView else { return }
-        CALayer.createGradientLayer(with: [UIColor.gray.cgColor, UIColor.darkGray.cgColor],
-                                    layer: background.layer,
-                                    bounds: collectionView.bounds)
     }
     
     func popBottomMenu(popped: Bool) {

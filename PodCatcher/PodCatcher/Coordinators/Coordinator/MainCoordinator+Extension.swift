@@ -36,7 +36,8 @@ extension MainCoordinator: CoordinatorDelegate {
             mediaCoord.delegate = self
             
             var tracksDataStore = TrackDataStore()
-            let trackDataSource = ListControllerDataSource(store: tracksDataStore)
+            
+            let trackDataSource = ListControllerDataSource(store: tracksDataStore, user: dataSource.user)
             let favoritesViewController = SearchViewController(dataSource: trackDataSource)
                 ///FavoritePodcastsViewController(dataSource: dataSource)
             let favoritesTab = UINavigationController(rootViewController: favoritesViewController)

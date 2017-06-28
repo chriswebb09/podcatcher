@@ -12,6 +12,7 @@ extension SearchViewController: UICollectionViewDataSource {
         let textFieldInsideSearchBar = searchBar.value(forKey: "searchField") as? UITextField
         textFieldInsideSearchBar?.textColor = .white
         textFieldInsideSearchBar?.leftView?.alpha = 0
+        searchBar.alpha = 0.7
     }
     
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {

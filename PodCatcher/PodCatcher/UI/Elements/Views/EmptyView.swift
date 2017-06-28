@@ -5,13 +5,15 @@ final class EmptyView: UIView {
     private var infoLabel: UILabel = {
         var label = UILabel.setupInfoLabel(infoText: "No Podcasts Have Been Added")
         label.textColor = .mainColor
+        label.alpha = 0.9
         return label
     }()
     
     private var musicIcon: UIImageView = {
         var musicIcon = UIImageView()
-        musicIcon.image = #imageLiteral(resourceName: "headphones-blue").withRenderingMode(.alwaysTemplate)
-        musicIcon.tintColor = .mainColor
+        musicIcon.image = #imageLiteral(resourceName: "mic-icon").withRenderingMode(.alwaysTemplate)
+        musicIcon.tintColor = .darkMain
+        musicIcon.alpha = 0.8
         return musicIcon
     }()
     

@@ -58,10 +58,13 @@ final class StartView: UIView {
         setup(logoView: logoView)
         setup(guestUserButton: guestUserButton)
         guestUserButton.layer.cornerRadius = 10
+        guestUserButton.alpha = 0.7
         setup(loginButton: userLoginButton)
         userLoginButton.layer.cornerRadius = 10
+        userLoginButton.alpha = 0.7
         setup(createAccountButton: createAccountButton)
         createAccountButton.layer.cornerRadius = 10
+        createAccountButton.alpha = 0.7
     }
     
     private func setupSelectors() {
