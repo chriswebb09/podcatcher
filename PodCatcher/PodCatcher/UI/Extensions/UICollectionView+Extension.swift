@@ -25,7 +25,7 @@ extension UICollectionView {
     }
     
     func collectionViewRegister(viewController: UIViewController) {
-        register(MediaCell.self)
+        register(TrackCell.self)
         tetherToController(controller: viewController)
     }
     

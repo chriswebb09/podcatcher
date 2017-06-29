@@ -7,6 +7,7 @@ class PodcastListDataSource: BaseMediaControllerDataSource {
     var caster: Caster!
     
     var viewShown: ShowView {
+        guard let casters = casters else { return .empty }
         if casters.count > 0 {
             return .collection
         } else {

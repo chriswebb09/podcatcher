@@ -37,30 +37,21 @@ extension FavoritesTabCoordinator: SearchViewControllerDelegate {
     
     func didSelect(at index: Int) {
         let item = trackListDataSource.items[index]
+        
         let resultsList = SearchResultListViewController(index: index)
-        resultsList.delegate = self
+        resultsList.dataSource = dataSource
         resultsList.item = item as! CasterSearchResult
         guard let feedUrlString = resultsList.item.feedUrl else { return }
-        RSSFeedAPIClient.requestFeed(for: feedUrlString) { response in
-            guard let items = response.0 else { return }
-            resultsList.newItems = items
-            DispatchQueue.main.async {
-                resultsList.collectionView.reloadData()
-            }
+        let store = SearchResultsDataStore()
+        
+        store.pullFeed(for: feedUrlString) { response in
+            guard let podcasts = response.0 else { return }
+            resultsList.episodes = podcasts
         }
         navigationController.viewControllers.append(resultsList)
     }
 }
 
-extension FavoritesTabCoordinator: PodcastListViewControllerDelegate {
-    
-    func didSelectPodcastAt(at index: Int, with podcast: Caster) {
-        let playerView = PlayerView()
-        let playerViewController = PlayerViewController(playerView: playerView, index: index, caster: podcast, user: dataSource.user)
-        playerViewController.delegate = self
-        navigationController.viewControllers.append(playerViewController)
-    }
-}
 
 extension FavoritesTabCoordinator: PlayerViewControllerDelegate {
     func skipButton(tapped: Bool) {

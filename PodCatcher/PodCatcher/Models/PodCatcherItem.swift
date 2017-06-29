@@ -13,7 +13,7 @@ struct MediaCatcherItem {
     var tags: [String]
     var details: String = "" 
     
-    init(creatorName: String, title: String, playtime: Double, playCount: Int, collectionName: String, audioUrl: URL) {
+    init(creatorName: String, title: String, playtime: Double, playCount: Int, collectionName: String, audioUrl: URL?) {
         self.creatorName = creatorName
         self.title = title
         self.playtime = playtime

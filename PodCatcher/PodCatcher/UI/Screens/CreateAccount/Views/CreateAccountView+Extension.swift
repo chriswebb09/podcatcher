@@ -6,8 +6,10 @@ extension CreateAccountView: UITextFieldDelegate {
         
     }
     
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        textField.placeholder = ""
+    func textFieldDidBeginEditing(_ textField : UITextField) {
+        textField.autocorrectionType = .no
+        textField.autocapitalizationType = .none
+        textField.spellCheckingType = .no
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {

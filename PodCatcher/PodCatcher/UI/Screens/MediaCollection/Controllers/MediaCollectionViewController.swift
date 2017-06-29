@@ -9,7 +9,28 @@ class MediaCollectionViewController: BaseCollectionViewController {
     
     // MARK: - UI Properties
     
-    var buttonItem: UIBarButtonItem!
+    var searchBar = UISearchBar() {
+        didSet {
+            searchBar.returnKeyType = .done
+        }
+    }
+    
+    var searchController = UISearchController(searchResultsController: nil) {
+        didSet {
+            searchController.view.frame = CGRect.zero
+        }
+    }
+    
+    var searchBarActive: Bool = false {
+        didSet {
+            if searchBarActive {
+                guard let navController = self.navigationController else { return }
+                searchBar.frame = CGRect(x: UIScreen.main.bounds.minX, y: 0, width: UIScreen.main.bounds.width, height: 44)
+                collectionView.frame = CGRect(x: UIScreen.main.bounds.minX, y: searchBar.frame.maxY, width: UIScreen.main.bounds.width, height: view.frame.height)
+            }
+        }
+    }
+
     
     var viewShown: ShowView {
         didSet {
@@ -23,18 +44,28 @@ class MediaCollectionViewController: BaseCollectionViewController {
     }
     
     init(dataSource: BaseMediaControllerDataSource) {
-        let mediaDataSource = MediaCollectionDataSource(casters: dataSource.casters)
+        let mediaDataSource = MediaCollectionDataSource()
         self.dataSource = mediaDataSource
         self.viewShown = self.dataSource.viewShown
-        super.init(nibName: nil, bundle: nil)
         
+        super.init(nibName: nil, bundle: nil)
+        sideMenuPop = SideMenuPopover()
+      
+        definesPresentationContext = false
+        sideMenuPop.popView.delegate = self
+        searchController.delegate = self
+        searchBar = searchController.searchBar
+        searchBar.delegate = self
+        searchController.searchBar.delegate = self 
         if dataSource.user != nil {
-            buttonItem = UIBarButtonItem(title: "Log Out", style: .done, target: self, action: #selector(logout))
-            buttonItem.setTitleTextAttributes(MediaCollectionConstants.stringAttributes, for: .normal)
+            leftButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "search-button"), style: .done, target: self, action: #selector(search))
             rightButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "menu-red"), style: .done, target: self, action: #selector(popBottomMenu(popped:)))
             navigationItem.setRightBarButton(rightButtonItem, animated: false)
-            navigationItem.setLeftBarButton(buttonItem, animated: false)
+            navigationItem.setLeftBarButton(leftButtonItem, animated: false)
         }
+        searchController.hidesNavigationBarDuringPresentation = false
+        navigationBarSetup()
+        setupDefaultUI()
     }
     
     required public init(coder aDecoder: NSCoder) {
@@ -51,7 +82,25 @@ class MediaCollectionViewController: BaseCollectionViewController {
         collectionViewConfiguration()
         title = "Podcasts"
         collectionView.setupBackground(frame: view.bounds)
-        guard let background = collectionView.backgroundView else { return }
+    }
+    
+    
+    func navigationBarSetup() {
+        guard let navController = self.navigationController else { return }
+        searchBar = searchController.searchBar
+        collectionView.dataSource = self
+        searchControllerConfigure()
+        collectionView.register(TrackCell.self)
+        collectionView.delegate = self
+        searchBar.delegate = self
+        searchController.hidesNavigationBarDuringPresentation = false
+        searchController.searchBar.frame = CGRect(x: UIScreen.main.bounds.minX, y: navController.navigationBar.frame.maxY, width: UIScreen.main.bounds.width, height: 0)
+        collectionView.frame = CGRect(x: UIScreen.main.bounds.minX, y: 0, width: UIScreen.main.bounds.width, height: view.frame.height)
+        view.addSubview(searchBar)
+        let textFieldInsideSearchBar = searchBar.value(forKey: "searchField") as? UITextField
+        textFieldInsideSearchBar?.textColor = .white
+        textFieldInsideSearchBar?.leftView?.alpha = 0
+        searchBar.alpha = 0.7
     }
     
     func popBottomMenu(popped: Bool) {
@@ -59,9 +108,38 @@ class MediaCollectionViewController: BaseCollectionViewController {
         showMenu()
     }
     
+    func search() {
+        searchBarActive = true
+        self.willPresentSearchController(searchController)
+    }
+    
+
+    func searchControllerConfigure() {
+        searchController.dimsBackgroundDuringPresentation = false
+        searchController.definesPresentationContext = false
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.delegate = self
+    }
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tabBarController?.tabBar.isHidden = false
     }
 }
 
+extension MediaCollectionViewController: SideMenuDelegate {
+    
+    func optionOne(tapped: Bool) {
+        print("one")
+        delegate?.logout(tapped: true)
+    }  
+    
+    func optionTwo(tapped: Bool) {
+        
+    }
+    
+    func optionThree(tapped: Bool) {
+        print("nee")
+    }
+}

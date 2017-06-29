@@ -8,6 +8,7 @@ class CasterSearchResult: PodcastSearchResult {
     var episodes = [Episodes]()
     var id: String!
     var feedUrl: String?
+    var mediaItems = [MediaCatcherItem]()
 }
 
 extension CasterSearchResult: Equatable {

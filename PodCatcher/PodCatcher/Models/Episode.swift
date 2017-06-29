@@ -6,4 +6,5 @@ struct Episodes {
     var description: String
     var duration: Double
     var audioUrlString: String?
+    var stringDuration: String?
 }

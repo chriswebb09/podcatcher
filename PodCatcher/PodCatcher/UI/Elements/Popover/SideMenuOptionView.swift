@@ -18,6 +18,12 @@ final class SideMenuOptionView: UIView {
     
     func set(title: String) {
         optionLabel.text = title
+        DispatchQueue.main.async {
+            let line = CALayer()
+            line.frame = CGRect(x: 0, y: self.frame.height - 1, width: self.frame.width, height: 1)
+            line.backgroundColor = UIColor.white.cgColor
+            self.layer.addSublayer(line)
+        }
     }
 
     private func setup(label: UILabel) {
@@ -42,5 +48,6 @@ final class SideMenuOptionView: UIView {
         backgroundColor = .clear
         setup(label: optionLabel)
         setup(iconView: iconView)
+        isUserInteractionEnabled = true 
     }
 }

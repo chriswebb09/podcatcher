@@ -15,6 +15,7 @@ struct Caster {
     var tags: [String]
     var assets: [MediaCatcherItem]
     var totalPlayTime: Double?
+    var episodes = [Episodes]()
     
     init() {
         self.totalPlayTime = 0

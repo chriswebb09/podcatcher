@@ -7,10 +7,7 @@ class FavoritePodcastsBuilder {
 extension SettingsTabCoordinator: SettingsViewControllerDelegate {
     
     func settingOne(tapped: Bool) {
-        let updateAccountViewController = FavoritePodcastsViewController(dataSource: dataSource)
-        let mediaDataSource = MediaCollectionDataSource(casters: dataSource.casters)
-        updateAccountViewController.dataSource = mediaDataSource
-        navigationController.viewControllers.append(updateAccountViewController)
+
     }
     
     func settingTwo(tapped: Bool) {

@@ -66,7 +66,8 @@ extension PodcastListViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         state = .toPlayer
-        delegate?.didSelectPodcastAt(at: indexPath.row, with: dataSource.caster)
+       // delegate?.didSelectPodcastAt(at: indexPath.row, with:
+      ///  delegate?.didSelectPodcastAt(at: indexPath.row, wi
     }
 }
 

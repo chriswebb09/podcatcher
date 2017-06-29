@@ -61,12 +61,10 @@ extension SearchResultListViewController: UICollectionViewDelegate {
         var caster = Caster()
         caster.artwork = topView.podcastImageView.image
         guard let artist = item.podcastArtist else { return }
-        let title = item.episodes[indexPath.row].title
-        if let title = newItems[indexPath.row]["audio"], let url = URL(string: title) {
-            var mediaItem = MediaCatcherItem(creatorName: artist, title: title, playtime: 0, playCount: 0, collectionName: artist, audioUrl: url)
-            caster.assets.append(mediaItem)
-        }
-        delegate?.didSelectPodcastAt(at: caster.assets.count, with: caster)
+        print(episodes)
+        print(item.episodes.count)
+        delegate?.didSelectPodcastAt(at: indexPath.row, podcast: item, with: episodes)
+        
     }
 }
 
@@ -75,18 +73,16 @@ extension SearchResultListViewController: UICollectionViewDelegate {
 extension SearchResultListViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return newItems.count
+        return episodes.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as PodcastResultCell
-        if let title = newItems[indexPath.row]["title"], let playtime = newItems[indexPath.row]["itunes:duration"] {
-            
             DispatchQueue.main.async {
-                let model = PodcastResultCellViewModel(podcastTitle: title, playtimeLabel: playtime)
-                cell.configureCell(model: model)
-            }
-            
+                if let playTime = self.episodes[indexPath.row].stringDuration {
+                    let model = PodcastResultCellViewModel(podcastTitle: self.episodes[indexPath.row].title, playtimeLabel: playTime)
+                    cell.configureCell(model: model)
+                }
         }
         return cell
     }

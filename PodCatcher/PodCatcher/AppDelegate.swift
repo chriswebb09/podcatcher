@@ -10,6 +10,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var backgroundSessionCompletionHandler: (() -> Void)?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        let store = SearchResultsDataStore()
+        store.pullFeed(for: "http://feeds.feedburner.com/abcradio/10percenthappier") { episodes in
+            print(episodes.0)
+        }
+        
         ApplicationStyling.setupUI()
 
         #if CLEAR_CACHES

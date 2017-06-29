@@ -2,7 +2,7 @@ import UIKit
 
 class BaseViewController: UIViewController {
     
-    var sideMenuPop = SideMenuPopover()
+    var sideMenuPop: SideMenuPopover!
     var leftButtonItem: UIBarButtonItem!
     var rightButtonItem: UIBarButtonItem!
     
@@ -28,4 +28,5 @@ class BaseViewController: UIViewController {
         navigationItem.setRightBarButton(rightButtonItem, animated: false)
     }
 }
+
 

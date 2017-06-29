@@ -9,7 +9,10 @@ final class PlayerView: UIView {
     var model: PlayerViewModel! {
         didSet {
             titleLabel.text = model.title
-            albumImageView.image = model.imageUrl
+            if let imageUrl = model.imageUrl {
+                albumImageView.downloadImage(url: imageUrl)
+            }
+            
             totalPlayTimeLabel.text = model.totalTimeString
         }
     }

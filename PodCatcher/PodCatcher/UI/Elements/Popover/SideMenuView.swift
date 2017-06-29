@@ -2,7 +2,7 @@ import UIKit
 
 final class SideMenuView: UIView {
     
-    weak var delegate: MenuDelegate?
+    weak var delegate: SideMenuDelegate?
     
     private var backgroundView: UIView = {
         let backgroundView = UIView()
@@ -55,40 +55,29 @@ final class SideMenuView: UIView {
     }
     
     @objc private func optionOneViewTapped() {
-        delegate?.optionOneTapped()
+        print("one")
+        delegate?.optionOne(tapped: true)
     }
     
     @objc private func optionTwoViewTapped() {
-        delegate?.optionTwoTapped()
+        print("two")
+        delegate?.optionOne(tapped: true)
     }
     
     @objc private func optionThreeViewTapped() {
-        delegate?.optionThreeTapped()
+        print("three")
+        delegate?.optionThree(tapped: true)
     }
     
     func configureView() {
+        isUserInteractionEnabled = true
         layoutSubviews()
         setup(backgroundView: backgroundView)
         setupConstraints()
-        optionOneView.set(title: "Add To Favorites")
+        optionOneView.set(title: "Log Out")
         optionTwoView.set(title: "Tag Podcasts")
         optionThreeView.set(title: "Delete From Phone")
         addSelectors()
-        
-        DispatchQueue.main.async {
-            let lineOne = CALayer()
-            lineOne.frame = CGRect(x: 0, y: self.optionOneView.frame.height - 1, width: self.optionOneView.frame.width, height: 1)
-            lineOne.backgroundColor = UIColor.white.cgColor
-            let lineTwo = CALayer()
-            lineTwo.frame = CGRect(x: 0, y: self.optionTwoView.frame.height - 1, width: self.optionTwoView.frame.width, height: 1)
-            lineTwo.backgroundColor = UIColor.white.cgColor
-            let lineThree = CALayer()
-            lineThree.frame = CGRect(x: 0, y: self.optionThreeView.frame.height - 1, width: self.optionThreeView.frame.width, height: 1)
-            lineThree.backgroundColor = UIColor.white.cgColor
-            self.optionThreeView.layer.addSublayer(lineThree)
-            self.optionTwoView.layer.addSublayer(lineTwo)
-            self.optionOneView.layer.addSublayer(lineOne)
-        }
     }
     
     func setup(backgroundView: UIView) {

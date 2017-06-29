@@ -23,9 +23,9 @@ class PodcastListViewController: BaseCollectionViewController {
     }
     
     init(index: Int, dataSource: BaseMediaControllerDataSource) {
-        let podcastListDataSource = PodcastListDataSource(casters: dataSource.casters)
+        let podcastListDataSource = PodcastListDataSource()
         podcastListDataSource.index = index
-        podcastListDataSource.caster = dataSource.casters[index]
+
         self.dataSource = podcastListDataSource
         self.viewShown = .collection
         

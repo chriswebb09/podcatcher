@@ -44,16 +44,17 @@ final class SearchViewController: BaseCollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupDefaultUI()
+        //setupDefaultUI()
         collectionView.dataSource = self
         collectionView.delegate = self
+        self.sideMenuPop = SideMenuPopover()
         setupCollectionView(collectionView: collectionView, view: view, newLayout: TrackItemsFlowLayout())
         gradLayer = CALayer.buildGradientLayer(with: [UIColor.white.cgColor, UIColor.lightGray.cgColor],
                                                layer: view.layer,
                                                bounds: collectionView.bounds)
         view.layer.addSublayer(gradLayer)
         navigationController?.navigationBar.backgroundColor = .white
-        title = "PodCatcher"
+    
         searchController.delegate = self
         collectionView.register(TrackCell.self)
         navigationBarSetup()

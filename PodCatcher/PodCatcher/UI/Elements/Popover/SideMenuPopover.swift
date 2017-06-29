@@ -40,6 +40,3 @@ final class SideMenuPopover: BasePopoverMenu {
         popView.layer.borderWidth = 1.5
     }
 }
-
-
-

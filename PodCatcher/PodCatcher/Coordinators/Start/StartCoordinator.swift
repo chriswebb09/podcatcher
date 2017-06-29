@@ -5,7 +5,7 @@ class StartCoordinator: NavigationCoordinator {
     var type: CoordinatorType = .app
     weak var delegate: CoordinatorDelegate?
     var window: UIWindow!
-    var dataSource = BaseMediaControllerDataSource(casters: [])
+    var dataSource = BaseMediaControllerDataSource()
     var store = PodcatcherDataStore()
     var childViewControllers: [UIViewController] = []
     
@@ -17,9 +17,10 @@ class StartCoordinator: NavigationCoordinator {
     
     init(navigationController: UINavigationController = UINavigationController()) {
         self.navigationController = navigationController
-        store.pullPodcastsFromUser { casts in
-            self.dataSource.casters = casts 
-        }
+//        store.pullPodcastsFromUser { casts in
+//            guard let casts = casts else { return }
+//            self.dataSource.casters = casts 
+//        }
     }
     
     convenience init(navigationController: UINavigationController, window: UIWindow) {

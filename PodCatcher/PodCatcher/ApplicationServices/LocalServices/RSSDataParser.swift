@@ -1,15 +1,12 @@
 import Foundation
 
 class RSSParser: NSObject {
-    
-    
     let recordKey = "item"
-    let dictionaryKeys = ["itunes:summary", "tunes:subtitle", "enclosure", "itunes:duration", "title", "audio/mp3"]
+    let dictionaryKeys = ["itunes:summary", "tunes:subtitle", "pubDate", "enclosure", "itunes:duration", "title", "audio/mp3", "itunes:keywords", "itunes:image", "link"]
     
     var results = [[String: String]]()
     var currentDictionary: [String: String]!
     var currentValue: String?
-    
     
     func parseResponse(data: Data, completion: @escaping ([[String: String]]) -> Void) {
         let parser = XMLParser(data: data)
@@ -38,13 +35,11 @@ extension RSSParser: XMLParserDelegate {
     }
     
     func parser(_ parser: XMLParser, foundCharacters string: String) {
-        
         currentValue? += string.trimmingCharacters(in: .whitespacesAndNewlines)
     }
     
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         if elementName == "enclosure" {
-            print(elementName)
             currentValue = nil
             return
         }

@@ -31,26 +31,38 @@ extension PlayerViewController: PlayerViewDelegate {
         guard let player = player else { return }
         player.pause()
         index -= 1
-        guard let url = caster.assets[index].audioUrl else { return }
-        
-        guard let artwork = caster.artwork else { return }
-        self.playerViewModel = PlayerViewModel(image: artwork, title: caster.assets[testIndex].title)
-        setModel(model: PlayerViewModel(image: artwork, title: caster.assets[testIndex].title))
-        initPlayer(url: url)
+        guard let artUrl = caster.podcastArtUrlString else { return }
+        showLoadingView(loadingPop: loadingPop)
+        if let audioUrl = caster.episodes[index].audioUrlString, let url = URL(string: audioUrl) {
+            self.player = AudioFilePlayer(url: url)
+            self.initPlayer(url: url)
+            DispatchQueue.main.async {
+                self.playerViewModel = PlayerViewModel(imageUrl: URL(string: artUrl), title: self.caster.episodes[self.index].title)
+                self.setModel(model: self.playerViewModel)
+                self.title = self.caster.episodes[self.index].title
+            }
+        }
         delegate?.skipButton(tapped: true)
     }
     
     func skipButtonTapped() {
-        guard index < caster.assets.count - 1 else { return }
+        guard index < caster.episodes.count - 1 else { return }
+        index += 1
         guard let player = player else { return }
         player.pause()
-        index += 1
-        guard let url = caster.assets[testIndex].audioUrl else { return }
-        
-        guard let artwork = caster.artwork else { return }
-        self.playerViewModel = PlayerViewModel(image: artwork, title: caster.assets[testIndex].title)
-        setModel(model: PlayerViewModel(image: artwork, title: caster.assets[testIndex].title))
-        initPlayer(url: url)
+        guard let artUrl = caster.podcastArtUrlString else { return }
+        showLoadingView(loadingPop: loadingPop)
+        self.playerViewModel = PlayerViewModel(imageUrl: URL(string: artUrl), title: caster.episodes[index].title)
+        self.setModel(model: self.playerViewModel)
+        if let audioUrl = caster.episodes[index].audioUrlString, let url = URL(string: audioUrl) {
+            self.player = AudioFilePlayer(url: url)
+            self.initPlayer(url: url)
+            DispatchQueue.main.async {
+                self.playerViewModel = PlayerViewModel(imageUrl: URL(string: artUrl), title: self.caster.episodes[self.index].title)
+                self.setModel(model: self.playerViewModel)
+                self.title = self.caster.episodes[self.index].title
+            }
+        }
         delegate?.skipButton(tapped: true)
     }
     

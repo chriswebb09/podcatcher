@@ -31,7 +31,7 @@ class UnderlineTextField: UITextField {
     func setup() {
         let border = CALayer()
         let width = CGFloat(1.2)
-        border.borderColor = UIColor.black.cgColor
+        border.borderColor = UIColor.gray.cgColor
         
         border.frame = CGRect(x: 0, y: frame.size.height - width, width:  frame.size.width, height: frame.size.height)
         border.borderWidth = width
@@ -52,7 +52,7 @@ extension UnderlineTextField {
         leftView = imageView
         let attributedString = NSMutableAttributedString(string: "Password")
         attributedString.addAttribute(NSKernAttributeName, value: CGFloat(1.5), range: NSRange(location: 0, length: attributedString.length))
-        let fontAttribute = [NSFontAttributeName: UIFont.systemFont(ofSize: 12.0)]
+        let fontAttribute = [NSFontAttributeName: UIFont(name: "AvenirNext-Regular", size: 16)]
         attributedString.addAttributes(fontAttribute, range: NSRange(location: 0, length: attributedString.length))
         attributedPlaceholder = attributedString
         textColor = .lightGray
@@ -61,7 +61,6 @@ extension UnderlineTextField {
             attributedString.addAttribute(NSKernAttributeName, value: CGFloat(1.0), range: NSRange(location: 0, length: attributedString.length))
             attributedText = attributedString
         }
-        
         accessibilityLabel = "password-field"
     }
     
@@ -74,15 +73,18 @@ extension UnderlineTextField {
         leftView = imageView
         let attributedString = NSMutableAttributedString(string: "Email Address")
         attributedString.addAttribute(NSKernAttributeName, value: CGFloat(1.5), range: NSRange(location: 0, length: attributedString.length))
-        let fontAttribute = [NSFontAttributeName: UIFont.systemFont(ofSize: 14.0)]
+        let fontAttribute = [NSFontAttributeName: UIFont(name: "AvenirNext-Regular", size: 16)]
         attributedString.addAttributes(fontAttribute, range: NSRange(location: 0, length: attributedString.length))
         attributedPlaceholder = attributedString
         if let text = text {
-            let attributedString = NSMutableAttributedString(string: text)
+            
+            let attributedString = NSMutableAttributedString(string: text.lowercased())
             attributedString.addAttribute(NSKernAttributeName, value: CGFloat(1.0), range: NSRange(location: 0, length: attributedString.length))
             attributedText = attributedString
         }
     }
+    
+    
     
     func setupUserField() {
         var image = #imageLiteral(resourceName: "user").withRenderingMode(.alwaysTemplate)
@@ -93,7 +95,7 @@ extension UnderlineTextField {
         leftView = imageView
         let attributedString = NSMutableAttributedString(string: "Username")
         attributedString.addAttribute(NSKernAttributeName, value: CGFloat(1.5), range: NSRange(location: 0, length: attributedString.length))
-        let fontAttribute = [NSFontAttributeName: UIFont.systemFont(ofSize: 14.0)]
+        let fontAttribute = [NSFontAttributeName: UIFont(name: "AvenirNext-Regular", size: 16)]
         attributedString.addAttributes(fontAttribute, range: NSRange(location: 0, length: attributedString.length))
         attributedPlaceholder = attributedString
         if let text = text {

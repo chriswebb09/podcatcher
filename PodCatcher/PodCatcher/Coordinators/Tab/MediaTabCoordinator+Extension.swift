@@ -9,19 +9,40 @@ extension MediaTabCoordinator: MediaControllerDelegate {
         delegate?.transitionCoordinator(type: .app, dataSource: dataSource)
     }
     
-    func didSelect(at index: Int) {
-        let podcastList = PodcastListViewController(index: index, dataSource: dataSource)
-        podcastList.delegate = self
-        navigationController.viewControllers.append(podcastList)
+    func didSelect(at index: Int, with caster: PodcastSearchResult) {
+        let resultsList = SearchResultListViewController(index: index)
+        resultsList.delegate = self
+        resultsList.item = caster as! CasterSearchResult
+        guard let feedUrlString = resultsList.item.feedUrl else { return }
+        let store = SearchResultsDataStore()
+        store.pullFeed(for: feedUrlString) { response in
+            guard let episodes = response.0 else { print("no"); return }
+            
+            DispatchQueue.main.async {
+                resultsList.episodes = episodes
+                resultsList.collectionView.reloadData()
+                self.navigationController.viewControllers.append(resultsList)
+            }
+        }
+//        RSSFeedAPIClient.requestFeed(for: feedUrlString) { response in
+//            guard let items = response.0 else { return }
+//            DispatchQueue.main.async {
+//                resultsList.newItems = items
+//
+//            }
+//        }
+        
     }
 }
 
 extension MediaTabCoordinator: PodcastListViewControllerDelegate {
     
-    func didSelectPodcastAt(at index: Int, with podcast: Caster) {
+    func didSelectPodcastAt(at index: Int, podcast: CasterSearchResult, with episodes: [Episodes]) {
         let playerView = PlayerView()
+        podcast.episodes = episodes
         let playerViewController = PlayerViewController(playerView: playerView, index: index, caster: podcast, user: dataSource.user)
         playerViewController.delegate = self
+        
         navigationController.viewControllers.append(playerViewController)
     }
 }

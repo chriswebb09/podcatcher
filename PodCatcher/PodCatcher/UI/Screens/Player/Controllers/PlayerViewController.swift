@@ -9,35 +9,34 @@ final class PlayerViewController: BaseViewController {
     
     var playerView: PlayerView
     var playerState: PlayState
+    var episode: Episodes!
     var dataSource: PodcastListDataSource!
     var loadingPop = LoadingPopover()
-    var caster: Caster
+    var caster: CasterSearchResult
     var player: AudioFilePlayer?
     var index: Int
     var testIndex: Int
     var user: PodCatcherUser?
     var playerViewModel: PlayerViewModel!
     
-    init(playerView: PlayerView = PlayerView(), index: Int, caster: Caster, user: PodCatcherUser?) {
+    init(playerView: PlayerView = PlayerView(), index: Int, caster: CasterSearchResult, user: PodCatcherUser?) {
         self.playerView = playerView
         self.index = index
         self.caster = caster
         self.testIndex = index - 1
-        if let url = caster.assets[testIndex].audioUrl {
-            self.player = AudioFilePlayer(url: url)
+        if let url = caster.episodes[index].audioUrlString, let audioUrl = URL(string: url) {
+            self.player = AudioFilePlayer(url: audioUrl)
         }
         self.playerState = .queued
-        self.user = user
+
         super.init(nibName: nil, bundle: nil)
-        guard caster.assets.count > 0 else { return }
-        guard let artwork = caster.artwork else { return }
-        self.playerViewModel = PlayerViewModel(image: artwork, title: caster.assets[testIndex].title)
-        setModel(model: PlayerViewModel(image: artwork, title: caster.assets[testIndex].title))
-        guard let url = caster.assets[testIndex].audioUrl else { return }
-        initPlayer(url: url)
+        self.player?.delegate = self
+        guard let artUrl = caster.podcastArtUrlString else { return }
+        self.playerViewModel = PlayerViewModel(imageUrl: URL(string: artUrl), title: caster.episodes[index].title)
+        self.setModel(model: self.playerViewModel)
         playerView.delegate = self
         view.addView(view: playerView, type: .full)
-        title = caster.assets[testIndex].collectionName
+        title = caster.episodes[index].title
     }
     
     required init?(coder aDecoder: NSCoder) {

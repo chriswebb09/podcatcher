@@ -15,7 +15,6 @@ class PCMediaPlayer {
             case .restricted:
                 return
             case .authorized:
-                
                 if let strongSelf = self {
                     if strongSelf.podcastsQuery == nil {
                         strongSelf.podcastsQuery = MPMediaQuery.podcasts()
