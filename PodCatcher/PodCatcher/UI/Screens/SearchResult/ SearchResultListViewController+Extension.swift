@@ -81,6 +81,7 @@ extension SearchResultListViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as PodcastResultCell
         if let title = newItems[indexPath.row]["title"], let playtime = newItems[indexPath.row]["itunes:duration"] {
+            
             DispatchQueue.main.async {
                 let model = PodcastResultCellViewModel(podcastTitle: title, playtimeLabel: playtime)
                 cell.configureCell(model: model)

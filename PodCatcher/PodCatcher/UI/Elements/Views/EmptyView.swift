@@ -5,7 +5,7 @@ final class EmptyView: UIView {
     private var infoLabel: UILabel = {
         var label = UILabel.setupInfoLabel(infoText: "No Podcasts Have Been Added")
         label.textColor = .mainColor
-        label.alpha = 0.9
+        label.alpha = 1
         return label
     }()
     

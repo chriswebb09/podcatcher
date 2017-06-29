@@ -29,7 +29,7 @@ final class LoginView: UIView {
     
     fileprivate var submitButton: UIButton = {
         var borderColor = UIColor.lightText.cgColor
-        let submitButton = BasicButtonFactory(text: "Login", textColor: .white, borderWidth: 2, borderColor: borderColor, backgroundColor: .lightText)
+        let submitButton = BasicButtonFactory(text: "Sign In", textColor: .white, borderWidth: 2, borderColor: borderColor, backgroundColor: .lightText)
         
         return submitButton.createButton()
     }()
@@ -39,13 +39,13 @@ final class LoginView: UIView {
     override func layoutSubviews() {
         tag = 1
         super.layoutSubviews()
-        backgroundColor = .white
-        var passwordField = self.passwordField as! UnderlineTextField
+        //CALayer.createGradientLayer(with: [UIColor.white.cgColor, UIColor.lightGray.cgColor], layer: layer, bounds: bounds)
+        let passwordField = self.passwordField as! UnderlineTextField
         self.emailField.delegate = self
         passwordField.delegate = self
         passwordField.setupPasswordField()
         passwordField.setup()
-        var emailField = self.emailField as! UnderlineTextField
+        let emailField = self.emailField as! UnderlineTextField
         emailField.setupEmailField()
         emailField.setup()
         emailField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
@@ -54,8 +54,10 @@ final class LoginView: UIView {
         setup(passwordField: passwordField)
         setup(submitButton: submitButton)
         submitButton.layer.cornerRadius = 10
+        submitButton.alpha = 0.7
         submitButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
         emailField.autocorrectionType = .no
+        backgroundColor = .white        
     }
     
     func configure(model: LoginViewModel) {

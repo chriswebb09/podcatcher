@@ -27,7 +27,7 @@ struct LoginViewModel {
     }
     
     var validContentColor: UIColor = .mainColor
-    var invalidInputColor: UIColor = .gray
+    var invalidInputColor: UIColor = .semiOffMain
     
     var buttonColor: UIColor {
         if validContent {

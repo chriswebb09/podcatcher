@@ -9,7 +9,8 @@ final class PlayerViewController: BaseViewController {
     
     var playerView: PlayerView
     var playerState: PlayState
-    var dataSource: PodcastListDataSource! 
+    var dataSource: PodcastListDataSource!
+    var loadingPop = LoadingPopover()
     var caster: Caster
     var player: AudioFilePlayer?
     var index: Int
@@ -44,6 +45,7 @@ final class PlayerViewController: BaseViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        showLoadingView(loadingPop: loadingPop)
         super.viewWillAppear(animated)
         tabBarController?.tabBar.alpha = 0
         navigationController?.navigationBar.backItem?.title = "Podcast"

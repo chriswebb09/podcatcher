@@ -21,13 +21,17 @@ extension LoginView: UITextFieldDelegate {
         if textField == emailField {
             if !text.isValidEmail() {
                 textField.textColor = .red
-            }
-            model.username = text
-        } else {
-            if text.characters.count < 6 {
-                textField.textColor = .red
+                return
             }
             model.password = text
+            textField.textColor = .black
+        } else if textField == passwordField {
+            if text.characters.count < 6 {
+                textField.textColor = .red
+                return
+            }
+            model.password = text
+            textField.textColor = .black
         }
     }
     

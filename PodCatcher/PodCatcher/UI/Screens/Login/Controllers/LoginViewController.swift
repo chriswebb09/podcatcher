@@ -18,7 +18,7 @@ class LoginViewController: BaseViewController {
         loginView.delegate = self
         view = loginView
         view.layoutSubviews()
-        title = "Login"
+        title = "Sign In"
    
         navigationController?.navigationBar.isHidden = false
         navigationController?.navigationBar.barTintColor = .lightText

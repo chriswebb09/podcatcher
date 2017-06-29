@@ -49,13 +49,18 @@ final class PlayerView: UIView {
     
     private var playtimeSliderView: UIView = {
         let preferences = UIView()
-        preferences.backgroundColor = PlayerViewConstants.preferencesViewBackgroundColor
+        preferences.backgroundColor = UIColor(red:1.00, green:0.71, blue:0.71, alpha:1.0)
+        
+
+            //PlayerViewConstants.preferencesViewBackgroundColor
         return preferences
     }()
     
     private var playtimeSlider: UISlider = {
         let slider = UISlider()
         slider.thumbTintColor = .white
+        slider.maximumTrackTintColor = UIColor(red:1.00, green:0.36, blue:0.36, alpha:1.0)
+        
         let thumbImage = #imageLiteral(resourceName: "arrow2").scaleToSize(CGSize(width: 20, height: 20))
         slider.setThumbImage(thumbImage, for: .normal)
         slider.setThumbImage(thumbImage, for: .selected)
@@ -90,7 +95,7 @@ final class PlayerView: UIView {
     
     private var controlsView: UIView = {
         let controls = UIView()
-        controls.backgroundColor = PlayerViewConstants.controlsViewBackgroundColor
+        controls.backgroundColor = .semiOffMain
         return controls
     }()
     
@@ -237,7 +242,7 @@ final class PlayerView: UIView {
         totalPlayTimeLabel.translatesAutoresizingMaskIntoConstraints = false
         totalPlayTimeLabel.widthAnchor.constraint(equalTo: controlsView.widthAnchor, multiplier: PlayerViewConstants.backButtonWidthMultiplier).isActive = true
         totalPlayTimeLabel.heightAnchor.constraint(equalTo: controlsView.heightAnchor, multiplier: PlayerViewConstants.backButtonHeightMultiplier).isActive = true
-        totalPlayTimeLabel.topAnchor.constraint(equalTo: controlsView.topAnchor, constant: UIScreen.main.bounds.height * 0.0004).isActive = true
+        totalPlayTimeLabel.topAnchor.constraint(equalTo: controlsView.topAnchor, constant: UIScreen.main.bounds.height * 0.005).isActive = true
         totalPlayTimeLabel.rightAnchor.constraint(equalTo: controlsView.rightAnchor, constant: UIScreen.main.bounds.width * -0.04).isActive = true
     }
     
@@ -246,7 +251,7 @@ final class PlayerView: UIView {
         currentTimeLabel.translatesAutoresizingMaskIntoConstraints = false
         currentTimeLabel.widthAnchor.constraint(equalTo: controlsView.widthAnchor, multiplier: PlayerViewConstants.backButtonWidthMultiplier).isActive = true
         currentTimeLabel.heightAnchor.constraint(equalTo: controlsView.heightAnchor, multiplier: PlayerViewConstants.backButtonHeightMultiplier).isActive = true
-        currentTimeLabel.topAnchor.constraint(equalTo: controlsView.topAnchor, constant: UIScreen.main.bounds.height * 0.0004).isActive = true
+        currentTimeLabel.topAnchor.constraint(equalTo: controlsView.topAnchor, constant: UIScreen.main.bounds.height * 0.005).isActive = true
         currentTimeLabel.leftAnchor.constraint(equalTo: controlsView.leftAnchor, constant: UIScreen.main.bounds.width * 0.04).isActive = true
     }
     
@@ -270,7 +275,6 @@ final class PlayerView: UIView {
         volumeControlsView.addSubview(volumeSlider)
         volumeSlider.translatesAutoresizingMaskIntoConstraints = false
         volumeSlider.rightAnchor.constraint(equalTo: volumeControlsView.rightAnchor, constant: UIScreen.main.bounds.width * -0.16).isActive = true
-            ///.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         volumeSlider.centerYAnchor.constraint(equalTo: volumeControlsView.topAnchor).isActive = true
         volumeSlider.heightAnchor.constraint(equalTo: volumeControlsView.heightAnchor, multiplier: 0.5).isActive = true
         volumeSlider.widthAnchor.constraint(equalTo: volumeControlsView.widthAnchor, multiplier: 0.6).isActive = true
@@ -323,6 +327,7 @@ final class PlayerView: UIView {
     @objc private func playButtonTapped() {
         model.switchButtonAlpha(for: pauseButton, withButton: playButton)
         delegate?.playButtonTapped()
+        pauseButton.alpha = 1
     }
     
     @objc private func pauseButtonTapped() {
@@ -338,6 +343,10 @@ final class PlayerView: UIView {
     @objc private func backButtonTapped() {
         model.reset(playButton: playButton, pauseButton: pauseButton, slider: playtimeSlider)
         delegate?.backButtonTapped()
+    }
+    
+    func setPauseButtonAlpha() {
+        pauseButton.alpha = 1
     }
     
     func update(progressBarValue: Float) {

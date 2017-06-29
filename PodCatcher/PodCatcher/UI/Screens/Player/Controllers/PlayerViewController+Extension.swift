@@ -78,6 +78,8 @@ extension PlayerViewController: AudioFilePlayerDelegate {
     
     func trackDurationCalculated(stringTime: String, timeValue: Float64) {
         DispatchQueue.main.async {
+            self.hideLoadingView(loadingPop: self.loadingPop)
+            self.playerView.setPauseButtonAlpha()
             self.playerViewModel.totalTimeString = stringTime
             self.setModel(model: self.playerViewModel)
         }

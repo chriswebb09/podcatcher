@@ -38,7 +38,8 @@ extension RSSParser: XMLParserDelegate {
     }
     
     func parser(_ parser: XMLParser, foundCharacters string: String) {
-        currentValue? += string
+        
+        currentValue? += string.trimmingCharacters(in: .whitespacesAndNewlines)
     }
     
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {

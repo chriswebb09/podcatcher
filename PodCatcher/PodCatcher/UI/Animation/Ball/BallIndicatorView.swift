@@ -3,7 +3,7 @@ import UIKit
 final class BallIndicatorView: UIView {
     
     var color: UIColor? = .blue
-    
+    let animationType: AnimationDelegate?
     var animationRect: CGRect?
     var padding: CGFloat = 20
     
@@ -15,13 +15,21 @@ final class BallIndicatorView: UIView {
         }
     }
     
+    override init(frame: CGRect) {
+        self.animationType = BallAnimation(size: CGSize(width: 50, height: 50))
+        super.init(frame: frame)
+    }
+    
     required init?(coder aDecoder: NSCoder) {
+        self.animationType = BallAnimation(size: CGSize(width: 50, height: 50))
         super.init(coder: aDecoder)
         isHidden = true
     }
     
-    init(frame: CGRect?, color: UIColor? = nil, padding: CGFloat? = nil) {
+    init(frame: CGRect?, color: UIColor? = nil, padding: CGFloat? = nil, animationType: AnimationDelegate) {
         guard let frame = frame else { fatalError("Frame does not exist") }
+        
+        self.animationType = animationType
         super.init(frame: frame)
         let animationWidth = frame.size.width * 0.5
         let animationHeight = frame.height * 0.4
@@ -53,7 +61,7 @@ final class BallIndicatorView: UIView {
         layer.sublayers?.removeAll()
     }
     
-    private func setUpAnimation(ballAnimation: BallAnimation) {
+    private func setUpAnimation(ballAnimation: AnimationDelegate) {
         let animationType: AnimationDelegate = ballAnimation
         var animationRect: CGRect = UIEdgeInsetsInsetRect(frame, UIEdgeInsetsMake(padding / 3, padding / 3, padding / 3, padding / 3))
         let minEdge = min(animationRect.width, animationRect.height)

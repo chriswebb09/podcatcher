@@ -26,7 +26,7 @@ final class StartView: UIView {
     }()
     
     private var userLoginButton: UIButton = {
-        let userLogin = LoginButtonFactory(text: "Login", textColor: .white, buttonBorderWidth: StartViewConstants.buttonBorderWidth, buttonBorderColor: UIColor.blue.cgColor, buttonBackgroundColor: UIColor.mainColor)
+        let userLogin = LoginButtonFactory(text: "Sign In", textColor: .white, buttonBorderWidth: StartViewConstants.buttonBorderWidth, buttonBorderColor: UIColor.blue.cgColor, buttonBackgroundColor: UIColor.mainColor)
         return userLogin.createButton()
     }()
     

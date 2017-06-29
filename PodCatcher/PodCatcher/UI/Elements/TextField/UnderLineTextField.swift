@@ -30,8 +30,8 @@ class UnderlineTextField: UITextField {
     
     func setup() {
         let border = CALayer()
-        let width = CGFloat(1.0)
-        border.borderColor = UIColor.darkGray.cgColor
+        let width = CGFloat(1.2)
+        border.borderColor = UIColor.black.cgColor
         
         border.frame = CGRect(x: 0, y: frame.size.height - width, width:  frame.size.width, height: frame.size.height)
         border.borderWidth = width
@@ -48,7 +48,7 @@ extension UnderlineTextField {
         leftViewMode = UITextFieldViewMode.always
         let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 30, height: 28))
         imageView.image = image
-        imageView.tintColor = .lightGray
+        imageView.tintColor = .gray
         leftView = imageView
         let attributedString = NSMutableAttributedString(string: "Password")
         attributedString.addAttribute(NSKernAttributeName, value: CGFloat(1.5), range: NSRange(location: 0, length: attributedString.length))
@@ -69,7 +69,7 @@ extension UnderlineTextField {
         var image = #imageLiteral(resourceName: "mail-cropped").withRenderingMode(.alwaysTemplate)
         leftViewMode = UITextFieldViewMode.always
         let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 30, height: 20))
-        imageView.tintColor = .lightGray
+        imageView.tintColor = .gray
         imageView.image = image
         leftView = imageView
         let attributedString = NSMutableAttributedString(string: "Email Address")
