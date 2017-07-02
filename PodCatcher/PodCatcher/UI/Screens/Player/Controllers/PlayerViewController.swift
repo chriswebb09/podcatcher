@@ -25,12 +25,10 @@ final class PlayerViewController: BaseViewController {
         self.index = index
         self.caster = caster
         self.testIndex = index - 1
-        
         if let url = caster.episodes[index].audioUrlString, let audioUrl = URL(string: url) {
             self.player = AudioFilePlayer(url: audioUrl)
         }
         self.playerState = .queued
-        
         super.init(nibName: nil, bundle: nil)
         player?.delegate = self
         guard let artUrl = caster.podcastArtUrlString else { return }
@@ -38,7 +36,6 @@ final class PlayerViewController: BaseViewController {
         setModel(model: playerViewModel)
         playerView.delegate = self
         view.addView(view: playerView, type: .full)
-    
     }
     
     required init?(coder aDecoder: NSCoder) {

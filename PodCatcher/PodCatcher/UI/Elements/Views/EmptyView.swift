@@ -32,10 +32,6 @@ final class EmptyView: UIView {
         setup(infoLabel: infoLabel)
         addSubview(backgroundImageView)
         addBlurEffect()
-        //        CALayer.createGradientLayer(with: [Colors.lightCharcoal.cgColor, Colors.lightHighlight.cgColor],
-        //                                    layer: layer,
-        //                                    bounds: bounds)
-        
     }
     
     func configure() {

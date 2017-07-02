@@ -35,7 +35,6 @@ final class TabBarController: UITabBarController {
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         tabBar.backgroundImage = UIImage.getImageWithColor(color: .clear, size: tabBar.frame.size)
         tabBar.insertSubview(blurEffectView, at: 0)
-        
     }
     
     func setup(with controllerOne: UIViewController, and controllerTwo: UIViewController, and controllerThree: UIViewController) {
@@ -83,7 +82,6 @@ final class TabBarController: UITabBarController {
     
     private func setupTab(settingsViewController: UIViewController) -> UINavigationController {
         return UINavigationController(rootViewController: settingsViewController)
-        
     }
     
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {

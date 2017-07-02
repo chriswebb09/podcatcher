@@ -5,6 +5,7 @@ class MediaCollectionViewController: BaseCollectionViewController {
     // MARK: - Properties
     
     weak var delegate: MediaControllerDelegate?
+    
     var dataSource: MediaCollectionDataSource
     var loadingPop = LoadingPopover()
     var backgroundView = UIView()
@@ -16,7 +17,9 @@ class MediaCollectionViewController: BaseCollectionViewController {
             searchBar.returnKeyType = .done
         }
     }
+    
     let segmentControl = UISegmentedControl(items: ["Podcast", "Term"])
+    
     var searchController = UISearchController(searchResultsController: nil) {
         didSet {
             searchController.view.frame = CGRect.zero
@@ -42,12 +45,9 @@ class MediaCollectionViewController: BaseCollectionViewController {
             case .empty:
                 view.addSubview(emptyView)
                 changeView(forView: emptyView, withView: collectionView)
-            //  emptyView.alpha = 1
             case .collection:
-                
                 changeView(forView: collectionView, withView: emptyView)
                 emptyView.removeFromSuperview()
-                //    emptyView.alpha = 0
             }
         }
     }
@@ -55,8 +55,7 @@ class MediaCollectionViewController: BaseCollectionViewController {
     init(dataSource: BaseMediaControllerDataSource) {
         let mediaDataSource = MediaCollectionDataSource()
         self.dataSource = mediaDataSource
-        self.viewShown = self.dataSource.viewShown
-        
+        viewShown = self.dataSource.viewShown
         super.init(nibName: nil, bundle: nil)
         sideMenuPop = SideMenuPopover()
         let grad = CALayer.buildGradientLayer(with: [UIColor.offMain.cgColor, UIColor.mainColor.cgColor, UIColor.semiOffMain.cgColor], layer: CALayer(), bounds: view.bounds)
@@ -68,7 +67,6 @@ class MediaCollectionViewController: BaseCollectionViewController {
         sideMenuPop.popView.delegate = self
         searchBar.delegate = self
         searchController.searchBar.delegate = self
-        
         if dataSource.user != nil {
             leftButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "search-button"), style: .done, target: self, action: #selector(search))
             rightButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "menu-red"), style: .done, target: self, action: #selector(popBottomMenu(popped:)))
@@ -134,7 +132,7 @@ class MediaCollectionViewController: BaseCollectionViewController {
     
     func search() {
         searchBarActive = true
-        self.willPresentSearchController(searchController)
+        willPresentSearchController(searchController)
     }
     
     func searchControllerConfigure() {
@@ -142,7 +140,6 @@ class MediaCollectionViewController: BaseCollectionViewController {
         searchBar = searchController.searchBar
         searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
-        
         let textFieldInsideSearchBar = searchBar.value(forKey: "searchField") as? UITextField
         textFieldInsideSearchBar?.textColor = .white
         if let textFieldInsideSearchBar = self.searchBar.value(forKey: "searchField") as? UITextField,
@@ -164,22 +161,21 @@ class MediaCollectionViewController: BaseCollectionViewController {
         default:
             break
         }
-        
     }
 }
 
 extension MediaCollectionViewController: SideMenuDelegate {
     
     func optionOne(tapped: Bool) {
-        print("one")
+        print(tapped)
         delegate?.logout(tapped: true)
     }
     
     func optionTwo(tapped: Bool) {
-        
+        print(tapped)
     }
     
     func optionThree(tapped: Bool) {
-        print("nee")
+        print(tapped)
     }
 }

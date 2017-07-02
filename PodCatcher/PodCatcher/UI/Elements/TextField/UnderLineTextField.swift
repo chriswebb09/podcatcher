@@ -50,7 +50,6 @@ class UnderlineTextField: UITextField {
     }
 }
 
-
 extension UnderlineTextField {
     
     func setupField(with textColor: UIColor, tintColor: UIColor) {

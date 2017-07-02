@@ -69,7 +69,6 @@ extension MediaCollectionViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath:IndexPath) -> UICollectionReusableView {
         let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "reusableHeaderView", for: indexPath)
-       // headerView.addSubview(segmentControl)
         return headerView
     }
 }
@@ -84,7 +83,6 @@ extension MediaCollectionViewController:  UISearchControllerDelegate {
             strongSelf.dataSource.items = playlist
             strongSelf.hideLoadingView(loadingPop: strongSelf.loadingPop)
             strongSelf.collectionView.reloadData()
-            var count = strongSelf.collectionView.indexPathsForVisibleItems.count
             strongSelf.collectionView.performBatchUpdates ({
                 self?.collectionView.reloadData()
                 DispatchQueue.main.async {
@@ -106,7 +104,6 @@ extension MediaCollectionViewController:  UISearchControllerDelegate {
             self.collectionView.reloadData()
             navController.navigationBar.topItem?.title = "PodCatch"
             return
-            
         } else if text != "" {
             searchBarActive = true
             dataSource.store.setSearch(term: text)
@@ -137,8 +134,6 @@ extension MediaCollectionViewController: UISearchResultsUpdating {
         collectionView.reloadData()
     }
     
-    
-    
     func setSearch() {
         self.dataSource.store.searchForTracks { [weak self] tracks, error in
             guard let strongSelf = self, let tracks = tracks else { return }
@@ -159,9 +154,7 @@ extension MediaCollectionViewController: UISearchResultsUpdating {
         searchBarActive = false
         leftButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "search-button"), style: .done, target: self, action: #selector(search))
         navigationItem.setLeftBarButton(leftButtonItem, animated: false)
-        if dataSource.items.count == 0 {
-            viewShown = .empty
-        }
+        if dataSource.items.count == 0 { viewShown = .empty }
         guard let nav = navigationController?.navigationBar else { return }
         collectionView.frame = CGRect(x: UIScreen.main.bounds.minX, y: nav.frame.maxY - 46, width: UIScreen.main.bounds.width, height: view.frame.height)
     }
@@ -174,14 +167,14 @@ extension MediaCollectionViewController: UISearchResultsUpdating {
 
 extension MediaCollectionViewController: UISearchBarDelegate {
     
-    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         hideLoadingView(loadingPop: loadingPop)
         DispatchQueue.main.async {
             self.collectionView.reloadData()
         }
     }
     
-    func searchBarTextDidEndEditing(searchBar: UISearchBar) {
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         hideLoadingView(loadingPop: loadingPop)
         searchBar.setShowsCancelButton(false, animated: false)
         searchBarActive = false

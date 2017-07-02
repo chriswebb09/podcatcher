@@ -5,7 +5,6 @@ class TabBarCoordinator: TabControllerCoordinator, Coordinator {
     weak var delegate: CoordinatorDelegate?
     
     var type: CoordinatorType = .tabbar
-    
     var tabBarController: TabBarController
     var window: UIWindow!
     var childCoordinators: [NavigationCoordinator] = []
@@ -18,8 +17,6 @@ class TabBarCoordinator: TabControllerCoordinator, Coordinator {
         self.init(tabBarController: tabBarController)
         self.window = window
     }
-    
-    
     
     func start(viewController: UIViewController) {
         // Fix

@@ -9,8 +9,6 @@ extension MediaTabCoordinator: MediaControllerDelegate {
         delegate?.transitionCoordinator(type: .app, dataSource: dataSource)
     }
     
-    
-    
     func didSelect(at index: Int, with caster: PodcastSearchResult) {
         let resultsList = SearchResultListViewController(index: index)
         resultsList.delegate = self
@@ -19,7 +17,6 @@ extension MediaTabCoordinator: MediaControllerDelegate {
         let store = SearchResultsDataStore()
         store.pullFeed(for: feedUrlString) { response in
             guard let episodes = response.0 else { print("no"); return }
-            
             DispatchQueue.main.async {
                 resultsList.episodes = episodes
                 resultsList.collectionView.reloadData()
