@@ -10,7 +10,7 @@ final class EntryView: UIView {
         entryField.layer.cornerRadius = DetailViewConstants.largeCornerRadius
         entryField.layer.borderWidth = DetailViewConstants.borderWidth
         entryField.placeholder = "Add a new tag!"
-        entryField.font = UIFont(name: "Avenir-Book", size: 20)!
+        entryField.font = UIFont(name: "AvenirNext-Regular", size: 20)!
         return entryField
     }()
     
@@ -39,7 +39,7 @@ final class EntryView: UIView {
         button.setTitle("Done", for: .normal)
         button.layer.borderColor = PlaylistViewControllerConstants.mainColor.cgColor
         button.layer.borderWidth = EntryViewConstants.borderWidth
-        if let popTitle = button.titleLabel, let font = UIFont(name: "Avenir-Book", size: 20) {
+        if let popTitle = button.titleLabel, let font = UIFont(name: "AvenirNext-Regular", size: 20) {
             popTitle.font = font
         }
         return button

@@ -2,13 +2,7 @@ import UIKit
 
 final internal class TrackCell: UICollectionViewCell {
     
-    private var viewModel: TrackCellViewModel? {
-        didSet {
-            guard let viewModel = viewModel else { return }
-            albumArtView.downloadImage(url: viewModel.albumImageUrl)
-        }
-    }
-    
+    private var viewModel: TrackCellViewModel?
     private var albumArtView: UIImageView = {
         var album = UIImageView()
         return album
@@ -18,12 +12,15 @@ final internal class TrackCell: UICollectionViewCell {
     
     private func setShadow() {
         layer.setCellShadow(contentView: contentView)
-        let path =  UIBezierPath(roundedRect: bounds, cornerRadius: contentView.layer.cornerRadius)
+        let rect = CGRect(origin: bounds.origin, size: CGSize(width: bounds.width, height: bounds.height - 10))
+        let path =  UIBezierPath(roundedRect: rect, cornerRadius: contentView.layer.cornerRadius)
         layer.shadowPath = path.cgPath
     }
     
     func configureCell(with model: TrackCellViewModel, withTime: Double) {
         viewModel = model
+        guard let viewModel = viewModel else { return }
+        albumArtView.downloadImage(url: viewModel.albumImageUrl)
         layoutSubviews()
     }
     

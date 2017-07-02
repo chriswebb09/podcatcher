@@ -10,11 +10,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var backgroundSessionCompletionHandler: (() -> Void)?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        let store = SearchResultsDataStore()
-        store.pullFeed(for: "http://feeds.feedburner.com/abcradio/10percenthappier") { episodes in
-            print(episodes.0)
-        }
-        
         ApplicationStyling.setupUI()
 
         #if CLEAR_CACHES
@@ -87,7 +82,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             do {
                 try context.save()
             } catch {
-                print(error.localizedDescription)
+              //  print(error.localizedDescription)
                 // Replace this implementation with code to handle the error appropriately.
                 // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
                 let nserror = error as NSError

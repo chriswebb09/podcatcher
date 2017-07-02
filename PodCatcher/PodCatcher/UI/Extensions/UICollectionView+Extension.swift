@@ -30,6 +30,7 @@ extension UICollectionView {
     }
     
     func setupCollectionView(view: UIView, newLayout: TrackItemsFlowLayout) {
+        
         setup(with: newLayout)
         frame = UIScreen.main.bounds
         backgroundColor = .white

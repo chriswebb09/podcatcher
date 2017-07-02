@@ -9,5 +9,5 @@ struct DetailViewConstants {
     static let shadowOpacity: Float = 0.5
     static let shadowOffset = CGSize(width: 0, height: 2)
     static let mainColor: UIColor = UIColor(red:0.13, green:0.21, blue:0.44, alpha:1.0)
-    static let titleFont: UIFont = UIFont(name: "Avenir-Book", size: 18)!
+    static let titleFont: UIFont = UIFont(name: "AvenirNext-Regular", size: 18)!
 }

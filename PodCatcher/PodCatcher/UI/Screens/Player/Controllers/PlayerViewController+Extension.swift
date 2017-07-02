@@ -80,6 +80,32 @@ extension PlayerViewController: PlayerViewDelegate {
         player.observePlayTime()
         delegate?.playButton(tapped: true)
     }
+
+    func moreButton(tapped: Bool) {
+        let height = view.bounds.height * 0.5
+        let width = view.bounds.width
+        let size = CGSize(width: width, height: height)
+        let originX = view.bounds.width * 0.001
+        let originY = view.bounds.height * 0.6
+        let origin = CGPoint(x: originX, y: originY)
+        bottomMenu.menu.delegate = self
+        bottomMenu.setMenu(size)
+        bottomMenu.setMenu(origin)
+        bottomMenu.setupMenu()
+        bottomMenu.setMenu(color: .white, borderColor: .darkGray, textColor: .darkGray)
+        showPopMenu()
+    }
+    
+    func hidePopMenu() {
+        print("hidePopMenu()")
+        bottomMenu.hideFrom(playerView)
+    }
+    
+    func showPopMenu() {
+        UIView.animate(withDuration: 0.15) {
+            self.bottomMenu.showOn(self.playerView)
+        }
+    }
 }
 
 extension PlayerViewController: AudioFilePlayerDelegate {
@@ -94,6 +120,7 @@ extension PlayerViewController: AudioFilePlayerDelegate {
             self.playerView.setPauseButtonAlpha()
             self.playerViewModel.totalTimeString = stringTime
             self.setModel(model: self.playerViewModel)
+            self.view.bringSubview(toFront: self.playerView)
         }
     }
     
@@ -105,5 +132,30 @@ extension PlayerViewController: AudioFilePlayerDelegate {
             strongSelf.playerView.currentPlayTimeLabel.text = String.constructTimeString(time: player.currentTime)
             strongSelf.playerView.update(progressBarValue: Float(normalizedTime))
         }
+    }
+}
+
+extension PlayerViewController: MenuDelegate {
+    
+    func optionOne(tapped: Bool) {
+        print(tapped)
+    }
+    
+    func optionTwo(tapped: Bool) {
+        print(tapped)
+    }
+    
+    func optionThree(tapped: Bool) {
+        print(tapped)
+    }
+    
+    func cancel(tapped: Bool) {
+        print("extension cancel(tapped: Bool)")
+        hidePopMenu()
+    }
+    
+    func navigateBack(tapped: Bool) {
+        delegate?.navigateBack(tapped: tapped)
+        navigationController?.popViewController(animated: false)
     }
 }

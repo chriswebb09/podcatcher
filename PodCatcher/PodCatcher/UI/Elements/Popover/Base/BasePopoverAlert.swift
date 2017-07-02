@@ -20,4 +20,9 @@ class BasePopoverAlert: UIView {
         viewController.view.sendSubview(toBack: containerView)
         containerView.isHidden = true
     }
+    
+    func configureContainer() {
+        containerView.layer.opacity = 0
+    }
+
 }

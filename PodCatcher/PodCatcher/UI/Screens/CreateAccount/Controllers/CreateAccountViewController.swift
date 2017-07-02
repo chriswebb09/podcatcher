@@ -10,14 +10,12 @@ class CreateAccountViewController: UIViewController {
         super.viewDidLoad()
         createAccountView.frame = UIScreen.main.bounds
         createAccountView.tag = 3
-        edgesForExtendedLayout = []
         createAccountView.delegate = self
         view = createAccountView
         view.layoutSubviews()
         title = "Create Account"
         navigationController?.navigationBar.isHidden = false
         navigationController?.navigationBar.isTranslucent = true
-        navigationController?.navigationBar.barTintColor = .white
     }
     
     override func viewWillDisappear(_ animated: Bool) {

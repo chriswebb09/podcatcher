@@ -17,14 +17,12 @@ class TextFieldExtension: UITextField {
                       width: bounds.width + 12,
                       height: bounds.height)
     }
-    
-   
 }
 
 extension TextFieldExtension {
     
     static func configureField(field: UITextField) {
-        field.font = UIFont(name: "Avenir-Book", size: 18)!
+        field.font = UIFont(name: "AvenirNext-Regular", size: 18)!
         field.layer.borderColor = UIColor.mainColor.cgColor
         field.layer.borderWidth = 2
         field.layer.cornerRadius = 3

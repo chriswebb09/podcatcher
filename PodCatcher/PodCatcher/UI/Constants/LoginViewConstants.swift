@@ -5,7 +5,8 @@ struct LoginViewConstants {
     static let sharedLayoutHeightMultiplier: CGFloat = 0.1
     static let sharedLayoutWidthMultiplier: CGFloat = 0.9
     
-    static let usernameFieldTopOffset: CGFloat = UIScreen.main.bounds.height * 0.1
+    static let usernameFieldTopOffset: CGFloat = UIScreen.main.bounds.height * 0.09
     static let passwordFieldTopOffset: CGFloat = UIScreen.main.bounds.height * 0.08
-    static let submitButtonTopOffset: CGFloat = UIScreen.main.bounds.height * 0.14
+    static let submitButtonTopOffset: CGFloat = UIScreen.main.bounds.height * 0.13
+    static let facebookButtonTopOffset: CGFloat = UIScreen.main.bounds.height * 0.165
 }

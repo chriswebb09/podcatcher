@@ -3,14 +3,21 @@ import UIKit
 struct LoginViewModel {
     var username: String = "" {
         didSet {
-            print(validContent)
-            print(validContentColor)
+            if username.isValidEmail() && password.characters.count >= 6 && !password.isValidEmail() {
+                validContent = true
+            } else {
+                validContent = false
+            }
         }
     }
+    
     var password: String = "" {
         didSet {
-            print(validContent)
-            print(validContentColor)
+            if username.isValidEmail() && password.characters.count >= 6 && !password.isValidEmail() {
+                validContent = true
+            } else {
+                validContent = false
+            }
         }
     }
     
@@ -18,22 +25,15 @@ struct LoginViewModel {
         return self.validContent
     }
     
-    var validContent: Bool {
-        if username.isValidEmail() && password.characters.count >= 6 {
-            return true
-        } else {
-            return false
-        }
-    }
-    
-    var validContentColor: UIColor = .mainColor
-    var invalidInputColor: UIColor = .semiOffMain
+    var validContent: Bool = false
+
+    var validContentColor: UIColor = UIColor(red:0.00, green:0.76, blue:1.00, alpha:1.0)
+    var invalidInputColor: UIColor = UIColor(red:0.60, green:0.69, blue:0.71, alpha:1.0)
     
     var buttonColor: UIColor {
-        if validContent {
+        if validContent == true {
             return validContentColor
-        } else {
-            return invalidInputColor
         }
+        return invalidInputColor
     }
 }

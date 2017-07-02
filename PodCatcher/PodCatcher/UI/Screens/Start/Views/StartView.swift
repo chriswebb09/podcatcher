@@ -3,7 +3,7 @@ import UIKit
 final class StartView: UIView {
     
     weak var delegate: StartViewDelegate?
-   
+    
     // MARK: - UI Properties
     
     private var titleLabel: UILabel = {
@@ -16,25 +16,31 @@ final class StartView: UIView {
     
     private var logoView: UIImageView = {
         let logoView = UIImageView()
-        logoView.image = #imageLiteral(resourceName: "wavelogo")
+        logoView.image = #imageLiteral(resourceName: "pod-logo-white")
         return logoView
     }()
     
     private var guestUserButton: UIButton = {
-        let guestUser = BasicButtonFactory(text: "Continue", textColor: .white, borderWidth: StartViewConstants.buttonBorderWidth, borderColor: UIColor.blue.cgColor, backgroundColor: UIColor.mainColor)
-        return guestUser.createButton()
+        let button = UIButton()
+        let buttonImage = #imageLiteral(resourceName: "button-background")
+        button.setTitle("CONTINUE", for: .normal)
+        button.setBackgroundImage(buttonImage, for: .normal)
+        return button
     }()
     
     private var userLoginButton: UIButton = {
-        let userLogin = LoginButtonFactory(text: "Sign In", textColor: .white, buttonBorderWidth: StartViewConstants.buttonBorderWidth, buttonBorderColor: UIColor.blue.cgColor, buttonBackgroundColor: UIColor.mainColor)
-        return userLogin.createButton()
+        let button = UIButton()
+        let buttonImage = #imageLiteral(resourceName: "button-background")
+        button.setTitle("LOG IN", for: .normal)
+        button.setBackgroundImage(buttonImage, for: .normal)
+        return button
     }()
-    
+
     private var createAccountButton: UIButton = {
         let createAccount = UIButton()
         var text = "Don't have an account?"
-        
-        var attributes = [NSFontAttributeName : UIFont.systemFont(ofSize: 16.0), NSForegroundColorAttributeName : UIColor.white,NSUnderlineStyleAttributeName : 1] as [String : Any]
+        //UIFont(name: "AvenirNext-Regular", size: 16)
+        var attributes = [NSFontAttributeName : UIFont.systemFont(ofSize: 14, weight: UIFontWeightLight), NSForegroundColorAttributeName : UIColor.white,NSUnderlineStyleAttributeName : 1] as [String : Any]
         var attributedString = NSMutableAttributedString(string:"")
         let buttonTitleStr = NSMutableAttributedString(string:"Don't have an account?", attributes: attributes)
         attributedString.append(buttonTitleStr)
@@ -45,8 +51,8 @@ final class StartView: UIView {
     // MARK: - Configuration Methods
     
     override func layoutSubviews() {
-        CALayer.createGradientLayer(with: [UIColor.white.cgColor, UIColor.lightGray.cgColor], layer: layer, bounds: bounds)
-
+        CALayer.createGradientLayer(with: [UIColor(red:0.94, green:0.31, blue:0.81, alpha:1.0).cgColor, UIColor(red:0.32, green:0.13, blue:0.70, alpha:1.0).cgColor], layer: layer, bounds: bounds)
+        
         super.layoutSubviews()
         setupElements()
         titleLabel.text = "Get started!"
@@ -57,14 +63,14 @@ final class StartView: UIView {
         setup(titleLabel: titleLabel)
         setup(logoView: logoView)
         setup(guestUserButton: guestUserButton)
-        guestUserButton.layer.cornerRadius = 10
-        guestUserButton.alpha = 0.7
+        guestUserButton.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightMedium)
+        guestUserButton.alpha = 0.8
         setup(loginButton: userLoginButton)
-        userLoginButton.layer.cornerRadius = 10
-        userLoginButton.alpha = 0.7
+        userLoginButton.alpha = 0.8
+        userLoginButton.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightMedium)
         setup(createAccountButton: createAccountButton)
-        createAccountButton.layer.cornerRadius = 10
-        createAccountButton.alpha = 0.7
+        createAccountButton.alpha = 0.8
+        createAccountButton.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: UIFontWeightSemibold)
     }
     
     private func setupSelectors() {
@@ -91,7 +97,7 @@ final class StartView: UIView {
         logoView.translatesAutoresizingMaskIntoConstraints = false
         logoView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         logoView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: StartViewConstants.logoViewCenterYOffset).isActive = true
-        logoView.widthAnchor.constraint(equalTo: widthAnchor, constant: UIScreen.main.bounds.width * 0.005).isActive = true
+        logoView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.6).isActive = true
         logoView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.08).isActive = true
     }
     
@@ -99,7 +105,7 @@ final class StartView: UIView {
         addSubview(view)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        view.widthAnchor.constraint(equalTo: widthAnchor, multiplier: StartViewConstants.sharedLayoutWidthMultiplier).isActive = true
+        view.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
         view.heightAnchor.constraint(equalTo: heightAnchor, multiplier: StartViewConstants.sharedLayoutHeightMultiplier).isActive = true
     }
     
@@ -109,6 +115,7 @@ final class StartView: UIView {
     }
     
     private func setup(guestUserButton: UIButton) {
+        
         sharedLayout(view: guestUserButton)
         guestUserButton.topAnchor.constraint(equalTo: logoView.bottomAnchor, constant: StartViewConstants.guestUserButtonBottomOffset).isActive = true
     }

@@ -20,9 +20,7 @@ extension MediaCollectionDataSource: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as MediaCell
-        
         if let casters = casters, let artWork = casters[indexPath.row].podcastArtUrlString, let name = casters[indexPath.row].podcastArtist {
-            
             UIImage.downloadImageFromUrl(artWork) { image in
                 guard let image = image else { return }
                 let model = MediaCellViewModel(trackName: name, albumImageURL: image)

@@ -6,8 +6,8 @@ final class MenuOptionView: UIView {
         let option = UILabel()
         option.textColor = .white
         option.backgroundColor = .clear
-        option.font = UIFont(name: "Avenir-Book", size: 15)
-        option.textAlignment = .left
+        option.font = UIFont(name: "AvenirNext-Medium", size: 15)
+        option.textAlignment = .center
         return option
     }()
     
@@ -20,7 +20,15 @@ final class MenuOptionView: UIView {
     func set(with text: String, and icon: UIImage) {
         optionLabel.text = text
         iconView.image = icon
-        backgroundColor = PlayerViewConstants.titleViewBackgroundColor
+        alpha = 1
+    }
+    
+    func set(title: String) {
+        optionLabel.text = title
+    }
+    
+    func set(textColor: UIColor) {
+        optionLabel.textColor = textColor
     }
     
     private func setup(label: UILabel) {
@@ -30,7 +38,6 @@ final class MenuOptionView: UIView {
         optionLabel.centerXAnchor.constraint(equalTo: centerXAnchor, constant: MenuOptionViewConstants.optionLabelCenterXOffset).isActive = true
         optionLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: MenuOptionViewConstants.optionLabelHeightMultiplier).isActive = true
         optionLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: MenuOptionViewConstants.optionLabelWidthMultiplier).isActive = true
-        
     }
     
     private func setup(iconView: UIImageView) {

@@ -8,6 +8,14 @@ let imageCache: NSCache<NSString, UIImage> = {
 
 extension UIImageView {
     
+    func addBlurEffect() {
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        addSubview(blurEffectView)
+    }
+    
     func downloadImage(url: URL) {
         if let cachedImage = imageCache.object(forKey: url.absoluteString as NSString) {
             self.image = cachedImage

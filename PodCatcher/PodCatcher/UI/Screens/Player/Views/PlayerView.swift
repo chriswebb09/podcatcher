@@ -12,36 +12,50 @@ final class PlayerView: UIView {
             if let imageUrl = model.imageUrl {
                 albumImageView.downloadImage(url: imageUrl)
             }
-            
             totalPlayTimeLabel.text = model.totalTimeString
         }
     }
+    
+  var backgroundView = UIView()
     
     // MARK: - UI Element Properties
     
     private var titleView: UIView = {
         let top = UIView()
-        top.backgroundColor = PlayerViewConstants.titleViewBackgroundColor
         return top
+    }()
+    
+    var navBar: UIView = {
+        let navBar = UIView()
+        return navBar
+    }()
+    
+    private var navigateBackButton: UIButton = {
+        var backButton = UIButton()
+        var buttonImage = #imageLiteral(resourceName: "back").withRenderingMode(.alwaysTemplate)
+        backButton.setImage(buttonImage, for: .normal)
+        backButton.tintColor = .white
+        return backButton
     }()
     
     private var titleLabel: UILabel = {
         let title = UILabel()
         title.textColor = .white
+        title.numberOfLines = 0
         title.textAlignment = .center
-        title.font = UIFont(name: "Avenir-Light", size: 14)
+        title.sizeToFit()
+        title.font = UIFont(name: "AvenirNext-Regular", size: 16)
         return title
     }()
     
     private var activityView: UIView = {
         let activty = UIView()
-        activty.backgroundColor = .darkGray
+        // activty.backgroundColor = .darkGray
         return activty
     }()
     
     private var albumView: UIView = {
         let album = UIView()
-        album.backgroundColor = .lightGray
         return album
     }()
     
@@ -50,21 +64,24 @@ final class PlayerView: UIView {
         return albumImage
     }()
     
+    private var preferencesView: UIView = {
+        let preferencesView = UIView()
+        preferencesView.backgroundColor = .clear
+        return preferencesView
+    }()
+    
+    
     private var playtimeSliderView: UIView = {
-        let preferences = UIView()
-        preferences.backgroundColor = UIColor(red:1.00, green:0.71, blue:0.71, alpha:1.0)
-        
-
-            //PlayerViewConstants.preferencesViewBackgroundColor
-        return preferences
+        let playtimeSliderView = UIView()
+        return playtimeSliderView
     }()
     
     private var playtimeSlider: UISlider = {
         let slider = UISlider()
         slider.thumbTintColor = .white
-        slider.maximumTrackTintColor = UIColor(red:1.00, green:0.36, blue:0.36, alpha:1.0)
+        slider.maximumTrackTintColor = UIColor(red:1.00, green:0.71, blue:0.71, alpha:1.0)
         
-        let thumbImage = #imageLiteral(resourceName: "arrow2").scaleToSize(CGSize(width: 20, height: 20))
+        let thumbImage = #imageLiteral(resourceName: "line-gray").scaleToSize(CGSize(width: 2, height: 20))
         slider.setThumbImage(thumbImage, for: .normal)
         slider.setThumbImage(thumbImage, for: .selected)
         slider.minimumValue = 0
@@ -84,7 +101,7 @@ final class PlayerView: UIView {
         currentPlayTime.textAlignment = .left
         currentPlayTime.textColor = .white
         currentPlayTime.text = "0:00"
-        currentPlayTime.font = UIFont(name: "Avenir-Light", size: 12)
+        currentPlayTime.font = UIFont(name: "AvenirNext-Regular", size: 12)
         return currentPlayTime
     }()
     
@@ -92,19 +109,19 @@ final class PlayerView: UIView {
         let totalPlayTime = UILabel()
         totalPlayTime.textAlignment = .right
         totalPlayTime.textColor = .white
-        totalPlayTime.font = UIFont(name: "Avenir-Light", size: 12)
+        totalPlayTime.font = UIFont(name: "AvenirNext-Regular", size: 12)
         return totalPlayTime
     }()
     
     private var controlsView: UIView = {
         let controls = UIView()
-        controls.backgroundColor = .semiOffMain
+        controls.backgroundColor = .clear
         return controls
     }()
     
     private var playButton: UIButton = {
         var playButton = UIButton()
-        playButton.setImage(#imageLiteral(resourceName: "bordered-white-play"), for: .normal)
+        playButton.setImage(#imageLiteral(resourceName: "play-icon"), for: .normal)
         return playButton
     }()
     
@@ -116,13 +133,13 @@ final class PlayerView: UIView {
     
     private var skipButton: UIButton = {
         var skipButton = UIButton()
-        skipButton.setImage(#imageLiteral(resourceName: "skip-white-hollow-icon"), for: .normal)
+        skipButton.setImage(#imageLiteral(resourceName: "skip-icon"), for: .normal)
         return skipButton
     }()
     
     private var backButton: UIButton = {
         var backButton = UIButton()
-        backButton.setImage(#imageLiteral(resourceName: "back-white-hollow"), for: .normal)
+        backButton.setImage(#imageLiteral(resourceName: "back-icon"), for: .normal)
         return backButton
     }()
     
@@ -156,6 +173,7 @@ final class PlayerView: UIView {
     func configure(with model: PlayerViewModel) {
         self.model = model
         setupViews()
+        backgroundColor = .mainColor
         pauseButton.alpha = 0
     }
     
@@ -165,26 +183,60 @@ final class PlayerView: UIView {
         view.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
     }
     
+    func setup(navBar: UIView) {
+        sharedLayout(view: navBar)
+        navBar.heightAnchor.constraint(equalTo: heightAnchor, multiplier: PlayerViewConstants.trackTitleViewHeightMultiplier).isActive = true
+        navBar.topAnchor.constraint(equalTo: topAnchor, constant: UIScreen.main.bounds.height * 0.03).isActive = true
+        navBar.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+    }
+    
+    func setup(navigationButton: UIButton) {
+        navBar.addSubview(navigationButton)
+        navigationButton.translatesAutoresizingMaskIntoConstraints = false
+        navigationButton.leftAnchor.constraint(equalTo: navBar.leftAnchor, constant: UIScreen.main.bounds.width * 0.01).isActive = true
+        navigationButton.centerYAnchor.constraint(equalTo: navBar.centerYAnchor).isActive = true
+        navigationButton.heightAnchor.constraint(equalTo: navBar.heightAnchor, multiplier: 0.9).isActive = true
+        navigationButton.widthAnchor.constraint(equalTo: navBar.widthAnchor, multiplier: 0.1).isActive = true
+    }
+    
     private func setup(titleView: UIView) {
         sharedLayout(view: titleView)
         titleView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: PlayerViewConstants.trackTitleViewHeightMultiplier).isActive = true
-        titleView.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        titleView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: UIScreen.main.bounds.height * 0.1).isActive = true
     }
     
     private func setup(titleLabel: UILabel) {
         titleView.addSubview(titleLabel)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.centerXAnchor.constraint(equalTo: titleView.centerXAnchor).isActive = true
-        titleLabel.centerYAnchor.constraint(equalTo: titleView.centerYAnchor).isActive = true
+        titleLabel.centerYAnchor.constraint(equalTo: titleView.centerYAnchor, constant: UIScreen.main.bounds.height * 0.03).isActive = true
         titleLabel.heightAnchor.constraint(equalTo: titleView.heightAnchor, multiplier: PlayerViewConstants.trackTitleLabelHeightMultiplier).isActive = true
         titleLabel.widthAnchor.constraint(equalTo: titleView.widthAnchor, multiplier: PlayerViewConstants.trackTitleLabelWidthMultiplier).isActive = true
     }
+    
+    private func setupPreferencesView(preferencesView: UIView) {
+        addSubview(preferencesView)
+        preferencesView.translatesAutoresizingMaskIntoConstraints = false
+        preferencesView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
+        preferencesView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: PlayerViewConstants.preferenceHeightMultiplier).isActive = true
+        preferencesView.topAnchor.constraint(equalTo: albumImageView.bottomAnchor, constant: UIScreen.main.bounds.height * 0.03).isActive = true
+    }
+    
+    private func setupMoreButton(moreButton: UIButton) {
+        preferencesView.addSubview(moreButton)
+        moreButton.translatesAutoresizingMaskIntoConstraints = false
+        moreButton.widthAnchor.constraint(equalTo: preferencesView.widthAnchor, multiplier: PlayerViewConstants.artistInfoWidthMultiplier).isActive = true
+        moreButton.heightAnchor.constraint(equalTo: preferencesView.heightAnchor, multiplier: PlayerViewConstants.artistInfoHeightMultiplier).isActive = true
+        moreButton.rightAnchor.constraint(equalTo: preferencesView.rightAnchor, constant: UIScreen.main.bounds.width * PlayerViewConstants.artistInfoRightOffset).isActive = true
+        moreButton.centerYAnchor.constraint(equalTo: preferencesView.centerYAnchor).isActive = true
+    }
+    
     
     private func setup(albumView: UIView) {
         sharedLayout(view: albumView)
         albumView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: PlayerViewConstants.artworkViewHeightMultiplier).isActive = true
         albumView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        albumView.topAnchor.constraint(equalTo: titleView.bottomAnchor).isActive = true
+        albumView.topAnchor.constraint(equalTo: topAnchor, constant: UIScreen.main.bounds.height * 0.12).isActive = true
     }
     
     private func setup(albumImageView: UIImageView) {
@@ -193,43 +245,45 @@ final class PlayerView: UIView {
         albumImageView.centerXAnchor.constraint(equalTo: albumView.centerXAnchor).isActive = true
         albumImageView.centerYAnchor.constraint(equalTo: albumView.centerYAnchor).isActive = true
         albumImageView.heightAnchor.constraint(equalTo: albumView.heightAnchor).isActive = true
-        albumImageView.widthAnchor.constraint(equalTo: albumView.widthAnchor).isActive = true
+        albumImageView.widthAnchor.constraint(equalTo: albumView.widthAnchor, multiplier: 0.8).isActive = true
     }
     
-    private func setup(sliderView: UIView) {
-        sharedLayout(view: sliderView)
-        sliderView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: PlayerViewConstants.preferenceHeightMultiplier).isActive = true
-        sliderView.topAnchor.constraint(equalTo: albumView.bottomAnchor).isActive = true
+    func setup(playtimeSliderView: UIView) {
+        controlsView.addSubview(playtimeSliderView)
+        playtimeSliderView.translatesAutoresizingMaskIntoConstraints = false
+        playtimeSliderView.centerXAnchor.constraint(equalTo: controlsView.centerXAnchor).isActive = true
+        playtimeSliderView.widthAnchor.constraint(equalTo: controlsView.widthAnchor, multiplier: 0.75).isActive = true
+        playtimeSliderView.heightAnchor.constraint(equalTo: controlsView.heightAnchor, multiplier: 0.08).isActive = true
+        playtimeSliderView.centerYAnchor.constraint(equalTo: controlsView.centerYAnchor, constant: UIScreen.main.bounds.height * 0.05).isActive = true
     }
-    
+
     private func setup(playtimeSlider: UISlider) {
         playtimeSliderView.addSubview(playtimeSlider)
         playtimeSlider.translatesAutoresizingMaskIntoConstraints = false
-        playtimeSlider.centerXAnchor.constraint(equalTo: playtimeSliderView.centerXAnchor).isActive = true
+        playtimeSlider.centerXAnchor.constraint(equalTo: controlsView.centerXAnchor).isActive = true
         playtimeSlider.centerYAnchor.constraint(equalTo: playtimeSliderView.centerYAnchor).isActive = true
-        playtimeSlider.heightAnchor.constraint(equalTo: playtimeSliderView.heightAnchor, multiplier: PlayerViewConstants.trackTitleLabelHeightMultiplier).isActive = true
+        playtimeSlider.heightAnchor.constraint(equalTo: playtimeSliderView.heightAnchor, multiplier: 0.8).isActive = true
         playtimeSlider.widthAnchor.constraint(equalTo: playtimeSliderView.widthAnchor).isActive = true
     }
     
     private func setup(controlsView: UIView) {
         sharedLayout(view: controlsView)
         controlsView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: PlayerViewConstants.controlsViewHeightMultiplier).isActive = true
-        controlsView.topAnchor.constraint(equalTo: playtimeSliderView.bottomAnchor).isActive = true
+        controlsView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
     }
     
     private func setup(trackButton: UIButton) {
         controlsView.addSubview(trackButton)
         trackButton.translatesAutoresizingMaskIntoConstraints = false
-        trackButton.heightAnchor.constraint(equalTo: controlsView.heightAnchor, multiplier: 0.4).isActive = true
-        trackButton.centerYAnchor.constraint(equalTo: controlsView.centerYAnchor, constant: UIScreen.main.bounds.height * -0.04).isActive = true
+        trackButton.heightAnchor.constraint(equalTo: controlsView.heightAnchor, multiplier: 0.32).isActive = true
+        trackButton.widthAnchor.constraint(equalTo: controlsView.widthAnchor, multiplier: 0.18).isActive = true
+        trackButton.bottomAnchor.constraint(equalTo: controlsView.centerYAnchor).isActive = true
         trackButton.centerXAnchor.constraint(equalTo: controlsView.centerXAnchor).isActive = true
     }
     
     private func setup(playButton: UIButton, pauseButton: UIButton) {
         setup(trackButton: playButton)
-        playButton.widthAnchor.constraint(equalTo: controlsView.widthAnchor, multiplier: PlayerViewConstants.buttonWidthMultiplier).isActive = true
         setup(trackButton: pauseButton)
-        pauseButton.widthAnchor.constraint(equalTo: controlsView.widthAnchor, multiplier: PlayerViewConstants.buttonWidthMultiplier).isActive = true
     }
     
     private func skipButtonsSharedLayout(controlsView: UIView, button: UIButton) {
@@ -237,77 +291,61 @@ final class PlayerView: UIView {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.widthAnchor.constraint(equalTo: controlsView.widthAnchor, multiplier: PlayerViewConstants.backButtonWidthMultiplier).isActive = true
         button.heightAnchor.constraint(equalTo: controlsView.heightAnchor, multiplier: PlayerViewConstants.backButtonHeightMultiplier).isActive = true
-        button.centerYAnchor.constraint(equalTo: controlsView.centerYAnchor, constant: UIScreen.main.bounds.height * -0.04).isActive = true
+        button.centerYAnchor.constraint(equalTo: playButton.centerYAnchor).isActive = true
     }
     
     private func setup(totalTimeLabel: UILabel) {
         controlsView.addSubview(totalPlayTimeLabel)
         totalPlayTimeLabel.translatesAutoresizingMaskIntoConstraints = false
-        totalPlayTimeLabel.widthAnchor.constraint(equalTo: controlsView.widthAnchor, multiplier: PlayerViewConstants.backButtonWidthMultiplier).isActive = true
+        totalPlayTimeLabel.widthAnchor.constraint(equalTo: controlsView.widthAnchor, multiplier: 0.1).isActive = true
         totalPlayTimeLabel.heightAnchor.constraint(equalTo: controlsView.heightAnchor, multiplier: PlayerViewConstants.backButtonHeightMultiplier).isActive = true
-        totalPlayTimeLabel.topAnchor.constraint(equalTo: controlsView.topAnchor, constant: UIScreen.main.bounds.height * 0.005).isActive = true
-        totalPlayTimeLabel.rightAnchor.constraint(equalTo: controlsView.rightAnchor, constant: UIScreen.main.bounds.width * -0.04).isActive = true
+        totalPlayTimeLabel.bottomAnchor.constraint(equalTo: controlsView.bottomAnchor, constant: UIScreen.main.bounds.height * -0.05).isActive = true
+        totalPlayTimeLabel.rightAnchor.constraint(equalTo: controlsView.rightAnchor, constant: UIScreen.main.bounds.width * -0.15).isActive = true
     }
     
     private func setup(currentTimeLabel: UILabel) {
         controlsView.addSubview(currentTimeLabel)
         currentTimeLabel.translatesAutoresizingMaskIntoConstraints = false
-        currentTimeLabel.widthAnchor.constraint(equalTo: controlsView.widthAnchor, multiplier: PlayerViewConstants.backButtonWidthMultiplier).isActive = true
+        currentTimeLabel.widthAnchor.constraint(equalTo: controlsView.widthAnchor, multiplier: 0.1).isActive = true
         currentTimeLabel.heightAnchor.constraint(equalTo: controlsView.heightAnchor, multiplier: PlayerViewConstants.backButtonHeightMultiplier).isActive = true
-        currentTimeLabel.topAnchor.constraint(equalTo: controlsView.topAnchor, constant: UIScreen.main.bounds.height * 0.005).isActive = true
-        currentTimeLabel.leftAnchor.constraint(equalTo: controlsView.leftAnchor, constant: UIScreen.main.bounds.width * 0.04).isActive = true
+        currentTimeLabel.bottomAnchor.constraint(equalTo: controlsView.bottomAnchor, constant: UIScreen.main.bounds.height * -0.05).isActive = true
+        currentTimeLabel.leftAnchor.constraint(equalTo: controlsView.leftAnchor, constant: UIScreen.main.bounds.width * 0.15).isActive = true
     }
     
     private func setup(skipButton: UIButton, backButton: UIButton) {
         skipButtonsSharedLayout(controlsView: controlsView, button: skipButton)
-        skipButton.rightAnchor.constraint(equalTo: controlsView.rightAnchor, constant: UIScreen.main.bounds.width * -0.16).isActive = true
+        skipButton.rightAnchor.constraint(equalTo: playButton.rightAnchor, constant: UIScreen.main.bounds.width * 0.2).isActive = true
         skipButtonsSharedLayout(controlsView: controlsView, button: backButton)
-        backButton.leftAnchor.constraint(equalTo: controlsView.leftAnchor, constant: UIScreen.main.bounds.width * 0.15).isActive = true
-    }
-    
-    private func setup(volumeControlsView: UIView) {
-        controlsView.addSubview(volumeControlsView)
-        volumeControlsView.translatesAutoresizingMaskIntoConstraints = false
-        volumeControlsView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        volumeControlsView.bottomAnchor.constraint(equalTo: controlsView.bottomAnchor).isActive = true
-        volumeControlsView.heightAnchor.constraint(equalTo: controlsView.heightAnchor, multiplier: 0.28).isActive = true
-        volumeControlsView.widthAnchor.constraint(equalTo: controlsView.widthAnchor).isActive = true
-    }
-    
-    private func setup(volumeSlider: UISlider) {
-        volumeControlsView.addSubview(volumeSlider)
-        volumeSlider.translatesAutoresizingMaskIntoConstraints = false
-        volumeSlider.rightAnchor.constraint(equalTo: volumeControlsView.rightAnchor, constant: UIScreen.main.bounds.width * -0.16).isActive = true
-        volumeSlider.centerYAnchor.constraint(equalTo: volumeControlsView.topAnchor).isActive = true
-        volumeSlider.heightAnchor.constraint(equalTo: volumeControlsView.heightAnchor, multiplier: 0.5).isActive = true
-        volumeSlider.widthAnchor.constraint(equalTo: volumeControlsView.widthAnchor, multiplier: 0.6).isActive = true
-    }
-    
-    private func setup(volumeImageView: UIImageView) {
-        volumeControlsView.addSubview(volumeImageView)
-        volumeImageView.translatesAutoresizingMaskIntoConstraints = false
-        volumeImageView.leftAnchor.constraint(equalTo: volumeControlsView.leftAnchor, constant: UIScreen.main.bounds.width * 0.15).isActive = true
-        volumeImageView.centerYAnchor.constraint(equalTo: volumeControlsView.topAnchor).isActive = true
-        volumeImageView.heightAnchor.constraint(equalTo: volumeControlsView.heightAnchor, multiplier: 0.35).isActive = true
-        volumeImageView.widthAnchor.constraint(equalTo: volumeControlsView.widthAnchor, multiplier: 0.04).isActive = true
+        backButton.leftAnchor.constraint(equalTo: playButton.leftAnchor, constant: UIScreen.main.bounds.width * -0.2).isActive = true
     }
     
     private func setupViews() {
+        backgroundView.frame = frame
+     
+      //  CALayer.createGradientLayer(with: [UIColor.offMain.cgColor, UIColor.mainColor.cgColor, UIColor.semiOffMain.cgColor], layer:  backgroundView.layer, bounds: bounds)
+        addSubview(backgroundView)
         layoutSubviews()
         setup(titleView: titleView)
+        setup(navBar: navBar)
+        setup(navigationButton: navigateBackButton)
         setup(titleLabel: titleLabel)
         setup(albumView: albumView)
         setup(albumImageView: albumImageView)
-        setup(sliderView: playtimeSliderView)
+        setupPreferencesView(preferencesView: preferencesView)
+        setupMoreButton(moreButton: moreButton)
+        setup(playtimeSliderView: playtimeSliderView)
+        setup(playtimeSlider: playtimeSlider)
         setup(controlsView: controlsView)
         setup(playButton: playButton, pauseButton: pauseButton)
-        setup(playtimeSlider: playtimeSlider)
         setup(skipButton: skipButton, backButton: backButton)
-        setup(volumeControlsView: volumeControlsView)
-        setup(volumeSlider: volumeSlider)
         setup(totalTimeLabel: totalPlayTimeLabel)
         setup(currentTimeLabel: currentPlayTimeLabel)
-        setup(volumeImageView: volumeIcon)
+        albumImageView.layer.setCellShadow(contentView: albumImageView)
+        let rect = CGRect(origin: albumImageView.bounds.origin,
+                          size: CGSize(width: albumImageView.bounds.width,
+                                       height: albumImageView.bounds.height - 10))
+        let path =  UIBezierPath(roundedRect: rect, cornerRadius: albumImageView.layer.cornerRadius)
+        layer.shadowPath = path.cgPath
         addSelectors()
     }
     
@@ -317,6 +355,8 @@ final class PlayerView: UIView {
         skipButton.addTarget(self, action: #selector(skipButtonTapped), for: .touchUpInside)
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         playtimeSlider.addTarget(self, action: #selector(sliderValueChanged), for: .valueChanged)
+        moreButton.addTarget(self, action: #selector(moreButtonTapped), for: .touchUpInside)
+        navigateBackButton.addTarget(self, action: #selector(navigateBack), for: .touchUpInside)
     }
     
     // MARK: - Methods
@@ -348,8 +388,22 @@ final class PlayerView: UIView {
         delegate?.backButtonTapped()
     }
     
+    @objc private func moreButtonTapped() {
+        delegate?.moreButton(tapped: true)
+    }
+    
+    
+    @objc private func navigateBack() {
+        delegate?.navigateBack(tapped: true)
+    }
+    
+    
     func setPauseButtonAlpha() {
         pauseButton.alpha = 1
+    }
+    
+    func printSliderBounds() {
+        print(playtimeSlider.frame)
     }
     
     func update(progressBarValue: Float) {

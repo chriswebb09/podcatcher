@@ -4,6 +4,8 @@ final class TabBarController: UITabBarController {
     
     var dataSource: BaseMediaControllerDataSource!
     
+    var first: Bool  = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -17,8 +19,23 @@ final class TabBarController: UITabBarController {
     // General dimensions and look of tabbar
     
     private func setupTabBar() {
+        
         tabBar.isTranslucent = true
-        tabBar.tintColor = UIColor(red:0.92, green:0.32, blue:0.33, alpha:1.0)
+        tabBar.backgroundImage = #imageLiteral(resourceName: "button-background")
+        tabBar.autoresizesSubviews = false
+        tabBar.clipsToBounds = true
+        //tabBar.tintColor = UIColor(red:0.92, green:0.32, blue:0.33, alpha:1.0)
+    }
+    
+    func addBlurEffect() {
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = tabBar.bounds
+        blurEffectView.alpha = 0.1
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        tabBar.backgroundImage = UIImage.getImageWithColor(color: .clear, size: tabBar.frame.size)
+        tabBar.insertSubview(blurEffectView, at: 0)
+        
     }
     
     func setup(with controllerOne: UIViewController, and controllerTwo: UIViewController, and controllerThree: UIViewController) {
@@ -61,10 +78,19 @@ final class TabBarController: UITabBarController {
         tabBar.items?[1].title = "Favorites"
         tabBar.items?[2].title = "Settings"
         selectedIndex = 0
+        first = true
     }
     
     private func setupTab(settingsViewController: UIViewController) -> UINavigationController {
         return UINavigationController(rootViewController: settingsViewController)
         
+    }
+    
+    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        let nav = viewControllers?[0] as! UINavigationController
+        let med = nav.viewControllers[0] as! MediaCollectionViewController
+        if item == tabBar.items?[1] || item == tabBar.items?[2] {
+            med.searchController.isActive = false
+        }
     }
 }

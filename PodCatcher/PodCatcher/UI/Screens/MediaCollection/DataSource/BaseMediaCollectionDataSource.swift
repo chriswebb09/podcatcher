@@ -6,22 +6,6 @@ class BaseMediaControllerDataSource: NSObject {
     
     var casters: [PodcastSearchResult]?
     
-//    var casters = [PodcastSearchResult]! {
-//       // didSet {
-//            //            if let user = user, casters.count == 0 {
-//            //                self.casters = user.casts
-//            //            }
-//            //        }
-//    }
-
-//    var casters: [Caster]! {
-//        didSet {
-//            if let user = user, casters.count == 0 {
-//                self.casters = user.casts
-//            }
-//        }
-//    }
-    
     var count: Int {
         if let caster = casters {
             return caster.count
@@ -32,8 +16,5 @@ class BaseMediaControllerDataSource: NSObject {
     
     override init() {
         self.casters = nil
-//        if let user = user, casters.count == 0 {
-//            self.casters = user.casts
-//        }
     }
 }

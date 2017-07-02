@@ -4,30 +4,50 @@ final class EmptyView: UIView {
     
     private var infoLabel: UILabel = {
         var label = UILabel.setupInfoLabel(infoText: "No Podcasts Have Been Added")
-        label.textColor = .mainColor
+        label.textColor = Colors.brightHighlight
         label.alpha = 1
         return label
+    }()
+    
+    private var backgroundImageView: UIImageView = {
+        var imageView = UIImageView()
+        imageView.image = #imageLiteral(resourceName: "whitebackground")
+        imageView.alpha = 0.8
+        return imageView
     }()
     
     private var musicIcon: UIImageView = {
         var musicIcon = UIImageView()
         musicIcon.image = #imageLiteral(resourceName: "mic-icon").withRenderingMode(.alwaysTemplate)
-        musicIcon.tintColor = .darkMain
-        musicIcon.alpha = 0.8
+        musicIcon.tintColor = Colors.brightHighlight
+        musicIcon.alpha = 1
         return musicIcon
     }()
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        CALayer.createGradientLayer(with: [UIColor.white.cgColor, UIColor.lightGray.cgColor],
-                                    layer: layer,
-                                    bounds: bounds)
+        
+        backgroundColor = UIColor(red:0.32, green:0.13, blue:0.70, alpha:1.0)
         setup(musicIcon: musicIcon)
         setup(infoLabel: infoLabel)
+        addSubview(backgroundImageView)
+        addBlurEffect()
+        //        CALayer.createGradientLayer(with: [Colors.lightCharcoal.cgColor, Colors.lightHighlight.cgColor],
+        //                                    layer: layer,
+        //                                    bounds: bounds)
+        
     }
     
     func configure() {
         layoutSubviews()
+    }
+    
+    func addBlurEffect() {
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        backgroundImageView.addSubview(blurEffectView)
     }
     
     private func setup(musicIcon: UIView) {

@@ -6,13 +6,15 @@ final class PlayerViewController: BaseViewController {
     weak var delegate: PlayerViewControllerDelegate?
     
     // MARK: - UI Properties
-    
+    var menuPop = BottomMenuPopover()
     var playerView: PlayerView
     var playerState: PlayState
     var episode: Episodes!
     var dataSource: PodcastListDataSource!
     var loadingPop = LoadingPopover()
+    var bottomMenu = BottomMenu()
     var caster: CasterSearchResult
+    var menuActive: MenuActive = .none
     var player: AudioFilePlayer?
     var index: Int
     var testIndex: Int
@@ -24,19 +26,25 @@ final class PlayerViewController: BaseViewController {
         self.index = index
         self.caster = caster
         self.testIndex = index - 1
+        
         if let url = caster.episodes[index].audioUrlString, let audioUrl = URL(string: url) {
             self.player = AudioFilePlayer(url: audioUrl)
         }
         self.playerState = .queued
-
+        
         super.init(nibName: nil, bundle: nil)
-        self.player?.delegate = self
+        menuPop.setColor(color: .white, borderColor: .darkGray, textColor: .darkGray)
+       // navigationController?.navigationBar.isTranslucent = true
+        //navigationController?.navigationBar.backgroundColor = UIColor.clear
+        player?.delegate = self
         guard let artUrl = caster.podcastArtUrlString else { return }
-        self.playerViewModel = PlayerViewModel(imageUrl: URL(string: artUrl), title: caster.episodes[index].title)
-        self.setModel(model: self.playerViewModel)
+        playerViewModel = PlayerViewModel(imageUrl: URL(string: artUrl), title: caster.episodes[index].title)
+        setModel(model: playerViewModel)
         playerView.delegate = self
         view.addView(view: playerView, type: .full)
-        title = caster.episodes[index].title
+        //navigationController?.navigationBar.alpha = 0
+      //  title = caster.episodes[index].title
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -47,11 +55,12 @@ final class PlayerViewController: BaseViewController {
         showLoadingView(loadingPop: loadingPop)
         super.viewWillAppear(animated)
         tabBarController?.tabBar.alpha = 0
-        navigationController?.navigationBar.backItem?.title = "Podcast"
+      //  navigationController?.navigationBar.backItem?.title = "Podcast"
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+        navigationController?.navigationBar.alpha = 1
         navigationController?.popViewController(animated: true)
         tabBarController?.tabBar.alpha = 1
         player?.player.pause()

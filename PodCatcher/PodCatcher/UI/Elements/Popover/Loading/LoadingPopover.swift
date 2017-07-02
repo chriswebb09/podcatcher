@@ -27,10 +27,15 @@ final class LoadingPopover: BasePopoverAlert {
         guard let ball = popView.ball else { return }
         popView.stopAnimating(ball: ball)
     }
+   
     
     func setupPop(popView: LoadingView) {
         popView.configureView()
         popView.backgroundColor = .clear
+    }
+    
+    func configureLoadingOpacity() {
+        containerView.backgroundColor = .clear
     }
     
     func show(controller: UIViewController) {

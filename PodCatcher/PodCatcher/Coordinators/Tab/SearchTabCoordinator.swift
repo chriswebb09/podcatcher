@@ -54,6 +54,7 @@ extension FavoritesTabCoordinator: SearchViewControllerDelegate {
 
 
 extension FavoritesTabCoordinator: PlayerViewControllerDelegate {
+    
     func skipButton(tapped: Bool) {
         
     }
@@ -64,5 +65,9 @@ extension FavoritesTabCoordinator: PlayerViewControllerDelegate {
 
     func playButton(tapped: Bool) {
         
+    }
+    
+    func navigateBack(tapped: Bool) {
+        navigationController.navigationBar.alpha = 1
     }
 }

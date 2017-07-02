@@ -20,7 +20,6 @@ extension SearchResultListViewController: PodcastCollectionViewProtocol {
         guard let tabBar = self.tabBarController?.tabBar else { return }
         collectionView.frame = CGRect(x: topView.bounds.minX, y: topView.frame.maxY + (tabBar.frame.height + 10), width: view.bounds.width, height: view.bounds.height - (topView.frame.height - tabBar.frame.height))
         collectionView.backgroundColor = .clear
-        
     }
 }
 
@@ -61,8 +60,6 @@ extension SearchResultListViewController: UICollectionViewDelegate {
         var caster = Caster()
         caster.artwork = topView.podcastImageView.image
         guard let artist = item.podcastArtist else { return }
-        print(episodes)
-        print(item.episodes.count)
         delegate?.didSelectPodcastAt(at: indexPath.row, podcast: item, with: episodes)
         
     }
@@ -78,11 +75,11 @@ extension SearchResultListViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as PodcastResultCell
-            DispatchQueue.main.async {
-                if let playTime = self.episodes[indexPath.row].stringDuration {
-                    let model = PodcastResultCellViewModel(podcastTitle: self.episodes[indexPath.row].title, playtimeLabel: playTime)
-                    cell.configureCell(model: model)
-                }
+        DispatchQueue.main.async {
+            if let playTime = self.episodes[indexPath.row].stringDuration {
+                let model = PodcastResultCellViewModel(podcastTitle: self.episodes[indexPath.row].title, playtimeLabel: playTime)
+                cell.configureCell(model: model)
+            }
         }
         return cell
     }
@@ -110,25 +107,31 @@ extension SearchResultListViewController: TopViewDelegate {
     }
     
     func popBottomMenu(popped: Bool) {
-        menuPop.popView.delegate = self
-        menuPop.setupPop()
+        //print(popped)
+        let height = view.bounds.height * 0.5
+        let width = view.bounds.width
+        let size = CGSize(width: width, height: height)
+        let originX = view.bounds.width * 0.001
+        let originY = view.bounds.height * 0.45
+        let origin = CGPoint(x: originX, y: originY)
+        bottomMenu.menu.delegate = self
+        bottomMenu.setMenu(size)
+        bottomMenu.setMenu(origin)
+        bottomMenu.setupMenu()
+        bottomMenu.setMenu(color: .mainColor, borderColor: .darkGray, textColor: .white)
         showPopMenu()
     }
     
-    func hidePopMenu() {
-        menuActive = .hidden
-        menuPop.hideMenu(controller: self)
+    func showPopMenu() {
+        UIView.animate(withDuration: 0.25) {
+            self.bottomMenu.showOn(self.view)
+            self.bottomMenu.menu.alpha = 1
+        }
     }
     
-    func showPopMenu() {
-        let tap = UITapGestureRecognizer(target: self, action: #selector(hidePopMenu))
-        view.addGestureRecognizer(tap)
-        collectionView.addGestureRecognizer(tap)
-        topView.addGestureRecognizer(tap)
-        UIView.animate(withDuration: 0.15) {
-            self.menuPop.showPopView(viewController: self)
-            self.menuPop.popView.isHidden = false
-        }
+    func hidePopMenu() {
+        bottomMenu.menu.alpha = 0
+        bottomMenu.hideFrom(self.view)
     }
     
     func popEntry() {
@@ -142,7 +145,7 @@ extension SearchResultListViewController: TopViewDelegate {
     
     func hidePop() {
         entryPop.hidePopView(viewController: self)
-        guard let text = entryPop.popView.entryField.text else { return }
+        guard entryPop.popView.entryField.text != nil else { return }
     }
 }
 
@@ -150,15 +153,19 @@ extension SearchResultListViewController: TopViewDelegate {
 
 extension SearchResultListViewController: MenuDelegate {
     
-    func optionOneTapped() {
-        // Implement
+    func optionOne(tapped: Bool) {
+        //
     }
     
-    func optionTwoTapped() {
-        popEntry()
+    func optionTwo(tapped: Bool) {
+        //
     }
     
-    func optionThreeTapped() {
-        print("option three")
+    func optionThree(tapped: Bool) {
+        //
+    }
+    
+    func cancel(tapped: Bool) {
+        hidePopMenu()
     }
 }

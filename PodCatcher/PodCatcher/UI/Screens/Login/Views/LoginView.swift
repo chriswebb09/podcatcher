@@ -2,15 +2,20 @@ import UIKit
 
 final class LoginView: UIView {
     
-    weak var delegate: LoginViewDelegate?
     
+    var viewHeightConstraint: NSLayoutConstraint!
+    
+    
+    weak var delegate: LoginViewDelegate?
     
     var model: LoginViewModel! {
         didSet {
             submitButton.isEnabled = model.validContent
-            submitButton.backgroundColor = model.buttonColor
+            submitButton.titleLabel?.textColor = model.buttonColor
         }
     }
+    
+    var backgroundView = UIView()
     
     // MARK: - UI Elements
     
@@ -27,11 +32,22 @@ final class LoginView: UIView {
         return passwordField
     }()
     
-    fileprivate var submitButton: UIButton = {
-        var borderColor = UIColor.lightText.cgColor
-        let submitButton = BasicButtonFactory(text: "Sign In", textColor: .white, borderWidth: 2, borderColor: borderColor, backgroundColor: .lightText)
-        
-        return submitButton.createButton()
+    var submitButton: UIButton = {
+        let button = UIButton()
+        let buttonImage = #imageLiteral(resourceName: "button-background")
+        button.setTitle("SIGN IN", for: .normal)
+        button.setBackgroundImage(buttonImage, for: .normal)
+        return button
+    }()
+    
+    var loginFacebookButton: UIButton = {
+        let button = UIButton()
+        let buttonImage = #imageLiteral(resourceName: "button-background").withRenderingMode(.alwaysTemplate)
+        button.setTitle("SIGN IN WITH FACEBOOK", for: .normal)
+        button.imageView?.tintColor = UIColor(red:0.23, green:0.35, blue:0.60, alpha:1.0)
+        button.imageView?.alpha = 0.3
+        button.setBackgroundImage(buttonImage, for: .normal)
+        return button
     }()
     
     // MARK: - Configuration Methods
@@ -39,7 +55,9 @@ final class LoginView: UIView {
     override func layoutSubviews() {
         tag = 1
         super.layoutSubviews()
-        //CALayer.createGradientLayer(with: [UIColor.white.cgColor, UIColor.lightGray.cgColor], layer: layer, bounds: bounds)
+        backgroundView.frame = UIScreen.main.bounds
+        addSubview(backgroundView)
+        CALayer.createGradientLayer(with: [UIColor(red:0.94, green:0.31, blue:0.81, alpha:1.0).cgColor, UIColor(red:0.32, green:0.13, blue:0.70, alpha:1.0).cgColor], layer: backgroundView.layer, bounds: UIScreen.main.bounds)
         let passwordField = self.passwordField as! UnderlineTextField
         self.emailField.delegate = self
         passwordField.delegate = self
@@ -53,18 +71,21 @@ final class LoginView: UIView {
         setup(emailField: emailField)
         setup(passwordField: passwordField)
         setup(submitButton: submitButton)
-        submitButton.layer.cornerRadius = 10
-        submitButton.alpha = 0.7
+        setup(loginFacebookButton: loginFacebookButton)
+        submitButton.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightMedium)
         submitButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
         emailField.autocorrectionType = .no
-        backgroundColor = .white        
+        backgroundColor = .white
+        loginFacebookButton.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightMedium)
     }
     
     func configure(model: LoginViewModel) {
         self.model = model
+        
         submitButton.isEnabled = true
         emailField.text = "Link@link.com"
         passwordField.text = "123456"
+        submitButton.isEnabled = true
     }
     
     private func sharedLayout(view: UIView) {
@@ -86,8 +107,21 @@ final class LoginView: UIView {
     }
     
     private func setup(submitButton: UIButton) {
-        sharedLayout(view: submitButton)
+        addSubview(submitButton)
+        submitButton.translatesAutoresizingMaskIntoConstraints = false
+        submitButton.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        submitButton.heightAnchor.constraint(equalTo: heightAnchor, multiplier: LoginViewConstants.sharedLayoutHeightMultiplier).isActive = true
+        submitButton.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
         submitButton.topAnchor.constraint(equalTo: passwordField.bottomAnchor, constant: LoginViewConstants.submitButtonTopOffset).isActive = true
+    }
+    
+    private func setup(loginFacebookButton: UIButton) {
+        addSubview(loginFacebookButton)
+        loginFacebookButton.translatesAutoresizingMaskIntoConstraints = false
+        loginFacebookButton.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        loginFacebookButton.heightAnchor.constraint(equalTo: heightAnchor, multiplier: LoginViewConstants.sharedLayoutHeightMultiplier).isActive = true
+        loginFacebookButton.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
+        loginFacebookButton.topAnchor.constraint(equalTo: submitButton.bottomAnchor, constant: LoginViewConstants.facebookButtonTopOffset - 80).isActive = true
     }
     
     func loginButtonTapped() {

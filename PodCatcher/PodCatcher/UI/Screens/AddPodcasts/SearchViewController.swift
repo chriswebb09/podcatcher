@@ -5,20 +5,24 @@ final class SearchViewController: BaseCollectionViewController {
     var items = [PodcastSearchResult]()
     var searchBarBoundsY: CGFloat!
     
-    var segmentControl = UISegmentedControl()
+     let segmentControl = UISegmentedControl(items: ["User Settings", "Application Settings"])
+    
     var searchController = UISearchController(searchResultsController: nil) {
         didSet {
             searchController.view.frame = CGRect.zero
         }
     }
+    
     var gradLayer: CAGradientLayer!
     
     var searchBarActive: Bool = false {
         didSet {
             if searchBarActive {
-                guard let navController = self.navigationController else { return }
+                view.addSubview(segmentControl)
+                
                 searchBar.frame = CGRect(x: UIScreen.main.bounds.minX, y: 0, width: UIScreen.main.bounds.width, height: 44)
-                collectionView.frame = CGRect(x: UIScreen.main.bounds.minX, y: searchBar.frame.maxY, width: UIScreen.main.bounds.width, height: view.frame.height)
+                segmentControl.frame = CGRect(x: UIScreen.main.bounds.minX, y: searchBar.frame.maxY, width: UIScreen.main.bounds.width, height: 44)
+                collectionView.frame = CGRect(x: UIScreen.main.bounds.minX, y: segmentControl.frame.maxY, width: UIScreen.main.bounds.width, height: view.frame.height)
             }
         }
     }
@@ -44,7 +48,6 @@ final class SearchViewController: BaseCollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //setupDefaultUI()
         collectionView.dataSource = self
         collectionView.delegate = self
         self.sideMenuPop = SideMenuPopover()
@@ -70,7 +73,7 @@ final class SearchViewController: BaseCollectionViewController {
         definesPresentationContext = false
         collectionView.backgroundColor = .lightGray
         gradLayer.isHidden = true
-        var tap = UITapGestureRecognizer(target: self, action: #selector(emptyViewShower))
+        let tap = UITapGestureRecognizer(target: self, action: #selector(emptyViewShower))
         emptyView.addGestureRecognizer(tap)
     }
     
@@ -83,6 +86,7 @@ final class SearchViewController: BaseCollectionViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         searchController.searchBar.isHidden = true
+        searchBarCancelButtonClicked(searchController.searchBar)
     }
     
     func searchControllerConfigure() {

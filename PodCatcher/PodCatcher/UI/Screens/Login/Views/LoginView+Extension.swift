@@ -12,32 +12,34 @@ extension LoginView: UITextFieldDelegate {
     
     func textFieldDidChange(_ textField: UITextField) {
         guard let text = textField.text, text.characters.count > 0 else { return }
-        textField.textColor = .black
-        textField.leftView?.tintColor = .black
         if textField == emailField {
             model.username = text
+            return
         } else {
             model.password = text
+            return
         }
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         guard let text = textField.text, text.characters.count > 0 else { return }
-        textField.leftView?.tintColor = .black
         if textField == emailField {
             if !text.isValidEmail() {
                 textField.textColor = .red
                 return
+            } else {
+                model.password = text
+                textField.textColor = .white
+                return
             }
-            model.password = text
-            textField.textColor = .black
         } else if textField == passwordField {
             if text.characters.count < 6 {
                 textField.textColor = .red
                 return
+            } else {
+                model.password = text
+                textField.textColor = .white
             }
-            model.password = text
-            textField.textColor = .black
         }
     }
     

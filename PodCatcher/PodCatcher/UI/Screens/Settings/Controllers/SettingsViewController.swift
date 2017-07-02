@@ -34,5 +34,9 @@ class SettingsViewController: BaseViewController {
             view.addView(view: guestView, type: .full)
         }
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
 }
 

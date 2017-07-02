@@ -10,6 +10,7 @@ class TrackDataStore {
     
     func searchForTracks(completion: @escaping (_ results: [CasterSearchResult]? , _ error: Error?) -> Void) {
         iTunesAPIClient.search(for: searchTerm) { response in
+            print(response)
             switch response {
             case .success(let data):
                 let resultsData = data["results"] as! [[String: Any]]

@@ -15,7 +15,7 @@ extension CALayer {
         shadowColor = UIColor.black.cgColor
         shadowOffset = CGSize(width: shadowOffsetWidth, height: shadowOffsetHeight)
         shadowRadius =  1.8
-        shadowOpacity = 0.8
+        shadowOpacity = 0.7
     }
     
     static func drawCircleLayerWith(size: CGSize, color: UIColor) -> CALayer {

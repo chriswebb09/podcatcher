@@ -9,6 +9,8 @@ extension MediaTabCoordinator: MediaControllerDelegate {
         delegate?.transitionCoordinator(type: .app, dataSource: dataSource)
     }
     
+    
+    
     func didSelect(at index: Int, with caster: PodcastSearchResult) {
         let resultsList = SearchResultListViewController(index: index)
         resultsList.delegate = self
@@ -24,14 +26,6 @@ extension MediaTabCoordinator: MediaControllerDelegate {
                 self.navigationController.viewControllers.append(resultsList)
             }
         }
-//        RSSFeedAPIClient.requestFeed(for: feedUrlString) { response in
-//            guard let items = response.0 else { return }
-//            DispatchQueue.main.async {
-//                resultsList.newItems = items
-//
-//            }
-//        }
-        
     }
 }
 
@@ -39,10 +33,12 @@ extension MediaTabCoordinator: PodcastListViewControllerDelegate {
     
     func didSelectPodcastAt(at index: Int, podcast: CasterSearchResult, with episodes: [Episodes]) {
         let playerView = PlayerView()
+        CALayer.createGradientLayer(with: [UIColor(red:0.94, green:0.31, blue:0.81, alpha:1.0).cgColor, UIColor(red:0.32, green:0.13, blue:0.70, alpha:1.0).cgColor], layer: playerView.backgroundView.layer, bounds: UIScreen.main.bounds)
         podcast.episodes = episodes
         let playerViewController = PlayerViewController(playerView: playerView, index: index, caster: podcast, user: dataSource.user)
         playerViewController.delegate = self
-        
+        navigationController.navigationBar.isTranslucent = true
+        navigationController.navigationBar.alpha = 0
         navigationController.viewControllers.append(playerViewController)
     }
 }
@@ -58,6 +54,10 @@ extension MediaTabCoordinator: PlayerViewControllerDelegate {
     
     func playButton(tapped: Bool) {
         print("PlayButton tapped \(tapped)")
+    }
+    
+    func navigateBack(tapped: Bool) {
+        navigationController.navigationBar.alpha = 1
     }
 }
 

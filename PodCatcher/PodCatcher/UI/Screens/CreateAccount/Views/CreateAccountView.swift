@@ -6,6 +6,8 @@ final class CreateAccountView: UIView {
     
     // MARK: - UI Elements
     
+    var backgroundView = UIView()
+    
     var emailField: UITextField = {
         var usernameField = UnderlineTextField()
         usernameField.placeholder = "Email"
@@ -25,9 +27,12 @@ final class CreateAccountView: UIView {
     }()
     
     fileprivate var submitButton: UIButton = {
-        var borderColor = UIColor.lightText.cgColor
-        let submitButton = BasicButtonFactory(text: "Submit", textColor: .white, borderWidth: 2, borderColor: borderColor, backgroundColor: .mainColor)
-        return submitButton.createButton()
+        let button = UIButton()
+        let buttonImage = #imageLiteral(resourceName: "button-background")
+        button.setTitle("SUBMIT", for: .normal)
+        button.setBackgroundImage(buttonImage, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightMedium)
+        return button
     }()
     
     // MARK: - Configuration Methods
@@ -35,7 +40,9 @@ final class CreateAccountView: UIView {
     override func layoutSubviews() {
         tag = 1
         super.layoutSubviews()
-        backgroundColor = .white
+        backgroundView.frame = UIScreen.main.bounds
+        addSubview(backgroundView)
+        CALayer.createGradientLayer(with: [UIColor(red:0.94, green:0.31, blue:0.81, alpha:1.0).cgColor, UIColor(red:0.32, green:0.13, blue:0.70, alpha:1.0).cgColor], layer: backgroundView.layer, bounds: bounds)
         let emailField = self.emailField as! UnderlineTextField
         let confirmEmailField = self.confirmEmailField as! UnderlineTextField
         let passwordField = self.passwordField as! UnderlineTextField
@@ -88,7 +95,11 @@ final class CreateAccountView: UIView {
     }
     
     private func setup(submitButton: UIButton) {
-        sharedLayout(view: submitButton)
+        addSubview(submitButton)
+        submitButton.translatesAutoresizingMaskIntoConstraints = false
+        submitButton.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        submitButton.heightAnchor.constraint(equalTo: heightAnchor, multiplier: LoginViewConstants.sharedLayoutHeightMultiplier).isActive = true
+        submitButton.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
         submitButton.topAnchor.constraint(equalTo: passwordField.bottomAnchor, constant: LoginViewConstants.submitButtonTopOffset).isActive = true
     }
     

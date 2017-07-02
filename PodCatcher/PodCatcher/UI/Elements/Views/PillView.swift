@@ -4,7 +4,7 @@ class PillView: UIView {
     
     var tagLabel: UILabel = {
         var tagLabel = UILabel()
-        tagLabel.font = UIFont(name: "Avenir-Book", size: 10)!
+        tagLabel.font = UIFont(name: "AvenirNext-Regular", size: 10)!
         tagLabel.textColor = .white
         tagLabel.textAlignment = .center
         return tagLabel

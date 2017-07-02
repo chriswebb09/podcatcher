@@ -33,7 +33,7 @@ extension PodcastListViewController: PodcastCollectionViewProtocol {
 
 // MARK: - UIScrollViewDelegate
 
-extension PodcastListViewController: UIScrollViewDelegate {
+extension PodcastListViewController: UIScrollViewDelegate  {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offset = scrollView.contentOffset
@@ -66,8 +66,6 @@ extension PodcastListViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         state = .toPlayer
-       // delegate?.didSelectPodcastAt(at: indexPath.row, with:
-      ///  delegate?.didSelectPodcastAt(at: indexPath.row, wi
     }
 }
 
@@ -109,7 +107,7 @@ extension PodcastListViewController: TopViewDelegate {
     }
     
     func popBottomMenu(popped: Bool) {
-        menuPop.popView.delegate = self
+        //menuPop.popView.delegate = self
         menuPop.setupPop()
         showPopMenu()
     }
@@ -153,21 +151,21 @@ extension PodcastListViewController: TopViewDelegate {
         dataSource.caster.tags.append(text)
     }
 }
-
-// MARK: - MenuDelegate
-
-extension PodcastListViewController: MenuDelegate {
-    
-    func optionOneTapped() {
-        guard let user = dataSource.user, let casterName = dataSource.caster.name else { return }
-        user.favoriteCasts[casterName] = dataSource.caster
-    }
-    
-    func optionTwoTapped() {
-        popEntry()
-    }
-    
-    func optionThreeTapped() {
-        print("option three")
-    }
-}
+//
+//// MARK: - MenuDelegate
+//
+//extension PodcastListViewController: MenuDelegate {
+//
+//    func optionOneTapped() {
+//        guard let user = dataSource.user, let casterName = dataSource.caster.name else { return }
+//        user.favoriteCasts[casterName] = dataSource.caster
+//    }
+//
+//    func optionTwoTapped() {
+//        popEntry()
+//    }
+//
+//    func optionThreeTapped() {
+//        print("option three")
+//    }
+//}
