@@ -5,29 +5,20 @@ Podcast App
 <h2 align="center">App Screens</h2>
 
 <p>
-<img src="https://raw.githubusercontent.com/chriswebb09/podcatcher/master/Resource/start.png" align="left">
-<img src="https://raw.githubusercontent.com/chriswebb09/podcatcher/master/Resource/login-no-content.png" align="right">
+<img src="https://raw.githubusercontent.com/chriswebb09/podcatcher/master/Resource/start-screen.png" align="left">
+<img src="https://raw.githubusercontent.com/chriswebb09/podcatcher/master/Resource/new-login.png" align="right">
 </p>
 
 <p>
 
-<img src="https://raw.githubusercontent.com/chriswebb09/podcatcher/master/Resource/loginscreen.png" align="left">
-<img src="https://raw.githubusercontent.com/chriswebb09/podcatcher/master/Resource/createaccount.png" align="right">
+<img src="https://raw.githubusercontent.com/chriswebb09/podcatcher/master/Resource/search-none.png" align="left">
+<img src="https://raw.githubusercontent.com/chriswebb09/podcatcher/master/Resource/search-new.png" align="right">
 </p>
 
 <p>
 <br>
 
-<img src="https://raw.githubusercontent.com/chriswebb09/podcatcher/master/Resource/podcasts.jpg" align="right"> 
-<img src="https://raw.githubusercontent.com/chriswebb09/podcatcher/master/Resource/podcast-list.jpg" align="left">
-</p>
-<br>
-
-
-<p>
-<img src="https://raw.githubusercontent.com/chriswebb09/podcatcher/master/Resource/podcast-list-full.jpg" align="left">
-<img src="https://raw.githubusercontent.com/chriswebb09/podcatcher/master/Resource/player-13.jpg" align="right"> 
-</p>
+<img src="https://raw.githubusercontent.com/chriswebb09/podcatcher/master/Resource/player-new.png" align="right"> 
 
 
 
