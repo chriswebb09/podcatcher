@@ -6,7 +6,6 @@ final class PlayerViewController: BaseViewController {
     weak var delegate: PlayerViewControllerDelegate?
     
     // MARK: - UI Properties
-    var menuPop = BottomMenuPopover()
     var playerView: PlayerView
     var playerState: PlayState
     var episode: Episodes!
@@ -33,18 +32,13 @@ final class PlayerViewController: BaseViewController {
         self.playerState = .queued
         
         super.init(nibName: nil, bundle: nil)
-        menuPop.setColor(color: .white, borderColor: .darkGray, textColor: .darkGray)
-       // navigationController?.navigationBar.isTranslucent = true
-        //navigationController?.navigationBar.backgroundColor = UIColor.clear
         player?.delegate = self
         guard let artUrl = caster.podcastArtUrlString else { return }
         playerViewModel = PlayerViewModel(imageUrl: URL(string: artUrl), title: caster.episodes[index].title)
         setModel(model: playerViewModel)
         playerView.delegate = self
         view.addView(view: playerView, type: .full)
-        //navigationController?.navigationBar.alpha = 0
-      //  title = caster.episodes[index].title
-        
+    
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -55,7 +49,6 @@ final class PlayerViewController: BaseViewController {
         showLoadingView(loadingPop: loadingPop)
         super.viewWillAppear(animated)
         tabBarController?.tabBar.alpha = 0
-      //  navigationController?.navigationBar.backItem?.title = "Podcast"
     }
     
     override func viewDidDisappear(_ animated: Bool) {

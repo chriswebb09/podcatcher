@@ -9,7 +9,6 @@ class PodcastListViewController: BaseCollectionViewController {
     var menuActive: MenuActive = .none
     let entryPop = EntryPopover()
     var topView = PodcastListTopView()
-    var menuPop = BottomMenuPopover()
     
     var viewShown: ShowView {
         didSet {

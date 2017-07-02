@@ -106,15 +106,11 @@ extension PodcastListViewController: TopViewDelegate {
         popEntry()
     }
     
-    func popBottomMenu(popped: Bool) {
-        //menuPop.popView.delegate = self
-        menuPop.setupPop()
-        showPopMenu()
+    func popBottomMenu(popped: Bool) {        showPopMenu()
     }
     
     func hidePopMenu() {
         menuActive = .hidden
-        menuPop.hideMenu(controller: self)
     }
     
     func showPopMenu() {
@@ -122,10 +118,6 @@ extension PodcastListViewController: TopViewDelegate {
         view.addGestureRecognizer(tap)
         collectionView.addGestureRecognizer(tap)
         topView.addGestureRecognizer(tap)
-        UIView.animate(withDuration: 0.15) {
-            self.menuPop.showPopView(viewController: self)
-            self.menuPop.popView.isHidden = false
-        }
     }
     
     func popEntry() {
@@ -151,21 +143,3 @@ extension PodcastListViewController: TopViewDelegate {
         dataSource.caster.tags.append(text)
     }
 }
-//
-//// MARK: - MenuDelegate
-//
-//extension PodcastListViewController: MenuDelegate {
-//
-//    func optionOneTapped() {
-//        guard let user = dataSource.user, let casterName = dataSource.caster.name else { return }
-//        user.favoriteCasts[casterName] = dataSource.caster
-//    }
-//
-//    func optionTwoTapped() {
-//        popEntry()
-//    }
-//
-//    func optionThreeTapped() {
-//        print("option three")
-//    }
-//}
