@@ -41,6 +41,7 @@ extension MediaTabCoordinator: PodcastListViewControllerDelegate {
 }
 
 extension MediaTabCoordinator: PlayerViewControllerDelegate {
+    
     func skipButton(tapped: Bool) {
         print("SkipButton tapped \(tapped)")
     }
@@ -55,11 +56,5 @@ extension MediaTabCoordinator: PlayerViewControllerDelegate {
     
     func navigateBack(tapped: Bool) {
         navigationController.navigationBar.alpha = 1
-    }
-}
-
-class PlayerBuilder {
-    class func build(delegate: PlayerViewControllerDelegate, index: Int) {
-        
     }
 }

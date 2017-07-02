@@ -59,7 +59,6 @@ extension SearchResultListViewController: UICollectionViewDelegate {
         state = .toPlayer
         var caster = Caster()
         caster.artwork = topView.podcastImageView.image
-        guard let artist = item.podcastArtist else { return }
         delegate?.didSelectPodcastAt(at: indexPath.row, podcast: item, with: episodes)
         
     }

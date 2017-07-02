@@ -27,7 +27,7 @@ final class LoadingView: UIView {
     
     private func setupConstraints() {
         let newFrame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width / 2, height: UIScreen.main.bounds.width / 2)
-        var size = CGSize(width: 50, height: 50)
+        let size = CGSize(width: 50, height: 50)
         ball = BallIndicatorView(frame: newFrame, color: .white, padding: 80, animationType: BallAnimation(size: size))
         guard let ball = ball else { return }
         addSubview(ball)

@@ -39,7 +39,7 @@ extension UICollectionView {
     }
     
     func setupBackground(frame: CGRect) {
-        var collectionBackgroundView = UIView(frame: frame)
+        let collectionBackgroundView = UIView(frame: frame)
         backgroundView = collectionBackgroundView
     }
 }

@@ -65,9 +65,6 @@ extension SearchViewController: UICollectionViewDataSource {
         setTrackCell(indexPath: indexPath, cell: cell, rowTime: rowTime)
         return cell
     }
-}
-
-extension SearchViewController: TrackCellCollectionProtocol {
     
     func setupCollectionView(collectionView: UICollectionView, view: UIView, newLayout: TrackItemsFlowLayout) {
         collectionView.setup(with: newLayout)

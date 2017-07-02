@@ -3,7 +3,7 @@ import UIKit
 extension CALayer {
     
     static func drawBottomBorder(frame: CGRect, color: UIColor) -> CALayer {
-        var line = CALayer()
+        let line = CALayer()
         line.frame = CGRect(x: 0, y: frame.height - 1, width: frame.width, height: 1)
         line.backgroundColor = color.cgColor
         return line

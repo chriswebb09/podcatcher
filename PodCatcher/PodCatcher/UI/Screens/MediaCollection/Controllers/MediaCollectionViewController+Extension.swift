@@ -100,15 +100,15 @@ extension MediaCollectionViewController:  UISearchControllerDelegate {
     
     func searchOnTextChange(text: String, store: TrackDataStore, navController: UINavigationController) {
         if text == "" {
-            self.dataSource.items.removeAll()
-            self.collectionView.reloadData()
+            dataSource.items.removeAll()
+            collectionView.reloadData()
             navController.navigationBar.topItem?.title = "PodCatch"
             return
         } else if text != "" {
             searchBarActive = true
             dataSource.store.setSearch(term: text)
             NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(searchBarHasInput), object: nil)
-            self.perform(#selector(searchBarHasInput), with: nil, afterDelay: 0.35)
+            perform(#selector(searchBarHasInput), with: nil, afterDelay: 0.35)
             navController.navigationBar.topItem?.title = "Search: \(text)"
         }
     }
@@ -178,5 +178,74 @@ extension MediaCollectionViewController: UISearchBarDelegate {
         hideLoadingView(loadingPop: loadingPop)
         searchBar.setShowsCancelButton(false, animated: false)
         searchBarActive = false
+    }
+    
+    func navigationBarSetup() {
+        guard let navController = self.navigationController else { return }
+        collectionView.dataSource = self
+        collectionView.register(TrackCell.self)
+        collectionView.delegate = self
+        searchController.searchBar.frame = CGRect(x: UIScreen.main.bounds.minX, y: navController.navigationBar.frame.maxY, width: UIScreen.main.bounds.width, height: 0)
+        collectionView.frame = CGRect(x: UIScreen.main.bounds.minX, y: 0, width: UIScreen.main.bounds.width, height: view.frame.height)
+        view.addSubview(searchBar)
+        let textFieldInsideSearchBar = searchBar.value(forKey: "searchField") as? UITextField
+        textFieldInsideSearchBar?.textColor = .white
+        textFieldInsideSearchBar?.leftView?.alpha = 0
+        searchBar.alpha = 0.7
+    }
+    
+    func popBottomMenu(popped: Bool) {
+        hideSearchBar()
+        sideMenuPop.setupPop()
+        showMenu()
+    }
+    
+    func search() {
+        searchBarActive = true
+        willPresentSearchController(searchController)
+    }
+    
+    func searchControllerConfigure() {
+        searchController.delegate = self
+        searchBar = searchController.searchBar
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.delegate = self
+        let textFieldInsideSearchBar = searchBar.value(forKey: "searchField") as? UITextField
+        textFieldInsideSearchBar?.textColor = .white
+        if let textFieldInsideSearchBar = self.searchBar.value(forKey: "searchField") as? UITextField,
+            let glassIconView = textFieldInsideSearchBar.leftView as? UIImageView {
+            textFieldInsideSearchBar.backgroundColor = Colors.brightHighlight
+            glassIconView.image = glassIconView.image?.withRenderingMode(.alwaysTemplate)
+            glassIconView.tintColor = .white
+        }
+    }
+    
+    func userSearch(segmentControl: UISegmentedControl){
+        switch segmentControl.selectedSegmentIndex{
+        case 0:
+            print(0)
+        case 1:
+            print(1)
+        case 2:
+            print(3)
+        default:
+            break
+        }
+    }
+}
+
+extension MediaCollectionViewController: SideMenuDelegate {
+    
+    func optionOne(tapped: Bool) {
+        print(tapped)
+        delegate?.logout(tapped: true)
+    }
+    
+    func optionTwo(tapped: Bool) {
+        print(tapped)
+    }
+    
+    func optionThree(tapped: Bool) {
+        print(tapped)
     }
 }

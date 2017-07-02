@@ -31,7 +31,6 @@ class BottomMenu {
     }
     
     func hideFrom(_ view: UIView) {
-        print("hideFrom(_ view: UIView)")
         view.sendSubview(toBack: menu)
     }
 }

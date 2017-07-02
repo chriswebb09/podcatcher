@@ -11,7 +11,7 @@ class LoginViewController: BaseViewController {
         self.init(nibName: nil, bundle: nil)
         self.loginView = loginView
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         loginView.frame = UIScreen.main.bounds
