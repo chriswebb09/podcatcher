@@ -41,7 +41,7 @@ class UnderlineTextField: UITextField {
         let border = CALayer()
         let width: CGFloat = 1.2
         border.borderColor = UIColor.white.cgColor
-        font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightThin)
+        font = UIFont.systemFont(ofSize: 16, weight: UIFontWeightThin)
         border.frame = CGRect(x: 0, y: frame.size.height - width, width:  frame.size.width, height: frame.size.height)
         border.borderWidth = width
         layer.addSublayer(border)

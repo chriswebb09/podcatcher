@@ -168,6 +168,7 @@ extension MediaCollectionViewController: UISearchResultsUpdating {
 extension MediaCollectionViewController: UISearchBarDelegate {
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        dataSource.items.removeAll()
         hideLoadingView(loadingPop: loadingPop)
         DispatchQueue.main.async {
             self.collectionView.reloadData()
