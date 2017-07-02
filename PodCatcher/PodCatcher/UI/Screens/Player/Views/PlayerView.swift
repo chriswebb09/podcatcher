@@ -94,7 +94,7 @@ final class PlayerView: UIView {
     
     private var controlsView: ControlsView = {
         let controls = ControlsView()
-        
+        controls.configure()
         controls.backgroundColor = .clear
         return controls
     }()
@@ -149,7 +149,6 @@ final class PlayerView: UIView {
         setupViews()
         backgroundColor = .mainColor
         pauseButton.alpha = 0
-        controlsView.configure()
     }
     
     private func sharedLayout(view: UIView) {
@@ -313,7 +312,7 @@ final class PlayerView: UIView {
         setup(playtimeSliderView: playtimeSliderView)
         setup(playtimeSlider: playtimeSlider)
         setup(controlsView: controlsView)
-        //setup(playButton: playButton, pauseButton: pauseButton)
+        setup(playButton: playButton, pauseButton: pauseButton)
         setup(skipButton: skipButton, backButton: backButton)
         setup(totalTimeLabel: totalPlayTimeLabel)
         setup(currentTimeLabel: currentPlayTimeLabel)
