@@ -41,8 +41,8 @@ extension SearchResultListViewController: PodcastCollectionViewProtocol {
 // MARK: - UIScrollViewDelegate
 
 extension SearchResultListViewController: UIScrollViewDelegate {
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
         let offset = scrollView.contentOffset
         let updatedTopViewFrame = CGRect(x: 0, y: 0, width: PodcastListConstants.topFrameWidth, height: PodcastListConstants.topFrameHeight / 1.2)
         if offset.y > PodcastListConstants.minimumOffset {

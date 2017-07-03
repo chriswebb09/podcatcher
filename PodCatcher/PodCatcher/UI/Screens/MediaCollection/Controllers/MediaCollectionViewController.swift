@@ -104,7 +104,6 @@ class MediaCollectionViewController: BaseCollectionViewController {
         title = "Podcasts"
         segmentControl.backgroundColor = .white
         collectionView.setupBackground(frame: view.bounds)
-        collectionView.prefetchDataSource = self 
     }
     
     override func viewWillAppear(_ animated: Bool) {

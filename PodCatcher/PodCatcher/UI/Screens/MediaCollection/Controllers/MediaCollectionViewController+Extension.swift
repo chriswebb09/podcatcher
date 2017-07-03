@@ -10,7 +10,7 @@ extension MediaCollectionViewController: CollectionViewProtocol {
         collectionView.setupCollectionView(view: view, newLayout: TrackItemsFlowLayout())
         collectionView.collectionViewRegister(viewController: self)
         collectionView.delegate = self
-        collectionView.dataSource = self
+        collectionView.dataSource = dataSource
         collectionView.backgroundColor = .clear
     }
 }
@@ -39,52 +39,6 @@ extension MediaCollectionViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         showLoadingView(loadingPop: loadingPop)
         delegate?.didSelect(at: indexPath.row, with: dataSource.items[indexPath.row])
-    }
-}
-
-// MARK: - UICollectionViewDataSource
-
-extension MediaCollectionViewController: UICollectionViewDataSource,  UICollectionViewDataSourcePrefetching {
-   
-    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
-        
-    }
-
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if dataSource.collectionView(collectionView, numberOfItemsInSection: 0) > 0 {
-            viewShown = .collection
-        }
-        return dataSource.items.count
-    }
-    
-    fileprivate func setTrackCell(indexPath: IndexPath, cell: TrackCell, rowTime: Double) {
-        if let urlString = dataSource.items[indexPath.row].podcastArtUrlString,
-            let url = URL(string: urlString),
-            let title = dataSource.items[indexPath.row].podcastTitle {
-            let cellViewModel = TrackCellViewModel(trackName: title, albumImageUrl: url)
-            cell.configureCell(with: cellViewModel, withTime: 0)
-            DispatchQueue.main.asyncAfter(deadline: .now() + rowTime) {
-                UIView.animate(withDuration: rowTime) {
-                    cell.alpha = 1
-                }
-            }
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as TrackCell
-        cell.alpha = 0
-        var rowTime: Double = 0
-        if indexPath.row > 10 {
-            rowTime = (Double(indexPath.row % 10)) / 10
-        } else {
-             rowTime = (Double(indexPath.row)) / 10
-        }
-        
-        cell.layer.cornerRadius = 3
-        setTrackCell(indexPath: indexPath, cell: cell, rowTime: rowTime)
-        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath:IndexPath) -> UICollectionReusableView {
@@ -214,7 +168,6 @@ extension MediaCollectionViewController: UISearchBarDelegate {
     
     func navigationBarSetup() {
         guard let navController = self.navigationController else { return }
-        collectionView.dataSource = self
         collectionView.register(TrackCell.self)
         collectionView.delegate = self
         searchController.searchBar.frame = CGRect(x: UIScreen.main.bounds.minX, y: navController.navigationBar.frame.maxY, width: UIScreen.main.bounds.width, height: 0)

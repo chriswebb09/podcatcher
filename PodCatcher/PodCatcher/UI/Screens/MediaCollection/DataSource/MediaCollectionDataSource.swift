@@ -18,21 +18,36 @@ class MediaCollectionDataSource: BaseMediaControllerDataSource {
 
 extension MediaCollectionDataSource: UICollectionViewDataSource {
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as MediaCell
-        if let casters = casters, let artWork = casters[indexPath.row].podcastArtUrlString, let name = casters[indexPath.row].podcastArtist {
-            UIImage.downloadImageFromUrl(artWork) { image in
-                guard let image = image else { return }
-                let model = MediaCellViewModel(trackName: name, albumImageURL: image)
-                DispatchQueue.main.async {
-                    cell.configureCell(with: model, withTime: (Double(indexPath.row) * 0.01))
-                }
-            }            
-        }
-        return cell
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return items.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return count
+    fileprivate func setTrackCell(indexPath: IndexPath, cell: TrackCell, rowTime: Double) {
+        if let urlString = items[indexPath.row].podcastArtUrlString,
+            let url = URL(string: urlString),
+            let title = items[indexPath.row].podcastTitle {
+            let cellViewModel = TrackCellViewModel(trackName: title, albumImageUrl: url)
+            cell.configureCell(with: cellViewModel, withTime: 0)
+            DispatchQueue.main.asyncAfter(deadline: .now() + rowTime) {
+                UIView.animate(withDuration: rowTime) {
+                    cell.alpha = 1
+                }
+            }
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as TrackCell
+        cell.alpha = 0
+        var rowTime: Double = 0
+        if indexPath.row > 10 {
+            rowTime = (Double(indexPath.row % 10)) / 10
+        } else {
+            rowTime = (Double(indexPath.row)) / 10
+        }
+        
+        cell.layer.cornerRadius = 3
+        setTrackCell(indexPath: indexPath, cell: cell, rowTime: rowTime)
+        return cell
     }
 }
