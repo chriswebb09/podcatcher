@@ -58,7 +58,7 @@
 		A71853121EE962BA00911C87 /* BallIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71853111EE962BA00911C87 /* BallIndicatorView.swift */; };
 		A71A5BB01F01DD9500254BE2 /* ApplicationStyling.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71A5BAF1F01DD9500254BE2 /* ApplicationStyling.swift */; };
 		A71A5BB21F01DE5F00254BE2 /* TrackCellConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71A5BB11F01DE5F00254BE2 /* TrackCellConstants.swift */; };
-		A71A5BB51F01E82900254BE2 /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71A5BB41F01E82900254BE2 /* SearchResultViewController.swift */; };
+		A71A5BB51F01E82900254BE2 /* SearchResultListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71A5BB41F01E82900254BE2 /* SearchResultListViewController.swift */; };
 		A71A5BB81F02131400254BE2 /* PodcastResultsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71A5BB71F02131400254BE2 /* PodcastResultsCell.swift */; };
 		A71A5BBA1F02134D00254BE2 /* PodcastResultsCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71A5BB91F02134D00254BE2 /* PodcastResultsCellViewModel.swift */; };
 		A71A5BBC1F02137100254BE2 /*  SearchResultListViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71A5BBB1F02137100254BE2 /*  SearchResultListViewController+Extension.swift */; };
@@ -324,7 +324,7 @@
 		A71853111EE962BA00911C87 /* BallIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BallIndicatorView.swift; sourceTree = "<group>"; };
 		A71A5BAF1F01DD9500254BE2 /* ApplicationStyling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationStyling.swift; sourceTree = "<group>"; };
 		A71A5BB11F01DE5F00254BE2 /* TrackCellConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackCellConstants.swift; sourceTree = "<group>"; };
-		A71A5BB41F01E82900254BE2 /* SearchResultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchResultViewController.swift; path = SearchResult/SearchResultViewController.swift; sourceTree = "<group>"; };
+		A71A5BB41F01E82900254BE2 /* SearchResultListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchResultListViewController.swift; path = SearchResult/SearchResultListViewController.swift; sourceTree = "<group>"; };
 		A71A5BB71F02131400254BE2 /* PodcastResultsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PodcastResultsCell.swift; path = SearchResult/PodcastResultsCell.swift; sourceTree = "<group>"; };
 		A71A5BB91F02134D00254BE2 /* PodcastResultsCellViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PodcastResultsCellViewModel.swift; path = SearchResult/PodcastResultsCellViewModel.swift; sourceTree = "<group>"; };
 		A71A5BBB1F02137100254BE2 /*  SearchResultListViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = " SearchResultListViewController+Extension.swift"; path = "SearchResult/ SearchResultListViewController+Extension.swift"; sourceTree = "<group>"; };
@@ -695,7 +695,7 @@
 		A71A5BB61F01E83100254BE2 /* SearchResult */ = {
 			isa = PBXGroup;
 			children = (
-				A71A5BB41F01E82900254BE2 /* SearchResultViewController.swift */,
+				A71A5BB41F01E82900254BE2 /* SearchResultListViewController.swift */,
 				A71A5BBB1F02137100254BE2 /*  SearchResultListViewController+Extension.swift */,
 				A71A5BB71F02131400254BE2 /* PodcastResultsCell.swift */,
 				A71A5BB91F02134D00254BE2 /* PodcastResultsCellViewModel.swift */,
@@ -1998,7 +1998,7 @@
 				A71640381EFFDAFE00895082 /* UserDefaults+Extension.swift in Sources */,
 				A723A5B71EE93ED9002E49BF /* LoginViewConstants.swift in Sources */,
 				A7754E7C1F0060D10076029E /* TrackContentState.swift in Sources */,
-				A71A5BB51F01E82900254BE2 /* SearchResultViewController.swift in Sources */,
+				A71A5BB51F01E82900254BE2 /* SearchResultListViewController.swift in Sources */,
 				A7B840CA1EECD7160049BB78 /* MainCoordinator.swift in Sources */,
 				A7EBA0B71EE680DF00FAAC9C /* BasePopView.swift in Sources */,
 				A7A54EA51EE7133C009A5538 /* EntryFieldConstants.swift in Sources */,

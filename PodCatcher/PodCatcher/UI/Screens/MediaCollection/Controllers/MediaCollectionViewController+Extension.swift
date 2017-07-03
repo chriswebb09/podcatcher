@@ -44,7 +44,12 @@ extension MediaCollectionViewController: UICollectionViewDelegate {
 
 // MARK: - UICollectionViewDataSource
 
-extension MediaCollectionViewController: UICollectionViewDataSource {
+extension MediaCollectionViewController: UICollectionViewDataSource,  UICollectionViewDataSourcePrefetching {
+   
+    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+        
+    }
+
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if dataSource.collectionView(collectionView, numberOfItemsInSection: 0) > 0 {
@@ -70,7 +75,13 @@ extension MediaCollectionViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as TrackCell
         cell.alpha = 0
-        let rowTime = (Double(indexPath.row % 8)) / 12
+        var rowTime: Double = 0
+        if indexPath.row > 10 {
+            rowTime = (Double(indexPath.row % 10)) / 10
+        } else {
+             rowTime = (Double(indexPath.row)) / 10
+        }
+        
         cell.layer.cornerRadius = 3
         setTrackCell(indexPath: indexPath, cell: cell, rowTime: rowTime)
         return cell
@@ -103,7 +114,6 @@ extension MediaCollectionViewController:  UISearchControllerDelegate {
             strongSelf.hideLoadingView(loadingPop: strongSelf.loadingPop)
             strongSelf.collectionView.reloadData()
             strongSelf.collectionView.performBatchUpdates ({
-                self?.collectionView.reloadData()
                 DispatchQueue.main.async {
                     if strongSelf.collectionView.indexPathsForVisibleItems.count > 0 {
                         strongSelf.collectionView.reloadItems(at: strongSelf.collectionView.indexPathsForVisibleItems)
@@ -150,7 +160,6 @@ extension MediaCollectionViewController: UISearchResultsUpdating {
                 self.perform(#selector(setSearch), with: nil, afterDelay: 0.35)
             }
         }
-        collectionView.reloadData()
     }
     
     func setSearch() {
@@ -188,7 +197,6 @@ extension MediaCollectionViewController: UISearchBarDelegate {
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         dataSource.items.removeAll()
-        
         hideLoadingView(loadingPop: loadingPop)
         if loadingPop.animating {
             NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(showLoadingView(loadingPop:)), object: nil)

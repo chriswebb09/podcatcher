@@ -6,7 +6,7 @@ class TrackItemsFlowLayout: UICollectionViewFlowLayout {
     
     func setup() {
         scrollDirection = .vertical
-        itemSize = CGSize(width: UIScreen.main.bounds.width / 2.3, height: UIScreen.main.bounds.height / 4.2)
+        itemSize = CGSize(width: UIScreen.main.bounds.width / 3.5, height: UIScreen.main.bounds.height / 5.3)
         sectionInset = UIEdgeInsets(top: 0, left: 15, bottom: 20, right: 15)
         minimumLineSpacing = 20
     }

@@ -18,15 +18,31 @@ extension SearchResultListViewController: PodcastCollectionViewProtocol {
     
     func setupView() {
         guard let tabBar = self.tabBarController?.tabBar else { return }
-        collectionView.frame = CGRect(x: topView.bounds.minX, y: topView.frame.maxY + (tabBar.frame.height + 10), width: view.bounds.width, height: view.bounds.height - (topView.frame.height - tabBar.frame.height))
+        guard let navHeight = navigationController?.navigationBar.frame.height else { return }
+        let viewHeight = (view.bounds.height - navHeight) - 55
+        collectionView.frame = CGRect(x: topView.bounds.minX, y: topView.frame.maxY + (tabBar.frame.height + 10), width: view.bounds.width, height: viewHeight - (topView.frame.height - tabBar.frame.height))
         collectionView.backgroundColor = .clear
+        dump(collectionView.frame)
+        dump(view.frame.height)
+        guard let casters = dataSource.casters else { return }
+        if casters.count > 0 {
+            view.addSubview(collectionView)
+        } else {
+            let emptyView = EmptyCastsView(frame: PodcastListConstants.emptyCastViewFrame)
+            emptyView.backgroundColor = .white
+            emptyView.layoutSubviews()
+            view.addSubview(emptyView)
+        }
+        topView.delegate = self
     }
+    
 }
 
 // MARK: - UIScrollViewDelegate
 
 extension SearchResultListViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
         let offset = scrollView.contentOffset
         let updatedTopViewFrame = CGRect(x: 0, y: 0, width: PodcastListConstants.topFrameWidth, height: PodcastListConstants.topFrameHeight / 1.2)
         if offset.y > PodcastListConstants.minimumOffset {
@@ -37,18 +53,17 @@ extension SearchResultListViewController: UIScrollViewDelegate {
             }
         } else {
             UIView.animate(withDuration: 0.15) {
+                guard let tabBar = self.tabBarController?.tabBar else { return }
+                guard let navHeight = self.navigationController?.navigationBar.frame.height else { return }
+                let viewHeight = (self.view.bounds.height - navHeight) - 20
                 self.topView.frame = updatedTopViewFrame
                 self.topView.alpha = 1
                 self.topView.layoutSubviews()
                 self.view.addSubview(self.topView)
-                self.collectionView.frame = CGRect(x: self.topView.bounds.minX,
-                                                   y: self.topView.frame.maxY,
-                                                   width: self.view.bounds.width,
-                                                   height: self.view.bounds.height)
+                self.collectionView.frame = CGRect(x: self.topView.bounds.minX, y: self.topView.frame.maxY, width: self.view.bounds.width, height: viewHeight - (self.topView.frame.height - tabBar.frame.height))
             }
         }
     }
-    
 }
 
 // MARK: - UICollectionViewDelegate
