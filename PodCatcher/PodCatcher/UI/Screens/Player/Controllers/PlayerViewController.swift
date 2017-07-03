@@ -16,8 +16,10 @@ final class PlayerViewController: BaseViewController {
     var menuActive: MenuActive = .none
     var player: AudioFilePlayer?
     var index: Int
+    let store = PodcastDataStore()
     var testIndex: Int
     var user: PodCatcherUser?
+    let downloadingIndicator = DownloaderIndicatorView()
     var playerViewModel: PlayerViewModel!
     
     init(playerView: PlayerView = PlayerView(), index: Int, caster: CasterSearchResult, user: PodCatcherUser?) {
@@ -35,6 +37,7 @@ final class PlayerViewController: BaseViewController {
         playerViewModel = PlayerViewModel(imageUrl: URL(string: artUrl), title: caster.episodes[index].title)
         setModel(model: playerViewModel)
         playerView.delegate = self
+         //  navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "plus-red"), style: .plain, target: self, action: #selector(hidePop))
         view.addView(view: playerView, type: .full)
     }
     

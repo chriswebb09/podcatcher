@@ -12,6 +12,8 @@ extension MediaTabCoordinator: MediaControllerDelegate {
     func didSelect(at index: Int, with caster: PodcastSearchResult) {
         let resultsList = SearchResultListViewController(index: index)
         resultsList.delegate = self
+        resultsList.dataSource = dataSource
+        resultsList.dataSource.user = dataSource.user
         resultsList.item = caster as! CasterSearchResult
         guard let feedUrlString = resultsList.item.feedUrl else { return }
         let store = SearchResultsDataStore()

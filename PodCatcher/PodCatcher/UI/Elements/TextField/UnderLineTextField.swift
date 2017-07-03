@@ -1,7 +1,7 @@
 import UIKit
 
 struct UnderlineTextFieldConstants {
-    static let newBoundsOriginXOffset: CGFloat = 30
+    static let newBoundsOriginXOffset: CGFloat = 22
     static let newBoundsOriginYOffset: CGFloat = 8
     static let newBoundsWidthOffset: CGFloat = 12
     static let newBoundsTextRectXOffset: CGFloat = 5
@@ -41,7 +41,7 @@ class UnderlineTextField: UITextField {
         let border = CALayer()
         let width: CGFloat = 1.2
         border.borderColor = UIColor.white.cgColor
-        font = UIFont.systemFont(ofSize: 16, weight: UIFontWeightThin)
+        font = UIFont.systemFont(ofSize: 18, weight: UIFontWeightThin)
         border.frame = CGRect(x: 0, y: frame.size.height - width, width:  frame.size.width, height: frame.size.height)
         border.borderWidth = width
         layer.addSublayer(border)
@@ -59,7 +59,7 @@ extension UnderlineTextField {
     
     func setLeftView(with image: UIImage, and tintColor: UIColor) {
         leftViewMode = UITextFieldViewMode.always
-        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 30, height: 24))
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 26, height: 22))
         let icon = image.withRenderingMode(.alwaysTemplate)
         imageView.image = icon
         imageView.tintColor  = tintColor
@@ -77,7 +77,7 @@ extension UnderlineTextField {
     
     func setupPasswordField() {
         setupField(with: .white, tintColor: .white)
-        setLeftView(with: #imageLiteral(resourceName: "lock"), and: .white)
+        setLeftView(with: #imageLiteral(resourceName: "new-lock"), and: .white)
         setPlaceholder(with: "PASSWORD", and: UIFont.systemFont(ofSize: 14, weight: UIFontWeightThin))
         if let text = text {
             let attributedString = NSMutableAttributedString(string: text)
@@ -91,7 +91,7 @@ extension UnderlineTextField {
     
     func setupEmailField() {
         setupField(with: .white, tintColor: .white)
-        setLeftView(with: #imageLiteral(resourceName: "mail-cropped"), and: .white)
+        setLeftView(with: #imageLiteral(resourceName: "letter-2"), and: .white)
         setPlaceholder(with: "EMAIL", and: UIFont.systemFont(ofSize: 14, weight: UIFontWeightThin))
         if let text = text {
             let attributedString = NSMutableAttributedString(string: text.lowercased())

@@ -2,11 +2,28 @@ import UIKit
 
 final internal class TrackCell: UICollectionViewCell {
     
-    private var viewModel: TrackCellViewModel?
+    private var viewModel: TrackCellViewModel? {
+        didSet {
+            guard let viewModel = viewModel else { return }
+            trackNameLabel.text = viewModel.trackName
+            albumArtView.downloadImage(url: viewModel.albumImageUrl)
+        }
+    }
+    
     private var albumArtView: UIImageView = {
         var album = UIImageView()
         return album
     }()
+    
+    private var trackNameLabel: UILabel = {
+        var trackName = UILabel()
+        trackName.backgroundColor = .white
+        trackName.font = TrackCellConstants.smallFont
+        trackName.textAlignment = .center
+        trackName.numberOfLines = 0
+        return trackName
+    }()
+    
     
     // Cell shadow
     
@@ -20,12 +37,17 @@ final internal class TrackCell: UICollectionViewCell {
     func configureCell(with model: TrackCellViewModel, withTime: Double) {
         viewModel = model
         guard let viewModel = viewModel else { return }
-        albumArtView.downloadImage(url: viewModel.albumImageUrl)
+        layer.borderWidth = 1
+        contentView.layer.cornerRadius = 3
+        layer.borderColor = UIColor.lightText.cgColor
         layoutSubviews()
+        contentView.backgroundColor = Colors.lightHighlight
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        setup(albumArtView: albumArtView)
+        setupTrackInfoLabel(trackNameLabel: trackNameLabel)
         viewConfigurations()
     }
     
@@ -33,19 +55,30 @@ final internal class TrackCell: UICollectionViewCell {
     
     private func viewConfigurations() {
         setShadow()
-        setupAlbumArt(albumArtView: albumArtView)
+        setup(albumArtView: albumArtView)
     }
     
-    private func setupAlbumArt(albumArtView: UIImageView) {
+    private func setup(albumArtView: UIImageView) {
         contentView.addSubview(albumArtView)
         albumArtView.translatesAutoresizingMaskIntoConstraints = false
-        albumArtView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: TrackCellConstants.albumHeightMultiplier).isActive = true
-        albumArtView.widthAnchor.constraint(equalTo: contentView.widthAnchor).isActive = true
-        albumArtView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
+
+        albumArtView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: contentView.bounds.height * 0.1).isActive = true
+        albumArtView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+        albumArtView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.65).isActive = true
+        albumArtView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.8).isActive = true
+    }
+    
+    private func setupTrackInfoLabel(trackNameLabel: UILabel) {
+        contentView.addSubview(trackNameLabel)
+        trackNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        trackNameLabel.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: TrackCellConstants.labelHeightMultiplier).isActive = true
+        trackNameLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor).isActive = true
+        trackNameLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
         albumArtView.image = nil
+        trackNameLabel.text = "" 
     }
 }

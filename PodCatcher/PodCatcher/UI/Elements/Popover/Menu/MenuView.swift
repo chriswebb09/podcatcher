@@ -53,6 +53,7 @@ final class MenuView: UIView {
     }
     
     @objc private func optionOneViewTapped() {
+        optionOneView.isUserInteractionEnabled = false
         delegate?.optionOne(tapped: true)
     }
     

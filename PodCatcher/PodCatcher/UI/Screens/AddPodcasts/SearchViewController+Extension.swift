@@ -47,8 +47,9 @@ extension SearchViewController: UICollectionViewDataSource {
     }
     
     fileprivate func setTrackCell(indexPath: IndexPath, cell: TrackCell, rowTime: Double) {
-        if let urlString = dataSource.items[indexPath.row].podcastArtUrlString, let url = URL(string: urlString) {
-            let cellViewModel = TrackCellViewModel(albumImageUrl: url)
+        if let urlString = dataSource.items[indexPath.row].podcastArtUrlString,
+            let url = URL(string: urlString), let title = dataSource.items[indexPath.row].podcastTitle  {
+            let cellViewModel = TrackCellViewModel(trackName: title, albumImageUrl: url)
             cell.configureCell(with: cellViewModel, withTime: 0)
             DispatchQueue.main.asyncAfter(deadline: .now() + rowTime) {
                 UIView.animate(withDuration: rowTime) {

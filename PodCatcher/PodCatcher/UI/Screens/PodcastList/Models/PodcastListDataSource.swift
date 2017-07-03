@@ -3,7 +3,6 @@ import UIKit
 class PodcastListDataSource: BaseMediaControllerDataSource {
     
     var index: Int!
-    
     var caster: Caster!
     
     var viewShown: ShowView {
@@ -21,10 +20,8 @@ extension PodcastListDataSource: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as PodcastCell
-       
             let model = PodcastCellViewModel(podcastTitle: caster.assets[indexPath.row].title, item: caster.assets[indexPath.row])
             cell.configureCell(model: model)
-        
         return cell
     }
     
@@ -32,3 +29,20 @@ extension PodcastListDataSource: UICollectionViewDataSource {
         return caster.assets.count
     }
 }
+
+
+class PodcastDataStore {
+    
+    let client = iTunesAPIClient()
+    
+    func getFile(_ download: Download) {
+        client.startDownload(download)
+    }
+    
+    func downloadTrack(for url: URL) {
+        let download = Download(url: url.absoluteString)
+        client.startDownload(download)
+    }
+}
+
+

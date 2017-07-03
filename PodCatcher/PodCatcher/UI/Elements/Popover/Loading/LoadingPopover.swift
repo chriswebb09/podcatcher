@@ -36,6 +36,12 @@ class LoadingHUD {
 
 final class LoadingPopover: BasePopoverAlert {
     
+    var animating: Bool {
+        guard let ball = self.popView.ball else { return false }
+       // guard let ball == self.popView.ball else { return false }
+        return ball.isAnimating
+    }
+    
     var popView: LoadingView = {
         let popView = LoadingView()
         popView.layer.cornerRadius = DetailPopoverConstants.cornerRadius

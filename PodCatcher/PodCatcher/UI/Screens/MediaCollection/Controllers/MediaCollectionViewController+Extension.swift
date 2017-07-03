@@ -19,9 +19,15 @@ extension MediaCollectionViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offset = scrollView.contentOffset
+        hideLoadingView(loadingPop: loadingPop)
         if offset.y > 0 {
-            hideLoadingView(loadingPop: loadingPop)
             hideSearchBar()
+            switch sideMenuPop.state {
+            case .active:
+                hideMenu()
+            default:
+                break
+            }
         }
     }
 }
@@ -48,8 +54,10 @@ extension MediaCollectionViewController: UICollectionViewDataSource {
     }
     
     fileprivate func setTrackCell(indexPath: IndexPath, cell: TrackCell, rowTime: Double) {
-        if let urlString = dataSource.items[indexPath.row].podcastArtUrlString, let url = URL(string: urlString) {
-            let cellViewModel = TrackCellViewModel(albumImageUrl: url)
+        if let urlString = dataSource.items[indexPath.row].podcastArtUrlString,
+            let url = URL(string: urlString),
+            let title = dataSource.items[indexPath.row].podcastTitle {
+            let cellViewModel = TrackCellViewModel(trackName: title, albumImageUrl: url)
             cell.configureCell(with: cellViewModel, withTime: 0)
             DispatchQueue.main.asyncAfter(deadline: .now() + rowTime) {
                 UIView.animate(withDuration: rowTime) {
@@ -62,7 +70,8 @@ extension MediaCollectionViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as TrackCell
         cell.alpha = 0
-        let rowTime = (Double(indexPath.row % 8)) / 10
+        let rowTime = (Double(indexPath.row % 8)) / 12
+        cell.layer.cornerRadius = 3
         setTrackCell(indexPath: indexPath, cell: cell, rowTime: rowTime)
         return cell
     }
@@ -76,10 +85,20 @@ extension MediaCollectionViewController: UICollectionViewDataSource {
 extension MediaCollectionViewController:  UISearchControllerDelegate {
     
     func searchBarHasInput() {
+        if loadingPop.animating {
+            NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(showLoadingView(loadingPop:)), object: nil)
+        }
         showLoadingView(loadingPop: loadingPop)
         loadingPop.configureLoadingOpacity()
         dataSource.store.searchForTracks { [weak self] playlist, error in
+            if let error = error {
+                print(error.localizedDescription)
+                return
+            }
             guard let playlist = playlist, let strongSelf = self else { return }
+            if strongSelf.loadingPop.animating {
+                 strongSelf.hideLoadingView(loadingPop: strongSelf.loadingPop)
+            }
             strongSelf.dataSource.items = playlist
             strongSelf.hideLoadingView(loadingPop: strongSelf.loadingPop)
             strongSelf.collectionView.reloadData()
@@ -135,6 +154,9 @@ extension MediaCollectionViewController: UISearchResultsUpdating {
     }
     
     func setSearch() {
+        if loadingPop.animating {
+            NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(showLoadingView(loadingPop:)), object: nil)
+        }
         self.dataSource.store.searchForTracks { [weak self] tracks, error in
             guard let strongSelf = self, let tracks = tracks else { return }
             strongSelf.dataSource.items = tracks
@@ -154,9 +176,6 @@ extension MediaCollectionViewController: UISearchResultsUpdating {
         searchBarActive = false
         leftButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "search-button"), style: .done, target: self, action: #selector(search))
         navigationItem.setLeftBarButton(leftButtonItem, animated: false)
-        if dataSource.items.count == 0 { viewShown = .empty }
-        guard let nav = navigationController?.navigationBar else { return }
-        collectionView.frame = CGRect(x: UIScreen.main.bounds.minX, y: nav.frame.maxY - 46, width: UIScreen.main.bounds.width, height: view.frame.height)
     }
     
     func updateSearchResults(for searchController: UISearchController) {
@@ -169,7 +188,11 @@ extension MediaCollectionViewController: UISearchBarDelegate {
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         dataSource.items.removeAll()
+        
         hideLoadingView(loadingPop: loadingPop)
+        if loadingPop.animating {
+            NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(showLoadingView(loadingPop:)), object: nil)
+        }
         DispatchQueue.main.async {
             self.collectionView.reloadData()
         }
@@ -191,7 +214,6 @@ extension MediaCollectionViewController: UISearchBarDelegate {
         view.addSubview(searchBar)
         let textFieldInsideSearchBar = searchBar.value(forKey: "searchField") as? UITextField
         textFieldInsideSearchBar?.textColor = .white
-        textFieldInsideSearchBar?.leftView?.alpha = 0
         searchBar.alpha = 0.7
     }
     
@@ -213,9 +235,10 @@ extension MediaCollectionViewController: UISearchBarDelegate {
         searchController.searchBar.delegate = self
         let textFieldInsideSearchBar = searchBar.value(forKey: "searchField") as? UITextField
         textFieldInsideSearchBar?.textColor = .white
-        if let textFieldInsideSearchBar = self.searchBar.value(forKey: "searchField") as? UITextField,
+        if let textFieldInsideSearchBar = searchBar.value(forKey: "searchField") as? UITextField,
             let glassIconView = textFieldInsideSearchBar.leftView as? UIImageView {
             textFieldInsideSearchBar.backgroundColor = Colors.brightHighlight
+            textFieldInsideSearchBar.clearButtonMode = .never
             glassIconView.image = glassIconView.image?.withRenderingMode(.alwaysTemplate)
             glassIconView.tintColor = .white
         }

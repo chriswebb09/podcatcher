@@ -36,11 +36,17 @@ class SearchResultListViewController: BaseCollectionViewController {
     }
     
     override func viewDidLoad() {
+        sideMenuPop = SideMenuPopover()
+        sideMenuPop.popView.delegate = self
+        sideMenuPop.setupPop()
+        if dataSource.user != nil {
+            rightButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "menu-red"), style: .done, target: self, action: #selector(showMenu))
+            navigationItem.setRightBarButton(rightButtonItem, animated: false)
+        }
         super.viewDidLoad()
         bottomMenu.setMenu(color: .mainColor, borderColor: .darkGray, textColor: .white)
         setup(dataSource: self, delegate: self)
         configureTopView()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "plus-red"), style: .plain, target: self, action: #selector(hidePop))
         background.frame = view.frame
         view.addSubview(background)
         emptyView.alpha = 0
@@ -75,5 +81,8 @@ class SearchResultListViewController: BaseCollectionViewController {
             break
         }
     }
+}
 
+extension SearchResultListViewController: SideMenuDelegate {
+    
 }

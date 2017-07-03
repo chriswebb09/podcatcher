@@ -29,12 +29,12 @@ class MediaCollectionViewController: BaseCollectionViewController {
     var searchBarActive: Bool = false {
         didSet {
             if searchBarActive {
-                viewShown = .collection
-                view.addSubview(segmentControl)
-                searchBar.frame = CGRect(x: UIScreen.main.bounds.minX, y: 0, width: UIScreen.main.bounds.width, height: 44)
-                segmentControl.frame = CGRect(x: UIScreen.main.bounds.minX, y: searchBar.frame.maxY, width: UIScreen.main.bounds.width, height: 44)
-                segmentControl.addTarget(self, action: #selector(userSearch(segmentControl:)), for: .valueChanged)
-                collectionView.frame = CGRect(x: UIScreen.main.bounds.minX, y: segmentControl.frame.maxY + 5, width: UIScreen.main.bounds.width, height: view.frame.height - 88)
+                searchControllerConfigure()
+                showSearchBar()
+            } else if !searchBarActive {
+                if dataSource.items.count == 0 { viewShown = .empty }
+                guard let nav = navigationController?.navigationBar else { return }
+                collectionView.frame = CGRect(x: UIScreen.main.bounds.minX, y: nav.frame.maxY - 62, width: UIScreen.main.bounds.width, height: view.frame.height)
             }
         }
     }
@@ -59,7 +59,6 @@ class MediaCollectionViewController: BaseCollectionViewController {
         super.init(nibName: nil, bundle: nil)
         sideMenuPop = SideMenuPopover()
         searchController.defaultConfiguration()
-        searchControllerConfigure()
         definesPresentationContext = false
         sideMenuPop.popView.delegate = self
         searchBar.delegate = self
@@ -70,11 +69,22 @@ class MediaCollectionViewController: BaseCollectionViewController {
             navigationItem.setRightBarButton(rightButtonItem, animated: false)
             navigationItem.setLeftBarButton(leftButtonItem, animated: false)
         }
+        searchControllerConfigure()
         navigationBarSetup()
         searchBar.barTintColor = .white
         setupDefaultUI()
         emptyView.alpha = 0
         view.backgroundColor = Colors.brightHighlight
+    }
+    
+    func showSearchBar() {
+        viewShown = .collection
+        view.addSubview(segmentControl)
+        segmentControl.isHidden = false
+        searchBar.frame = CGRect(x: UIScreen.main.bounds.minX, y: 0, width: UIScreen.main.bounds.width, height: 44)
+        segmentControl.frame = CGRect(x: UIScreen.main.bounds.minX, y: searchBar.frame.maxY, width: UIScreen.main.bounds.width, height: 44)
+        segmentControl.addTarget(self, action: #selector(userSearch(segmentControl:)), for: .valueChanged)
+        collectionView.frame = CGRect(x: UIScreen.main.bounds.minX, y: segmentControl.frame.maxY + 5, width: UIScreen.main.bounds.width, height: view.frame.height - 88)
     }
     
     required public init(coder aDecoder: NSCoder) {
@@ -98,14 +108,18 @@ class MediaCollectionViewController: BaseCollectionViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         searchBar.isHidden = false
+        searchBarActive = false
         super.viewWillAppear(animated)
         tabBarController?.tabBar.isHidden = false
-        if let searchBarText = searchBar.text, searchBarText.characters.count > 0 { searchBarActive = true }
+        //if let searchBarText = searchBar.text, searchBarText.characters.count > 0 { searchBarActive = true }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         view.endEditing(true)
+        searchBarActive = false
+        hideSearchBar()
+        segmentControl.isHidden = true
         searchController.searchBar.resignFirstResponder()
         searchController.searchBar.isHidden = true
         hideLoadingView(loadingPop: loadingPop)

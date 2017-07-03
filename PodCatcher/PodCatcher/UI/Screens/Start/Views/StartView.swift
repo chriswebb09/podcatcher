@@ -39,7 +39,6 @@ final class StartView: UIView {
     private var createAccountButton: UIButton = {
         let createAccount = UIButton()
         var text = "Don't have an account?"
-        //UIFont(name: "AvenirNext-Regular", size: 16)
         var attributes = [NSFontAttributeName : UIFont.systemFont(ofSize: 14, weight: UIFontWeightLight), NSForegroundColorAttributeName : UIColor.white,NSUnderlineStyleAttributeName : 1] as [String : Any]
         var attributedString = NSMutableAttributedString(string:"")
         let buttonTitleStr = NSMutableAttributedString(string:"Don't have an account?", attributes: attributes)
@@ -115,7 +114,6 @@ final class StartView: UIView {
     }
     
     private func setup(guestUserButton: UIButton) {
-        
         sharedLayout(view: guestUserButton)
         guestUserButton.topAnchor.constraint(equalTo: logoView.bottomAnchor, constant: StartViewConstants.guestUserButtonBottomOffset).isActive = true
     }

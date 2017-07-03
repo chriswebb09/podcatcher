@@ -46,8 +46,9 @@ final class MediaCell: UICollectionViewCell {
         contentView.addSubview(albumArtView)
         albumArtView.translatesAutoresizingMaskIntoConstraints = false
         albumArtView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: MediaCellConstants.albumHeightMultiplier).isActive = true
-        albumArtView.widthAnchor.constraint(equalTo: contentView.widthAnchor).isActive = true
-        albumArtView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
+        albumArtView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.5).isActive = true
+        albumArtView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
+        albumArtView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
     }
     
     override func prepareForReuse() {

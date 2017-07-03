@@ -1,6 +1,12 @@
 import UIKit
 
+enum SideMenuState {
+    case active, hidden
+}
+
 final class SideMenuPopover: BasePopoverMenu {
+    
+    var state: SideMenuState = .hidden
     
     var popView: SideMenuView = {
         let popView = SideMenuView()
@@ -11,6 +17,7 @@ final class SideMenuPopover: BasePopoverMenu {
     
     public override func showPopView(viewController: UIViewController) {
         viewController.view.addSubview(popView)
+        state = .active
         viewController.view.bringSubview(toFront: self)
         popView.isHidden = false
         popView.translatesAutoresizingMaskIntoConstraints = false
@@ -28,10 +35,12 @@ final class SideMenuPopover: BasePopoverMenu {
     func dismissMenu(controller: UIViewController) {
         hidePopView(viewController: controller)
         controller.view.sendSubview(toBack: self)
+        
     }
     
     func hideMenu(controller: UIViewController) {
         hidePopView(viewController: controller)
+        state = .hidden
     }
     
     func setupPop() {

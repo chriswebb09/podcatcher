@@ -14,7 +14,7 @@ extension CALayer {
         let shadowOffsetHeight: CGFloat = contentView.bounds.width * CALayerConstants.shadowHeightMultiplier
         shadowColor = UIColor.black.cgColor
         shadowOffset = CGSize(width: shadowOffsetWidth, height: shadowOffsetHeight)
-        shadowRadius =  1.8
+        shadowRadius =  1.2
         shadowOpacity = 0.7
     }
     
@@ -51,7 +51,7 @@ extension CALayer {
         shadowColor = UIColor.lightGray.cgColor
         shadowOffset = CGSize(width: 0, height: 2.0)
         shadowRadius = 3
-        shadowOpacity = 0.2
+        shadowOpacity = 0.3
         masksToBounds = false;
         shadowPath = UIBezierPath(roundedRect:self.bounds, cornerRadius: viewRadius).cgPath
     }

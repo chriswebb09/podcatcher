@@ -138,7 +138,20 @@ extension PlayerViewController: AudioFilePlayerDelegate {
 extension PlayerViewController: MenuDelegate {
     
     func optionOne(tapped: Bool) {
-        print(tapped)
+        guard let player = player else { return }
+        switch player.state {
+        case .playing:
+            pauseButtonTapped()
+        default:
+            break
+        }
+        downloadingIndicator.showActivityIndicator(viewController: self)
+        if let urlString = caster.episodes[index].audioUrlString {
+            let download = Download(url: urlString)
+            download.delegate = self
+            store.getFile(download)
+        }
+        hidePopMenu()
     }
     
     func optionTwo(tapped: Bool) {
@@ -157,5 +170,18 @@ extension PlayerViewController: MenuDelegate {
     func navigateBack(tapped: Bool) {
         delegate?.navigateBack(tapped: tapped)
         navigationController?.popViewController(animated: false)
+    }
+}
+
+
+extension PlayerViewController: DownloadDelegate {
+    func downloadProgressUpdated(for progress: Float) {
+        if progress == 1 {
+            DispatchQueue.main.async {
+                self.downloadingIndicator.hideActivityIndicator(viewController: self)
+                
+            }
+        }
+        print(progress)
     }
 }

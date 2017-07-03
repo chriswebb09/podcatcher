@@ -19,8 +19,10 @@ class ListControllerDataSource: TracksDataSource {
     
     func cellInstance(collectionView: UICollectionView, indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as TrackCell
-        if let urlString = items[indexPath.row].podcastArtUrlString, let url = URL(string: urlString) {
-            let cellViewModel = TrackCellViewModel(albumImageUrl: url)
+        if let urlString = items[indexPath.row].podcastArtUrlString,
+            let url = URL(string: urlString),
+        let title = items[indexPath.row].podcastTitle {
+            let cellViewModel = TrackCellViewModel(trackName: title, albumImageUrl: url)
             cell.configureCell(with: cellViewModel, withTime: (Double(indexPath.row) * 0.1))
         }
         return cell

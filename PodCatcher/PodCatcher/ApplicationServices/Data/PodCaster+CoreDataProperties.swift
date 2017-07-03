@@ -2,9 +2,10 @@
 //  PodCaster+CoreDataProperties.swift
 //  
 //
-//  Created by Christopher Webb-Orenstein on 6/25/17.
+//  Created by Christopher Webb-Orenstein on 7/2/17.
 //
 //
+
 import Foundation
 import CoreData
 
@@ -15,9 +16,10 @@ extension PodCaster {
         return NSFetchRequest<PodCaster>(entityName: "PodCaster")
     }
 
+    @NSManaged public var image: NSData?
     @NSManaged public var name: String?
     @NSManaged public var totalPlayTime: Double
-    @NSManaged public var image: NSData?
+    @NSManaged public var feedUrl: String?
     @NSManaged public var podCasterItems: NSSet?
 
 }

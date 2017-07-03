@@ -38,11 +38,11 @@ extension MainCoordinator: CoordinatorDelegate {
             let tracksDataStore = TrackDataStore()
             
             let trackDataSource = ListControllerDataSource(store: tracksDataStore, user: dataSource.user)
-            let favoritesViewController = SearchViewController(dataSource: trackDataSource)
-            let favoritesTab = UINavigationController(rootViewController: favoritesViewController)
-            tabbBarCoordinator.setupFavoritesCoordinator(navigationController: favoritesTab, dataSource: dataSource)
-            let favoritesCoord = tabbBarCoordinator.childCoordinators[1] as! FavoritesTabCoordinator
-            favoritesCoord.delegate = self
+//            let favoritesViewController = SearchViewController(dataSource: trackDataSource)
+//            let favoritesTab = UINavigationController(rootViewController: favoritesViewController)
+//            tabbBarCoordinator.setupFavoritesCoordinator(navigationController: favoritesTab, dataSource: dataSource)
+//            let favoritesCoord = tabbBarCoordinator.childCoordinators[1] as! FavoritesTabCoordinator
+//            favoritesCoord.delegate = self
             
             let model = SettingsViewModel(firstSettingOptionText: "OptionOne", secondSettingOptionText: "OptionTwo")
             let settingsView = SettingsView(frame: CGRect.zero, model: model)
@@ -51,7 +51,7 @@ extension MainCoordinator: CoordinatorDelegate {
             
             tabbBarCoordinator.setupSettingsCoordinator(navigationController: settingsTab, dataSource: dataSource)
             tabbBarCoordinator.delegate = self
-            let settingsCoord = tabbBarCoordinator.childCoordinators[2] as! SettingsTabCoordinator
+            let settingsCoord = tabbBarCoordinator.childCoordinators[1] as! SettingsTabCoordinator
             settingsCoord.delegate = self
             
             appCoordinator = tabbBarCoordinator

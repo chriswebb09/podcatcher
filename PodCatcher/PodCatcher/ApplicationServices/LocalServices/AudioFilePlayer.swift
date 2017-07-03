@@ -1,9 +1,17 @@
 import Foundation
 import AVFoundation
 
-final class AudioFilePlayer: NSObject, AVAssetResourceLoaderDelegate, Playable {
+enum PlayerState {
+    case playing, paused, stopped
+}
+
+var audioCache = NSCache<NSString, AVAsset>()
+
+final class AudioFilePlayer: NSObject {
     
     var url: URL
+    
+    var state: PlayerState = .stopped
     
     weak var delegate: AudioFilePlayerDelegate?
     
@@ -53,20 +61,22 @@ final class AudioFilePlayer: NSObject, AVAssetResourceLoaderDelegate, Playable {
     init(url: URL) {
         self.url = url
         super.init()
-        self.getTrackDuration(asset: self.asset)
+        getTrackDuration(asset: asset)
     }
     
     convenience override init() {
         self.init()
-        
-        self.url = URL(string: "test")!
+        guard let url = URL(string: "test") else { return }
+        self.url = url
     }
     
     func play() {
+        state = .playing
         play(player: player)
     }
     
     func pause(){
+        state = .paused
         player.pause()
     }
     
@@ -85,7 +95,10 @@ final class AudioFilePlayer: NSObject, AVAssetResourceLoaderDelegate, Playable {
     func play(player: AVPlayer) {
         player.playImmediately(atRate: 1)
     }
-    
+}
+
+extension AudioFilePlayer: AVAssetResourceLoaderDelegate, Playable {
+
     func getTrackDuration(asset: AVURLAsset) {
         asset.loadValuesAsynchronously(forKeys: ["tracks", "duration"]) {
             let audioDuration = self.asset.duration
@@ -110,6 +123,7 @@ final class AudioFilePlayer: NSObject, AVAssetResourceLoaderDelegate, Playable {
     }
     
     func playerItemDidReachEnd(notification: NSNotification) {
+        state = .stopped
         delegate?.trackFinishedPlaying()
         player.seek(to: kCMTimeZero)
         player.pause()
@@ -118,5 +132,13 @@ final class AudioFilePlayer: NSObject, AVAssetResourceLoaderDelegate, Playable {
     func removePlayTimeObserver(timeObserver: Any?) {
         guard let test = timeObserver else { return }
         player.removeTimeObserver(test)
+    }
+    
+    func resourceLoader(_ resourceLoader: AVAssetResourceLoader, shouldWaitForLoadingOfRequestedResource loadingRequest: AVAssetResourceLoadingRequest) -> Bool {
+        if loadingRequest.request.url == url {
+            print("loading...")
+            return true
+        }
+        return false
     }
 }
