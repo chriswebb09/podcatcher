@@ -5,6 +5,7 @@ class BaseViewController: UIViewController {
     var sideMenuPop: SideMenuPopover!
     var leftButtonItem: UIBarButtonItem!
     var rightButtonItem: UIBarButtonItem!
+    var EmptyView: EmptyView!
     
     override func viewDidLoad() {
         super.viewDidLoad()

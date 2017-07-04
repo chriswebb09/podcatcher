@@ -45,7 +45,7 @@ final internal class TrackCell: UICollectionViewCell {
         contentView.layer.cornerRadius = 3
         layer.borderColor = UIColor.lightText.cgColor
         layoutSubviews()
-        contentView.backgroundColor = Colors.lightHighlight
+        contentView.backgroundColor = Colors.offWhite
     }
     
     override func layoutSubviews() {

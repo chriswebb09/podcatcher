@@ -2,6 +2,8 @@ import UIKit
 
 class PlaylistsViewController: BaseViewController {
     
+    weak var delegate: PlaylistsViewControllerDelegate?
+    
     var tableView: UITableView = UITableView()
     
     var dataSource = SearchControllerDataSource() {
@@ -12,6 +14,7 @@ class PlaylistsViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Playlists"
         guard let tabBar  = tabBarController?.tabBar else { return }
         tableView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: view.frame.height - tabBar.frame.height)
         tableView.dataSource = dataSource
@@ -25,10 +28,11 @@ class PlaylistsViewController: BaseViewController {
         tableView.delegate = self
         rightButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "plus-red").withRenderingMode(.alwaysTemplate), style: .done, target: self, action: #selector(addPlaylist))
         rightButtonItem.tintColor = Colors.brightHighlight
+        navigationItem.setRightBarButton(rightButtonItem, animated: false)
     }
     
     func addPlaylist() {
-        print(addPlaylist())
+        print("add playlist")
     }
 }
 

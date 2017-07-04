@@ -62,14 +62,14 @@ final class StartView: UIView {
         setup(titleLabel: titleLabel)
         setup(logoView: logoView)
         setup(guestUserButton: guestUserButton)
-        guestUserButton.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightMedium)
+        guestUserButton.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightBold)
         guestUserButton.alpha = 0.8
         setup(loginButton: userLoginButton)
         userLoginButton.alpha = 0.8
-        userLoginButton.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightMedium)
+        userLoginButton.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightBold)
         setup(createAccountButton: createAccountButton)
         createAccountButton.alpha = 0.8
-        createAccountButton.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: UIFontWeightSemibold)
+        createAccountButton.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: UIFontWeightBold)
     }
     
     private func setupSelectors() {

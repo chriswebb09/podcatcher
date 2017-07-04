@@ -6,21 +6,23 @@ class HomeCollectionDataSource: BaseMediaControllerDataSource {
     
     var lookup: String = ""
     
-    var response = [TopItem]() {
-        didSet {
-            for item in response {
-                lookup = item.id
-                if !categories.contains(item.category) {
-                    categories.append(item.category)
-                }
-                self.searchForTracks { result in
-                    guard let result = result.0 else { return }
-                    self.items.append(contentsOf: result)
-                    print(self.categories)
-                }
-            }
-        }
-    }
+   // var pageItems = [TopItem]()
+    
+//    var response = [TopItem]() {
+//        didSet {
+//            for item in response {
+//                lookup = item.id
+//                if !categories.contains(item.category) {
+//                    categories.append(item.category)
+//                }
+//                self.searchForTracks { result in
+//                    guard let result = result.0 else { return }
+//                    self.items.append(contentsOf: result)
+//                    print(self.categories)
+//                }
+//            }
+//        }
+//    }
     
     var items = [CasterSearchResult]() {
         didSet {
@@ -47,7 +49,9 @@ class HomeCollectionDataSource: BaseMediaControllerDataSource {
             case .success(let data):
                 let resultsData = data["results"] as! [[String: Any]]
                 let results = ResultsParser.parse(resultsData: resultsData)
-                completion(results, nil)
+                DispatchQueue.main.async {
+                    completion(results, nil)
+                }
             case .failed(let error):
                 completion(nil, error)
             }

@@ -4,11 +4,26 @@ class SearchViewController: BaseViewController {
     
     weak var delegate: SearchViewControllerDelegate?
     
+    var emptyView: EmptyView = EmptyView()
+    
     var tableView: UITableView = UITableView()
     
     var dataSource = SearchControllerDataSource() {
         didSet {
             print("data source created")
+        }
+    }
+    
+    var viewShown: ShowView {
+        didSet {
+            switch viewShown {
+            case .empty:
+                view.addSubview(emptyView)
+                changeView(forView: emptyView, withView: tableView)
+            case .collection:
+                changeView(forView: tableView, withView: tableView)
+                emptyView.removeFromSuperview()
+            }
         }
     }
     
@@ -29,7 +44,7 @@ class SearchViewController: BaseViewController {
                 searchControllerConfigure()
                 showSearchBar()
             } else if !searchBarActive {
-                // if dataSource.items.count == 0 { viewShown = .empty }
+                if dataSource.items.count == 0 { viewShown = .empty }
                 guard let nav = navigationController?.navigationBar else { return }
                 tableView.frame = CGRect(x: UIScreen.main.bounds.minX, y: nav.frame.maxY, width: UIScreen.main.bounds.width, height: view.frame.height)
             }

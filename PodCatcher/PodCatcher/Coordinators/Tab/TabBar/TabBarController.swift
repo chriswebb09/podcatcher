@@ -20,8 +20,8 @@ final class TabBarController: UITabBarController {
     
     private func setupTabBar() {
         
-        tabBar.isTranslucent = true
-        tabBar.backgroundImage = #imageLiteral(resourceName: "button-background")
+        //tabBar.isTranslucent = true
+        //tabBar.backgroundImage = #imageLiteral(resourceName: "button-background")
         tabBar.autoresizesSubviews = false
         tabBar.clipsToBounds = true
     }

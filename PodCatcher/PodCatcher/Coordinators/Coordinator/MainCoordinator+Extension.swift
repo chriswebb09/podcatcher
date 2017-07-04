@@ -28,24 +28,35 @@ extension MainCoordinator: CoordinatorDelegate {
             
             let tabbBarCoordinator = TabBarCoordinator(tabBarController: tabbarController, window: window)
             guard let dataSource = dataSource else { return }
-            
             let homeViewController = HomeViewController(index: 0, dataSource: dataSource)
             homeViewController.dataSource.store.pullFeedTopPodcasts { data, error in
                 guard let data = data else { return }
-                DispatchQueue.main.async {
-                    homeViewController.dataSource.response = data
+                for item in data {
+                    homeViewController.dataSource.lookup = item.id
+                    homeViewController.dataSource.searchForTracks { result in
+                        guard let result = result.0 else { return }
+                        DispatchQueue.main.async {
+                            homeViewController.dataSource.reserveItems.append(contentsOf: result)
+                            homeViewController.dataSource.items.append(contentsOf: result)
+                            homeViewController.collectionView.reloadData()
+                        }
+                        
+                    }
                 }
             }
+            
             let homeTab = UINavigationController(rootViewController: homeViewController)
             tabbBarCoordinator.setupHomeCoordinator(navigationController: homeTab, dataSource: dataSource)
             
-            let mediaViewController = MediaCollectionViewController(dataSource: dataSource)
-            let mediaTab = UINavigationController(rootViewController: mediaViewController)
-            tabbBarCoordinator.setupMediaCoordinator(navigationController: mediaTab, dataSource: dataSource)
-            let mediaCoord = tabbBarCoordinator.childCoordinators[1] as! MediaTabCoordinator
-            mediaCoord.delegate = self
+            let playlistsViewController = PlaylistsViewController()
+            let playlistsTab = UINavigationController(rootViewController: playlistsViewController)
+            tabbBarCoordinator.setupPlaylistsCoordinator(navigationController: playlistsTab, dataSource: dataSource)
+            let playlistsCoord = tabbBarCoordinator.childCoordinators[1] as! PlaylistsTabCoordinator
+            playlistsCoord.delegate = self
+            
             
             let searchViewController = SearchViewController()
+            
             let searchTab = UINavigationController(rootViewController: searchViewController)
             tabbBarCoordinator.setupSearchCoordinator(navigationController: searchTab, dataSource: dataSource)
             let searchCoord = tabbBarCoordinator.childCoordinators[2] as! SearchTabCoordinator

@@ -14,7 +14,7 @@ struct TopPodcastCellViewModel {
 struct TopPodcastCellConstants {
     static let smallFont = UIFont(name: "AvenirNext-Regular", size: 10)
     static let albumHeightMultiplier: CGFloat =  0.86
-    static let labelHeightMultiplier: CGFloat = 0.3
+    static let labelHeightMultiplier: CGFloat = 0.25
 }
 
 final internal class TopPodcastCell: UICollectionViewCell {
@@ -61,8 +61,7 @@ final internal class TopPodcastCell: UICollectionViewCell {
         layer.borderWidth = 1
         contentView.layer.cornerRadius = 3
         layer.borderColor = UIColor.lightText.cgColor
-        layoutSubviews()
-        contentView.backgroundColor = Colors.lightHighlight
+        contentView.backgroundColor = Colors.lightCharcoal
     }
     
     override func layoutSubviews() {
@@ -83,7 +82,7 @@ final internal class TopPodcastCell: UICollectionViewCell {
     private func setup(albumArtView: UIImageView) {
         contentView.addSubview(albumArtView)
         albumArtView.translatesAutoresizingMaskIntoConstraints = false
-        albumArtView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: contentView.bounds.height * 0.1).isActive = true
+        albumArtView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive =  true
         albumArtView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         albumArtView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.5).isActive = true
         albumArtView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.8).isActive = true
