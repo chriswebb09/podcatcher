@@ -3,11 +3,12 @@ import UIKit
 class BaseCollectionViewController: BaseViewController {
     
     lazy var collectionView : UICollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
-    var emptyView = EmptyView(frame: UIScreen.main.bounds)
+   
     var background = UIView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //self.emptyView = EmptyView(frame: UIScreen.main.bounds)
         background.frame = view.frame
         view.addSubview(background)
         view.sendSubview(toBack: background)

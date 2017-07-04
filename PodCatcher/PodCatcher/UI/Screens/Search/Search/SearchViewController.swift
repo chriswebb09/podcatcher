@@ -4,8 +4,6 @@ class SearchViewController: BaseViewController {
     
     weak var delegate: SearchViewControllerDelegate?
     
-    var emptyView: EmptyView = EmptyView()
-    
     var tableView: UITableView = UITableView()
     
     var dataSource = SearchControllerDataSource() {
@@ -14,7 +12,7 @@ class SearchViewController: BaseViewController {
         }
     }
     
-    var viewShown: ShowView {
+    var viewShown: ShowView = .empty {
         didSet {
             switch viewShown {
             case .empty:

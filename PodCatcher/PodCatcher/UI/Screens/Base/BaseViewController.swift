@@ -5,10 +5,11 @@ class BaseViewController: UIViewController {
     var sideMenuPop: SideMenuPopover!
     var leftButtonItem: UIBarButtonItem!
     var rightButtonItem: UIBarButtonItem!
-    var EmptyView: EmptyView!
+    var emptyView: EmptyView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.emptyView = EmptyView(frame: UIScreen.main.bounds)
         hideKeyboardWhenTappedAround()
         edgesForExtendedLayout = []
     }
