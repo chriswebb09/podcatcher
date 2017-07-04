@@ -16,6 +16,7 @@ class HomeCollectionDataSource: BaseMediaControllerDataSource {
                 self.searchForTracks { result in
                     guard let result = result.0 else { return }
                     self.items.append(contentsOf: result)
+                    print(self.categories)
                 }
             }
         }
@@ -29,7 +30,7 @@ class HomeCollectionDataSource: BaseMediaControllerDataSource {
     
     var reserveItems = [CasterSearchResult]()
     
-    var categories: [String] = []
+    var categories: [String] = [] 
     
     var viewShown: ShowView {
         guard let casters = casters else { return .empty }

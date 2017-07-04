@@ -96,7 +96,7 @@
 		A71D83F11F0AC801009D0720 /* UpdateAccountViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71D83EF1F0AC801009D0720 /* UpdateAccountViewControllerDelegate.swift */; };
 		A71D83F21F0AC801009D0720 /* UpdateAccountViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71D83F01F0AC801009D0720 /* UpdateAccountViewDelegate.swift */; };
 		A71D83F41F0AC811009D0720 /* UpdateAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71D83F31F0AC811009D0720 /* UpdateAccountViewModel.swift */; };
-		A72103631F0B7ABE00FA7E4B /* TopPodcasts.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72103621F0B7ABE00FA7E4B /* TopPodcasts.swift */; };
+		A72103631F0B7ABE00FA7E4B /* TopPodcastCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72103621F0B7ABE00FA7E4B /* TopPodcastCell.swift */; };
 		A723A5A91EE93116002E49BF /* PodcastListConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A723A5A81EE93116002E49BF /* PodcastListConstants.swift */; };
 		A723A5AB1EE935FC002E49BF /* CreatAccountViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A723A5AA1EE935FC002E49BF /* CreatAccountViewController+Extension.swift */; };
 		A723A5AD1EE936AF002E49BF /* ListTopView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A723A5AC1EE936AF002E49BF /* ListTopView+Extension.swift */; };
@@ -376,7 +376,7 @@
 		A71DD3711EEF2CE9002BB10A /* FirebaseCoreDiagnostics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseCoreDiagnostics.framework; path = Pods/FirebaseCore/Frameworks/FirebaseCoreDiagnostics.framework; sourceTree = "<group>"; };
 		A71DD3721EEF2CE9002BB10A /* FirebaseNanoPB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseNanoPB.framework; path = Pods/FirebaseCore/Frameworks/FirebaseNanoPB.framework; sourceTree = "<group>"; };
 		A71DD3761EEF2CFF002BB10A /* FirebaseAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseAnalytics.framework; path = Pods/FirebaseAnalytics/Frameworks/FirebaseAnalytics.framework; sourceTree = "<group>"; };
-		A72103621F0B7ABE00FA7E4B /* TopPodcasts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TopPodcasts.swift; path = Home/TopPodcasts.swift; sourceTree = "<group>"; };
+		A72103621F0B7ABE00FA7E4B /* TopPodcastCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TopPodcastCell.swift; path = Home/TopPodcastCell.swift; sourceTree = "<group>"; };
 		A723A5A81EE93116002E49BF /* PodcastListConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodcastListConstants.swift; sourceTree = "<group>"; };
 		A723A5AA1EE935FC002E49BF /* CreatAccountViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CreatAccountViewController+Extension.swift"; sourceTree = "<group>"; };
 		A723A5AC1EE936AF002E49BF /* ListTopView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ListTopView+Extension.swift"; sourceTree = "<group>"; };
@@ -847,7 +847,7 @@
 				A7B1C0841F0AEE4E00A42E7D /* HomeItemsLayout.swift */,
 				A716B7FD1F0B20CC0060D492 /* HomeCollectionDataSource.swift */,
 				A716B7FF1F0B2C530060D492 /* HomeViewControllerDataSourceTwo.swift */,
-				A72103621F0B7ABE00FA7E4B /* TopPodcasts.swift */,
+				A72103621F0B7ABE00FA7E4B /* TopPodcastCell.swift */,
 			);
 			name = Home;
 			sourceTree = "<group>";
@@ -1967,7 +1967,7 @@
 				A7150EE31EE6563300E3553F /* TabBarConstants.swift in Sources */,
 				A7905B081EEF77C800199246 /* PullData.swift in Sources */,
 				A77EDF4F1EE5E6C4001A24E5 /* Caster.swift in Sources */,
-				A72103631F0B7ABE00FA7E4B /* TopPodcasts.swift in Sources */,
+				A72103631F0B7ABE00FA7E4B /* TopPodcastCell.swift in Sources */,
 				A71D83E61F0AC7A6009D0720 /* SettingsViewModel.swift in Sources */,
 				A783ECE11EF233F0003E65C0 /* EmptyCastsView.swift in Sources */,
 				A7EBA0BB1EE681F400FAAC9C /* BottomMenuPopover.swift in Sources */,

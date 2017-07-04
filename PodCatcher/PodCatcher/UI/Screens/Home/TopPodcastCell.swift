@@ -34,7 +34,7 @@ final internal class TopPodcastCell: UICollectionViewCell {
     
     private var trackNameLabel: UILabel = {
         var trackName = UILabel()
-        trackName.font = UIFont.systemFont(ofSize: 12, weight: UIFontWeightThin)
+        trackName.font = UIFont.systemFont(ofSize: 16, weight: UIFontWeightMedium)
         trackName.textAlignment = .center
         trackName.numberOfLines = 0
         return trackName
