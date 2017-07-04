@@ -5,7 +5,12 @@ class SearchViewController: BaseViewController {
     weak var delegate: SearchViewControllerDelegate?
     
     var tableView: UITableView = UITableView()
-    let dataSource = SearchControllerDataSource()
+    
+    var dataSource = SearchControllerDataSource() {
+        didSet {
+            print("data source created")
+        }
+    }
     
     var searchBar = UISearchBar() {
         didSet {
@@ -79,6 +84,10 @@ class SearchViewController: BaseViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+        
         searchController.isActive = false
     }
     

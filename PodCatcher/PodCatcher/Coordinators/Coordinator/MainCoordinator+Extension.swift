@@ -30,12 +30,16 @@ extension MainCoordinator: CoordinatorDelegate {
             guard let dataSource = dataSource else { return }
             
             let homeViewController = HomeViewController(index: 0, dataSource: dataSource)
+            
             homeViewController.dataSource.store.pullFeedTopPodcasts { data, error in
                 guard let data = data else { return }
                 DispatchQueue.main.async {
+                    homeViewController.dataSourceTwo.response = data
                     homeViewController.dataSource.response = data
+                    
                 }
             }
+
             let homeTab = UINavigationController(rootViewController: homeViewController)
             tabbBarCoordinator.setupHomeCoordinator(navigationController: homeTab, dataSource: dataSource)
             
