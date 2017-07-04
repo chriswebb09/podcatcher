@@ -17,9 +17,6 @@ class SearchViewController: BaseViewController {
             searchBar.returnKeyType = .done
         }
     }
-    
-    let segmentControl = UISegmentedControl(items: ["Podcast", "Term"])
-    
     var searchController = UISearchController(searchResultsController: nil) {
         didSet {
             searchController.view.frame = CGRect.zero
@@ -34,7 +31,7 @@ class SearchViewController: BaseViewController {
             } else if !searchBarActive {
                 // if dataSource.items.count == 0 { viewShown = .empty }
                 guard let nav = navigationController?.navigationBar else { return }
-                tableView.frame = CGRect(x: UIScreen.main.bounds.minX, y: nav.frame.maxY - 62, width: UIScreen.main.bounds.width, height: view.frame.height)
+                tableView.frame = CGRect(x: UIScreen.main.bounds.minX, y: nav.frame.maxY, width: UIScreen.main.bounds.width, height: view.frame.height)
             }
         }
     }
@@ -93,19 +90,14 @@ class SearchViewController: BaseViewController {
     
     func hideSearchBar() {
         searchBar.removeFromSuperview()
-        segmentControl.removeFromSuperview()
         searchBarActive = false
     }
     
     
     func showSearchBar() {
         view.addSubview(searchBar)
-        view.addSubview(segmentControl)
-        segmentControl.isHidden = false
         searchBar.frame = CGRect(x: UIScreen.main.bounds.minX, y: 0, width: UIScreen.main.bounds.width, height: 44)
-        segmentControl.frame = CGRect(x: UIScreen.main.bounds.minX, y: searchBar.frame.maxY, width: UIScreen.main.bounds.width, height: 44)
-        // segmentControl.addTarget(self, action: #selector(userSearch(segmentControl:)), for: .valueChanged)
-        tableView.frame = CGRect(x: UIScreen.main.bounds.minX, y: segmentControl.frame.maxY + 5, width: UIScreen.main.bounds.width, height: view.frame.height - 100)
+        tableView.frame = CGRect(x: UIScreen.main.bounds.minX, y: searchBar.frame.maxY, width: UIScreen.main.bounds.width, height: view.frame.height - 60)
     }
 }
 
@@ -164,6 +156,7 @@ extension SearchViewController: UITableViewDelegate {
 }
 
 extension SearchViewController: UISearchBarDelegate {
+    
     func searchOnTextChange(text: String, store: TrackDataStore, navController: UINavigationController) {
         if text == "" {
             dataSource.items.removeAll()
