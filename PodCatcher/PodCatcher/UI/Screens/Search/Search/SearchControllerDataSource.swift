@@ -12,7 +12,6 @@ class SearchControllerDataSource: NSObject {
     
     func searchForTracks(completion: @escaping (_ results: [CasterSearchResult]? , _ error: Error?) -> Void) {
         iTunesAPIClient.search(for: searchTerm) { response in
-            
             switch response {
             case .success(let data):
                 let resultsData = data["results"] as! [[String: Any]]
@@ -41,7 +40,6 @@ extension SearchControllerDataSource: UITableViewDataSource {
             if let title = items[indexPath.row].podcastTitle, let urlString = items[indexPath.row].podcastArtUrlString, let url = URL(string: urlString)  {
                 cell.titleLabel.text = title
                 cell.albumArtView.downloadImage(url: url)
-                ///cell.albumArtView
             }
         }
         cell.layoutSubviews()

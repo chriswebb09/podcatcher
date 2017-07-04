@@ -30,7 +30,7 @@ class HomeCollectionDataSource: BaseMediaControllerDataSource {
     
     var reserveItems = [CasterSearchResult]()
     
-    var categories: [String] = [] 
+    var categories: [String] = []
     
     var viewShown: ShowView {
         guard let casters = casters else { return .empty }

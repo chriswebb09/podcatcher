@@ -6,7 +6,6 @@ class BaseCollectionViewController: BaseViewController {
     var emptyView = EmptyView(frame: UIScreen.main.bounds)
     var background = UIView()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         background.frame = view.frame

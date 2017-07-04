@@ -1,6 +1,7 @@
 import UIKit
 
 class PodCatcherUser {
+    
     var userId: String = ""
     var username: String
     var emailAddress: String

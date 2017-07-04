@@ -73,7 +73,6 @@ class SearchViewController: BaseViewController {
         tableView.delegate = self
     }
     
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         dump(tableView)

@@ -175,11 +175,11 @@ extension PlayerViewController: MenuDelegate {
 
 
 extension PlayerViewController: DownloadDelegate {
+    
     func downloadProgressUpdated(for progress: Float) {
         if progress == 1 {
             DispatchQueue.main.async {
                 self.downloadingIndicator.hideActivityIndicator(viewController: self)
-                
             }
         }
         print(progress)

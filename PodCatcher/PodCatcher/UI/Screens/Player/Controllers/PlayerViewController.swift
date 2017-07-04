@@ -38,7 +38,6 @@ final class PlayerViewController: BaseViewController {
         playerViewModel = PlayerViewModel(imageUrl: URL(string: artUrl), title: caster.episodes[index].title)
         setModel(model: playerViewModel)
         playerView.delegate = self
-         //  navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "plus-red"), style: .plain, target: self, action: #selector(hidePop))
         view.addView(view: playerView, type: .full)
     }
     

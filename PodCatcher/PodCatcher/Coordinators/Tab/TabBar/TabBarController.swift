@@ -41,12 +41,14 @@ final class TabBarController: UITabBarController {
     }
     
     func setTabTitles(controllers: [UINavigationController]) {
+        
         let normalImage = #imageLiteral(resourceName: "lightGrayPodcasts")
         let normalImageTwo = #imageLiteral(resourceName: "heart-gray")
         let normalImageThree = #imageLiteral(resourceName: "search")
         let normalImageFour = #imageLiteral(resourceName: "settings-dark-gray")
         
         viewControllers = controllers
+        
         tabBar.items?[0].image = normalImage
         tabBar.items?[1].image = normalImageTwo
         tabBar.items?[2].image = normalImageThree
@@ -66,9 +68,9 @@ final class TabBarController: UITabBarController {
     }
     
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-        let nav = viewControllers?[1] as! UINavigationController
-        let med = nav.viewControllers[0] as! MediaCollectionViewController
-        if item != tabBar.items?[1] {
+        let nav = viewControllers?[2] as! UINavigationController
+        let med = nav.viewControllers[0] as! SearchViewController
+        if item != tabBar.items?[2] {
             med.searchController.isActive = false
         }
     }

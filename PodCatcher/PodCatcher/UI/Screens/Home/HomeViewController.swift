@@ -56,7 +56,7 @@ class HomeViewController: BaseCollectionViewController {
         super.viewDidAppear(animated)
         DispatchQueue.main.async {
             self.collectionView.reloadData()
-           
+            
             self.view.bringSubview(toFront: self.collectionView)
             
         }
@@ -86,6 +86,6 @@ extension HomeViewController: UICollectionViewDelegate {
         newLayout.setup()
         collectionView.collectionViewLayout = newLayout
     }
-
+    
 }
 

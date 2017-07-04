@@ -40,12 +40,15 @@ class PodcastListViewController: BaseCollectionViewController {
         super.viewDidLoad()
         setup(dataSource: self, delegate: self)
         configureTopView()
+        
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "plus-red"), style: .plain, target: self, action: #selector(hidePop))
         background.frame = view.frame
         view.addSubview(background)
         emptyView.alpha = 0
         topView.delegate = self
+        
         view.sendSubview(toBack: background)
+        
         if let user = dataSource.user {
             title = dataSource.caster.name
             let timeString = String(describing: user.totalTimeListening)
