@@ -177,7 +177,6 @@
 		A7894FA01EE69C1E000CC190 /* LoginTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7894F9F1EE69C1E000CC190 /* LoginTests.swift */; };
 		A7894FA21EE69E2B000CC190 /* TestMainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7894FA11EE69E2B000CC190 /* TestMainCoordinator.swift */; };
 		A7894FA61EE6AE44000CC190 /* PodCatcherUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7894FA51EE6AE44000CC190 /* PodCatcherUser.swift */; };
-		A7905B061EEF779500199246 /* UpdateData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7905B051EEF779500199246 /* UpdateData.swift */; };
 		A7905B101EEF7CC100199246 /* APIClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7905B0F1EEF7CC100199246 /* APIClientTests.swift */; };
 		A7905B141EEF7DC900199246 /* AudioFilePlayerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7905B131EEF7DC900199246 /* AudioFilePlayerDelegate.swift */; };
 		A7905B161EEF7E5100199246 /* Playable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7905B151EEF7E5100199246 /* Playable.swift */; };
@@ -451,7 +450,6 @@
 		A7894F9F1EE69C1E000CC190 /* LoginTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginTests.swift; sourceTree = "<group>"; };
 		A7894FA11EE69E2B000CC190 /* TestMainCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestMainCoordinator.swift; sourceTree = "<group>"; };
 		A7894FA51EE6AE44000CC190 /* PodCatcherUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodCatcherUser.swift; sourceTree = "<group>"; };
-		A7905B051EEF779500199246 /* UpdateData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateData.swift; sourceTree = "<group>"; };
 		A7905B0F1EEF7CC100199246 /* APIClientTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIClientTests.swift; sourceTree = "<group>"; };
 		A7905B131EEF7DC900199246 /* AudioFilePlayerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioFilePlayerDelegate.swift; sourceTree = "<group>"; };
 		A7905B151EEF7E5100199246 /* Playable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Playable.swift; sourceTree = "<group>"; };
@@ -1428,7 +1426,6 @@
 			children = (
 				A7EBA0991EE672A700FAAC9C /* UserDataAPIClient.swift */,
 				A7FFD4BB1EEF370D00853480 /* NetworkDatabaseManager.swift */,
-				A7905B051EEF779500199246 /* UpdateData.swift */,
 				A7BD12CD1EFF78AB0040FAE5 /* iTunesAPIClient.swift */,
 				A7E45F881F025D690063AC0F /* RSSFeedAPI.swift */,
 				A71640391EFFDB6300895082 /* ReachabilityNotification.swift */,
@@ -1902,7 +1899,6 @@
 				A71514A11F05281100F123CD /* UISearchController+Extension.swift in Sources */,
 				A72103651F0BA42600FA7E4B /* HomeDataStore.swift in Sources */,
 				A7B840CB1EECD7160049BB78 /* NavigationCoordinator.swift in Sources */,
-				A7905B061EEF779500199246 /* UpdateData.swift in Sources */,
 				A71B26F21EE5D24700613CF4 /* AppDelegate.swift in Sources */,
 				A7B1C06F1F0ADD1A00A42E7D /* SearchResultCell.swift in Sources */,
 				A73DA41B1EE899300053276E /* MediaCollectionViewController+Extension.swift in Sources */,
