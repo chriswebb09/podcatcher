@@ -63,12 +63,12 @@ class MediaCollectionViewController: BaseCollectionViewController {
         sideMenuPop.popView.delegate = self
         searchBar.delegate = self
         searchController.searchBar.delegate = self
-//        if dataSource.user != nil {
-//            leftButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "search-button"), style: .done, target: self, action: #selector(search))
-//            rightButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "menu-red"), style: .done, target: self, action: #selector(popBottomMenu(popped:)))
-//            navigationItem.setRightBarButton(rightButtonItem, animated: false)
-//            navigationItem.setLeftBarButton(leftButtonItem, animated: false)
-//        }
+        if dataSource.user != nil {
+            leftButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "search-button"), style: .done, target: self, action: #selector(search))
+            rightButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "menu-red"), style: .done, target: self, action: #selector(popBottomMenu(popped:)))
+            navigationItem.setRightBarButton(rightButtonItem, animated: false)
+            navigationItem.setLeftBarButton(leftButtonItem, animated: false)
+        }
         searchControllerConfigure()
         navigationBarSetup()
         searchBar.barTintColor = .white

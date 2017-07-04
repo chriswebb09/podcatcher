@@ -27,7 +27,7 @@ enum URLRouter {
         case .base:
             return "https://itunes.apple.com"
         case .path:
-            return "/search?country=US&media=podcast&limit=100&term="
+            return "/search?country=US&media=podcast&limit=25&term="
             
         }
     }

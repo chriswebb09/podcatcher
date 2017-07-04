@@ -80,11 +80,6 @@ class SearchViewController: BaseViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
-        
-        searchController.isActive = false
     }
     
     func hideSearchBar() {
