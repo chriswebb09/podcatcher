@@ -2,7 +2,7 @@ import UIKit
 
 class HomeCollectionDataSourceTwo: BaseMediaControllerDataSource {
     
-    let store = SearchResultsDataStore()
+    let store = HomeDataStore()
     
     var lookup: String = ""
     
@@ -61,11 +61,11 @@ extension HomeCollectionDataSourceTwo:  UICollectionViewDataSource {
         return items.count
     }
     
-    fileprivate func setCell(indexPath: IndexPath, cell: TopPodcastCell, rowTime: Double) {
+    fileprivate func setCell(indexPath: IndexPath, cell: TrackCell, rowTime: Double) {
         if let urlString = items[indexPath.row].podcastArtUrlString,
             let url = URL(string: urlString),
             let title = items[indexPath.row].podcastTitle {
-            let cellViewModel = TopPodcastCellViewModel(trackName: title, albumImageUrl: url)
+            let cellViewModel = TrackCellViewModel(trackName: title, albumImageUrl: url)
             cell.configureCell(with: cellViewModel, withTime: 0)
             DispatchQueue.main.asyncAfter(deadline: .now() + rowTime) {
                 UIView.animate(withDuration: rowTime) {
@@ -80,7 +80,7 @@ extension HomeCollectionDataSourceTwo:  UICollectionViewDataSource {
         if indexPath.row == 0 || indexPath.row == 1 {
             reserveItems.append(items[indexPath.row])
         }
-        let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as TopPodcastCell
+        let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as TrackCell
         let rowTime: Double = 0
         cell.layer.cornerRadius = 3
         setCell(indexPath: indexPath, cell: cell, rowTime: rowTime)

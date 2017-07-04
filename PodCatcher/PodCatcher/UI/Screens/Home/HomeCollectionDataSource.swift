@@ -61,7 +61,7 @@ extension HomeCollectionDataSource:  UICollectionViewDataSource {
         return items.count
     }
     
-    fileprivate func setTrackCell(indexPath: IndexPath, cell: TopPodcastCell, rowTime: Double) {
+    fileprivate func setCell(indexPath: IndexPath, cell: TopPodcastCell, rowTime: Double) {
         if let urlString = items[indexPath.row].podcastArtUrlString,
             let url = URL(string: urlString),
             let title = items[indexPath.row].podcastTitle {
@@ -82,7 +82,7 @@ extension HomeCollectionDataSource:  UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as TopPodcastCell
         let rowTime: Double = 0
         cell.layer.cornerRadius = 3
-        setTrackCell(indexPath: indexPath, cell: cell, rowTime: rowTime)
+        setCell(indexPath: indexPath, cell: cell, rowTime: rowTime)
         return cell
     }
 }

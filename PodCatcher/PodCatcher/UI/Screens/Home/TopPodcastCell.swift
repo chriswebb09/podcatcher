@@ -11,6 +11,12 @@ struct TopPodcastCellViewModel {
     }
 }
 
+struct TopPodcastCellConstants {
+    static let smallFont = UIFont(name: "AvenirNext-Regular", size: 10)
+    static let albumHeightMultiplier: CGFloat =  0.86
+    static let labelHeightMultiplier: CGFloat = 0.3
+}
+
 final internal class TopPodcastCell: UICollectionViewCell {
     
     private var viewModel: TopPodcastCellViewModel? {
@@ -34,7 +40,7 @@ final internal class TopPodcastCell: UICollectionViewCell {
     
     private var trackNameLabel: UILabel = {
         var trackName = UILabel()
-        trackName.font = UIFont.systemFont(ofSize: 16, weight: UIFontWeightMedium)
+        trackName.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightMedium)
         trackName.textAlignment = .center
         trackName.numberOfLines = 0
         return trackName
@@ -79,14 +85,14 @@ final internal class TopPodcastCell: UICollectionViewCell {
         albumArtView.translatesAutoresizingMaskIntoConstraints = false
         albumArtView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: contentView.bounds.height * 0.1).isActive = true
         albumArtView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-        albumArtView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.65).isActive = true
+        albumArtView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.5).isActive = true
         albumArtView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.8).isActive = true
     }
     
     private func setup(titleView: UIView) {
         contentView.addSubview(titleView)
         titleView.translatesAutoresizingMaskIntoConstraints = false
-        titleView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: TrackCellConstants.labelHeightMultiplier).isActive = true
+        titleView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: TopPodcastCellConstants.labelHeightMultiplier).isActive = true
         titleView.widthAnchor.constraint(equalTo: contentView.widthAnchor).isActive = true
         titleView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
         titleView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
@@ -98,6 +104,7 @@ final internal class TopPodcastCell: UICollectionViewCell {
         trackNameLabel.heightAnchor.constraint(equalTo: titleView.heightAnchor).isActive = true
         trackNameLabel.widthAnchor.constraint(equalTo: titleView.widthAnchor, multiplier: 0.8).isActive = true
         trackNameLabel.centerYAnchor.constraint(equalTo: titleView.centerYAnchor).isActive = true
+        trackNameLabel.centerXAnchor.constraint(equalTo: titleView.centerXAnchor).isActive = true
     }
     
     override func prepareForReuse() {

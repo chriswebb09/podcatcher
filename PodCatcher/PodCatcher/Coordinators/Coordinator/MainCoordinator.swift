@@ -8,6 +8,7 @@ class MainCoordinator: ApplicationCoordinator {
     var appCoordinator: Coordinator!
     var dataSource: BaseMediaControllerDataSource!
     let reachability = Reachability()!
+    var store = SearchResultsDataStore()
     
     init(window: UIWindow) {
         self.window = window

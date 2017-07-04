@@ -97,6 +97,7 @@
 		A71D83F21F0AC801009D0720 /* UpdateAccountViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71D83F01F0AC801009D0720 /* UpdateAccountViewDelegate.swift */; };
 		A71D83F41F0AC811009D0720 /* UpdateAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71D83F31F0AC811009D0720 /* UpdateAccountViewModel.swift */; };
 		A72103631F0B7ABE00FA7E4B /* TopPodcastCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72103621F0B7ABE00FA7E4B /* TopPodcastCell.swift */; };
+		A72103651F0BA42600FA7E4B /* HomeDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72103641F0BA42600FA7E4B /* HomeDataStore.swift */; };
 		A723A5A91EE93116002E49BF /* PodcastListConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A723A5A81EE93116002E49BF /* PodcastListConstants.swift */; };
 		A723A5AB1EE935FC002E49BF /* CreatAccountViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A723A5AA1EE935FC002E49BF /* CreatAccountViewController+Extension.swift */; };
 		A723A5AD1EE936AF002E49BF /* ListTopView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A723A5AC1EE936AF002E49BF /* ListTopView+Extension.swift */; };
@@ -377,6 +378,7 @@
 		A71DD3721EEF2CE9002BB10A /* FirebaseNanoPB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseNanoPB.framework; path = Pods/FirebaseCore/Frameworks/FirebaseNanoPB.framework; sourceTree = "<group>"; };
 		A71DD3761EEF2CFF002BB10A /* FirebaseAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseAnalytics.framework; path = Pods/FirebaseAnalytics/Frameworks/FirebaseAnalytics.framework; sourceTree = "<group>"; };
 		A72103621F0B7ABE00FA7E4B /* TopPodcastCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TopPodcastCell.swift; path = Home/TopPodcastCell.swift; sourceTree = "<group>"; };
+		A72103641F0BA42600FA7E4B /* HomeDataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HomeDataStore.swift; path = Home/HomeDataStore.swift; sourceTree = "<group>"; };
 		A723A5A81EE93116002E49BF /* PodcastListConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodcastListConstants.swift; sourceTree = "<group>"; };
 		A723A5AA1EE935FC002E49BF /* CreatAccountViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CreatAccountViewController+Extension.swift"; sourceTree = "<group>"; };
 		A723A5AC1EE936AF002E49BF /* ListTopView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ListTopView+Extension.swift"; sourceTree = "<group>"; };
@@ -848,6 +850,7 @@
 				A716B7FD1F0B20CC0060D492 /* HomeCollectionDataSource.swift */,
 				A716B7FF1F0B2C530060D492 /* HomeViewControllerDataSourceTwo.swift */,
 				A72103621F0B7ABE00FA7E4B /* TopPodcastCell.swift */,
+				A72103641F0BA42600FA7E4B /* HomeDataStore.swift */,
 			);
 			name = Home;
 			sourceTree = "<group>";
@@ -1918,6 +1921,7 @@
 				A7EBA0B51EE680BE00FAAC9C /* BasePopoverAlert.swift in Sources */,
 				A77EDF7A1EE5FF93001A24E5 /* UIViewController+Extension.swift in Sources */,
 				A71514A11F05281100F123CD /* UISearchController+Extension.swift in Sources */,
+				A72103651F0BA42600FA7E4B /* HomeDataStore.swift in Sources */,
 				A7B840CB1EECD7160049BB78 /* NavigationCoordinator.swift in Sources */,
 				A7905B061EEF779500199246 /* UpdateData.swift in Sources */,
 				A71B26F21EE5D24700613CF4 /* AppDelegate.swift in Sources */,

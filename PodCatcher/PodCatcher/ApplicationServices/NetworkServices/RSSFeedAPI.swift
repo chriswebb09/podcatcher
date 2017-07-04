@@ -18,7 +18,7 @@ class RSSFeedAPIClient: NSObject, XMLParserDelegate {
     }
     
     static func getTopPodcasts(completion: @escaping ([[String: String]]?, Error?) -> Void) {
-        guard let url = URL(string: "https://rss.itunes.apple.com/api/v1/us/podcasts/top-podcasts/100/explicit/xml") else { return }
+        guard let url = URL(string: "https://rss.itunes.apple.com/api/v1/us/podcasts/top-podcasts/25/explicit/xml") else { return }
         URLSession(configuration: .ephemeral).dataTask(with: URLRequest(url: url)) { data, response, error in
             if let error = error {
                 completion(nil, error)

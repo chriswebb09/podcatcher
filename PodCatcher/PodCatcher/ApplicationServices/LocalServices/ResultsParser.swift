@@ -1,6 +1,7 @@
 import UIKit
 
 class ResultsParser {
+    
     @discardableResult
     static func format(data: [[String]]) -> [String: CasterSearchResult] {
         var searchResults = [String: CasterSearchResult]()
