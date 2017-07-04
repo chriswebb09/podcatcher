@@ -98,7 +98,6 @@ class MediaCollectionViewController: BaseCollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView.register(MediaCollectionViewHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader , withReuseIdentifier: "reusableHeaderView")
         searchController.searchBar.isHidden = false
         collectionViewConfiguration()
         title = "Podcasts"

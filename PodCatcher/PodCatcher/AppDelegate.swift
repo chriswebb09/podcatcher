@@ -10,6 +10,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var backgroundSessionCompletionHandler: (() -> Void)?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        
         ApplicationStyling.setupUI()
 
         #if CLEAR_CACHES
@@ -18,6 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 try? FileManager.default.removeItem(atPath: item)
             }
         #endif
+        
         window = UIWindow(frame: UIScreen.main.bounds)
         if let window = window, UserDefaults.loadDefaultOnFirstLaunch() {
             let startCoordinator = StartCoordinator(navigationController: UINavigationController(), window: window)

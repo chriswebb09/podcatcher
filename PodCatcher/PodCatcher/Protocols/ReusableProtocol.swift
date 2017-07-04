@@ -7,3 +7,9 @@ extension Reusable where Self: UICollectionViewCell  {
         return String(describing: self)
     }
 }
+
+extension Reusable where Self: UITableViewCell {
+    static var reuseIdentifier: String {
+        return String(describing: self)
+    }
+}

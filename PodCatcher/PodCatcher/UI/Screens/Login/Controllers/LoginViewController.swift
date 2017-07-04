@@ -3,9 +3,8 @@ import UIKit
 class LoginViewController: BaseViewController {
     
     var loginView = LoginView()
-    var loadingPop = LoadingPopover()
-    
     weak var delegate: LoginViewControllerDelegate?
+    let downloadIndicator = DownloaderIndicatorView()
     
     convenience init(loginView: LoginView) {
         self.init(nibName: nil, bundle: nil)
@@ -18,6 +17,7 @@ class LoginViewController: BaseViewController {
         loginView.delegate = self
         let model = LoginViewModel()
         loginView.model = model
+        downloadIndicator.activityIndicatorSetup()
         view = loginView
         view.layoutSubviews()
         title = "Sign In"
@@ -26,7 +26,6 @@ class LoginViewController: BaseViewController {
         navigationController?.navigationBar.barTintColor = .white
         navigationController?.navigationBar.isHidden = false
         navigationController?.navigationBar.backgroundColor = .white
-       // navigationController?.navigationBar.isTranslucent = true
     }
     
     override func viewWillDisappear(_ animated: Bool) {

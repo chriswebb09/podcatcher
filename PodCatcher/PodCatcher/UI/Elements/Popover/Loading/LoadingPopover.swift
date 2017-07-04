@@ -1,6 +1,12 @@
 import UIKit
 
-class LoadingHUD {
+class LoadingHUD: UIView {
+    
+    var animating: Bool {
+        guard let ball = self.loadingView.ball else { return false }
+        // guard let ball == self.popView.ball else { return false }
+        return ball.isAnimating
+    }
     
     var loadingView: LoadingView = {
         let loadingView = LoadingView()
@@ -12,7 +18,7 @@ class LoadingHUD {
         loadingView.frame.size = size
     }
     
-    func setIndicator(_ origin: CGPoint) {
+    func setupIndicator(_ origin: CGPoint) {
         loadingView.frame.origin = origin
     }
     
@@ -21,7 +27,8 @@ class LoadingHUD {
         loadingView.configureView()
         view.bringSubview(toFront: loadingView)
         let ball = BallIndicatorView(frame: view.frame)
-        loadingView.stopAnimating(ball: ball)
+        loadingView.startAnimating(ball: ball)
+
         
     }
     
@@ -45,7 +52,6 @@ final class LoadingPopover: BasePopoverAlert {
     var popView: LoadingView = {
         let popView = LoadingView()
         popView.layer.cornerRadius = DetailPopoverConstants.cornerRadius
-        popView.backgroundColor = .clear
         popView.isUserInteractionEnabled = true
         return popView
     }()
@@ -55,7 +61,7 @@ final class LoadingPopover: BasePopoverAlert {
         popView.frame = CGRect(x: UIScreen.main.bounds.midX,
                                y: UIScreen.main.bounds.midY,
                                width: UIScreen.main.bounds.width / 2,
-                               height: UIScreen.main.bounds.height / 2)
+                               height: UIScreen.main.bounds.height / 4)
         popView.center = CGPoint(x: UIScreen.main.bounds.midX, y: UIScreen.main.bounds.midY)
         popView.clipsToBounds = true
         viewController.view.addSubview(popView)
@@ -63,9 +69,12 @@ final class LoadingPopover: BasePopoverAlert {
     }
     
     override func hidePopView(viewController: UIViewController) {
+        
         super.hidePopView(viewController: viewController)
         guard let ball = popView.ball else { return }
+        viewController.view.sendSubview(toBack: popView)
         popView.stopAnimating(ball: ball)
+        popView.removeFromSuperview()
     }
     
     

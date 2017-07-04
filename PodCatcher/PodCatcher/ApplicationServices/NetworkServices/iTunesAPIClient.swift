@@ -32,6 +32,24 @@ final class iTunesAPIClient: NSObject {
             }
             }.resume()
     }
+    
+    static func search(forLookup: String, completion: @escaping (Response) -> Void) {
+        guard let url = URL(string: "https://itunes.apple.com/lookup?id=\(forLookup)&entity=podcast") else { return }
+        URLSession(configuration: .ephemeral).dataTask(with: URLRequest(url: url)) { data, response, error in
+            if let error = error {
+                completion(.failed(error))
+            } else {
+                do {
+                    guard let responseObject = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any] else { return }
+                    DispatchQueue.main.async {
+                        completion(.success(responseObject))
+                    }
+                } catch {
+                    print(error.localizedDescription)
+                }
+            }
+            }.resume()
+    }
 }
 
 extension iTunesAPIClient: URLSessionDelegate {

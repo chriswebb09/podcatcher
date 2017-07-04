@@ -6,6 +6,7 @@ final class PlayerViewController: BaseViewController {
     weak var delegate: PlayerViewControllerDelegate?
     
     // MARK: - UI Properties
+    
     var playerView: PlayerView
     var playerState: PlayState
     var episode: Episodes!

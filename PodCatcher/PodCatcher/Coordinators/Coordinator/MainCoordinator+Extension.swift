@@ -29,20 +29,27 @@ extension MainCoordinator: CoordinatorDelegate {
             let tabbBarCoordinator = TabBarCoordinator(tabBarController: tabbarController, window: window)
             guard let dataSource = dataSource else { return }
             
+            let homeViewController = HomeViewController(index: 0, dataSource: dataSource)
+            homeViewController.dataSource.store.pullFeedTopPodcasts { data, error in
+                guard let data = data else { return }
+                DispatchQueue.main.async {
+                    homeViewController.dataSource.response = data
+                }
+            }
+            let homeTab = UINavigationController(rootViewController: homeViewController)
+            tabbBarCoordinator.setupHomeCoordinator(navigationController: homeTab, dataSource: dataSource)
+            
             let mediaViewController = MediaCollectionViewController(dataSource: dataSource)
             let mediaTab = UINavigationController(rootViewController: mediaViewController)
             tabbBarCoordinator.setupMediaCoordinator(navigationController: mediaTab, dataSource: dataSource)
-            let mediaCoord = tabbBarCoordinator.childCoordinators[0] as! MediaTabCoordinator
+            let mediaCoord = tabbBarCoordinator.childCoordinators[1] as! MediaTabCoordinator
             mediaCoord.delegate = self
             
-            let tracksDataStore = TrackDataStore()
-            
-            let trackDataSource = ListControllerDataSource(store: tracksDataStore, user: dataSource.user)
-//            let favoritesViewController = SearchViewController(dataSource: trackDataSource)
-//            let favoritesTab = UINavigationController(rootViewController: favoritesViewController)
-//            tabbBarCoordinator.setupFavoritesCoordinator(navigationController: favoritesTab, dataSource: dataSource)
-//            let favoritesCoord = tabbBarCoordinator.childCoordinators[1] as! FavoritesTabCoordinator
-//            favoritesCoord.delegate = self
+            let searchViewController = SearchViewController()
+            let searchTab = UINavigationController(rootViewController: searchViewController)
+            tabbBarCoordinator.setupSearchCoordinator(navigationController: searchTab, dataSource: dataSource)
+            let searchCoord = tabbBarCoordinator.childCoordinators[2] as! SearchTabCoordinator
+            searchCoord.delegate = self
             
             let model = SettingsViewModel(firstSettingOptionText: "OptionOne", secondSettingOptionText: "OptionTwo")
             let settingsView = SettingsView(frame: CGRect.zero, model: model)
@@ -51,7 +58,7 @@ extension MainCoordinator: CoordinatorDelegate {
             
             tabbBarCoordinator.setupSettingsCoordinator(navigationController: settingsTab, dataSource: dataSource)
             tabbBarCoordinator.delegate = self
-            let settingsCoord = tabbBarCoordinator.childCoordinators[1] as! SettingsTabCoordinator
+            let settingsCoord = tabbBarCoordinator.childCoordinators[3] as! SettingsTabCoordinator
             settingsCoord.delegate = self
             
             appCoordinator = tabbBarCoordinator

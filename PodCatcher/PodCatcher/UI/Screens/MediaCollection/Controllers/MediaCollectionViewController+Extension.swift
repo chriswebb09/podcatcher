@@ -156,6 +156,8 @@ extension MediaCollectionViewController: UISearchBarDelegate {
             NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(showLoadingView(loadingPop:)), object: nil)
         }
         DispatchQueue.main.async {
+            self.title = "PodCatch"
+            self.hideSearchBar()
             self.collectionView.reloadData()
         }
     }

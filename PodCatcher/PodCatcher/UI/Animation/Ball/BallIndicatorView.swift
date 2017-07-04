@@ -5,7 +5,7 @@ final class BallIndicatorView: UIView {
     var color: UIColor? = .blue
     let animationType: AnimationDelegate?
     var animationRect: CGRect?
-    var padding: CGFloat = 20
+    var padding: CGFloat = 0
     
     var animating: Bool { return isAnimating }
     
@@ -16,12 +16,12 @@ final class BallIndicatorView: UIView {
     }
     
     override init(frame: CGRect) {
-        self.animationType = BallAnimation(size: CGSize(width: 50, height: 50))
+        self.animationType = BallAnimation(size: CGSize(width: 0, height: 0))
         super.init(frame: frame)
     }
     
     required init?(coder aDecoder: NSCoder) {
-        self.animationType = BallAnimation(size: CGSize(width: 50, height: 50))
+        self.animationType = BallAnimation(size: CGSize(width: 0, height: 0))
         super.init(coder: aDecoder)
         isHidden = true
     }
@@ -31,12 +31,10 @@ final class BallIndicatorView: UIView {
         
         self.animationType = animationType
         super.init(frame: frame)
-        let animationWidth = frame.size.width * 0.5
-        let animationHeight = frame.height * 0.4
         animationRect = CGRect(x: frame.size.width,
                                y: frame.size.height,
-                               width: animationWidth,
-                               height: animationHeight)
+                               width: 0,
+                               height: 0)
         guard let padding = padding else { return }
         self.padding = padding
         self.color = color

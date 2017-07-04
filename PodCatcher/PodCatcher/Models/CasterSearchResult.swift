@@ -6,6 +6,7 @@ class CasterSearchResult: PodcastSearchResult {
     var podcastArtUrlString: String?
     var podcastTitle: String?
     var episodes = [Episodes]()
+    var category = ""
     var id: String!
     var feedUrl: String?
     var mediaItems = [MediaCatcherItem]()

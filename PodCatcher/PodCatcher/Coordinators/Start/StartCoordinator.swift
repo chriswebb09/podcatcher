@@ -17,10 +17,6 @@ class StartCoordinator: NavigationCoordinator {
     
     init(navigationController: UINavigationController = UINavigationController()) {
         self.navigationController = navigationController
-//        store.pullPodcastsFromUser { casts in
-//            guard let casts = casts else { return }
-//            self.dataSource.casters = casts 
-//        }
     }
     
     convenience init(navigationController: UINavigationController, window: UIWindow) {

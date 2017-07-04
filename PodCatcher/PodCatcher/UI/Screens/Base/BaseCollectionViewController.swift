@@ -5,7 +5,7 @@ class BaseCollectionViewController: BaseViewController {
     lazy var collectionView : UICollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
     var emptyView = EmptyView(frame: UIScreen.main.bounds)
     var background = UIView()
-   
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -14,7 +14,7 @@ class BaseCollectionViewController: BaseViewController {
         view.sendSubview(toBack: background)
         view.addSubview(collectionView)
         view.addSubview(emptyView)
-         edgesForExtendedLayout = []
+        edgesForExtendedLayout = []
         collectionView.setupBackground(frame: view.bounds)
         collectionView.autoresizingMask = [.flexibleHeight, .flexibleWidth, .flexibleTopMargin, .flexibleBottomMargin]
         guard let frame = tabBarController?.tabBar.frame else { return }
