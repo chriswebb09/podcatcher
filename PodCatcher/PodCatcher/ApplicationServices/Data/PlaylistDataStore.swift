@@ -28,15 +28,12 @@ class PlaylistsDataStore {
         }
         let managedContext =
             appDelegate.persistentContainer.viewContext
-        //2
         let fetchRequest =
             NSFetchRequest<NSManagedObject>(entityName: "TestPlaylist")
-        //3
         do {
             playlists = try managedContext.fetch(fetchRequest)
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
     }
-    
 }

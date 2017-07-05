@@ -41,7 +41,6 @@ final internal class TopPodcastCell: UICollectionViewCell {
     
     func configureCell(with model: TopPodcastCellViewModel, withTime: Double) {
         viewModel = model
-        guard let viewModel = viewModel else { return }
         layer.borderWidth = 1
         contentView.layer.cornerRadius = 3
         layer.borderColor = UIColor.lightText.cgColor
@@ -59,8 +58,7 @@ final internal class TopPodcastCell: UICollectionViewCell {
         setShadow()
         setup(albumArtView: albumArtView)
         setup(titleView: titleView)
-        setup(trackNameLabel: trackNameLabel
-       )
+        setup(trackNameLabel: trackNameLabel)
     }
     
     private func setup(albumArtView: UIImageView) {

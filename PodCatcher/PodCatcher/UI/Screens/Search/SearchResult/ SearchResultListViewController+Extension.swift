@@ -4,6 +4,21 @@ import UIKit
 
 extension SearchResultListViewController: PodcastCollectionViewProtocol {
     
+    func moreButton(tapped: Bool) {
+        let height = view.bounds.height * 0.5
+        let width = view.bounds.width
+        let size = CGSize(width: width, height: height)
+        let originX = view.bounds.width * 0.001
+        let originY = view.bounds.height * 0.6
+        let origin = CGPoint(x: originX, y: originY)
+        bottomMenu.menu.delegate = self
+        bottomMenu.setMenu(size)
+        bottomMenu.setMenu(origin)
+        bottomMenu.setupMenu()
+        bottomMenu.setMenu(color: .white, borderColor: .darkGray, textColor: .darkGray)
+        showPopMenu()
+    }
+    
     func configureTopView() {
         topView.frame = PodcastListConstants.topFrame
         guard let urlString = item.podcastArtUrlString, let url = URL(string: urlString) else { return }

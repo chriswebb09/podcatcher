@@ -23,6 +23,7 @@ class SearchResultCell: UITableViewCell {
         contentView.layer.borderWidth = 1
         setup(titleLabel: titleLabel)
         setup(albumArtView: albumArtView)
+        selectionStyle = .none
     }
     
     func setup(titleLabel: UILabel) {

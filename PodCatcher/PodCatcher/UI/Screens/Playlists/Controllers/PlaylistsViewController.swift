@@ -3,25 +3,17 @@ import UIKit
 class PlaylistsViewController: BaseTableViewController {
     
     weak var delegate: PlaylistsViewControllerDelegate?
-    
-    var items = [String]()
-    
+    var dataSource = PlaylistViewControllerDataSource()
     var playlistDataStore = PlaylistsDataStore()
     
     var entryPop: EntryPopover!
-    
-    var dataSource = SearchControllerDataSource() {
-        didSet {
-            print("data source created")
-        }
-    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.entryPop = EntryPopover()
         title = "Playlists"
         entryPop.delegate = self
-        tableView.dataSource = self
+        tableView.dataSource = dataSource
         tableView.backgroundColor = .lightGray
         tableView.register(PlaylistCell.self, forCellReuseIdentifier: PlaylistCell.reuseIdentifier)
         tableView.delegate = self
@@ -32,6 +24,6 @@ class PlaylistsViewController: BaseTableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        playlistDataStore.fetchFromCore()
+        dataSource.playlistDataStore.fetchFromCore()
     }
 }

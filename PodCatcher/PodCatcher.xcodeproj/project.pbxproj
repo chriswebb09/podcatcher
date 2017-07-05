@@ -249,6 +249,7 @@
 		A7EBA0CA1EE6836400FAAC9C /* NSError+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EBA0C91EE6836400FAAC9C /* NSError+Extension.swift */; };
 		A7EBA0CC1EE683C900FAAC9C /* BallAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EBA0CB1EE683C900FAAC9C /* BallAnimation.swift */; };
 		A7ECE4DE1F0D83BE00588662 /* TopPodcastCellConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7ECE4DD1F0D83BE00588662 /* TopPodcastCellConstant.swift */; };
+		A7ECE4E01F0D964E00588662 /* PlaylistsViewControllerDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7ECE4DF1F0D964D00588662 /* PlaylistsViewControllerDatasource.swift */; };
 		A7F0614E1F0D690400946411 /* TestPlaylists+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F0614A1F0D690400946411 /* TestPlaylists+CoreDataClass.swift */; };
 		A7F0614F1F0D690400946411 /* TestPlaylists+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F0614B1F0D690400946411 /* TestPlaylists+CoreDataProperties.swift */; };
 		A7F061501F0D690400946411 /* TestPlaylist+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F0614C1F0D690400946411 /* TestPlaylist+CoreDataClass.swift */; };
@@ -533,6 +534,7 @@
 		A7EBA0C91EE6836400FAAC9C /* NSError+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSError+Extension.swift"; sourceTree = "<group>"; };
 		A7EBA0CB1EE683C900FAAC9C /* BallAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BallAnimation.swift; sourceTree = "<group>"; };
 		A7ECE4DD1F0D83BE00588662 /* TopPodcastCellConstant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopPodcastCellConstant.swift; sourceTree = "<group>"; };
+		A7ECE4DF1F0D964D00588662 /* PlaylistsViewControllerDatasource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlaylistsViewControllerDatasource.swift; path = Playlists/Datasource/PlaylistsViewControllerDatasource.swift; sourceTree = "<group>"; };
 		A7F0614A1F0D690400946411 /* TestPlaylists+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TestPlaylists+CoreDataClass.swift"; sourceTree = "<group>"; };
 		A7F0614B1F0D690400946411 /* TestPlaylists+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TestPlaylists+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		A7F0614C1F0D690400946411 /* TestPlaylist+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TestPlaylist+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -928,6 +930,7 @@
 				A771073A1F0D4C970042D2E4 /* PlaylistsViewController.swift */,
 				A77107381F0D4C8F0042D2E4 /* PlaylistCell.swift */,
 				A771073E1F0D4CD20042D2E4 /* PlaylistsViewController+Extension.swift */,
+				A7ECE4DF1F0D964D00588662 /* PlaylistsViewControllerDatasource.swift */,
 			);
 			name = Playlists;
 			sourceTree = "<group>";
@@ -2078,6 +2081,7 @@
 				A7EBA0CA1EE6836400FAAC9C /* NSError+Extension.swift in Sources */,
 				A7BD12CE1EFF78AB0040FAE5 /* iTunesAPIClient.swift in Sources */,
 				A767522F1F0BF6FC007F1100 /* PlaylistsTab.swift in Sources */,
+				A7ECE4E01F0D964E00588662 /* PlaylistsViewControllerDatasource.swift in Sources */,
 				A7F0615F1F0D794100946411 /* TrackDataStore.swift in Sources */,
 				A7D0AD501F0D4A89007E4063 /* SplashViewControllerDelegate.swift in Sources */,
 				A7B1C0771F0AE43500A42E7D /* SettingsTabCoordinator+Extension.swift in Sources */,
