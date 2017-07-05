@@ -248,6 +248,7 @@
 		A7EBA0C81EE6831F00FAAC9C /* MenuDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EBA0C71EE6831F00FAAC9C /* MenuDelegate.swift */; };
 		A7EBA0CA1EE6836400FAAC9C /* NSError+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EBA0C91EE6836400FAAC9C /* NSError+Extension.swift */; };
 		A7EBA0CC1EE683C900FAAC9C /* BallAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EBA0CB1EE683C900FAAC9C /* BallAnimation.swift */; };
+		A7ECE4DE1F0D83BE00588662 /* TopPodcastCellConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7ECE4DD1F0D83BE00588662 /* TopPodcastCellConstant.swift */; };
 		A7F0614E1F0D690400946411 /* TestPlaylists+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F0614A1F0D690400946411 /* TestPlaylists+CoreDataClass.swift */; };
 		A7F0614F1F0D690400946411 /* TestPlaylists+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F0614B1F0D690400946411 /* TestPlaylists+CoreDataProperties.swift */; };
 		A7F061501F0D690400946411 /* TestPlaylist+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F0614C1F0D690400946411 /* TestPlaylist+CoreDataClass.swift */; };
@@ -531,6 +532,7 @@
 		A7EBA0C71EE6831F00FAAC9C /* MenuDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuDelegate.swift; sourceTree = "<group>"; };
 		A7EBA0C91EE6836400FAAC9C /* NSError+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSError+Extension.swift"; sourceTree = "<group>"; };
 		A7EBA0CB1EE683C900FAAC9C /* BallAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BallAnimation.swift; sourceTree = "<group>"; };
+		A7ECE4DD1F0D83BE00588662 /* TopPodcastCellConstant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopPodcastCellConstant.swift; sourceTree = "<group>"; };
 		A7F0614A1F0D690400946411 /* TestPlaylists+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TestPlaylists+CoreDataClass.swift"; sourceTree = "<group>"; };
 		A7F0614B1F0D690400946411 /* TestPlaylists+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TestPlaylists+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		A7F0614C1F0D690400946411 /* TestPlaylist+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TestPlaylist+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -1438,6 +1440,7 @@
 				A71A5BAF1F01DD9500254BE2 /* ApplicationStyling.swift */,
 				A71A5BB11F01DE5F00254BE2 /* TrackCellConstants.swift */,
 				A7A99FA71F07254C00BFEA4C /* Colors.swift */,
+				A7ECE4DD1F0D83BE00588662 /* TopPodcastCellConstant.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -2008,6 +2011,7 @@
 				A7B1C06D1F0ADC6B00A42E7D /* UITableView+Extension.swift in Sources */,
 				A7F061531F0D6A3300946411 /* PlaylistDataStore.swift in Sources */,
 				A73D740B1EE684DD004571A5 /* LoadingView.swift in Sources */,
+				A7ECE4DE1F0D83BE00588662 /* TopPodcastCellConstant.swift in Sources */,
 				A771073B1F0D4C970042D2E4 /* PlaylistsViewController.swift in Sources */,
 				A71D83BF1F09C40E009D0720 /* DownloadView.swift in Sources */,
 				A7894FA61EE6AE44000CC190 /* PodCatcherUser.swift in Sources */,

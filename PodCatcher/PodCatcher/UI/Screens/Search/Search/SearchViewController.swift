@@ -37,8 +37,8 @@ class SearchViewController: BaseTableViewController {
     var searchBarActive: Bool = false {
         didSet {
             if searchBarActive {
-                searchControllerConfigure()
                 showSearchBar()
+                searchControllerConfigure()
             } else if !searchBarActive {
                 if dataSource.items.count == 0 { viewShown = .empty }
                 guard let nav = navigationController?.navigationBar else { return }
@@ -49,7 +49,6 @@ class SearchViewController: BaseTableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        searchControllerConfigure()
         tableView.dataSource = dataSource
         tableView.register(SearchResultCell.self, forCellReuseIdentifier: SearchResultCell.reuseIdentifier)
         searchBar = searchController.searchBar
@@ -66,33 +65,5 @@ class SearchViewController: BaseTableViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidAppear(animated)
-    }
-    
-    func hideSearchBar() {
-        searchBar.removeFromSuperview()
-        searchBarActive = false
-    }
-    
-    
-    func showSearchBar() {
-        view.addSubview(searchBar)
-        searchBar.frame = CGRect(x: UIScreen.main.bounds.minX, y: 0, width: UIScreen.main.bounds.width, height: 44)
-        tableView.frame = CGRect(x: UIScreen.main.bounds.minX, y: searchBar.frame.maxY, width: UIScreen.main.bounds.width, height: view.frame.height - 60)
-    }
-    
-    func searchControllerConfigure() {
-        searchController.delegate = self
-        searchBar = searchController.searchBar
-        searchController.searchResultsUpdater = self
-        searchController.searchBar.delegate = self
-        let textFieldInsideSearchBar = searchBar.value(forKey: "searchField") as? UITextField
-        textFieldInsideSearchBar?.textColor = .white
-        if let textFieldInsideSearchBar = searchBar.value(forKey: "searchField") as? UITextField,
-            let glassIconView = textFieldInsideSearchBar.leftView as? UIImageView {
-            textFieldInsideSearchBar.backgroundColor = Colors.brightHighlight
-            textFieldInsideSearchBar.clearButtonMode = .never
-            glassIconView.image = glassIconView.image?.withRenderingMode(.alwaysTemplate)
-            glassIconView.tintColor = .white
-        }
     }
 }

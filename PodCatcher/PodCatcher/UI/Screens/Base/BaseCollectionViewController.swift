@@ -8,7 +8,6 @@ class BaseCollectionViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //self.emptyView = EmptyView(frame: UIScreen.main.bounds)
         background.frame = view.frame
         view.addSubview(background)
         view.sendSubview(toBack: background)
@@ -32,5 +31,3 @@ class BaseCollectionViewController: BaseViewController {
         tabBarController?.tabBar.alpha = 1
     }
 }
-
-

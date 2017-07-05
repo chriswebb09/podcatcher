@@ -4,14 +4,17 @@ class HomeCollectionDataSource: BaseMediaControllerDataSource {
     
     let store = SearchResultsDataStore()
     let fetcher = SearchResultsFetcher()
+    
     var lookup: String = "" {
         didSet {
             fetcher.setLookup(term: lookup)
         }
     }
+    
     var items = [CasterSearchResult]()
     var topViewItemIndex: Int = 0
     var reserveItems = [CasterSearchResult]()
+    
     var categories: [String] = []
     
     var viewShown: ShowView {
