@@ -260,6 +260,7 @@
 		A7F061591F0D751F00946411 /* TrackCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F061571F0D751F00946411 /* TrackCellViewModel.swift */; };
 		A7F0615B1F0D772100946411 /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F0615A1F0D772100946411 /* BaseTableViewController.swift */; };
 		A7F0615D1F0D784900946411 /* SearchViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F0615C1F0D784900946411 /* SearchViewController+Extension.swift */; };
+		A7F0615F1F0D794100946411 /* TrackDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F0615E1F0D794100946411 /* TrackDataStore.swift */; };
 		A7FFD4BC1EEF370D00853480 /* NetworkDatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FFD4BB1EEF370D00853480 /* NetworkDatabaseManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -544,6 +545,7 @@
 		A7F061571F0D751F00946411 /* TrackCellViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackCellViewModel.swift; sourceTree = "<group>"; };
 		A7F0615A1F0D772100946411 /* BaseTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseTableViewController.swift; path = Base/BaseTableViewController.swift; sourceTree = "<group>"; };
 		A7F0615C1F0D784900946411 /* SearchViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "SearchViewController+Extension.swift"; path = "Search/Search/SearchViewController+Extension.swift"; sourceTree = "<group>"; };
+		A7F0615E1F0D794100946411 /* TrackDataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TrackDataStore.swift; path = Search/Search/TrackDataStore.swift; sourceTree = "<group>"; };
 		A7FFD4BB1EEF370D00853480 /* NetworkDatabaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkDatabaseManager.swift; sourceTree = "<group>"; };
 		B95326DB5E3AF822CC27DDB7 /* Pods-PodCatcherTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PodCatcherTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PodCatcherTests/Pods-PodCatcherTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C13D79C98B2FE9CADBCF74EF /* Pods_PodCatcher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PodCatcher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1407,6 +1409,7 @@
 				A7B1C06E1F0ADD1A00A42E7D /* SearchResultCell.swift */,
 				A716B8061F0B4FBF0060D492 /* SearchViewControllerDelegate.swift */,
 				A7F0615C1F0D784900946411 /* SearchViewController+Extension.swift */,
+				A7F0615E1F0D794100946411 /* TrackDataStore.swift */,
 			);
 			name = Search;
 			sourceTree = "<group>";
@@ -2078,6 +2081,7 @@
 				A7EBA0CA1EE6836400FAAC9C /* NSError+Extension.swift in Sources */,
 				A7BD12CE1EFF78AB0040FAE5 /* iTunesAPIClient.swift in Sources */,
 				A767522F1F0BF6FC007F1100 /* PlaylistsTab.swift in Sources */,
+				A7F0615F1F0D794100946411 /* TrackDataStore.swift in Sources */,
 				A7D0AD501F0D4A89007E4063 /* SplashViewControllerDelegate.swift in Sources */,
 				A7B1C0771F0AE43500A42E7D /* SettingsTabCoordinator+Extension.swift in Sources */,
 				A7BF242A1F0D4B43002A87BD /* LoginView+Extension.swift in Sources */,
