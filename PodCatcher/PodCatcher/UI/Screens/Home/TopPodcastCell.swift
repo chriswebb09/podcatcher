@@ -1,16 +1,5 @@
 import UIKit
 
-struct TopPodcastCellViewModel {
-    
-    var trackName: String
-    var albumImageUrl: URL
-    
-    init(trackName: String, albumImageUrl: URL) {
-        self.trackName = trackName
-        self.albumImageUrl = albumImageUrl
-    }
-}
-
 struct TopPodcastCellConstants {
     static let smallFont = UIFont(name: "AvenirNext-Regular", size: 10)
     static let albumHeightMultiplier: CGFloat =  0.86
@@ -67,8 +56,6 @@ final internal class TopPodcastCell: UICollectionViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        setup(albumArtView: albumArtView)
-        setup(trackNameLabel: trackNameLabel)
         viewConfigurations()
     }
     
@@ -76,8 +63,10 @@ final internal class TopPodcastCell: UICollectionViewCell {
     
     private func viewConfigurations() {
         setShadow()
-        setup(titleView: titleView)
         setup(albumArtView: albumArtView)
+        setup(titleView: titleView)
+        setup(trackNameLabel: trackNameLabel
+       )
     }
     
     private func setup(albumArtView: UIImageView) {

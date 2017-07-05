@@ -49,28 +49,13 @@ class SearchViewController: BaseViewController {
         }
     }
     
-    func searchControllerConfigure() {
-        searchController.delegate = self
-        searchBar = searchController.searchBar
-        searchController.searchResultsUpdater = self
-        searchController.searchBar.delegate = self
-        let textFieldInsideSearchBar = searchBar.value(forKey: "searchField") as? UITextField
-        textFieldInsideSearchBar?.textColor = .white
-        if let textFieldInsideSearchBar = searchBar.value(forKey: "searchField") as? UITextField,
-            let glassIconView = textFieldInsideSearchBar.leftView as? UIImageView {
-            textFieldInsideSearchBar.backgroundColor = Colors.brightHighlight
-            textFieldInsideSearchBar.clearButtonMode = .never
-            glassIconView.image = glassIconView.image?.withRenderingMode(.alwaysTemplate)
-            glassIconView.tintColor = .white
-        }
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(tableView)
         edgesForExtendedLayout = []
         guard let navBar = navigationController?.navigationBar else { return }
         guard let tabBar  = tabBarController?.tabBar else { return }
+        searchControllerConfigure()
         tableView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: view.frame.height - tabBar.frame.height)
         tableView.dataSource = dataSource
         tableView.tableFooterView = UIView(frame: .zero)
@@ -84,6 +69,7 @@ class SearchViewController: BaseViewController {
         searchBarActive = true
         searchController.defaultConfiguration()
         tableView.delegate = self
+        searchControllerConfigure()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -106,6 +92,23 @@ class SearchViewController: BaseViewController {
         searchBar.frame = CGRect(x: UIScreen.main.bounds.minX, y: 0, width: UIScreen.main.bounds.width, height: 44)
         tableView.frame = CGRect(x: UIScreen.main.bounds.minX, y: searchBar.frame.maxY, width: UIScreen.main.bounds.width, height: view.frame.height - 60)
     }
+    
+    func searchControllerConfigure() {
+        searchController.delegate = self
+        searchBar = searchController.searchBar
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.delegate = self
+        let textFieldInsideSearchBar = searchBar.value(forKey: "searchField") as? UITextField
+        textFieldInsideSearchBar?.textColor = .white
+        if let textFieldInsideSearchBar = searchBar.value(forKey: "searchField") as? UITextField,
+            let glassIconView = textFieldInsideSearchBar.leftView as? UIImageView {
+            textFieldInsideSearchBar.backgroundColor = Colors.brightHighlight
+            textFieldInsideSearchBar.clearButtonMode = .never
+            glassIconView.image = glassIconView.image?.withRenderingMode(.alwaysTemplate)
+            glassIconView.tintColor = .white
+        }
+    }
+
 }
 
 extension SearchViewController: UISearchResultsUpdating {
