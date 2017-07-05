@@ -50,7 +50,8 @@ class HomeViewController: BaseCollectionViewController {
         view.addSubview(collectionView)
         topView.addSubview(scrollView)
         scrollView.frame = topFrame
-      
+        leftButtonItem = UIBarButtonItem(title: "Log Out", style: .done, target: self, action: #selector(logoutTapped))
+        navigationItem.setLeftBarButton(leftButtonItem, animated: false)
         collectionViewConfiguration()
         collectionView.register(TopPodcastCell.self)
         collectionView.backgroundColor = .darkGray
@@ -60,6 +61,9 @@ class HomeViewController: BaseCollectionViewController {
         }
     }
     
+    func logoutTapped() {
+        delegate?.logout(tapped: true)
+    }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         DispatchQueue.main.async {
@@ -91,6 +95,10 @@ extension HomeViewController: UICollectionViewDelegate {
     
     func setupHome(with newLayout: HomeItemsFlowLayout) {
         collectionView.collectionViewLayout = newLayout
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        delegate?.didSelect(at: indexPath.row, with: dataSource.items[indexPath.row])
     }
 }
 

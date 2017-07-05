@@ -52,12 +52,14 @@ extension MainCoordinator: CoordinatorDelegate {
             let homeTab = UINavigationController(rootViewController: homeViewController)
             tabbBarCoordinator.setupHomeCoordinator(navigationController: homeTab, dataSource: dataSource)
             
+            let homeCoord = tabbBarCoordinator.childCoordinators[0] as! HomeTabCoordinator
+            homeCoord.delegate = self
+            
             let playlistsViewController = PlaylistsViewController()
             let playlistsTab = UINavigationController(rootViewController: playlistsViewController)
             tabbBarCoordinator.setupPlaylistsCoordinator(navigationController: playlistsTab, dataSource: dataSource)
             let playlistsCoord = tabbBarCoordinator.childCoordinators[1] as! PlaylistsTabCoordinator
             playlistsCoord.delegate = self
-            
             
             let searchViewController = SearchViewController()
             
