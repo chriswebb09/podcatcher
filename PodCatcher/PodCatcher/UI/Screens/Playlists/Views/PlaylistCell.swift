@@ -12,8 +12,7 @@ class PlaylistCell: UITableViewCell {
     var titleLabel: UILabel = {
         let title = UILabel()
         title.textColor = .black
-        title.font = UIFont.systemFont(ofSize: 12, weight: UIFontWeightThin
-        )
+        title.font = UIFont.systemFont(ofSize: 16, weight: UIFontWeightRegular)
         title.textAlignment = .center
         title.numberOfLines = 0
         return title

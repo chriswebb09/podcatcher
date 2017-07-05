@@ -6,6 +6,8 @@ class PlaylistsViewController: BaseTableViewController {
     
     var items = [String]()
     
+    var playlistDataStore = PlaylistsDataStore()
+    
     var entryPop: EntryPopover!
     
     var dataSource = SearchControllerDataSource() {
@@ -28,19 +30,8 @@ class PlaylistsViewController: BaseTableViewController {
         navigationItem.setRightBarButton(rightButtonItem, animated: false)
     }
     
-    func addPlaylist() {
-        UIView.animate(withDuration: 0.15) { [weak self] in
-            guard let strongSelf = self else {
-                return
-            }
-            strongSelf.entryPop.showPopView(viewController: strongSelf)
-            strongSelf.entryPop.popView.isHidden = false
-        }
-        entryPop.popView.doneButton.addTarget(self, action: #selector(hidePop), for: .touchUpInside)
-    }
-    
-    func hidePop() {
-        entryPop.hidePopView(viewController: self)
-        tableView.reloadData()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        playlistDataStore.fetchFromCore()
     }
 }
