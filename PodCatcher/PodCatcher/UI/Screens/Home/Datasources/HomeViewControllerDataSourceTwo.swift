@@ -6,20 +6,20 @@ class HomeCollectionDataSourceTwo: BaseMediaControllerDataSource {
     
     var lookup: String = ""
     
-    var response = [TopItem]() {
-        didSet {
-            for item in response {
-                lookup = item.id
-                if !categories.contains(item.category) {
-                    categories.append(item.category)
-                }
-                self.searchForTracks { result in
-                    guard let result = result.0 else { return }
-                    self.items.append(contentsOf: result)
-                }
-            }
-        }
-    }
+//    var response = [TopItem]() {
+//        didSet {
+//            for item in response {
+//                lookup = item.id
+//                if !categories.contains(item.category) {
+//                    categories.append(item.category)
+//                }
+//                self.searchForTracks { result in
+//                    guard let result = result.0 else { return }
+//                    self.items.append(contentsOf: result)
+//                }
+//            }
+//        }
+//    }
     
     var items = [CasterSearchResult]() {
         didSet {

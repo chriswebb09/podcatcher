@@ -1,11 +1,9 @@
 import Foundation
 
-
 class TopPodcastRSSParser: NSObject {
     let recordKey = "item"
     let dictionaryKeys = ["itunes:summary", "tunes:subtitle", "pubDate", "enclosure", "itunes:duration", "title", "audio/mp3", "itunes:keywords", "itunes:image", "link"]
 }
-
 
 class RSSParser: NSObject {
     let recordKey = "item"

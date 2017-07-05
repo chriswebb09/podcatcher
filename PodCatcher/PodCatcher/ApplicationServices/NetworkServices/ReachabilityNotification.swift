@@ -17,5 +17,4 @@ class ReachabilityNotification {
         NotificationCenter.default.removeObserver(self, name: ReachabilityChangedNotification, object: nil)
         reachability = nil
     }
-
 }

@@ -258,6 +258,8 @@
 		A7F061551F0D6BDC00946411 /* AuthClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F061541F0D6BDC00946411 /* AuthClient.swift */; };
 		A7F061581F0D751F00946411 /* TrackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F061561F0D751F00946411 /* TrackCell.swift */; };
 		A7F061591F0D751F00946411 /* TrackCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F061571F0D751F00946411 /* TrackCellViewModel.swift */; };
+		A7F0615B1F0D772100946411 /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F0615A1F0D772100946411 /* BaseTableViewController.swift */; };
+		A7F0615D1F0D784900946411 /* SearchViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F0615C1F0D784900946411 /* SearchViewController+Extension.swift */; };
 		A7FFD4BC1EEF370D00853480 /* NetworkDatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FFD4BB1EEF370D00853480 /* NetworkDatabaseManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -540,6 +542,8 @@
 		A7F061541F0D6BDC00946411 /* AuthClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthClient.swift; sourceTree = "<group>"; };
 		A7F061561F0D751F00946411 /* TrackCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackCell.swift; sourceTree = "<group>"; };
 		A7F061571F0D751F00946411 /* TrackCellViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackCellViewModel.swift; sourceTree = "<group>"; };
+		A7F0615A1F0D772100946411 /* BaseTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseTableViewController.swift; path = Base/BaseTableViewController.swift; sourceTree = "<group>"; };
+		A7F0615C1F0D784900946411 /* SearchViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "SearchViewController+Extension.swift"; path = "Search/Search/SearchViewController+Extension.swift"; sourceTree = "<group>"; };
 		A7FFD4BB1EEF370D00853480 /* NetworkDatabaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkDatabaseManager.swift; sourceTree = "<group>"; };
 		B95326DB5E3AF822CC27DDB7 /* Pods-PodCatcherTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PodCatcherTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PodCatcherTests/Pods-PodCatcherTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C13D79C98B2FE9CADBCF74EF /* Pods_PodCatcher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PodCatcher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -880,6 +884,7 @@
 				A77EDF731EE5FDE5001A24E5 /* BaseMediaCollectionDataSource.swift */,
 				A7B8C3961EF6E18E001AFFA1 /* BaseCollectionViewController.swift */,
 				A7B8C3971EF6E18E001AFFA1 /* BaseViewController.swift */,
+				A7F0615A1F0D772100946411 /* BaseTableViewController.swift */,
 			);
 			name = Base;
 			sourceTree = "<group>";
@@ -1401,6 +1406,7 @@
 				A7B1C06A1F0ADABF00A42E7D /* SearchControllerDataSource.swift */,
 				A7B1C06E1F0ADD1A00A42E7D /* SearchResultCell.swift */,
 				A716B8061F0B4FBF0060D492 /* SearchViewControllerDelegate.swift */,
+				A7F0615C1F0D784900946411 /* SearchViewController+Extension.swift */,
 			);
 			name = Search;
 			sourceTree = "<group>";
@@ -1951,6 +1957,7 @@
 				A776D1471EE8CD4900400EB4 /* TopViewDelegate.swift in Sources */,
 				A7E45F831F02388A0063AC0F /* TermSearchResult.swift in Sources */,
 				A7B1C0631F0AC94500A42E7D /* StartViewControllerDelegate.swift in Sources */,
+				A7F0615D1F0D784900946411 /* SearchViewController+Extension.swift in Sources */,
 				A7B1C0721F0AE40300A42E7D /* MediaTabCoordinator.swift in Sources */,
 				A73DA4231EE89A060053276E /* MenuActive.swift in Sources */,
 				A71D83DC1F0AC781009D0720 /* SettingsViewController+Extension.swift in Sources */,
@@ -2096,6 +2103,7 @@
 				A75BBB2B1EF4605B002F4EB6 /* StartCoordinator+Extension.swift in Sources */,
 				A718530A1EE9609A00911C87 /* EntryState.swift in Sources */,
 				A7BF241F1F0D4B1D002A87BD /* LoginViewController.swift in Sources */,
+				A7F0615B1F0D772100946411 /* BaseTableViewController.swift in Sources */,
 				A7B1C0811F0AE54400A42E7D /* HomeTabCoordinator.swift in Sources */,
 				A7150EDF1EE63E7200E3553F /* PodcastCell.swift in Sources */,
 				A718530E1EE9626500911C87 /* BasicButtonFactory.swift in Sources */,

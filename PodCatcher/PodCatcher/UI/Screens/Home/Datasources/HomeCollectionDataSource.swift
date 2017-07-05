@@ -6,11 +6,7 @@ class HomeCollectionDataSource: BaseMediaControllerDataSource {
     
     var lookup: String = ""
     
-    var items = [CasterSearchResult]() {
-        didSet {
-            
-        }
-    }
+    var items = [CasterSearchResult]()
     
     var topViewItemIndex: Int = 0
     

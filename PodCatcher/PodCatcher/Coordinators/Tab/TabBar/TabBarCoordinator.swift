@@ -29,24 +29,13 @@ class TabBarCoordinator: TabControllerCoordinator, Coordinator {
         childCoordinators.append(tabCoordinator)
     }
     
-    
-    
     func setupPlaylistsCoordinator(navigationController: UINavigationController, dataSource: BaseMediaControllerDataSource) {
         let tabCoordinator = PlaylistsTabCoordinator(navigationController: navigationController)
         tabCoordinator.start()
         tabCoordinator.dataSource = dataSource
         childCoordinators.append(tabCoordinator)
     }
-    
-    
-    
-//    func setupMediaCoordinator(navigationController: UINavigationController, dataSource: BaseMediaControllerDataSource) {
-//        let tabCoordinator = MediaTabCoordinator(navigationController: navigationController)
-//        tabCoordinator.start()
-//        tabCoordinator.dataSource = dataSource
-//        childCoordinators.append(tabCoordinator)
-//    }
-//    
+  
     func setupSearchCoordinator(navigationController: UINavigationController, dataSource: BaseMediaControllerDataSource) {
         let tabCoordinator = SearchTabCoordinator(navigationController: navigationController)
         tabCoordinator.start()
