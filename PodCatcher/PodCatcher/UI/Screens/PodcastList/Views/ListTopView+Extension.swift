@@ -11,3 +11,8 @@ extension ListTopView: PreferencesViewDelegate {
         delegate?.popBottomMenu(popped: tapped)
     }
 }
+
+protocol PreferencesViewDelegate: class {
+    func moreButton(tapped: Bool)
+    func addTagButton(tapped: Bool)
+}

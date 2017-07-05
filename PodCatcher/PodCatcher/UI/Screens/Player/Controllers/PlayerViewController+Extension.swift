@@ -182,6 +182,6 @@ extension PlayerViewController: DownloadDelegate {
                 self.downloadingIndicator.hideActivityIndicator(viewController: self)
             }
         }
-        print(progress)
+        print(String(format: "%.1f%%", progress * 100))
     }
 }

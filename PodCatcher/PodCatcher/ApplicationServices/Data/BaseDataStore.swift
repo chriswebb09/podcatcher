@@ -37,7 +37,7 @@ class BaseDataStore: NSObject {
     }
     
     static func userSignIn(username: String, password: String, completion: @escaping (PodCatcherUser?, Error?) -> Void) {
-        UserDataAPIClient.loginToAccount(email: username, password: password) { user, error in
+        AuthClient.loginToAccount(email: username, password: password) { user, error in
             print("here")
             if let error = error {
                 print(error.localizedDescription)

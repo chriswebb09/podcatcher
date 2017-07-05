@@ -12,8 +12,7 @@ class SearchResultCell: UITableViewCell {
     var titleLabel: UILabel = {
         let title = UILabel()
         title.textColor = .black
-        title.font = UIFont.systemFont(ofSize: 12, weight: UIFontWeightThin
-        )
+        title.font = UIFont.systemFont(ofSize: 12, weight: UIFontWeightThin)
         title.textAlignment = .center
         title.numberOfLines = 0
         return title
@@ -24,7 +23,6 @@ class SearchResultCell: UITableViewCell {
         contentView.layer.borderWidth = 1
         setup(titleLabel: titleLabel)
         setup(albumArtView: albumArtView)
-        
     }
     
     func setup(titleLabel: UILabel) {

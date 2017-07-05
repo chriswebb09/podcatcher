@@ -18,8 +18,18 @@
         <attribute name="totalPlayTime" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="podCasterItems" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CasterItems" inverseName="podcaster" inverseEntity="CasterItems" syncable="YES"/>
     </entity>
+    <entity name="TestPlaylist" representedClassName="TestPlaylist" syncable="YES">
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="testPlaylist" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TestPlaylists" inverseName="testPlaylists" inverseEntity="TestPlaylists" syncable="YES"/>
+    </entity>
+    <entity name="TestPlaylists" representedClassName="TestPlaylists" syncable="YES">
+        <attribute name="userID" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="testPlaylists" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TestPlaylist" inverseName="testPlaylist" inverseEntity="TestPlaylist" syncable="YES"/>
+    </entity>
     <elements>
         <element name="CasterItems" positionX="3130" positionY="113" width="128" height="180"/>
         <element name="PodCaster" positionX="2880" positionY="171" width="128" height="120"/>
+        <element name="TestPlaylist" positionX="3112" positionY="369" width="128" height="73"/>
+        <element name="TestPlaylists" positionX="2898" positionY="378" width="128" height="73"/>
     </elements>
 </model>

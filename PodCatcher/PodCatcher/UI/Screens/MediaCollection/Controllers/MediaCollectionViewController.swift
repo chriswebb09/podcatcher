@@ -1,5 +1,10 @@
 import UIKit
 
+protocol MediaControllerDelegate: class {
+    func didSelect(at index: Int, with cast: PodcastSearchResult)
+    func logout(tapped: Bool)
+}
+
 class MediaCollectionViewController: BaseCollectionViewController {
     
     // MARK: - Properties
