@@ -2,7 +2,7 @@ import Foundation
 
 class PodCatcherUserDataStore: BaseDataStore {
     
-    let store = TrackDataStore()
+    let store = SearchResultsFetcher()
     var items = [PodcastSearchResult]()
 
 }

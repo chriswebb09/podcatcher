@@ -141,7 +141,6 @@
 		A77107441F0D4DE90042D2E4 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77107421F0D4DE90042D2E4 /* HomeViewController.swift */; };
 		A77107451F0D4DE90042D2E4 /* HomeViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77107431F0D4DE90042D2E4 /* HomeViewController+Extension.swift */; };
 		A77107491F0D4DF60042D2E4 /* HomeCollectionDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77107461F0D4DF60042D2E4 /* HomeCollectionDataSource.swift */; };
-		A771074A1F0D4DF60042D2E4 /* HomeDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77107471F0D4DF60042D2E4 /* HomeDataStore.swift */; };
 		A771074D1F0D4E110042D2E4 /* TopPodcastCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A771074C1F0D4E110042D2E4 /* TopPodcastCell.swift */; };
 		A77107501F0D4E1F0042D2E4 /* HomeItemsLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A771074E1F0D4E1F0042D2E4 /* HomeItemsLayout.swift */; };
 		A77107511F0D4E1F0042D2E4 /* TopPodcastCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A771074F1F0D4E1F0042D2E4 /* TopPodcastCellViewModel.swift */; };
@@ -425,7 +424,6 @@
 		A77107421F0D4DE90042D2E4 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HomeViewController.swift; path = Home/Controllers/HomeViewController.swift; sourceTree = "<group>"; };
 		A77107431F0D4DE90042D2E4 /* HomeViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "HomeViewController+Extension.swift"; path = "Home/Controllers/HomeViewController+Extension.swift"; sourceTree = "<group>"; };
 		A77107461F0D4DF60042D2E4 /* HomeCollectionDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HomeCollectionDataSource.swift; path = Home/Datasources/HomeCollectionDataSource.swift; sourceTree = "<group>"; };
-		A77107471F0D4DF60042D2E4 /* HomeDataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HomeDataStore.swift; path = Home/Datasources/HomeDataStore.swift; sourceTree = "<group>"; };
 		A771074C1F0D4E110042D2E4 /* TopPodcastCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TopPodcastCell.swift; path = Home/Views/TopPodcastCell.swift; sourceTree = "<group>"; };
 		A771074E1F0D4E1F0042D2E4 /* HomeItemsLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HomeItemsLayout.swift; path = Home/Models/HomeItemsLayout.swift; sourceTree = "<group>"; };
 		A771074F1F0D4E1F0042D2E4 /* TopPodcastCellViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TopPodcastCellViewModel.swift; path = Home/Models/TopPodcastCellViewModel.swift; sourceTree = "<group>"; };
@@ -861,7 +859,6 @@
 				A771074F1F0D4E1F0042D2E4 /* TopPodcastCellViewModel.swift */,
 				A771074C1F0D4E110042D2E4 /* TopPodcastCell.swift */,
 				A77107461F0D4DF60042D2E4 /* HomeCollectionDataSource.swift */,
-				A77107471F0D4DF60042D2E4 /* HomeDataStore.swift */,
 				A77107421F0D4DE90042D2E4 /* HomeViewController.swift */,
 				A77107431F0D4DE90042D2E4 /* HomeViewController+Extension.swift */,
 			);
@@ -2055,7 +2052,6 @@
 				A7B1C05D1F0AC90E00A42E7D /* StartViewController.swift in Sources */,
 				A71D83D71F0AC703009D0720 /* SearchViewController.swift in Sources */,
 				A7B1C0731F0AE40300A42E7D /* MediaTabCoordinator+Extension.swift in Sources */,
-				A771074A1F0D4DF60042D2E4 /* HomeDataStore.swift in Sources */,
 				A7B1C0641F0AC94500A42E7D /* StartViewDelegate.swift in Sources */,
 				A71B272D1EE5D55E00613CF4 /* CoordinatorDelegate.swift in Sources */,
 				A7B8C3991EF6E18E001AFFA1 /* BaseViewController.swift in Sources */,

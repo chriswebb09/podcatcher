@@ -27,12 +27,13 @@ class PlaylistsTabCoordinator: NavigationCoordinator {
 
 extension PlaylistsTabCoordinator: PlaylistsViewControllerDelegate {
     func logout(tapped: Bool) {
-        
+        if dataSource.user != nil {
+            dataSource.user = nil
+        }
+        delegate?.transitionCoordinator(type: .app, dataSource: dataSource)
     }
 
     func didSelect(at index: Int, with playlist: Playlist) {
         
     }
-
-    
 }

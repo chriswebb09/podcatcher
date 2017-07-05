@@ -51,4 +51,19 @@ extension String {
         }
         return timerString
     }
+    
+    static func extract(from link: String) -> String? {
+        let pattern = "id([0-9]+)"
+        guard let regExp = try? NSRegularExpression(pattern: pattern, options: .caseInsensitive) else {
+            return nil
+        }
+        let nsLink = link as NSString
+        let options = NSRegularExpression.MatchingOptions(rawValue: 0)
+        let range = NSRange(location: 0, length: nsLink.length)
+        let matches = regExp.matches(in: link as String, options:options, range:range)
+        if let firstMatch = matches.first {
+            return nsLink.substring(with: firstMatch.range)
+        }
+        return nil
+    }
 }

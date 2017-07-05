@@ -56,7 +56,7 @@ extension SearchViewController: UITableViewDelegate {
 
 extension SearchViewController: UISearchBarDelegate {
     
-    func searchOnTextChange(text: String, store: TrackDataStore, navController: UINavigationController) {
+    func searchOnTextChange(text: String, store: SearchResultsFetcher, navController: UINavigationController) {
         if text == "" {
             dataSource.items.removeAll()
             tableView.reloadData()

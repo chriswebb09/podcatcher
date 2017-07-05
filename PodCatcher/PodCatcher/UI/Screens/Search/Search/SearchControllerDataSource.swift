@@ -1,7 +1,7 @@
 import UIKit
 
 class SearchControllerDataSource: NSObject {
-    let store = TrackDataStore()
+    let store =  SearchResultsFetcher()
     var items = [PodcastSearchResult]()
 }
 

@@ -34,7 +34,7 @@ extension MainCoordinator: CoordinatorDelegate {
                 guard let data = data else { return }
                 for item in data {
                     homeViewController.dataSource.lookup = item.id
-                    homeViewController.dataSource.searchForTracks { result in
+                    homeViewController.dataSource.fetcher.searchForTracksFromLookup { result in
                         guard let result = result.0 else { return }
                         DispatchQueue.main.async {
                            

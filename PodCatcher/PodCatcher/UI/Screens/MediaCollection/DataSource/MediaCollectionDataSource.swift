@@ -2,7 +2,7 @@ import UIKit
 
 class MediaCollectionDataSource: BaseMediaControllerDataSource {
     
-    let store = TrackDataStore()
+    let store = SearchResultsFetcher()
     
     var items = [PodcastSearchResult]()
     

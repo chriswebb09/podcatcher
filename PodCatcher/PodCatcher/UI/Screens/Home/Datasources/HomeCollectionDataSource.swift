@@ -3,15 +3,15 @@ import UIKit
 class HomeCollectionDataSource: BaseMediaControllerDataSource {
     
     let store = SearchResultsDataStore()
-    
-    var lookup: String = ""
-    
+    let fetcher = SearchResultsFetcher()
+    var lookup: String = "" {
+        didSet {
+            fetcher.setLookup(term: lookup)
+        }
+    }
     var items = [CasterSearchResult]()
-    
     var topViewItemIndex: Int = 0
-    
     var reserveItems = [CasterSearchResult]()
-    
     var categories: [String] = []
     
     var viewShown: ShowView {
@@ -20,21 +20,6 @@ class HomeCollectionDataSource: BaseMediaControllerDataSource {
             return .collection
         } else {
             return .empty
-        }
-    }
-    
-    func searchForTracks(completion: @escaping (_ results: [CasterSearchResult]? , _ error: Error?) -> Void) {
-        iTunesAPIClient.search(forLookup: lookup) { response in
-            switch response {
-            case .success(let data):
-                let resultsData = data["results"] as! [[String: Any]]
-                let results = ResultsParser.parse(resultsData: resultsData)
-                DispatchQueue.main.async {
-                    completion(results, nil)
-                }
-            case .failed(let error):
-                completion(nil, error)
-            }
         }
     }
 }
