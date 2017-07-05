@@ -56,10 +56,7 @@ class HomeDataStore {
                     dump(self.historyItems)
                 }
             }
-            
         }
-        
-        
     }
     
     func extractIdFromLink(link: String) -> String? {

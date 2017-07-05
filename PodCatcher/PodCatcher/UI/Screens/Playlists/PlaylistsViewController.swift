@@ -4,6 +4,8 @@ class PlaylistsViewController: BaseViewController {
     
     weak var delegate: PlaylistsViewControllerDelegate?
     
+    var items = [String]()
+    
     var entryPop: EntryPopover!
     
     var tableView: UITableView = UITableView()
@@ -18,12 +20,13 @@ class PlaylistsViewController: BaseViewController {
         super.viewDidLoad()
         self.entryPop = EntryPopover()
         title = "Playlists"
+        entryPop.delegate = self 
         guard let tabBar  = tabBarController?.tabBar else { return }
         tableView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: view.frame.height - tabBar.frame.height)
-        tableView.dataSource = dataSource
+        tableView.dataSource = self
         tableView.backgroundColor = .lightGray
         tableView.tableFooterView = UIView(frame: .zero)
-        tableView.register(SearchResultCell.self, forCellReuseIdentifier: SearchResultCell.reuseIdentifier)
+        tableView.register(PlaylistCell.self, forCellReuseIdentifier: PlaylistCell.reuseIdentifier)
         tableView.layoutMargins = UIEdgeInsets.zero
         tableView.separatorInset = UIEdgeInsets.zero
         tableView.separatorStyle = .singleLineEtched
@@ -47,7 +50,6 @@ class PlaylistsViewController: BaseViewController {
         entryPop.popView.doneButton.addTarget(self, action: #selector(hidePop), for: .touchUpInside)
     }
     
-    
     func hidePop() {
         entryPop.hidePopView(viewController: self)
         tableView.reloadData()
@@ -55,5 +57,31 @@ class PlaylistsViewController: BaseViewController {
 }
 
 extension PlaylistsViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100.0
+    }
+}
+
+extension PlaylistsViewController: EntryPopoverDelegate {
     
+    func userDidEnterPlaylistName(name: String) {
+        items.append(name)
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+}
+
+
+extension PlaylistsViewController: UITableViewDataSource {
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return items.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as PlaylistCell
+        cell.titleLabel.text = items[indexPath.row]
+        return cell
+    }
 }
