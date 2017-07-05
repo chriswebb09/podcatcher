@@ -1,6 +1,7 @@
 import UIKit
 import CoreData
 import Firebase
+import FBSDKCoreKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -12,7 +13,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         ApplicationStyling.setupUI()
-
+    
         #if CLEAR_CACHES
             let cachesFolderItems = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true)
             for item in cachesFolderItems {
@@ -21,6 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         #endif
         
         window = UIWindow(frame: UIScreen.main.bounds)
+        
         if let window = window, UserDefaults.loadDefaultOnFirstLaunch() {
             let startCoordinator = StartCoordinator(navigationController: UINavigationController(), window: window)
             mainCoordinator = MainCoordinator(window: window, coordinator: startCoordinator)
@@ -29,12 +31,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             mainCoordinator = MainCoordinator(window: window)
             mainCoordinator.start()
         }
+        
+        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         FirebaseApp.configure()
+        
         return true
     }
     
     func application(_ application: UIApplication, handleEventsForBackgroundURLSession identifier: String, completionHandler: @escaping () -> Void) {
         backgroundSessionCompletionHandler = completionHandler
+    }
+  
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        let handled = FBSDKApplicationDelegate.sharedInstance().application(app, open: url, options: options)
+        return handled
     }
     
     func applicationWillTerminate(_ application: UIApplication) {
