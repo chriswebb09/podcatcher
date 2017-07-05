@@ -34,7 +34,8 @@ final internal class TopPodcastCell: UICollectionViewCell {
     
     private var titleView: UIView = {
         var titleView = UIView()
-        titleView.backgroundColor = .white
+        titleView.backgroundColor = UIColor(red:0.84, green:0.85, blue:0.86, alpha:1.0)
+        titleView.layer.cornerRadius = 3
         return titleView
     }()
     
@@ -82,7 +83,7 @@ final internal class TopPodcastCell: UICollectionViewCell {
     private func setup(albumArtView: UIImageView) {
         contentView.addSubview(albumArtView)
         albumArtView.translatesAutoresizingMaskIntoConstraints = false
-        albumArtView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive =  true
+        albumArtView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: contentView.frame.height * -0.1).isActive =  true
         albumArtView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         albumArtView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.5).isActive = true
         albumArtView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.8).isActive = true

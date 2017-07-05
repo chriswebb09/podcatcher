@@ -29,6 +29,7 @@ extension MainCoordinator: CoordinatorDelegate {
             let tabbBarCoordinator = TabBarCoordinator(tabBarController: tabbarController, window: window)
             guard let dataSource = dataSource else { return }
             let homeViewController = HomeViewController(index: 0, dataSource: dataSource)
+            
             homeViewController.dataSource.store.pullFeedTopPodcasts { data, error in
                 guard let data = data else { return }
                 for item in data {
@@ -36,11 +37,14 @@ extension MainCoordinator: CoordinatorDelegate {
                     homeViewController.dataSource.searchForTracks { result in
                         guard let result = result.0 else { return }
                         DispatchQueue.main.async {
+                           
                             homeViewController.dataSource.reserveItems.append(contentsOf: result)
                             homeViewController.dataSource.items.append(contentsOf: result)
                             homeViewController.collectionView.reloadData()
+                            guard let urlString = homeViewController.dataSource.reserveItems[homeViewController.dataSource.topViewItemIndex].podcastArtUrlString else { return }
+                            guard let imageUrl = URL(string: urlString) else { return }
+                            homeViewController.topView.podcastImageView.downloadImage(url: imageUrl)
                         }
-                        
                     }
                 }
             }

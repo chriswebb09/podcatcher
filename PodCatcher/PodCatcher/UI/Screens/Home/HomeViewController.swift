@@ -2,7 +2,7 @@ import UIKit
 
 class HomeViewController: BaseCollectionViewController {
     
-    var scrollView: UIScrollView?
+    var scrollView: UIScrollView
     
     weak var delegate: HomeViewControllerDelegate?
     
@@ -29,6 +29,7 @@ class HomeViewController: BaseCollectionViewController {
     
     init(index: Int, dataSource: BaseMediaControllerDataSource) {
         self.dataSource = HomeCollectionDataSource()
+        self.scrollView = UIScrollView(frame: CGRect.zero)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -47,6 +48,9 @@ class HomeViewController: BaseCollectionViewController {
         view.addSubview(topView)
         collectionView.backgroundColor = .white
         view.addSubview(collectionView)
+        topView.addSubview(scrollView)
+        scrollView.frame = topFrame
+      
         collectionViewConfiguration()
         collectionView.register(TopPodcastCell.self)
         collectionView.backgroundColor = .darkGray

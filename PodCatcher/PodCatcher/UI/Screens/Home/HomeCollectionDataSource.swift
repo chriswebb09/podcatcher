@@ -12,6 +12,8 @@ class HomeCollectionDataSource: BaseMediaControllerDataSource {
         }
     }
     
+    var topViewItemIndex: Int = 0
+    
     var reserveItems = [CasterSearchResult]()
     
     var categories: [String] = []
