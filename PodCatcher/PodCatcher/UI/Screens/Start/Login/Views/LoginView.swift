@@ -74,6 +74,7 @@ final class LoginView: UIView {
         setup(loginFacebookButton: loginFacebookButton)
         submitButton.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightMedium)
         submitButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
+        loginFacebookButton.addTarget(self, action: #selector(loginWithFacebookTapped), for: .touchUpInside)
         emailField.autocorrectionType = .no
         backgroundColor = .white
         loginFacebookButton.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightMedium)
@@ -127,5 +128,9 @@ final class LoginView: UIView {
     func loginButtonTapped() {
         guard let username = emailField.text, let password = passwordField.text else { return }
         delegate?.userEntryDataSubmitted(with: username, and: password)
+    }
+    
+    func loginWithFacebookTapped() {
+        delegate?.facebookLoginButtonTapped()
     }
 }

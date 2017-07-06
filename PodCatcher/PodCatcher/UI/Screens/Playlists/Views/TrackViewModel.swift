@@ -1,3 +1,5 @@
+import Foundation
+
 struct TrackCellViewModel {
     
     var trackName: String

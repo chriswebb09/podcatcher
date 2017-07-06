@@ -50,5 +50,9 @@
     <string>148801672343561</string>
     <key>FacebookDisplayName</key>
     <string>PodCatch</string>
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+        <string>fbauth2</string>
+    </array>
 </dict>
 </plist>
