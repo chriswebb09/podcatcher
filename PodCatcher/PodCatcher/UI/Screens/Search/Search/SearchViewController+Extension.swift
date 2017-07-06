@@ -18,12 +18,15 @@ extension SearchViewController: UISearchResultsUpdating {
         searchBar = searchController.searchBar
         searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
+        searchBar.tintColor = .black
         let textFieldInsideSearchBar = searchBar.value(forKey: "searchField") as? UITextField
         textFieldInsideSearchBar?.textColor = .white
+        
         if let textFieldInsideSearchBar = searchBar.value(forKey: "searchField") as? UITextField,
             let glassIconView = textFieldInsideSearchBar.leftView as? UIImageView {
             textFieldInsideSearchBar.backgroundColor = Colors.brightHighlight
             textFieldInsideSearchBar.clearButtonMode = .never
+            textFieldInsideSearchBar.attributedPlaceholder = NSAttributedString(string: textFieldInsideSearchBar.placeholder != nil ? textFieldInsideSearchBar.placeholder! : "", attributes: [NSForegroundColorAttributeName: UIColor.white])
             glassIconView.image = glassIconView.image?.withRenderingMode(.alwaysTemplate)
             glassIconView.tintColor = .white
         }

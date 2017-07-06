@@ -2,14 +2,14 @@ import UIKit
 
 extension PlaylistsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UIScreen.main.bounds.height / 4
+        return UIScreen.main.bounds.height / 6
     }
 }
 
 extension PlaylistsViewController: EntryPopoverDelegate {
     
     func userDidEnterPlaylistName(name: String) {
-        playlistDataStore.save(name: name)
+        dataSource.playlistDataStore.save(name: name)
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }

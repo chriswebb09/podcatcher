@@ -5,7 +5,6 @@ class PlaylistsViewController: BaseTableViewController {
     weak var delegate: PlaylistsViewControllerDelegate?
     
     var dataSource = PlaylistViewControllerDataSource()
-    var playlistDataStore = PlaylistsDataStore()
     
     var entryPop: EntryPopover!
 
