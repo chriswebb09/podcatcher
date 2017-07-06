@@ -26,6 +26,7 @@ final class PlaylistsTabCoordinator: NavigationCoordinator {
 }
 
 extension PlaylistsTabCoordinator: PlaylistsViewControllerDelegate {
+    
     func logout(tapped: Bool) {
         if dataSource.user != nil {
             dataSource.user = nil

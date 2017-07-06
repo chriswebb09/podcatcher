@@ -46,4 +46,3 @@ class StartCoordinator: NavigationCoordinator {
         navigationController.viewControllers = childViewControllers
     }
 }
-

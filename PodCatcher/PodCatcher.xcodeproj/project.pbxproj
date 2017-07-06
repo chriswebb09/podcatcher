@@ -48,6 +48,7 @@
 		A71ADF8E1F0E017400941A43 /* TrackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71ADF8D1F0E017400941A43 /* TrackCell.swift */; };
 		A71ADF901F0E01F700941A43 /* PodcastDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71ADF8F1F0E01F700941A43 /* PodcastDataStore.swift */; };
 		A71ADF921F0E03B400941A43 /* PodcatcherUserDatastore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71ADF911F0E03B400941A43 /* PodcatcherUserDatastore.swift */; };
+		A71ADF941F0E06E800941A43 /* TrackViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71ADF931F0E06E800941A43 /* TrackViewModel.swift */; };
 		A71B26F21EE5D24700613CF4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71B26F11EE5D24700613CF4 /* AppDelegate.swift */; };
 		A71B26FA1EE5D24700613CF4 /* PodCatcher.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A71B26F81EE5D24700613CF4 /* PodCatcher.xcdatamodeld */; };
 		A71B26FC1EE5D24700613CF4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A71B26FB1EE5D24700613CF4 /* Assets.xcassets */; };
@@ -310,6 +311,7 @@
 		A71ADF8D1F0E017400941A43 /* TrackCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TrackCell.swift; path = Playlists/Views/TrackCell.swift; sourceTree = "<group>"; };
 		A71ADF8F1F0E01F700941A43 /* PodcastDataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PodcastDataStore.swift; path = Search/SearchResult/PodcastDataStore.swift; sourceTree = "<group>"; };
 		A71ADF911F0E03B400941A43 /* PodcatcherUserDatastore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PodcatcherUserDatastore.swift; path = Home/Datasources/PodcatcherUserDatastore.swift; sourceTree = "<group>"; };
+		A71ADF931F0E06E800941A43 /* TrackViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TrackViewModel.swift; path = Playlists/Views/TrackViewModel.swift; sourceTree = "<group>"; };
 		A71B26EE1EE5D24700613CF4 /* PodCatcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PodCatcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A71B26F11EE5D24700613CF4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A71B26F91EE5D24700613CF4 /* PodCatcher.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PodCatcher.xcdatamodel; sourceTree = "<group>"; };
@@ -875,6 +877,7 @@
 				A771073E1F0D4CD20042D2E4 /* PlaylistsViewController+Extension.swift */,
 				A7ECE4DF1F0D964D00588662 /* PlaylistsViewControllerDatasource.swift */,
 				A71ADF8D1F0E017400941A43 /* TrackCell.swift */,
+				A71ADF931F0E06E800941A43 /* TrackViewModel.swift */,
 			);
 			name = Playlists;
 			sourceTree = "<group>";
@@ -1955,6 +1958,7 @@
 				A7BD12CE1EFF78AB0040FAE5 /* iTunesAPIClient.swift in Sources */,
 				A767522F1F0BF6FC007F1100 /* PlaylistsTab.swift in Sources */,
 				A7F37B781F0DFD9E001B5C8C /* ShowView.swift in Sources */,
+				A71ADF941F0E06E800941A43 /* TrackViewModel.swift in Sources */,
 				A7ECE4E01F0D964E00588662 /* PlaylistsViewControllerDatasource.swift in Sources */,
 				A7F0615F1F0D794100946411 /* SearchResultsFetcher.swift in Sources */,
 				A7D0AD501F0D4A89007E4063 /* SplashViewControllerDelegate.swift in Sources */,

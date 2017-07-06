@@ -19,6 +19,7 @@ extension SettingsTabCoordinator: SettingsViewControllerDelegate {
 }
 
 extension SettingsTabCoordinator: UpdateAccountViewControllerDelegate {
+    
     func updated(username: String) {
         print(username)
     }

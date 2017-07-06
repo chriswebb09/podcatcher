@@ -6,17 +6,17 @@ final class TopPodcastsDataStore {
     var podcasts: [NSManagedObject] = []
     
     func save(podcastItem: CasterSearchResult) {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-            return
-        }
-        guard let imageUrlString = podcastItem.podcastArtUrlString, let imageUrl = URL(string: imageUrlString), let title = podcastItem.podcastTitle, let feedUrlString = podcastItem.feedUrl else { return }
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        guard let imageUrlString = podcastItem.podcastArtUrlString,
+            let imageUrl = URL(string: imageUrlString), let title = podcastItem.podcastTitle,
+            let feedUrlString = podcastItem.feedUrl else { return }
         
         UIImage.downloadImage(url: imageUrl) { image in
             
-            let podcastArtImageData = UIImageJPEGRepresentation(image, 1) as! NSData
+            let podcastArtImageData = UIImageJPEGRepresentation(image, 1) as? Data
             let managedContext = appDelegate.persistentContainer.viewContext
-            let entity = NSEntityDescription.entity(forEntityName: "TopPodcast", in: managedContext)!
-            let  podcast = NSManagedObject(entity: entity, insertInto: managedContext)
+            guard let entity = NSEntityDescription.entity(forEntityName: "TopPodcast", in: managedContext) else { return }
+            let podcast = NSManagedObject(entity: entity, insertInto: managedContext)
             
             podcast.setValue(podcastArtImageData, forKeyPath: "podcastArt")
             podcast.setValue(podcastItem.id, forKey: "itunesId")

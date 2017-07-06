@@ -52,7 +52,6 @@ extension HomeTabCoordinator: HomeViewControllerDelegate {
             }
         }
     }
-    
 }
 
 extension HomeTabCoordinator: PodcastListViewControllerDelegate {
@@ -87,4 +86,3 @@ extension HomeTabCoordinator: PlayerViewControllerDelegate {
         navigationController.navigationBar.alpha = 1
     }
 }
-

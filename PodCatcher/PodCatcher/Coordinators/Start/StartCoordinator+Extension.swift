@@ -41,4 +41,3 @@ extension StartCoordinator: CreateAccountViewControllerDelegate {
         delegate?.transitionCoordinator(type: .tabbar, dataSource: dataSource)
     }
 }
-
