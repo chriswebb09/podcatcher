@@ -11,7 +11,6 @@ final class ControlsView: UIView {
         let slider = UISlider()
         slider.thumbTintColor = .white
         slider.maximumTrackTintColor = UIColor(red:1.00, green:0.71, blue:0.71, alpha:1.0)
-        
         let thumbImage = #imageLiteral(resourceName: "line-gray").scaleToSize(CGSize(width: 2, height: 20))
         slider.setThumbImage(thumbImage, for: .normal)
         slider.setThumbImage(thumbImage, for: .selected)
@@ -136,5 +135,4 @@ final class ControlsView: UIView {
         skipButtonsSharedLayout(button: backButton)
         backButton.leftAnchor.constraint(equalTo: playButton.leftAnchor, constant: UIScreen.main.bounds.width * -0.2).isActive = true
     }
-
 }

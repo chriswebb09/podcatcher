@@ -211,8 +211,6 @@ final class PlayerView: UIView {
         titleLabel.widthAnchor.constraint(equalTo: titleView.widthAnchor, multiplier: PlayerViewConstants.trackTitleLabelWidthMultiplier).isActive = true
     }
     
-    
-    
     private func setupPreferencesView(preferencesView: UIView) {
         addSubview(preferencesView)
         preferencesView.translatesAutoresizingMaskIntoConstraints = false
@@ -229,7 +227,6 @@ final class PlayerView: UIView {
         moreButton.rightAnchor.constraint(equalTo: preferencesView.rightAnchor, constant: UIScreen.main.bounds.width * PlayerViewConstants.artistInfoRightOffset).isActive = true
         moreButton.centerYAnchor.constraint(equalTo: preferencesView.centerYAnchor).isActive = true
     }
-    
     
     private func setup(albumView: UIView) {
         sharedLayout(view: albumView)
