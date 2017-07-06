@@ -20,10 +20,6 @@ class TabCoordinator: NavigationCoordinator {
     
     }
     
-    fileprivate func showMediaController(mediaCollectionController: MediaCollectionViewController) {
-        addChild(viewController: mediaCollectionController)
-    }
-    
     func addChild(viewController: UIViewController) {
         navigationController.viewControllers.append(viewController)
     }

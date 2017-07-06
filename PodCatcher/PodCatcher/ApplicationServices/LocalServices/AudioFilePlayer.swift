@@ -1,6 +1,10 @@
 import Foundation
 import AVFoundation
 
+enum PlayerState {
+    case playing, paused, stopped
+}
+
 var audioCache = NSCache<NSString, AVAsset>()
 
 final class AudioFilePlayer: NSObject {

@@ -50,7 +50,6 @@ extension SearchResultListViewController: PodcastCollectionViewProtocol {
         }
         topView.delegate = self
     }
-    
 }
 
 // MARK: - UIScrollViewDelegate
@@ -87,8 +86,6 @@ extension SearchResultListViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         state = .toPlayer
-        var caster = Caster()
-        caster.artwork = topView.podcastImageView.image
         delegate?.didSelectPodcastAt(at: indexPath.row, podcast: item, with: episodes)
         
     }
@@ -105,6 +102,7 @@ extension SearchResultListViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as PodcastResultCell
         DispatchQueue.main.async {
+            
             if let playTime = self.episodes[indexPath.row].stringDuration {
                 let model = PodcastResultCellViewModel(podcastTitle: self.episodes[indexPath.row].title, playtimeLabel: playTime)
                 cell.configureCell(model: model)

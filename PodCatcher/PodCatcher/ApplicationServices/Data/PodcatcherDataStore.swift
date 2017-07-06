@@ -5,9 +5,9 @@ class PodcatcherDataStore {
     
     var podCasters: [NSManagedObject] = []
     
-    func pullPodcastsFromUser(completion: @escaping ([Caster]?) -> Void) {
-        var lists = [Caster]()
-    }
+//    func pullPodcastsFromUser(completion: @escaping ([Caster]?) -> Void) {
+//        var lists = [Caster]()
+//    }
     
     func save(name: String) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
@@ -24,4 +24,12 @@ class PodcatcherDataStore {
             print("Could not save. \(error), \(error.userInfo)")
         }
     }
+}
+
+
+class PodCatcherUserDataStore: BaseDataStore {
+    
+    let store = SearchResultsFetcher()
+    var items = [PodcastSearchResult]()
+    
 }

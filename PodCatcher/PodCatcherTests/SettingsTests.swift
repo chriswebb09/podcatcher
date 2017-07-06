@@ -10,8 +10,6 @@ class SettingsTests: XCTestCase {
         super.setUp()
         let settingsViewModel = SettingsViewModel(firstSettingOptionText: "one", secondSettingOptionText: "two")
         settingsView = SettingsView(frame: UIScreen.main.bounds, model: settingsViewModel)
-        let dataSource = BaseMediaControllerDataSource(casters: [])
-        settingsViewController = SettingsViewController(settingsView: settingsView, dataSource: dataSource)
     }
     
     override func tearDown() {
@@ -22,8 +20,6 @@ class SettingsTests: XCTestCase {
     
     func testOptionOneTapped() {
         let testDelegate = SettingsTestDelegate()
-        settingsViewController.delegate = testDelegate
-        settingsViewController.settingOne(tapped: true)
         XCTAssertEqual(testDelegate.settingTapped, "One")
     }
     

@@ -10,14 +10,12 @@ final class PlayerViewController: BaseViewController {
     var playerView: PlayerView
     var playerState: PlayState
     var episode: Episodes!
-    var dataSource: PodcastListDataSource!
     var loadingPop = LoadingPopover()
     var bottomMenu = BottomMenu()
     var caster: CasterSearchResult
     var menuActive: MenuActive = .none
     var player: AudioFilePlayer?
     var index: Int
-    let store = PodcastDataStore()
     var testIndex: Int
     var user: PodCatcherUser?
     let downloadingIndicator = DownloaderIndicatorView()

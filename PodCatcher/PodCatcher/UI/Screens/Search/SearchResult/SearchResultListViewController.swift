@@ -4,8 +4,11 @@ class SearchResultListViewController: BaseCollectionViewController {
     
     var item: CasterSearchResult!
     var state: PodcasterControlState = .toCollection
+    
     var dataSource: BaseMediaControllerDataSource!
+    
     weak var delegate: PodcastListViewControllerDelegate?
+    
     var episodes = [Episodes]()
     var newItems = [[String : String]]()
     var menuActive: MenuActive = .none

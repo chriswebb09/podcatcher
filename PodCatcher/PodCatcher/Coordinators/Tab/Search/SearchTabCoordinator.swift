@@ -36,7 +36,6 @@ extension SearchTabCoordinator: SearchViewControllerDelegate {
     }
 
     func didSelect(at index: Int, with caster: PodcastSearchResult) {
-        print("DID SELECT")
         let resultsList = SearchResultListViewController(index: index)
         resultsList.delegate = self
         resultsList.dataSource = dataSource

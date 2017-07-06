@@ -3,22 +3,16 @@ import XCTest
 
 class MediaPlayerTests: XCTestCase {
     
-    var mediaPlayer: PCMediaPlayer!
-    
     override func setUp() {
         super.setUp()
-        mediaPlayer = PCMediaPlayer()
     }
     
     override func tearDown() {
-        mediaPlayer = nil
         super.tearDown()
     }
     
     func testMediaPlayerGetItems() {
-        mediaPlayer.getPlaylists { list in
-            XCTAssertNotNil(list)
-        }
+
     }
     
     func testConstructTimeString() {
