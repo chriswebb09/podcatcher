@@ -13,5 +13,3 @@ class BaseViewController: UIViewController {
         edgesForExtendedLayout = []
     }
 }
-
-
