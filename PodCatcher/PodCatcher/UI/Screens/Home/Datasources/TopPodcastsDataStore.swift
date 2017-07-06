@@ -47,3 +47,9 @@ final class TopPodcastsDataStore {
         }
     }
 }
+
+class PodCatcherUserDataStore: BaseDataStore {
+    
+    let store = SearchResultsFetcher()
+    var items = [PodcastSearchResult]()
+}

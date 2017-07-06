@@ -6,7 +6,6 @@ class StartCoordinator: NavigationCoordinator {
     weak var delegate: CoordinatorDelegate?
     var window: UIWindow!
     var dataSource = BaseMediaControllerDataSource()
-    var store = PodcatcherDataStore()
     var childViewControllers: [UIViewController] = []
     
     var navigationController: UINavigationController {
