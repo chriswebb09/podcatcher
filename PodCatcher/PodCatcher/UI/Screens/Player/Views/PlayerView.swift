@@ -16,7 +16,7 @@ final class PlayerView: UIView {
         }
     }
     
-  var backgroundView = UIView()
+    var backgroundView = UIView()
     
     // MARK: - UI Element Properties
     
@@ -69,7 +69,6 @@ final class PlayerView: UIView {
         return preferencesView
     }()
     
-    
     private var playtimeSliderView: UIView = {
         let playtimeSliderView = UIView()
         return playtimeSliderView
@@ -79,7 +78,6 @@ final class PlayerView: UIView {
         let slider = UISlider()
         slider.thumbTintColor = .white
         slider.maximumTrackTintColor = UIColor(red:1.00, green:0.71, blue:0.71, alpha:1.0)
-        
         let thumbImage = #imageLiteral(resourceName: "line-gray").scaleToSize(CGSize(width: 2, height: 20))
         slider.setThumbImage(thumbImage, for: .normal)
         slider.setThumbImage(thumbImage, for: .selected)
@@ -111,7 +109,7 @@ final class PlayerView: UIView {
         totalPlayTime.font = UIFont(name: "AvenirNext-Regular", size: 12)
         return totalPlayTime
     }()
-
+    
     private var controlsView: UIView = {
         let controls = UIView()
         controls.backgroundColor = .clear
@@ -171,8 +169,6 @@ final class PlayerView: UIView {
     
     func configure(with model: PlayerViewModel) {
         self.model = model
-       // playButton = controlsView.playButton
-      //  pauseButton = controlsView.pauseButton
         setupViews()
         backgroundColor = .mainColor
         pauseButton.alpha = 0
@@ -259,7 +255,7 @@ final class PlayerView: UIView {
         playtimeSliderView.heightAnchor.constraint(equalTo: controlsView.heightAnchor, multiplier: 0.08).isActive = true
         playtimeSliderView.centerYAnchor.constraint(equalTo: controlsView.centerYAnchor, constant: UIScreen.main.bounds.height * 0.05).isActive = true
     }
-
+    
     private func setup(playtimeSlider: UISlider) {
         playtimeSliderView.addSubview(playtimeSlider)
         playtimeSlider.translatesAutoresizingMaskIntoConstraints = false
@@ -393,11 +389,9 @@ final class PlayerView: UIView {
         delegate?.moreButton(tapped: true)
     }
     
-    
     @objc private func navigateBack() {
         delegate?.navigateBack(tapped: true)
     }
-    
     
     func setPauseButtonAlpha() {
         pauseButton.alpha = 1

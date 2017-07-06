@@ -149,7 +149,6 @@ extension PlayerViewController: MenuDelegate {
         if let urlString = caster.episodes[index].audioUrlString {
             let download = Download(url: urlString)
             download.delegate = self
-          //  store.getFile(download)
         }
         hidePopMenu()
     }
