@@ -44,7 +44,7 @@ final class PlayerView: UIView {
         title.numberOfLines = 0
         title.textAlignment = .center
         title.sizeToFit()
-        title.font = UIFont(name: "AvenirNext-Regular", size: 16)
+        title.font = UIFont(name: "AvenirNext-Regular", size: 18)
         return title
     }()
     
@@ -183,7 +183,7 @@ final class PlayerView: UIView {
         titleView.addSubview(titleLabel)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.centerXAnchor.constraint(equalTo: titleView.centerXAnchor).isActive = true
-        titleLabel.centerYAnchor.constraint(equalTo: titleView.centerYAnchor, constant: UIScreen.main.bounds.height * 0.03).isActive = true
+        titleLabel.centerYAnchor.constraint(equalTo: titleView.centerYAnchor, constant: UIScreen.main.bounds.height * 0.04).isActive = true
         titleLabel.heightAnchor.constraint(equalTo: titleView.heightAnchor, multiplier: PlayerViewConstants.trackTitleLabelHeightMultiplier).isActive = true
         titleLabel.widthAnchor.constraint(equalTo: titleView.widthAnchor, multiplier: PlayerViewConstants.trackTitleLabelWidthMultiplier).isActive = true
     }
@@ -251,8 +251,8 @@ final class PlayerView: UIView {
     private func setup(trackButton: UIButton) {
         controlsView.addSubview(trackButton)
         trackButton.translatesAutoresizingMaskIntoConstraints = false
-        trackButton.heightAnchor.constraint(equalTo: controlsView.heightAnchor, multiplier: 0.32).isActive = true
-        trackButton.widthAnchor.constraint(equalTo: controlsView.widthAnchor, multiplier: 0.18).isActive = true
+        trackButton.heightAnchor.constraint(equalTo: controlsView.heightAnchor, multiplier: 0.36).isActive = true
+        trackButton.widthAnchor.constraint(equalTo: controlsView.widthAnchor, multiplier: 0.22).isActive = true
         trackButton.bottomAnchor.constraint(equalTo: controlsView.centerYAnchor).isActive = true
         trackButton.centerXAnchor.constraint(equalTo: controlsView.centerXAnchor).isActive = true
     }
@@ -297,8 +297,6 @@ final class PlayerView: UIView {
     
     private func setupViews() {
         backgroundView.frame = frame
-     
-      //  CALayer.createGradientLayer(with: [UIColor.offMain.cgColor, UIColor.mainColor.cgColor, UIColor.semiOffMain.cgColor], layer:  backgroundView.layer, bounds: bounds)
         addSubview(backgroundView)
         layoutSubviews()
         setup(titleView: titleView)

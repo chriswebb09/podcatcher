@@ -1,10 +1,6 @@
 import UIKit
 import CoreData
 
-enum DataType {
-    case local, network
-}
-
 final class HomeCollectionDataSource: BaseMediaControllerDataSource {
     
     var dataType: DataType = .network

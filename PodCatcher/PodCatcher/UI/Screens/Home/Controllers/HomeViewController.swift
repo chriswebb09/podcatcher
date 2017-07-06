@@ -55,10 +55,11 @@ final class HomeViewController: BaseCollectionViewController {
         
         leftButtonItem = UIBarButtonItem(title: "Log Out", style: .done, target: self, action: #selector(logoutTapped))
         navigationItem.setLeftBarButton(leftButtonItem, animated: false)
-        
+        scrollView.decelerationRate = UIScrollViewDecelerationRateFast
         collectionViewConfiguration()
         collectionView.register(TopPodcastCell.self)
         collectionView.backgroundColor = .darkGray
+        
         DispatchQueue.main.async {
             self.collectionView.reloadData()
             self.view.bringSubview(toFront: self.collectionView)

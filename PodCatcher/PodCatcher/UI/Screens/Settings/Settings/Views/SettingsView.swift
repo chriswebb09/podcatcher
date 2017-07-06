@@ -3,6 +3,7 @@ import UIKit
 class SettingsView: UIView {
     
     weak var delegate: SettingsViewDelegate?
+    
     var model: SettingsViewModel!
     
     // MARK: - UI Element Properties

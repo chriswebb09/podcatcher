@@ -51,6 +51,7 @@
 		A71ADF941F0E06E800941A43 /* TrackViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71ADF931F0E06E800941A43 /* TrackViewModel.swift */; };
 		A71ADF961F0E0DC200941A43 /* PullFromDataBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71ADF951F0E0DC200941A43 /* PullFromDataBase.swift */; };
 		A71ADF981F0E152600941A43 /* PlayerBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71ADF971F0E152600941A43 /* PlayerBuilder.swift */; };
+		A71ADF9A1F0E1F3100941A43 /* DataType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71ADF991F0E1F3100941A43 /* DataType.swift */; };
 		A71B26F21EE5D24700613CF4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71B26F11EE5D24700613CF4 /* AppDelegate.swift */; };
 		A71B26FA1EE5D24700613CF4 /* PodCatcher.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A71B26F81EE5D24700613CF4 /* PodCatcher.xcdatamodeld */; };
 		A71B26FC1EE5D24700613CF4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A71B26FB1EE5D24700613CF4 /* Assets.xcassets */; };
@@ -316,6 +317,7 @@
 		A71ADF931F0E06E800941A43 /* TrackViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TrackViewModel.swift; path = Playlists/Views/TrackViewModel.swift; sourceTree = "<group>"; };
 		A71ADF951F0E0DC200941A43 /* PullFromDataBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PullFromDataBase.swift; sourceTree = "<group>"; };
 		A71ADF971F0E152600941A43 /* PlayerBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerBuilder.swift; sourceTree = "<group>"; };
+		A71ADF991F0E1F3100941A43 /* DataType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataType.swift; path = States/DataType.swift; sourceTree = "<group>"; };
 		A71B26EE1EE5D24700613CF4 /* PodCatcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PodCatcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A71B26F11EE5D24700613CF4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A71B26F91EE5D24700613CF4 /* PodCatcher.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PodCatcher.xcdatamodel; sourceTree = "<group>"; };
@@ -851,6 +853,7 @@
 			isa = PBXGroup;
 			children = (
 				A7252A8D1EFF2A240034EA93 /* ViewType.swift */,
+				A71ADF991F0E1F3100941A43 /* DataType.swift */,
 			);
 			name = States;
 			sourceTree = "<group>";
@@ -1924,6 +1927,7 @@
 				A723A5AD1EE936AF002E49BF /* ListTopView+Extension.swift in Sources */,
 				A7252A861EFF299E0034EA93 /* TagsView.swift in Sources */,
 				A7B1C0761F0AE43500A42E7D /* SettingsTabCoordinator.swift in Sources */,
+				A71ADF9A1F0E1F3100941A43 /* DataType.swift in Sources */,
 				A76752371F0D49F4007F1100 /* SplashView.swift in Sources */,
 				A723A5A91EE93116002E49BF /* PodcastListConstants.swift in Sources */,
 				A7F061501F0D690400946411 /* TestPlaylist+CoreDataClass.swift in Sources */,

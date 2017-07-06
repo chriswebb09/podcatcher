@@ -9,4 +9,3 @@ class HomeItemsFlowLayout: UICollectionViewFlowLayout {
         minimumLineSpacing = 40
     }
 }
-
