@@ -75,33 +75,60 @@ final class PlayerView: UIView {
         return playtimeSliderView
     }()
     
-    private var playtimeSlider: UISlider {
-        return controlsView.playtimeSlider
-    }
+    var playtimeSlider: UISlider = {
+        let slider = UISlider()
+        slider.thumbTintColor = .white
+        slider.maximumTrackTintColor = UIColor(red:1.00, green:0.71, blue:0.71, alpha:1.0)
+        
+        let thumbImage = #imageLiteral(resourceName: "line-gray").scaleToSize(CGSize(width: 2, height: 20))
+        slider.setThumbImage(thumbImage, for: .normal)
+        slider.setThumbImage(thumbImage, for: .selected)
+        slider.minimumValue = 0
+        slider.maximumValue = 100
+        slider.tintColor = .white
+        slider.isUserInteractionEnabled = true
+        return slider
+    }()
     
     private var playtimeView: UIView = {
         let playtimeView = UIView()
         return playtimeView
     }()
     
-    var currentPlayTimeLabel: UILabel {
-        return self.controlsView.currentPlayTimeLabel
-    }
+    var currentPlayTimeLabel: UILabel = {
+        let currentPlayTime = UILabel()
+        currentPlayTime.textAlignment = .left
+        currentPlayTime.textColor = .white
+        currentPlayTime.text = "0:00"
+        currentPlayTime.font = UIFont(name: "AvenirNext-Regular", size: 12)
+        return currentPlayTime
+    }()
     
-    private var totalPlayTimeLabel: UILabel {
-        return self.controlsView.totalPlayTimeLabel
-    }
-    
-    private var controlsView: ControlsView = {
-        let controls = ControlsView()
-        controls.configure()
+    var totalPlayTimeLabel: UILabel = {
+        let totalPlayTime = UILabel()
+        totalPlayTime.textAlignment = .right
+        totalPlayTime.textColor = .white
+        totalPlayTime.font = UIFont(name: "AvenirNext-Regular", size: 12)
+        return totalPlayTime
+    }()
+
+    private var controlsView: UIView = {
+        let controls = UIView()
         controls.backgroundColor = .clear
         return controls
     }()
     
-    private var playButton: UIButton!
+    private var playButton: UIButton = {
+        var playButton = UIButton()
+        playButton.setImage(#imageLiteral(resourceName: "bordered-white-play"), for: .normal)
+        return playButton
+    }()
     
-    private var pauseButton: UIButton!
+    private var pauseButton: UIButton = {
+        var pauseButton = UIButton()
+        pauseButton.setImage(#imageLiteral(resourceName: "white-bordered-pause"), for: .normal)
+        return pauseButton
+    }()
     
     private var skipButton: UIButton = {
         var skipButton = UIButton()
@@ -144,8 +171,8 @@ final class PlayerView: UIView {
     
     func configure(with model: PlayerViewModel) {
         self.model = model
-        playButton = controlsView.playButton
-        pauseButton = controlsView.pauseButton
+       // playButton = controlsView.playButton
+      //  pauseButton = controlsView.pauseButton
         setupViews()
         backgroundColor = .mainColor
         pauseButton.alpha = 0
