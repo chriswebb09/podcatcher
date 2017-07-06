@@ -33,10 +33,7 @@ final class TopPodcastsDataStore {
     }
     
     func fetchFromCore() {
-        guard let appDelegate =
-            UIApplication.shared.delegate as? AppDelegate else {
-                return
-        }
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         let managedContext = appDelegate.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "TopPodcast")
         do {
@@ -45,10 +42,4 @@ final class TopPodcastsDataStore {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
     }
-}
-
-class PodCatcherUserDataStore: BaseDataStore {
-    
-    let store = SearchResultsFetcher()
-    var items = [PodcastSearchResult]()
 }

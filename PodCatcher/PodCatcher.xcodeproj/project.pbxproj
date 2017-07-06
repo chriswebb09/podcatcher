@@ -47,6 +47,7 @@
 		A71A5BB21F01DE5F00254BE2 /* TrackCellConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71A5BB11F01DE5F00254BE2 /* TrackCellConstants.swift */; };
 		A71ADF8E1F0E017400941A43 /* TrackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71ADF8D1F0E017400941A43 /* TrackCell.swift */; };
 		A71ADF901F0E01F700941A43 /* PodcastDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71ADF8F1F0E01F700941A43 /* PodcastDataStore.swift */; };
+		A71ADF921F0E03B400941A43 /* PodcatcherUserDatastore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71ADF911F0E03B400941A43 /* PodcatcherUserDatastore.swift */; };
 		A71B26F21EE5D24700613CF4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71B26F11EE5D24700613CF4 /* AppDelegate.swift */; };
 		A71B26FA1EE5D24700613CF4 /* PodCatcher.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A71B26F81EE5D24700613CF4 /* PodCatcher.xcdatamodeld */; };
 		A71B26FC1EE5D24700613CF4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A71B26FB1EE5D24700613CF4 /* Assets.xcassets */; };
@@ -308,6 +309,7 @@
 		A71A5BB11F01DE5F00254BE2 /* TrackCellConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackCellConstants.swift; sourceTree = "<group>"; };
 		A71ADF8D1F0E017400941A43 /* TrackCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TrackCell.swift; path = Playlists/Views/TrackCell.swift; sourceTree = "<group>"; };
 		A71ADF8F1F0E01F700941A43 /* PodcastDataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PodcastDataStore.swift; path = Search/SearchResult/PodcastDataStore.swift; sourceTree = "<group>"; };
+		A71ADF911F0E03B400941A43 /* PodcatcherUserDatastore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PodcatcherUserDatastore.swift; path = Home/Datasources/PodcatcherUserDatastore.swift; sourceTree = "<group>"; };
 		A71B26EE1EE5D24700613CF4 /* PodCatcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PodCatcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A71B26F11EE5D24700613CF4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A71B26F91EE5D24700613CF4 /* PodCatcher.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PodCatcher.xcdatamodel; sourceTree = "<group>"; };
@@ -805,6 +807,7 @@
 				A77107421F0D4DE90042D2E4 /* HomeViewController.swift */,
 				A77107431F0D4DE90042D2E4 /* HomeViewController+Extension.swift */,
 				A7F37B6F1F0DF790001B5C8C /* TopPodcastsDataStore.swift */,
+				A71ADF911F0E03B400941A43 /* PodcatcherUserDatastore.swift */,
 			);
 			name = Home;
 			sourceTree = "<group>";
@@ -1942,6 +1945,7 @@
 				A771072F1F0D4BD20042D2E4 /* CreateAccountViewDelegate.swift in Sources */,
 				A771072E1F0D4BD20042D2E4 /* CreateAccountViewControllerDelegate.swift in Sources */,
 				A71640381EFFDAFE00895082 /* UserDefaults+Extension.swift in Sources */,
+				A71ADF921F0E03B400941A43 /* PodcatcherUserDatastore.swift in Sources */,
 				A723A5B71EE93ED9002E49BF /* LoginViewConstants.swift in Sources */,
 				A7B840CA1EECD7160049BB78 /* MainCoordinator.swift in Sources */,
 				A7EBA0B71EE680DF00FAAC9C /* BasePopView.swift in Sources */,
