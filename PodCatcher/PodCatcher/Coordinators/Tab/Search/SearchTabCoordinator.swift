@@ -57,6 +57,8 @@ extension SearchTabCoordinator: SearchViewControllerDelegate {
 extension SearchTabCoordinator: PodcastListViewControllerDelegate {
     
     func didSelectPodcastAt(at index: Int, podcast: CasterSearchResult, with episodes: [Episodes]) {
+       // let builder = PlayerBuilder()
+        //let playerViewController = builder.build(podcast: podcast, user: dataSource.user, delegate: self, index: index)
         let playerView = PlayerView()
         CALayer.createGradientLayer(with: [UIColor(red:0.94, green:0.31, blue:0.81, alpha:1.0).cgColor, UIColor(red:0.32, green:0.13, blue:0.70, alpha:1.0).cgColor], layer: playerView.backgroundView.layer, bounds: UIScreen.main.bounds)
         podcast.episodes = episodes

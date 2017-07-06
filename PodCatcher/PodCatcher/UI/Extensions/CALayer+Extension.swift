@@ -55,5 +55,4 @@ extension CALayer {
         masksToBounds = false;
         shadowPath = UIBezierPath(roundedRect:self.bounds, cornerRadius: viewRadius).cgPath
     }
-    
 }

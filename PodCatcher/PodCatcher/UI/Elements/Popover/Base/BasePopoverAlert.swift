@@ -24,5 +24,4 @@ class BasePopoverAlert: UIView {
     func configureContainer() {
         containerView.layer.opacity = 0
     }
-
 }
