@@ -76,6 +76,3 @@ final class HomeViewController: BaseCollectionViewController {
         }
     }
 }
-
-
-
