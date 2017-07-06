@@ -10,6 +10,7 @@ final class TopPodcastsDataStore {
             return
         }
         guard let imageUrlString = podcastItem.podcastArtUrlString, let imageUrl = URL(string: imageUrlString), let title = podcastItem.podcastTitle, let feedUrlString = podcastItem.feedUrl else { return }
+        
         UIImage.downloadImage(url: imageUrl) { image in
             
             let podcastArtImageData = UIImageJPEGRepresentation(image, 1) as! NSData
@@ -36,10 +37,8 @@ final class TopPodcastsDataStore {
             UIApplication.shared.delegate as? AppDelegate else {
                 return
         }
-        let managedContext =
-            appDelegate.persistentContainer.viewContext
-        let fetchRequest =
-            NSFetchRequest<NSManagedObject>(entityName: "TopPodcast")
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "TopPodcast")
         do {
             podcasts = try managedContext.fetch(fetchRequest)
         } catch let error as NSError {

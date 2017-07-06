@@ -72,7 +72,6 @@ final class HomeViewController: BaseCollectionViewController {
             DispatchQueue.main.async {
                 self.topView.podcastImageView.image = self.dataSource.topItemImage
             }
-            
         }
     }
 }
