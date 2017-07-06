@@ -80,5 +80,4 @@ class SearchResultsFetcher {
         format(data: data).map { results.append($0.value) }
         return results
     }
-
 }

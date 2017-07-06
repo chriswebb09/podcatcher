@@ -14,11 +14,13 @@ extension SearchViewController: UISearchResultsUpdating {
     }
     
     func searchControllerConfigure() {
+        
         searchController.delegate = self
         searchBar = searchController.searchBar
         searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
         searchBar.tintColor = .black
+        
         let textFieldInsideSearchBar = searchBar.value(forKey: "searchField") as? UITextField
         textFieldInsideSearchBar?.textColor = .white
         
@@ -60,7 +62,6 @@ extension SearchViewController: UISearchControllerDelegate {
     
     func searchBarHasInput() {
         dataSource.store.searchForTracks { [weak self] playlist, error in
-            dump(playlist)
             if let error = error {
                 print(error.localizedDescription)
                 return
@@ -92,13 +93,12 @@ extension SearchViewController: UISearchBarDelegate {
             tableView.reloadData()
             navController.navigationBar.topItem?.title = "PodCatch"
             return
-        } else if text != "" {
-            searchBarActive = true
-            dataSource.store.setSearch(term: text)
-            NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(searchBarHasInput), object: nil)
-            perform(#selector(searchBarHasInput), with: nil, afterDelay: 0.35)
-            navController.navigationBar.topItem?.title = "Search: \(text)"
         }
+        searchBarActive = true
+        dataSource.store.setSearch(term: text)
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(searchBarHasInput), object: nil)
+        perform(#selector(searchBarHasInput), with: nil, afterDelay: 0.35)
+        navController.navigationBar.topItem?.title = "Search: \(text)"
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {

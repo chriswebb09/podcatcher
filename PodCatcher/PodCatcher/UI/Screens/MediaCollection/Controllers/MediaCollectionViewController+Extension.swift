@@ -22,12 +22,6 @@ extension MediaCollectionViewController: UIScrollViewDelegate {
         hideLoadingView(loadingPop: loadingPop)
         if offset.y > 0 {
             hideSearchBar()
-//            switch sideMenuPop.state {
-//            case .active:
-//                hideMenu()
-//            default:
-//                break
-//            }
         }
     }
 }

@@ -28,6 +28,7 @@ class SearchViewController: BaseTableViewController {
             searchBar.returnKeyType = .done
         }
     }
+    
     var searchController = UISearchController(searchResultsController: nil) {
         didSet {
             searchController.view.frame = CGRect.zero

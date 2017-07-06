@@ -70,10 +70,8 @@ extension HomeCollectionDataSource:  UICollectionViewDataSource {
         }
     }
     
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as TopPodcastCell
-        print(indexPath.row)
         switch dataType {
         case .local:
             if indexPath.row == 0, let imageData = self.topStore.podcasts[indexPath.row].value(forKey: "podcastArt") as? Data, let image = UIImage(data: imageData) {
@@ -84,9 +82,7 @@ extension HomeCollectionDataSource:  UICollectionViewDataSource {
                 reserveItems.append(items[indexPath.row])
             }
         }
-        let rowTime: Double = 0
-        cell.layer.cornerRadius = 3
-        setCell(indexPath: indexPath, cell: cell, rowTime: rowTime)
+        setCell(indexPath: indexPath, cell: cell, rowTime: 0)
         return cell
     }
 }

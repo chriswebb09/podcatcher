@@ -49,6 +49,7 @@ class PullData {
             let genres = value?["genres"] as? NSDictionary
             let user = PodCatcherUser(username: username, emailAddress: email)
             let keys = genres?.allKeys as! [String]
+            
             for key in keys {
                 guard let genre = genres?[key] else { return }
                 let data = genre as! NSDictionary
@@ -56,8 +57,10 @@ class PullData {
                     print(n.value)
                 }
             }
+            
             user.customGenres = keys
             completion(user)
+            
         }) { error in
             print(error.localizedDescription)
         }

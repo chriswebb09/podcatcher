@@ -63,31 +63,37 @@ class SearchResultsDataStore {
     
     func pullFeedTopPodcasts(competion: @escaping (([TopItem]?, Error?) -> Void)) {
         var items = [TopItem]()
+        
         RSSFeedAPIClient.getTopPodcasts { rssData, error in
+            
             if let error = error {
                 competion(nil, error)
             }
+            
             guard let rssData = rssData else { return }
+            
             for data in rssData {
+                
                 let link = data["link"]
                 let pubDate = data["pubDate"]
                 let title = data["title"]
                 let category = data["category"]
+                
                 if let itemLink = link, let id = self.extractIdFromLink(link: itemLink), let date = pubDate, let title = title, let category = category {
                     var itemCategory = "N/A"
                     if category != "podcast" {
                         itemCategory = category
                     }
-                    let index = id.index(id.startIndex, offsetBy: 2)
                     
+                    let index = id.index(id.startIndex, offsetBy: 2)
                     let item = TopItem(title: title, id: id.substring(from: index), pubDate: date, category: itemCategory, itunesLinkString: itemLink)
                     items.append(item)
                 }
             }
+            
             DispatchQueue.main.async {
                 competion(items, nil)
             }
-            
         }
     }
     
@@ -96,12 +102,12 @@ class SearchResultsDataStore {
         guard let regExp = try? NSRegularExpression(pattern: pattern, options: .caseInsensitive) else {
             return nil
         }
-        let nsLink = link as NSString
+        let nsString = link as NSString
         let options = NSRegularExpression.MatchingOptions(rawValue: 0)
-        let range = NSRange(location: 0, length: nsLink.length)
+        let range = NSRange(location: 0, length: nsString.length)
         let matches = regExp.matches(in: link as String, options:options, range:range)
         if let firstMatch = matches.first {
-            return nsLink.substring(with: firstMatch.range)
+            return nsString.substring(with: firstMatch.range)
         }
         return nil
     }

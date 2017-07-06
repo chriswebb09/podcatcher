@@ -26,9 +26,9 @@ class SearchResultListViewController: BaseCollectionViewController {
     }
     
     init(index: Int) {
-        self.viewShown = .collection
+        viewShown = .collection
         super.init(nibName: nil, bundle: nil)
-        self.topView.delegate = self
+        topView.delegate = self
     }
     
     required init?(coder aDecoder: NSCoder) {

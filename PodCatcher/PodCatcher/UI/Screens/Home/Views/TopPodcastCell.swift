@@ -59,6 +59,7 @@ final internal class TopPodcastCell: UICollectionViewCell {
         setup(albumArtView: albumArtView)
         setup(titleView: titleView)
         setup(trackNameLabel: trackNameLabel)
+        layer.cornerRadius = 4
     }
     
     private func setup(albumArtView: UIImageView) {

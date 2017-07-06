@@ -44,6 +44,7 @@ class HomeViewController: BaseCollectionViewController {
         let topFrameHeight = UIScreen.main.bounds.height / 2
         let topFrameWidth = UIScreen.main.bounds.width
         let topFrame = CGRect(x: 0, y: 0, width: topFrameWidth, height: topFrameHeight / 1.2)
+        
         topView.frame = topFrame
         view.addSubview(topView)
         collectionView.backgroundColor = .white
