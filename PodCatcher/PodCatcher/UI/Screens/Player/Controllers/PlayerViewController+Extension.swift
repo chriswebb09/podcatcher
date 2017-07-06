@@ -173,7 +173,6 @@ extension PlayerViewController: MenuDelegate {
     }
 }
 
-
 extension PlayerViewController: DownloadDelegate {
     
     func downloadProgressUpdated(for progress: Float) {

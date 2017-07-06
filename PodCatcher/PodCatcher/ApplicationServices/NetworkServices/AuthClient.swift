@@ -1,4 +1,13 @@
 import Firebase
+import Security
+
+enum LoginInError: Error {
+    case credentials, network(Error), unknown(URLResponse?)
+}
+
+enum RegistrationError: Error {
+    case email, network(Error), unknown(URLResponse?)
+}
 
 class AuthClient {
     
@@ -21,3 +30,6 @@ class AuthClient {
         }
     }
 }
+
+
+

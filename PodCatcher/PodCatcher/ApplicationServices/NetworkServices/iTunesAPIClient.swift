@@ -4,11 +4,11 @@ typealias DataTaskCompletionHandler = (Data?, URLResponse?, Error?) -> Void
 
 final class iTunesAPIClient: NSObject {
     
-    var activeDownloads: [String: Download]? = [String: Download]()
+    var activeDownloads: [String: Download] = [String: Download]()
     
     weak var downloadsSession : URLSession? {
         get {
-            let config = URLSessionConfiguration.background(withIdentifier: "background")
+            let config = URLSessionConfiguration.background(withIdentifier: "backgroundSession")
             weak var queue = OperationQueue()
             return URLSession(configuration: config, delegate: self, delegateQueue: queue)
         }
@@ -58,7 +58,7 @@ extension iTunesAPIClient: URLSessionDelegate {
         if let download = download,
             let urlString = download.url,
             let url = URL(string: urlString) {
-            activeDownloads?[urlString] = download
+            activeDownloads[urlString] = download
             download.downloadTask = downloadsSession?.downloadTask(with: url)
             download.downloadTask?.resume()
         }
@@ -66,7 +66,7 @@ extension iTunesAPIClient: URLSessionDelegate {
     
     func startDownload(_ download: Download?) {
         if let download = download, let url = download.url {
-            activeDownloads?[url] = download
+            activeDownloads[url] = download
             if let url = download.url {
                 if URL(string: url) != nil {
                     downloadTrackPreview(for: download)
@@ -75,20 +75,57 @@ extension iTunesAPIClient: URLSessionDelegate {
         }
     }
     
+    func pauseDownload(_ download: Download?) {
+        if let download = download, let url = download.url {
+            guard let download = activeDownloads[url] else { return }
+            //            if download.isDownloading {
+            //                download.task?.cancel(byProducingResumeData: { data in
+            //                    download.resumeData = data
+            //                })
+            //                download.isDownloading = false
+            //            }
+        }
+    }
+    
+    func cancelDownload(_ download: Download?) {
+        if let download = download, let url = download.url {
+            //            if let download = activeDownloads[track.previewURL] {
+            //                download.task?.cancel()
+            //                activeDownloads[track.previewURL] = nil
+            //            }
+        }
+    }
+    
+    func resumeDownload(_ download: Download?) {
+        if let download = download, let url = download.url {
+            guard let download = activeDownloads[url] else { return }
+            //            if let resumeData = download.resumeData {
+            //                download.task = downloadsSession.downloadTask(withResumeData: resumeData)
+            //            } else {
+            //                download.task = downloadsSession.downloadTask(with: download.track.previewURL)
+            //            }
+            //            download.task!.resume()
+            //            download.isDownloading = true
+        }
+    }
+    
     internal func urlSessionDidFinishEvents(forBackgroundURLSession session: URLSession) {
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
             let completionHandler = appDelegate.backgroundSessionCompletionHandler {
             appDelegate.backgroundSessionCompletionHandler = nil
             DispatchQueue.main.async {
+                print("done")
                 completionHandler()
             }
         }
     }
     
     internal func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64,totalBytesExpectedToWrite: Int64) {
-        if let downloadUrl = downloadTask.originalRequest?.url?.absoluteString,
-            let download = activeDownloads?[downloadUrl] {
+        if let downloadUrl = downloadTask.originalRequest?.url?.absoluteString, let download = activeDownloads[downloadUrl] {
             download.progress = Float(totalBytesWritten) / Float(totalBytesExpectedToWrite)
+            if download.progress == 1 {
+                activeDownloads[downloadUrl] = nil
+            }
         }
     }
 }
@@ -99,9 +136,9 @@ extension iTunesAPIClient: URLSessionDownloadDelegate {
         if let originalURL = downloadTask.originalRequest?.url?.absoluteString {
             let destinationURL = LocalStorageManager.localFilePathForUrl(originalURL)
             let fileManager = FileManager.default
-            
             do {
                 if let destinationURL = destinationURL {
+                    print(destinationURL)
                     try fileManager.copyItem(at: location, to: destinationURL)
                 }
             } catch let error {
@@ -109,5 +146,4 @@ extension iTunesAPIClient: URLSessionDownloadDelegate {
             }
         }
     }
-    
 }

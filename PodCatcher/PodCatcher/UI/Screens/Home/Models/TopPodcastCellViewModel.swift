@@ -3,10 +3,10 @@ import UIKit
 struct TopPodcastCellViewModel {
     
     var trackName: String
-    var albumImageUrl: URL
+    var podcastImage: UIImage
     
-    init(trackName: String, albumImageUrl: URL) {
+    init(trackName: String, podcastImage: UIImage) {
         self.trackName = trackName
-        self.albumImageUrl = albumImageUrl
+        self.podcastImage = podcastImage
     }
 }

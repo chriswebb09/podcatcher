@@ -26,10 +26,20 @@
         <attribute name="userID" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="testPlaylists" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TestPlaylist" inverseName="testPlaylist" inverseEntity="TestPlaylist" syncable="YES"/>
     </entity>
+    <entity name="TopPodcast" representedClassName="TopPodcast" syncable="YES">
+        <attribute name="itunesId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="ituneUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="numberOfEpisodes" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="podcastArt" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="podcastArtist" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="podcastFeedUrlString" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="podcastTitle" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <elements>
         <element name="CasterItems" positionX="3130" positionY="113" width="128" height="180"/>
         <element name="PodCaster" positionX="2880" positionY="171" width="128" height="120"/>
         <element name="TestPlaylist" positionX="3112" positionY="369" width="128" height="73"/>
         <element name="TestPlaylists" positionX="2898" positionY="378" width="128" height="73"/>
+        <element name="TopPodcast" positionX="3006" positionY="261" width="128" height="150"/>
     </elements>
 </model>

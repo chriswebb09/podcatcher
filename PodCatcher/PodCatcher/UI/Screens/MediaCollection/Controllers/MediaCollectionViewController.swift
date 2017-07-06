@@ -62,10 +62,8 @@ class MediaCollectionViewController: BaseCollectionViewController {
         self.dataSource = mediaDataSource
         viewShown = self.dataSource.viewShown
         super.init(nibName: nil, bundle: nil)
-        sideMenuPop = SideMenuPopover()
         searchController.defaultConfiguration()
         definesPresentationContext = false
-        sideMenuPop.popView.delegate = self
         searchBar.delegate = self
         searchController.searchBar.delegate = self
         if dataSource.user != nil {

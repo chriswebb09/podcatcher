@@ -3,6 +3,7 @@ import UIKit
 class PlaylistsViewController: BaseTableViewController {
     
     weak var delegate: PlaylistsViewControllerDelegate?
+    
     var dataSource = PlaylistViewControllerDataSource()
     var playlistDataStore = PlaylistsDataStore()
     
@@ -10,7 +11,7 @@ class PlaylistsViewController: BaseTableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.entryPop = EntryPopover()
+        entryPop = EntryPopover()
         title = "Playlists"
         entryPop.delegate = self
         tableView.dataSource = dataSource

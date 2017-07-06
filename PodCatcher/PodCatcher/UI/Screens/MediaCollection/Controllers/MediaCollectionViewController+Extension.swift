@@ -22,12 +22,12 @@ extension MediaCollectionViewController: UIScrollViewDelegate {
         hideLoadingView(loadingPop: loadingPop)
         if offset.y > 0 {
             hideSearchBar()
-            switch sideMenuPop.state {
-            case .active:
-                hideMenu()
-            default:
-                break
-            }
+//            switch sideMenuPop.state {
+//            case .active:
+//                hideMenu()
+//            default:
+//                break
+//            }
         }
     }
 }
@@ -182,7 +182,6 @@ extension MediaCollectionViewController: UISearchBarDelegate {
     
     func popBottomMenu(popped: Bool) {
         hideSearchBar()
-        sideMenuPop.setupPop()
         showMenu()
     }
     
@@ -221,18 +220,3 @@ extension MediaCollectionViewController: UISearchBarDelegate {
     }
 }
 
-extension MediaCollectionViewController: SideMenuDelegate {
-    
-    func optionOne(tapped: Bool) {
-        print(tapped)
-        delegate?.logout(tapped: true)
-    }
-    
-    func optionTwo(tapped: Bool) {
-        print(tapped)
-    }
-    
-    func optionThree(tapped: Bool) {
-        print(tapped)
-    }
-}

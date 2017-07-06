@@ -15,7 +15,7 @@ class BaseDataStore: NSObject {
             switch response {
             case .success(let data):
                 let resultsData = data["results"] as! [[String: Any]]
-                let results = ResultsParser.parse(resultsData: resultsData)
+                let results = SearchResultsFetcher.parse(resultsData: resultsData)
                 completion(results, nil)
             case .failed(let error):
                 completion(nil, error)
@@ -28,7 +28,7 @@ class BaseDataStore: NSObject {
             switch response {
             case .success(let data):
                 let resultsData = data["results"] as! [[String: Any]]
-                let results = ResultsParser.parse(resultsData: resultsData)
+                let results = SearchResultsFetcher.parse(resultsData: resultsData)
                 completion(results, nil)
             case .failed(let error):
                 completion(nil, error)

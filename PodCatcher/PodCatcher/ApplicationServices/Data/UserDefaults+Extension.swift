@@ -11,4 +11,14 @@ extension UserDefaults {
         }
         return true
     }
+    
+    static func loadOnAuth() -> Bool  {
+        if let lastUpdated = UserDefaults.standard.object(forKey: "topItems") as? Date {
+            if lastUpdated > Date(timeIntervalSinceNow: -86400) {
+                return true
+            }
+        }
+        return false
+    }
 }
+

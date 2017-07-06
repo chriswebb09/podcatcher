@@ -38,6 +38,26 @@ extension UIImage {
         task.resume()
     }
     
+    
+    static func downloadImage(url: URL, completionHandler: @escaping (UIImage) -> Void) {
+        if let cachedImage = imageCache.object(forKey: url.absoluteString as NSString) {
+            completionHandler(cachedImage)
+            return
+        }
+        URLSession(configuration: .ephemeral).dataTask(with: URLRequest(url: url)) { data, response, error in
+            if error != nil {
+                print(error?.localizedDescription ?? "Unknown error")
+            }
+            DispatchQueue.main.async {
+                if let data = data, let image = UIImage(data: data) {
+                    imageCache.setObject(image, forKey: url.absoluteString as NSString)
+                    completionHandler(image)
+                }
+            }
+            }.resume()
+    }
+
+    
     static func rotate(image: UIImage, withRotation radians: CGFloat) -> UIImage? {
         
         guard let cgImage = image.cgImage else { return nil }

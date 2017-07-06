@@ -17,8 +17,21 @@ extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         delegate?.didSelect(at: indexPath.row, with: dataSource.items[indexPath.row])
     }
+    
+    func logoutTapped() {
+        delegate?.logout(tapped: true)
+    }
 }
 
 extension HomeViewController: UIScrollViewDelegate {
     
+    func collectionViewConfiguration() {
+        setup(view: view, newLayout: HomeItemsFlowLayout())
+        collectionView.delegate = self
+        collectionView.dataSource = dataSource
+        collectionView.isPagingEnabled = true
+        collectionView.isScrollEnabled = true
+        collectionView.decelerationRate = UIScrollViewDecelerationRateFast
+        collectionView.backgroundColor = .clear
+    }
 }

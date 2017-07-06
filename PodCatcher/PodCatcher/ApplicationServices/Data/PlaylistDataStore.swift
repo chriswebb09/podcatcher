@@ -4,11 +4,13 @@ import CoreData
 class PlaylistsDataStore {
     
     var playlists: [NSManagedObject] = []
-    
+
+
     func save(name: String) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             return
         }
+        
         let managedContext = appDelegate.persistentContainer.viewContext
         let entity = NSEntityDescription.entity(forEntityName: "TestPlaylist", in: managedContext)!
         let playlist = NSManagedObject(entity: entity, insertInto: managedContext)
@@ -37,3 +39,5 @@ class PlaylistsDataStore {
         }
     }
 }
+
+

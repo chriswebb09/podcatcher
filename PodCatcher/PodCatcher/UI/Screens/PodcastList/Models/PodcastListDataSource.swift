@@ -34,7 +34,7 @@ extension PodcastListDataSource: UICollectionViewDataSource {
 class PodcastDataStore {
     
     let client = iTunesAPIClient()
-    
+
     func getFile(_ download: Download) {
         client.startDownload(download)
     }

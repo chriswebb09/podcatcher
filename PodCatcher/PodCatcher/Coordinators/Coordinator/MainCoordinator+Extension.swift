@@ -19,34 +19,44 @@ extension MainCoordinator: CoordinatorDelegate {
             self.appCoordinator.delegate = self
             
         case .tabbar:
+            
             let tabbarController = TabBarController()
             self.dataSource = dataSource
+            
             if let user = dataSource?.user {
                 user.customGenres = ["Test one", "test two"]
             }
-            tabbarController.dataSource = self.dataSource
             
+            var getData = false
+            
+            tabbarController.dataSource = self.dataSource
             let tabbBarCoordinator = TabBarCoordinator(tabBarController: tabbarController, window: window)
             guard let dataSource = dataSource else { return }
             let homeViewController = HomeViewController(index: 0, dataSource: dataSource)
+            getData = UserDefaults.loadOnAuth()
             
-            homeViewController.dataSource.store.pullFeedTopPodcasts { data, error in
-                guard let data = data else { return }
-                for item in data {
-                    homeViewController.dataSource.lookup = item.id
-                    homeViewController.dataSource.fetcher.searchForTracksFromLookup { result in
-                        guard let result = result.0 else { return }
-                        DispatchQueue.main.async {
-                           
-                            homeViewController.dataSource.reserveItems.append(contentsOf: result)
-                            homeViewController.dataSource.items.append(contentsOf: result)
-                            homeViewController.collectionView.reloadData()
-                            guard let urlString = homeViewController.dataSource.reserveItems[homeViewController.dataSource.topViewItemIndex].podcastArtUrlString else { return }
-                            guard let imageUrl = URL(string: urlString) else { return }
-                            homeViewController.topView.podcastImageView.downloadImage(url: imageUrl)
+            if getData == true || UserDefaults.loadDefaultOnFirstLaunch() == true {
+                homeViewController.dataSource.store.pullFeedTopPodcasts { data, error in
+                    UserDefaults.standard.set(Date(), forKey: "topItems")
+                    guard let data = data else { return }
+                    for item in data {
+                        homeViewController.dataSource.lookup = item.id
+                        homeViewController.dataSource.fetcher.searchForTracksFromLookup { result in
+                            guard let result = result.0 else { return }
+                            DispatchQueue.main.async {
+                                homeViewController.dataSource.reserveItems.append(contentsOf: result)
+                                homeViewController.dataSource.items.append(contentsOf: result)
+                                homeViewController.collectionView.reloadData()
+                                guard let urlString = homeViewController.dataSource.reserveItems[homeViewController.dataSource.topViewItemIndex].podcastArtUrlString else { return }
+                                guard let imageUrl = URL(string: urlString) else { return }
+                                homeViewController.topView.podcastImageView.downloadImage(url: imageUrl)
+                            }
+                            result.map { homeViewController.dataSource.topStore.save(podcastItem: $0) }
                         }
                     }
                 }
+            } else {
+                homeViewController.dataSource.dataType = .local
             }
             
             let homeTab = UINavigationController(rootViewController: homeViewController)

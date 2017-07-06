@@ -6,11 +6,11 @@ final internal class TopPodcastCell: UICollectionViewCell {
         didSet {
             guard let viewModel = viewModel else { return }
             trackNameLabel.text = viewModel.trackName
-            albumArtView.downloadImage(url: viewModel.albumImageUrl)
+            albumArtView.image = viewModel.podcastImage
         }
     }
     
-    private var albumArtView: UIImageView = {
+    var albumArtView: UIImageView = {
         var album = UIImageView()
         return album
     }()
@@ -22,7 +22,7 @@ final internal class TopPodcastCell: UICollectionViewCell {
         return titleView
     }()
     
-    private var trackNameLabel: UILabel = {
+    var trackNameLabel: UILabel = {
         var trackName = UILabel()
         trackName.font = UIFont.systemFont(ofSize: 12, weight: UIFontWeightMedium)
         trackName.textAlignment = .center
