@@ -1,6 +1,6 @@
 import UIKit
 
-class PodcastCell: UICollectionViewCell {
+final class PodcastCell: UICollectionViewCell {
     
     // MARK: - UI Properties
     

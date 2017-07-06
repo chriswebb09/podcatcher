@@ -22,7 +22,6 @@ class TrackItemsFlowLayout: UICollectionViewFlowLayout {
     
 }
 
-
 class MediaCollectionDataSource: BaseMediaControllerDataSource {
     
     let store = SearchResultsFetcher()

@@ -1,6 +1,6 @@
 import UIKit
 
-class HomeViewController: BaseCollectionViewController {
+final class HomeViewController: BaseCollectionViewController {
     
     var scrollView: UIScrollView
     
@@ -41,6 +41,7 @@ class HomeViewController: BaseCollectionViewController {
         super.viewDidLoad()
         emptyView.alpha = 0
         title = "PodCatch"
+        
         let topFrameHeight = UIScreen.main.bounds.height / 2
         let topFrameWidth = UIScreen.main.bounds.width
         let topFrame = CGRect(x: 0, y: 0, width: topFrameWidth, height: topFrameHeight / 1.2)

@@ -1,6 +1,6 @@
 import UIKit
 
-class SearchTabCoordinator: NavigationCoordinator {
+final class SearchTabCoordinator: NavigationCoordinator {
     
     weak var delegate: CoordinatorDelegate?
     var type: CoordinatorType = .tabbar

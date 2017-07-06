@@ -1,6 +1,6 @@
 import UIKit
 
-class PlaylistCell: UITableViewCell {
+final class PlaylistCell: UITableViewCell {
     
     static let reuseIdentifier = "PlaylistCell"
     

@@ -1,6 +1,6 @@
 import UIKit
 
-class TabCoordinator: NavigationCoordinator {
+final class TabCoordinator: NavigationCoordinator {
     
     var type: CoordinatorType = .tabbar
     weak var delegate: CoordinatorDelegate?

@@ -1,6 +1,6 @@
 import UIKit
 
-class HomeTabCoordinator: NavigationCoordinator {
+final class HomeTabCoordinator: NavigationCoordinator {
     
     weak var delegate: CoordinatorDelegate?
     var type: CoordinatorType = .tabbar

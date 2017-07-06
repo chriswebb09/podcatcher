@@ -1,6 +1,6 @@
 import UIKit
 
-class ListTopView: UIView {
+final class ListTopView: UIView {
     
     weak var delegate: TopViewDelegate?
     
@@ -99,49 +99,5 @@ class ListTopView: UIView {
         tagsView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         tagsView.bottomAnchor.constraint(equalTo: preferencesView.topAnchor).isActive = true
         tagsView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: PodcastListTopViewConstants.tagsViewHeightMultiplier).isActive = true
-    }
-}
-
-import UIKit
-
-class PreferencesView: UIView {
-    
-    weak var delegate: PreferencesViewDelegate?
-    
-    // MARK: - UI Properties
-    
-    var moreMenuButton: UIButton = {
-        var moreMenuButton = UIButton()
-        moreMenuButton.setImage(#imageLiteral(resourceName: "more-button-white"), for: .normal)
-        return moreMenuButton
-    }()
-    
-    // MARK: - Configuration Methods
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        setupConstraints()
-        moreMenuButton.addTarget(self, action: #selector(moreButton(tapped:)), for: .touchUpInside)
-        backgroundColor = .lightGray
-    }
-    
-    func setupConstraints() {
-        setup(moreButton: moreMenuButton)
-    }
-    
-    func setup(moreButton: UIButton) {
-        addSubview(moreButton)
-        moreButton.translatesAutoresizingMaskIntoConstraints = false
-        moreButton.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        moreButton.heightAnchor.constraint(equalTo: heightAnchor, multiplier: PreferencesViewConstants.tagButtonHeightMultiplier).isActive = true
-        moreButton.rightAnchor.constraint(equalTo: rightAnchor, constant: PreferencesViewConstants.moreButtonRightOffset).isActive = true
-    }
-    func moreButton(tapped: Bool) {
-        delegate?.moreButton(tapped: tapped)
-    }
-    
-    func addTagButton(tapped: Bool) {
-        print("tag tapped")
-        delegate?.addTagButton(tapped: tapped)
     }
 }

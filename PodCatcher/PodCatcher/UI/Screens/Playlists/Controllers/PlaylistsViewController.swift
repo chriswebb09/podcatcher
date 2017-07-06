@@ -1,6 +1,6 @@
 import UIKit
 
-class PlaylistsViewController: BaseTableViewController {
+final class PlaylistsViewController: BaseTableViewController {
     
     weak var delegate: PlaylistsViewControllerDelegate?
     

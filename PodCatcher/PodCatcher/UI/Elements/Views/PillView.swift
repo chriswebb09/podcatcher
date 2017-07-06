@@ -1,6 +1,6 @@
 import UIKit
 
-class PillView: UIView {
+final class PillView: UIView {
     
     var tagLabel: UILabel = {
         var tagLabel = UILabel()

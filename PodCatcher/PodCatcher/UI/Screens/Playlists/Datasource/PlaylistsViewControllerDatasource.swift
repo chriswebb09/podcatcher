@@ -1,6 +1,6 @@
 import UIKit
 
-class PlaylistViewControllerDataSource: NSObject {
+final class PlaylistViewControllerDataSource: NSObject {
     var playlistDataStore = PlaylistsDataStore()
 }
 
