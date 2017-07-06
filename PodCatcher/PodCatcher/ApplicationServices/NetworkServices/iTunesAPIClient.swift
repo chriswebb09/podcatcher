@@ -78,35 +78,21 @@ extension iTunesAPIClient: URLSessionDelegate {
     func pauseDownload(_ download: Download?) {
         if let download = download, let url = download.url {
             guard let download = activeDownloads[url] else { return }
-            //            if download.isDownloading {
-            //                download.task?.cancel(byProducingResumeData: { data in
-            //                    download.resumeData = data
-            //                })
-            //                download.isDownloading = false
-            //            }
+         
         }
     }
     
     func cancelDownload(_ download: Download?) {
         if let download = download, let url = download.url {
-            //            if let download = activeDownloads[track.previewURL] {
-            //                download.task?.cancel()
-            //                activeDownloads[track.previewURL] = nil
-            //            }
+         
         }
     }
     
     func resumeDownload(_ download: Download?) {
         if let download = download, let url = download.url {
             guard let download = activeDownloads[url] else { return }
-            //            if let resumeData = download.resumeData {
-            //                download.task = downloadsSession.downloadTask(withResumeData: resumeData)
-            //            } else {
-            //                download.task = downloadsSession.downloadTask(with: download.track.previewURL)
-            //            }
-            //            download.task!.resume()
-            //            download.isDownloading = true
         }
+
     }
     
     internal func urlSessionDidFinishEvents(forBackgroundURLSession session: URLSession) {
