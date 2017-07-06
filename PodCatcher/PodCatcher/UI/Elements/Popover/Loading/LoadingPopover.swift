@@ -4,7 +4,6 @@ class LoadingHUD: UIView {
     
     var animating: Bool {
         guard let ball = self.loadingView.ball else { return false }
-        // guard let ball == self.popView.ball else { return false }
         return ball.isAnimating
     }
     
@@ -28,8 +27,6 @@ class LoadingHUD: UIView {
         view.bringSubview(toFront: loadingView)
         let ball = BallIndicatorView(frame: view.frame)
         loadingView.startAnimating(ball: ball)
-
-        
     }
     
     func hideFrom(_ view: UIView) {
@@ -45,7 +42,6 @@ final class LoadingPopover: BasePopoverAlert {
     
     var animating: Bool {
         guard let ball = self.popView.ball else { return false }
-       // guard let ball == self.popView.ball else { return false }
         return ball.isAnimating
     }
     
@@ -69,14 +65,12 @@ final class LoadingPopover: BasePopoverAlert {
     }
     
     override func hidePopView(viewController: UIViewController) {
-        
         super.hidePopView(viewController: viewController)
         guard let ball = popView.ball else { return }
         viewController.view.sendSubview(toBack: popView)
         popView.stopAnimating(ball: ball)
         popView.removeFromSuperview()
     }
-    
     
     func setupPop(popView: LoadingView) {
         popView.configureView()

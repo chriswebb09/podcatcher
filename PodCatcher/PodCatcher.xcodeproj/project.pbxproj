@@ -64,6 +64,8 @@
 		A71ADFB71F0E38FB00941A43 /* ListTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71ADFB51F0E38FB00941A43 /* ListTopView.swift */; };
 		A71ADFB81F0E38FB00941A43 /* ListTopView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71ADFB61F0E38FB00941A43 /* ListTopView+Extension.swift */; };
 		A71ADFBA1F0E397800941A43 /* CreateAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71ADFB91F0E397800941A43 /* CreateAccountViewModel.swift */; };
+		A71ADFBC1F0E3AE600941A43 /* PreferencesViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71ADFBB1F0E3AE600941A43 /* PreferencesViewDelegate.swift */; };
+		A71ADFBE1F0E3BF500941A43 /* UnderlineTextfieldConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71ADFBD1F0E3BF500941A43 /* UnderlineTextfieldConstants.swift */; };
 		A71B26F21EE5D24700613CF4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71B26F11EE5D24700613CF4 /* AppDelegate.swift */; };
 		A71B26FA1EE5D24700613CF4 /* PodCatcher.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A71B26F81EE5D24700613CF4 /* PodCatcher.xcdatamodeld */; };
 		A71B26FC1EE5D24700613CF4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A71B26FB1EE5D24700613CF4 /* Assets.xcassets */; };
@@ -330,6 +332,8 @@
 		A71ADFB51F0E38FB00941A43 /* ListTopView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ListTopView.swift; path = TopView/ListTopView.swift; sourceTree = "<group>"; };
 		A71ADFB61F0E38FB00941A43 /* ListTopView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "ListTopView+Extension.swift"; path = "TopView/ListTopView+Extension.swift"; sourceTree = "<group>"; };
 		A71ADFB91F0E397800941A43 /* CreateAccountViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CreateAccountViewModel.swift; path = PodCatcher/UI/Screens/Start/CreateAccount/Models/CreateAccountViewModel.swift; sourceTree = SOURCE_ROOT; };
+		A71ADFBB1F0E3AE600941A43 /* PreferencesViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesViewDelegate.swift; sourceTree = "<group>"; };
+		A71ADFBD1F0E3BF500941A43 /* UnderlineTextfieldConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnderlineTextfieldConstants.swift; sourceTree = "<group>"; };
 		A71B26EE1EE5D24700613CF4 /* PodCatcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PodCatcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A71B26F11EE5D24700613CF4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A71B26F91EE5D24700613CF4 /* PodCatcher.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PodCatcher.xcdatamodel; sourceTree = "<group>"; };
@@ -663,6 +667,7 @@
 				A71ADFB61F0E38FB00941A43 /* ListTopView+Extension.swift */,
 				A776D1461EE8CD4900400EB4 /* TopViewDelegate.swift */,
 				A7F37B711F0DF8D1001B5C8C /* PreferencesView.swift */,
+				A71ADFBB1F0E3AE600941A43 /* PreferencesViewDelegate.swift */,
 			);
 			name = TopView;
 			sourceTree = "<group>";
@@ -1321,6 +1326,7 @@
 				A7A99FA71F07254C00BFEA4C /* Colors.swift */,
 				A7ECE4DD1F0D83BE00588662 /* TopPodcastCellConstant.swift */,
 				A7F37B731F0DF935001B5C8C /* LoadingViewConstants.swift */,
+				A71ADFBD1F0E3BF500941A43 /* UnderlineTextfieldConstants.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -1925,6 +1931,7 @@
 				A71852FE1EE9527400911C87 /* EmptyViewConstants.swift in Sources */,
 				A71ADFAC1F0E280200941A43 /* SearchResultListDataSource.swift in Sources */,
 				A73D740E1EE685FF004571A5 /* AnimationDelegate.swift in Sources */,
+				A71ADFBC1F0E3AE600941A43 /* PreferencesViewDelegate.swift in Sources */,
 				A71D83E51F0AC7A6009D0720 /* SettingsView.swift in Sources */,
 				A7F37B6B1F0DEDEA001B5C8C /* BaseMediaCollectionDataSource.swift in Sources */,
 				A71ADFA21F0E26F500941A43 /* SearchResultCell.swift in Sources */,
@@ -1993,6 +2000,7 @@
 				A7E45F811F0238680063AC0F /* PodcastSearchResult.swift in Sources */,
 				A7905B141EEF7DC900199246 /* AudioFilePlayerDelegate.swift in Sources */,
 				A7150EE51EE6566600E3553F /* PodcasterControllState.swift in Sources */,
+				A71ADFBE1F0E3BF500941A43 /* UnderlineTextfieldConstants.swift in Sources */,
 				A731728D1F004964006A6A24 /* DownloadStatus.swift in Sources */,
 				A71ADFA51F0E270A00941A43 /*  SearchResultListViewController+Extension.swift in Sources */,
 				A71ADFB11F0E285700941A43 /* SearchControllerDataSource.swift in Sources */,
