@@ -2,13 +2,17 @@
 
 Podcast App
 
-<img src="https://raw.githubusercontent.com/chriswebb09/podcatcher/master/Resource/app.gif" align="center">
 
 <h2 align="center">App Screens</h2>
 
 <p>
+<img src="https://raw.githubusercontent.com/chriswebb09/podcatcher/master/Resource/app.gif" align="center">
+</p>
+
+<p>
 <img src="https://raw.githubusercontent.com/chriswebb09/podcatcher/master/Resource/start-screen.png" align="left">
-<img src="https://raw.githubusercontent.com/chriswebb09/podcatcher/master/Resource/new-login.png" align="center">
+
+<img src="https://raw.githubusercontent.com/chriswebb09/podcatcher/master/Resource/new-login.png" align="right">
 </p>
 
 <p>
