@@ -2,7 +2,7 @@
 
 Podcast App
 
-<img src="https://raw.githubusercontent.com/chriswebb09/podcatcher/master/Resource/app.gif”/>
+<img src="https://raw.githubusercontent.com/chriswebb09/podcatcher/master/Resource/app.gif">
 
 <h2 align="center">App Screens</h2>
 
