@@ -138,6 +138,7 @@ extension PlayerViewController: AudioFilePlayerDelegate {
 extension PlayerViewController: MenuDelegate {
     
     func optionOne(tapped: Bool) {
+        let client = iTunesAPIClient()
         guard let player = player else { return }
         switch player.state {
         case .playing:
@@ -149,6 +150,7 @@ extension PlayerViewController: MenuDelegate {
         if let urlString = caster.episodes[index].audioUrlString {
             let download = Download(url: urlString)
             download.delegate = self
+            client.startDownload(download)
         }
         hidePopMenu()
     }
@@ -175,6 +177,7 @@ extension PlayerViewController: MenuDelegate {
 extension PlayerViewController: DownloadDelegate {
     
     func downloadProgressUpdated(for progress: Float) {
+        self.downloadingIndicator.percentageCompleteLabel.text = String(format: "%.1f%%", progress * 100)
         if progress == 1 {
             DispatchQueue.main.async {
                 self.downloadingIndicator.hideActivityIndicator(viewController: self)

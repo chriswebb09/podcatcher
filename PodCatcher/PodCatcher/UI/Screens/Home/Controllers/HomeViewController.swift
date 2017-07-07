@@ -44,17 +44,15 @@ final class HomeViewController: BaseCollectionViewController {
         
         let topFrameHeight = UIScreen.main.bounds.height / 2
         let topFrameWidth = UIScreen.main.bounds.width
-        let topFrame = CGRect(x: 0, y: 0, width: topFrameWidth, height: topFrameHeight / 1.2)
+        let topFrame = CGRect(x: 0, y: 0, width: topFrameWidth, height: topFrameHeight)
         
         topView.frame = topFrame
         view.addSubview(topView)
         collectionView.backgroundColor = .white
         view.addSubview(collectionView)
         topView.addSubview(scrollView)
-        scrollView.frame = topFrame
         
-        leftButtonItem = UIBarButtonItem(title: "Log Out", style: .done, target: self, action: #selector(logoutTapped))
-        navigationItem.setLeftBarButton(leftButtonItem, animated: false)
+        scrollView.frame = topFrame
         scrollView.decelerationRate = UIScrollViewDecelerationRateFast
         collectionViewConfiguration()
         collectionView.register(TopPodcastCell.self)
@@ -63,16 +61,18 @@ final class HomeViewController: BaseCollectionViewController {
         DispatchQueue.main.async {
             self.collectionView.reloadData()
             self.view.bringSubview(toFront: self.collectionView)
+             if self.dataSource.dataType == .local {
+                self.dataSource.topStore.fetchFromCore()
+                self.topView.podcastImageView.image = self.dataSource.topItemImage
+            }
         }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        dataSource.topStore.fetchFromCore()
-        if dataSource.dataType == .local {
-            DispatchQueue.main.async {
-                self.topView.podcastImageView.image = self.dataSource.topItemImage
-            }
+        view.alpha = 0
+        UIView.animate(withDuration: 0.5) {
+            self.view.alpha = 1
         }
     }
 }

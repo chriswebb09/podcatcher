@@ -24,6 +24,6 @@ final class PlaylistsViewController: BaseTableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        dataSource.playlistDataStore.fetchFromCore()
+        dataSource.playlistDataStack.fetchFromCore()
     }
 }

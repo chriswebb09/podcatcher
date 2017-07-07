@@ -6,7 +6,9 @@ final class TopPodcastsDataStore {
     var podcasts: [NSManagedObject] = []
     
     func save(podcastItem: CasterSearchResult) {
+        
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        
         guard let imageUrlString = podcastItem.podcastArtUrlString,
             let imageUrl = URL(string: imageUrlString), let title = podcastItem.podcastTitle,
             let feedUrlString = podcastItem.feedUrl else { return }
@@ -20,6 +22,7 @@ final class TopPodcastsDataStore {
             
             podcast.setValue(podcastArtImageData, forKeyPath: "podcastArt")
             podcast.setValue(podcastItem.id, forKey: "itunesId")
+            
             podcast.setValue(title, forKey: "podcastTitle")
             podcast.setValue(feedUrlString, forKey: "podcastFeedUrlString")
             

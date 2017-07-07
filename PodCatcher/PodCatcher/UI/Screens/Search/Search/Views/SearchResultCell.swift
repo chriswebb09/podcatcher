@@ -32,7 +32,7 @@ class SearchResultCell: UITableViewCell {
         titleLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor, constant: contentView.bounds.width * 0.1).isActive = true
         titleLabel.centerYAnchor.constraint(equalTo:  contentView.centerYAnchor).isActive = true
         titleLabel.heightAnchor.constraint(equalTo: contentView.heightAnchor).isActive = true
-        titleLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.6).isActive = true
+        titleLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.5).isActive = true
     }
     
     private func setup(albumArtView: UIImageView) {
@@ -41,7 +41,7 @@ class SearchResultCell: UITableViewCell {
         albumArtView.leftAnchor.constraint(equalTo: contentView.leftAnchor).isActive = true
         albumArtView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
         albumArtView.heightAnchor.constraint(equalTo: contentView.heightAnchor).isActive = true
-        albumArtView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.25).isActive = true
+        albumArtView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.3).isActive = true
     }
 }
 

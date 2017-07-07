@@ -52,10 +52,21 @@ class SearchResultListViewController: BaseCollectionViewController {
         collectionView.register(PodcastResultCell.self)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(false)
+        collectionView.alpha = 1
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(false)
+        collectionView.alpha = 0
+    }
+    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         switch state {
         case .toCollection:
+            
             navigationController?.popViewController(animated: false)
         case .toPlayer:
             break

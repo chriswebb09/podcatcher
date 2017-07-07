@@ -66,4 +66,12 @@ extension String {
         }
         return nil
     }
+//    
+//    func trimZeroes() -> String {
+//        var value = ""
+//        if self.hasPrefix("00:") {
+//            self.trimmingCharacters(in: CharacterSet("0:"))
+//        }
+//        return value
+//    }
 }

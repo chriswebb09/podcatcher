@@ -271,7 +271,7 @@ final class PlayerView: UIView {
     private func setup(trackButton: UIButton) {
         controlsView.addSubview(trackButton)
         trackButton.translatesAutoresizingMaskIntoConstraints = false
-        trackButton.heightAnchor.constraint(equalTo: controlsView.heightAnchor, multiplier: 0.36).isActive = true
+        trackButton.heightAnchor.constraint(equalTo: controlsView.heightAnchor, multiplier: 0.38).isActive = true
         trackButton.widthAnchor.constraint(equalTo: controlsView.widthAnchor, multiplier: 0.22).isActive = true
         trackButton.bottomAnchor.constraint(equalTo: controlsView.centerYAnchor).isActive = true
         trackButton.centerXAnchor.constraint(equalTo: controlsView.centerXAnchor).isActive = true

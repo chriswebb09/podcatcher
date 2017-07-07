@@ -9,7 +9,7 @@ extension PlaylistsViewController: UITableViewDelegate {
 extension PlaylistsViewController: EntryPopoverDelegate {
     
     func userDidEnterPlaylistName(name: String) {
-        dataSource.playlistDataStore.save(name: name)
+        dataSource.playlistDataStack.save(name: name)
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }

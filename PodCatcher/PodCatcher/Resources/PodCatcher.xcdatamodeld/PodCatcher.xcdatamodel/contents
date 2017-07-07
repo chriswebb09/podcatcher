@@ -18,6 +18,29 @@
         <attribute name="totalPlayTime" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="podCasterItems" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CasterItems" inverseName="podcaster" inverseEntity="CasterItems" syncable="YES"/>
     </entity>
+    <entity name="PodcastPlaylist" representedClassName="PodcastPlaylist" syncable="YES">
+        <attribute name="artwork" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="dateCreated" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="numberOfItems" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="numberOfPlays" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="playlistId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="playlistName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="timeSpentListening" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="podcast" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PodcastPlaylistItem" inverseName="playlist" inverseEntity="PodcastPlaylistItem" syncable="YES"/>
+    </entity>
+    <entity name="PodcastPlaylistItem" representedClassName="PodcastPlaylistItem" syncable="YES">
+        <attribute name="artistId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="artwork" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="artworkUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="audioUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="duration" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="episodeDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="episodeTitle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="playlistId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="stringDate" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="playlist" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PodcastPlaylist" inverseName="podcast" inverseEntity="PodcastPlaylist" syncable="YES"/>
+    </entity>
     <entity name="TestPlaylist" representedClassName="TestPlaylist" syncable="YES">
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="testPlaylist" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TestPlaylists" inverseName="testPlaylists" inverseEntity="TestPlaylists" syncable="YES"/>
@@ -37,9 +60,11 @@
     </entity>
     <elements>
         <element name="CasterItems" positionX="3130" positionY="113" width="128" height="180"/>
-        <element name="PodCaster" positionX="2880" positionY="171" width="128" height="120"/>
-        <element name="TestPlaylist" positionX="3112" positionY="369" width="128" height="73"/>
-        <element name="TestPlaylists" positionX="2898" positionY="378" width="128" height="73"/>
+        <element name="PodCaster" positionX="2808" positionY="177" width="128" height="120"/>
+        <element name="PodcastPlaylist" positionX="2628" positionY="192" width="128" height="163"/>
+        <element name="PodcastPlaylistItem" positionX="2383" positionY="216" width="128" height="208"/>
+        <element name="TestPlaylist" positionX="3094" positionY="413" width="128" height="73"/>
+        <element name="TestPlaylists" positionX="2817" positionY="395" width="128" height="73"/>
         <element name="TopPodcast" positionX="3006" positionY="261" width="128" height="150"/>
     </elements>
 </model>

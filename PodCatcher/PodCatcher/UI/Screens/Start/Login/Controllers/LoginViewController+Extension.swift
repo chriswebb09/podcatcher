@@ -5,7 +5,7 @@ import Firebase
 // MARK: - LoginViewDelegate
 
 extension LoginViewController: LoginViewDelegate {
-   
+    
     func facebookLoginButtonTapped() {
         loginWithFacebook()
     }
@@ -24,12 +24,11 @@ extension LoginViewController: LoginViewDelegate {
     }
     
     func loginWithFacebook() {
-        
         let fbLoginManager = FBSDKLoginManager()
-        
         fbLoginManager.logIn(withReadPermissions: ["public_profile", "email"], from: self) { result, error in
             if let error = error {
                 print("Failed to login: \(error.localizedDescription)")
+                self.view.layoutSubviews()
                 return
             }
             

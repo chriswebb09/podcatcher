@@ -2,8 +2,8 @@ import UIKit
 
 struct LoginViewConstants {
     static let cornerRadius: CGFloat = 20
-    static let sharedLayoutHeightMultiplier: CGFloat = 0.095
-    static let sharedLayoutWidthMultiplier: CGFloat = 0.9
+    static let sharedLayoutHeightMultiplier: CGFloat = 0.09
+    static let sharedLayoutWidthMultiplier: CGFloat = 0.92
     
     static let usernameFieldTopOffset: CGFloat = UIScreen.main.bounds.height * 0.09
     static let passwordFieldTopOffset: CGFloat = UIScreen.main.bounds.height * 0.08

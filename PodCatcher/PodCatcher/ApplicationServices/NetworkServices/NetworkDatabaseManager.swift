@@ -1,7 +1,8 @@
 import Foundation
 import Firebase
 
-class SetData {
+final class SetData {
+    
     var ref: DatabaseReference!
     
     init() {

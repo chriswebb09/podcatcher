@@ -4,6 +4,7 @@ final class DownloaderIndicatorView: UIView {
     
     var percentageCompleteLabel: UILabel = {
         var label = UILabel()
+        label.textColor = .white
         return label
     }()
     
@@ -39,6 +40,8 @@ final class DownloaderIndicatorView: UIView {
     func addSubviews(viewController:UIViewController) {
         loadingView.addSubview(activityIndicator)
         containerView.addSubview(loadingView)
+        loadingView.addSubview(percentageCompleteLabel)
+        percentageCompleteLabel.center = loadingView.center
         viewController.view.addSubview(containerView)
     }
     

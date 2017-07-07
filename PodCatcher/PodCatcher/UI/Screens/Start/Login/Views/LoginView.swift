@@ -2,9 +2,7 @@ import UIKit
 
 final class LoginView: UIView {
     
-    
     var viewHeightConstraint: NSLayoutConstraint!
-    
     
     weak var delegate: LoginViewDelegate?
     
@@ -82,7 +80,6 @@ final class LoginView: UIView {
     
     func configure(model: LoginViewModel) {
         self.model = model
-        
         submitButton.isEnabled = true
         emailField.text = "Link@link.com"
         passwordField.text = "123456"
@@ -99,12 +96,12 @@ final class LoginView: UIView {
     
     private func setup(emailField: UITextField) {
         sharedLayout(view: emailField)
-        emailField.topAnchor.constraint(equalTo: topAnchor, constant: LoginViewConstants.usernameFieldTopOffset).isActive = true
+        emailField.topAnchor.constraint(equalTo: topAnchor, constant: LoginViewConstants.usernameFieldTopOffset + 40).isActive = true
     }
     
     private func setup(passwordField: UITextField) {
         sharedLayout(view: passwordField)
-        passwordField.topAnchor.constraint(equalTo: emailField.bottomAnchor, constant: LoginViewConstants.passwordFieldTopOffset).isActive = true
+        passwordField.topAnchor.constraint(equalTo: emailField.bottomAnchor, constant: LoginViewConstants.passwordFieldTopOffset + 20).isActive = true
     }
     
     private func setup(submitButton: UIButton) {
@@ -113,7 +110,7 @@ final class LoginView: UIView {
         submitButton.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         submitButton.heightAnchor.constraint(equalTo: heightAnchor, multiplier: LoginViewConstants.sharedLayoutHeightMultiplier).isActive = true
         submitButton.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
-        submitButton.topAnchor.constraint(equalTo: passwordField.bottomAnchor, constant: LoginViewConstants.submitButtonTopOffset).isActive = true
+        submitButton.topAnchor.constraint(equalTo: passwordField.bottomAnchor, constant: LoginViewConstants.submitButtonTopOffset + 20).isActive = true
     }
     
     private func setup(loginFacebookButton: UIButton) {
@@ -122,7 +119,7 @@ final class LoginView: UIView {
         loginFacebookButton.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         loginFacebookButton.heightAnchor.constraint(equalTo: heightAnchor, multiplier: LoginViewConstants.sharedLayoutHeightMultiplier).isActive = true
         loginFacebookButton.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
-        loginFacebookButton.topAnchor.constraint(equalTo: submitButton.bottomAnchor, constant: LoginViewConstants.facebookButtonTopOffset - 80).isActive = true
+        loginFacebookButton.topAnchor.constraint(equalTo: submitButton.bottomAnchor, constant: LoginViewConstants.facebookButtonTopOffset - 60).isActive = true
     }
     
     func loginButtonTapped() {
@@ -131,6 +128,8 @@ final class LoginView: UIView {
     }
     
     func loginWithFacebookTapped() {
+     //   emailField.alpha = 0
+       // passwordField.alpha = 0
         delegate?.facebookLoginButtonTapped()
     }
 }

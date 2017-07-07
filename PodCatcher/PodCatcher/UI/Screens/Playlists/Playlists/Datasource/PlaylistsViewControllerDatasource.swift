@@ -1,19 +1,21 @@
 import UIKit
 
 final class PlaylistViewControllerDataSource: NSObject {
-    var playlistDataStore = PlaylistsDataStore()
+    var playlistDataStack = PlaylistsCoreDataStack()
 }
 
 extension PlaylistViewControllerDataSource: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(playlistDataStore.playlists.count)
-        return playlistDataStore.playlists.count
+        print(playlistDataStack.playlists.count)
+        return playlistDataStack.playlists.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as PlaylistCell
-        cell.titleLabel.text = playlistDataStore.playlists[indexPath.row].value(forKeyPath: "title") as? String
+        let name = playlistDataStack.playlists[indexPath.row].value(forKeyPath: "playlistName") as! String
+        let date = playlistDataStack.playlists[indexPath.row].value(forKeyPath: "dateCreated") as! NSDate
+        cell.titleLabel.text = name + " " + String(describing: date)
         return cell
     }
 }

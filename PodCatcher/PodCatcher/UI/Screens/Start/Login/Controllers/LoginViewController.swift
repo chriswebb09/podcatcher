@@ -21,15 +21,16 @@ class LoginViewController: BaseViewController {
         view = loginView
         view.layoutSubviews()
         title = "Sign In"
+        navigationController?.navigationBar.alpha = 0
         view.autoresizingMask = [.flexibleBottomMargin, .flexibleHeight, .flexibleRightMargin, .flexibleWidth, .flexibleLeftMargin, .flexibleTopMargin]
         hideKeyboardWhenTappedAround()
-        navigationController?.navigationBar.barTintColor = .white
-        navigationController?.navigationBar.isHidden = false
+       // navigationController?.navigationBar.barTintColor = .white
+        //navigationController?.navigationBar.isHidden = false
         navigationController?.navigationBar.backgroundColor = .white
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        navigationController?.navigationBar.isHidden = true
+       // navigationController?.navigationBar.isHidden = true
     }
 }
