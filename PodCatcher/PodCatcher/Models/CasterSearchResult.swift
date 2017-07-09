@@ -12,7 +12,7 @@ struct CasterSearchResult: PodcastSearchResult {
     var feedUrl: String?
     var itunesUrlString: String?
     var mediaItems = [MediaCatcherItem]()
-    
+    var index: Int!
     
     init() {
         
@@ -27,7 +27,7 @@ struct CasterSearchResult: PodcastSearchResult {
         guard let releaseDate = json["releaseDate"] as? String else { return }
         guard let id = json["collectionId"] as? Int else { return }
         guard let feedUrl = json["feedUrl"] as? String else { return }
-        let episode = Episodes(title: trackName, date: releaseDate, description: "test", duration: 29134, audioUrlString: nil, stringDuration: nil)
+        let episode = Episodes(audioUrlSting: "", title: trackName, date: releaseDate, description: "test", duration: 29134, audioUrlString: nil, stringDuration: nil)
         self.episodes.append(episode)
         self.podcastArtUrlString = artUrl
         self.podcastArtist = artistName
@@ -45,4 +45,50 @@ extension CasterSearchResult: Equatable {
         return lhs.id == rhs.id
     }
 }
+
+//extension CasterSearchResult: PlayableItem {
+//    
+//    var duration: Double {
+//        get {
+//            return self.duration
+//        }
+//        set {
+//            self.duration = episodes[index].duration
+//         }
+//    }
+//
+//   
+//    var artworkUrlString: String {
+//        get {
+//            return self.artworkUrlString
+//        }
+//        set {
+//            guard let podcastArtUrlString = podcastArtUrlString else { return }
+//            self.artworkUrlString = podcastArtUrlString
+//        }
+//    }
+//
+//    
+//    var audioItem: AudioFile {
+//        get {
+//            return self.audioItem
+//        }
+//        set {
+//            guard let index = index else { return }
+//            self.audioItem = episodes[index]
+//        }
+//    }
+//
+//    var title: String {
+//        get {
+//            return self.title
+//        }
+//        set {
+//            guard let podcastTitle = podcastTitle else { return }
+//            self.title = podcastTitle
+//        }
+//    }
+//
+//    
+//}
 

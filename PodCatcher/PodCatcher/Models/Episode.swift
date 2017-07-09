@@ -1,6 +1,8 @@
 import Foundation
 
-struct Episodes {
+struct Episodes: AudioFile {
+    var audioUrlSting: String
+
     var title: String
     var date: String
     var description: String
@@ -8,3 +10,5 @@ struct Episodes {
     var audioUrlString: String?
     var stringDuration: String?
 }
+
+

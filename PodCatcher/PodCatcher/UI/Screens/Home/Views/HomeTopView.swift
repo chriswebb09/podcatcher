@@ -52,20 +52,6 @@ final class HomeTopView: UIView {
         setup(preferencesView: preferencesView)
         setup(tagsView: tags)
         preferencesView.layoutSubviews()
-        preferencesView.delegate = self
-    }
-    
-    func configure(tags: [String], timeListen: String) {
-        var tagviews = [PillView]()
-        for item in tags {
-            let pill = PillView()
-            pill.configure(tag: item)
-            tagviews.append(pill)
-            DispatchQueue.main.async {
-                self.tags.configure(pills: tagviews)
-            }
-        }
-        playCountLabel.text = String(describing: timeListen)
     }
     
     func setup(podcastImageView: UIImageView) {
@@ -102,17 +88,3 @@ final class HomeTopView: UIView {
         tagsView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: PodcastListTopViewConstants.tagsViewHeightMultiplier).isActive = true
     }
 }
-
-
-// MARK: - PreferencesViewDelegate
-
-extension HomeTopView: PreferencesViewDelegate {
-    func addTagButton(tapped: Bool) {
-        delegate?.entryPop(popped: tapped)
-    }
-    
-    func moreButton(tapped: Bool) {
-        delegate?.popBottomMenu(popped: tapped)
-    }
-}
-

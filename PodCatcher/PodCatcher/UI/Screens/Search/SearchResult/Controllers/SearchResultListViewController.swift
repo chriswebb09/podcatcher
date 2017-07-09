@@ -39,7 +39,6 @@ class SearchResultListViewController: BaseCollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        bottomMenu.setMenu(color: .mainColor, borderColor: .darkGray, textColor: .white)
         setup(dataSource: self, delegate: self)
         configureTopView()
         background.frame = view.frame

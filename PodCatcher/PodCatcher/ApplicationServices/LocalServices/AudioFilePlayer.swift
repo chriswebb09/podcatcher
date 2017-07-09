@@ -7,6 +7,10 @@ enum PlayerState {
 
 var audioCache = NSCache<NSString, AVAsset>()
 
+protocol AudioFile {
+    var audioUrlSting: String { get set }
+}
+
 final class AudioFilePlayer: NSObject {
     
     var url: URL

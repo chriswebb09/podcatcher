@@ -16,9 +16,7 @@ extension PlaylistsViewController: UITableViewDelegate {
                 self.tableView.reloadData()
                 self.reloadData()
             }
-            
             delegate?.didAssignPlaylist(with: text)
-            //self.tabBarController?.selectedIndex = 2
         case .checkList:
             let playlist = PlaylistViewController(index: 0)
             playlist.playlistId = text

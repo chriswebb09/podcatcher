@@ -44,6 +44,7 @@ extension SearchViewController: UISearchResultsUpdating {
             dataSource.items.removeAll()
             if let searchString = searchString {
                 self.dataSource.store.setSearch(term: searchString)
+                print("PAUSE HERE")
                 NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(setSearch), object: nil)
                 self.perform(#selector(setSearch), with: nil, afterDelay: 0.35)
             }
@@ -54,9 +55,9 @@ extension SearchViewController: UISearchResultsUpdating {
 extension SearchViewController: UISearchControllerDelegate {
     
     func setSearch() {
-        self.dataSource.store.searchForTracks { [weak self] tracks, error in
-            guard let strongSelf = self, let tracks = tracks else { return }
-            strongSelf.dataSource.items = tracks
+        self.dataSource.store.searchForTracks { tracks, error in
+            guard let tracks = tracks else { return }
+            self.dataSource.items = tracks
         }
     }
     
@@ -75,6 +76,30 @@ extension SearchViewController: UISearchControllerDelegate {
     }
 }
 
+extension SearchViewController: UISearchBarDelegate {
+    
+    func searchOnTextChange(text: String, store: SearchResultsFetcher, navController: UINavigationController) {
+        if text == "" {
+            dataSource.items.removeAll()
+            tableView.reloadData()
+            navController.navigationBar.topItem?.title = "PodCatch"
+            return
+        }
+        searchBarActive = true
+        dataSource.store.setSearch(term: text)
+        print("PAUSE HERE @")
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(searchBarHasInput), object: nil)
+        perform(#selector(searchBarHasInput), with: nil, afterDelay: 0.15)
+        navController.navigationBar.topItem?.title = "Search: \(text)"
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        guard let barText = searchBar.text, let navcontroller = self.navigationController else { return }
+        searchOnTextChange(text: barText, store: dataSource.store, navController: navcontroller)
+    }
+}
+
+
 extension SearchViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -91,27 +116,5 @@ extension SearchViewController: UITableViewDelegate {
                 self.tableView.reloadData()
             }
         }
-    }
-}
-
-extension SearchViewController: UISearchBarDelegate {
-    
-    func searchOnTextChange(text: String, store: SearchResultsFetcher, navController: UINavigationController) {
-        if text == "" {
-            dataSource.items.removeAll()
-            tableView.reloadData()
-            navController.navigationBar.topItem?.title = "PodCatch"
-            return
-        }
-        searchBarActive = true
-        dataSource.store.setSearch(term: text)
-        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(searchBarHasInput), object: nil)
-        perform(#selector(searchBarHasInput), with: nil, afterDelay: 0.15)
-        navController.navigationBar.topItem?.title = "Search: \(text)"
-    }
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        guard let barText = searchBar.text, let navcontroller = self.navigationController else { return }
-        searchOnTextChange(text: barText, store: dataSource.store, navController: navcontroller)
     }
 }

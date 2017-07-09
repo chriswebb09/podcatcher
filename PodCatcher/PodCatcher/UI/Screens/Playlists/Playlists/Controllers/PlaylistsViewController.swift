@@ -33,24 +33,10 @@ final class PlaylistsViewController: BaseTableViewController {
         navigationItem.setRightBarButton(rightButtonItem, animated: false)
         reloadData()
     }
-    
-    
-    func reloadData() {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-        let fetchRequest:NSFetchRequest<PodcastPlaylist> = PodcastPlaylist.fetchRequest()
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "playlistId", ascending: true)]
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: appDelegate.persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: nil)
-        do {
-            try fetchedResultsController.performFetch()
-            tableView.reloadData()
-        } catch let error {
-            print(error)
-        }
-    }
 }
 
-extension PlaylistsViewController: UITableViewDataSource {
-    
+extension PlaylistsViewController: ReloadableTable, UITableViewDataSource {
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return fetchedResultsController.sections?[section].numberOfObjects ?? 0
     }
@@ -67,7 +53,4 @@ extension PlaylistsViewController: UITableViewDataSource {
         cell.titleLabel.text = text?.uppercased()
         return cell
     }
-    
 }
-
-

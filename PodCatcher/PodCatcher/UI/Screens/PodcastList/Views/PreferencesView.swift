@@ -8,6 +8,7 @@ final class PreferencesView: UIView {
     
     var moreMenuButton: UIButton = {
         var moreMenuButton = UIButton()
+        moreMenuButton.isHidden = true
         moreMenuButton.setImage(#imageLiteral(resourceName: "more-button-white"), for: .normal)
         return moreMenuButton
     }()

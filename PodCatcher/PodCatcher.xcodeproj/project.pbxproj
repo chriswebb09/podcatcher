@@ -30,6 +30,7 @@
 		A71514A11F05281100F123CD /* UISearchController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71514A01F05281100F123CD /* UISearchController+Extension.swift */; };
 		A715A8321F12D2420094FACA /* PlaylistCoreDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A715A8311F12D2420094FACA /* PlaylistCoreDataStore.swift */; };
 		A715A8361F12D39A0094FACA /* ModifiedPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A715A8351F12D39A0094FACA /* ModifiedPlayer.swift */; };
+		A715A8381F12F7C10094FACA /* ReloadableTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A715A8371F12F7C10094FACA /* ReloadableTable.swift */; };
 		A71640381EFFDAFE00895082 /* UserDefaults+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71640371EFFDAFE00895082 /* UserDefaults+Extension.swift */; };
 		A716403A1EFFDB6300895082 /* ReachabilityNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71640391EFFDB6300895082 /* ReachabilityNotification.swift */; };
 		A716B8041F0B357C0060D492 /* SearchTabCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A716B8031F0B357C0060D492 /* SearchTabCoordinator.swift */; };
@@ -309,6 +310,7 @@
 		A71514A01F05281100F123CD /* UISearchController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UISearchController+Extension.swift"; sourceTree = "<group>"; };
 		A715A8311F12D2420094FACA /* PlaylistCoreDataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlaylistCoreDataStore.swift; path = Playlists/PlaylistCoreDataStore.swift; sourceTree = "<group>"; };
 		A715A8351F12D39A0094FACA /* ModifiedPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ModifiedPlayer.swift; path = Player/Controllers/ModifiedPlayer.swift; sourceTree = "<group>"; };
+		A715A8371F12F7C10094FACA /* ReloadableTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReloadableTable.swift; path = Playlists/Playlists/Controllers/ReloadableTable.swift; sourceTree = "<group>"; };
 		A71640371EFFDAFE00895082 /* UserDefaults+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extension.swift"; sourceTree = "<group>"; };
 		A71640391EFFDB6300895082 /* ReachabilityNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReachabilityNotification.swift; sourceTree = "<group>"; };
 		A716B8031F0B357C0060D492 /* SearchTabCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchTabCoordinator.swift; path = Search/SearchTabCoordinator.swift; sourceTree = "<group>"; };
@@ -878,6 +880,7 @@
 				A723B4131F0EB4F000EA6B27 /* PlaylistsViewController.swift */,
 				A723B4141F0EB4F000EA6B27 /* PlaylistsViewController+Extension.swift */,
 				A723B4191F0EB54300EA6B27 /* PlaylistCell.swift */,
+				A715A8371F12F7C10094FACA /* ReloadableTable.swift */,
 			);
 			name = Playlists;
 			sourceTree = "<group>";
@@ -2046,6 +2049,7 @@
 				A7BF242A1F0D4B43002A87BD /* LoginView+Extension.swift in Sources */,
 				A71853021EE9584E00911C87 /* BaseMenuPopover.swift in Sources */,
 				A72697A81EF0DA7D00D406BB /* UIImage+Extension.swift in Sources */,
+				A715A8381F12F7C10094FACA /* ReloadableTable.swift in Sources */,
 				A718530C1EE960C400911C87 /* PopDelegate.swift in Sources */,
 				A7BF24201F0D4B1D002A87BD /* LoginViewController+Extension.swift in Sources */,
 				A7252A8E1EFF2A240034EA93 /* ViewType.swift in Sources */,

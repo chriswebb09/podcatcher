@@ -22,30 +22,6 @@ final class ModifiedPlayerViewController: BaseViewController {
     var playerViewModel: PlayerViewModel!
     var dataSource = PlayerControllerDataSource()
     
-//    init(playerView: PlayerView = PlayerView(), index: Int, caster: CasterSearchResult, user: PodCatcherUser?) {
-//        self.playerView = playerView
-//        self.index = index
-//        self.caster = caster
-//        self.testIndex = index - 1
-//        if let url = caster.episodes[index].audioUrlString, let audioUrl = URL(string: url) {
-//            self.player = AudioFilePlayer(url: audioUrl)
-//        }
-//        self.playerState = .queued
-//        super.init(nibName: nil, bundle: nil)
-//        player?.delegate = self
-//        guard let artUrl = caster.podcastArtUrlString else { return }
-//        playerViewModel = PlayerViewModel(imageUrl: URL(string: artUrl), title: caster.episodes[index].title)
-//        setModel(model: playerViewModel)
-//        playerView.delegate = self
-//        view.addView(view: playerView, type: .full)
-//    }
-//    
-//    required init?(coder aDecoder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
-    
-    
-    
     override func viewWillAppear(_ animated: Bool) {
         showLoadingView(loadingPop: loadingPop)
         super.viewWillAppear(animated)

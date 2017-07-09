@@ -30,3 +30,17 @@ extension PodcastPlaylistItem {
     @NSManaged public var artistFeedUrl: String?
 
 }
+
+extension PodcastPlaylistItem: AudioFile {
+    var audioUrlSting: String {
+        get {
+            return self.audioUrlSting
+        }
+        set {
+            guard let audioUrl = audioUrl else { return }
+            self.audioUrlSting = audioUrl
+        }
+    }
+
+    
+}

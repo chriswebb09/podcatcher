@@ -6,7 +6,6 @@ extension UIViewController {
         navigationController?.navigationBar.barTintColor = .white
         let cancelButtonAttributes: NSDictionary = [NSForegroundColorAttributeName: Colors.brightHighlight]
         UIBarButtonItem.appearance().setTitleTextAttributes(cancelButtonAttributes as? [String : AnyObject], for: .normal)
-       // UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).backgroundColor = UIColor.mainColor
         UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).attributedPlaceholder = NSAttributedString(string: "Search for Podcasts...", attributes: [NSForegroundColorAttributeName: UIColor.white])
         UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).tintColor = .white
     }
