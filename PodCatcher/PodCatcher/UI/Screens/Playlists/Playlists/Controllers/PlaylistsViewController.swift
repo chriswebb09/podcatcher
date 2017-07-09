@@ -9,7 +9,7 @@ final class PlaylistsViewController: BaseTableViewController {
     
     weak var delegate: PlaylistsViewControllerDelegate?
     var reference: PlaylistsReference = .checkList
-    var dataSource = PlaylistViewControllerDataSource()
+    var playlistDataStack = PlaylistsCoreDataStack()
     var currentPlaylistID: String = ""
     var entryPop: EntryPopover!
     var index: Int!
