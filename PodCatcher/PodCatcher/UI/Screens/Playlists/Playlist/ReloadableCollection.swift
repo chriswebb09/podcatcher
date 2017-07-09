@@ -15,8 +15,8 @@ extension ReloadableCollection {
         let fetchRequest:NSFetchRequest<PodcastPlaylistItem> = PodcastPlaylistItem.fetchRequest()
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "playlistId", ascending: true)]
         fetchRequest.predicate = NSPredicate(format: "playlistId == %@", playlistId)
-        
         fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: appDelegate.persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+        
         do {
             try fetchedResultsController.performFetch()
             collectionView.reloadData()

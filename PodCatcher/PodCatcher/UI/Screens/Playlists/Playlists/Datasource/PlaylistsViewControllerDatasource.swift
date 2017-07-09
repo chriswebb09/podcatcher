@@ -7,7 +7,6 @@ final class PlaylistViewControllerDataSource: NSObject {
 extension PlaylistViewControllerDataSource: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(playlistDataStack.playlists.count)
         return playlistDataStack.playlists.count
     }
     
