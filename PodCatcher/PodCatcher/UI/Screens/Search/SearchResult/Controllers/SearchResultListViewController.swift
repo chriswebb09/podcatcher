@@ -31,7 +31,6 @@ class SearchResultListViewController: BaseCollectionViewController {
     init(index: Int) {
         viewShown = .collection
         super.init(nibName: nil, bundle: nil)
-        topView.delegate = self
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -47,7 +46,6 @@ class SearchResultListViewController: BaseCollectionViewController {
         view.addSubview(background)
         emptyView.alpha = 0
         edgesForExtendedLayout = []
-        topView.delegate = self
         view.sendSubview(toBack: background)
         collectionView.register(PodcastResultCell.self)
     }

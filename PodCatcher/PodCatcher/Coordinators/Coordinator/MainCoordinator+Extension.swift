@@ -40,7 +40,7 @@ extension MainCoordinator: CoordinatorDelegate {
         newItem.artistId = id
         newItem.episodeTitle = itemToSave.episodes[itemIndex].title
         newItem.episodeDescription = itemToSave.episodes[itemIndex].description
-        newItem.stringDate = itemToSave.episodes[itemIndex].date
+        newItem.stringDate = String(describing:itemToSave.episodes[itemIndex].date)
         newItem.playlistId = playlistId
         newItem.artistName = itemToSave.podcastArtist
         newItem.artistFeedUrl = feed
