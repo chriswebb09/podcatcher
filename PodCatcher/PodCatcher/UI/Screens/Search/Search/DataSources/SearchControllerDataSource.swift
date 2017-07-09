@@ -17,9 +17,10 @@ extension SearchControllerDataSource: UITableViewDataSource {
             if let title = items[indexPath.row].podcastTitle, let urlString = items[indexPath.row].podcastArtUrlString, let url = URL(string: urlString)  {
                 cell.titleLabel.text = title
                 cell.albumArtView.downloadImage(url: url)
+                  cell.layoutSubviews()
             }
         }
-        cell.layoutSubviews()
+      
         return cell
     }
 }

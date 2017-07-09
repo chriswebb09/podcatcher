@@ -55,6 +55,11 @@ final class PlayerViewController: BaseViewController {
         super.viewDidDisappear(animated)
         navigationController?.popViewController(animated: true)
         player?.player.pause()
+        DispatchQueue.main.async {
+            self.hideLoadingView(loadingPop: self.loadingPop)
+            self.hidePopMenu()
+        }
+        
         player = nil
     }
 }

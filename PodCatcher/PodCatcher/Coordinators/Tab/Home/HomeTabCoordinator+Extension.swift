@@ -83,6 +83,7 @@ extension HomeTabCoordinator: PlayerViewControllerDelegate {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         let managedContext = appDelegate.coreData.managedContext
         let newItem = PodcastPlaylistItem(context: managedContext)
+        
        // let image = playerView.albumImageView.image
         //let podcastArtImageData = UIImageJPEGRepresentation(image!, 1) as? Data
         //item.artwork = podcastArtImageData as! NSData

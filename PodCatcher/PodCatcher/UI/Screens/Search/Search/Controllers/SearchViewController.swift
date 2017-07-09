@@ -14,7 +14,6 @@ class SearchViewController: BaseTableViewController {
         didSet {
             switch viewShown {
             case .empty:
-                view.addSubview(emptyView)
                 changeView(forView: emptyView, withView: tableView)
             case .collection:
                 changeView(forView: tableView, withView: tableView)
@@ -43,7 +42,7 @@ class SearchViewController: BaseTableViewController {
             } else if !searchBarActive {
                 if dataSource.items.count == 0 { viewShown = .empty }
                 guard let nav = navigationController?.navigationBar else { return }
-                tableView.frame = CGRect(x: UIScreen.main.bounds.minX, y: nav.frame.maxY, width: UIScreen.main.bounds.width, height: view.frame.height)
+                tableView.frame = CGRect(x: UIScreen.main.bounds.minX, y: searchBar.frame.maxY, width: UIScreen.main.bounds.width, height: view.frame.height)
             }
         }
     }
@@ -57,5 +56,15 @@ class SearchViewController: BaseTableViewController {
         searchController.defaultConfiguration()
         tableView.delegate = self
         searchControllerConfigure()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.tabBarController?.tabBar.alpha = 1
+        self.navigationController?.navigationBar.alpha = 1
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        searchBarActive = false
+        searchController.isActive = false
     }
 }

@@ -14,10 +14,11 @@ extension PlaylistsViewController: UITableViewDelegate {
             reference = .checkList
             DispatchQueue.main.async {
                 self.tableView.reloadData()
+                self.reloadData()
             }
-            reloadData()
-            delegate?.didAssignPlaylist(with: text)
             
+            delegate?.didAssignPlaylist(with: text)
+            //self.tabBarController?.selectedIndex = 2
         case .checkList:
             let playlist = PlaylistViewController(index: 0)
             playlist.playlistId = text

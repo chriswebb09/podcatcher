@@ -3,7 +3,6 @@ import UIKit
 // MARK: - PodcastCollectionViewProtocol
 
 extension SearchResultListViewController: PodcastCollectionViewProtocol {
-
     
     func configureTopView() {
         topView.frame = PodcastListConstants.topFrame
@@ -108,4 +107,3 @@ extension SearchResultListViewController: UICollectionViewDelegateFlowLayout {
         return UIEdgeInsets(top: 0, left: 12, bottom: 30, right: 12)
     }
 }
-

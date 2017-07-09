@@ -59,7 +59,7 @@ class SearchResultListViewController: BaseCollectionViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(false)
-        collectionView.alpha = 0
+      //  collectionView.alpha = 0
     }
     
     override func viewDidDisappear(_ animated: Bool) {

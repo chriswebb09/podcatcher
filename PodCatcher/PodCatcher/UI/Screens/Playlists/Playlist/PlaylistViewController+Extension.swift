@@ -83,7 +83,8 @@ extension PlaylistViewController: UIScrollViewDelegate {
 extension PlaylistViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        delegate?.didSelectPodcastAt(at: indexPath.row, podcast: item, with: episodes)
+        let item = fetchedResultsController.object(at: indexPath)
+        print(item)
     }
 }
 

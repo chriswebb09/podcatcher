@@ -21,6 +21,26 @@ class PlaylistItemsCoreDataStack {
 
 extension MainCoordinator: CoordinatorDelegate {
     
+//    func getViewController(from type: TabType) -> UIViewController {
+//        switch type {
+//        case .home:
+//            var homeTab = self.tabbBarCoordinator.childCoordinators[0] as! HomeTabCoordinator
+//            var nav = homeTab.childViewControllers[0] as! HomeViewController
+//            
+//        case .player:
+//            print("player")
+//        case .playlist:
+//            print("playlist")
+//        case .playlists:
+//            print("playlists")
+//        case .results:
+//            print("results")
+//        case .search:
+//            print("search")
+//        }
+//        return UIViewController()
+//    }
+//    
     func podcastItem(toAdd: CasterSearchResult, with index: Int) {
         self.itemToSave = toAdd
         self.itemIndex = index
@@ -44,6 +64,13 @@ extension MainCoordinator: CoordinatorDelegate {
         newItem.playlistId = playlistId
         newItem.artistName = itemToSave.podcastArtist
         newItem.artistFeedUrl = feed
+        if let urlString = itemToSave.podcastArtUrlString, let url = URL(string: urlString) {
+            UIImage.downloadImage(url: url) { image in
+                let podcastArtImageData = UIImageJPEGRepresentation(image, 1) as? Data
+                newItem.artwork = podcastArtImageData as! NSData
+            }
+        }
+
         do {
             try managedContext.save()
         } catch {

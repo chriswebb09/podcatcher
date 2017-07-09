@@ -57,7 +57,12 @@ extension PlaylistsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as PlaylistCell
-        cell.albumArtView.image = #imageLiteral(resourceName: "light-placehoder-2")
+        if let art = fetchedResultsController.object(at: indexPath).artwork {
+            let image = UIImage(data: art as Data)
+            cell.albumArtView.image = image
+        } else {
+            cell.albumArtView.image = #imageLiteral(resourceName: "light-placehoder-2")
+        }
         let text = fetchedResultsController.object(at: indexPath).playlistName
         cell.titleLabel.text = text?.uppercased()
         return cell

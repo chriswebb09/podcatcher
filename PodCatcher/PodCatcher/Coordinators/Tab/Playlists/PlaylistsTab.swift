@@ -1,11 +1,6 @@
 import UIKit
 import CoreData
 
-//protocol PlaylistTabDelegate: CoordinatorDelegate {
-//    func updatePodcast(with playlistId: String)
-//}
-
-
 final class PlaylistsTabCoordinator: NavigationCoordinator {
     
     weak var delegate: CoordinatorDelegate?
@@ -41,17 +36,27 @@ extension PlaylistsTabCoordinator: PlaylistsViewControllerDelegate {
     func didAssignPlaylist(with id: String) {
         delegate?.updatePodcast(with: id)
         print(id)
+        let controller = navigationController.viewControllers.last as! PlaylistsViewController
+        navigationController.setNavigationBarHidden(false, animated: false)
+        
+       // guard let tab =  controller.tabBarController else { return }
+       // let nav = tab.viewControllers?[2] as! UINavigationController
+//        let playlists = nav.viewControllers[2] as! PlayerViewController
+//        playlists.viewWillAppear(true)
+//        playlists.viewDidLoad()
+        
+        controller.tabBarController?.selectedIndex = 2
     }
-
+    
     
     func didAssignPlaylist(playlist: PodcastPlaylist) {
         
     }
-
+    
     func didAssign(podcast: PodcastPlaylistItem) {
         
     }
-
+    
     
     func logout(tapped: Bool) {
         if dataSource.user != nil {
@@ -62,52 +67,58 @@ extension PlaylistsTabCoordinator: PlaylistsViewControllerDelegate {
     
     func didSelect(at index: Int, with playlist: Playlist) {
         let playlistViewController = PlaylistViewController(index: index)
+        playlistViewController.delegate = self
         navigationController.viewControllers.append(playlistViewController)
     }
 }
 
-
-class PlaylistCoreData {
-    
-    var testItems = [String]()
-    
-    func core() {
-        var playlist: PodcastPlaylist?
-        
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-        
-        let managedContext = appDelegate.coreData.managedContext
-        let podcastFetch: NSFetchRequest<PodcastPlaylist> = PodcastPlaylist.fetchRequest()
-        do {
-            let results = try managedContext.fetch(podcastFetch)
-            var podcast: [PodcastPlaylistItem]
-            for item in results {
-                var currentPlaylistItem: PodcastPlaylistItem?
-                let managedContext = appDelegate.coreData.managedContext
-                let podcastPlaylistItemFetch: NSFetchRequest<PodcastPlaylistItem> = PodcastPlaylistItem.fetchRequest()
-                podcastPlaylistItemFetch.predicate = NSPredicate(format: "%K == %@", #keyPath(PodcastPlaylistItem.playlistId), item.playlistId!)
-                let results = try managedContext.fetch(podcastPlaylistItemFetch)
-                do {
-                    let results = try managedContext.fetch(podcastPlaylistItemFetch)
-                    if results.count > 0 {
-                        for item in results {
-                            if let newTitle = item.episodeTitle {
-                                testItems.append(newTitle)
-                            }
-                        }
-                    } else {
-                        currentPlaylistItem = PodcastPlaylistItem(context: managedContext)
-                        currentPlaylistItem?.episodeTitle = "test"
-                        try managedContext.save()
-                    }
-                } catch let error as NSError {
-                    print("Fetch error: \(error) description: \(error.userInfo)")
-                }
-            }
-            
-        } catch let error as NSError {
-            print("Fetch error: \(error) description: \(error.userInfo)")
-        }
+extension PlaylistsTabCoordinator: PlaylistViewControllerDelegate {
+    func didSelectPodcast(at index: Int, with episodes: [PodcastPlaylistItem]) {
+//        let playerView = PlayerView()
+//        var homeVC = navigationController.viewControllers[0] as! HomeViewController
+//        //   var playerPodcast = podcast
+//        CALayer.createGradientLayer(with: [UIColor(red:0.94, green:0.31, blue:0.81, alpha:1.0).cgColor, UIColor(red:0.32, green:0.13, blue:0.70, alpha:1.0).cgColor], layer: playerView.backgroundView.layer, bounds: UIScreen.main.bounds)
+//            .//playerPodcast.episodes = episodes
+//        let playerViewController = PlayerViewController(playerView: playerView, index: index, caster: playerPodcast, user: dataSource.user)
+//        // playerViewController.dataSource.currentPlaylistId = homeVC.currentPlaylistId
+//        playerViewController.delegate = self
+//        navigationController.navigationBar.isTranslucent = true
+//        navigationController.navigationBar.alpha = 0
+//        // controller?.tabBarController?.selectedIndex = 1
+//        navigationController.viewControllers.append(playerViewController)
+//        //  PodcastPlaylistItem
     }
+    
+    
 }
+
+extension PlaylistsTabCoordinator: PlayerViewControllerDelegate {
+    func addItemToPlaylist(item: CasterSearchResult, index: Int) {
+  
+    }
+    
+    
+    func skipButton(tapped: Bool) {
+        print("SkipButton tapped \(tapped)")
+    }
+    
+    func pauseButton(tapped: Bool) {
+        print("PauseButton tapped \(tapped)")
+    }
+    
+    func playButton(tapped: Bool) {
+        print("PlayButton tapped \(tapped)")
+    }
+    
+    func navigateBack(tapped: Bool) {
+        navigationController.setNavigationBarHidden(false, animated: false)
+        navigationController.viewControllers.last?.tabBarController?.tabBar.alpha = 1
+    }
+    
+    func addItemToPlaylist(item: PodcastPlaylistItem) {
+
+    }
+
+}
+
 

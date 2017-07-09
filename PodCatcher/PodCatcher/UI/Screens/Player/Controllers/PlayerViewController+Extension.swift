@@ -5,7 +5,7 @@ import CoreData
 // MARK: - PlayerViewDelegate
 
 extension PlayerViewController: PlayerViewDelegate {
-
+    
     func setModel(model: PlayerViewModel) {
         playerView.configure(with: model)
     }
@@ -142,7 +142,7 @@ extension PlayerViewController: MenuDelegate {
     
     func optionOne(tapped: Bool) {
         DispatchQueue.main.async {
-            //delegate?.
+            self.hideLoadingView(loadingPop: self.loadingPop)
             self.delegate?.addItemToPlaylist(item: self.caster , index: self.index)
         }
     }
@@ -156,11 +156,17 @@ extension PlayerViewController: MenuDelegate {
     }
     
     func cancel(tapped: Bool) {
-        hidePopMenu()
+        DispatchQueue.main.async {
+            self.hideLoadingView(loadingPop: self.loadingPop)
+            self.hidePopMenu()
+        }
     }
     
     func navigateBack(tapped: Bool) {
-        delegate?.navigateBack(tapped: tapped)
-        navigationController?.popViewController(animated: false)
+        DispatchQueue.main.async {
+            self.hideLoadingView(loadingPop: self.loadingPop)
+            self.delegate?.navigateBack(tapped: tapped)
+            self.navigationController?.popViewController(animated: false)
+        }
     }
 }

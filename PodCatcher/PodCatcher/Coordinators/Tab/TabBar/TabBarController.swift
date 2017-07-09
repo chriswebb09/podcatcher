@@ -65,10 +65,16 @@ final class TabBarController: UITabBarController {
     }
     
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-        let nav = viewControllers?[2] as! UINavigationController
-        let med = nav.viewControllers[0] as! SearchViewController
-        if item != tabBar.items?[2] {
-            med.searchController.isActive = false
-        }
+//        let nav = viewControllers?[2] as! UINavigationController
+//        let med = nav.viewControllers[0] as! SearchViewController
+//        dump(nav.viewControllers)
+//        if nav.viewControllers.count >= 2 {
+//            //nav.viewControllers[2]
+//            let play = nav.viewControllers[2] as! PlayerViewController
+//            print(play)
+//        }
+//        if item != tabBar.items?[2] {
+//            med.searchController.isActive = false
+//        }
     }
 }
