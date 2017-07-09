@@ -1,17 +1,20 @@
 import UIKit
+import CoreData
 
-class PlaylistViewController: BaseCollectionViewController {
+class PlaylistViewController: BaseCollectionViewController, NSFetchedResultsControllerDelegate {
     
     var item: CasterSearchResult!
     var state: PodcasterControlState = .toCollection
     
     var dataSource: BaseMediaControllerDataSource!
     
-    weak var delegate: PodcastListViewControllerDelegate?
-    
+    weak var delegate: PlaylistViewControllerDelegate?
+    var playlistId: String
     var episodes = [Episodes]()
+ 
+    var fetchedResultsController:NSFetchedResultsController<PodcastPlaylistItem>!
     
-    var newItems = [[String : String]]()
+    private let persistentContainer = NSPersistentContainer(name: "PodCatcher")
     
     var menuActive: MenuActive = .none
     let entryPop = EntryPopover()
@@ -23,17 +26,19 @@ class PlaylistViewController: BaseCollectionViewController {
         didSet {
             switch viewShown {
             case .empty:
-                changeView(forView: emptyView, withView: collectionView)
+                print("here")
             case .collection:
-                changeView(forView: collectionView, withView: emptyView)
+                print("here")
+                
             }
         }
     }
     
     init(index: Int) {
         viewShown = .collection
+        self.playlistId = ""
         super.init(nibName: nil, bundle: nil)
-        topView.delegate = self
+        // topView.delegate = self
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -42,17 +47,37 @@ class PlaylistViewController: BaseCollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        reloadData()
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         bottomMenu.setMenu(color: .mainColor, borderColor: .darkGray, textColor: .white)
-        setup(dataSource: self, delegate: self)
         configureTopView()
         background.frame = view.frame
         view.addSubview(background)
         emptyView.alpha = 0
         edgesForExtendedLayout = []
-        topView.delegate = self
+        collectionView.delegate = self
+        collectionView.dataSource = self
         view.sendSubview(toBack: background)
         collectionView.register(PodcastResultCell.self)
+        persistentContainer.loadPersistentStores { (persistentStoreDescription, error) in
+            if let error = error {
+                print("Unable to Load Persistent Store")
+                print("\(error), \(error.localizedDescription)")
+                
+            } else {
+                do {
+                    try self.fetchedResultsController.performFetch()
+                } catch {
+                    let fetchError = error as NSError
+                    print("Unable to Perform Fetch Request")
+                    print("\(fetchError), \(fetchError.localizedDescription)")
+                }
+            }
+        }
     }
+}
+
+extension PlaylistViewController: ReloadableCollection {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(false)
@@ -68,7 +93,6 @@ class PlaylistViewController: BaseCollectionViewController {
         super.viewDidDisappear(animated)
         switch state {
         case .toCollection:
-            
             navigationController?.popViewController(animated: false)
         case .toPlayer:
             break
@@ -76,37 +100,21 @@ class PlaylistViewController: BaseCollectionViewController {
     }
 }
 
-import UIKit
-
 // MARK: - PodcastCollectionViewProtocol
 
 extension PlaylistViewController: PodcastCollectionViewProtocol {
     
-    func moreButton(tapped: Bool) {
-        let height = view.bounds.height * 0.5
-        let width = view.bounds.width
-        let size = CGSize(width: width, height: height)
-        let originX = view.bounds.width * 0.001
-        let originY = view.bounds.height * 0.6
-        let origin = CGPoint(x: originX, y: originY)
-        bottomMenu.menu.delegate = self
-        bottomMenu.setMenu(size)
-        bottomMenu.setMenu(origin)
-        bottomMenu.setupMenu()
-        bottomMenu.setMenu(color: .white, borderColor: .darkGray, textColor: .darkGray)
-        showPopMenu()
-    }
-    
     func configureTopView() {
         topView.frame = PodcastListConstants.topFrame
-        guard let urlString = item.podcastArtUrlString, let url = URL(string: urlString) else { return }
-        topView.podcastImageView.downloadImage(url: url)
-        topView.delegate = self
+        if let item = item, let urlString = item.podcastArtUrlString, let url = URL(string: urlString) {
+            topView.podcastImageView.downloadImage(url: url)
+        } else {
+            topView.podcastImageView.image = #imageLiteral(resourceName: "light-placehoder-2")
+        }
         topView.layoutSubviews()
         view.addSubview(topView)
         view.bringSubview(toFront: topView)
         setupView()
-        topView.delegate = self
     }
     
     func setupView() {
@@ -115,18 +123,6 @@ extension PlaylistViewController: PodcastCollectionViewProtocol {
         let viewHeight = (view.bounds.height - navHeight) - 55
         collectionView.frame = CGRect(x: topView.bounds.minX, y: topView.frame.maxY + (tabBar.frame.height + 10), width: view.bounds.width, height: viewHeight - (topView.frame.height - tabBar.frame.height))
         collectionView.backgroundColor = .clear
-        dump(collectionView.frame)
-        dump(view.frame.height)
-        guard let casters = dataSource.casters else { return }
-        if casters.count > 0 {
-            view.addSubview(collectionView)
-        } else {
-            let emptyView = EmptyCastsView(frame: PodcastListConstants.emptyCastViewFrame)
-            emptyView.backgroundColor = .white
-            emptyView.layoutSubviews()
-            view.addSubview(emptyView)
-        }
-        topView.delegate = self
     }
 }
 
@@ -163,9 +159,7 @@ extension PlaylistViewController: UIScrollViewDelegate {
 extension PlaylistViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        state = .toPlayer
         delegate?.didSelectPodcastAt(at: indexPath.row, podcast: item, with: episodes)
-        
     }
 }
 
@@ -174,15 +168,17 @@ extension PlaylistViewController: UICollectionViewDelegate {
 extension PlaylistViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return episodes.count
+        return fetchedResultsController.sections?[section].numberOfObjects ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as PodcastResultCell
+        let item = fetchedResultsController.object(at: indexPath)
+        print(item.artistId)
+        print(item.duration)
         DispatchQueue.main.async {
-            
-            if let playTime = self.episodes[indexPath.row].stringDuration {
-                let model = PodcastResultCellViewModel(podcastTitle: self.episodes[indexPath.row].title, playtimeLabel: playTime)
+            if let playTime = item.stringDate, let title = item.episodeTitle {
+                let model = PodcastResultCellViewModel(podcastTitle: title,  playtimeLabel: playTime)
                 cell.configureCell(model: model)
             }
         }
@@ -202,75 +198,3 @@ extension PlaylistViewController: UICollectionViewDelegateFlowLayout {
         return PodcastListViewControllerConstants.space
     }
 }
-
-// MARK: - TopViewDelegate
-
-extension PlaylistViewController: TopViewDelegate {
-    
-    func entryPop(popped: Bool) {
-        popEntry()
-    }
-    
-    func popBottomMenu(popped: Bool) {
-        let height = view.bounds.height * 0.5
-        let width = view.bounds.width
-        let size = CGSize(width: width, height: height)
-        let originX = view.bounds.width * 0.001
-        let originY = view.bounds.height * 0.45
-        let origin = CGPoint(x: originX, y: originY)
-        bottomMenu.menu.delegate = self
-        bottomMenu.setMenu(size)
-        bottomMenu.setMenu(origin)
-        bottomMenu.setupMenu()
-        bottomMenu.setMenu(color: .mainColor, borderColor: .darkGray, textColor: .white)
-        showPopMenu()
-    }
-    
-    func showPopMenu() {
-        UIView.animate(withDuration: 0.25) {
-            self.bottomMenu.showOn(self.view)
-            self.bottomMenu.menu.alpha = 1
-        }
-    }
-    
-    func hidePopMenu() {
-        bottomMenu.menu.alpha = 0
-        bottomMenu.hideFrom(self.view)
-    }
-    
-    func popEntry() {
-        UIView.animate(withDuration: 0.15) { [weak self] in
-            guard let strongSelf = self else { return }
-            strongSelf.entryPop.showPopView(viewController: strongSelf)
-            strongSelf.entryPop.popView.isHidden = false
-        }
-        entryPop.popView.doneButton.addTarget(self, action: #selector(hidePop), for: .touchUpInside)
-    }
-    
-    func hidePop() {
-        entryPop.hidePopView(viewController: self)
-        guard entryPop.popView.entryField.text != nil else { return }
-    }
-}
-
-// MARK: - MenuDelegate
-
-extension PlaylistViewController: MenuDelegate {
-    
-    func optionOne(tapped: Bool) {
-        //
-    }
-    
-    func optionTwo(tapped: Bool) {
-        //
-    }
-    
-    func optionThree(tapped: Bool) {
-        //
-    }
-    
-    func cancel(tapped: Bool) {
-        hidePopMenu()
-    }
-}
-

@@ -9,11 +9,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var mainCoordinator: MainCoordinator!
     var backgroundSessionCompletionHandler: (() -> Void)?
+    var coreData: CoreDataStack!
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         ApplicationStyling.setupUI()
-    
+        
+        coreData = CoreDataStack(modelName: "PodCatcher")
+        
         #if CLEAR_CACHES
             let cachesFolderItems = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true)
             for item in cachesFolderItems {
@@ -23,12 +26,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window = UIWindow(frame: UIScreen.main.bounds)
         
-        if let window = window, UserDefaults.loadDefaultOnFirstLaunch() {
+        if let window = window {
             let startCoordinator = StartCoordinator(navigationController: UINavigationController(), window: window)
             mainCoordinator = MainCoordinator(window: window, coordinator: startCoordinator)
-            startCoordinator.skipSplash()
-        } else if let window = window {
-            mainCoordinator = MainCoordinator(window: window)
             mainCoordinator.start()
         }
         
@@ -42,19 +42,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print("background")
         backgroundSessionCompletionHandler = completionHandler
     }
-  
+    
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         let handled = FBSDKApplicationDelegate.sharedInstance().application(app, open: url, options: options)
         return handled
     }
     
     func applicationWillTerminate(_ application: UIApplication) {
-        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-        // Saves changes in the application's managed object context before the application terminates.
-        self.saveContext()
+        coreData.saveContext()
     }
-    
-    // MARK: - Core Data stack
     
     lazy var persistentContainer: NSPersistentContainer = {
         
@@ -95,7 +91,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             do {
                 try context.save()
             } catch {
-              //  print(error.localizedDescription)
+                //  print(error.localizedDescription)
                 // Replace this implementation with code to handle the error appropriately.
                 // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
                 let nserror = error as NSError
@@ -103,5 +99,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
+  
 }
 

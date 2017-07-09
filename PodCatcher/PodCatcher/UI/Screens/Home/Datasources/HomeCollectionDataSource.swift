@@ -4,20 +4,14 @@ import CoreData
 final class HomeCollectionDataSource: BaseMediaControllerDataSource {
     
     var dataType: DataType = .network
-    let store = SearchResultsDataStore()
-    let fetcher = SearchResultsFetcher()
-    
-    var lookup: String = "" {
-        didSet {
-            fetcher.setLookup(term: lookup)
-        }
-    }
     
     var topStore = TopPodcastsDataStore()
     var topItemImage: UIImage!
     var items = [CasterSearchResult]()
     var topViewItemIndex: Int = 0
     var reserveItems = [CasterSearchResult]()
+    
+    var cellModels = [TopPodcastCellViewModel]()
     
     var categories: [String] = []
     
@@ -59,6 +53,7 @@ extension HomeCollectionDataSource:  UICollectionViewDataSource {
                 }
             }
         }
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + rowTime) {
             UIView.animate(withDuration: rowTime) {
                 cell.alpha = 1

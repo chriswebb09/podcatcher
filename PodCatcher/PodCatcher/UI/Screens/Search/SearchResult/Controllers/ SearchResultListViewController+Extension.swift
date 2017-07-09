@@ -21,8 +21,9 @@ extension SearchResultListViewController: PodcastCollectionViewProtocol {
     
     func configureTopView() {
         topView.frame = PodcastListConstants.topFrame
-        guard let urlString = item.podcastArtUrlString, let url = URL(string: urlString) else { return }
-        topView.podcastImageView.downloadImage(url: url)
+        if let item = item, let urlString = item.podcastArtUrlString, let url = URL(string: urlString) {
+            topView.podcastImageView.downloadImage(url: url)
+        }
         topView.delegate = self
         topView.layoutSubviews()
         view.addSubview(topView)
@@ -37,8 +38,6 @@ extension SearchResultListViewController: PodcastCollectionViewProtocol {
         let viewHeight = (view.bounds.height - navHeight) - 55
         collectionView.frame = CGRect(x: topView.bounds.minX, y: topView.frame.maxY + (tabBar.frame.height + 10), width: view.bounds.width, height: viewHeight - (topView.frame.height - tabBar.frame.height))
         collectionView.backgroundColor = .clear
-        dump(collectionView.frame)
-        dump(view.frame.height)
         guard let casters = dataSource.casters else { return }
         if casters.count > 0 {
             view.addSubview(collectionView)

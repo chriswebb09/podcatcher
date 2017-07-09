@@ -98,17 +98,43 @@ final class AudioFilePlayer: NSObject {
 }
 
 extension AudioFilePlayer: AVAssetResourceLoaderDelegate, Playable {
-
+    
     func getTrackDuration(asset: AVURLAsset) {
         asset.loadValuesAsynchronously(forKeys: ["tracks", "duration"]) {
             let audioDuration = self.asset.duration
             let audioDurationSeconds = CMTimeGetSeconds(audioDuration)
-            let minutes = Int(audioDurationSeconds / 60)
+            let hours: Int = Int(audioDurationSeconds / 3600)
+            let minutes = Int(audioDurationSeconds.truncatingRemainder(dividingBy: 3600) / 60)
             let rem = Int(audioDurationSeconds.truncatingRemainder(dividingBy: 60))
-            self.delegate?.trackDurationCalculated(stringTime: "\(minutes):\(rem + 2)", timeValue: audioDurationSeconds)
+            
+            var formattedSeconds = ""
+            
+            if rem < 10 {
+                formattedSeconds = "0\(rem)"
+            } else {
+                formattedSeconds = "\(rem)"
+            }
+            
+            var formattedMinutes = ""
+            
+            if minutes < 10 {
+                formattedMinutes = "0\(minutes)"
+            } else {
+                formattedMinutes = "\(minutes)"
+            }
+            
+            var formattedTime = ""
+            
+            if hours > 0 {
+                formattedTime = "\(hours):\(formattedMinutes):\(formattedSeconds)"
+            } else {
+                 formattedTime = "\(formattedMinutes):\(formattedSeconds)"
+            }
+            self.delegate?.trackDurationCalculated(stringTime: formattedTime, timeValue: audioDurationSeconds)
         }
     }
     
+
     func observePlayTime() {
         if self.delegate == nil {
             print("Delegate is not set")

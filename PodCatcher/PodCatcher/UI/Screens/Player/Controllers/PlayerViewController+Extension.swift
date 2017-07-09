@@ -1,10 +1,11 @@
 import UIKit
 import CoreMedia
+import CoreData
 
 // MARK: - PlayerViewDelegate
 
 extension PlayerViewController: PlayerViewDelegate {
-    
+
     func setModel(model: PlayerViewModel) {
         playerView.configure(with: model)
     }
@@ -80,7 +81,7 @@ extension PlayerViewController: PlayerViewDelegate {
         player.observePlayTime()
         delegate?.playButton(tapped: true)
     }
-
+    
     func moreButton(tapped: Bool) {
         let height = view.bounds.height * 0.5
         let width = view.bounds.width
@@ -129,60 +130,37 @@ extension PlayerViewController: AudioFilePlayerDelegate {
         let normalizedTime = player.currentTime * 100.0 / player.duration
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }
+            print(String.constructTimeString(time: player.currentTime))
             strongSelf.playerView.currentPlayTimeLabel.text = String.constructTimeString(time: player.currentTime)
             strongSelf.playerView.update(progressBarValue: Float(normalizedTime))
         }
     }
 }
 
+
 extension PlayerViewController: MenuDelegate {
     
     func optionOne(tapped: Bool) {
-        let client = iTunesAPIClient()
-        guard let player = player else { return }
-        switch player.state {
-        case .playing:
-            pauseButtonTapped()
-        default:
-            break
+        DispatchQueue.main.async {
+            //delegate?.
+            self.delegate?.addItemToPlaylist(item: self.caster , index: self.index)
         }
-        downloadingIndicator.showActivityIndicator(viewController: self)
-        if let urlString = caster.episodes[index].audioUrlString {
-            let download = Download(url: urlString)
-            download.delegate = self
-            client.startDownload(download)
-        }
-        hidePopMenu()
     }
     
     func optionTwo(tapped: Bool) {
-        print(tapped)
+        
     }
     
     func optionThree(tapped: Bool) {
-        print(tapped)
+        
     }
     
     func cancel(tapped: Bool) {
-        print("extension cancel(tapped: Bool)")
         hidePopMenu()
     }
     
     func navigateBack(tapped: Bool) {
         delegate?.navigateBack(tapped: tapped)
         navigationController?.popViewController(animated: false)
-    }
-}
-
-extension PlayerViewController: DownloadDelegate {
-    
-    func downloadProgressUpdated(for progress: Float) {
-        self.downloadingIndicator.percentageCompleteLabel.text = String(format: "%.1f%%", progress * 100)
-        if progress == 1 {
-            DispatchQueue.main.async {
-                self.downloadingIndicator.hideActivityIndicator(viewController: self)
-            }
-        }
-        print(String(format: "%.1f%%", progress * 100))
     }
 }

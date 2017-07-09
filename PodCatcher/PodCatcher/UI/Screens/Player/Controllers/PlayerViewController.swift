@@ -20,6 +20,7 @@ final class PlayerViewController: BaseViewController {
     var user: PodCatcherUser?
     let downloadingIndicator = DownloaderIndicatorView()
     var playerViewModel: PlayerViewModel!
+    var dataSource = PlayerControllerDataSource()
     
     init(playerView: PlayerView = PlayerView(), index: Int, caster: CasterSearchResult, user: PodCatcherUser?) {
         self.playerView = playerView
@@ -46,14 +47,13 @@ final class PlayerViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         showLoadingView(loadingPop: loadingPop)
         super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
         tabBarController?.tabBar.alpha = 0
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        navigationController?.navigationBar.alpha = 1
         navigationController?.popViewController(animated: true)
-        tabBarController?.tabBar.alpha = 1
         player?.player.pause()
         player = nil
     }

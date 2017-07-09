@@ -67,8 +67,10 @@ extension SearchViewController: UISearchControllerDelegate {
                 return
             }
             guard let playlist = playlist, let strongSelf = self else { return }
-            strongSelf.dataSource.items = playlist
-            strongSelf.tableView.reloadData()
+            DispatchQueue.main.async {
+                strongSelf.dataSource.items = playlist
+                strongSelf.tableView.reloadData()
+            }
         }
     }
 }
@@ -81,7 +83,14 @@ extension SearchViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print(indexPath.row)
-        delegate?.didSelect(at: indexPath.row, with: dataSource.items[indexPath.row])
+        if dataSource.items.count > 0 {
+            delegate?.didSelect(at: indexPath.row, with: dataSource.items[indexPath.row])
+        } else {
+            DispatchQueue.main.async {
+                self.navigationController?.navigationBar.topItem?.title = "PodCatch"
+                self.tableView.reloadData()
+            }
+        }
     }
 }
 
@@ -97,7 +106,7 @@ extension SearchViewController: UISearchBarDelegate {
         searchBarActive = true
         dataSource.store.setSearch(term: text)
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(searchBarHasInput), object: nil)
-        perform(#selector(searchBarHasInput), with: nil, afterDelay: 0.35)
+        perform(#selector(searchBarHasInput), with: nil, afterDelay: 0.15)
         navController.navigationBar.topItem?.title = "Search: \(text)"
     }
     

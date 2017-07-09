@@ -1,0 +1,75 @@
+import UIKit
+
+struct PodcastPlaylistCellConstants {
+    static let podcastTitleLabelWidthMultiplier: CGFloat = 0.7
+    static let podcastTitleLabelLeftOffset: CGFloat = UIScreen.main.bounds.width * 0.05
+    static let playtimeLabelRightOffset: CGFloat = UIScreen.main.bounds.width * -0.05
+    static let playtimeLabelWidthMultiplier: CGFloat = 0.2
+}
+
+final class PodcastPlaylistCell: UICollectionViewCell {
+    
+    // MARK: - UI Properties
+    
+    var colorBackgroundView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        view.alpha = 1
+        return view
+    }()
+    
+    var podcastTitleLabel: UILabel = {
+        var podcastTitleLabel = UILabel()
+        podcastTitleLabel.numberOfLines = 0
+        podcastTitleLabel.textAlignment = .left
+        podcastTitleLabel.textColor = .darkGray
+        podcastTitleLabel.font = UIFont.systemFont(ofSize: 10, weight: UIFontWeightThin)
+        return podcastTitleLabel
+    }()
+    
+    var playTimeLabel: UILabel = {
+        var playTimeLabel = UILabel()
+        playTimeLabel.sizeToFit()
+        playTimeLabel.textAlignment = .right
+        playTimeLabel.textColor = .black
+        playTimeLabel.font = UIFont(name: "AvenirNext-Medium", size: 11)
+        return playTimeLabel
+    }()
+    
+    // MARK: - Configuration Methods
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth, .flexibleTopMargin, .flexibleBottomMargin]
+        isUserInteractionEnabled = true
+        contentView.layer.borderColor = UIColor.clear.cgColor
+        contentView.layer.masksToBounds = true
+        layer.podcastCell(viewRadius: contentView.layer.cornerRadius + 10)
+        contentView.layer.setCellShadow(contentView: contentView)
+    }
+    
+    func configureCell(model: PodcastCellViewModel) {
+        layoutSubviews()
+        setupConstraints()
+        layoutIfNeeded()
+        colorBackgroundView.frame = contentView.frame
+        contentView.addSubview(colorBackgroundView)
+        contentView.sendSubview(toBack: colorBackgroundView)
+        playTimeLabel.text = String.constructTimeString(time: model.item.playtime)
+        podcastTitleLabel.text = model.podcastTitle
+    }
+    
+    func setupConstraints() {
+        self.updateConstraintsIfNeeded()
+        contentView.addSubview(podcastTitleLabel)
+        podcastTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        podcastTitleLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: PodcastCellConstants.podcastTitleLabelWidthMultiplier).isActive = true
+        podcastTitleLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: PodcastCellConstants.podcastTitleLabelLeftOffset).isActive = true
+        podcastTitleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
+        contentView.addSubview(playTimeLabel)
+        playTimeLabel.translatesAutoresizingMaskIntoConstraints = false
+        playTimeLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: PodcastCellConstants.playtimeLabelWidthMultiplier).isActive = true
+        playTimeLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: PodcastPlaylistCellConstants.playtimeLabelRightOffset).isActive = true
+        playTimeLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
+    }
+}

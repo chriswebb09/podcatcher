@@ -1,6 +1,6 @@
 import UIKit
 
-final class ListTopView: UIView {
+final class HomeTopView: UIView {
     
     weak var delegate: TopViewDelegate?
     
@@ -73,8 +73,8 @@ final class ListTopView: UIView {
         podcastImageView.translatesAutoresizingMaskIntoConstraints = false
         podcastImageView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: PodcastListTopViewConstants.podcastImageViewCenterYOffset).isActive = true
         podcastImageView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        podcastImageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: PodcastListTopViewConstants.podcastImageViewHeightMultiplier).isActive = true
-        podcastImageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: PodcastListTopViewConstants.podcastImageViewWidthMultiplier).isActive = true
+        podcastImageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: HomeListTopViewConstants.podcastImageViewHeightMultiplier).isActive = true
+        podcastImageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: HomeListTopViewConstants.podcastImageViewWidthMultiplier).isActive = true
     }
     
     func setup(titleLabel: UILabel) {
@@ -102,3 +102,17 @@ final class ListTopView: UIView {
         tagsView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: PodcastListTopViewConstants.tagsViewHeightMultiplier).isActive = true
     }
 }
+
+
+// MARK: - PreferencesViewDelegate
+
+extension HomeTopView: PreferencesViewDelegate {
+    func addTagButton(tapped: Bool) {
+        delegate?.entryPop(popped: tapped)
+    }
+    
+    func moreButton(tapped: Bool) {
+        delegate?.popBottomMenu(popped: tapped)
+    }
+}
+

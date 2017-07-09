@@ -34,6 +34,10 @@ extension StartCoordinator: LoginViewControllerDelegate {
         dataSource.user = user
         delegate?.transitionCoordinator(type: .tabbar, dataSource: self.dataSource)
     }
+    
+    func navigateBack(tapped: Bool) {
+        print("back")
+    }
 }
 
 extension StartCoordinator: CreateAccountViewControllerDelegate {

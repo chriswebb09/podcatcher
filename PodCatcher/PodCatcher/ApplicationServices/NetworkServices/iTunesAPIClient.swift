@@ -22,7 +22,8 @@ final class iTunesAPIClient: NSObject {
                 completion(.failed(error))
             } else {
                 do {
-                    guard let responseObject = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any] else { return }
+                    guard let data = data else { return }
+                    guard let responseObject = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any] else { return }
                     DispatchQueue.main.async {
                         completion(.success(responseObject))
                     }
@@ -33,14 +34,16 @@ final class iTunesAPIClient: NSObject {
             }.resume()
     }
     
-    static func search(forLookup: String, completion: @escaping (Response) -> Void) {
+    static func search(forLookup: String?, completion: @escaping (Response) -> Void) {
+        guard let forLookup = forLookup else { return }
         guard let url = URL(string: "https://itunes.apple.com/lookup?id=\(forLookup)&entity=podcast") else { return }
         URLSession(configuration: .ephemeral).dataTask(with: URLRequest(url: url)) { data, response, error in
             if let error = error {
                 completion(.failed(error))
             } else {
                 do {
-                    guard let responseObject = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any] else { return }
+                    guard let data = data else { return }
+                    guard let responseObject = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any] else { return }
                     DispatchQueue.main.async {
                         completion(.success(responseObject))
                     }
@@ -78,14 +81,11 @@ extension iTunesAPIClient: URLSessionDelegate {
     func pauseDownload(_ download: Download?) {
         if let download = download, let url = download.url {
             guard let download = activeDownloads[url] else { return }
-            print(download)
         }
     }
     
     func cancelDownload(_ download: Download?) {
         if let download = download, let url = download.url {
-            print(download)
-            print(url)
         }
     }
     
@@ -95,7 +95,7 @@ extension iTunesAPIClient: URLSessionDelegate {
             print(download)
             print(url)
         }
-
+        
     }
     
     internal func urlSessionDidFinishEvents(forBackgroundURLSession session: URLSession) {

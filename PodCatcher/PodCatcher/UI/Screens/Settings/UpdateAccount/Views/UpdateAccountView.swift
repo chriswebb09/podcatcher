@@ -55,7 +55,6 @@ class UpdateAccountView: UIView {
         setup(editLabelButton: editUserNameButton)
         editUserNameButton.setTitleColor(.blue, for: .normal)
         editUserNameButton.addTarget(self, action: #selector(editTapped), for: .touchUpInside)
-        dump(editUserNameButton)
     }
     
     func configure(model: UpdateAccountViewModel) {

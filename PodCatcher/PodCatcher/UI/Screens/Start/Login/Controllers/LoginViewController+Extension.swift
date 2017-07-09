@@ -49,4 +49,9 @@ extension LoginViewController: LoginViewDelegate {
             }
         }
     }
+    
+    func navigateBack(tapped: Bool) {
+        delegate?.navigateBack(tapped: tapped)
+        navigationController?.popViewController(animated: false)
+    }
 }

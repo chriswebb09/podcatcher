@@ -15,7 +15,12 @@ extension HomeViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        delegate?.didSelect(at: indexPath.row, with: dataSource.items[indexPath.row])
+        switch dataSource.dataType {
+        case .local:
+            delegate?.didSelect(at: indexPath.row)
+        case .network:
+            delegate?.didSelect(at: indexPath.row, with: dataSource.items[indexPath.row])
+        }
     }
     
     func logoutTapped() {

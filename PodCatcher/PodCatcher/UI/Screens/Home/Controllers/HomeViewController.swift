@@ -6,13 +6,15 @@ final class HomeViewController: BaseCollectionViewController {
     
     weak var delegate: HomeViewControllerDelegate?
     
+    var currentPlaylistId: String = ""
+    
     var dataSource: HomeCollectionDataSource! {
         didSet {
             viewShown = dataSource.viewShown
         }
     }
-
-    var topView = ListTopView()
+    
+    var topView = HomeTopView()
     
     var viewShown: ShowView = .empty {
         didSet {
@@ -61,7 +63,7 @@ final class HomeViewController: BaseCollectionViewController {
         DispatchQueue.main.async {
             self.collectionView.reloadData()
             self.view.bringSubview(toFront: self.collectionView)
-             if self.dataSource.dataType == .local {
+            if self.dataSource.dataType == .local {
                 self.dataSource.topStore.fetchFromCore()
                 self.topView.podcastImageView.image = self.dataSource.topItemImage
             }

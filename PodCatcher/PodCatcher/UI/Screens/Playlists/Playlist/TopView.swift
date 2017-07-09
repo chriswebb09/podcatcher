@@ -1,6 +1,6 @@
 import UIKit
 
-final class ListTopView: UIView {
+final class TopView: UIView {
     
     weak var delegate: TopViewDelegate?
     
@@ -9,7 +9,6 @@ final class ListTopView: UIView {
     var podcastImageView: UIImageView! = {
         var podcastImageView = UIImageView()
         podcastImageView.layer.setCellShadow(contentView: podcastImageView)
-        podcastImageView.layer.cornerRadius = 2
         return podcastImageView
     }()
     
@@ -52,7 +51,6 @@ final class ListTopView: UIView {
         setup(preferencesView: preferencesView)
         setup(tagsView: tags)
         preferencesView.layoutSubviews()
-        preferencesView.delegate = self
     }
     
     func configure(tags: [String], timeListen: String) {
@@ -102,3 +100,4 @@ final class ListTopView: UIView {
         tagsView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: PodcastListTopViewConstants.tagsViewHeightMultiplier).isActive = true
     }
 }
+

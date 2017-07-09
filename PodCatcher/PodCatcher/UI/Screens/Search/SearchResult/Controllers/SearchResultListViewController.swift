@@ -8,7 +8,7 @@ class SearchResultListViewController: BaseCollectionViewController {
     var dataSource: BaseMediaControllerDataSource!
     
     weak var delegate: PodcastListViewControllerDelegate?
-    
+    var currentPlaylistID: String = ""
     var episodes = [Episodes]()
     var newItems = [[String : String]]()
     var menuActive: MenuActive = .none
@@ -55,6 +55,8 @@ class SearchResultListViewController: BaseCollectionViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(false)
         collectionView.alpha = 1
+        navigationController?.setNavigationBarHidden(false, animated: false)
+        navigationController?.navigationBar.alpha = 1
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -66,7 +68,6 @@ class SearchResultListViewController: BaseCollectionViewController {
         super.viewDidDisappear(animated)
         switch state {
         case .toCollection:
-            
             navigationController?.popViewController(animated: false)
         case .toPlayer:
             break

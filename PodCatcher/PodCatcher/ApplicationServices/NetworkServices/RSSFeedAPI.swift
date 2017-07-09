@@ -6,12 +6,19 @@ class RSSFeedAPIClient: NSObject, XMLParserDelegate {
         guard let url = URL(string: urlString) else { return }
         URLSession(configuration: .ephemeral).dataTask(with: URLRequest(url: url)) { data, response, error in
             if let error = error {
-                completion(nil, error)
+                print(error.localizedDescription)
+                DispatchQueue.main.async {
+                     completion(nil, error)
+                }
+               
             } else {
                 guard let data = data else { return }
+                dump(data)
                 let rssParser = RSSParser()
                 rssParser.parseResponse(data: data) { parsedRSS in
-                    completion(parsedRSS, nil)
+                    DispatchQueue.main.async {
+                        completion(parsedRSS, nil)
+                    }
                 }
             }
             }.resume()
@@ -21,12 +28,18 @@ class RSSFeedAPIClient: NSObject, XMLParserDelegate {
         guard let url = URL(string: "https://rss.itunes.apple.com/api/v1/us/podcasts/top-podcasts/25/explicit/xml") else { return }
         URLSession(configuration: .ephemeral).dataTask(with: URLRequest(url: url)) { data, response, error in
             if let error = error {
-                completion(nil, error)
+                print(error.localizedDescription)
+                DispatchQueue.main.async {
+                    completion(nil, error)
+                }
             } else {
+                dump(data)
                 guard let data = data else { return }
                 let rssParser = RSSParser()
                 rssParser.parseResponse(data: data) { parsedRSS in
-                    completion(parsedRSS, nil)
+                    DispatchQueue.main.async {
+                        completion(parsedRSS, nil)
+                    }
                 }
             }
             }.resume()
@@ -38,26 +51,39 @@ class SearchResultsDataStore {
     func pullFeed(for podCast: String, competion: @escaping (([Episodes]?, Error?) -> Void)) {
         var episodes = [Episodes]()
         RSSFeedAPIClient.requestFeed(for: podCast) { rssData, error in
+//            print(rssData)
             if let error = error {
-                competion(nil, error)
+                print(error.localizedDescription)
+                DispatchQueue.main.async {
+                    competion(nil, error)
+                }
+                
             }
-            guard let rssData = rssData else { return }
+            guard let rssData = rssData else {
+                return }
+            
             for data in rssData {
                 guard let title = data["title"] else { continue }
                 guard let audioUrl = data["audio"] else { continue }
                 var episode = Episodes(title: title, date: "", description: "", duration: 000, audioUrlString: audioUrl, stringDuration: "")
                 if let duration = data["itunes:duration"] {
+                    print("DURATION")
                     episode.stringDuration = duration
                 }
                 if let description = data["itunes:summary"] {
+                    print("SUMMARY")
                     episode.description = description
                 }
                 if let date = data["pubDate"] {
+                    print("PUBDATE")
                     episode.date = date
                 }
                 episodes.append(episode)
             }
-            competion(episodes, nil)
+            DispatchQueue.main.async {
+                competion(episodes, nil)
+            }
+            
         }
     }
     
@@ -67,7 +93,10 @@ class SearchResultsDataStore {
         RSSFeedAPIClient.getTopPodcasts { rssData, error in
             
             if let error = error {
-                competion(nil, error)
+                print(error.localizedDescription)
+                DispatchQueue.main.async {
+                    competion(nil, error)
+                }
             }
             
             guard let rssData = rssData else { return }
@@ -78,8 +107,7 @@ class SearchResultsDataStore {
                 let pubDate = data["pubDate"]
                 let title = data["title"]
                 let category = data["category"]
-                
-                if let itemLink = link, let id = self.extractIdFromLink(link: itemLink), let date = pubDate, let title = title, let category = category {
+                if let itemLink = link, let id = String.extractID(from: itemLink), let date = pubDate, let title = title, let category = category {
                     var itemCategory = "N/A"
                     if category != "podcast" {
                         itemCategory = category
@@ -96,20 +124,4 @@ class SearchResultsDataStore {
             }
         }
     }
-    
-    func extractIdFromLink(link: String) -> String? {
-        let pattern = "id([0-9]+)"
-        guard let regExp = try? NSRegularExpression(pattern: pattern, options: .caseInsensitive) else {
-            return nil
-        }
-        let nsString = link as NSString
-        let options = NSRegularExpression.MatchingOptions(rawValue: 0)
-        let range = NSRange(location: 0, length: nsString.length)
-        let matches = regExp.matches(in: link as String, options:options, range:range)
-        if let firstMatch = matches.first {
-            return nsString.substring(with: firstMatch.range)
-        }
-        return nil
-    }
 }
-

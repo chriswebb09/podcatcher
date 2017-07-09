@@ -52,7 +52,7 @@ extension String {
         return timerString
     }
     
-    static func extract(from link: String) -> String? {
+    static func extractID(from link: String) -> String? {
         let pattern = "id([0-9]+)"
         guard let regExp = try? NSRegularExpression(pattern: pattern, options: .caseInsensitive) else {
             return nil
@@ -66,12 +66,5 @@ extension String {
         }
         return nil
     }
-//    
-//    func trimZeroes() -> String {
-//        var value = ""
-//        if self.hasPrefix("00:") {
-//            self.trimmingCharacters(in: CharacterSet("0:"))
-//        }
-//        return value
-//    }
+
 }

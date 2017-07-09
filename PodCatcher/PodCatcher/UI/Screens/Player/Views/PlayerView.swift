@@ -58,8 +58,10 @@ final class PlayerView: UIView {
         return album
     }()
     
-    private var albumImageView: UIImageView = {
+    
+   var albumImageView: UIImageView = {
         let albumImage = UIImageView()
+        albumImage.layer.setCellShadow(contentView: albumImage)
         return albumImage
     }()
     
@@ -293,7 +295,7 @@ final class PlayerView: UIView {
     private func setup(totalTimeLabel: UILabel) {
         controlsView.addSubview(totalPlayTimeLabel)
         totalPlayTimeLabel.translatesAutoresizingMaskIntoConstraints = false
-        totalPlayTimeLabel.widthAnchor.constraint(equalTo: controlsView.widthAnchor, multiplier: 0.1).isActive = true
+        totalPlayTimeLabel.widthAnchor.constraint(equalTo: controlsView.widthAnchor, multiplier: 0.14).isActive = true
         totalPlayTimeLabel.heightAnchor.constraint(equalTo: controlsView.heightAnchor, multiplier: PlayerViewConstants.backButtonHeightMultiplier).isActive = true
         totalPlayTimeLabel.bottomAnchor.constraint(equalTo: controlsView.bottomAnchor, constant: UIScreen.main.bounds.height * -0.05).isActive = true
         totalPlayTimeLabel.rightAnchor.constraint(equalTo: controlsView.rightAnchor, constant: UIScreen.main.bounds.width * -0.15).isActive = true

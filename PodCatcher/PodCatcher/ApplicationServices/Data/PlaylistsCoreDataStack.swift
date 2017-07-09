@@ -10,7 +10,7 @@ class PlaylistsCoreDataStack {
             return
         }
         
-        let managedContext = appDelegate.persistentContainer.viewContext
+        let managedContext = appDelegate.coreData.managedContext
         let entity = NSEntityDescription.entity(forEntityName: "PodcastPlaylist", in: managedContext)!
         let playlist = NSManagedObject(entity: entity, insertInto: managedContext)
         let id = UUID().uuidString
@@ -31,7 +31,7 @@ class PlaylistsCoreDataStack {
     
     func fetchFromCore() {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-        let managedContext = appDelegate.persistentContainer.viewContext
+        let managedContext = appDelegate.coreData.managedContext
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "PodcastPlaylist")
         do {
             playlists = try managedContext.fetch(fetchRequest)
@@ -41,11 +41,3 @@ class PlaylistsCoreDataStack {
     }
 }
 
-//@NSManaged public var artwork: NSData?
-//@NSManaged public var dateCreated: NSDate?
-//@NSManaged public var numberOfItems: Int32
-//@NSManaged public var numberOfPlays: Int32
-//@NSManaged public var playlistId: String?
-//@NSManaged public var playlistName: String?
-//@NSManaged public var timeSpentListening: Double
-//@NSManaged public var podcast: NSSet?

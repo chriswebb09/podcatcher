@@ -5,4 +5,7 @@ protocol PlayerViewControllerDelegate: class {
     func pauseButton(tapped: Bool)
     func skipButton(tapped: Bool)
     func navigateBack(tapped: Bool)
+    func addItemToPlaylist(item: PodcastPlaylistItem)
+    
+    func addItemToPlaylist(item: CasterSearchResult, index: Int)
 }

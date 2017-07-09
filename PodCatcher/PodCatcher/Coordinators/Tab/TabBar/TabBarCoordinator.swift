@@ -1,12 +1,13 @@
 import UIKit
 
-class TabBarCoordinator: TabControllerCoordinator, Coordinator {
+class TabBarCoordinator: TabControllerCoordinator {
     
     weak var delegate: CoordinatorDelegate?
     
     var type: CoordinatorType = .tabbar
     var tabBarController: TabBarController
     var window: UIWindow!
+    
     var childCoordinators: [NavigationCoordinator] = []
     
     required init(tabBarController: TabBarController) {
@@ -21,6 +22,9 @@ class TabBarCoordinator: TabControllerCoordinator, Coordinator {
     func start(viewController: UIViewController) {
         // Fix
     }
+}
+
+extension TabBarCoordinator: Coordinator {
     
     func setupHomeCoordinator(navigationController: UINavigationController, dataSource: BaseMediaControllerDataSource) {
         let tabCoordinator = HomeTabCoordinator(navigationController: navigationController)
@@ -59,3 +63,4 @@ class TabBarCoordinator: TabControllerCoordinator, Coordinator {
         tabBarController.setTabTitles(controllers: [childCoordinators[0].navigationController, childCoordinators[1].navigationController, childCoordinators[2].navigationController, childCoordinators[3].navigationController])
     }
 }
+

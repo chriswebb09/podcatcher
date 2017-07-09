@@ -13,6 +13,19 @@ final class LoginView: UIView {
         }
     }
     
+    var navBar: UIView = {
+        let navBar = UIView()
+        return navBar
+    }()
+    
+    private var navigateBackButton: UIButton = {
+        var backButton = UIButton()
+        var buttonImage = #imageLiteral(resourceName: "back").withRenderingMode(.alwaysTemplate)
+        backButton.setImage(buttonImage, for: .normal)
+        backButton.tintColor = .white
+        return backButton
+    }()
+    
     var backgroundView = UIView()
     
     // MARK: - UI Elements
@@ -66,12 +79,15 @@ final class LoginView: UIView {
         emailField.setup()
         emailField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         passwordField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        setup(navBar: navBar)
+        setup(navigationButton: navigateBackButton)
         setup(emailField: emailField)
         setup(passwordField: passwordField)
         setup(submitButton: submitButton)
         setup(loginFacebookButton: loginFacebookButton)
         submitButton.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightMedium)
         submitButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
+        navigateBackButton.addTarget(self, action: #selector(navigateBack), for: .touchUpInside)
         loginFacebookButton.addTarget(self, action: #selector(loginWithFacebookTapped), for: .touchUpInside)
         emailField.autocorrectionType = .no
         backgroundColor = .white
@@ -84,6 +100,25 @@ final class LoginView: UIView {
         emailField.text = "Link@link.com"
         passwordField.text = "123456"
         submitButton.isEnabled = true
+    }
+    
+    
+    func setup(navBar: UIView) {
+        addSubview(navBar)
+        navBar.translatesAutoresizingMaskIntoConstraints = false
+        navBar.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
+        navBar.heightAnchor.constraint(equalTo: heightAnchor, multiplier: PlayerViewConstants.trackTitleViewHeightMultiplier).isActive = true
+        navBar.topAnchor.constraint(equalTo: topAnchor, constant: UIScreen.main.bounds.height * 0.03).isActive = true
+        navBar.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+    }
+    
+    func setup(navigationButton: UIButton) {
+        navBar.addSubview(navigationButton)
+        navigationButton.translatesAutoresizingMaskIntoConstraints = false
+        navigationButton.leftAnchor.constraint(equalTo: navBar.leftAnchor, constant: UIScreen.main.bounds.width * 0.01).isActive = true
+        navigationButton.centerYAnchor.constraint(equalTo: navBar.centerYAnchor).isActive = true
+        navigationButton.heightAnchor.constraint(equalTo: navBar.heightAnchor, multiplier: 0.9).isActive = true
+        navigationButton.widthAnchor.constraint(equalTo: navBar.widthAnchor, multiplier: 0.1).isActive = true
     }
     
     private func sharedLayout(view: UIView) {
@@ -122,14 +157,16 @@ final class LoginView: UIView {
         loginFacebookButton.topAnchor.constraint(equalTo: submitButton.bottomAnchor, constant: LoginViewConstants.facebookButtonTopOffset - 60).isActive = true
     }
     
+    func navigateBack() {
+        delegate?.navigateBack(tapped: true)
+    }
+    
     func loginButtonTapped() {
         guard let username = emailField.text, let password = passwordField.text else { return }
         delegate?.userEntryDataSubmitted(with: username, and: password)
     }
     
     func loginWithFacebookTapped() {
-     //   emailField.alpha = 0
-       // passwordField.alpha = 0
         delegate?.facebookLoginButtonTapped()
     }
 }

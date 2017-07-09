@@ -1,8 +1,24 @@
 import UIKit
+import CoreData
 
 extension PlaylistsViewController: UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UIScreen.main.bounds.height / 6
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let text = fetchedResultsController.object(at: indexPath).playlistId else { return }
+        switch reference {
+        case .addPodcast:
+            reference = .checkList
+            delegate?.didAssignPlaylist(with: text)
+            reloadData()
+        case .checkList:
+            var playlist = PlaylistViewController(index: 0)
+            playlist.playlistId = text
+            navigationController?.pushViewController(playlist, animated: false)
+        }
     }
 }
 
@@ -10,16 +26,12 @@ extension PlaylistsViewController: EntryPopoverDelegate {
     
     func userDidEnterPlaylistName(name: String) {
         dataSource.playlistDataStack.save(name: name)
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
+        reloadData()
     }
     
     func addPlaylist() {
         UIView.animate(withDuration: 0.15) { [weak self] in
-            guard let strongSelf = self else {
-                return
-            }
+            guard let strongSelf = self else { return }
             strongSelf.entryPop.showPopView(viewController: strongSelf)
             strongSelf.entryPop.popView.isHidden = false
         }
