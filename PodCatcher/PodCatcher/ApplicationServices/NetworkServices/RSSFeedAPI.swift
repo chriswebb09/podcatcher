@@ -1,6 +1,6 @@
 import Foundation
 
-class RSSFeedAPIClient: NSObject, XMLParserDelegate {
+class RSSFeedAPIClient: NSObject {
     
     static func requestFeed(for urlString: String, completion: @escaping ([[String: String]]?, Error?) -> Void) {
         guard let url = URL(string: urlString) else { return }
@@ -23,6 +23,9 @@ class RSSFeedAPIClient: NSObject, XMLParserDelegate {
             }
             }.resume()
     }
+}
+
+extension RSSFeedAPIClient: XMLParserDelegate {
     
     static func getTopPodcasts(completion: @escaping ([[String: String]]?, Error?) -> Void) {
         guard let url = URL(string: "https://rss.itunes.apple.com/api/v1/us/podcasts/top-podcasts/25/explicit/xml") else { return }
@@ -51,16 +54,13 @@ class SearchResultsDataStore {
     func pullFeed(for podCast: String, competion: @escaping (([Episodes]?, Error?) -> Void)) {
         var episodes = [Episodes]()
         RSSFeedAPIClient.requestFeed(for: podCast) { rssData, error in
-            
             if let error = error {
                 print(error.localizedDescription)
                 DispatchQueue.main.async {
                     competion(nil, error)
                 }
-                
             }
             guard let rssData = rssData else { return }
-            
             for data in rssData {
                 guard let title = data["title"] else { continue }
                 guard let audioUrl = data["audio"] else { continue }
@@ -82,45 +82,41 @@ class SearchResultsDataStore {
             DispatchQueue.main.async {
                 competion(episodes, nil)
             }
-            
         }
     }
     
     func pullFeedTopPodcasts(competion: @escaping (([TopItem]?, Error?) -> Void)) {
-        var items = [TopItem]()
-        
         RSSFeedAPIClient.getTopPodcasts { rssData, error in
-            
             if let error = error {
                 print(error.localizedDescription)
                 DispatchQueue.main.async {
                     competion(nil, error)
                 }
             }
-            
             guard let rssData = rssData else { return }
-            
-            for data in rssData {
-                
-                let link = data["link"]
-                let pubDate = data["pubDate"]
-                let title = data["title"]
-                let category = data["category"]
-                if let itemLink = link, let id = String.extractID(from: itemLink), let date = pubDate, let title = title, let category = category {
-                    var itemCategory = "N/A"
-                    if category != "podcast" {
-                        itemCategory = category
-                    }
-                    
-                    let index = id.index(id.startIndex, offsetBy: 2)
-                    let item = TopItem(title: title, id: id.substring(from: index), pubDate: date, category: itemCategory, itunesLinkString: itemLink)
-                    items.append(item)
-                }
-            }
-            
             DispatchQueue.main.async {
-                competion(items, nil)
+                competion(self.createItems(rssData: rssData), nil)
             }
         }
+    }
+    
+    func createItems(rssData: [[String: String]]) -> [TopItem] {
+        var items = [TopItem]()
+        for data in rssData {
+            let link = data["link"]
+            let pubDate = data["pubDate"]
+            let title = data["title"]
+            let category = data["category"]
+            if let itemLink = link, let id = String.extractID(from: itemLink), let date = pubDate, let title = title, let category = category {
+                var itemCategory = "N/A"
+                if category != "podcast" {
+                    itemCategory = category
+                }
+                let index = id.index(id.startIndex, offsetBy: 2)
+                let item = TopItem(title: title, id: id.substring(from: index), pubDate: date, category: itemCategory, itunesLinkString: itemLink)
+                items.append(item)
+            }
+        }
+        return items
     }
 }
