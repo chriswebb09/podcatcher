@@ -77,25 +77,3 @@ final class HomeViewController: BaseCollectionViewController {
         }
     }
 }
-
-extension HomeViewController: UICollectionViewDataSource {
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = topCollectionView.dequeueReusableCell(forIndexPath: indexPath) as TopPodcastCell
-        if let imagurl = topItems[indexPath.row].podcastArtUrlString, let url = URL(string: imagurl) {
-            cell.albumArtView.downloadImage(url: url)
-        }
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return dataSource.items.count
-    }
-    
-    func setupBottom() {
-        topCollectionView.delegate = self
-        topCollectionView.isPagingEnabled = true
-        topCollectionView.isScrollEnabled = true
-        topCollectionView.decelerationRate = UIScrollViewDecelerationRateFast
-    }
-}
