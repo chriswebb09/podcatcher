@@ -56,7 +56,7 @@ extension HomeCollectionDataSource:  UICollectionViewDataSource {
         
         DispatchQueue.main.asyncAfter(deadline: .now() + rowTime) {
             UIView.animate(withDuration: rowTime) {
-                cell.alpha = 1
+                cell.alpha = 0.98
             }
         }
     }
@@ -66,7 +66,6 @@ extension HomeCollectionDataSource:  UICollectionViewDataSource {
         switch dataType {
         case .local:
             if indexPath.row == 0, let imageData = self.topStore.podcasts[indexPath.row].value(forKey: "podcastArt") as? Data, let image = UIImage(data: imageData) {
-                topItemImage = image
             }
         case .network:
             if indexPath.row == 0 || indexPath.row == 1 {

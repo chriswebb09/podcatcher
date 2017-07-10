@@ -6,7 +6,7 @@ extension HomeViewController: UICollectionViewDelegate {
         newLayout.setup()
         setupHome(with: newLayout)
         collectionView.frame = CGRect(x: 0, y: view.bounds.midY, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 2)
-        collectionView.backgroundColor = .white
+      //  collectionView.backgroundColor = .white
         collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
     

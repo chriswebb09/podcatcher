@@ -18,20 +18,6 @@ final class TopView: UIView {
         return podcastTitle
     }()
     
-    var playCountLabel: UILabel! = {
-        var playCountLabel = UILabel()
-        return playCountLabel
-    }()
-    
-    var genreLabel: UILabel! = {
-        var genreLabel = UILabel()
-        return genreLabel
-    }()
-    
-    var tags: TagsView = {
-        return TagsView()
-    }()
-    
     var preferencesView: PreferencesView = {
         var preferencesView = PreferencesView()
         preferencesView.layoutSubviews()
@@ -49,21 +35,7 @@ final class TopView: UIView {
         setup(podcastImageView: podcastImageView)
         setup(titleLabel: podcastTitleLabel)
         setup(preferencesView: preferencesView)
-        setup(tagsView: tags)
         preferencesView.layoutSubviews()
-    }
-    
-    func configure(tags: [String], timeListen: String) {
-        var tagviews = [PillView]()
-        for item in tags {
-            let pill = PillView()
-            pill.configure(tag: item)
-            tagviews.append(pill)
-            DispatchQueue.main.async {
-                self.tags.configure(pills: tagviews)
-            }
-        }
-        playCountLabel.text = String(describing: timeListen)
     }
     
     func setup(podcastImageView: UIImageView) {
@@ -89,15 +61,6 @@ final class TopView: UIView {
         preferencesView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
         preferencesView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         preferencesView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: PodcastListTopViewConstants.preferencesViewHeightMultiplier).isActive = true
-    }
-    
-    func setup(tagsView: TagsView) {
-        addSubview(tagsView)
-        tagsView.translatesAutoresizingMaskIntoConstraints = false
-        tagsView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
-        tagsView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-        tagsView.bottomAnchor.constraint(equalTo: preferencesView.topAnchor).isActive = true
-        tagsView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: PodcastListTopViewConstants.tagsViewHeightMultiplier).isActive = true
     }
 }
 

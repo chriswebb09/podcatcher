@@ -55,6 +55,7 @@ class SearchViewController: BaseTableViewController {
         searchBarActive = true
         searchController.defaultConfiguration()
         tableView.delegate = self
+        tableView.backgroundColor = .clear
         searchControllerConfigure()
     }
     

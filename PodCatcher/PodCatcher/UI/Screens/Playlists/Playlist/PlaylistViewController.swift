@@ -20,6 +20,8 @@ class PlaylistViewController: BaseCollectionViewController, NSFetchedResultsCont
     var topView = ListTopView()
     var feedUrl: String!
     
+
+    
     init(index: Int) {
         self.playlistId = ""
         super.init(nibName: nil, bundle: nil)
@@ -43,15 +45,15 @@ class PlaylistViewController: BaseCollectionViewController, NSFetchedResultsCont
         collectionView.dataSource = self
         view.sendSubview(toBack: background)
         collectionView.register(PodcastResultCell.self)
-        setupPersistentStore()
+        setupCoordinator()
     }
     
-    
-    func setupPersistentStore() {
-        persistentContainer.loadPersistentStores { persistentStoreDescription, error in
+    func setupCoordinator() {
+        persistentContainer.loadPersistentStores { (persistentStoreDescription, error) in
             if let error = error {
                 print("Unable to Load Persistent Store")
                 print("\(error), \(error.localizedDescription)")
+                
             } else {
                 do {
                     try self.fetchedResultsController.performFetch()
@@ -62,6 +64,16 @@ class PlaylistViewController: BaseCollectionViewController, NSFetchedResultsCont
                 }
             }
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(false)
+        collectionView.alpha = 1
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(false)
+        collectionView.alpha = 0
     }
 }
 

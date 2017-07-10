@@ -29,8 +29,6 @@
 		A7150EF21EE66C0E00E3553F /* PlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7150EF11EE66C0E00E3553F /* PlayerViewModel.swift */; };
 		A71514A11F05281100F123CD /* UISearchController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71514A01F05281100F123CD /* UISearchController+Extension.swift */; };
 		A715A8321F12D2420094FACA /* PlaylistCoreDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A715A8311F12D2420094FACA /* PlaylistCoreDataStore.swift */; };
-		A715A8361F12D39A0094FACA /* ModifiedPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A715A8351F12D39A0094FACA /* ModifiedPlayer.swift */; };
-		A715A8381F12F7C10094FACA /* ReloadableTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A715A8371F12F7C10094FACA /* ReloadableTable.swift */; };
 		A71640381EFFDAFE00895082 /* UserDefaults+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71640371EFFDAFE00895082 /* UserDefaults+Extension.swift */; };
 		A716403A1EFFDB6300895082 /* ReachabilityNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71640391EFFDB6300895082 /* ReachabilityNotification.swift */; };
 		A716B8041F0B357C0060D492 /* SearchTabCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A716B8031F0B357C0060D492 /* SearchTabCoordinator.swift */; };
@@ -181,6 +179,9 @@
 		A7A54EB01EE71474009A5538 /* EntryPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A54EAD1EE71474009A5538 /* EntryPopover.swift */; };
 		A7A54EB11EE71474009A5538 /* EntryPopoverDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A54EAE1EE71474009A5538 /* EntryPopoverDelegate.swift */; };
 		A7A54EB21EE71474009A5538 /* EntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A54EAF1EE71474009A5538 /* EntryView.swift */; };
+		A7A7627B1F131A3100D2C4FF /* PlayableItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A7627A1F131A3100D2C4FF /* PlayableItem.swift */; };
+		A7A7627D1F131A8A00D2C4FF /* ReloadableCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A7627C1F131A8A00D2C4FF /* ReloadableCollection.swift */; };
+		A7A7627F1F131AAE00D2C4FF /* ReloadableTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A7627E1F131AAE00D2C4FF /* ReloadableTable.swift */; };
 		A7A877AE1F1063A400D0968D /* HomeTabCoordinator+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A877AD1F1063A400D0968D /* HomeTabCoordinator+Extension.swift */; };
 		A7A877B11F10656300D0968D /* TopPodcast+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A877AF1F10656300D0968D /* TopPodcast+CoreDataClass.swift */; };
 		A7A877B21F10656300D0968D /* TopPodcast+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A877B01F10656300D0968D /* TopPodcast+CoreDataProperties.swift */; };
@@ -227,7 +228,6 @@
 		A7C620C71F12B51A00A0D33A /* HomeListTopViewConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C620C61F12B51A00A0D33A /* HomeListTopViewConstants.swift */; };
 		A7C620C91F12B54700A0D33A /* HomeTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C620C81F12B54700A0D33A /* HomeTopView.swift */; };
 		A7C620CB1F12B91000A0D33A /* PlaylistViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C620CA1F12B91000A0D33A /* PlaylistViewControllerDelegate.swift */; };
-		A7C620CD1F12B93D00A0D33A /* ReloadableCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C620CC1F12B93D00A0D33A /* ReloadableCollection.swift */; };
 		A7C620CF1F12B98800A0D33A /* PodcastPlaylistCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C620CE1F12B98800A0D33A /* PodcastPlaylistCell.swift */; };
 		A7C620D11F12BA1900A0D33A /* PodcastItemCoreStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C620D01F12BA1900A0D33A /* PodcastItemCoreStack.swift */; };
 		A7C620D31F12BC7F00A0D33A /* PlaylistViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C620D21F12BC7F00A0D33A /* PlaylistViewController+Extension.swift */; };
@@ -309,8 +309,6 @@
 		A7150EF11EE66C0E00E3553F /* PlayerViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerViewModel.swift; sourceTree = "<group>"; };
 		A71514A01F05281100F123CD /* UISearchController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UISearchController+Extension.swift"; sourceTree = "<group>"; };
 		A715A8311F12D2420094FACA /* PlaylistCoreDataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlaylistCoreDataStore.swift; path = Playlists/PlaylistCoreDataStore.swift; sourceTree = "<group>"; };
-		A715A8351F12D39A0094FACA /* ModifiedPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ModifiedPlayer.swift; path = Player/Controllers/ModifiedPlayer.swift; sourceTree = "<group>"; };
-		A715A8371F12F7C10094FACA /* ReloadableTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReloadableTable.swift; path = Playlists/Playlists/Controllers/ReloadableTable.swift; sourceTree = "<group>"; };
 		A71640371EFFDAFE00895082 /* UserDefaults+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extension.swift"; sourceTree = "<group>"; };
 		A71640391EFFDB6300895082 /* ReachabilityNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReachabilityNotification.swift; sourceTree = "<group>"; };
 		A716B8031F0B357C0060D492 /* SearchTabCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchTabCoordinator.swift; path = Search/SearchTabCoordinator.swift; sourceTree = "<group>"; };
@@ -470,6 +468,9 @@
 		A7A54EAD1EE71474009A5538 /* EntryPopover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EntryPopover.swift; path = Entry/EntryPopover.swift; sourceTree = "<group>"; };
 		A7A54EAE1EE71474009A5538 /* EntryPopoverDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EntryPopoverDelegate.swift; path = Entry/EntryPopoverDelegate.swift; sourceTree = "<group>"; };
 		A7A54EAF1EE71474009A5538 /* EntryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EntryView.swift; path = Entry/EntryView.swift; sourceTree = "<group>"; };
+		A7A7627A1F131A3100D2C4FF /* PlayableItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayableItem.swift; sourceTree = "<group>"; };
+		A7A7627C1F131A8A00D2C4FF /* ReloadableCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReloadableCollection.swift; sourceTree = "<group>"; };
+		A7A7627E1F131AAE00D2C4FF /* ReloadableTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReloadableTable.swift; sourceTree = "<group>"; };
 		A7A877AD1F1063A400D0968D /* HomeTabCoordinator+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "HomeTabCoordinator+Extension.swift"; path = "Home/HomeTabCoordinator+Extension.swift"; sourceTree = "<group>"; };
 		A7A877AF1F10656300D0968D /* TopPodcast+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TopPodcast+CoreDataClass.swift"; sourceTree = "<group>"; };
 		A7A877B01F10656300D0968D /* TopPodcast+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TopPodcast+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -516,7 +517,6 @@
 		A7C620C61F12B51A00A0D33A /* HomeListTopViewConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HomeListTopViewConstants.swift; path = Home/Models/HomeListTopViewConstants.swift; sourceTree = "<group>"; };
 		A7C620C81F12B54700A0D33A /* HomeTopView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HomeTopView.swift; path = Home/Views/HomeTopView.swift; sourceTree = "<group>"; };
 		A7C620CA1F12B91000A0D33A /* PlaylistViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlaylistViewControllerDelegate.swift; path = Playlists/Playlist/PlaylistViewControllerDelegate.swift; sourceTree = "<group>"; };
-		A7C620CC1F12B93D00A0D33A /* ReloadableCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReloadableCollection.swift; path = Playlists/Playlist/ReloadableCollection.swift; sourceTree = "<group>"; };
 		A7C620CE1F12B98800A0D33A /* PodcastPlaylistCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PodcastPlaylistCell.swift; path = Playlists/Playlist/PodcastPlaylistCell.swift; sourceTree = "<group>"; };
 		A7C620D01F12BA1900A0D33A /* PodcastItemCoreStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodcastItemCoreStack.swift; sourceTree = "<group>"; };
 		A7C620D21F12BC7F00A0D33A /* PlaylistViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "PlaylistViewController+Extension.swift"; path = "Playlists/Playlist/PlaylistViewController+Extension.swift"; sourceTree = "<group>"; };
@@ -880,7 +880,6 @@
 				A723B4131F0EB4F000EA6B27 /* PlaylistsViewController.swift */,
 				A723B4141F0EB4F000EA6B27 /* PlaylistsViewController+Extension.swift */,
 				A723B4191F0EB54300EA6B27 /* PlaylistCell.swift */,
-				A715A8371F12F7C10094FACA /* ReloadableTable.swift */,
 			);
 			name = Playlists;
 			sourceTree = "<group>";
@@ -1242,10 +1241,8 @@
 				A7C620D21F12BC7F00A0D33A /* PlaylistViewController+Extension.swift */,
 				A76C3B321F122A4B000DDFAC /* TopView.swift */,
 				A7C620CA1F12B91000A0D33A /* PlaylistViewControllerDelegate.swift */,
-				A7C620CC1F12B93D00A0D33A /* ReloadableCollection.swift */,
 				A7C620CE1F12B98800A0D33A /* PodcastPlaylistCell.swift */,
 				A7C620D41F12BCE600A0D33A /* PodcastPlaylistCellConstants.swift */,
-				A715A8351F12D39A0094FACA /* ModifiedPlayer.swift */,
 			);
 			name = Playlist;
 			sourceTree = "<group>";
@@ -1311,6 +1308,9 @@
 				A77EDF5C1EE5FB5F001A24E5 /* ReusableProtocol.swift */,
 				A7905B151EEF7E5100199246 /* Playable.swift */,
 				A76018441EFF036B00C20BA2 /* CollectionViewProtocol.swift */,
+				A7A7627A1F131A3100D2C4FF /* PlayableItem.swift */,
+				A7A7627C1F131A8A00D2C4FF /* ReloadableCollection.swift */,
+				A7A7627E1F131AAE00D2C4FF /* ReloadableTable.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -1912,6 +1912,7 @@
 				A71D83BC1F09BF48009D0720 /* PodCaster+CoreDataClass.swift in Sources */,
 				A71ADFAE1F0E281F00941A43 /* PodcastResultsCellViewModel.swift in Sources */,
 				A71A5BB21F01DE5F00254BE2 /* TrackCellConstants.swift in Sources */,
+				A7A7627F1F131AAE00D2C4FF /* ReloadableTable.swift in Sources */,
 				A7C620BD1F12813B00A0D33A /* PodcastPlaylist+CoreDataProperties.swift in Sources */,
 				A77107361F0D4BE30042D2E4 /* CreateAccountView+Extension.swift in Sources */,
 				A7150EBF1EE62E0D00E3553F /* PlayerViewDelegate.swift in Sources */,
@@ -1971,6 +1972,7 @@
 				A71ADF9E1F0E26C900941A43 /* SearchViewController+Extension.swift in Sources */,
 				A7150EBB1EE62DF900E3553F /* PlayerView.swift in Sources */,
 				A77EDF781EE5FF72001A24E5 /* UIColor+Extension.swift in Sources */,
+				A7A7627B1F131A3100D2C4FF /* PlayableItem.swift in Sources */,
 				A71D83F41F0AC811009D0720 /* UpdateAccountViewModel.swift in Sources */,
 				A7A54EB11EE71474009A5538 /* EntryPopoverDelegate.swift in Sources */,
 				A7B1C06D1F0ADC6B00A42E7D /* UITableView+Extension.swift in Sources */,
@@ -2000,6 +2002,7 @@
 				A71ADF9A1F0E1F3100941A43 /* DataType.swift in Sources */,
 				A71ADFA61F0E270A00941A43 /* SearchResultListViewController.swift in Sources */,
 				A76752371F0D49F4007F1100 /* SplashView.swift in Sources */,
+				A7A7627D1F131A8A00D2C4FF /* ReloadableCollection.swift in Sources */,
 				A723A5A91EE93116002E49BF /* PodcastListConstants.swift in Sources */,
 				A71853001EE9580D00911C87 /* PodcastListViewControllerConstants.swift in Sources */,
 				A7F37B721F0DF8D1001B5C8C /* PreferencesView.swift in Sources */,
@@ -2049,7 +2052,6 @@
 				A7BF242A1F0D4B43002A87BD /* LoginView+Extension.swift in Sources */,
 				A71853021EE9584E00911C87 /* BaseMenuPopover.swift in Sources */,
 				A72697A81EF0DA7D00D406BB /* UIImage+Extension.swift in Sources */,
-				A715A8381F12F7C10094FACA /* ReloadableTable.swift in Sources */,
 				A718530C1EE960C400911C87 /* PopDelegate.swift in Sources */,
 				A7BF24201F0D4B1D002A87BD /* LoginViewController+Extension.swift in Sources */,
 				A7252A8E1EFF2A240034EA93 /* ViewType.swift in Sources */,
@@ -2099,7 +2101,6 @@
 				A731728B1F004964006A6A24 /* Download.swift in Sources */,
 				A771072A1F0D4BBF0042D2E4 /* CreateAccountViewController+Extension.swift in Sources */,
 				A7EBA0C21EE682B200FAAC9C /* BaseMenuPopoverAlert.swift in Sources */,
-				A7C620CD1F12B93D00A0D33A /* ReloadableCollection.swift in Sources */,
 				A76C3B331F122A4B000DDFAC /* TopView.swift in Sources */,
 				A71B27311EE5D6F500613CF4 /* StartCoordinator.swift in Sources */,
 				A77EDF571EE5FAA5001A24E5 /* UIImageView+Extension.swift in Sources */,
@@ -2125,7 +2126,6 @@
 				A7DF73681F1180BC00AAC675 /* Parser.swift in Sources */,
 				A7B1C0871F0B056200A42E7D /* TopItem.swift in Sources */,
 				A716403A1EFFDB6300895082 /* ReachabilityNotification.swift in Sources */,
-				A715A8361F12D39A0094FACA /* ModifiedPlayer.swift in Sources */,
 				A77107351F0D4BE30042D2E4 /* CreateAccountView.swift in Sources */,
 				A76C3B371F123E2D000DDFAC /* PlayerControllerDataSource.swift in Sources */,
 			);

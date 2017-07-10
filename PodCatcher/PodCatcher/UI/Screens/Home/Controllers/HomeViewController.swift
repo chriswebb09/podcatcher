@@ -2,11 +2,13 @@ import UIKit
 
 final class HomeViewController: BaseCollectionViewController {
     
-    var scrollView: UIScrollView
-    
     weak var delegate: HomeViewControllerDelegate?
     
+    lazy var topCollectionView : UICollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
+    
     var currentPlaylistId: String = ""
+    
+    var topItems = [CasterSearchResult]()
     
     var dataSource: HomeCollectionDataSource! {
         didSet {
@@ -31,7 +33,6 @@ final class HomeViewController: BaseCollectionViewController {
     
     init(index: Int, dataSource: BaseMediaControllerDataSource) {
         self.dataSource = HomeCollectionDataSource()
-        self.scrollView = UIScrollView(frame: CGRect.zero)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -41,31 +42,41 @@ final class HomeViewController: BaseCollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        emptyView.alpha = 0
+     //   emptyView.alpha = 0
         title = "PodCatch"
         
         let topFrameHeight = UIScreen.main.bounds.height / 2
         let topFrameWidth = UIScreen.main.bounds.width
         let topFrame = CGRect(x: 0, y: 0, width: topFrameWidth, height: topFrameHeight)
-        
         topView.frame = topFrame
         view.addSubview(topView)
-        collectionView.backgroundColor = .white
-        view.addSubview(collectionView)
-        topView.addSubview(scrollView)
         
-        scrollView.frame = topFrame
-        scrollView.decelerationRate = UIScrollViewDecelerationRateFast
+        view.backgroundColor = .clear
+        
+        topView.backgroundColor = .clear
+        
+        topCollectionView.backgroundColor = .red
+        topCollectionView.dataSource = self
+        topCollectionView.register(TopPodcastCell.self)
+        
+       // collectionView.backgroundColor = .white
+        view.addSubview(collectionView)
         collectionViewConfiguration()
         collectionView.register(TopPodcastCell.self)
         collectionView.backgroundColor = .darkGray
+        topView.addSubview(topCollectionView)
+        setupBottom()
         
         DispatchQueue.main.async {
             self.collectionView.reloadData()
+            self.topCollectionView.reloadData()
+            self.topItems = self.dataSource.items
             self.view.bringSubview(toFront: self.collectionView)
+            self.topView.bringSubview(toFront: self.topCollectionView)
             if self.dataSource.dataType == .local {
                 self.dataSource.topStore.fetchFromCore()
-                self.topView.podcastImageView.image = self.dataSource.topItemImage
+                self.topCollectionView.reloadData()
+                //self.topView.podcastImageView.image = self.dataSource.topItemImage
             }
         }
     }
@@ -77,4 +88,37 @@ final class HomeViewController: BaseCollectionViewController {
             self.view.alpha = 1
         }
     }
+}
+
+extension HomeViewController: UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = topCollectionView.dequeueReusableCell(forIndexPath: indexPath) as TopPodcastCell
+        if let imagurl = topItems[indexPath.row].podcastArtUrlString, let url = URL(string: imagurl) {
+            cell.albumArtView.downloadImage(url: url)
+        }
+        
+        return cell
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        print(topItems.count)
+        return dataSource.items.count
+    }
+    
+    func setupBottom() {
+        
+        
+        // setup(view: view, newLayout: HomeItemsFlowLayout())
+        topCollectionView.delegate = self
+        // collectionView.dataSource = dataSource
+        topCollectionView.isPagingEnabled = true
+        topCollectionView.isScrollEnabled = true
+        topCollectionView.decelerationRate = UIScrollViewDecelerationRateFast
+        // collectionView.backgroundColor = .clear
+        
+    }
+    
+    
 }

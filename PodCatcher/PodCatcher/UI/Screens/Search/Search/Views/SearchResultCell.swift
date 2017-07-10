@@ -12,7 +12,7 @@ class SearchResultCell: UITableViewCell {
     var titleLabel: UILabel = {
         let title = UILabel()
         title.textColor = .black
-        title.font = UIFont.systemFont(ofSize: 12, weight: UIFontWeightThin)
+        title.font = UIFont.systemFont(ofSize: 13, weight: UIFontWeightLight)
         title.textAlignment = .center
         title.numberOfLines = 0
         return title
@@ -29,10 +29,10 @@ class SearchResultCell: UITableViewCell {
     func setup(titleLabel: UILabel) {
         contentView.addSubview(titleLabel)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor, constant: contentView.bounds.width * 0.2).isActive = true
+        titleLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor, constant: contentView.bounds.width * 0.18).isActive = true
         titleLabel.centerYAnchor.constraint(equalTo:  contentView.centerYAnchor).isActive = true
         titleLabel.heightAnchor.constraint(equalTo: contentView.heightAnchor).isActive = true
-        titleLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.5).isActive = true
+        titleLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.6).isActive = true
     }
     
     private func setup(albumArtView: UIImageView) {
