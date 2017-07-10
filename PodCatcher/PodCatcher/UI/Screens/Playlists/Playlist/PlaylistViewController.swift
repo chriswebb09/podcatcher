@@ -33,7 +33,6 @@ class PlaylistViewController: BaseCollectionViewController {
         super.viewDidLoad()
         reloadData()
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-        
         configureTopView()
         background.frame = view.frame
         view.addSubview(background)

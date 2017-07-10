@@ -1,10 +1,6 @@
 import UIKit
 import CoreData
 
-//enum PlaylistsReference {
-//    case addPodcast, checkList
-//}
-
 final class PlaylistsViewController: BaseTableViewController {
     
     weak var delegate: PlaylistsViewControllerDelegate?
@@ -36,7 +32,7 @@ final class PlaylistsViewController: BaseTableViewController {
 }
 
 extension PlaylistsViewController: ReloadableTable, UITableViewDataSource {
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let count = fetchedResultsController.sections?[section].numberOfObjects {
             if count <= 0 {
