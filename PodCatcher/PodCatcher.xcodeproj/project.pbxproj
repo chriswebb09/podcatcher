@@ -83,9 +83,6 @@
 		A71D83DB1F0AC781009D0720 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71D83D91F0AC781009D0720 /* SettingsViewController.swift */; };
 		A71D83DF1F0AC793009D0720 /* SettingsViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71D83DD1F0AC793009D0720 /* SettingsViewControllerDelegate.swift */; };
 		A71D83E01F0AC793009D0720 /* SettingsViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71D83DE1F0AC793009D0720 /* SettingsViewDelegate.swift */; };
-		A71D83E41F0AC7A6009D0720 /* SettingsOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71D83E11F0AC7A6009D0720 /* SettingsOptionView.swift */; };
-		A71D83E51F0AC7A6009D0720 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71D83E21F0AC7A6009D0720 /* SettingsView.swift */; };
-		A71D83E61F0AC7A6009D0720 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71D83E31F0AC7A6009D0720 /* SettingsViewModel.swift */; };
 		A71D83E91F0AC7DA009D0720 /* UpdateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71D83E71F0AC7DA009D0720 /* UpdateAccountViewController.swift */; };
 		A71D83EA1F0AC7DA009D0720 /* UpdateAccountViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71D83E81F0AC7DA009D0720 /* UpdateAccountViewController+Extension.swift */; };
 		A71D83ED1F0AC7ED009D0720 /* UpdateAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71D83EB1F0AC7ED009D0720 /* UpdateAccountView.swift */; };
@@ -375,9 +372,6 @@
 		A71D83D91F0AC781009D0720 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsViewController.swift; path = PodCatcher/UI/Screens/Settings/Settings/Controllers/SettingsViewController.swift; sourceTree = SOURCE_ROOT; };
 		A71D83DD1F0AC793009D0720 /* SettingsViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsViewControllerDelegate.swift; path = PodCatcher/UI/Screens/Settings/Settings/Delegates/SettingsViewControllerDelegate.swift; sourceTree = SOURCE_ROOT; };
 		A71D83DE1F0AC793009D0720 /* SettingsViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsViewDelegate.swift; path = PodCatcher/UI/Screens/Settings/Settings/Delegates/SettingsViewDelegate.swift; sourceTree = SOURCE_ROOT; };
-		A71D83E11F0AC7A6009D0720 /* SettingsOptionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsOptionView.swift; path = PodCatcher/UI/Screens/Settings/Settings/Views/SettingsOptionView.swift; sourceTree = SOURCE_ROOT; };
-		A71D83E21F0AC7A6009D0720 /* SettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsView.swift; path = PodCatcher/UI/Screens/Settings/Settings/Views/SettingsView.swift; sourceTree = SOURCE_ROOT; };
-		A71D83E31F0AC7A6009D0720 /* SettingsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsViewModel.swift; path = PodCatcher/UI/Screens/Settings/Settings/Views/SettingsViewModel.swift; sourceTree = SOURCE_ROOT; };
 		A71D83E71F0AC7DA009D0720 /* UpdateAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UpdateAccountViewController.swift; path = Settings/UpdateAccount/Controllers/UpdateAccountViewController.swift; sourceTree = "<group>"; };
 		A71D83E81F0AC7DA009D0720 /* UpdateAccountViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UpdateAccountViewController+Extension.swift"; path = "Settings/UpdateAccount/Controllers/UpdateAccountViewController+Extension.swift"; sourceTree = "<group>"; };
 		A71D83EB1F0AC7ED009D0720 /* UpdateAccountView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UpdateAccountView.swift; path = Settings/UpdateAccount/Views/UpdateAccountView.swift; sourceTree = "<group>"; };
@@ -1159,9 +1153,6 @@
 		A73D74431EE68922004571A5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				A71D83E11F0AC7A6009D0720 /* SettingsOptionView.swift */,
-				A71D83E21F0AC7A6009D0720 /* SettingsView.swift */,
-				A71D83E31F0AC7A6009D0720 /* SettingsViewModel.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1955,7 +1946,6 @@
 				A70081CC1F1087CF005E3494 /* Podcast.swift in Sources */,
 				A77EDF801EE6007E001A24E5 /* CollectionViewAttributes.swift in Sources */,
 				A7150EE31EE6563300E3553F /* TabBarConstants.swift in Sources */,
-				A71D83E61F0AC7A6009D0720 /* SettingsViewModel.swift in Sources */,
 				A783ECE11EF233F0003E65C0 /* EmptyCastsView.swift in Sources */,
 				A7C620C11F12906200A0D33A /* MainStore.swift in Sources */,
 				A7EBA0BB1EE681F400FAAC9C /* BottomMenuPopover.swift in Sources */,
@@ -2020,7 +2010,6 @@
 				A71852FE1EE9527400911C87 /* EmptyViewConstants.swift in Sources */,
 				A73D740E1EE685FF004571A5 /* AnimationDelegate.swift in Sources */,
 				A71ADFBC1F0E3AE600941A43 /* PreferencesViewDelegate.swift in Sources */,
-				A71D83E51F0AC7A6009D0720 /* SettingsView.swift in Sources */,
 				A7F37B6B1F0DEDEA001B5C8C /* BaseMediaCollectionDataSource.swift in Sources */,
 				A71ADFA21F0E26F500941A43 /* SearchResultCell.swift in Sources */,
 				A71ADFA81F0E271900941A43 /* PodcastResultsCell.swift in Sources */,
@@ -2134,7 +2123,6 @@
 				A77EDF571EE5FAA5001A24E5 /* UIImageView+Extension.swift in Sources */,
 				A7A54EB01EE71474009A5538 /* EntryPopover.swift in Sources */,
 				A7EBA0A71EE6743800FAAC9C /* TextFieldExtension.swift in Sources */,
-				A71D83E41F0AC7A6009D0720 /* SettingsOptionView.swift in Sources */,
 				A7BF241C1F0D4B0E002A87BD /* LoginBuilder.swift in Sources */,
 				A723B4181F0EB50600EA6B27 /* PlaylistsViewControllerDelegate.swift in Sources */,
 				A735715C1F0BE66800A7C39A /* BaseDataStore.swift in Sources */,
