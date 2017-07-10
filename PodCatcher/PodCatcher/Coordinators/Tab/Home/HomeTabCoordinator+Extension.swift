@@ -9,7 +9,6 @@ extension HomeTabCoordinator: HomeViewControllerDelegate {
         delegate?.transitionCoordinator(type: .app, dataSource: dataSource)
     }
     
-    
     func didSelect(at index: Int, with caster: PodcastSearchResult) {
         let resultsList = SearchResultListViewController(index: index)
         resultsList.delegate = self
@@ -61,6 +60,20 @@ extension HomeTabCoordinator: HomeViewControllerDelegate {
 
 extension HomeTabCoordinator: PodcastListViewControllerDelegate {
     
+    
+    func didSelect(at index: Int, podcast: CasterSearchResult) {
+        let playerView = PlayerView()
+        //var homeVC = navigationController.viewControllers[0] as! HomeViewController
+        var playerPodcast = podcast
+        CALayer.createGradientLayer(with: [UIColor(red:0.94, green:0.31, blue:0.81, alpha:1.0).cgColor, UIColor(red:0.32, green:0.13, blue:0.70, alpha:1.0).cgColor], layer: playerView.backgroundView.layer, bounds: UIScreen.main.bounds)
+        
+        playerPodcast.index = index
+        let playerViewController = PlayerViewController(playerView: playerView, index: index, caster: playerPodcast, user: dataSource.user)
+        
+         playerViewController.delegate = self
+         navigationController.viewControllers.append(playerViewController)
+    }
+    
     func didSelectPodcastAt(at index: Int, podcast: CasterSearchResult, with episodes: [Episodes]) {
         let playerView = PlayerView()
         var homeVC = navigationController.viewControllers[0] as! HomeViewController
@@ -68,14 +81,11 @@ extension HomeTabCoordinator: PodcastListViewControllerDelegate {
         CALayer.createGradientLayer(with: [UIColor(red:0.94, green:0.31, blue:0.81, alpha:1.0).cgColor, UIColor(red:0.32, green:0.13, blue:0.70, alpha:1.0).cgColor], layer: playerView.backgroundView.layer, bounds: UIScreen.main.bounds)
         playerPodcast.episodes = episodes
         playerPodcast.index = index
-        
         let playerViewController = PlayerViewController(playerView: playerView, index: index, caster: playerPodcast, user: dataSource.user)
-        
         playerViewController.dataSource.currentPlaylistId = homeVC.currentPlaylistId
         playerViewController.delegate = self
         navigationController.navigationBar.isTranslucent = true
         navigationController.navigationBar.alpha = 0
-         // controller?.tabBarController?.selectedIndex = 1
         navigationController.viewControllers.append(playerViewController)
     }
 }
@@ -87,7 +97,7 @@ extension HomeTabCoordinator: PlayerViewControllerDelegate {
         let managedContext = appDelegate.coreData.managedContext
         let newItem = PodcastPlaylistItem(context: managedContext)
         
-       // let image = playerView.albumImageView.image
+        // let image = playerView.albumImageView.image
         //let podcastArtImageData = UIImageJPEGRepresentation(image!, 1) as? Data
         //item.artwork = podcastArtImageData as! NSData
         newItem.audioUrl = item.episodes[index].audioUrlString

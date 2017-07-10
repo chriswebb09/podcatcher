@@ -73,6 +73,9 @@ final class AudioFilePlayer: NSObject {
         guard let url = URL(string: "test") else { return }
         self.url = url
     }
+}
+
+extension AudioFilePlayer: Playable {
     
     func play() {
         state = .playing
@@ -101,7 +104,7 @@ final class AudioFilePlayer: NSObject {
     }
 }
 
-extension AudioFilePlayer: AVAssetResourceLoaderDelegate, Playable {
+extension AudioFilePlayer: AVAssetResourceLoaderDelegate {
     
     func getTrackDuration(asset: AVURLAsset) {
         asset.loadValuesAsynchronously(forKeys: ["tracks", "duration"]) {
@@ -112,7 +115,6 @@ extension AudioFilePlayer: AVAssetResourceLoaderDelegate, Playable {
             let rem = Int(audioDurationSeconds.truncatingRemainder(dividingBy: 60))
             
             var formattedSeconds = ""
-            
             if rem < 10 {
                 formattedSeconds = "0\(rem)"
             } else {
@@ -120,7 +122,6 @@ extension AudioFilePlayer: AVAssetResourceLoaderDelegate, Playable {
             }
             
             var formattedMinutes = ""
-            
             if minutes < 10 {
                 formattedMinutes = "0\(minutes)"
             } else {
@@ -128,16 +129,15 @@ extension AudioFilePlayer: AVAssetResourceLoaderDelegate, Playable {
             }
             
             var formattedTime = ""
-            
             if hours > 0 {
                 formattedTime = "\(hours):\(formattedMinutes):\(formattedSeconds)"
             } else {
                  formattedTime = "\(formattedMinutes):\(formattedSeconds)"
             }
+            
             self.delegate?.trackDurationCalculated(stringTime: formattedTime, timeValue: audioDurationSeconds)
         }
     }
-    
 
     func observePlayTime() {
         if self.delegate == nil {

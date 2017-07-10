@@ -59,6 +59,25 @@ extension SearchTabCoordinator: SearchViewControllerDelegate {
 
 extension SearchTabCoordinator: PodcastListViewControllerDelegate {
     
+    func didSelect(at index: Int, podcast: CasterSearchResult) {
+        let playerView = PlayerView()
+//       // var homeVC = navigationController.viewControllers[0] as! HomeViewController
+//        var playerPodcast = podcast
+//        CALayer.createGradientLayer(with: [UIColor(red:0.94, green:0.31, blue:0.81, alpha:1.0).cgColor, UIColor(red:0.32, green:0.13, blue:0.70, alpha:1.0).cgColor], layer: playerView.backgroundView.layer, bounds: UIScreen.main.bounds)
+//        playerPodcast.episodes = episodes
+//        playerPodcast.index = index
+//        
+//        let playerViewController = PlayerViewController(playerView: playerView, index: index, caster: playerPodcast, user: dataSource.user)
+//        
+//        playerViewController.dataSource.currentPlaylistId = homeVC.currentPlaylistId
+//        playerViewController.delegate = self
+//        navigationController.navigationBar.isTranslucent = true
+//        navigationController.navigationBar.alpha = 0
+//        // controller?.tabBarController?.selectedIndex = 1
+//        navigationController.viewControllers.append(playerViewController)
+    }
+
+    
     func didSelectPodcastAt(at index: Int, podcast: CasterSearchResult, with episodes: [Episodes]) {
         let playerView = PlayerView()
         var searchVC = navigationController.viewControllers[0] as! SearchViewController

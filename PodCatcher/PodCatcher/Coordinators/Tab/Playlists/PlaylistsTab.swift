@@ -73,6 +73,7 @@ extension PlaylistsTabCoordinator: PlaylistsViewControllerDelegate {
 }
 
 extension PlaylistsTabCoordinator: PlaylistViewControllerDelegate {
+    
     func didSelectPodcast(at index: Int, with episodes: [PodcastPlaylistItem]) {
 //        let playerView = PlayerView()
 //        var homeVC = navigationController.viewControllers[0] as! HomeViewController
@@ -94,7 +95,7 @@ extension PlaylistsTabCoordinator: PlaylistViewControllerDelegate {
 
 extension PlaylistsTabCoordinator: PlayerViewControllerDelegate {
     func addItemToPlaylist(item: CasterSearchResult, index: Int) {
-  
+        
     }
     
     
