@@ -1,42 +1,38 @@
 import UIKit
 
-class SettingsViewController: BaseViewController {
+class SettingsViewController: BaseTableViewController {
     
     weak var delegate: SettingsViewControllerDelegate?
     
-    var dataSource: BaseMediaControllerDataSource
-    
-    var settingsView: SettingsView!
-    
-    init(settingsView: SettingsView, dataSource: BaseMediaControllerDataSource) {
-        self.settingsView = settingsView
-        self.dataSource = dataSource
-        super.init(nibName: nil, bundle: nil)
-        self.settingsView.delegate = self
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    var sections = ["User", "Application"]
+    var options = ["One", "Two"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        settingsView.backgroundColor = SettingsViewConstants.backgroundColor
-        title = "Settings"
-        if dataSource.user != nil {
-            let model = SettingsViewModel(firstSettingOptionText: "Favorite Podcasts", secondSettingOptionText: "Profile Settings")
-            view.addView(view: settingsView, type: .full)
-            view = settingsView
-            settingsView.configure(model: model)
-        } else {
-            let guestView = GuestUserView(frame: view.frame)
-            guestView.delegate = self
-            view.addView(view: guestView, type: .full)
-        }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(SearchResultCell.self)
     }
 }
 
+extension SettingsViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 50
+    }
+}
+
+extension SettingsViewController: UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return sections.count
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return options.count
+    }
+   
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as SearchResultCell
+        return cell
+    }
+}

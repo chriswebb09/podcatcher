@@ -53,13 +53,13 @@ final class PlayerViewController: BaseViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+        player?.removeObservers()
         navigationController?.popViewController(animated: true)
         player?.player.pause()
+        player = nil
         DispatchQueue.main.async {
             self.hideLoadingView(loadingPop: self.loadingPop)
             self.hidePopMenu()
         }
-        
-        player = nil
     }
 }

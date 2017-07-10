@@ -1,7 +1,14 @@
 import UIKit
 
-class PodcastEpisode {
-    
+class PodcastEpisode: AudioFile {
+    var audioUrlSting: String
+
+//    
+//    var audioUrlSting: String {
+//        guard let audio = self.audioUrlString else { return "" }
+//        return audio
+//    }
+//    
     var episodeTitle: String?
     var episodeDescription: String?
     var playlistId: String?
@@ -13,7 +20,7 @@ class PodcastEpisode {
     var duration: Double?
     
     init() {
-        
+        self.audioUrlSting = ""
     }
     
 }

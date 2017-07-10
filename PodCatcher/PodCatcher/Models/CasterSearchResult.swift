@@ -45,50 +45,50 @@ extension CasterSearchResult: Equatable {
         return lhs.id == rhs.id
     }
 }
-
+//
 //extension CasterSearchResult: PlayableItem {
 //    
 //    var duration: Double {
 //        get {
-//            return self.duration
+//            return episodes[index].duration
 //        }
 //        set {
-//            self.duration = episodes[index].duration
+//            //self.duration =
 //         }
 //    }
 //
 //   
 //    var artworkUrlString: String {
 //        get {
-//            return self.artworkUrlString
+//            guard let podcastArtUrlString = podcastArtUrlString else { return }
+//            return podcastArtUrlString
 //        }
 //        set {
-//            guard let podcastArtUrlString = podcastArtUrlString else { return }
-//            self.artworkUrlString = podcastArtUrlString
+//            
 //        }
 //    }
 //
 //    
 //    var audioItem: AudioFile {
 //        get {
-//            return self.audioItem
+//            guard let index = index else { return }
+//            return episodes[index]
 //        }
 //        set {
-//            guard let index = index else { return }
-//            self.audioItem = episodes[index]
+//            
 //        }
 //    }
 //
 //    var title: String {
 //        get {
-//            return self.title
+//            guard let podcastTitle = podcastTitle else { return }
+//            return podcastTitle
 //        }
 //        set {
-//            guard let podcastTitle = podcastTitle else { return }
-//            self.title = podcastTitle
+//          
 //        }
 //    }
 //
 //    
 //}
-
+//

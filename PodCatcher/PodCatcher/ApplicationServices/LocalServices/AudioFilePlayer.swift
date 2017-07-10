@@ -19,7 +19,7 @@ final class AudioFilePlayer: NSObject {
     
     weak var delegate: AudioFilePlayerDelegate?
     
-    lazy var asset: AVURLAsset = {
+    lazy var asset: AVURLAsset? = {
         var asset: AVURLAsset = AVURLAsset(url: self.url)
         asset.resourceLoader.setDelegate(self, queue: DispatchQueue.main)
         return asset
@@ -32,7 +32,7 @@ final class AudioFilePlayer: NSObject {
     }()
     
     lazy var playerItem: AVPlayerItem = {
-        var playerItem: AVPlayerItem = AVPlayerItem(asset: self.asset)
+        var playerItem: AVPlayerItem = AVPlayerItem(asset: self.asset!)
         return playerItem
     }()
     
@@ -65,6 +65,7 @@ final class AudioFilePlayer: NSObject {
     init(url: URL) {
         self.url = url
         super.init()
+        guard let asset = asset else { return }
         getTrackDuration(asset: asset)
     }
     
@@ -91,16 +92,23 @@ extension AudioFilePlayer: Playable {
         guard let urlString = string else { return }
         guard let url = URL(string: urlString) else { return }
         self.url = url
-        getTrackDuration(asset: self.asset)
+        guard let asset = asset else { return }
+        getTrackDuration(asset: asset)
     }
     
     func setUrl(with url: URL) {
         self.url = url
-        getTrackDuration(asset: self.asset)
+        guard let asset = asset else { return }
+        getTrackDuration(asset: asset)
     }
     
     func play(player: AVPlayer) {
         player.playImmediately(atRate: 1)
+    }
+    
+    
+    func removeObservers() {
+        self.removePlayTimeObserver(timeObserver: timeObserver)
     }
 }
 
@@ -108,7 +116,8 @@ extension AudioFilePlayer: AVAssetResourceLoaderDelegate {
     
     func getTrackDuration(asset: AVURLAsset) {
         asset.loadValuesAsynchronously(forKeys: ["tracks", "duration"]) {
-            let audioDuration = self.asset.duration
+            guard let asset = self.asset else { return }
+            let audioDuration = asset.duration
             let audioDurationSeconds = CMTimeGetSeconds(audioDuration)
             let hours: Int = Int(audioDurationSeconds / 3600)
             let minutes = Int(audioDurationSeconds.truncatingRemainder(dividingBy: 3600) / 60)

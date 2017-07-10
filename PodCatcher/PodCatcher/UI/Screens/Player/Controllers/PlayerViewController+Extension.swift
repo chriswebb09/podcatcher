@@ -4,6 +4,7 @@ import CoreData
 
 // MARK: - PlayerViewDelegate
 
+
 extension PlayerViewController: PlayerViewDelegate {
     
     func setModel(model: PlayerViewModel) {
@@ -32,6 +33,7 @@ extension PlayerViewController: PlayerViewDelegate {
         guard let player = player else { return }
         player.pause()
         index -= 1
+        self.player = nil
         guard let artUrl = caster.podcastArtUrlString else { return }
         showLoadingView(loadingPop: loadingPop)
         if let audioUrl = caster.episodes[index].audioUrlString, let url = URL(string: audioUrl) {
@@ -49,19 +51,23 @@ extension PlayerViewController: PlayerViewDelegate {
     func skipButtonTapped() {
         guard index < caster.episodes.count - 1 else { return }
         index += 1
+        
         guard let player = player else { return }
         player.pause()
+        self.player = nil
         guard let artUrl = caster.podcastArtUrlString else { return }
         showLoadingView(loadingPop: loadingPop)
-        self.playerViewModel = PlayerViewModel(imageUrl: URL(string: artUrl), title: caster.episodes[index].title)
+        playerViewModel = PlayerViewModel(imageUrl: URL(string: artUrl), title: caster.episodes[index].title)
         self.setModel(model: self.playerViewModel)
         if let audioUrl = caster.episodes[index].audioUrlString, let url = URL(string: audioUrl) {
             self.player = AudioFilePlayer(url: url)
             self.initPlayer(url: url)
-            DispatchQueue.main.async {
-                self.playerViewModel = PlayerViewModel(imageUrl: URL(string: artUrl), title: self.caster.episodes[self.index].title)
-                self.setModel(model: self.playerViewModel)
-                self.title = self.caster.episodes[self.index].title
+            DispatchQueue.main.async { [weak self] in
+                if let strongSelf = self {
+                    strongSelf.playerViewModel = PlayerViewModel(imageUrl: URL(string: artUrl), title: strongSelf.caster.episodes[strongSelf.index].title)
+                    strongSelf.setModel(model: strongSelf.playerViewModel)
+                    strongSelf.title = strongSelf.caster.episodes[strongSelf.index].title
+                }
             }
         }
         delegate?.skipButton(tapped: true)
@@ -116,12 +122,14 @@ extension PlayerViewController: AudioFilePlayerDelegate {
     }
     
     func trackDurationCalculated(stringTime: String, timeValue: Float64) {
-        DispatchQueue.main.async {
-            self.hideLoadingView(loadingPop: self.loadingPop)
-            self.playerView.setPauseButtonAlpha()
-            self.playerViewModel.totalTimeString = stringTime
-            self.setModel(model: self.playerViewModel)
-            self.view.bringSubview(toFront: self.playerView)
+        DispatchQueue.main.async { [weak self] in
+            if let strongSelf = self {
+                strongSelf.hideLoadingView(loadingPop: strongSelf.loadingPop)
+                strongSelf.playerView.setPauseButtonAlpha()
+                strongSelf.playerViewModel.totalTimeString = stringTime
+                strongSelf.setModel(model: strongSelf.playerViewModel)
+                strongSelf.view.bringSubview(toFront: strongSelf.playerView)
+            }
         }
     }
     
@@ -141,9 +149,12 @@ extension PlayerViewController: AudioFilePlayerDelegate {
 extension PlayerViewController: MenuDelegate {
     
     func optionOne(tapped: Bool) {
-        DispatchQueue.main.async {
-            self.hideLoadingView(loadingPop: self.loadingPop)
-            self.delegate?.addItemToPlaylist(item: self.caster , index: self.index)
+        player = nil
+        DispatchQueue.main.async { [weak self] in
+            if let strongSelf = self {
+                strongSelf.hideLoadingView(loadingPop: strongSelf.loadingPop)
+                strongSelf.delegate?.addItemToPlaylist(item: strongSelf.caster , index: strongSelf.index)
+            }
         }
     }
     
@@ -156,17 +167,22 @@ extension PlayerViewController: MenuDelegate {
     }
     
     func cancel(tapped: Bool) {
-        DispatchQueue.main.async {
-            self.hideLoadingView(loadingPop: self.loadingPop)
-            self.hidePopMenu()
+        DispatchQueue.main.async { [weak self] in
+            if let strongSelf = self {
+                strongSelf.hideLoadingView(loadingPop: strongSelf.loadingPop)
+                strongSelf.hidePopMenu()
+            }
         }
     }
     
     func navigateBack(tapped: Bool) {
-        DispatchQueue.main.async {
-            self.hideLoadingView(loadingPop: self.loadingPop)
-            self.delegate?.navigateBack(tapped: tapped)
-            self.navigationController?.popViewController(animated: false)
+        player = nil
+        DispatchQueue.main.async { [weak self] in
+            if let strongSelf = self {
+                strongSelf.hideLoadingView(loadingPop: strongSelf.loadingPop)
+                strongSelf.delegate?.navigateBack(tapped: tapped)
+                strongSelf.navigationController?.popViewController(animated: false)
+            }
         }
     }
 }

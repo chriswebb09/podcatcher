@@ -15,7 +15,7 @@ class RSSFeedAPIClient: NSObject {
                 guard let data = data else { return }
                 dump(data)
                 let rssParser = RSSParser()
-                rssParser.parseResponse(data: data) { parsedRSS in
+                rssParser.parseResponse(data) { parsedRSS in
                     DispatchQueue.main.async {
                         completion(parsedRSS, nil)
                     }
@@ -39,7 +39,7 @@ extension RSSFeedAPIClient: XMLParserDelegate {
                 dump(data)
                 guard let data = data else { return }
                 let rssParser = RSSParser()
-                rssParser.parseResponse(data: data) { parsedRSS in
+                rssParser.parseResponse(data) { parsedRSS in
                     DispatchQueue.main.async {
                         completion(parsedRSS, nil)
                     }

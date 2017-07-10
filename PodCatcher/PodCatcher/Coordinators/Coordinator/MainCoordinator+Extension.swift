@@ -134,7 +134,7 @@ extension MainCoordinator: CoordinatorDelegate {
             
             let model = SettingsViewModel(firstSettingOptionText: "OptionOne", secondSettingOptionText: "OptionTwo")
             let settingsView = SettingsView(frame: CGRect.zero, model: model)
-            let settingsViewController = SettingsViewController(settingsView: settingsView, dataSource: dataSource)
+            let settingsViewController = SettingsViewController()
             let settingsTab = UINavigationController(rootViewController: settingsViewController)
             
             homeViewController.currentPlaylistId = playlistsViewController.currentPlaylistID

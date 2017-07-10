@@ -1,9 +1,9 @@
 import UIKit
 import CoreData
 
-enum PlaylistsReference {
-    case addPodcast, checkList
-}
+//enum PlaylistsReference {
+//    case addPodcast, checkList
+//}
 
 final class PlaylistsViewController: BaseTableViewController {
     
@@ -40,7 +40,6 @@ extension PlaylistsViewController: ReloadableTable, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let count = fetchedResultsController.sections?[section].numberOfObjects {
             if count <= 0 {
-                tableView.backgroundView = UIView(frame: UIScreen.main.bounds)
                 tableView.backgroundView?.addSubview(emptyView)
             } else {
                 emptyView?.removeFromSuperview()
@@ -59,7 +58,6 @@ extension PlaylistsViewController: ReloadableTable, UITableViewDataSource {
         }
         let text = fetchedResultsController.object(at: indexPath).playlistName
         cell.titleLabel.text = text?.uppercased()
-        cell.alpha = 0.98
         return cell
     }
 }
