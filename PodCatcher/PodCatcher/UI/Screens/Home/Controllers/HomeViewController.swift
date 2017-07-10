@@ -5,18 +5,14 @@ final class HomeViewController: BaseCollectionViewController {
     weak var delegate: HomeViewControllerDelegate?
     
     lazy var topCollectionView : UICollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
-    
     var currentPlaylistId: String = ""
-    
     var topItems = [CasterSearchResult]()
-    
+    var topView = HomeTopView()
     var dataSource: HomeCollectionDataSource! {
         didSet {
             viewShown = dataSource.viewShown
         }
     }
-    
-    var topView = HomeTopView()
     
     var viewShown: ShowView = .empty {
         didSet {
@@ -42,24 +38,17 @@ final class HomeViewController: BaseCollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-     //   emptyView.alpha = 0
         title = "PodCatch"
-        
         let topFrameHeight = UIScreen.main.bounds.height / 2
         let topFrameWidth = UIScreen.main.bounds.width
         let topFrame = CGRect(x: 0, y: 0, width: topFrameWidth, height: topFrameHeight)
         topView.frame = topFrame
         view.addSubview(topView)
-        
         view.backgroundColor = .clear
-        
         topView.backgroundColor = .clear
-        
         topCollectionView.backgroundColor = .red
         topCollectionView.dataSource = self
         topCollectionView.register(TopPodcastCell.self)
-        
-       // collectionView.backgroundColor = .white
         view.addSubview(collectionView)
         collectionViewConfiguration()
         collectionView.register(TopPodcastCell.self)
@@ -76,7 +65,6 @@ final class HomeViewController: BaseCollectionViewController {
             if self.dataSource.dataType == .local {
                 self.dataSource.topStore.fetchFromCore()
                 self.topCollectionView.reloadData()
-                //self.topView.podcastImageView.image = self.dataSource.topItemImage
             }
         }
     }
@@ -97,28 +85,17 @@ extension HomeViewController: UICollectionViewDataSource {
         if let imagurl = topItems[indexPath.row].podcastArtUrlString, let url = URL(string: imagurl) {
             cell.albumArtView.downloadImage(url: url)
         }
-        
         return cell
     }
     
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print(topItems.count)
         return dataSource.items.count
     }
     
     func setupBottom() {
-        
-        
-        // setup(view: view, newLayout: HomeItemsFlowLayout())
         topCollectionView.delegate = self
-        // collectionView.dataSource = dataSource
         topCollectionView.isPagingEnabled = true
         topCollectionView.isScrollEnabled = true
         topCollectionView.decelerationRate = UIScrollViewDecelerationRateFast
-        // collectionView.backgroundColor = .clear
-        
     }
-    
-    
 }
