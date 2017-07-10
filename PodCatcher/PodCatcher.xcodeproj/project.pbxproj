@@ -182,6 +182,10 @@
 		A7A7627B1F131A3100D2C4FF /* PlayableItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A7627A1F131A3100D2C4FF /* PlayableItem.swift */; };
 		A7A7627D1F131A8A00D2C4FF /* ReloadableCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A7627C1F131A8A00D2C4FF /* ReloadableCollection.swift */; };
 		A7A7627F1F131AAE00D2C4FF /* ReloadableTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A7627E1F131AAE00D2C4FF /* ReloadableTable.swift */; };
+		A7A762871F13417B00D2C4FF /* HomeCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A762861F13417B00D2C4FF /* HomeCoordinatorTests.swift */; };
+		A7A762891F1341A800D2C4FF /* RSSFeedParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A762881F1341A800D2C4FF /* RSSFeedParserTests.swift */; };
+		A7A7628B1F1341BC00D2C4FF /* RSSFeedParserAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A7628A1F1341BC00D2C4FF /* RSSFeedParserAPIClient.swift */; };
+		A7A7628D1F1341FA00D2C4FF /* StringMethodTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A7628C1F1341FA00D2C4FF /* StringMethodTests.swift */; };
 		A7A877AE1F1063A400D0968D /* HomeTabCoordinator+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A877AD1F1063A400D0968D /* HomeTabCoordinator+Extension.swift */; };
 		A7A877B11F10656300D0968D /* TopPodcast+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A877AF1F10656300D0968D /* TopPodcast+CoreDataClass.swift */; };
 		A7A877B21F10656300D0968D /* TopPodcast+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A877B01F10656300D0968D /* TopPodcast+CoreDataProperties.swift */; };
@@ -471,6 +475,10 @@
 		A7A7627A1F131A3100D2C4FF /* PlayableItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayableItem.swift; sourceTree = "<group>"; };
 		A7A7627C1F131A8A00D2C4FF /* ReloadableCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReloadableCollection.swift; sourceTree = "<group>"; };
 		A7A7627E1F131AAE00D2C4FF /* ReloadableTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReloadableTable.swift; sourceTree = "<group>"; };
+		A7A762861F13417B00D2C4FF /* HomeCoordinatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeCoordinatorTests.swift; sourceTree = "<group>"; };
+		A7A762881F1341A800D2C4FF /* RSSFeedParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSSFeedParserTests.swift; sourceTree = "<group>"; };
+		A7A7628A1F1341BC00D2C4FF /* RSSFeedParserAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSSFeedParserAPIClient.swift; sourceTree = "<group>"; };
+		A7A7628C1F1341FA00D2C4FF /* StringMethodTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringMethodTests.swift; sourceTree = "<group>"; };
 		A7A877AD1F1063A400D0968D /* HomeTabCoordinator+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "HomeTabCoordinator+Extension.swift"; path = "Home/HomeTabCoordinator+Extension.swift"; sourceTree = "<group>"; };
 		A7A877AF1F10656300D0968D /* TopPodcast+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TopPodcast+CoreDataClass.swift"; sourceTree = "<group>"; };
 		A7A877B01F10656300D0968D /* TopPodcast+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TopPodcast+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -788,6 +796,10 @@
 				A71BFB891EE6FCB400A35D8E /* PodcastsListTests.swift */,
 				A7A54E9E1EE70CFB009A5538 /* PopoverTests.swift */,
 				A7905B0F1EEF7CC100199246 /* APIClientTests.swift */,
+				A7A762861F13417B00D2C4FF /* HomeCoordinatorTests.swift */,
+				A7A762881F1341A800D2C4FF /* RSSFeedParserTests.swift */,
+				A7A7628A1F1341BC00D2C4FF /* RSSFeedParserAPIClient.swift */,
+				A7A7628C1F1341FA00D2C4FF /* StringMethodTests.swift */,
 			);
 			path = PodCatcherTests;
 			sourceTree = "<group>";
@@ -1872,11 +1884,15 @@
 				A7150ED71EE638A900E3553F /* StartCoordinatorTests.swift in Sources */,
 				A71BFB8A1EE6FCB400A35D8E /* PodcastsListTests.swift in Sources */,
 				A7905B101EEF7CC100199246 /* APIClientTests.swift in Sources */,
+				A7A7628D1F1341FA00D2C4FF /* StringMethodTests.swift in Sources */,
 				A7150EDD1EE6399200E3553F /* PlayerControllerTests.swift in Sources */,
+				A7A762871F13417B00D2C4FF /* HomeCoordinatorTests.swift in Sources */,
 				A7A54E9F1EE70CFB009A5538 /* PopoverTests.swift in Sources */,
 				A7894FA01EE69C1E000CC190 /* LoginTests.swift in Sources */,
 				A7894F9E1EE69C03000CC190 /* SettingsTests.swift in Sources */,
 				A7150EDB1EE638E000E3553F /* MediaPlayerTests.swift in Sources */,
+				A7A7628B1F1341BC00D2C4FF /* RSSFeedParserAPIClient.swift in Sources */,
+				A7A762891F1341A800D2C4FF /* RSSFeedParserTests.swift in Sources */,
 				A7894FA21EE69E2B000CC190 /* TestMainCoordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

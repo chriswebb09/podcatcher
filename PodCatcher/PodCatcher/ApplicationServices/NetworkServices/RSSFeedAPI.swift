@@ -8,9 +8,9 @@ class RSSFeedAPIClient: NSObject, XMLParserDelegate {
             if let error = error {
                 print(error.localizedDescription)
                 DispatchQueue.main.async {
-                     completion(nil, error)
+                    completion(nil, error)
                 }
-               
+                
             } else {
                 guard let data = data else { return }
                 dump(data)
@@ -51,7 +51,7 @@ class SearchResultsDataStore {
     func pullFeed(for podCast: String, competion: @escaping (([Episodes]?, Error?) -> Void)) {
         var episodes = [Episodes]()
         RSSFeedAPIClient.requestFeed(for: podCast) { rssData, error in
-//            print(rssData)
+            
             if let error = error {
                 print(error.localizedDescription)
                 DispatchQueue.main.async {
@@ -59,8 +59,7 @@ class SearchResultsDataStore {
                 }
                 
             }
-            guard let rssData = rssData else {
-                return }
+            guard let rssData = rssData else { return }
             
             for data in rssData {
                 guard let title = data["title"] else { continue }

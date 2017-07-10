@@ -1,7 +1,7 @@
 import UIKit
 import CoreData
 
-class PlaylistViewController: BaseCollectionViewController, NSFetchedResultsControllerDelegate {
+class PlaylistViewController: BaseCollectionViewController {
     
     var item: CasterSearchResult!
     var state: PodcasterControlState = .toCollection
@@ -14,13 +14,11 @@ class PlaylistViewController: BaseCollectionViewController, NSFetchedResultsCont
     
     var fetchedResultsController:NSFetchedResultsController<PodcastPlaylistItem>!
     
-    private let persistentContainer = NSPersistentContainer(name: "PodCatcher")
+    let persistentContainer = NSPersistentContainer(name: "PodCatcher")
     
     let entryPop = EntryPopover()
     var topView = ListTopView()
     var feedUrl: String!
-    
-
     
     init(index: Int) {
         self.playlistId = ""
@@ -48,24 +46,6 @@ class PlaylistViewController: BaseCollectionViewController, NSFetchedResultsCont
         setupCoordinator()
     }
     
-    func setupCoordinator() {
-        persistentContainer.loadPersistentStores { (persistentStoreDescription, error) in
-            if let error = error {
-                print("Unable to Load Persistent Store")
-                print("\(error), \(error.localizedDescription)")
-                
-            } else {
-                do {
-                    try self.fetchedResultsController.performFetch()
-                } catch {
-                    let fetchError = error as NSError
-                    print("Unable to Perform Fetch Request")
-                    print("\(fetchError), \(fetchError.localizedDescription)")
-                }
-            }
-        }
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(false)
         collectionView.alpha = 1
@@ -74,6 +54,16 @@ class PlaylistViewController: BaseCollectionViewController, NSFetchedResultsCont
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(false)
         collectionView.alpha = 0
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        switch state {
+        case .toCollection:
+            navigationController?.popViewController(animated: false)
+        case .toPlayer:
+            break
+        }
     }
 }
 

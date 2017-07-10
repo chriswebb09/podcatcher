@@ -13,8 +13,13 @@ protocol Parser: class {
 
 
 class RSSParser: NSObject {
-    let recordKey = "item"
-    let dictionaryKeys = ["rss", "itunes:summary", " itunes:author", "tunes:subtitle", "pubDate", "enclosure", "itunes:duration", "title", "audio/mp3", "audio/mpeg", "itunes:keywords", "itunes:image", "link", "category", "itunes:author", "itunes:summary", "description", "enclosure"]
+    var recordKey = "item"
+    var dictionaryKeys = ["itunes:summary", " itunes:author", "tunes:subtitle", "pubDate", "enclosure", "itunes:duration", "title", "audio/mp3", "audio/mpeg", "itunes:keywords", "itunes:image", "link", "category", "itunes:author", "itunes:summary", "description", "enclosure"]
+    
+  //  ["rss", "itunes:summary", " itunes:author", "tunes:subtitle", "pubDate", "enclosure", "itunes:duration", "title", "audio/mp3", "audio/mpeg", "itunes:keywords", "itunes:image", "link", "category", "itunes:author", "itunes:summary", "description", "enclosure"]
+    
+    //
+    
     
     var results = [[String: String]]()
     var currentDictionary: [String: String]!
@@ -38,14 +43,22 @@ extension RSSParser: XMLParserDelegate {
         
         if elementName == recordKey {
             currentDictionary = [String : String]()
-        } else if elementName == "enclosure", let item = attributeDict["url"], item.hasSuffix(".mp3") || item.hasSuffix("f=510307") {
+        } else if elementName == "enclosure", let item = attributeDict["url"], item.hasSuffix(".mp3") {
             if currentDictionary == nil {
                 currentDictionary = [String : String]()
             }
+            print(item)
             currentDictionary["audio"] = item
+        } else if elementName == "enclosure", let item = attributeDict["url"], item.hasSuffix("f=510298") {
+            if currentDictionary == nil {
+                currentDictionary = [String : String]()
+            }
+            print(item)
+            currentDictionary["audioUrlString"] = item
         } else if dictionaryKeys.contains(elementName) {
             currentValue = ""
         }
+        
     }
     
     func parser(_ parser: XMLParser, foundCharacters string: String) {

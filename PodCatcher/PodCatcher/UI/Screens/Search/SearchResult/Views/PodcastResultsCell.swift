@@ -25,7 +25,7 @@ class PodcastResultCell: UICollectionViewCell {
         playTimeLabel.sizeToFit()
         playTimeLabel.textAlignment = .right
         playTimeLabel.textColor = .black
-        playTimeLabel.font = UIFont.systemFont(ofSize: 12, weight: UIFontWeightMedium)
+        playTimeLabel.font = UIFont.systemFont(ofSize: 11, weight: UIFontWeightRegular)
         return playTimeLabel
     }()
     

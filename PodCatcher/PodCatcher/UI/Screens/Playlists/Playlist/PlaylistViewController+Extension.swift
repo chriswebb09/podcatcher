@@ -1,18 +1,28 @@
 import UIKit
 import CoreData
 
-extension PlaylistViewController: ReloadableCollection {
+
+extension PlaylistViewController: NSFetchedResultsControllerDelegate {
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        switch state {
-        case .toCollection:
-            navigationController?.popViewController(animated: false)
-        case .toPlayer:
-            break
+    func setupCoordinator() {
+        persistentContainer.loadPersistentStores { (persistentStoreDescription, error) in
+            if let error = error {
+                print("Unable to Load Persistent Store")
+                print("\(error), \(error.localizedDescription)")
+                
+            } else {
+                do {
+                    try self.fetchedResultsController.performFetch()
+                } catch {
+                    let fetchError = error as NSError
+                    print("Unable to Perform Fetch Request")
+                    print("\(fetchError), \(fetchError.localizedDescription)")
+                }
+            }
         }
     }
 }
+
 
 // MARK: - PodcastCollectionViewProtocol
 
@@ -30,7 +40,10 @@ extension PlaylistViewController: PodcastCollectionViewProtocol {
         view.bringSubview(toFront: topView)
         setupView()
     }
-    
+}
+
+
+extension PlaylistViewController: ReloadableCollection {
     func setupView() {
         guard let tabBar = self.tabBarController?.tabBar else { return }
         guard let navHeight = navigationController?.navigationBar.frame.height else { return }

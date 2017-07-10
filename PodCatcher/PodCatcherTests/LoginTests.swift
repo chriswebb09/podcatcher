@@ -31,4 +31,8 @@ class LoginTestDelegate: LoginViewControllerDelegate {
     func successfulLogin(for user: PodCatcherUser) {
         XCTAssertNotNil(user)
     }
+    
+    func navigateBack(tapped: Bool) {
+        
+    }
 }

@@ -49,6 +49,5 @@ class PopoverTests: XCTestCase {
         viewController.view.sendSubview(toBack: loadingPop)
         XCTAssertFalse(loadingPop.popView.isHidden)
     }
-
 }
 
