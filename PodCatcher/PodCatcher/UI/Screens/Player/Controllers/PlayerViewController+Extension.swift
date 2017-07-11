@@ -4,7 +4,6 @@ import CoreData
 
 // MARK: - PlayerViewDelegate
 
-
 extension PlayerViewController: PlayerViewDelegate {
     
     func setModel(model: PlayerViewModel) {
@@ -51,7 +50,6 @@ extension PlayerViewController: PlayerViewDelegate {
     func skipButtonTapped() {
         guard index < caster.episodes.count - 1 else { return }
         index += 1
-        
         guard let player = player else { return }
         player.pause()
         self.player = nil
@@ -83,7 +81,7 @@ extension PlayerViewController: PlayerViewDelegate {
     func playButtonTapped() {
         guard let player = player else { return }
         player.delegate = self
-        player.play(player: player.player)
+        player.play()
         player.observePlayTime()
         delegate?.playButton(tapped: true)
     }

@@ -53,7 +53,6 @@ extension HomeCollectionDataSource:  UICollectionViewDataSource {
                 }
             }
         }
-        
         DispatchQueue.main.asyncAfter(deadline: .now() + rowTime) {
             UIView.animate(withDuration: rowTime) {
                 cell.alpha = 0.98

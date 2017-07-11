@@ -8,6 +8,20 @@ final class CreateAccountView: UIView {
     
     var backgroundView = UIView()
     
+    var navBar: UIView = {
+        let navBar = UIView()
+        return navBar
+    }()
+    
+    private var navigateBackButton: UIButton = {
+        var backButton = UIButton()
+        var buttonImage = #imageLiteral(resourceName: "back").withRenderingMode(.alwaysTemplate)
+        backButton.setImage(buttonImage, for: .normal)
+        backButton.tintColor = .white
+        return backButton
+    }()
+    
+    
     var emailField: UITextField = {
         var usernameField = UnderlineTextField()
         usernameField.placeholder = "Email"
@@ -50,13 +64,10 @@ final class CreateAccountView: UIView {
         emailField.setup()
         confirmEmailField.setupEmailField()
         confirmEmailField.setup()
-        let attributedString = NSMutableAttributedString(string: "Confirm Email Address")
-        attributedString.addAttribute(NSKernAttributeName, value: CGFloat(1.5), range: NSRange(location: 0, length: attributedString.length))
-        let fontAttribute = [NSFontAttributeName: UIFont.systemFont(ofSize: 14.0)]
-        attributedString.addAttributes(fontAttribute, range: NSRange(location: 0, length: attributedString.length))
-        confirmEmailField.attributedPlaceholder = attributedString
         passwordField.setupPasswordField()
         passwordField.setup()
+        setup(navBar: navBar)
+        setup(navigationButton: navigateBackButton)
         setup(emailField: self.emailField)
         passwordField.delegate = self
         passwordField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
@@ -64,6 +75,7 @@ final class CreateAccountView: UIView {
         setup(passwordField: passwordField)
         setup(submitButton: submitButton)
         submitButton.layer.cornerRadius = 10
+        navigateBackButton.addTarget(self, action: #selector(navigateBack), for: .touchUpInside)
         submitButton.addTarget(self, action: #selector(submitButtonTapped), for: .touchUpInside)
     }
     
@@ -81,7 +93,7 @@ final class CreateAccountView: UIView {
     
     private func setup(emailField: UITextField) {
         sharedLayout(view: emailField)
-        emailField.topAnchor.constraint(equalTo: topAnchor, constant: UIScreen.main.bounds.height * 0.045).isActive = true
+        emailField.topAnchor.constraint(equalTo: topAnchor, constant: UIScreen.main.bounds.height * 0.15).isActive = true
     }
     
     private func setup(confirmEmailField: UITextField) {
@@ -106,5 +118,27 @@ final class CreateAccountView: UIView {
     func submitButtonTapped() {
         guard let email = emailField.text, let password = passwordField.text else { return }
         delegate?.submitButton(tapped: true)
+    }
+    
+    func setup(navBar: UIView) {
+        addSubview(navBar)
+        navBar.translatesAutoresizingMaskIntoConstraints = false
+        navBar.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
+        navBar.heightAnchor.constraint(equalTo: heightAnchor, multiplier: PlayerViewConstants.trackTitleViewHeightMultiplier).isActive = true
+        navBar.topAnchor.constraint(equalTo: topAnchor, constant: UIScreen.main.bounds.height * 0.03).isActive = true
+        navBar.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+    }
+    
+    func setup(navigationButton: UIButton) {
+        navBar.addSubview(navigationButton)
+        navigationButton.translatesAutoresizingMaskIntoConstraints = false
+        navigationButton.leftAnchor.constraint(equalTo: navBar.leftAnchor, constant: UIScreen.main.bounds.width * 0.01).isActive = true
+        navigationButton.centerYAnchor.constraint(equalTo: navBar.centerYAnchor).isActive = true
+        navigationButton.heightAnchor.constraint(equalTo: navBar.heightAnchor, multiplier: 0.9).isActive = true
+        navigationButton.widthAnchor.constraint(equalTo: navBar.widthAnchor, multiplier: 0.1).isActive = true
+    }
+    
+    func navigateBack() {
+        delegate?.navigateBack(tapped: true)
     }
 }

@@ -80,7 +80,7 @@ extension AudioFilePlayer: Playable {
     
     func play() {
         state = .playing
-        play(player: player)
+        player.playImmediately(atRate: 1)
     }
     
     func pause(){
@@ -101,12 +101,7 @@ extension AudioFilePlayer: Playable {
         guard let asset = asset else { return }
         getTrackDuration(asset: asset)
     }
-    
-    func play(player: AVPlayer) {
-        player.playImmediately(atRate: 1)
-    }
-    
-    
+
     func removeObservers() {
         self.removePlayTimeObserver(timeObserver: timeObserver)
     }
@@ -116,6 +111,7 @@ extension AudioFilePlayer: AVAssetResourceLoaderDelegate {
     
     func getTrackDuration(asset: AVURLAsset) {
         asset.loadValuesAsynchronously(forKeys: ["tracks", "duration"]) {
+            
             guard let asset = self.asset else { return }
             let audioDuration = asset.duration
             let audioDurationSeconds = CMTimeGetSeconds(audioDuration)
@@ -123,31 +119,30 @@ extension AudioFilePlayer: AVAssetResourceLoaderDelegate {
             let minutes = Int(audioDurationSeconds.truncatingRemainder(dividingBy: 3600) / 60)
             let rem = Int(audioDurationSeconds.truncatingRemainder(dividingBy: 60))
             
-            var formattedSeconds = ""
-            if rem < 10 {
-                formattedSeconds = "0\(rem)"
-            } else {
-                formattedSeconds = "\(rem)"
-            }
-            
-            var formattedMinutes = ""
-            if minutes < 10 {
-                formattedMinutes = "0\(minutes)"
-            } else {
-                formattedMinutes = "\(minutes)"
-            }
+            let formattedSeconds = self.formatString(time: rem)
+            let formattedMinutes = self.formatString(time: minutes)
             
             var formattedTime = ""
             if hours > 0 {
                 formattedTime = "\(hours):\(formattedMinutes):\(formattedSeconds)"
             } else {
-                 formattedTime = "\(formattedMinutes):\(formattedSeconds)"
+                formattedTime = "\(formattedMinutes):\(formattedSeconds)"
             }
             
             self.delegate?.trackDurationCalculated(stringTime: formattedTime, timeValue: audioDurationSeconds)
         }
     }
-
+    
+    func formatString(time: Int) -> String {
+        var formattedString = ""
+        if time < 10 {
+            formattedString = "0\(time)"
+        } else {
+            formattedString = "\(time)"
+        }
+        return formattedString
+    }
+    
     func observePlayTime() {
         if self.delegate == nil {
             print("Delegate is not set")

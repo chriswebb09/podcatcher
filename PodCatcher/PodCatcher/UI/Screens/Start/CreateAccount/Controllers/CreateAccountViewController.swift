@@ -14,7 +14,7 @@ class CreateAccountViewController: UIViewController {
         view = createAccountView
         view.layoutSubviews()
         title = "Create Account"
-        navigationController?.navigationBar.isHidden = false
+       // navigationController?.navigationBar.isHidden = false
         navigationController?.navigationBar.isTranslucent = true
     }
     
@@ -22,4 +22,5 @@ class CreateAccountViewController: UIViewController {
         super.viewWillDisappear(animated)
         navigationController?.navigationBar.isHidden = true
     }
+    
 }

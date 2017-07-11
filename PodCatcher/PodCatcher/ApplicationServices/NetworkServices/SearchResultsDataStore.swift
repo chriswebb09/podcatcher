@@ -15,7 +15,7 @@ class SearchResultsDataStore {
             for data in rssData {
                 guard let title = data["title"] else { continue }
                 guard let audioUrl = data["audio"] else { continue }
-                var episode = Episodes(audioUrlSting: audioUrl, title: title, date: "", description: "", duration: 000, audioUrlString: audioUrl, stringDuration: "")
+                var episode = Episodes(mediaUrlString: audioUrl, audioUrlSting: audioUrl, title: title, date: "", description: "", duration: 000, audioUrlString: audioUrl, stringDuration: "")
                 if let duration = data["itunes:duration"] {
                     print("DURATION")
                     episode.stringDuration = duration
