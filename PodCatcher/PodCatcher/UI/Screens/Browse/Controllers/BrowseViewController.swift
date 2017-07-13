@@ -54,16 +54,19 @@ final class BrowseViewController: BaseCollectionViewController {
         collectionView.backgroundColor = .darkGray
         topView.addSubview(topCollectionView)
         setupBottom()
-        
         DispatchQueue.main.async {
             self.collectionView.reloadData()
             self.topCollectionView.reloadData()
+        }
+        DispatchQueue.global(qos: .background).async {
             self.topItems = self.dataSource.items
             self.view.bringSubview(toFront: self.collectionView)
             self.topView.bringSubview(toFront: self.topCollectionView)
             if self.dataSource.dataType == .local {
                 self.dataSource.topStore.fetchFromCore()
-                self.topCollectionView.reloadData()
+                DispatchQueue.main.async {
+                    self.topCollectionView.reloadData()
+                }
             }
         }
     }
@@ -71,7 +74,6 @@ final class BrowseViewController: BaseCollectionViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         view.alpha = 0
-
         UIView.animate(withDuration: 0.15) {
             self.view.alpha = 1
         }
