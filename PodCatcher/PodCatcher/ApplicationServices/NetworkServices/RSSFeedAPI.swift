@@ -4,7 +4,7 @@ class RSSFeedAPIClient: NSObject {
     
     static func requestFeed(for urlString: String, completion: @escaping ([[String: String]]?, Error?) -> Void) {
         guard let url = URL(string: urlString) else { return }
-        let nprParse = ["344098539", "510298", "510318", "510307", "510322", "510308", "510313", "510289"]
+        let nprParse = ["344098539", "510298", "510200", "510318", "510208", "510282", "500005", "510307", "510322", "510308", "510310", "510019", "510313", "510289", "381444908"]
         URLSession(configuration: .ephemeral).dataTask(with: URLRequest(url: url)) { data, response, error in
             if let error = error {
                 print(error.localizedDescription)
@@ -40,7 +40,7 @@ class RSSFeedAPIClient: NSObject {
 extension RSSFeedAPIClient: XMLParserDelegate {
     
     static func getTopPodcasts(completion: @escaping ([[String: String]]?, Error?) -> Void) {
-        guard let url = URL(string: "https://rss.itunes.apple.com/api/v1/us/podcasts/top-podcasts/25/explicit/xml") else { return }
+        guard let url = URL(string: "https://rss.itunes.apple.com/api/v1/us/podcasts/top-podcasts/40/explicit/xml") else { return }
         URLSession(configuration: .ephemeral).dataTask(with: URLRequest(url: url)) { data, response, error in
             if let error = error {
                 print(error.localizedDescription)

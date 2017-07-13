@@ -173,7 +173,6 @@ final class PlayerView: UIView {
         self.model = model
         setupViews()
         backgroundColor = .mainColor
-        pauseButton.alpha = 0
     }
     
     private func sharedLayout(view: UIView) {
@@ -264,6 +263,7 @@ final class PlayerView: UIView {
     private func setup(playButton: UIButton, pauseButton: UIButton) {
         setup(trackButton: playButton)
         setup(trackButton: pauseButton)
+     
     }
     
     private func skipButtonsSharedLayout(controlsView: UIView, button: UIButton) {
@@ -341,6 +341,7 @@ final class PlayerView: UIView {
         let path =  UIBezierPath(roundedRect: rect, cornerRadius: albumImageView.layer.cornerRadius)
         layer.shadowPath = path.cgPath
         addSelectors()
+        
     }
     
     private func addSelectors() {
@@ -364,7 +365,6 @@ final class PlayerView: UIView {
     @objc private func playButtonTapped() {
         model.switchButtonAlpha(for: pauseButton, withButton: playButton)
         delegate?.playButtonTapped()
-        pauseButton.alpha = 1
     }
     
     @objc private func pauseButtonTapped() {
@@ -373,16 +373,19 @@ final class PlayerView: UIView {
     }
     
     @objc private func skipButtonTapped() {
-        delegate?.loading()
+        //delegate?.loading()
         disableButtons()
         delegate?.skipButtonTapped()
         model.reset(playButton: playButton, pauseButton: pauseButton, slider: playtimeSlider)
     }
     
     @objc private func backButtonTapped() {
-        delegate?.loading()
+        //delegate?.loading()
         disableButtons()
         delegate?.backButtonTapped()
+    }
+    
+    func reset() {
         model.reset(playButton: playButton, pauseButton: pauseButton, slider: playtimeSlider)
     }
     
@@ -394,9 +397,13 @@ final class PlayerView: UIView {
         delegate?.navigateBack(tapped: true)
     }
     
-    func setPauseButtonAlpha() {
-        pauseButton.alpha = 1
+    func hidePause() {
+        pauseButton.alpha = 0
     }
+    
+//    func setPauseButtonAlpha() {
+//        pauseButton.alpha = 1
+//    }
     
     func printSliderBounds() {
         print(playtimeSlider.frame)

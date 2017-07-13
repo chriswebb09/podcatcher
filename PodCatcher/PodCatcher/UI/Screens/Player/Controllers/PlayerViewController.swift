@@ -36,11 +36,13 @@ final class PlayerViewController: BaseViewController {
         super.init(nibName: nil, bundle: nil)
         self.player.delegate = self
         self.player.observePlayTime()
+        
         guard let artUrl = caster.podcastArtUrlString else { return }
         playerViewModel = PlayerViewModel(imageUrl: URL(string: artUrl), title: episodes[index].title)
         setModel(model: playerViewModel)
         playerView.delegate = self
         view.addView(view: playerView, type: .full)
+        self.playerView.hidePause()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -52,6 +54,9 @@ final class PlayerViewController: BaseViewController {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         tabBarController?.tabBar.alpha = 0
+        DispatchQueue.main.async {
+            self.playerView.hidePause()
+        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {

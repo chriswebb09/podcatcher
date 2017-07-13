@@ -15,36 +15,34 @@ extension PlayerViewController: PlayerViewDelegate {
         guard let url = url else { return }
         player.setUrl(with: url)
         player.url = url
-        player.asset = AVURLAsset(url: url)
+        player.playNext()
     }
     
     func updateTimeValue(time: Double) {
         player.currentTime = time
         guard let duration = player.duration else { return }
-        DispatchQueue.main.async {
-            let normalizedTime = self.player.currentTime * 100.0 / duration
-            let timeString = String.constructTimeString(time: self.player.currentTime)
-            self.playerView.currentPlayTimeLabel.text = timeString
-            self.playerView.update(progressBarValue: Float(normalizedTime))
+        DispatchQueue.main.async { [weak self] in
+            let normalizedTime = (self?.player.currentTime)! * 100.0 / duration
+            let timeString = String.constructTimeString(time: (self?.player.currentTime)!)
+            self?.playerView.currentPlayTimeLabel.text = timeString
+            self?.playerView.update(progressBarValue: Float(normalizedTime))
         }
     }
     
     func backButtonTapped() {
         print(index)
-        // showLoadingView(loadingPop: loadingPop)
+        showLoadingView(loadingPop: loadingPop)
         guard index > 0 else {
-            //  hideLoadingView(loadingPop: loadingPop)
+            hideLoadingView(loadingPop: loadingPop)
             playerView.enableButtons()
             return
         }
         index -= 1
         player.pause()
         guard let artUrl = caster.podcastArtUrlString else { return }
-        
         playerViewModel = PlayerViewModel(imageUrl: URL(string: artUrl), title: episodes[index].title)
         self.setModel(model: self.playerViewModel)
         if let audioUrl = episodes[index].audioUrlString, let url = URL(string: audioUrl) {
-            print(audioUrl)
             self.initPlayer(url: url)
             player.playNext()
         }
@@ -53,12 +51,16 @@ extension PlayerViewController: PlayerViewDelegate {
     }
     
     func skipButtonTapped() {
-        
+        showLoadingView(loadingPop: loadingPop)
+        if player.delegate != nil {
+            print("delegate")
+        }
         guard index < episodes.count - 1 else {
-            //  hideLoadingView(loadingPop: loadingPop)
+            hideLoadingView(loadingPop: loadingPop)
             playerView.enableButtons()
             return
         }
+        playerView.reset()
         index += 1
         player.pause()
         guard let artUrl = caster.podcastArtUrlString else { return }
@@ -109,12 +111,6 @@ extension PlayerViewController: PlayerViewDelegate {
             self.bottomMenu.showOn(self.playerView)
         }
     }
-    
-    func loading() {
-        DispatchQueue.main.async {
-            self.showLoadingView(loadingPop: self.loadingPop)
-        }
-    }
 }
 
 extension PlayerViewController: AudioFilePlayerDelegate {
@@ -127,11 +123,10 @@ extension PlayerViewController: AudioFilePlayerDelegate {
         print(stringTime)
         DispatchQueue.main.async { [weak self] in
             if let strongSelf = self {
-                strongSelf.hideLoadingView(loadingPop: strongSelf.loadingPop)
-                strongSelf.playerView.setPauseButtonAlpha()
                 strongSelf.playerViewModel.totalTimeString = stringTime
                 strongSelf.setModel(model: strongSelf.playerViewModel)
                 strongSelf.view.bringSubview(toFront: strongSelf.playerView)
+                strongSelf.hideLoadingView(loadingPop: strongSelf.loadingPop)
             }
         }
     }
@@ -144,6 +139,16 @@ extension PlayerViewController: AudioFilePlayerDelegate {
             print(String.constructTimeString(time: strongSelf.player.currentTime))
             strongSelf.playerView.currentPlayTimeLabel.text = String.constructTimeString(time: strongSelf.player.currentTime)
             strongSelf.playerView.update(progressBarValue: Float(normalizedTime))
+            guard let status = self?.player.player?.status else { return }
+            switch status {
+            case .failed:
+                print("failed")
+                return
+            case .unknown:
+                print("unknown")
+            case .readyToPlay:
+                print("ready")
+            }
         }
     }
 }
@@ -160,11 +165,11 @@ extension PlayerViewController: MenuDelegate {
     }
     
     func optionTwo(tapped: Bool) {
-        
+        // None
     }
     
     func optionThree(tapped: Bool) {
-        
+        // None
     }
     
     func cancel(tapped: Bool) {

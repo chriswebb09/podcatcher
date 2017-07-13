@@ -109,6 +109,7 @@ extension AudioFilePlayer {
         guard let asset = asset else { return }
         playerItem = AVPlayerItem(asset: asset)
         player?.replaceCurrentItem(with: playerItem)
+        getTrackDuration(asset: asset)
     }
 }
 

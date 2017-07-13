@@ -25,12 +25,18 @@ extension HomeViewController: UICollectionViewDelegate {
                 print("Unable to Perform Fetch Request")
                 print("\(fetchError), \(fetchError.localizedDescription)")
             }
+            if let count = fetchedResultsController.fetchedObjects?.count {
+                if count == 0 {
+                    mode = .edit
+                    rightButtonItem.title = "Edit"
+                }
+            }
         }
     }
 }
 
 extension HomeViewController: UIScrollViewDelegate {
-        
+    
     func collectionViewConfiguration() {
         collectionView.delegate = self
         collectionView.dataSource = dataSource
@@ -75,7 +81,6 @@ extension HomeViewController: NSFetchedResultsControllerDelegate {
     }
 }
 
-
 extension HomeViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -99,26 +104,4 @@ extension HomeViewController: UICollectionViewDataSource {
         }
         return cell
     }
-    
-
-//    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: IndexPath) {
-//
-//    }
-////        context.deleteObject(myData[indexPath.row] as NSManagedObject)
-//        myData.removeAtIndex(indexPath.row)
-//        context.save(nil)
-//        collectionView.deleteItems(at: ([indexPath], withRowAnimation: .fade)
-    
-    
-        //    let appDel:AppDelegate = UIApplication.sharedApplication().delegate as AppDelegate
-        //    let context:NSManagedObjectContext = appDel.managedObjectContext!
-        //    context.deleteObject(myData[indexPath.row] as NSManagedObject)
-        //    myData.removeAtIndex(indexPath.row)
-        //    context.save(nil)
-        //
-        //    //tableView.reloadData()
-        //    // remove the deleted item from the `UITableView`
-        //    self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        //    default:
 }
-

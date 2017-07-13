@@ -60,11 +60,11 @@ final class BrowseViewController: BaseCollectionViewController {
         }
         DispatchQueue.global(qos: .background).async {
             self.topItems = self.dataSource.items
-            self.view.bringSubview(toFront: self.collectionView)
-            self.topView.bringSubview(toFront: self.topCollectionView)
             if self.dataSource.dataType == .local {
                 self.dataSource.topStore.fetchFromCore()
                 DispatchQueue.main.async {
+                    self.view.bringSubview(toFront: self.collectionView)
+                    self.topView.bringSubview(toFront: self.topCollectionView)
                     self.topCollectionView.reloadData()
                 }
             }
