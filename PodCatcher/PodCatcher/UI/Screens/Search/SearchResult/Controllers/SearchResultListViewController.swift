@@ -58,6 +58,14 @@ class SearchResultListViewController: BaseCollectionViewController {
         self.navigationController?.navigationBar.backItem?.title = ""
         navigationController?.setNavigationBarHidden(false, animated: false)
         navigationController?.navigationBar.alpha = 1
+        let  plusImage = #imageLiteral(resourceName: "plus-red").withRenderingMode(.alwaysTemplate)
+        rightButtonItem = UIBarButtonItem(image: plusImage, style: .done, target: self, action: #selector(subscribeToFeed))
+        navigationItem.setRightBarButton(rightButtonItem, animated: false)
+        rightButtonItem.tintColor = .white
+    }
+    
+    func subscribeToFeed() {
+        
     }
     
     func navigateBack() {
