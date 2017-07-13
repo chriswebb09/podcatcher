@@ -16,8 +16,12 @@ class SearchResultsDataStore {
                 guard let title = data["title"] else { continue }
                 guard let audioUrl = data["audio"] else { continue }
                 var episode = Episodes(mediaUrlString: audioUrl, audioUrlSting: audioUrl, title: title, date: "", description: "", duration: 000, audioUrlString: audioUrl, stringDuration: "")
-                if let duration = data["itunes:duration"] {
+                if var duration = data["itunes:duration"] {
                     print("DURATION")
+                    duration = duration.replacingOccurrences(of: "00:", with: "", options: NSString.CompareOptions.literal, range: nil)
+                    if !duration.contains(":") {
+                        duration = String.constructTimeString(time: Double(duration)!)
+                    }
                     episode.stringDuration = duration
                 }
                 if let description = data["itunes:summary"] {
@@ -37,6 +41,20 @@ class SearchResultsDataStore {
     }
 }
 
+//public extension String {
+//    
+//    func stringByReplacingFirstOccurrenceOfString(target: String, withString replaceString: String) -> String {
+//        if let range = self.range(of: target) {
+//            return self.string
+//        }
+////        if let range = self.rangeOfString(target) {
+////            return self.stringByReplacingCharactersInRange(range, withString: replaceString)
+////        }
+//        return self
+//    }
+//    
+//}
+//
 extension SearchResultsDataStore: ItemCreator {
     func pullFeedTopPodcasts(competion: @escaping (([TopItem]?, Error?) -> Void)) {
         RSSFeedAPIClient.getTopPodcasts { rssData, error in

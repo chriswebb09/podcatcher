@@ -1,32 +1,10 @@
 import Foundation
 
-//class RSSFeedAPIClient: NSObject {
-//    
-//    static func requestFeed(for urlString: String, completion: @escaping ([[String: String]]?, Error?) -> Void) {
-//        guard let url = URL(string: urlString) else { return }
-//        URLSession(configuration: .ephemeral).dataTask(with: URLRequest(url: url)) { data, response, error in
-//            if let error = error {
-//                print(error.localizedDescription)
-//                DispatchQueue.main.async {
-//                    completion(nil, error)
-//                }
-//            } else {
-//                guard let data = data else { return }
-//                let rssParser = RSSParser()
-//                rssParser.parseResponse(data) { parsedRSS in
-//                    DispatchQueue.main.async {
-//                        completion(parsedRSS, nil)
-//                    }
-//                }
-//            }}.resume()
-//    }
-//}
-
 class RSSFeedAPIClient: NSObject {
     
     static func requestFeed(for urlString: String, completion: @escaping ([[String: String]]?, Error?) -> Void) {
         guard let url = URL(string: urlString) else { return }
-        var nprParse = ["344098539"]
+        var nprParse = ["344098539", "510298", "510318", "510307", "510322", "510308", "510313", "510289"]
         URLSession(configuration: .ephemeral).dataTask(with: URLRequest(url: url)) { data, response, error in
             if let error = error {
                 print(error.localizedDescription)
@@ -39,7 +17,8 @@ class RSSFeedAPIClient: NSObject {
                     for npr in nprParse {
                         if urlString.hasSuffix(npr) {
                             let rssParser = NPRParser()
-                            //RSSParser()
+                            rssParser.recordKey = "item"
+                            rssParser.dictionaryKeys = ["itunes:new-feed-url", "itunes:summary", " itunes:author", "tunes:subtitle", "pubDate", "enclosure", "itunes:duration", "title", "audio/mp3", "audio/mpeg", "itunes:keywords", "itunes:image", "category", "itunes:author", "itunes:summary", "description", "enclosure"]
                             rssParser.parseResponse(data) { parsedRSS in
                                 DispatchQueue.main.async {
                                     completion(parsedRSS, nil)
@@ -47,13 +26,13 @@ class RSSFeedAPIClient: NSObject {
                             }
                         }
                     }
-                }
-                let rssParser = RSSParser()
-                rssParser.parseResponse(data) { parsedRSS in
-                    DispatchQueue.main.async {
-                        completion(parsedRSS, nil)
-                    }
-                }
+                } else {
+                    let rssParser = RSSParser()
+                    rssParser.parseResponse(data) { parsedRSS in
+                        DispatchQueue.main.async {
+                            completion(parsedRSS, nil)
+                        }
+                    }}
             }}.resume()
     }
 }

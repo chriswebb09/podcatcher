@@ -1,5 +1,7 @@
 import UIKit
 
+
+
 final class PlayerView: UIView {
     
     weak var delegate: PlayerViewDelegate?
@@ -44,7 +46,7 @@ final class PlayerView: UIView {
         title.numberOfLines = 0
         title.textAlignment = .center
         title.sizeToFit()
-        title.font = UIFont.systemFont(ofSize: 18, weight: UIFontWeightLight)
+        title.font = UIFont.systemFont(ofSize: 16, weight: UIFontWeightLight)
         return title
     }()
     
@@ -185,7 +187,7 @@ final class PlayerView: UIView {
     func setup(navBar: UIView) {
         sharedLayout(view: navBar)
         navBar.heightAnchor.constraint(equalTo: heightAnchor, multiplier: PlayerViewConstants.trackTitleViewHeightMultiplier).isActive = true
-        navBar.topAnchor.constraint(equalTo: topAnchor, constant: UIScreen.main.bounds.height * 0.03).isActive = true
+        navBar.topAnchor.constraint(equalTo: topAnchor, constant: UIScreen.main.bounds.height * 0.01).isActive = true
         navBar.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
     }
     
@@ -194,14 +196,14 @@ final class PlayerView: UIView {
         navigationButton.translatesAutoresizingMaskIntoConstraints = false
         navigationButton.leftAnchor.constraint(equalTo: navBar.leftAnchor, constant: UIScreen.main.bounds.width * 0.01).isActive = true
         navigationButton.centerYAnchor.constraint(equalTo: navBar.centerYAnchor).isActive = true
-        navigationButton.heightAnchor.constraint(equalTo: navBar.heightAnchor, multiplier: 0.8).isActive = true
-        navigationButton.widthAnchor.constraint(equalTo: navBar.widthAnchor, multiplier: 0.1).isActive = true
+        navigationButton.heightAnchor.constraint(equalTo: navBar.heightAnchor).isActive = true
+        navigationButton.widthAnchor.constraint(equalTo: navBar.widthAnchor, multiplier: 0.12).isActive = true
     }
     
     private func setup(titleView: UIView) {
         sharedLayout(view: titleView)
         titleView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: PlayerViewConstants.trackTitleViewHeightMultiplier).isActive = true
-        titleView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: UIScreen.main.bounds.height * 0.1).isActive = true
+        titleView.bottomAnchor.constraint(equalTo: centerYAnchor, constant: UIScreen.main.bounds.height * 0.19).isActive = true
     }
     
     private func setup(titleLabel: UILabel) {
@@ -234,7 +236,7 @@ final class PlayerView: UIView {
         sharedLayout(view: albumView)
         albumView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: PlayerViewConstants.artworkViewHeightMultiplier).isActive = true
         albumView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        albumView.topAnchor.constraint(equalTo: topAnchor, constant: UIScreen.main.bounds.height * 0.14).isActive = true
+        albumView.topAnchor.constraint(equalTo: navBar.bottomAnchor).isActive = true
     }
     
     private func setup(albumImageView: UIImageView) {

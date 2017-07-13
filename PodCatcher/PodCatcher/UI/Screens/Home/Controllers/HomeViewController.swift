@@ -41,7 +41,7 @@ class HomeViewController: BaseCollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //collectionViewConfiguration()
+        collectionViewConfiguration()
         title = "Podcasts"
         collectionView.setupBackground(frame: view.bounds)
         guard let background = collectionView.backgroundView else { return }
@@ -49,8 +49,6 @@ class HomeViewController: BaseCollectionViewController {
                                     layer: background.layer,
                                     bounds: collectionView.bounds)
     }
-    
-    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

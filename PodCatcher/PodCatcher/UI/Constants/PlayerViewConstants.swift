@@ -10,11 +10,11 @@ struct PlayerViewConstants {
     static let progressViewWidthMultiplier: CGFloat = 0.6
     static let progressViewHeightMultiplier: CGFloat = 0.005
     static let playTimeLabelHeightMutliplier: CGFloat = 0.25
-    static let trackTitleViewHeightMultiplier: CGFloat = 0.12
+    static let trackTitleViewHeightMultiplier: CGFloat = 0.122
     static let trackTitleLabelHeightMultiplier: CGFloat = 1
     static let trackTitleLabelCenterYOffset: CGFloat =  0.5
     static let trackTitleLabelWidthMultiplier: CGFloat =  0.94
-    static let artworkViewHeightMultiplier: CGFloat = 0.4
+    static let artworkViewHeightMultiplier: CGFloat = 0.45
     static let albumWidthMultiplier: CGFloat = 0.3
     static let albumHeightMultiplier: CGFloat = 0.4
     static let preferenceHeightMultiplier: CGFloat = 0.03

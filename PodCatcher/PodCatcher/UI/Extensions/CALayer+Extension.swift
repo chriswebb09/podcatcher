@@ -51,7 +51,7 @@ extension CALayer {
         shadowColor = UIColor.lightGray.cgColor
         shadowOffset = CGSize(width: 0, height: 2.0)
         shadowRadius = 3
-        shadowOpacity = 0.3
+        shadowOpacity = 0.34
         masksToBounds = false;
         shadowPath = UIBezierPath(roundedRect:self.bounds, cornerRadius: viewRadius).cgPath
     }

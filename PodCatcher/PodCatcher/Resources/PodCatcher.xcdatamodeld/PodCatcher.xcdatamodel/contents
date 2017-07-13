@@ -41,6 +41,14 @@
         <attribute name="playlistId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="stringDate" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="Subscription" representedClassName="Subscription" syncable="YES">
+        <attribute name="artworkImage" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="episodeCount" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="feedUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lastUpdate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="podcastTitle" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="TopPodcast" representedClassName="TopPodcast" syncable="YES">
         <attribute name="itunesId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="itunesUrl" optional="YES" attributeType="String" syncable="YES"/>
@@ -57,5 +65,6 @@
         <element name="PodcastPlaylist" positionX="2628" positionY="192" width="128" height="150"/>
         <element name="PodcastPlaylistItem" positionX="2383" positionY="216" width="128" height="225"/>
         <element name="TopPodcast" positionX="3006" positionY="261" width="128" height="165"/>
+        <element name="Subscription" positionX="2592" positionY="252" width="128" height="135"/>
     </elements>
 </model>

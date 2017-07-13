@@ -52,8 +52,16 @@ class SearchResultListViewController: BaseCollectionViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(false)
         collectionView.alpha = 1
+        let backImage = #imageLiteral(resourceName: "back").withRenderingMode(.alwaysTemplate)
+        self.navigationController?.navigationBar.backIndicatorImage = backImage
+        self.navigationController?.navigationBar.backIndicatorTransitionMaskImage = backImage
+        self.navigationController?.navigationBar.backItem?.title = ""
         navigationController?.setNavigationBarHidden(false, animated: false)
         navigationController?.navigationBar.alpha = 1
+    }
+    
+    func navigateBack() {
+        navigationController?.popViewController(animated: false)
     }
     
     override func viewDidDisappear(_ animated: Bool) {

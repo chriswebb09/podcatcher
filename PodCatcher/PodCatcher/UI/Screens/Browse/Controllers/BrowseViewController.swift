@@ -44,7 +44,6 @@ final class BrowseViewController: BaseCollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "PodCatch"
         let topFrameHeight = UIScreen.main.bounds.height / 2
         let topFrameWidth = UIScreen.main.bounds.width
         let topFrame = CGRect(x: 0, y: 0, width: topFrameWidth, height: topFrameHeight)
@@ -78,6 +77,7 @@ final class BrowseViewController: BaseCollectionViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         view.alpha = 0
+       // navigationItem.prompt = "Browse Top Podcasts"
         UIView.animate(withDuration: 0.5) {
             self.view.alpha = 1
         }
@@ -109,14 +109,14 @@ extension BrowseViewController: UICollectionViewDataSource {
 
 extension BrowseViewController: UICollectionViewDelegate {
     
-    func setup(view: UIView, newLayout: HomeItemsFlowLayout) {
+    func setup(view: UIView, newLayout: BrowseItemsFlowLayout) {
         newLayout.setup()
         setupHome(with: newLayout)
         collectionView.frame = CGRect(x: 0, y: view.bounds.midY, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 2)
         collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
     
-    func setupHome(with newLayout: HomeItemsFlowLayout) {
+    func setupHome(with newLayout: BrowseItemsFlowLayout) {
         collectionView.collectionViewLayout = newLayout
     }
     
@@ -137,7 +137,7 @@ extension BrowseViewController: UICollectionViewDelegate {
 extension BrowseViewController: UIScrollViewDelegate {
     
     func collectionViewConfiguration() {
-        setup(view: view, newLayout: HomeItemsFlowLayout())
+        setup(view: view, newLayout: BrowseItemsFlowLayout())
         collectionView.delegate = self
         collectionView.dataSource = dataSource
         collectionView.isPagingEnabled = true

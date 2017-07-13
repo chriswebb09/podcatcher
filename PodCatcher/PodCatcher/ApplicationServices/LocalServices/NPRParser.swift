@@ -1,6 +1,6 @@
 import Foundation
-
 class NPRParser: RSSParser {
+    
     override func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
         
         if elementName == recordKey {
@@ -9,17 +9,18 @@ class NPRParser: RSSParser {
             if currentDictionary == nil {
                 currentDictionary = [String : String]()
             }
-            print(item)
+            //print(item)
             currentDictionary["audio"] = item
-        } else if elementName == "enclosure", let item = attributeDict["url"], item.hasSuffix("f=344098539") {
+        } else if elementName == "enclosure", let item = attributeDict["url"] {
             if currentDictionary == nil {
                 currentDictionary = [String : String]()
             }
-            print(item)
-            currentDictionary["audioUrlString"] = item
+            // print("NPR  \(item)")
+            currentDictionary["audio"] = item
         } else if dictionaryKeys.contains(elementName) {
             currentValue = ""
         }
+        //  print(currentDictionary)
     }
     
     override func parser(_ parser: XMLParser, foundCharacters string: String) {
@@ -43,7 +44,6 @@ class NPRParser: RSSParser {
         }
     }
 }
-
 //class NPRParser: RSSParser {
 //    override func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
 //        
