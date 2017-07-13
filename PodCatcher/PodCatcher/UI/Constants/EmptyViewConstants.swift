@@ -1,7 +1,7 @@
 import UIKit
 
 struct EmptyViewConstants {
-    static let musicIconHeightMultiplier: CGFloat = 0.21
-    static let musicIconWidthMutliplier: CGFloat = 0.36
-    static let musicIconCenterYOffset: CGFloat = UIScreen.main.bounds.height * -0.20
+    static let iconHeightMultiplier: CGFloat = 0.12
+    static let iconWidthMutliplier: CGFloat = 0.2
+    static let iconCenterYOffset: CGFloat = UIScreen.main.bounds.height * -0.14
 }

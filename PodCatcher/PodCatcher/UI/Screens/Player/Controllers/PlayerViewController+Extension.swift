@@ -111,9 +111,9 @@ extension PlayerViewController: PlayerViewDelegate {
     }
     
     func loading() {
-        //        DispatchQueue.main.async {
-        //            self.showLoadingView(loadingPop: self.loadingPop)
-        //        }
+        DispatchQueue.main.async {
+            self.showLoadingView(loadingPop: self.loadingPop)
+        }
     }
 }
 

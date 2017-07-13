@@ -245,7 +245,7 @@ final class PlayerView: UIView {
         albumImageView.centerXAnchor.constraint(equalTo: albumView.centerXAnchor).isActive = true
         albumImageView.centerYAnchor.constraint(equalTo: albumView.centerYAnchor).isActive = true
         albumImageView.heightAnchor.constraint(equalTo: albumView.heightAnchor).isActive = true
-        albumImageView.widthAnchor.constraint(equalTo: albumView.widthAnchor, multiplier: 0.84).isActive = true
+        albumImageView.widthAnchor.constraint(equalTo: albumView.widthAnchor, multiplier: 0.86).isActive = true
     }
     
     private func setup(controlsView: UIView) {

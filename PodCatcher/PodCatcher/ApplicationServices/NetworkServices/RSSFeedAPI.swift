@@ -4,7 +4,7 @@ class RSSFeedAPIClient: NSObject {
     
     static func requestFeed(for urlString: String, completion: @escaping ([[String: String]]?, Error?) -> Void) {
         guard let url = URL(string: urlString) else { return }
-        var nprParse = ["344098539", "510298", "510318", "510307", "510322", "510308", "510313", "510289"]
+        let nprParse = ["344098539", "510298", "510318", "510307", "510322", "510308", "510313", "510289"]
         URLSession(configuration: .ephemeral).dataTask(with: URLRequest(url: url)) { data, response, error in
             if let error = error {
                 print(error.localizedDescription)

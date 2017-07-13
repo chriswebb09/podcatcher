@@ -1,5 +1,10 @@
 import UIKit
 
+protocol TopViewDelegate: class {
+    func popBottomMenu(popped: Bool)
+    func entryPop(popped: Bool)
+}
+
 final class ListTopView: UIView {
     
     weak var delegate: TopViewDelegate?

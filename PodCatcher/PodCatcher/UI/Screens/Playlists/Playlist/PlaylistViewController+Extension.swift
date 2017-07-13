@@ -1,7 +1,6 @@
 import UIKit
 import CoreData
 
-
 extension PlaylistViewController: NSFetchedResultsControllerDelegate {
     
     func setupCoordinator() {
@@ -23,7 +22,6 @@ extension PlaylistViewController: NSFetchedResultsControllerDelegate {
     }
 }
 
-
 // MARK: - PodcastCollectionViewProtocol
 
 extension PlaylistViewController: PodcastCollectionViewProtocol {
@@ -41,7 +39,6 @@ extension PlaylistViewController: PodcastCollectionViewProtocol {
         setupView()
     }
 }
-
 
 extension PlaylistViewController: ReloadableCollection {
     func setupView() {

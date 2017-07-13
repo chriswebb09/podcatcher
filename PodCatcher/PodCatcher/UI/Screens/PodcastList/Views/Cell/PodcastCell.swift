@@ -1,5 +1,9 @@
 import UIKit
 
+struct PodcastCellViewModel {
+    var podcastTitle: String
+}
+
 final class PodcastCell: UICollectionViewCell {
     
     // MARK: - UI Properties
@@ -48,7 +52,6 @@ final class PodcastCell: UICollectionViewCell {
         colorBackgroundView.frame = contentView.frame
         contentView.addSubview(colorBackgroundView)
         contentView.sendSubview(toBack: colorBackgroundView)
-        //playTimeLabel.text = String.constructTimeString(time: model.item.playtime)
         podcastTitleLabel.text = model.podcastTitle
     }
     

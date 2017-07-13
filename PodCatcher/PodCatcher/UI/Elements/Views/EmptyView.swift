@@ -4,6 +4,7 @@ final class EmptyView: UIView {
     
     private var infoLabel: UILabel = {
         var label = UILabel.setupInfoLabel(infoText: "No Podcasts Have Been Added")
+        label.font = UIFont.systemFont(ofSize: 16, weight: UIFontWeightMedium)
         label.textColor = Colors.brightHighlight
         label.alpha = 1
         return label
@@ -49,16 +50,16 @@ final class EmptyView: UIView {
     private func setup(musicIcon: UIView) {
         addSubview(musicIcon)
         musicIcon.translatesAutoresizingMaskIntoConstraints = false
-        musicIcon.heightAnchor.constraint(equalTo: heightAnchor, multiplier: EmptyViewConstants.musicIconHeightMultiplier).isActive = true
-        musicIcon.widthAnchor.constraint(equalTo: widthAnchor, multiplier: EmptyViewConstants.musicIconWidthMutliplier).isActive = true
+        musicIcon.heightAnchor.constraint(equalTo: heightAnchor, multiplier: EmptyViewConstants.iconHeightMultiplier).isActive = true
+        musicIcon.widthAnchor.constraint(equalTo: widthAnchor, multiplier: EmptyViewConstants.iconWidthMutliplier).isActive = true
         musicIcon.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        musicIcon.centerYAnchor.constraint(equalTo: centerYAnchor, constant: EmptyViewConstants.musicIconCenterYOffset).isActive = true
+        musicIcon.centerYAnchor.constraint(equalTo: centerYAnchor, constant: EmptyViewConstants.iconCenterYOffset).isActive = true
     }
     
     private func setup(infoLabel: UILabel) {
         addSubview(infoLabel)
         infoLabel.translatesAutoresizingMaskIntoConstraints = false
-        infoLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: EmptyViewConstants.musicIconWidthMutliplier).isActive = true
+        infoLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: EmptyViewConstants.iconWidthMutliplier).isActive = true
         infoLabel.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
         infoLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         infoLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
