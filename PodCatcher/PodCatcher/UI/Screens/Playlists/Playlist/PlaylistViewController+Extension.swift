@@ -92,7 +92,7 @@ extension PlaylistViewController: UICollectionViewDelegate {
             guard let audio = item.audioUrl else { return }
             guard let title = item.episodeTitle else { return }
             guard let date = item.date else { return }
-            var episode = Episodes(mediaUrlString: audio, audioUrlSting: audio, title: title, date: String(describing:date), description: item.description, duration: item.duration, audioUrlString: audio, stringDuration: String(describing:item.duration))
+            let episode = Episodes(mediaUrlString: audio, audioUrlSting: audio, title: title, date: String(describing:date), description: item.description, duration: item.duration, audioUrlString: audio, stringDuration: String(describing:item.duration))
             caster.episodes.append(episode)
             caster.podcastArtist = item.artistName
             self.items = items
@@ -134,3 +134,5 @@ extension PlaylistViewController: UICollectionViewDelegateFlowLayout {
         return PodcastListViewControllerConstants.space
     }
 }
+
+

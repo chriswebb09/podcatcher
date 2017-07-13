@@ -46,19 +46,15 @@ extension SearchTabCoordinator: SearchViewControllerDelegate {
         resultsList.item = caster as! CasterSearchResult
         guard let feedUrlString = resultsList.item.feedUrl else { return }
         let store = SearchResultsDataStore()
-        store.pullFeed(for: feedUrlString) { response in
-            guard let episodes = response.0 else { print("no"); return }
-            resultsList.episodes = episodes
-            DispatchQueue.main.async {
-                
-                dump(self.navigationController.viewControllers)
-                resultsList.collectionView.reloadData()
+        DispatchQueue.global(qos: .background).async {
+            store.pullFeed(for: feedUrlString) { response in
+                guard let episodes = response.0 else { print("no"); return }
+                resultsList.episodes = episodes
+                DispatchQueue.main.async {
+                    resultsList.collectionView.reloadData()
+                    self.navigationController.viewControllers.append(resultsList)
+                }
             }
-            
-        }
-        
-        DispatchQueue.main.async {
-            self.navigationController.viewControllers.append(resultsList)
         }
     }
 }
@@ -70,17 +66,18 @@ extension SearchTabCoordinator: PodcastListViewControllerDelegate {
         print(playerView)
     }
     
-    
     func didSelectPodcastAt(at index: Int, podcast: CasterSearchResult, with episodes: [Episodes]) {
         let playerView = PlayerView()
-       // let searchVC = navigationController.viewControllers[0] as! SearchViewController
-        var playerPodcast = podcast
-        playerPodcast.episodes = episodes
-        let playerViewController = PlayerViewController(playerView: playerView, index: index, caster: playerPodcast, user: dataSource.user)
-        playerViewController.delegate = self
-        navigationController.setNavigationBarHidden(true, animated: false)
-        navigationController.viewControllers.append(playerViewController)
-    
+        DispatchQueue.global(qos: .background).async {
+            var playerPodcast = podcast
+            playerPodcast.episodes = episodes
+            let playerViewController = PlayerViewController(playerView: playerView, index: index, caster: playerPodcast, user: self.dataSource.user)
+            playerViewController.delegate = self
+            DispatchQueue.main.async {
+                self.navigationController.setNavigationBarHidden(true, animated: false)
+                self.navigationController.viewControllers.append(playerViewController)
+            }
+        }
     }
 }
 
@@ -131,7 +128,7 @@ extension SearchTabCoordinator: PlayerViewControllerDelegate {
     }
     
     func addItemToPlaylist(item: PodcastPlaylistItem) {
-//        let controller = navigationController.viewControllers.last
-//        print(controller)
+        //        let controller = navigationController.viewControllers.last
+        //        print(controller)
     }
 }

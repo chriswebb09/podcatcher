@@ -45,7 +45,7 @@ final class SubscribedPodcastCell: UICollectionViewCell {
     private func setup(albumArtView: UIImageView) {
         contentView.addSubview(albumArtView)
         albumArtView.translatesAutoresizingMaskIntoConstraints = false
-        albumArtView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: MediaCellConstants.albumHeightMultiplier).isActive = true
+        albumArtView.heightAnchor.constraint(equalTo: heightAnchor).isActive = true
         albumArtView.widthAnchor.constraint(equalTo: contentView.widthAnchor).isActive = true
         albumArtView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
     }

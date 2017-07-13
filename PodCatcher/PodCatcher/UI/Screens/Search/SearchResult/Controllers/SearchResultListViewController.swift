@@ -66,7 +66,10 @@ class SearchResultListViewController: BaseCollectionViewController {
     }
     
     func subscribeToFeed() {
-        
+        let feedStore = FeedCoreDataStack()
+        guard let title = item.podcastTitle else { return }
+        guard let image = topView.podcastImageView.image else { return }
+        feedStore.save(feedUrl: item.feedUrlString, podcastTitle: title, episodeCount: episodes.count, lastUpdate: NSDate(), image: image)
     }
     
     func navigateBack() {
