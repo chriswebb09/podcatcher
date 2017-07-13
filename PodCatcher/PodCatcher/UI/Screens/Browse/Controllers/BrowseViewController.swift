@@ -1,11 +1,5 @@
 import UIKit
 
-protocol BrowseViewControllerDelegate: class {
-    func didSelect(at index: Int)
-    func didSelect(at index: Int, with cast: PodcastSearchResult)
-    func logout(tapped: Bool)
-}
-
 final class BrowseViewController: BaseCollectionViewController {
     
     weak var delegate: BrowseViewControllerDelegate?
@@ -77,7 +71,7 @@ final class BrowseViewController: BaseCollectionViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         view.alpha = 0
-       // navigationItem.prompt = "Browse Top Podcasts"
+
         UIView.animate(withDuration: 0.15) {
             self.view.alpha = 1
         }

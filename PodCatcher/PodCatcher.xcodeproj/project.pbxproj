@@ -61,6 +61,8 @@
 		A71ADFBA1F0E397800941A43 /* CreateAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71ADFB91F0E397800941A43 /* CreateAccountViewModel.swift */; };
 		A71ADFBC1F0E3AE600941A43 /* PreferencesViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71ADFBB1F0E3AE600941A43 /* PreferencesViewDelegate.swift */; };
 		A71ADFBE1F0E3BF500941A43 /* UnderlineTextfieldConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71ADFBD1F0E3BF500941A43 /* UnderlineTextfieldConstants.swift */; };
+		A71AE3031F17F27E00AFC8CC /* BrowseListTopViewConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71AE3021F17F27E00AFC8CC /* BrowseListTopViewConstants.swift */; };
+		A71AE3051F17F2B000AFC8CC /* BrowseViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71AE3041F17F2B000AFC8CC /* BrowseViewControllerDelegate.swift */; };
 		A71B26F21EE5D24700613CF4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71B26F11EE5D24700613CF4 /* AppDelegate.swift */; };
 		A71B26FA1EE5D24700613CF4 /* PodCatcher.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A71B26F81EE5D24700613CF4 /* PodCatcher.xcdatamodeld */; };
 		A71B26FC1EE5D24700613CF4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A71B26FB1EE5D24700613CF4 /* Assets.xcassets */; };
@@ -353,6 +355,8 @@
 		A71ADFB91F0E397800941A43 /* CreateAccountViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CreateAccountViewModel.swift; path = PodCatcher/UI/Screens/Start/CreateAccount/Models/CreateAccountViewModel.swift; sourceTree = SOURCE_ROOT; };
 		A71ADFBB1F0E3AE600941A43 /* PreferencesViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesViewDelegate.swift; sourceTree = "<group>"; };
 		A71ADFBD1F0E3BF500941A43 /* UnderlineTextfieldConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnderlineTextfieldConstants.swift; sourceTree = "<group>"; };
+		A71AE3021F17F27E00AFC8CC /* BrowseListTopViewConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseListTopViewConstants.swift; sourceTree = "<group>"; };
+		A71AE3041F17F2B000AFC8CC /* BrowseViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BrowseViewControllerDelegate.swift; path = Browse/Delegates/BrowseViewControllerDelegate.swift; sourceTree = "<group>"; };
 		A71B26EE1EE5D24700613CF4 /* PodCatcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PodCatcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A71B26F11EE5D24700613CF4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A71B26F91EE5D24700613CF4 /* PodCatcher.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PodCatcher.xcdatamodel; sourceTree = "<group>"; };
@@ -1280,6 +1284,7 @@
 				A7780F031F17402400737DA8 /* TopPodcastCellViewModel.swift */,
 				A7780F051F17407300737DA8 /* TopPocastsDataStore.swift */,
 				A7780F071F1740BF00737DA8 /* TopPodcastCell.swift */,
+				A71AE3041F17F2B000AFC8CC /* BrowseViewControllerDelegate.swift */,
 			);
 			name = Browser;
 			sourceTree = "<group>";
@@ -1468,6 +1473,7 @@
 				A7ECE4DD1F0D83BE00588662 /* TopPodcastCellConstant.swift */,
 				A7F37B731F0DF935001B5C8C /* LoadingViewConstants.swift */,
 				A71ADFBD1F0E3BF500941A43 /* UnderlineTextfieldConstants.swift */,
+				A71AE3021F17F27E00AFC8CC /* BrowseListTopViewConstants.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -2029,6 +2035,7 @@
 				A77107441F0D4DE90042D2E4 /* HomeViewController.swift in Sources */,
 				A7B8C39B1EF6E28F001AFFA1 /* PodcastCollectionViewProtocol.swift in Sources */,
 				A7A877B21F10656300D0968D /* TopPodcast+CoreDataProperties.swift in Sources */,
+				A71AE3031F17F27E00AFC8CC /* BrowseListTopViewConstants.swift in Sources */,
 				A723B4121F0EB08D00EA6B27 /* PlaylistsCoreDataStack.swift in Sources */,
 				A7B840CD1EECD7530049BB78 /* PillView.swift in Sources */,
 				A7150EC11EE62E1700E3553F /* PlayerViewControllerDelegate.swift in Sources */,
@@ -2072,6 +2079,7 @@
 				A7894FA61EE6AE44000CC190 /* PodCatcherUser.swift in Sources */,
 				A7E45F7F1F0238450063AC0F /* Episode.swift in Sources */,
 				A7EBA0C81EE6831F00FAAC9C /* MenuDelegate.swift in Sources */,
+				A71AE3051F17F2B000AFC8CC /* BrowseViewControllerDelegate.swift in Sources */,
 				A723A5B11EE93BC8002E49BF /* StartViewConstants.swift in Sources */,
 				A7EBA09A1EE672A700FAAC9C /* UserDataAPIClient.swift in Sources */,
 				A77EDF5B1EE5FB3B001A24E5 /* MediaCellConstants.swift in Sources */,

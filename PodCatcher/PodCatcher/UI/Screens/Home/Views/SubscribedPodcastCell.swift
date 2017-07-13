@@ -55,6 +55,3 @@ final class SubscribedPodcastCell: UICollectionViewCell {
         albumArtView.image = nil
     }
 }
-
-
-
