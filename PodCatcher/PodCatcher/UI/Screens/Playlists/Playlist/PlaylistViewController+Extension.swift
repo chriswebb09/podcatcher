@@ -8,7 +8,6 @@ extension PlaylistViewController: NSFetchedResultsControllerDelegate {
             if let error = error {
                 print("Unable to Load Persistent Store")
                 print("\(error), \(error.localizedDescription)")
-                
             } else {
                 do {
                     try self.fetchedResultsController.performFetch()
@@ -85,19 +84,10 @@ extension PlaylistViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let items = fetchedResultsController.fetchedObjects else { return }
-        print(items[indexPath.row].audioUrl)
-        print(items[indexPath.row].artworkUrl)
-        
         guard let audio = items[indexPath.row].audioUrl, let audioUrl = URL(string: audio), let artUrl = items[indexPath.row].artworkUrl, let url = URL(string: artUrl) else { return }
         
         topView.podcastImageView.downloadImage(url: url)
-        
-        
-        
-        
         self.player.setUrl(with: audioUrl)
-       
-        print(player.state)
         switch player.state {
         case .playing:
             player.pause()
@@ -105,15 +95,11 @@ extension PlaylistViewController: UICollectionViewDelegate {
             let cell = collectionView.cellForItem(at: indexPath) as! PodcastPlaylistCell
             dump(cell)
             cell.switchAlpha(hidden: true)
-            //            cell.playButton.alpha = 0
-        //            cell.pauseButton.alpha = 1
         case .paused:
             player.play()
             player.state = .playing
             let cell = collectionView.cellForItem(at: indexPath) as! PodcastPlaylistCell
             cell.switchAlpha(hidden: false)
-            //            cell.pauseButton.alpha = 0
-            //            cell.playButton.alpha = 1
             dump(cell)
         case .stopped:
             self.player = AudioFilePlayer(url: audioUrl)
@@ -124,15 +110,6 @@ extension PlaylistViewController: UICollectionViewDelegate {
             player.state = .playing
             let cell = collectionView.cellForItem(at: indexPath) as! PodcastPlaylistCell
             cell.switchAlpha(hidden: false)
-            //            cell.pauseButton.alpha = 0
-            //            cell.playButton.alpha = 1
-            dump(cell)
-            
-            //            contentView.addSubview(playTimeLabel)
-            //            playTimeLabel.translatesAutoresizingMaskIntoConstraints = false
-            //            playTimeLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: PodcastCellConstants.playtimeLabelWidthMultiplier).isActive = true
-            //            playTimeLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: PodcastPlaylistCellConstants.playtimeLabelRightOffset).isActive = true
-            //            playTimeLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
         }
     }
 }
@@ -149,8 +126,7 @@ extension PlaylistViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as PodcastPlaylistCell
         let item = fetchedResultsController.object(at: indexPath)
         DispatchQueue.main.async {
-            if let playTime = item.stringDate, let title = item.episodeTitle {
-                // let model = PodcastResultCellViewModel(podcastTitle: title,  playtimeLabel: playTime)
+            if let title = item.episodeTitle {
                 let model = PodcastCellViewModel(podcastTitle: title)
                 cell.configureCell(model: model)
             }
@@ -191,11 +167,9 @@ extension PlaylistViewController: TopViewDelegate {
     }
     
     func hidePopMenu() {
-        // menuActive = .hidden
+        //
     }
-    
 }
-
 
 extension PlaylistViewController: AudioFilePlayerDelegate {
     func trackFinishedPlaying() {
@@ -209,6 +183,4 @@ extension PlaylistViewController: AudioFilePlayerDelegate {
     func updateProgress(progress: Double) {
         
     }
-    
-    
 }
