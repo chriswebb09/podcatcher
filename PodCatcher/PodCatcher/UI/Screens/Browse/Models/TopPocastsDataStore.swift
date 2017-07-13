@@ -84,6 +84,7 @@ extension HomeCollectionDataSource:  UICollectionViewDataSource {
         switch dataType {
         case .local:
             if indexPath.row == 0, let imageData = self.topStore.podcasts[indexPath.row].value(forKey: "podcastArt") as? Data, let image = UIImage(data: imageData) {
+                print(image)
             }
         case .network:
             if indexPath.row == 0 || indexPath.row == 1 {

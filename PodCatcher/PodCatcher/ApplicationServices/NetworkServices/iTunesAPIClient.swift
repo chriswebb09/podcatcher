@@ -81,12 +81,15 @@ extension iTunesAPIClient: URLSessionDelegate {
     func pauseDownload(_ download: Download?) {
         if let download = download, let url = download.url {
             guard let download = activeDownloads[url] else { return }
-            print(download.url)
+            print(download)
+           // print(download.url)
         }
     }
     
     func cancelDownload(_ download: Download?) {
         if let download = download, let url = download.url {
+            print(url)
+           // print(download.url)
         }
     }
     

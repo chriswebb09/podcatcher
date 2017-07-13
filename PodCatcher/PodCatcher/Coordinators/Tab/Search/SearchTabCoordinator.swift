@@ -60,8 +60,6 @@ extension SearchTabCoordinator: SearchViewControllerDelegate {
         DispatchQueue.main.async {
             self.navigationController.viewControllers.append(resultsList)
         }
-        
-        
     }
 }
 
@@ -69,13 +67,13 @@ extension SearchTabCoordinator: PodcastListViewControllerDelegate {
     
     func didSelect(at index: Int, podcast: CasterSearchResult) {
         let playerView = PlayerView()
-        
+        print(playerView)
     }
     
     
     func didSelectPodcastAt(at index: Int, podcast: CasterSearchResult, with episodes: [Episodes]) {
         let playerView = PlayerView()
-        let searchVC = navigationController.viewControllers[0] as! SearchViewController
+       // let searchVC = navigationController.viewControllers[0] as! SearchViewController
         var playerPodcast = podcast
         playerPodcast.episodes = episodes
         let playerViewController = PlayerViewController(playerView: playerView, index: index, caster: playerPodcast, user: dataSource.user)
@@ -133,7 +131,7 @@ extension SearchTabCoordinator: PlayerViewControllerDelegate {
     }
     
     func addItemToPlaylist(item: PodcastPlaylistItem) {
-        let controller = navigationController.viewControllers.last
-        
+//        let controller = navigationController.viewControllers.last
+//        print(controller)
     }
 }

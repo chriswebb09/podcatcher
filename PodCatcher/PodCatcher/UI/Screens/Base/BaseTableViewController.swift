@@ -8,7 +8,7 @@ class BaseTableViewController: BaseViewController {
         super.viewDidLoad()
         view.addSubview(tableView)
         edgesForExtendedLayout = []
-        guard let navBar = navigationController?.navigationBar else { return }
+     //   guard let navBar = navigationController?.navigationBar else { return }
         guard let tabBar  = tabBarController?.tabBar else { return }
         tableView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: view.frame.height - tabBar.frame.height)
         tableView.tableFooterView = UIView(frame: .zero)

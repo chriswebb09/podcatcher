@@ -28,8 +28,8 @@ extension MainCoordinator: CoordinatorDelegate {
         newItem.artistFeedUrl = feed
         if let urlString = itemToSave.podcastArtUrlString, let url = URL(string: urlString) {
             UIImage.downloadImage(url: url) { image in
-                let podcastArtImageData = UIImageJPEGRepresentation(image, 1) as? Data
-                newItem.artwork = podcastArtImageData as! NSData
+                let podcastArtImageData = UIImageJPEGRepresentation(image, 1)
+                newItem.artwork = podcastArtImageData as? NSData
             }
         }
         do {
@@ -102,7 +102,7 @@ extension MainCoordinator: CoordinatorDelegate {
             let settingsViewController = SettingsViewController()
             let settingsTab = UINavigationController(rootViewController: settingsViewController)
             
-          //  homeViewController.currentPlaylistId = playlistsViewController.currentPlaylistID
+            //  homeViewController.currentPlaylistId = playlistsViewController.currentPlaylistID
             tabbBarCoordinator.setupSettingsCoordinator(navigationController: settingsTab, dataSource: dataSource)
             tabbBarCoordinator.delegate = self
             let settingsCoord = tabbBarCoordinator.childCoordinators[4] as! SettingsTabCoordinator

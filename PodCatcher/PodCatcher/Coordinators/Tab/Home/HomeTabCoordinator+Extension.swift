@@ -15,7 +15,7 @@ extension HomeTabCoordinator: HomeViewControllerDelegate {
         resultsList.dataSource = dataSource
         resultsList.dataSource.user = dataSource.user
         resultsList.item = caster as! CasterSearchResult
-        let homeVC = navigationController.viewControllers[0] as! HomeViewController
+      //  let homeVC = navigationController.viewControllers[0] as! HomeViewController
        // resultsList.currentPlaylistID = homeVC.currentPlaylistId
         guard let feedUrlString = resultsList.item.feedUrl else { return }
         dump(resultsList.item)
@@ -33,7 +33,7 @@ extension HomeTabCoordinator: HomeViewControllerDelegate {
     }
     
     func didSelect(at index: Int) {
-        let homeViewController = navigationController.viewControllers[0] as! HomeViewController
+      //  let homeViewController = navigationController.viewControllers[0] as! HomeViewController
       //  let data = homeViewController.dataSource.topStore.podcasts
        // let newItem = data[index]
 //        let resultsList = SearchResultListViewController(index: index)
@@ -72,7 +72,7 @@ extension HomeTabCoordinator: PodcastListViewControllerDelegate {
     
     func didSelectPodcastAt(at index: Int, podcast: CasterSearchResult, with episodes: [Episodes]) {
         let playerView = PlayerView()
-        let homeVC = navigationController.viewControllers[0] as! HomeViewController
+        //let homeVC = navigationController.viewControllers[0] as! HomeViewController
         var playerPodcast = podcast
         CALayer.createGradientLayer(with: [UIColor(red:0.94, green:0.31, blue:0.81, alpha:1.0).cgColor, UIColor(red:0.32, green:0.13, blue:0.70, alpha:1.0).cgColor], layer: playerView.backgroundView.layer, bounds: UIScreen.main.bounds)
         playerPodcast.episodes = episodes
