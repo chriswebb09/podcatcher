@@ -63,4 +63,3 @@ final class TopView: UIView {
         preferencesView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: PodcastListTopViewConstants.preferencesViewHeightMultiplier).isActive = true
     }
 }
-

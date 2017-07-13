@@ -78,7 +78,7 @@ final class BrowseViewController: BaseCollectionViewController {
         super.viewWillAppear(animated)
         view.alpha = 0
        // navigationItem.prompt = "Browse Top Podcasts"
-        UIView.animate(withDuration: 0.5) {
+        UIView.animate(withDuration: 0.15) {
             self.view.alpha = 1
         }
     }

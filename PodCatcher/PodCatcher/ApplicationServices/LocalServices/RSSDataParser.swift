@@ -3,7 +3,7 @@ import Foundation
 class RSSParser: NSObject, Parser {
     var recordKey = "item"
     var dictionaryKeys = ["itunes:summary", " itunes:author", "tunes:subtitle", "pubDate", "enclosure", "itunes:duration", "title", "audio/mp3", "audio/mpeg", "itunes:keywords", "itunes:image", "link", "category", "itunes:author", "itunes:summary", "description", "enclosure"]
-
+    
     var results = [[String: String]]()
     var currentDictionary: [String: String]!
     var currentValue: String?
@@ -47,7 +47,7 @@ extension RSSParser: XMLParserDelegate {
     }
     
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
-        if results.count == 40 {
+        if results.count == 30 {
             return
         }
         if elementName == "enclosure" {

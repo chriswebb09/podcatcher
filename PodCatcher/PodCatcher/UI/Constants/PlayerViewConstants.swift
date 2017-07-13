@@ -23,7 +23,7 @@ struct PlayerViewConstants {
     static let artistInfoHeightMultiplier: CGFloat = 1
     static let artistInfoRightOffset: CGFloat = -0.05
     static let thumbsDownLeftOffset: CGFloat = 0.18
-    static let controlsViewHeightMultiplier: CGFloat = 0.3
+    static let controlsViewHeightMultiplier: CGFloat = 0.299
     static let thumbsHeightMultplier: CGFloat = 0.45
     static let thumbsWidthMultiplier: CGFloat = 0.04
     static let titleViewBackgroundColor = UIColor(red:0.92, green:0.32, blue:0.33, alpha:1.0)

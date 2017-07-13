@@ -36,7 +36,7 @@ final class iTunesAPIClient: NSObject {
     
     static func search(forLookup: String?, completion: @escaping (Response) -> Void) {
         guard let forLookup = forLookup else { return }
-        guard let url = URL(string: "https://itunes.apple.com/lookup?id=\(forLookup)&entity=podcast") else { return }
+        guard let url = URL(string: "https://itunes.apple.com/lookup?id=\(forLookup)&entity=podcast&limit=15") else { return }
         URLSession(configuration: .ephemeral).dataTask(with: URLRequest(url: url)) { data, response, error in
             if let error = error {
                 completion(.failed(error))
@@ -82,14 +82,12 @@ extension iTunesAPIClient: URLSessionDelegate {
         if let download = download, let url = download.url {
             guard let download = activeDownloads[url] else { return }
             print(download)
-           // print(download.url)
         }
     }
     
     func cancelDownload(_ download: Download?) {
         if let download = download, let url = download.url {
             print(url)
-           // print(download.url)
         }
     }
     

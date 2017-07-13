@@ -1,7 +1,5 @@
 import UIKit
 
-
-
 final class PlayerView: UIView {
     
     weak var delegate: PlayerViewDelegate?
@@ -210,7 +208,7 @@ final class PlayerView: UIView {
         titleView.addSubview(titleLabel)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.centerXAnchor.constraint(equalTo: titleView.centerXAnchor).isActive = true
-        titleLabel.centerYAnchor.constraint(equalTo: titleView.centerYAnchor, constant: UIScreen.main.bounds.height * 0.05).isActive = true
+        titleLabel.centerYAnchor.constraint(equalTo: titleView.centerYAnchor, constant: UIScreen.main.bounds.height * 0.04).isActive = true
         titleLabel.heightAnchor.constraint(equalTo: titleView.heightAnchor, multiplier: PlayerViewConstants.trackTitleLabelHeightMultiplier).isActive = true
         titleLabel.widthAnchor.constraint(equalTo: titleView.widthAnchor, multiplier: PlayerViewConstants.trackTitleLabelWidthMultiplier).isActive = true
     }
@@ -243,9 +241,9 @@ final class PlayerView: UIView {
         albumView.addSubview(albumImageView)
         albumImageView.translatesAutoresizingMaskIntoConstraints = false
         albumImageView.centerXAnchor.constraint(equalTo: albumView.centerXAnchor).isActive = true
-        albumImageView.centerYAnchor.constraint(equalTo: albumView.centerYAnchor).isActive = true
+        albumImageView.centerYAnchor.constraint(equalTo: albumView.centerYAnchor, constant: UIScreen.main.bounds.height * -0.018).isActive = true
         albumImageView.heightAnchor.constraint(equalTo: albumView.heightAnchor).isActive = true
-        albumImageView.widthAnchor.constraint(equalTo: albumView.widthAnchor, multiplier: 0.86).isActive = true
+        albumImageView.widthAnchor.constraint(equalTo: albumView.widthAnchor, multiplier: 0.95).isActive = true
     }
     
     private func setup(controlsView: UIView) {
@@ -259,7 +257,7 @@ final class PlayerView: UIView {
         trackButton.translatesAutoresizingMaskIntoConstraints = false
         trackButton.heightAnchor.constraint(equalTo: controlsView.heightAnchor, multiplier: 0.4).isActive = true
         trackButton.widthAnchor.constraint(equalTo: controlsView.widthAnchor, multiplier: 0.23).isActive = true
-        trackButton.bottomAnchor.constraint(equalTo: controlsView.centerYAnchor).isActive = true
+        trackButton.bottomAnchor.constraint(equalTo: controlsView.centerYAnchor, constant: UIScreen.main.bounds.height * 0.001).isActive = true
         trackButton.centerXAnchor.constraint(equalTo: controlsView.centerXAnchor).isActive = true
     }
     

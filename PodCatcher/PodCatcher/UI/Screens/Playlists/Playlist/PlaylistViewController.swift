@@ -11,9 +11,9 @@ class PlaylistViewController: BaseCollectionViewController {
     weak var delegate: PlaylistViewControllerDelegate?
     var playlistId: String
     var episodes = [Episodes]()
-    
+    var caster = CasterSearchResult()
+    var items = [PodcastPlaylistItem]()
     var fetchedResultsController:NSFetchedResultsController<PodcastPlaylistItem>!
-    
     let persistentContainer = NSPersistentContainer(name: "PodCatcher")
     
     let entryPop = EntryPopover()

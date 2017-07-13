@@ -105,7 +105,7 @@ extension PlayerViewController: PlayerViewDelegate {
     }
     
     func showPopMenu() {
-        UIView.animate(withDuration: 0.15) {
+        UIView.animate(withDuration: 0.05) {
             self.bottomMenu.showOn(self.playerView)
         }
     }

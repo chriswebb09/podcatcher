@@ -12,8 +12,11 @@ extension PlaylistsViewController: UITableViewDelegate {
         switch reference {
         case .addPodcast:
             reference = .checkList
+            DispatchQueue.main.async {
+                self.reloadData()
+            }
             delegate?.didAssignPlaylist(with: text)
-            self.reloadData()
+            
         case .checkList:
             let playlist = PlaylistViewController(index: 0)
             playlist.playlistId = text
@@ -30,7 +33,7 @@ extension PlaylistsViewController: EntryPopoverDelegate {
     }
     
     func addPlaylist() {
-        UIView.animate(withDuration: 0.15) { [weak self] in
+        UIView.animate(withDuration: 0.05) { [weak self] in
             guard let strongSelf = self else { return }
             strongSelf.entryPop.showPopView(viewController: strongSelf)
             strongSelf.entryPop.popView.isHidden = false

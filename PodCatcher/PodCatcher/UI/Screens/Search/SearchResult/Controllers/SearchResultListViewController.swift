@@ -59,7 +59,8 @@ class SearchResultListViewController: BaseCollectionViewController {
         navigationController?.setNavigationBarHidden(false, animated: false)
         navigationController?.navigationBar.alpha = 1
         let  plusImage = #imageLiteral(resourceName: "plus-red").withRenderingMode(.alwaysTemplate)
-        rightButtonItem = UIBarButtonItem(image: plusImage, style: .done, target: self, action: #selector(subscribeToFeed))
+        rightButtonItem = UIBarButtonItem(title: "Subscribe", style: .plain, target: self, action: #selector(subscribeToFeed))
+      //  rightButtonItem = UIBarButtonItem(image: plusImage, style: .done, target: self, action: #selector(subscribeToFeed))
         navigationItem.setRightBarButton(rightButtonItem, animated: false)
         rightButtonItem.tintColor = .white
     }

@@ -130,6 +130,7 @@
 		A76C3B331F122A4B000DDFAC /* TopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A76C3B321F122A4B000DDFAC /* TopView.swift */; };
 		A76F0D501F17A1A200444025 /* BrowseViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A76F0D4F1F17A1A200444025 /* BrowseViewController+Extension.swift */; };
 		A76F0D521F17A82600444025 /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A76F0D511F17A82600444025 /* AlertView.swift */; };
+		A76F0D551F17B57500444025 /* SubscribedPodcastCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A76F0D541F17B57500444025 /* SubscribedPodcastCellViewModel.swift */; };
 		A76FA18C1F028BEF006A6127 /* RSSDataParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A76FA18B1F028BEF006A6127 /* RSSDataParser.swift */; };
 		A771072A1F0D4BBF0042D2E4 /* CreateAccountViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77107281F0D4BBF0042D2E4 /* CreateAccountViewController+Extension.swift */; };
 		A771072B1F0D4BBF0042D2E4 /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77107291F0D4BBF0042D2E4 /* CreateAccountViewController.swift */; };
@@ -429,6 +430,7 @@
 		A76C3B321F122A4B000DDFAC /* TopView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TopView.swift; path = Playlists/Playlist/TopView.swift; sourceTree = "<group>"; };
 		A76F0D4F1F17A1A200444025 /* BrowseViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "BrowseViewController+Extension.swift"; path = "Browse/Controllers/BrowseViewController+Extension.swift"; sourceTree = "<group>"; };
 		A76F0D511F17A82600444025 /* AlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
+		A76F0D541F17B57500444025 /* SubscribedPodcastCellViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SubscribedPodcastCellViewModel.swift; path = Home/Models/SubscribedPodcastCellViewModel.swift; sourceTree = "<group>"; };
 		A76FA18B1F028BEF006A6127 /* RSSDataParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSSDataParser.swift; sourceTree = "<group>"; };
 		A77107281F0D4BBF0042D2E4 /* CreateAccountViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CreateAccountViewController+Extension.swift"; path = "PodCatcher/UI/Screens/Start/CreateAccount/Controllers/CreateAccountViewController+Extension.swift"; sourceTree = SOURCE_ROOT; };
 		A77107291F0D4BBF0042D2E4 /* CreateAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CreateAccountViewController.swift; path = PodCatcher/UI/Screens/Start/CreateAccount/Controllers/CreateAccountViewController.swift; sourceTree = SOURCE_ROOT; };
@@ -858,11 +860,11 @@
 			children = (
 				A77107521F0D4E3A0042D2E4 /* HomeViewControllerDelegate.swift */,
 				A771074E1F0D4E1F0042D2E4 /* HomeItemsLayout.swift */,
-				A77107421F0D4DE90042D2E4 /* HomeViewController.swift */,
-				A77107431F0D4DE90042D2E4 /* HomeViewController+Extension.swift */,
+				A76F0D531F17B55100444025 /* Controllers */,
 				A7C620C61F12B51A00A0D33A /* HomeListTopViewConstants.swift */,
 				A7780F3A1F1778C200737DA8 /* HomeDataSource.swift */,
 				A7780F3C1F17792C00737DA8 /* SubscribedPodcastCell.swift */,
+				A76F0D541F17B57500444025 /* SubscribedPodcastCellViewModel.swift */,
 			);
 			name = Home;
 			sourceTree = "<group>";
@@ -1254,6 +1256,15 @@
 				A7C620D41F12BCE600A0D33A /* PodcastPlaylistCellConstants.swift */,
 			);
 			name = Playlist;
+			sourceTree = "<group>";
+		};
+		A76F0D531F17B55100444025 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				A77107421F0D4DE90042D2E4 /* HomeViewController.swift */,
+				A77107431F0D4DE90042D2E4 /* HomeViewController+Extension.swift */,
+			);
+			name = Controllers;
 			sourceTree = "<group>";
 		};
 		A7780EFE1F173F1F00737DA8 /* Browser */ = {
@@ -2102,6 +2113,7 @@
 				A71B272D1EE5D55E00613CF4 /* CoordinatorDelegate.swift in Sources */,
 				A7B8C3991EF6E18E001AFFA1 /* BaseViewController.swift in Sources */,
 				A7B840CF1EEDDDE70049BB78 /* AudioFilePlayer.swift in Sources */,
+				A76F0D551F17B57500444025 /* SubscribedPodcastCellViewModel.swift in Sources */,
 				A723B4271F0EB75D00EA6B27 /* PlaylistViewController.swift in Sources */,
 				A73DA4151EE898550053276E /* PlayerViewController+Extension.swift in Sources */,
 				A71D83DF1F0AC793009D0720 /* SettingsViewControllerDelegate.swift in Sources */,

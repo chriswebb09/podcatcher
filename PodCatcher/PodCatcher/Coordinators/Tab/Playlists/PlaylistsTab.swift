@@ -38,13 +38,6 @@ extension PlaylistsTabCoordinator: PlaylistsViewControllerDelegate {
         print(id)
         let controller = navigationController.viewControllers.last as! PlaylistsViewController
         navigationController.setNavigationBarHidden(false, animated: false)
-        
-       // guard let tab =  controller.tabBarController else { return }
-       // let nav = tab.viewControllers?[2] as! UINavigationController
-//        let playlists = nav.viewControllers[2] as! PlayerViewController
-//        playlists.viewWillAppear(true)
-//        playlists.viewDidLoad()
-        
         controller.tabBarController?.selectedIndex = 2
     }
     
@@ -74,30 +67,31 @@ extension PlaylistsTabCoordinator: PlaylistsViewControllerDelegate {
 
 extension PlaylistsTabCoordinator: PlaylistViewControllerDelegate {
     
-    func didSelectPodcast(at index: Int, with episodes: [PodcastPlaylistItem]) {
-//        let playerView = PlayerView()
-//        var homeVC = navigationController.viewControllers[0] as! HomeViewController
-//        //   var playerPodcast = podcast
-//        CALayer.createGradientLayer(with: [UIColor(red:0.94, green:0.31, blue:0.81, alpha:1.0).cgColor, UIColor(red:0.32, green:0.13, blue:0.70, alpha:1.0).cgColor], layer: playerView.backgroundView.layer, bounds: UIScreen.main.bounds)
-//            .//playerPodcast.episodes = episodes
-//        let playerViewController = PlayerViewController(playerView: playerView, index: index, caster: playerPodcast, user: dataSource.user)
-//        // playerViewController.dataSource.currentPlaylistId = homeVC.currentPlaylistId
-//        playerViewController.delegate = self
-//        navigationController.navigationBar.isTranslucent = true
-//        navigationController.navigationBar.alpha = 0
-//        // controller?.tabBarController?.selectedIndex = 1
-//        navigationController.viewControllers.append(playerViewController)
-//        //  PodcastPlaylistItem
+    func didSelectPodcast(at index: Int, with episodes: [PodcastPlaylistItem], caster: CasterSearchResult) {
+        let playerView = PlayerView()
+        // var homeVC = navigationController.viewControllers[0] as! HomeViewController
+        //   var playerPodcast = podcast
+        //        CALayer.createGradientLayer(with: [UIColor(red:0.94, green:0.31, blue:0.81, alpha:1.0).cgColor, UIColor(red:0.32, green:0.13, blue:0.70, alpha:1.0).cgColor], layer: playerView.backgroundView.layer, bounds: UIScreen.main.bounds)
+        //playerPodcast.episodes = episodes
+        print(caster)
+        let playerViewController = PlayerViewController(playerView: playerView, index: index, caster: caster, user: dataSource.user)
+        //        // playerViewController.dataSource.currentPlaylistId = homeVC.currentPlaylistId
+        playerViewController.delegate = self
+        navigationController.navigationBar.isTranslucent = true
+        //        navigationController.navigationBar.alpha = 0
+        //        // controller?.tabBarController?.selectedIndex = 1
+        navigationController.viewControllers.append(playerViewController)
+        //        //  PodcastPlaylistItem
     }
     
     
 }
 
 extension PlaylistsTabCoordinator: PlayerViewControllerDelegate {
+    
     func addItemToPlaylist(item: CasterSearchResult, index: Int) {
         
     }
-    
     
     func skipButton(tapped: Bool) {
         print("SkipButton tapped \(tapped)")
@@ -117,9 +111,9 @@ extension PlaylistsTabCoordinator: PlayerViewControllerDelegate {
     }
     
     func addItemToPlaylist(item: PodcastPlaylistItem) {
-
+        
     }
-
+    
 }
 
 

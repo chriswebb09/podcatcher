@@ -41,6 +41,7 @@ extension PlaylistViewController: PodcastCollectionViewProtocol {
 }
 
 extension PlaylistViewController: ReloadableCollection {
+    
     func setupView() {
         guard let tabBar = self.tabBarController?.tabBar else { return }
         guard let navHeight = navigationController?.navigationBar.frame.height else { return }
@@ -58,7 +59,7 @@ extension PlaylistViewController: UIScrollViewDelegate {
         let offset = scrollView.contentOffset
         let updatedTopViewFrame = CGRect(x: 0, y: 0, width: PodcastListConstants.topFrameWidth, height: PodcastListConstants.topFrameHeight / 1.2)
         if offset.y > PodcastListConstants.minimumOffset {
-            UIView.animate(withDuration: 0.5) {
+            UIView.animate(withDuration: 0.05) {
                 self.topView.removeFromSuperview()
                 self.topView.alpha = 0
                 self.collectionView.frame = self.view.bounds
@@ -83,7 +84,20 @@ extension PlaylistViewController: UIScrollViewDelegate {
 extension PlaylistViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        //delegate?.didSelectPodcast(at: indexPath.row, podcast: item, with: episodes)
+        guard let items = fetchedResultsController.fetchedObjects else { return }
+        
+        var caster = CasterSearchResult()
+        
+        for item in items {
+            guard let audio = item.audioUrl else { return }
+            guard let title = item.episodeTitle else { return }
+            guard let date = item.date else { return }
+            var episode = Episodes(mediaUrlString: audio, audioUrlSting: audio, title: title, date: String(describing:date), description: item.description, duration: item.duration, audioUrlString: audio, stringDuration: String(describing:item.duration))
+            caster.episodes.append(episode)
+            caster.podcastArtist = item.artistName
+            self.items = items
+        }
+        delegate?.didSelectPodcast(at: indexPath.row, with: self.items, caster: caster)
     }
 }
 

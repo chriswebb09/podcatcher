@@ -57,7 +57,7 @@ final class PlayerViewController: BaseViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         player.removePeriodicTimeObserver()
-        navigationController?.popViewController(animated: true)
+        navigationController?.popViewController(animated: false)
         player.pause()
         DispatchQueue.main.async {
             self.hideLoadingView(loadingPop: self.loadingPop)

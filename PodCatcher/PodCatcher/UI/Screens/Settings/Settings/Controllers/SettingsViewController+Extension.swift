@@ -21,7 +21,7 @@ extension SettingsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as SearchResultCell
+        let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as SettingCell
         cell.titleLabel.text = options[indexPath.section][indexPath.row]
         return cell
     }
