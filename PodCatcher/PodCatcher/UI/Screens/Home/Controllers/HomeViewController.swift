@@ -1,79 +1,146 @@
 import UIKit
 
-final class HomeViewController: BaseCollectionViewController {
+final class SubscribedPodcastCellViewModel {
     
-    weak var delegate: HomeViewControllerDelegate?
+    var trackName: String
+    var albumImageUrl: UIImage
     
-    lazy var topCollectionView : UICollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
-    var currentPlaylistId: String = ""
-    var topItems = [CasterSearchResult]()
-    var topView = HomeTopView()
-    var dataSource: HomeCollectionDataSource! {
+    init(trackName: String, albumImageURL: UIImage) {
+        self.trackName = trackName
+        self.albumImageUrl = albumImageURL
+    }
+}
+
+final class SubscribedPodcastCell: UICollectionViewCell {
+    
+    fileprivate var viewModel: SubscribedPodcastCellViewModel? {
         didSet {
-            viewShown = dataSource.viewShown
+            guard let viewModel = viewModel else { return }
+            albumArtView.image = viewModel.albumImageUrl
         }
     }
     
-    var viewShown: ShowView = .empty {
+    // MARK: - UI Element Properties
+    
+    fileprivate var albumArtView: UIImageView = {
+        var album = UIImageView()
+        return album
+    }()
+    
+    private func setShadow() {
+        layer.setCellShadow(contentView: contentView)
+        let path =  UIBezierPath(roundedRect: bounds, cornerRadius: contentView.layer.cornerRadius)
+        layer.shadowPath = path.cgPath
+    }
+    
+    func configureCell(with model: SubscribedPodcastCellViewModel, withTime: Double) {
+        alpha = 0
+        self.viewModel  = model
+        self.albumArtView.image = model.albumImageUrl
+        self.layoutSubviews()
+        UIView.animate(withDuration: withTime) {
+            self.alpha = 1
+        }
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        viewConfigurations()
+    }
+    
+    private func viewConfigurations() {
+        setShadow()
+        setup(albumArtView: albumArtView)
+    }
+    
+    private func setup(albumArtView: UIImageView) {
+        contentView.addSubview(albumArtView)
+        albumArtView.translatesAutoresizingMaskIntoConstraints = false
+        albumArtView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: MediaCellConstants.albumHeightMultiplier).isActive = true
+        albumArtView.widthAnchor.constraint(equalTo: contentView.widthAnchor).isActive = true
+        albumArtView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        albumArtView.image = nil
+    }
+}
+
+
+
+class MediaCollectionDataSource: BaseMediaControllerDataSource {
+    
+}
+
+extension MediaCollectionDataSource: UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as SubscribedPodcastCell
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return count
+    }
+}
+
+
+
+class HomeViewController: BaseCollectionViewController {
+    
+    // MARK: - Properties
+    
+    weak var delegate: HomeViewControllerDelegate?
+    var dataSource: MediaCollectionDataSource
+    
+    // MARK: - UI Properties
+    
+    var buttonItem: UIBarButtonItem!
+    
+    var viewShown: ShowView {
         didSet {
             switch viewShown {
             case .empty:
-                view.addSubview(emptyView)
                 changeView(forView: emptyView, withView: collectionView)
             case .collection:
                 changeView(forView: collectionView, withView: emptyView)
-                emptyView.removeFromSuperview()
             }
         }
     }
     
-    init(index: Int, dataSource: BaseMediaControllerDataSource) {
-        self.dataSource = HomeCollectionDataSource()
+    init(dataSource: BaseMediaControllerDataSource) {
+        let mediaDataSource = MediaCollectionDataSource()
+        self.dataSource = mediaDataSource
+        self.viewShown = .empty
         super.init(nibName: nil, bundle: nil)
+   
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    convenience init(collectionView: UICollectionView, dataSource: BaseMediaControllerDataSource) {
+        self.init(dataSource: dataSource)
+        self.collectionView = collectionView
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "PodCatch"
-        let topFrameHeight = UIScreen.main.bounds.height / 2
-        let topFrameWidth = UIScreen.main.bounds.width
-        let topFrame = CGRect(x: 0, y: 0, width: topFrameWidth, height: topFrameHeight)
-        topView.frame = topFrame
-        view.addSubview(topView)
-        view.backgroundColor = .clear
-        topView.backgroundColor = .clear
-        topCollectionView.backgroundColor = .red
-        topCollectionView.dataSource = self
-        topCollectionView.register(TopPodcastCell.self)
-        view.addSubview(collectionView)
-        collectionViewConfiguration()
-        collectionView.register(TopPodcastCell.self)
-        collectionView.backgroundColor = .darkGray
-        topView.addSubview(topCollectionView)
-        setupBottom()
-        
-        DispatchQueue.main.async {
-            self.collectionView.reloadData()
-            self.topCollectionView.reloadData()
-            self.topItems = self.dataSource.items
-            self.view.bringSubview(toFront: self.collectionView)
-            self.topView.bringSubview(toFront: self.topCollectionView)
-            if self.dataSource.dataType == .local {
-                self.dataSource.topStore.fetchFromCore()
-                self.topCollectionView.reloadData()
-            }
-        }
+        //collectionViewConfiguration()
+        title = "Podcasts"
+        collectionView.setupBackground(frame: view.bounds)
+        guard let background = collectionView.backgroundView else { return }
+        CALayer.createGradientLayer(with: [UIColor.gray.cgColor, UIColor.darkGray.cgColor],
+                                    layer: background.layer,
+                                    bounds: collectionView.bounds)
     }
+    
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        view.alpha = 0
-        UIView.animate(withDuration: 0.5) {
-            self.view.alpha = 1
-        }
+        tabBarController?.tabBar.isHidden = false
     }
 }

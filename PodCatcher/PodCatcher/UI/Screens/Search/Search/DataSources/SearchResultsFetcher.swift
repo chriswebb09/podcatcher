@@ -1,15 +1,15 @@
 import UIKit
 
-class SearchResultsFetcher {
+struct SearchResultsFetcher {
     
     var searchTerm: String? = ""
     var lookup: String? = ""
     
-    func setSearch(term: String?) {
+    mutating func setSearch(term: String?) {
         searchTerm = term
     }
     
-    func setLookup(term: String?) {
+    mutating func setLookup(term: String?) {
         lookup = term
     }
     
@@ -22,7 +22,6 @@ class SearchResultsFetcher {
                 DispatchQueue.main.async {
                     completion(resultsData!, nil)
                 }
-                
             case .failed(let error):
                 completion(nil, error)
             }

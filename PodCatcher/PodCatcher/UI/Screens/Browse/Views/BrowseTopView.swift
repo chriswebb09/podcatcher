@@ -1,6 +1,17 @@
 import UIKit
 
-final class HomeTopView: UIView {
+struct BrowseListTopViewConstants {
+    static let podcastImageViewCenterYOffset: CGFloat = UIScreen.main.bounds.height * -0.03
+    static let preferencesViewHeightMultiplier: CGFloat = 0.12
+    static let tagsViewHeightMultiplier: CGFloat = 0.13
+    static let podcastImageViewHeightMultiplier: CGFloat = 0.70
+    static let podcastImageViewWidthMultiplier: CGFloat = 0.70
+    static let titleLabelHeightMultiplier: CGFloat = 0.3
+    static let titleLabelTopOffset: CGFloat = UIScreen.main.bounds.height * 0.0008
+}
+
+
+final class BrowseTopView: UIView {
     
     weak var delegate: TopViewDelegate?
     
@@ -43,8 +54,8 @@ final class HomeTopView: UIView {
         podcastImageView.translatesAutoresizingMaskIntoConstraints = false
         podcastImageView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: PodcastListTopViewConstants.podcastImageViewCenterYOffset).isActive = true
         podcastImageView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        podcastImageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: HomeListTopViewConstants.podcastImageViewHeightMultiplier).isActive = true
-        podcastImageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: HomeListTopViewConstants.podcastImageViewWidthMultiplier).isActive = true
+        podcastImageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: BrowseListTopViewConstants.podcastImageViewHeightMultiplier).isActive = true
+        podcastImageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: BrowseListTopViewConstants.podcastImageViewWidthMultiplier).isActive = true
     }
     
     func setup(titleLabel: UILabel) {
@@ -55,4 +66,3 @@ final class HomeTopView: UIView {
         titleLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: PodcastListTopViewConstants.titleLabelHeightMultiplier).isActive = true
     }
 }
-

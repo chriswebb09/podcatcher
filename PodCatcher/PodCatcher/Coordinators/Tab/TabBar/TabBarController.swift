@@ -38,7 +38,7 @@ final class TabBarController: UITabBarController {
     }
     
     func setTabTitles(controllers: [UINavigationController]) {
-        
+        let home = #imageLiteral(resourceName: "home")
         let normalImage = #imageLiteral(resourceName: "lightGrayPodcasts")
         let normalImageTwo = #imageLiteral(resourceName: "heart-gray")
         let normalImageThree = #imageLiteral(resourceName: "search")
@@ -46,15 +46,17 @@ final class TabBarController: UITabBarController {
         
         viewControllers = controllers
         
-        tabBar.items?[0].image = normalImage
+        tabBar.items?[0].image = home
         tabBar.items?[1].image = normalImageTwo
-        tabBar.items?[2].image = normalImageThree
-        tabBar.items?[3].image = normalImageFour
+        tabBar.items?[2].image = normalImage
+        tabBar.items?[3].image = normalImageThree
+        tabBar.items?[4].image = normalImageFour
         
         tabBar.items?[0].title = "Home"
         tabBar.items?[1].title = "Podcasts"
-        tabBar.items?[2].title = "Search"
-        tabBar.items?[3].title = "Setting"
+        tabBar.items?[2].title = "Browse"
+        tabBar.items?[3].title = "Search"
+        tabBar.items?[4].title = "Setting"
         
         selectedIndex = 0
         first = true

@@ -48,12 +48,20 @@ extension SearchTabCoordinator: SearchViewControllerDelegate {
         let store = SearchResultsDataStore()
         store.pullFeed(for: feedUrlString) { response in
             guard let episodes = response.0 else { print("no"); return }
+            resultsList.episodes = episodes
             DispatchQueue.main.async {
-                resultsList.episodes = episodes
+                
+                dump(self.navigationController.viewControllers)
                 resultsList.collectionView.reloadData()
-                self.navigationController.viewControllers.append(resultsList)
             }
+            
         }
+        
+        DispatchQueue.main.async {
+            self.navigationController.viewControllers.append(resultsList)
+        }
+        
+        
     }
 }
 
@@ -61,45 +69,31 @@ extension SearchTabCoordinator: PodcastListViewControllerDelegate {
     
     func didSelect(at index: Int, podcast: CasterSearchResult) {
         let playerView = PlayerView()
-//       // var homeVC = navigationController.viewControllers[0] as! HomeViewController
-//        var playerPodcast = podcast
-//        CALayer.createGradientLayer(with: [UIColor(red:0.94, green:0.31, blue:0.81, alpha:1.0).cgColor, UIColor(red:0.32, green:0.13, blue:0.70, alpha:1.0).cgColor], layer: playerView.backgroundView.layer, bounds: UIScreen.main.bounds)
-//        playerPodcast.episodes = episodes
-//        playerPodcast.index = index
-//        
-//        let playerViewController = PlayerViewController(playerView: playerView, index: index, caster: playerPodcast, user: dataSource.user)
-//        
-//        playerViewController.dataSource.currentPlaylistId = homeVC.currentPlaylistId
-//        playerViewController.delegate = self
-//        navigationController.navigationBar.isTranslucent = true
-//        navigationController.navigationBar.alpha = 0
-//        // controller?.tabBarController?.selectedIndex = 1
-//        navigationController.viewControllers.append(playerViewController)
+        
     }
-
+    
     
     func didSelectPodcastAt(at index: Int, podcast: CasterSearchResult, with episodes: [Episodes]) {
         let playerView = PlayerView()
-        var searchVC = navigationController.viewControllers[0] as! SearchViewController
+        let searchVC = navigationController.viewControllers[0] as! SearchViewController
         var playerPodcast = podcast
-        CALayer.createGradientLayer(with: [UIColor(red:0.94, green:0.31, blue:0.81, alpha:1.0).cgColor, UIColor(red:0.32, green:0.13, blue:0.70, alpha:1.0).cgColor], layer: playerView.backgroundView.layer, bounds: UIScreen.main.bounds)
         playerPodcast.episodes = episodes
         let playerViewController = PlayerViewController(playerView: playerView, index: index, caster: playerPodcast, user: dataSource.user)
         playerViewController.delegate = self
         navigationController.setNavigationBarHidden(true, animated: false)
         navigationController.viewControllers.append(playerViewController)
-
+    
     }
 }
 
 extension SearchTabCoordinator: PlayerViewControllerDelegate {
- 
+    
     func addItemToPlaylist(item: CasterSearchResult, index: Int) {
- 
+        
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         let managedContext = appDelegate.coreData.managedContext
         let newItem = PodcastPlaylistItem(context: managedContext)
-
+        
         newItem.audioUrl = item.episodes[index].audioUrlString
         newItem.artworkUrl = item.podcastArtUrlString
         newItem.artistId = item.id
@@ -121,7 +115,6 @@ extension SearchTabCoordinator: PlayerViewControllerDelegate {
         delegate?.podcastItem(toAdd: item, with: index)
     }
     
-    
     func skipButton(tapped: Bool) {
         print("SkipButton tapped \(tapped)")
     }
@@ -141,10 +134,6 @@ extension SearchTabCoordinator: PlayerViewControllerDelegate {
     
     func addItemToPlaylist(item: PodcastPlaylistItem) {
         let controller = navigationController.viewControllers.last
-        controller?.tabBarController?.selectedIndex = 2
-      //  let playlistViewController = controller?.tabBarController?.viewControllers?[1].navigationController?.viewControllers[0] as! PlaylistsViewController
-     //   playlistViewController.tableView.reloadData()
+        
     }
-    
-    
 }

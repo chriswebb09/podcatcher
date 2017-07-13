@@ -8,4 +8,5 @@ protocol PlayerViewDelegate: class {
     func moreButton(tapped: Bool)
     func updateTimeValue(time: Double)
     func navigateBack(tapped: Bool)
+    func loading() 
 }

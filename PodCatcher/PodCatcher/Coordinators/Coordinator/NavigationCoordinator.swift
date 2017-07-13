@@ -4,11 +4,9 @@ protocol NavigationCoordinator: Coordinator {
     var navigationController: UINavigationController { get set }
 }
 
-
 protocol PlaylistTabDelegate: CoordinatorDelegate {
     func updatePodcast(with playlistId: String)
 }
-
 
 class NavCoordinator: NavigationCoordinator {
     
@@ -35,7 +33,7 @@ class NavCoordinator: NavigationCoordinator {
     }
     
     func start() {
-        
+        // Fix
     }
 }
 

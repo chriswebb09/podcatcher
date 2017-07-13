@@ -9,32 +9,35 @@ final class PlayerViewController: BaseViewController {
     
     var playerView: PlayerView
     var playerState: PlayState
-    var episode: Episodes!
     var loadingPop = LoadingPopover()
     var bottomMenu = BottomMenu()
+    var episodes: [Episodes]!
     var caster: CasterSearchResult
     var menuActive: MenuActive = .none
-    var player: AudioFilePlayer?
+    var player: AudioFilePlayer
     var index: Int
-    var testIndex: Int
     var user: PodCatcherUser?
     let downloadingIndicator = DownloaderIndicatorView()
     var playerViewModel: PlayerViewModel!
-    var dataSource = PlayerControllerDataSource()
     
     init(playerView: PlayerView = PlayerView(), index: Int, caster: CasterSearchResult, user: PodCatcherUser?) {
         self.playerView = playerView
+         CALayer.createGradientLayer(with: [UIColor(red:0.94, green:0.31, blue:0.81, alpha:1.0).cgColor, UIColor(red:0.32, green:0.13, blue:0.70, alpha:1.0).cgColor], layer: playerView.backgroundView.layer, bounds: UIScreen.main.bounds)
         self.index = index
         self.caster = caster
-        self.testIndex = index - 1
-        if let url = caster.episodes[index].audioUrlString, let audioUrl = URL(string: url) {
+        self.episodes = caster.episodes
+        if let url = episodes[index].audioUrlString, let audioUrl = URL(string: url) {
             self.player = AudioFilePlayer(url: audioUrl)
+            self.player.setUrl(with: audioUrl)
+        } else {
+            self.player = AudioFilePlayer()
         }
         self.playerState = .queued
         super.init(nibName: nil, bundle: nil)
-        player?.delegate = self
+        self.player.delegate = self
+        self.player.observePlayTime()
         guard let artUrl = caster.podcastArtUrlString else { return }
-        playerViewModel = PlayerViewModel(imageUrl: URL(string: artUrl), title: caster.episodes[index].title)
+        playerViewModel = PlayerViewModel(imageUrl: URL(string: artUrl), title: episodes[index].title)
         setModel(model: playerViewModel)
         playerView.delegate = self
         view.addView(view: playerView, type: .full)
@@ -53,10 +56,9 @@ final class PlayerViewController: BaseViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        player?.removeObservers()
+        player.removePeriodicTimeObserver()
         navigationController?.popViewController(animated: true)
-        player?.player.pause()
-        player = nil
+        player.pause()
         DispatchQueue.main.async {
             self.hideLoadingView(loadingPop: self.loadingPop)
             self.hidePopMenu()

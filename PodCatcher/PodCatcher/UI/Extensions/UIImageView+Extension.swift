@@ -3,6 +3,7 @@ import UIKit
 let imageCache: NSCache<NSString, UIImage> = {
     var cache = NSCache<NSString, UIImage>()
     cache.totalCostLimit = 10
+    cache.countLimit = 10 
     return cache
 }()
 

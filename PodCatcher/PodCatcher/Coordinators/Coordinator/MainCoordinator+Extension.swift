@@ -1,46 +1,8 @@
 import UIKit
 import Firebase
 
-import CoreData
-
-class PlaylistItemsCoreDataStack {
-    
-    var playlists: [NSManagedObject] = []
-    
-//    func fetchFromCore() {
-//        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-//        let managedContext = appDelegate.coreData.managedContext
-//        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "PodcastPlaylistItem")
-//        do {
-//            playlists = try managedContext.fetch(fetchRequest)
-//        } catch let error as NSError {
-//            print("Could not fetch. \(error), \(error.userInfo)")
-//        }
-//    }
-}
-
 extension MainCoordinator: CoordinatorDelegate {
     
-//    func getViewController(from type: TabType) -> UIViewController {
-//        switch type {
-//        case .home:
-//            var homeTab = self.tabbBarCoordinator.childCoordinators[0] as! HomeTabCoordinator
-//            var nav = homeTab.childViewControllers[0] as! HomeViewController
-//            
-//        case .player:
-//            print("player")
-//        case .playlist:
-//            print("playlist")
-//        case .playlists:
-//            print("playlists")
-//        case .results:
-//            print("results")
-//        case .search:
-//            print("search")
-//        }
-//        return UIViewController()
-//    }
-//    
     func podcastItem(toAdd: CasterSearchResult, with index: Int) {
         self.itemToSave = toAdd
         self.itemIndex = index
@@ -70,14 +32,13 @@ extension MainCoordinator: CoordinatorDelegate {
                 newItem.artwork = podcastArtImageData as! NSData
             }
         }
-
         do {
             try managedContext.save()
         } catch {
-            fatalError("Failure to save context: \(error)")
+            print(error.localizedDescription)
+            //fatalError("Failure to save context: \(error)")
         }
     }
-
     
     func transitionCoordinator(type: CoordinatorType, dataSource: BaseMediaControllerDataSource?) {
         switch type {
@@ -97,7 +58,6 @@ extension MainCoordinator: CoordinatorDelegate {
             self.appCoordinator.delegate = self
             
         case .tabbar:
-            let items = PlaylistItemsCoreDataStack()
             let tabbarController = TabBarController()
             self.dataSource = dataSource
             if let user = dataSource?.user {
@@ -109,15 +69,15 @@ extension MainCoordinator: CoordinatorDelegate {
             tabbarController.dataSource = self.dataSource
             self.tabbBarCoordinator = TabBarCoordinator(tabBarController: tabbarController, window: window)
             guard let dataSource = dataSource else { return }
-            let homeViewController = HomeViewController(index: 0, dataSource: dataSource)
+            let homeViewController = HomeViewController(dataSource: dataSource)
             getData = UserDefaults.loadOnAuth()
-
-            homeViewController.dataSource.dataType = .network
+            print(getData)
+            //homeViewController.dataSource.dataType = .network
             let homeTab = UINavigationController(rootViewController: homeViewController)
             tabbBarCoordinator.setupHomeCoordinator(navigationController: homeTab, dataSource: dataSource)
             let homeCoord = tabbBarCoordinator.childCoordinators[0] as! HomeTabCoordinator
             homeCoord.delegate = self
-            homeCoord.setup()
+            // homeCoord.setup()
             
             let playlistsViewController = PlaylistsViewController()
             let playlistsTab = UINavigationController(rootViewController: playlistsViewController)
@@ -126,23 +86,29 @@ extension MainCoordinator: CoordinatorDelegate {
             playlistsCoord.delegate = self
             playlistsCoord.setup()
             
+            let browseViewController = BrowseViewController(index: 0, dataSource: dataSource)
+            let browseTab = UINavigationController(rootViewController: browseViewController)
+            tabbBarCoordinator.setupBrowseCoordinator(navigationController: browseTab, dataSource: dataSource)
+            let browseCoord = tabbBarCoordinator.childCoordinators[2] as! BrowseTabCoordinator
+            browseCoord.delegate = self
+            browseCoord.setup()
+            
             let searchViewController = SearchViewController()
             let searchTab = UINavigationController(rootViewController: searchViewController)
             tabbBarCoordinator.setupSearchCoordinator(navigationController: searchTab, dataSource: dataSource)
-            let searchCoord = tabbBarCoordinator.childCoordinators[2] as! SearchTabCoordinator
+            let searchCoord = tabbBarCoordinator.childCoordinators[3] as! SearchTabCoordinator
             searchCoord.delegate = self
             
             let settingsViewController = SettingsViewController()
             let settingsTab = UINavigationController(rootViewController: settingsViewController)
             
-            homeViewController.currentPlaylistId = playlistsViewController.currentPlaylistID
+          //  homeViewController.currentPlaylistId = playlistsViewController.currentPlaylistID
             tabbBarCoordinator.setupSettingsCoordinator(navigationController: settingsTab, dataSource: dataSource)
             tabbBarCoordinator.delegate = self
-            let settingsCoord = tabbBarCoordinator.childCoordinators[3] as! SettingsTabCoordinator
+            let settingsCoord = tabbBarCoordinator.childCoordinators[4] as! SettingsTabCoordinator
             settingsCoord.delegate = self
             appCoordinator = tabbBarCoordinator
             start()
         }
     }
-    
 }

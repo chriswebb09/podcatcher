@@ -48,7 +48,7 @@ final class PodcastCell: UICollectionViewCell {
         colorBackgroundView.frame = contentView.frame
         contentView.addSubview(colorBackgroundView)
         contentView.sendSubview(toBack: colorBackgroundView)
-        playTimeLabel.text = String.constructTimeString(time: model.item.playtime)
+        //playTimeLabel.text = String.constructTimeString(time: model.item.playtime)
         podcastTitleLabel.text = model.podcastTitle
     }
     

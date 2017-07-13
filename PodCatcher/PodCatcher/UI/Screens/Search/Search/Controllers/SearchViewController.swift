@@ -6,7 +6,7 @@ class SearchViewController: BaseTableViewController {
     
     var dataSource = SearchControllerDataSource() {
         didSet {
-            print("data source created")
+            viewShown = dataSource.viewShown
         }
     }
     
@@ -14,10 +14,9 @@ class SearchViewController: BaseTableViewController {
         didSet {
             switch viewShown {
             case .empty:
-                changeView(forView: emptyView, withView: tableView)
+                print("case empty")
             case .collection:
-                changeView(forView: tableView, withView: tableView)
-                emptyView.removeFromSuperview()
+                print("case collection")
             }
         }
     }
@@ -40,8 +39,6 @@ class SearchViewController: BaseTableViewController {
                 showSearchBar()
                 searchControllerConfigure()
             } else if !searchBarActive {
-                if dataSource.items.count == 0 { viewShown = .empty }
-                guard let nav = navigationController?.navigationBar else { return }
                 tableView.frame = CGRect(x: UIScreen.main.bounds.minX, y: searchBar.frame.maxY, width: UIScreen.main.bounds.width, height: view.frame.height)
             }
         }
@@ -50,18 +47,23 @@ class SearchViewController: BaseTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = dataSource
+        viewShown = dataSource.viewShown
+        tableView.backgroundColor = UIColor(red:0.94, green:0.95, blue:0.96, alpha:1.0)
+        searchControllerConfigure()
         tableView.register(SearchResultCell.self, forCellReuseIdentifier: SearchResultCell.reuseIdentifier)
         searchBar = searchController.searchBar
         searchBarActive = true
         searchController.defaultConfiguration()
         tableView.delegate = self
-        tableView.backgroundColor = .clear
         searchControllerConfigure()
+        view.addSubview(searchBar)
+        title = "Search"
     }
     
     override func viewWillAppear(_ animated: Bool) {
         self.tabBarController?.tabBar.alpha = 1
         self.navigationController?.navigationBar.alpha = 1
+        emptyView.alpha = 0
     }
     
     override func viewWillDisappear(_ animated: Bool) {

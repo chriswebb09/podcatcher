@@ -1,6 +1,6 @@
 import Foundation
 
-class TermSearchResult: PodcastSearchResult {
+struct TermSearchResult: PodcastSearchResult {
     var podcastSearchType: ResultType?
     var podcastArtist: String?
     var podcastTitle: String?

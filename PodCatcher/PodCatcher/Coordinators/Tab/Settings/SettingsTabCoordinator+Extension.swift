@@ -3,7 +3,7 @@ import UIKit
 extension SettingsTabCoordinator: SettingsViewControllerDelegate {
     
     func settingOne(tapped: Bool) {
-
+        
     }
     
     func settingTwo(tapped: Bool) {

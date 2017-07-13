@@ -39,7 +39,14 @@ extension TabBarCoordinator: Coordinator {
         tabCoordinator.dataSource = dataSource
         childCoordinators.append(tabCoordinator)
     }
-  
+    
+    func setupBrowseCoordinator(navigationController: UINavigationController, dataSource: BaseMediaControllerDataSource) {
+        let tabCoordinator = BrowseTabCoordinator(navigationController: navigationController)
+        tabCoordinator.start()
+        tabCoordinator.dataSource = dataSource
+        childCoordinators.append(tabCoordinator)
+    }
+    
     func setupSearchCoordinator(navigationController: UINavigationController, dataSource: BaseMediaControllerDataSource) {
         let tabCoordinator = SearchTabCoordinator(navigationController: navigationController)
         tabCoordinator.start()
@@ -60,7 +67,7 @@ extension TabBarCoordinator: Coordinator {
     }
     
     func setup() {
-        tabBarController.setTabTitles(controllers: [childCoordinators[0].navigationController, childCoordinators[1].navigationController, childCoordinators[2].navigationController, childCoordinators[3].navigationController])
+        tabBarController.setTabTitles(controllers: [childCoordinators[0].navigationController, childCoordinators[1].navigationController, childCoordinators[2].navigationController, childCoordinators[3].navigationController, childCoordinators[4].navigationController])
     }
 }
 

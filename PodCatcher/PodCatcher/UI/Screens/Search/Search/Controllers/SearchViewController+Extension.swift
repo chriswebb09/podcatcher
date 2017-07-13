@@ -2,25 +2,17 @@ import UIKit
 
 extension SearchViewController: UISearchResultsUpdating {
     
-    func hideSearchBar() {
-        searchBar.removeFromSuperview()
-        searchBarActive = false
-    }
-    
     func showSearchBar() {
-        view.addSubview(searchBar)
         searchBar.frame = CGRect(x: UIScreen.main.bounds.minX, y: 0, width: UIScreen.main.bounds.width, height: 44)
         tableView.frame = CGRect(x: UIScreen.main.bounds.minX, y: searchBar.frame.maxY, width: UIScreen.main.bounds.width, height: view.frame.height - 44)
     }
     
     func searchControllerConfigure() {
-        
         searchController.delegate = self
         searchBar = searchController.searchBar
         searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
         searchBar.tintColor = .black
-        
         let textFieldInsideSearchBar = searchBar.value(forKey: "searchField") as? UITextField
         textFieldInsideSearchBar?.textColor = .white
         
@@ -41,12 +33,10 @@ extension SearchViewController: UISearchResultsUpdating {
     func updateSearchResultsForSearchController(searchController: UISearchController) {
         let searchString = searchController.searchBar.text
         if searchString != nil {
-            dataSource.items.removeAll()
-            if let searchString = searchString {
+            if let searchString = searchString, searchString != "" {
                 self.dataSource.store.setSearch(term: searchString)
-                print("PAUSE HERE")
                 NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(setSearch), object: nil)
-                self.perform(#selector(setSearch), with: nil, afterDelay: 0.35)
+                self.perform(#selector(setSearch), with: nil, afterDelay: 0)
             }
         }
     }
@@ -55,13 +45,6 @@ extension SearchViewController: UISearchResultsUpdating {
 extension SearchViewController: UISearchControllerDelegate {
     
     func setSearch() {
-        self.dataSource.store.searchForTracks { tracks, error in
-            guard let tracks = tracks else { return }
-            self.dataSource.items = tracks
-        }
-    }
-    
-    func searchBarHasInput() {
         dataSource.store.searchForTracks { [weak self] playlist, error in
             if let error = error {
                 print(error.localizedDescription)
@@ -81,16 +64,16 @@ extension SearchViewController: UISearchBarDelegate {
     func searchOnTextChange(text: String, store: SearchResultsFetcher, navController: UINavigationController) {
         if text == "" {
             dataSource.items.removeAll()
+            navController.navigationBar.topItem?.title = "Search"
             tableView.reloadData()
-            navController.navigationBar.topItem?.title = "PodCatch"
             return
+        } else if text != "" {
+            searchBarActive = true
+            dataSource.store.setSearch(term: text)
+            NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(setSearch), object: nil)
+            self.perform(#selector(setSearch), with: nil, afterDelay: 0.35)
+            navController.navigationBar.topItem?.title = "Search: \(text)"
         }
-        searchBarActive = true
-        dataSource.store.setSearch(term: text)
-        print("PAUSE HERE @")
-        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(searchBarHasInput), object: nil)
-        perform(#selector(searchBarHasInput), with: nil, afterDelay: 0.15)
-        navController.navigationBar.topItem?.title = "Search: \(text)"
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -99,22 +82,26 @@ extension SearchViewController: UISearchBarDelegate {
     }
 }
 
-
 extension SearchViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100.0
+        return UIScreen.main.bounds.height / 6.4
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(indexPath.row)
         if dataSource.items.count > 0 {
+            searchBarActive = false
+            searchController.isActive = false
             delegate?.didSelect(at: indexPath.row, with: dataSource.items[indexPath.row])
-        } else {
-            DispatchQueue.main.async {
-                self.navigationController?.navigationBar.topItem?.title = "PodCatch"
-                self.tableView.reloadData()
-            }
+        }
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchBar.setShowsCancelButton(false, animated: false)
+        searchBarActive = false
+        searchController.isActive = false
+        DispatchQueue.main.async {
+            self.title = "Search"
         }
     }
 }

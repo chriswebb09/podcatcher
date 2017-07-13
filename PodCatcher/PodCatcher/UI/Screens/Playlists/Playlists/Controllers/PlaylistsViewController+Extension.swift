@@ -12,11 +12,8 @@ extension PlaylistsViewController: UITableViewDelegate {
         switch reference {
         case .addPodcast:
             reference = .checkList
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-                self.reloadData()
-            }
             delegate?.didAssignPlaylist(with: text)
+            self.reloadData()
         case .checkList:
             let playlist = PlaylistViewController(index: 0)
             playlist.playlistId = text
