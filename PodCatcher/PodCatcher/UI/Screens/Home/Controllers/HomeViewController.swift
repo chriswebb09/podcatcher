@@ -1,10 +1,14 @@
 import UIKit
 import CoreData
 
+enum HomeInteractionMode {
+    case subscription, edit
+}
+
 class HomeViewController: BaseCollectionViewController {
     
     // MARK: - Properties
-    
+    var mode: HomeInteractionMode = .subscription
     weak var delegate: HomeViewControllerDelegate?
     var dataSource: HomeDataSource
     var items = [Subscription]()
@@ -29,11 +33,8 @@ class HomeViewController: BaseCollectionViewController {
     init(dataSource: BaseMediaControllerDataSource) {
         let homeDataSource = HomeDataSource()
         self.dataSource = homeDataSource
-        
         self.viewShown = .empty
         super.init(nibName: nil, bundle: nil)
-        
-        
     }
     
     required public init(coder aDecoder: NSCoder) {
@@ -42,7 +43,6 @@ class HomeViewController: BaseCollectionViewController {
     
     convenience init(collectionView: UICollectionView, dataSource: BaseMediaControllerDataSource) {
         self.init(dataSource: dataSource)
-        
         self.collectionView = collectionView
     }
     
@@ -51,13 +51,17 @@ class HomeViewController: BaseCollectionViewController {
         reloadData()
         collectionViewConfiguration()
         setupCollectionView(view: view, newLayout: HomeItemsFlowLayout())
-        title = "Podcasts"
+        navigationController?.navigationBar.topItem?.title = "Subscribed Podcasts"
         collectionView.delegate = self
-        collectionView.register(SubscribedPodcastCell)
+        collectionView.register(SubscribedPodcastCell.self)
         collectionView.dataSource = self
         collectionView.setupBackground(frame: view.bounds)
         guard let background = collectionView.backgroundView else { return }
         CALayer.createGradientLayer(with: [UIColor.gray.cgColor, UIColor.darkGray.cgColor], layer: background.layer, bounds: collectionView.bounds)
+        rightButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(changeMode))
+        navigationItem.setRightBarButton(rightButtonItem, animated: false)
+        rightButtonItem.tintColor = .white
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -75,5 +79,10 @@ class HomeViewController: BaseCollectionViewController {
     func setupCollectionView(view: UIView, newLayout: HomeItemsFlowLayout) {
         setup(with: newLayout)
         collectionView.frame = UIScreen.main.bounds
+    }
+    
+    func changeMode() {
+        mode = mode == .edit ? .subscription : .edit
+        rightButtonItem.title = mode == .edit ? "Done" : "Edit"
     }
 }

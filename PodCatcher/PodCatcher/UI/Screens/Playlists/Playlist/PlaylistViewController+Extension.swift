@@ -85,19 +85,55 @@ extension PlaylistViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let items = fetchedResultsController.fetchedObjects else { return }
+        print(items[indexPath.row].audioUrl)
+        print(items[indexPath.row].artworkUrl)
         
-        var caster = CasterSearchResult()
+        guard let audio = items[indexPath.row].audioUrl, let audioUrl = URL(string: audio), let artUrl = items[indexPath.row].artworkUrl, let url = URL(string: artUrl) else { return }
         
-        for item in items {
-            guard let audio = item.audioUrl else { return }
-            guard let title = item.episodeTitle else { return }
-            guard let date = item.date else { return }
-            let episode = Episodes(mediaUrlString: audio, audioUrlSting: audio, title: title, date: String(describing:date), description: item.description, duration: item.duration, audioUrlString: audio, stringDuration: String(describing:item.duration))
-            caster.episodes.append(episode)
-            caster.podcastArtist = item.artistName
-            self.items = items
+        topView.podcastImageView.downloadImage(url: url)
+        
+        
+        
+        
+        self.player.setUrl(with: audioUrl)
+       
+        print(player.state)
+        switch player.state {
+        case .playing:
+            player.pause()
+            player.state = .paused
+            let cell = collectionView.cellForItem(at: indexPath) as! PodcastPlaylistCell
+            dump(cell)
+            cell.switchAlpha(hidden: true)
+            //            cell.playButton.alpha = 0
+        //            cell.pauseButton.alpha = 1
+        case .paused:
+            player.play()
+            player.state = .playing
+            let cell = collectionView.cellForItem(at: indexPath) as! PodcastPlaylistCell
+            cell.switchAlpha(hidden: false)
+            //            cell.pauseButton.alpha = 0
+            //            cell.playButton.alpha = 1
+            dump(cell)
+        case .stopped:
+            self.player = AudioFilePlayer(url: audioUrl)
+            self.player.setUrl(with: audioUrl)
+            self.player.delegate = self
+            self.player.observePlayTime()
+            player.play()
+            player.state = .playing
+            let cell = collectionView.cellForItem(at: indexPath) as! PodcastPlaylistCell
+            cell.switchAlpha(hidden: false)
+            //            cell.pauseButton.alpha = 0
+            //            cell.playButton.alpha = 1
+            dump(cell)
+            
+            //            contentView.addSubview(playTimeLabel)
+            //            playTimeLabel.translatesAutoresizingMaskIntoConstraints = false
+            //            playTimeLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: PodcastCellConstants.playtimeLabelWidthMultiplier).isActive = true
+            //            playTimeLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: PodcastPlaylistCellConstants.playtimeLabelRightOffset).isActive = true
+            //            playTimeLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
         }
-        delegate?.didSelectPodcast(at: indexPath.row, with: self.items, caster: caster)
     }
 }
 
@@ -110,11 +146,12 @@ extension PlaylistViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as PodcastResultCell
+        let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as PodcastPlaylistCell
         let item = fetchedResultsController.object(at: indexPath)
         DispatchQueue.main.async {
             if let playTime = item.stringDate, let title = item.episodeTitle {
-                let model = PodcastResultCellViewModel(podcastTitle: title,  playtimeLabel: playTime)
+                // let model = PodcastResultCellViewModel(podcastTitle: title,  playtimeLabel: playTime)
+                let model = PodcastCellViewModel(podcastTitle: title)
                 cell.configureCell(model: model)
             }
         }
@@ -140,12 +177,12 @@ extension PlaylistViewController: TopViewDelegate {
     func entryPop(popped: Bool) {
         
     }
-
+    
     func popBottomMenu(popped: Bool) {
         showPopMenu()
-
+        
     }
-
+    
     func showPopMenu() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(hidePopMenu))
         view.addGestureRecognizer(tap)
@@ -154,8 +191,24 @@ extension PlaylistViewController: TopViewDelegate {
     }
     
     func hidePopMenu() {
-       // menuActive = .hidden
+        // menuActive = .hidden
     }
     
 }
 
+
+extension PlaylistViewController: AudioFilePlayerDelegate {
+    func trackFinishedPlaying() {
+        
+    }
+    
+    func trackDurationCalculated(stringTime: String, timeValue: Float64) {
+        
+    }
+    
+    func updateProgress(progress: Double) {
+        
+    }
+    
+    
+}

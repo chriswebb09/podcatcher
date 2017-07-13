@@ -2,18 +2,35 @@ import UIKit
 import CoreData
 
 extension HomeViewController: UICollectionViewDelegate {
-
+    
     func logoutTapped() {
         delegate?.logout(tapped: true)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        switch mode {
+        case .subscription:
+            break
+        case .edit:
+            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+                return
+            }
+            let context = appDelegate.persistentContainer.viewContext
+            context.delete(fetchedResultsController.object(at: indexPath))
+            reloadData()
+            do {
+                try context.save()
+            } catch let error {
+                let fetchError = error as NSError
+                print("Unable to Perform Fetch Request")
+                print("\(fetchError), \(fetchError.localizedDescription)")
+            }
+        }
     }
 }
 
 extension HomeViewController: UIScrollViewDelegate {
-    
+        
     func collectionViewConfiguration() {
         collectionView.delegate = self
         collectionView.dataSource = dataSource
@@ -82,6 +99,26 @@ extension HomeViewController: UICollectionViewDataSource {
         }
         return cell
     }
+    
 
+//    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: IndexPath) {
+//
+//    }
+////        context.deleteObject(myData[indexPath.row] as NSManagedObject)
+//        myData.removeAtIndex(indexPath.row)
+//        context.save(nil)
+//        collectionView.deleteItems(at: ([indexPath], withRowAnimation: .fade)
+    
+    
+        //    let appDel:AppDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        //    let context:NSManagedObjectContext = appDel.managedObjectContext!
+        //    context.deleteObject(myData[indexPath.row] as NSManagedObject)
+        //    myData.removeAtIndex(indexPath.row)
+        //    context.save(nil)
+        //
+        //    //tableView.reloadData()
+        //    // remove the deleted item from the `UITableView`
+        //    self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+        //    default:
 }
 

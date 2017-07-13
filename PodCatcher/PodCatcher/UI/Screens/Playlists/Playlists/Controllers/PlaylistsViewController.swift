@@ -54,7 +54,7 @@ extension PlaylistsViewController: ReloadableTable, UITableViewDataSource {
         }
         let text = fetchedResultsController.object(at: indexPath).playlistName
         cell.titleLabel.text = text?.uppercased()
-        cell.numberOfItemsLabel.text = "Podcasts: 0"
+        cell.numberOfItemsLabel.text = "Podcasts"
         return cell
     }
 }

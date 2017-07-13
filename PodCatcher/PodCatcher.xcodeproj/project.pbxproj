@@ -64,6 +64,7 @@
 		A71AE3031F17F27E00AFC8CC /* BrowseListTopViewConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71AE3021F17F27E00AFC8CC /* BrowseListTopViewConstants.swift */; };
 		A71AE3051F17F2B000AFC8CC /* BrowseViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71AE3041F17F2B000AFC8CC /* BrowseViewControllerDelegate.swift */; };
 		A71AE3071F17F87E00AFC8CC /* MiniPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71AE3061F17F87E00AFC8CC /* MiniPlayerView.swift */; };
+		A71AE3091F18085D00AFC8CC /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71AE3081F18085D00AFC8CC /* SettingCell.swift */; };
 		A71B26F21EE5D24700613CF4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71B26F11EE5D24700613CF4 /* AppDelegate.swift */; };
 		A71B26FA1EE5D24700613CF4 /* PodCatcher.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A71B26F81EE5D24700613CF4 /* PodCatcher.xcdatamodeld */; };
 		A71B26FC1EE5D24700613CF4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A71B26FB1EE5D24700613CF4 /* Assets.xcassets */; };
@@ -359,6 +360,7 @@
 		A71AE3021F17F27E00AFC8CC /* BrowseListTopViewConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseListTopViewConstants.swift; sourceTree = "<group>"; };
 		A71AE3041F17F2B000AFC8CC /* BrowseViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BrowseViewControllerDelegate.swift; path = Browse/Delegates/BrowseViewControllerDelegate.swift; sourceTree = "<group>"; };
 		A71AE3061F17F87E00AFC8CC /* MiniPlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MiniPlayerView.swift; path = Playlists/Playlist/MiniPlayerView.swift; sourceTree = "<group>"; };
+		A71AE3081F18085D00AFC8CC /* SettingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingCell.swift; path = PodCatcher/UI/Screens/Settings/Settings/Views/SettingCell.swift; sourceTree = SOURCE_ROOT; };
 		A71B26EE1EE5D24700613CF4 /* PodCatcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PodCatcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A71B26F11EE5D24700613CF4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A71B26F91EE5D24700613CF4 /* PodCatcher.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PodCatcher.xcdatamodel; sourceTree = "<group>"; };
@@ -1163,6 +1165,7 @@
 		A73D74431EE68922004571A5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A71AE3081F18085D00AFC8CC /* SettingCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2050,6 +2053,7 @@
 				A77EDF591EE5FAC2001A24E5 /* CALayer+Extension.swift in Sources */,
 				A73D74091EE684C4004571A5 /* LoadingPopover.swift in Sources */,
 				A731727D1F00450B006A6A24 /* Playlist.swift in Sources */,
+				A71AE3091F18085D00AFC8CC /* SettingCell.swift in Sources */,
 				A7B1C07E1F0AE4A100A42E7D /* TabControllerCoordinator.swift in Sources */,
 				A77EDF651EE5FC17001A24E5 /* EmptyView.swift in Sources */,
 				A71ADFBA1F0E397800941A43 /* CreateAccountViewModel.swift in Sources */,

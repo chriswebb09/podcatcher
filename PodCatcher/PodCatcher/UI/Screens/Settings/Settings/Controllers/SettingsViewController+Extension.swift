@@ -2,7 +2,7 @@ import UIKit
 
 extension SettingsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UIScreen.main.bounds.height / 3
+        return 200
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {

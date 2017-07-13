@@ -5,7 +5,7 @@ class PlaylistViewController: BaseCollectionViewController {
     
     var item: CasterSearchResult!
     var state: PodcasterControlState = .toCollection
-    
+    var player: AudioFilePlayer!
     var dataSource: BaseMediaControllerDataSource!
     
     weak var delegate: PlaylistViewControllerDelegate?
@@ -33,7 +33,6 @@ class PlaylistViewController: BaseCollectionViewController {
         super.viewDidLoad()
         reloadData()
         topView.delegate = self
-      //  guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         configureTopView()
         background.frame = view.frame
         view.addSubview(background)
@@ -42,9 +41,11 @@ class PlaylistViewController: BaseCollectionViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         view.sendSubview(toBack: background)
-        collectionView.register(PodcastResultCell.self)
+        collectionView.register(PodcastPlaylistCell.self)
         setupCoordinator()
-        
+        self.player = AudioFilePlayer(url: nil)
+        self.player.delegate = self
+        self.player.observePlayTime()
     }
     
     override func viewWillAppear(_ animated: Bool) {
