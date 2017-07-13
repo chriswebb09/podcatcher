@@ -32,6 +32,7 @@ class PlaylistViewController: BaseCollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         reloadData()
+        topView.delegate = self
       //  guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         configureTopView()
         background.frame = view.frame
@@ -43,6 +44,7 @@ class PlaylistViewController: BaseCollectionViewController {
         view.sendSubview(toBack: background)
         collectionView.register(PodcastResultCell.self)
         setupCoordinator()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {

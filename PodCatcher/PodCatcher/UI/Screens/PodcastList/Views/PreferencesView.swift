@@ -8,7 +8,6 @@ final class PreferencesView: UIView {
     
     var moreMenuButton: UIButton = {
         var moreMenuButton = UIButton()
-        moreMenuButton.isHidden = true
         moreMenuButton.setImage(#imageLiteral(resourceName: "more-button-white"), for: .normal)
         return moreMenuButton
     }()
@@ -33,6 +32,7 @@ final class PreferencesView: UIView {
         moreButton.heightAnchor.constraint(equalTo: heightAnchor, multiplier: PreferencesViewConstants.tagButtonHeightMultiplier).isActive = true
         moreButton.rightAnchor.constraint(equalTo: rightAnchor, constant: PreferencesViewConstants.moreButtonRightOffset).isActive = true
     }
+    
     func moreButton(tapped: Bool) {
         delegate?.moreButton(tapped: tapped)
     }

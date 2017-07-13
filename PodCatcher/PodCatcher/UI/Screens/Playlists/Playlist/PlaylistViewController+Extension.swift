@@ -136,3 +136,26 @@ extension PlaylistViewController: UICollectionViewDelegateFlowLayout {
 }
 
 
+extension PlaylistViewController: TopViewDelegate {
+    func entryPop(popped: Bool) {
+        
+    }
+
+    func popBottomMenu(popped: Bool) {
+        showPopMenu()
+
+    }
+
+    func showPopMenu() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(hidePopMenu))
+        view.addGestureRecognizer(tap)
+        collectionView.addGestureRecognizer(tap)
+        topView.addGestureRecognizer(tap)
+    }
+    
+    func hidePopMenu() {
+       // menuActive = .hidden
+    }
+    
+}
+
