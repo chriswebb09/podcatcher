@@ -137,6 +137,8 @@
 		A76F0D551F17B57500444025 /* SubscribedPodcastCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A76F0D541F17B57500444025 /* SubscribedPodcastCellViewModel.swift */; };
 		A76F0D571F17D21900444025 /* FeedStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A76F0D561F17D21900444025 /* FeedStore.swift */; };
 		A76FA18C1F028BEF006A6127 /* RSSDataParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A76FA18B1F028BEF006A6127 /* RSSDataParser.swift */; };
+		A7701F7E1F181F1A00E30C1F /* PlayerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7701F7D1F181F1A00E30C1F /* PlayerState.swift */; };
+		A7701F801F181F6100E30C1F /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7701F7F1F181F6100E30C1F /* CoreDataStack.swift */; };
 		A771072A1F0D4BBF0042D2E4 /* CreateAccountViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77107281F0D4BBF0042D2E4 /* CreateAccountViewController+Extension.swift */; };
 		A771072B1F0D4BBF0042D2E4 /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77107291F0D4BBF0042D2E4 /* CreateAccountViewController.swift */; };
 		A771072E1F0D4BD20042D2E4 /* CreateAccountViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A771072C1F0D4BD20042D2E4 /* CreateAccountViewControllerDelegate.swift */; };
@@ -442,6 +444,8 @@
 		A76F0D541F17B57500444025 /* SubscribedPodcastCellViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SubscribedPodcastCellViewModel.swift; path = Home/Models/SubscribedPodcastCellViewModel.swift; sourceTree = "<group>"; };
 		A76F0D561F17D21900444025 /* FeedStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedStore.swift; sourceTree = "<group>"; };
 		A76FA18B1F028BEF006A6127 /* RSSDataParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSSDataParser.swift; sourceTree = "<group>"; };
+		A7701F7D1F181F1A00E30C1F /* PlayerState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerState.swift; sourceTree = "<group>"; };
+		A7701F7F1F181F6100E30C1F /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		A77107281F0D4BBF0042D2E4 /* CreateAccountViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CreateAccountViewController+Extension.swift"; path = "PodCatcher/UI/Screens/Start/CreateAccount/Controllers/CreateAccountViewController+Extension.swift"; sourceTree = SOURCE_ROOT; };
 		A77107291F0D4BBF0042D2E4 /* CreateAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CreateAccountViewController.swift; path = PodCatcher/UI/Screens/Start/CreateAccount/Controllers/CreateAccountViewController.swift; sourceTree = SOURCE_ROOT; };
 		A771072C1F0D4BD20042D2E4 /* CreateAccountViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CreateAccountViewControllerDelegate.swift; path = PodCatcher/UI/Screens/Start/CreateAccount/Delegates/CreateAccountViewControllerDelegate.swift; sourceTree = SOURCE_ROOT; };
@@ -654,6 +658,7 @@
 			children = (
 				A7F37B6C1F0DF0C2001B5C8C /* CoreData */,
 				A735715B1F0BE66800A7C39A /* BaseDataStore.swift */,
+				A7701F7F1F181F6100E30C1F /* CoreDataStack.swift */,
 				A76F0D561F17D21900444025 /* FeedStore.swift */,
 				A723B4111F0EB08D00EA6B27 /* PlaylistsCoreDataStack.swift */,
 				A7C620D01F12BA1900A0D33A /* PodcastItemCoreStack.swift */,
@@ -1338,6 +1343,7 @@
 				A76FA18B1F028BEF006A6127 /* RSSDataParser.swift */,
 				A7A762941F13F9A000D2C4FF /* NPRParser.swift */,
 				A7DF73671F1180BC00AAC675 /* Parser.swift */,
+				A7701F7D1F181F1A00E30C1F /* PlayerState.swift */,
 			);
 			path = LocalServices;
 			sourceTree = "<group>";
@@ -2031,6 +2037,7 @@
 				A73DA4231EE89A060053276E /* MenuActive.swift in Sources */,
 				A77EDF801EE6007E001A24E5 /* CollectionViewAttributes.swift in Sources */,
 				A7150EE31EE6563300E3553F /* TabBarConstants.swift in Sources */,
+				A7701F801F181F6100E30C1F /* CoreDataStack.swift in Sources */,
 				A783ECE11EF233F0003E65C0 /* EmptyCastsView.swift in Sources */,
 				A7C620C11F12906200A0D33A /* MainStore.swift in Sources */,
 				A7EBA0BB1EE681F400FAAC9C /* BottomMenuPopover.swift in Sources */,
@@ -2203,6 +2210,7 @@
 				A7BF24291F0D4B43002A87BD /* LoginView.swift in Sources */,
 				A71ADFA01F0E26E200941A43 /* SearchViewControllerDelegate.swift in Sources */,
 				A7EBA0CC1EE683C900FAAC9C /* BallAnimation.swift in Sources */,
+				A7701F7E1F181F1A00E30C1F /* PlayerState.swift in Sources */,
 				A7A99FA81F07254D00BFEA4C /* Colors.swift in Sources */,
 				A7780F3B1F1778C200737DA8 /* HomeDataSource.swift in Sources */,
 				A723B4161F0EB4F000EA6B27 /* PlaylistsViewController+Extension.swift in Sources */,

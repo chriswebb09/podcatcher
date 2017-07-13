@@ -1,14 +1,6 @@
 import UIKit
 import CoreData
 
-//@NSManaged public var feedUrl: String?
-//@NSManaged public var podcastTitle: NSObject?
-//@NSManaged public var episodeCount: Int32
-//@NSManaged public var lastUpdate: NSDate?
-//@NSManaged public var id: String?
-//@NSManaged public var artworkImage: NSData?
-
-
 class FeedCoreDataStack {
     
     var feeds: [NSManagedObject] = []
