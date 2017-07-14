@@ -3,11 +3,11 @@ import UIKit
 final class BrowseViewController: BaseCollectionViewController {
     
     weak var delegate: BrowseViewControllerDelegate?
-    
-    lazy var topCollectionView : UICollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
+
     var currentPlaylistId: String = ""
     var topItems = [CasterSearchResult]()
     var topView = BrowseTopView()
+    var tap: UITapGestureRecognizer!
     var dataSource: HomeCollectionDataSource! {
         didSet {
             viewShown = dataSource.viewShown
@@ -45,23 +45,11 @@ final class BrowseViewController: BaseCollectionViewController {
         view.addSubview(topView)
         view.backgroundColor = .clear
         topView.backgroundColor = .clear
-        topCollectionView.backgroundColor = .red
-        topCollectionView.dataSource = self
-        topCollectionView.register(TopPodcastCell.self)
         view.addSubview(collectionView)
         collectionViewConfiguration()
         collectionView.register(TopPodcastCell.self)
         collectionView.backgroundColor = .darkGray
-        topView.addSubview(topCollectionView)
-        setupBottom()
-        let tap = UITapGestureRecognizer(target: self, action: #selector(selectAt))
-        topView.addGestureRecognizer(tap)
-        DispatchQueue.main.async { [weak self] in
-            if let strongSelf = self {
-                strongSelf.collectionView.reloadData()
-                strongSelf.topCollectionView.reloadData()
-            }
-        }
+        tap = UITapGestureRecognizer(target: self, action: #selector(selectAt))
         DispatchQueue.global(qos: .background).async { [weak self] in
             if let strongSelf = self {
                 strongSelf.topItems = strongSelf.dataSource.items
@@ -69,8 +57,6 @@ final class BrowseViewController: BaseCollectionViewController {
                     strongSelf.dataSource.topStore.fetchFromCore()
                     DispatchQueue.main.async {
                         strongSelf.view.bringSubview(toFront: strongSelf.collectionView)
-                        strongSelf.topView.bringSubview(toFront: strongSelf.topCollectionView)
-                        strongSelf.topCollectionView.reloadData()
                     }
                 }
             }
@@ -80,6 +66,7 @@ final class BrowseViewController: BaseCollectionViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         view.alpha = 0
+        topView.addGestureRecognizer(tap)
         UIView.animate(withDuration: 0.15) {
             self.view.alpha = 1
             self.navigationController?.setNavigationBarHidden(true, animated: false)
@@ -90,8 +77,10 @@ final class BrowseViewController: BaseCollectionViewController {
         switch dataSource.dataType {
         case .local:
             delegate?.didSelect(at: 0)
+            topView.removeGestureRecognizer(tap)
         case .network:
             delegate?.didSelect(at: 0, with: dataSource.items[0])
+            topView.removeGestureRecognizer(tap)
         }
     }
 }

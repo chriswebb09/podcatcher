@@ -2,6 +2,8 @@ import UIKit
 
 class SettingCell: UITableViewCell {
     
+    weak var delegate: SettingCellDelegate?
+    
     static let reuseIdentifier = "SettingCell"
     
     var titleLabel: UILabel = {
@@ -15,9 +17,16 @@ class SettingCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        let tap = UITapGestureRecognizer(target: self, action: #selector(onTap))
+        addGestureRecognizer(tap)
         contentView.layer.borderWidth = 1
         setup(titleLabel: titleLabel)
         selectionStyle = .none
+    }
+    
+    func onTap() {
+        guard let label = titleLabel.text else { return }
+        delegate?.cellTapped(with: label)
     }
     
     func setup(titleLabel: UILabel) {
@@ -28,6 +37,8 @@ class SettingCell: UITableViewCell {
         titleLabel.heightAnchor.constraint(equalTo: contentView.heightAnchor).isActive = true
         titleLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.6).isActive = true
     }
+    
+    
 }
 
 extension SettingCell: Reusable {}
