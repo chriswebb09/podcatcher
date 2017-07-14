@@ -33,6 +33,6 @@ class LoginTestDelegate: LoginViewControllerDelegate {
     }
     
     func navigateBack(tapped: Bool) {
-        
+        XCTAssertTrue(tapped)
     }
 }

@@ -53,5 +53,4 @@ class StartCoordinatorTests: XCTestCase {
         startCoordinator.createAccountSelected()
         XCTAssertNotNil(navigationController.viewControllers[2] as! CreateAccountViewController)
     }
-
 }

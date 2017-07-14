@@ -97,7 +97,6 @@ extension iTunesAPIClient: URLSessionDelegate {
             print(download)
             print(url)
         }
-        
     }
     
     internal func urlSessionDidFinishEvents(forBackgroundURLSession session: URLSession) {

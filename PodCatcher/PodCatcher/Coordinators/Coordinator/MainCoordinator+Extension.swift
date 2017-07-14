@@ -36,7 +36,7 @@ extension MainCoordinator: CoordinatorDelegate {
             try managedContext.save()
         } catch {
             print(error.localizedDescription)
-            //fatalError("Failure to save context: \(error)")
+            fatalError("Failure to save context: \(error)")
         }
     }
     
@@ -63,22 +63,17 @@ extension MainCoordinator: CoordinatorDelegate {
             if let user = dataSource?.user {
                 user.customGenres = ["Test one", "test two"]
             }
-            
             var getData = false
-            
             tabbarController.dataSource = self.dataSource
             self.tabbBarCoordinator = TabBarCoordinator(tabBarController: tabbarController, window: window)
             guard let dataSource = dataSource else { return }
             let homeViewController = HomeViewController(dataSource: dataSource)
             getData = UserDefaults.loadOnAuth()
-            print(getData)
-            //homeViewController.dataSource.dataType = .network
+            
             let homeTab = UINavigationController(rootViewController: homeViewController)
             tabbBarCoordinator.setupHomeCoordinator(navigationController: homeTab, dataSource: dataSource)
             let homeCoord = tabbBarCoordinator.childCoordinators[0] as! HomeTabCoordinator
             homeCoord.delegate = self
-            // homeCoord.setup()
-            
             let playlistsViewController = PlaylistsViewController()
             let playlistsTab = UINavigationController(rootViewController: playlistsViewController)
             tabbBarCoordinator.setupPlaylistsCoordinator(navigationController: playlistsTab, dataSource: dataSource)
@@ -102,7 +97,6 @@ extension MainCoordinator: CoordinatorDelegate {
             let settingsViewController = SettingsViewController()
             let settingsTab = UINavigationController(rootViewController: settingsViewController)
             
-            //  homeViewController.currentPlaylistId = playlistsViewController.currentPlaylistID
             tabbBarCoordinator.setupSettingsCoordinator(navigationController: settingsTab, dataSource: dataSource)
             tabbBarCoordinator.delegate = self
             let settingsCoord = tabbBarCoordinator.childCoordinators[4] as! SettingsTabCoordinator

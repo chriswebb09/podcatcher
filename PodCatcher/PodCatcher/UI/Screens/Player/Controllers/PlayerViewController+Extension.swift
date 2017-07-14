@@ -78,7 +78,6 @@ extension PlayerViewController: PlayerViewDelegate {
     func pauseButtonTapped() {
         player.pause()
         delegate?.pauseButton(tapped: true)
-        UpdateData.update(Int(player.currentTime))
     }
     
     func playButtonTapped() {

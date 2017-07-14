@@ -45,7 +45,6 @@ final class PodcastPlaylistCell: UICollectionViewCell {
         pauseButton.isHidden = true 
         layer.podcastCell(viewRadius: contentView.layer.cornerRadius + 10)
         contentView.layer.setCellShadow(contentView: contentView)
-       
     }
     
     func configureCell(model: PodcastCellViewModel) {
@@ -78,11 +77,9 @@ final class PodcastPlaylistCell: UICollectionViewCell {
     func buttonConstraint(button: UIButton) {
         contentView.addSubview(button)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.13).isActive = true
-        button.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.6).isActive = true
-        button.centerXAnchor.constraint(equalTo: centerXAnchor, constant: contentView.bounds.width * 0.35).isActive = true
-      //  button.rightAnchor.constraint(equalTo: rightAnchor, constant: -0.1).isActive = true
+        button.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.1).isActive = true
+        button.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.5).isActive = true
+        button.centerXAnchor.constraint(equalTo: centerXAnchor, constant: contentView.bounds.width * 0.38).isActive = true
         button.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
     }
-
 }

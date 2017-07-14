@@ -156,7 +156,6 @@ extension PlaylistViewController: TopViewDelegate {
     
     func popBottomMenu(popped: Bool) {
         showPopMenu()
-        
     }
     
     func showPopMenu() {
@@ -172,15 +171,16 @@ extension PlaylistViewController: TopViewDelegate {
 }
 
 extension PlaylistViewController: AudioFilePlayerDelegate {
+    
     func trackFinishedPlaying() {
-        
+        print("finished")
     }
     
     func trackDurationCalculated(stringTime: String, timeValue: Float64) {
-        
+        print(stringTime)
     }
     
     func updateProgress(progress: Double) {
-        
+        print(progress)
     }
 }
