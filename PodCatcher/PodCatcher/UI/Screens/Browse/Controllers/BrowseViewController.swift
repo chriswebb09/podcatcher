@@ -40,7 +40,7 @@ final class BrowseViewController: BaseCollectionViewController {
         super.viewDidLoad()
         let topFrameHeight = UIScreen.main.bounds.height / 2
         let topFrameWidth = UIScreen.main.bounds.width
-        let topFrame = CGRect(x: 0, y: 0, width: topFrameWidth, height: topFrameHeight)
+        let topFrame = CGRect(x: 0, y: 0, width: topFrameWidth, height: topFrameHeight + 40)
         topView.frame = topFrame
         view.addSubview(topView)
         view.backgroundColor = .clear
@@ -82,6 +82,7 @@ final class BrowseViewController: BaseCollectionViewController {
         view.alpha = 0
         UIView.animate(withDuration: 0.15) {
             self.view.alpha = 1
+            self.navigationController?.setNavigationBarHidden(true, animated: false)
         }
     }
     

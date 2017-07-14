@@ -4,7 +4,7 @@ class SearchResultListViewController: BaseCollectionViewController {
     
     var item: CasterSearchResult!
     var state: PodcasterControlState = .toCollection
-    
+    var searchResults = ConfirmationIndicatorView()
     var dataSource: BaseMediaControllerDataSource!
     
     weak var delegate: PodcastListViewControllerDelegate?
@@ -53,33 +53,50 @@ class SearchResultListViewController: BaseCollectionViewController {
         super.viewWillAppear(false)
         collectionView.alpha = 1
         let backImage = #imageLiteral(resourceName: "back").withRenderingMode(.alwaysTemplate)
-        self.navigationController?.navigationBar.backIndicatorImage = backImage
-        self.navigationController?.navigationBar.backIndicatorTransitionMaskImage = backImage
-        self.navigationController?.navigationBar.backItem?.title = ""
+        navigationController?.navigationBar.backIndicatorImage = backImage
+        navigationController?.navigationBar.backIndicatorTransitionMaskImage = backImage
         navigationController?.setNavigationBarHidden(false, animated: false)
         navigationController?.navigationBar.alpha = 1
         rightButtonItem = UIBarButtonItem(title: "Subscribe", style: .plain, target: self, action: #selector(subscribeToFeed))
         navigationItem.setRightBarButton(rightButtonItem, animated: false)
         rightButtonItem.tintColor = .white
         topView.preferencesView.moreMenuButton.isHidden = true
+        navigationController?.navigationBar.backItem?.title = ""
     }
     
-    func subscribeToFeed() {
+    func saveFeed() {
         let feedStore = FeedCoreDataStack()
         guard let title = item.podcastTitle else { return }
         guard let image = topView.podcastImageView.image else { return }
         feedStore.save(feedUrl: item.feedUrlString, podcastTitle: title, episodeCount: episodes.count, lastUpdate: NSDate(), image: image)
     }
     
+    func subscribeToFeed() {
+        saveFeed()
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: 0.7) {
+                self.searchResults.showActivityIndicator(viewController: self)
+                UIView.animate(withDuration: 0.5) {
+                    self.searchResults.loadingView.alpha = 0
+                }
+            }
+        }
+        self.searchResults.hideActivityIndicator(viewController: self)
+    }
+    
     func navigateBack() {
-        navigationController?.popViewController(animated: false)
+        self.collectionView.alpha = 0
+        self.dismiss(animated: false, completion: nil)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
+        super.viewDidDisappear(false)
         switch state {
         case .toCollection:
-            navigationController?.popViewController(animated: false)
+            self.topView.alpha = 0
+            self.topView.podcastImageView.alpha = 0
+            self.view.alpha = 0
+            self.dismiss(animated: false, completion: nil)
         case .toPlayer:
             break
         }

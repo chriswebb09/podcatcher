@@ -43,6 +43,7 @@ final class PlayerViewController: BaseViewController {
         playerView.delegate = self
         view.addView(view: playerView, type: .full)
         self.playerView.hidePause()
+        self.playerView.artistLabel.text = caster.podcastArtist
     }
     
     required init?(coder aDecoder: NSCoder) {

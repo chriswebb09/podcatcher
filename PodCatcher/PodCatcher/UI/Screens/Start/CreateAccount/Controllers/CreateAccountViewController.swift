@@ -5,6 +5,7 @@ class CreateAccountViewController: UIViewController {
     weak var delegate: CreateAccountViewControllerDelegate?
     
     let createAccountView = CreateAccountView()
+    let downloadIndicator = DownloaderIndicatorView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -14,7 +15,6 @@ class CreateAccountViewController: UIViewController {
         view = createAccountView
         view.layoutSubviews()
         title = "Create Account"
-       // navigationController?.navigationBar.isHidden = false
         navigationController?.navigationBar.isTranslucent = true
     }
     

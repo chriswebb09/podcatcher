@@ -15,6 +15,7 @@ extension CreateAccountView: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         endEditing(true)
     }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         endEditing(true)
         return true

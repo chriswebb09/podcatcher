@@ -34,6 +34,10 @@ final class PlaylistsViewController: BaseTableViewController {
         navigationItem.setRightBarButton(rightButtonItem, animated: false)
         reloadData()
     }
+    
+    func swipeFunc() {
+        print("swipe")
+    }
 }
 
 extension PlaylistsViewController: ReloadableTable, UITableViewDataSource {
@@ -51,6 +55,8 @@ extension PlaylistsViewController: ReloadableTable, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as PlaylistCell
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(swipeFunc))
+        swipeRight.direction = .left
         if let art = fetchedResultsController.object(at: indexPath).artwork {
             let image = UIImage(data: art as Data)
             cell.albumArtView.image = image
@@ -60,6 +66,7 @@ extension PlaylistsViewController: ReloadableTable, UITableViewDataSource {
         let text = fetchedResultsController.object(at: indexPath).playlistName
         cell.titleLabel.text = text?.uppercased()
         cell.numberOfItemsLabel.text = "Podcasts"
+        cell.addGestureRecognizer(swipeRight)
         return cell
     }
 }

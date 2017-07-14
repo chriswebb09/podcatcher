@@ -51,7 +51,7 @@ class HomeViewController: BaseCollectionViewController {
         reloadData()
         collectionViewConfiguration()
         setupCollectionView(view: view, newLayout: HomeItemsFlowLayout())
-        navigationController?.navigationBar.topItem?.title = "Subscribed Podcasts"
+      //  navigationController?.navigationBar.topItem?.title = "Subscribed Podcasts"
         collectionView.delegate = self
         collectionView.register(SubscribedPodcastCell.self)
         collectionView.dataSource = self
@@ -68,6 +68,7 @@ class HomeViewController: BaseCollectionViewController {
         super.viewWillAppear(animated)
         reloadData()
         tabBarController?.tabBar.isHidden = false
+        navigationController?.navigationBar.topItem?.title = "Subscribed Podcasts"
     }
     
     func setup(with newLayout: HomeItemsFlowLayout) {
@@ -84,5 +85,6 @@ class HomeViewController: BaseCollectionViewController {
     func changeMode() {
         mode = mode == .edit ? .subscription : .edit
         rightButtonItem.title = mode == .edit ? "Done" : "Edit"
+       // navigationController?.navigationBar.topItem?.title = "Subscribed Podcasts"
     }
 }

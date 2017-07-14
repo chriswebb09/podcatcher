@@ -24,7 +24,7 @@ final internal class TopPodcastCell: UICollectionViewCell {
     
     var trackNameLabel: UILabel = {
         var trackName = UILabel()
-        trackName.font = UIFont.systemFont(ofSize: 12, weight: UIFontWeightMedium)
+        trackName.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightRegular)
         trackName.textAlignment = .center
         trackName.numberOfLines = 0
         return trackName
@@ -65,9 +65,9 @@ final internal class TopPodcastCell: UICollectionViewCell {
     private func setup(albumArtView: UIImageView) {
         contentView.addSubview(albumArtView)
         albumArtView.translatesAutoresizingMaskIntoConstraints = false
-        albumArtView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: contentView.frame.height * -0.1).isActive =  true
+        albumArtView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: contentView.frame.height * -0.11).isActive =  true
         albumArtView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-        albumArtView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.5).isActive = true
+        albumArtView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.6).isActive = true
         albumArtView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.8).isActive = true
     }
     

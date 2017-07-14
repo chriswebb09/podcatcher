@@ -49,6 +49,17 @@ final class CreateAccountView: UIView {
         return button
     }()
     
+    var loginFacebookButton: UIButton = {
+        let button = UIButton()
+        let buttonImage = #imageLiteral(resourceName: "button-background").withRenderingMode(.alwaysTemplate)
+        button.setTitle("SIGN UP WITH FACEBOOK", for: .normal)
+        button.imageView?.tintColor = UIColor(red:0.23, green:0.35, blue:0.60, alpha:1.0)
+        button.imageView?.alpha = 0.3
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightMedium)
+        button.setBackgroundImage(buttonImage, for: .normal)
+        return button
+    }()
+    
     // MARK: - Configuration Methods
     
     override func layoutSubviews() {
@@ -74,9 +85,11 @@ final class CreateAccountView: UIView {
         setup(confirmEmailField: confirmEmailField)
         setup(passwordField: passwordField)
         setup(submitButton: submitButton)
+        setup(loginFacebookButton: loginFacebookButton)
         submitButton.layer.cornerRadius = 10
         navigateBackButton.addTarget(self, action: #selector(navigateBack), for: .touchUpInside)
         submitButton.addTarget(self, action: #selector(submitButtonTapped), for: .touchUpInside)
+        loginFacebookButton.addTarget(self, action: #selector(signUpWithFacebookTapped), for: .touchUpInside)
     }
     
     func configure(model: LoginViewModel) {
@@ -93,17 +106,17 @@ final class CreateAccountView: UIView {
     
     private func setup(emailField: UITextField) {
         sharedLayout(view: emailField)
-        emailField.topAnchor.constraint(equalTo: topAnchor, constant: UIScreen.main.bounds.height * 0.14).isActive = true
+        emailField.topAnchor.constraint(equalTo: topAnchor, constant: UIScreen.main.bounds.height * 0.12).isActive = true
     }
     
     private func setup(confirmEmailField: UITextField) {
         sharedLayout(view: confirmEmailField)
-        confirmEmailField.topAnchor.constraint(equalTo: emailField.bottomAnchor, constant: UIScreen.main.bounds.height * 0.08).isActive = true
+        confirmEmailField.topAnchor.constraint(equalTo: emailField.bottomAnchor, constant: UIScreen.main.bounds.height * 0.06).isActive = true
     }
     
     private func setup(passwordField: UITextField) {
         sharedLayout(view: passwordField)
-        passwordField.topAnchor.constraint(equalTo: confirmEmailField.bottomAnchor, constant: UIScreen.main.bounds.height * 0.08).isActive = true
+        passwordField.topAnchor.constraint(equalTo: confirmEmailField.bottomAnchor, constant: UIScreen.main.bounds.height * 0.06).isActive = true
     }
     
     private func setup(submitButton: UIButton) {
@@ -112,11 +125,19 @@ final class CreateAccountView: UIView {
         submitButton.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         submitButton.heightAnchor.constraint(equalTo: heightAnchor, multiplier: LoginViewConstants.sharedLayoutHeightMultiplier).isActive = true
         submitButton.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
-        submitButton.topAnchor.constraint(equalTo: passwordField.bottomAnchor, constant: LoginViewConstants.submitButtonTopOffset).isActive = true
+        submitButton.topAnchor.constraint(equalTo: passwordField.bottomAnchor, constant: UIScreen.main.bounds.height * 0.12).isActive = true
+    }
+    
+    private func setup(loginFacebookButton: UIButton) {
+        addSubview(loginFacebookButton)
+        loginFacebookButton.translatesAutoresizingMaskIntoConstraints = false
+        loginFacebookButton.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        loginFacebookButton.heightAnchor.constraint(equalTo: heightAnchor, multiplier: LoginViewConstants.sharedLayoutHeightMultiplier).isActive = true
+        loginFacebookButton.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
+        loginFacebookButton.topAnchor.constraint(equalTo: submitButton.bottomAnchor, constant: LoginViewConstants.facebookButtonTopOffset - 60).isActive = true
     }
     
     func submitButtonTapped() {
-        //guard let email = emailField.text, let password = passwordField.text else { return }
         delegate?.submitButton(tapped: true)
     }
     
@@ -140,5 +161,9 @@ final class CreateAccountView: UIView {
     
     func navigateBack() {
         delegate?.navigateBack(tapped: true)
+    }
+    
+    func signUpWithFacebookTapped() {
+        delegate?.signupWithFacebook(tapped: true)
     }
 }

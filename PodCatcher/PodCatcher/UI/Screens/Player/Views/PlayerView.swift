@@ -38,6 +38,16 @@ final class PlayerView: UIView {
         return backButton
     }()
     
+   var artistLabel: UILabel = {
+        let artist = UILabel()
+        artist.textColor = .white
+        artist.numberOfLines = 0
+        artist.textAlignment = .center
+        artist.sizeToFit()
+        artist.font = UIFont.systemFont(ofSize: 16, weight: UIFontWeightMedium)
+        return artist
+    }()
+    
     private var titleLabel: UILabel = {
         let title = UILabel()
         title.textColor = .white
@@ -197,6 +207,15 @@ final class PlayerView: UIView {
         navigationButton.widthAnchor.constraint(equalTo: navBar.widthAnchor, multiplier: 0.12).isActive = true
     }
     
+    func setup(artistLabel: UILabel) {
+        navBar.addSubview(artistLabel)
+        artistLabel.translatesAutoresizingMaskIntoConstraints = false
+        artistLabel.centerXAnchor.constraint(equalTo: navBar.centerXAnchor).isActive = true
+        artistLabel.centerYAnchor.constraint(equalTo: navBar.centerYAnchor).isActive = true
+        artistLabel.heightAnchor.constraint(equalTo: navBar.heightAnchor).isActive = true
+        artistLabel.widthAnchor.constraint(equalTo: navBar.widthAnchor, multiplier: 0.78).isActive = true
+    }
+    
     private func setup(titleView: UIView) {
         sharedLayout(view: titleView)
         titleView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: PlayerViewConstants.trackTitleViewHeightMultiplier).isActive = true
@@ -324,6 +343,7 @@ final class PlayerView: UIView {
         setup(titleView: titleView)
         setup(navBar: navBar)
         setup(navigationButton: navigateBackButton)
+        setup(artistLabel: artistLabel)
         setup(titleLabel: titleLabel)
         setup(albumView: albumView)
         setup(albumImageView: albumImageView)
