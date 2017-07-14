@@ -5,6 +5,7 @@ import Firebase
 // MARK: - CreateAccountViewDelegate
 
 extension CreateAccountViewController: CreateAccountViewDelegate {
+    
     func signupWithFacebook(tapped: Bool) {
         let fbLoginManager = FBSDKLoginManager()
         fbLoginManager.logIn(withReadPermissions: ["public_profile", "email"], from: self) { result, error in
@@ -24,15 +25,13 @@ extension CreateAccountViewController: CreateAccountViewDelegate {
                     return
                 } else {
                     if let user = user {
-                        self.delegate?.submitButton(tapped: tapped)
-//                        let podUser = PodCatcherUser(username: user.displayName ?? "unknown", emailAddress: user.email ?? "unknown")
-//                        self.delegate?.successfulLogin(for: podUser)
+                        let podUser = PodCatcherUser(username: user.displayName ?? "unknown", emailAddress: user.email ?? "unknown")
+                        self.delegate?.successfulLogin(for: podUser)
                     }
                 }
             }
         }
     }
-
     
     func submitButton(tapped: Bool) {
         delegate?.submitButton(tapped: tapped)
