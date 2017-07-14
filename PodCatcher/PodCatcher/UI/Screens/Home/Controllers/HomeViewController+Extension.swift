@@ -15,18 +15,14 @@ extension HomeViewController: UICollectionViewDelegate {
             caster.feedUrl = item.feedUrl
             delegate?.didSelect(at: indexPath.row, with: item)
         case .edit:
-            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-                return
-            }
+            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
             let context = appDelegate.persistentContainer.viewContext
             context.delete(fetchedResultsController.object(at: indexPath))
             reloadData()
             do {
                 try context.save()
             } catch let error {
-                let fetchError = error as NSError
-                print("Unable to Perform Fetch Request")
-                print("\(fetchError), \(fetchError.localizedDescription)")
+                print("Unable to Perform Fetch Request \(error), \(error.localizedDescription)")
             }
             if let count = fetchedResultsController.fetchedObjects?.count {
                 if count == 0 {
@@ -69,15 +65,12 @@ extension HomeViewController: NSFetchedResultsControllerDelegate {
     func setupCoordinator() {
         persistentContainer.loadPersistentStores { persistentStoreDescription, error in
             if let error = error {
-                print("Unable to Load Persistent Store")
-                print("\(error), \(error.localizedDescription)")
+                print("Unable to Perform Fetch Request \(error), \(error.localizedDescription)")
             } else {
                 do {
                     try self.fetchedResultsController.performFetch()
                 } catch let error {
-                    let fetchError = error as NSError
-                    print("Unable to Perform Fetch Request")
-                    print("\(fetchError), \(fetchError.localizedDescription)")
+                    print("Unable to Perform Fetch Request \(error), \(error.localizedDescription)")
                 }
             }
         }
@@ -101,7 +94,7 @@ extension HomeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as SubscribedPodcastCell
         let item = fetchedResultsController.object(at: indexPath)
-        if let image = UIImage(data: item.artworkImage! as Data) {
+        if let imageData = item.artworkImage, let image = UIImage(data: imageData as Data) {
             let model = SubscribedPodcastCellViewModel(trackName: item.podcastTitle as! String, albumImageURL: image)
             DispatchQueue.main.async {
                 cell.configureCell(with: model, withTime: 0)
