@@ -54,6 +54,8 @@ final class BrowseViewController: BaseCollectionViewController {
         collectionView.backgroundColor = .darkGray
         topView.addSubview(topCollectionView)
         setupBottom()
+        let tap = UITapGestureRecognizer(target: self, action: #selector(selectAt))
+        topView.addGestureRecognizer(tap)
         DispatchQueue.main.async {
             self.collectionView.reloadData()
             self.topCollectionView.reloadData()
@@ -76,6 +78,15 @@ final class BrowseViewController: BaseCollectionViewController {
         view.alpha = 0
         UIView.animate(withDuration: 0.15) {
             self.view.alpha = 1
+        }
+    }
+    
+    func selectAt() {
+        switch dataSource.dataType {
+        case .local:
+            delegate?.didSelect(at: 0)
+        case .network:
+            delegate?.didSelect(at: 0, with: dataSource.items[0])
         }
     }
 }
