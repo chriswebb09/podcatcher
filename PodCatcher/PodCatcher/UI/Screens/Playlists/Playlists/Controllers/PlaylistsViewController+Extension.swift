@@ -8,19 +8,23 @@ extension PlaylistsViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let text = fetchedResultsController.object(at: indexPath).playlistId else { return }
-        switch reference {
-        case .addPodcast:
-            reference = .checkList
-            DispatchQueue.main.async {
-                self.reloadData()
+        switch mode {
+        case .edit:
+            break
+        case .add:
+            guard let text = fetchedResultsController.object(at: indexPath).playlistId else { return }
+            switch reference {
+            case .addPodcast:
+                reference = .checkList
+                DispatchQueue.main.async {
+                    self.reloadData()
+                }
+                delegate?.didAssignPlaylist(with: text)
+            case .checkList:
+                let playlist = PlaylistViewController(index: 0)
+                playlist.playlistId = text
+                navigationController?.pushViewController(playlist, animated: false)
             }
-            delegate?.didAssignPlaylist(with: text)
-            
-        case .checkList:
-            let playlist = PlaylistViewController(index: 0)
-            playlist.playlistId = text
-            navigationController?.pushViewController(playlist, animated: false)
         }
     }
 }

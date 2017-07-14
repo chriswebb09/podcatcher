@@ -85,6 +85,9 @@ extension PlaylistViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let items = fetchedResultsController.fetchedObjects else { return }
         guard let audio = items[indexPath.row].audioUrl, let audioUrl = URL(string: audio), let artUrl = items[indexPath.row].artworkUrl, let url = URL(string: artUrl) else { return }
+        topView.podcastImageView.downloadImage(url: url)
+        self.player.setUrl(with: audioUrl)
+        self.player.playNext()
         switch player.state {
         case .playing:
             player.pause()
@@ -107,10 +110,6 @@ extension PlaylistViewController: UICollectionViewDelegate {
             player.state = .playing
             let cell = collectionView.cellForItem(at: indexPath) as! PodcastPlaylistCell
             cell.switchAlpha(hidden: false)
-        default:
-            topView.podcastImageView.downloadImage(url: url)
-            self.player.setUrl(with: audioUrl)
-            self.player.playNext()
         }
     }
 }
@@ -127,8 +126,9 @@ extension PlaylistViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as PodcastPlaylistCell
         let item = fetchedResultsController.object(at: indexPath)
         DispatchQueue.main.async {
-            if let title = item.episodeTitle {
-                let model = PodcastCellViewModel(podcastTitle: title)
+            if let title = item.episodeTitle, let artist = item.artistName {
+                let modelName = "\(title)  -  \(artist)"
+                let model = PodcastCellViewModel(podcastTitle: modelName)
                 cell.configureCell(model: model)
             }
         }

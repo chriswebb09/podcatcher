@@ -1,6 +1,10 @@
 import UIKit
 import CoreData
 
+enum PlaylistsInteractionMode {
+    case add, edit
+}
+
 final class PlaylistsViewController: BaseTableViewController {
     
     weak var delegate: PlaylistsViewControllerDelegate?
@@ -8,6 +12,7 @@ final class PlaylistsViewController: BaseTableViewController {
     var playlistDataStack = PlaylistsCoreDataStack()
     var currentPlaylistID: String = ""
     var entryPop: EntryPopover!
+    var mode: PlaylistsInteractionMode = .add
     var index: Int!
     var item: CasterSearchResult!
     var addItemToPlaylist: PodcastPlaylistItem?
