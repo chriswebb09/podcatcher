@@ -14,7 +14,7 @@ class HomeViewController: BaseCollectionViewController {
     var items = [Subscription]()
     var fetchedResultsController:NSFetchedResultsController<Subscription>!
     let persistentContainer = NSPersistentContainer(name: "PodCatcher")
-   
+    
     // MARK: - UI Properties
     
     var buttonItem: UIBarButtonItem!
@@ -51,7 +51,6 @@ class HomeViewController: BaseCollectionViewController {
         reloadData()
         collectionViewConfiguration()
         setupCollectionView(view: view, newLayout: HomeItemsFlowLayout())
-      //  navigationController?.navigationBar.topItem?.title = "Subscribed Podcasts"
         collectionView.delegate = self
         collectionView.register(SubscribedPodcastCell.self)
         collectionView.dataSource = self
@@ -59,9 +58,7 @@ class HomeViewController: BaseCollectionViewController {
         guard let background = collectionView.backgroundView else { return }
         CALayer.createGradientLayer(with: [UIColor.gray.cgColor, UIColor.darkGray.cgColor], layer: background.layer, bounds: collectionView.bounds)
         rightButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(changeMode))
-        
         rightButtonItem.tintColor = .white
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -85,6 +82,5 @@ class HomeViewController: BaseCollectionViewController {
     func changeMode() {
         mode = mode == .edit ? .subscription : .edit
         rightButtonItem.title = mode == .edit ? "Done" : "Edit"
-       // navigationController?.navigationBar.topItem?.title = "Subscribed Podcasts"
     }
 }
