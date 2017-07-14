@@ -17,8 +17,6 @@ class HomeViewController: BaseCollectionViewController {
     
     // MARK: - UI Properties
     
-    var buttonItem: UIBarButtonItem!
-    
     var viewShown: ShowView {
         didSet {
             switch viewShown {
