@@ -11,7 +11,7 @@ class PlaylistsCoreDataStack {
         }
         
         let managedContext = appDelegate.coreData.managedContext
-        let entity = NSEntityDescription.entity(forEntityName: "PodcastPlaylist", in: managedContext)!
+        guard let entity = NSEntityDescription.entity(forEntityName: "PodcastPlaylist", in: managedContext) else { return }
         let playlist = NSManagedObject(entity: entity, insertInto: managedContext)
         let id = UUID().uuidString
         let date = NSDate()

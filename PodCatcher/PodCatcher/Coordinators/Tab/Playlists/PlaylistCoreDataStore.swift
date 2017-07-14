@@ -15,7 +15,8 @@ class PlaylistCoreData {
                 var currentPlaylistItem: PodcastPlaylistItem?
                 let managedContext = appDelegate.coreData.managedContext
                 let podcastPlaylistItemFetch: NSFetchRequest<PodcastPlaylistItem> = PodcastPlaylistItem.fetchRequest()
-                podcastPlaylistItemFetch.predicate = NSPredicate(format: "%K == %@", #keyPath(PodcastPlaylistItem.playlistId), item.playlistId!)
+                guard let id = item.playlistId else { return }
+                podcastPlaylistItemFetch.predicate = NSPredicate(format: "%K == %@", #keyPath(PodcastPlaylistItem.playlistId), id)
                 do {
                     let results = try managedContext.fetch(podcastPlaylistItemFetch)
                     if results.count > 0 {

@@ -20,7 +20,8 @@ struct SearchResultsFetcher {
                 guard let data = data else { return }
                 let resultsData = data["results"] as? [[String: Any]?]?
                 DispatchQueue.main.async {
-                    completion(resultsData!, nil)
+                    guard let resultsData = resultsData else { return }
+                    completion(resultsData, nil)
                 }
             case .failed(let error):
                 completion(nil, error)

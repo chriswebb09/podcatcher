@@ -11,7 +11,7 @@ class PodcastItemCoreDataStack {
         }
         
         let managedContext = appDelegate.coreData.managedContext
-        let entity = NSEntityDescription.entity(forEntityName: "PodcastPlaylistItem", in: managedContext)!
+        guard let entity = NSEntityDescription.entity(forEntityName: "PodcastPlaylistItem", in: managedContext) else { return }
         let podcast = NSManagedObject(entity: entity, insertInto: managedContext)
         podcast.setValue(image, forKey: "artwork")
         podcast.setValue(audioUrlString, forKey: "audioUrl")
