@@ -10,7 +10,10 @@ extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch mode {
         case .subscription:
-            break
+            let item = fetchedResultsController.object(at: indexPath)
+            var caster = CasterSearchResult()
+            caster.feedUrl = item.feedUrl
+            delegate?.didSelect(at: indexPath.row, with: item)
         case .edit:
             guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
                 return
@@ -64,7 +67,7 @@ extension HomeViewController: NSFetchedResultsControllerDelegate {
     }
     
     func setupCoordinator() {
-        persistentContainer.loadPersistentStores { (persistentStoreDescription, error) in
+        persistentContainer.loadPersistentStores { persistentStoreDescription, error in
             if let error = error {
                 print("Unable to Load Persistent Store")
                 print("\(error), \(error.localizedDescription)")
@@ -87,6 +90,9 @@ extension HomeViewController: UICollectionViewDataSource {
         if let itemNumber = fetchedResultsController.sections?[section].numberOfObjects {
             if itemNumber > 0 {
                 viewShown = .collection
+                navigationItem.setRightBarButton(rightButtonItem, animated: false)
+            } else if itemNumber == 0 {
+                self.navigationItem.rightBarButtonItem = nil
             }
         }
         return fetchedResultsController.sections?[section].numberOfObjects ?? 0
@@ -100,7 +106,6 @@ extension HomeViewController: UICollectionViewDataSource {
             DispatchQueue.main.async {
                 cell.configureCell(with: model, withTime: 0)
             }
-            
         }
         return cell
     }

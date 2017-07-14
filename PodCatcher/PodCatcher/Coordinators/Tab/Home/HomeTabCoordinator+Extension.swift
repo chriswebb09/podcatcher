@@ -30,6 +30,30 @@ extension HomeTabCoordinator: HomeViewControllerDelegate {
         }
     }
     
+    func didSelect(at index: Int, with subscription: Subscription) {
+        let resultsList = SearchResultListViewController(index: index)
+        resultsList.delegate = self
+        resultsList.dataSource = dataSource
+        resultsList.dataSource.user = dataSource.user
+       // resultsList.item = caster as! CasterSearchResult
+        
+        guard let feedUrlString = subscription.feedUrl else { return }
+        resultsList.topView.podcastImageView.image = UIImage(data: subscription.artworkImage as! Data)
+       // guard let feedUrlString = resultsList.item.feedUrl else { return }
+        dump(resultsList.item)
+        let store = SearchResultsDataStore()
+        store.pullFeed(for: feedUrlString) { response in
+            guard let episodes = response.0 else {
+                return
+            }
+            DispatchQueue.main.async {
+                resultsList.episodes = episodes
+                resultsList.collectionView.reloadData()
+                self.navigationController.viewControllers.append(resultsList)
+            }
+        }
+    }
+    
     func didSelect(at index: Int) {
 
     }

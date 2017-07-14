@@ -59,7 +59,7 @@ class HomeViewController: BaseCollectionViewController {
         guard let background = collectionView.backgroundView else { return }
         CALayer.createGradientLayer(with: [UIColor.gray.cgColor, UIColor.darkGray.cgColor], layer: background.layer, bounds: collectionView.bounds)
         rightButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(changeMode))
-        navigationItem.setRightBarButton(rightButtonItem, animated: false)
+        
         rightButtonItem.tintColor = .white
 
     }
