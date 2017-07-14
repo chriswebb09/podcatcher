@@ -56,18 +56,22 @@ final class BrowseViewController: BaseCollectionViewController {
         setupBottom()
         let tap = UITapGestureRecognizer(target: self, action: #selector(selectAt))
         topView.addGestureRecognizer(tap)
-        DispatchQueue.main.async {
-            self.collectionView.reloadData()
-            self.topCollectionView.reloadData()
+        DispatchQueue.main.async { [weak self] in
+            if let strongSelf = self {
+                strongSelf.collectionView.reloadData()
+                strongSelf.topCollectionView.reloadData()
+            }
         }
-        DispatchQueue.global(qos: .background).async {
-            self.topItems = self.dataSource.items
-            if self.dataSource.dataType == .local {
-                self.dataSource.topStore.fetchFromCore()
-                DispatchQueue.main.async {
-                    self.view.bringSubview(toFront: self.collectionView)
-                    self.topView.bringSubview(toFront: self.topCollectionView)
-                    self.topCollectionView.reloadData()
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            if let strongSelf = self {
+                strongSelf.topItems = strongSelf.dataSource.items
+                if strongSelf.dataSource.dataType == .local {
+                    strongSelf.dataSource.topStore.fetchFromCore()
+                    DispatchQueue.main.async {
+                        strongSelf.view.bringSubview(toFront: strongSelf.collectionView)
+                        strongSelf.topView.bringSubview(toFront: strongSelf.topCollectionView)
+                        strongSelf.topCollectionView.reloadData()
+                    }
                 }
             }
         }
