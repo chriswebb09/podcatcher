@@ -62,7 +62,7 @@ final class CreateAccountView: UIView {
         let passwordField = self.passwordField as! UnderlineTextField
         emailField.setupEmailField()
         emailField.setup()
-        confirmEmailField.setupEmailField()
+        confirmEmailField.setupConfirmEmailField()
         confirmEmailField.setup()
         passwordField.setupPasswordField()
         passwordField.setup()
@@ -93,17 +93,17 @@ final class CreateAccountView: UIView {
     
     private func setup(emailField: UITextField) {
         sharedLayout(view: emailField)
-        emailField.topAnchor.constraint(equalTo: topAnchor, constant: UIScreen.main.bounds.height * 0.15).isActive = true
+        emailField.topAnchor.constraint(equalTo: topAnchor, constant: UIScreen.main.bounds.height * 0.14).isActive = true
     }
     
     private func setup(confirmEmailField: UITextField) {
         sharedLayout(view: confirmEmailField)
-        confirmEmailField.topAnchor.constraint(equalTo: emailField.bottomAnchor, constant: UIScreen.main.bounds.height * 0.045).isActive = true
+        confirmEmailField.topAnchor.constraint(equalTo: emailField.bottomAnchor, constant: UIScreen.main.bounds.height * 0.08).isActive = true
     }
     
     private func setup(passwordField: UITextField) {
         sharedLayout(view: passwordField)
-        passwordField.topAnchor.constraint(equalTo: confirmEmailField.bottomAnchor, constant: UIScreen.main.bounds.height * 0.045).isActive = true
+        passwordField.topAnchor.constraint(equalTo: confirmEmailField.bottomAnchor, constant: UIScreen.main.bounds.height * 0.08).isActive = true
     }
     
     private func setup(submitButton: UIButton) {

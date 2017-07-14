@@ -33,7 +33,6 @@ enum URLRouter {
     }
 }
 
-
 enum URLPath {
     case podcastAuth(searchTerm: String), keyTerm(searchTerm: String)
 }

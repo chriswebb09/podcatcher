@@ -94,6 +94,20 @@ extension UnderlineTextField {
         setup()
     }
     
+    func setupConfirmEmailField() {
+        setupField(with: .white, tintColor: .white)
+        setLeftView(with: #imageLiteral(resourceName: "letter-2"), and: .white)
+        setPlaceholder(with: "CONFIRM EMAIL", and: UIFont.systemFont(ofSize: 14, weight: UIFontWeightThin))
+        if let text = text {
+            let attributedString = NSMutableAttributedString(string: text.lowercased())
+            attributedString.addAttribute(NSKernAttributeName, value: CGFloat(1.0), range: NSRange(location: 0, length: attributedString.length))
+            attributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor.white , range: NSRange(location: 0, length: attributedString.length))
+            attributedText = attributedString
+        }
+        accessibilityLabel = "confirm-email-field"
+        setup()
+    }
+    
     func setupUserField() {
         setupField(with: .white, tintColor: .white)
         setLeftView(with: #imageLiteral(resourceName: "user"), and: .white)

@@ -9,8 +9,8 @@ final class EntryView: UIView {
         entryField.layer.borderColor = DetailViewConstants.mainColor.cgColor
         entryField.layer.cornerRadius = DetailViewConstants.largeCornerRadius
         entryField.layer.borderWidth = DetailViewConstants.borderWidth
-        entryField.placeholder = "Add a new tag!"
-        entryField.font = UIFont(name: "AvenirNext-Regular", size: 20)!
+        entryField.placeholder = "Create a new playlist!"
+        entryField.font = UIFont.systemFont(ofSize: 20, weight: UIFontWeightThin)
         return entryField
     }()
     
@@ -19,7 +19,7 @@ final class EntryView: UIView {
         titleLabel.backgroundColor = DetailViewConstants.mainColor
         titleLabel.textColor = .white
         titleLabel.textAlignment = .center
-        titleLabel.font = DetailViewConstants.titleFont
+        titleLabel.font =  UIFont.systemFont(ofSize: 20, weight: UIFontWeightRegular)
         return titleLabel
     }()
     
@@ -39,8 +39,8 @@ final class EntryView: UIView {
         button.setTitle("Done", for: .normal)
         button.layer.borderColor = PlaylistViewControllerConstants.mainColor.cgColor
         button.layer.borderWidth = EntryViewConstants.borderWidth
-        if let popTitle = button.titleLabel, let font = UIFont(name: "AvenirNext-Regular", size: 20) {
-            popTitle.font = font
+        if let popTitle = button.titleLabel {
+            popTitle.font =  UIFont.systemFont(ofSize: 20, weight: UIFontWeightRegular)
         }
         return button
     }()
@@ -63,7 +63,7 @@ final class EntryView: UIView {
     }
     
     func configureView() {
-        titleLabel.text = "Add A Tag"
+        titleLabel.text = "Add A New Playlist"
         layoutSubviews()
         setupConstraints()
     }
