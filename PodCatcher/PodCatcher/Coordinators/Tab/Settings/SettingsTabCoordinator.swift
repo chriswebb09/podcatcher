@@ -21,6 +21,6 @@ final class SettingsTabCoordinator: NavigationCoordinator {
     
     func start() {
         let settingsViewController = navigationController.viewControllers[0] as! SettingsViewController
-        
+        settingsViewController.delegate = self
     }
 }

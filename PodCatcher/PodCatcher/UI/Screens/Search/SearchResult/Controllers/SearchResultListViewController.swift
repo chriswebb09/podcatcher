@@ -61,6 +61,7 @@ class SearchResultListViewController: BaseCollectionViewController {
         rightButtonItem = UIBarButtonItem(title: "Subscribe", style: .plain, target: self, action: #selector(subscribeToFeed))
         navigationItem.setRightBarButton(rightButtonItem, animated: false)
         rightButtonItem.tintColor = .white
+        topView.preferencesView.moreMenuButton.isHidden = true
     }
     
     func subscribeToFeed() {
