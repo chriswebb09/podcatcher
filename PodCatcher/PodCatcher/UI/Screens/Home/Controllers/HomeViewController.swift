@@ -53,9 +53,10 @@ class HomeViewController: BaseCollectionViewController {
         collectionView.delegate = self
         collectionView.register(SubscribedPodcastCell.self)
         collectionView.dataSource = self
+       // view.backgroundColor = UIColor(red:0.32, green:0.13, blue:0.70, alpha:1.0)
         collectionView.setupBackground(frame: view.bounds)
         guard let background = collectionView.backgroundView else { return }
-        CALayer.createGradientLayer(with: [UIColor.gray.cgColor, UIColor.darkGray.cgColor], layer: background.layer, bounds: collectionView.bounds)
+        CALayer.createGradientLayer(with: [UIColor.white.cgColor, UIColor.darkGray.cgColor], layer: background.layer, bounds: collectionView.bounds)
         rightButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(changeMode))
         rightButtonItem.tintColor = .white
     }

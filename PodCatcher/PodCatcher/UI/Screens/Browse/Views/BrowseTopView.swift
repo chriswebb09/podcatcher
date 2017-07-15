@@ -13,6 +13,8 @@ final class BrowseTopView: UIView {
         return podcastImageView
     }()
     
+    var background = UIView()
+    
     var podcastTitleLabel: UILabel! = {
         var podcastTitle = UILabel()
         podcastTitle.textAlignment = .center
@@ -27,9 +29,12 @@ final class BrowseTopView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        background.frame = frame
+        addSubview(background)
+        sendSubview(toBack: background)
+        CALayer.createGradientLayer(with: [UIColor.white.cgColor, UIColor.lightGray.cgColor], layer: background.layer, bounds: bounds)
         setupConstraints()
         layer.setCellShadow(contentView: self)
-        backgroundColor = UIColor(red:0.84, green:0.85, blue:0.86, alpha:1.0)
     }
     
     func setupConstraints() {

@@ -175,7 +175,14 @@ extension PlayerViewController: MenuDelegate {
     }
     
     func optionTwo(tapped: Bool) {
-        // None
+        downloadingIndicator.showActivityIndicator(viewController: self)
+        if let urlString = caster.episodes[index].audioUrlString {
+            let download = Download(url: urlString)
+            download.delegate = self
+            let client = iTunesAPIClient()
+            client.startDownload(download)
+        }
+        hidePopMenu()
     }
     
     func optionThree(tapped: Bool) {
@@ -199,5 +206,22 @@ extension PlayerViewController: MenuDelegate {
                 strongSelf.navigationController?.popViewController(animated: false)
             }
         }
+    }
+}
+
+extension PlayerViewController: DownloadDelegate {
+    
+    func downloadProgressUpdated(for progress: Float) {
+        if progress == 1 {
+            DispatchQueue.main.async {
+                self.downloadingIndicator.hideActivityIndicator(viewController: self)
+                if let urlString = self.caster.episodes[self.index].audioUrlString {
+                    let localUrl = LocalStorageManager.localFilePathForUrl(urlString)
+                    guard let localUrlString = localUrl?.absoluteString, let feed = self.caster.feedUrl else { return }
+                    UserDefaults.saveAudioFile(location: localUrlString, forFeed: feed)
+                }
+            }
+        }
+        print(String(format: "%.1f%%", progress * 100))
     }
 }

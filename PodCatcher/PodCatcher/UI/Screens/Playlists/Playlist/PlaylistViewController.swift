@@ -22,7 +22,7 @@ class PlaylistViewController: BaseCollectionViewController {
     
     init(index: Int) {
         self.playlistId = ""
-        self.playlistTitle = "" 
+        self.playlistTitle = ""
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -42,6 +42,7 @@ class PlaylistViewController: BaseCollectionViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         view.sendSubview(toBack: background)
+       
         collectionView.register(PodcastPlaylistCell.self)
         setupCoordinator()
         player = AudioFilePlayer(url: nil)

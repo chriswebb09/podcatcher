@@ -67,7 +67,9 @@ extension SearchResultListViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         state = .toPlayer
-        delegate?.didSelectPodcastAt(at: indexPath.row, podcast: item, with: episodes)
+        if let item = item {
+            delegate?.didSelectPodcastAt(at: indexPath.row, podcast: item, with: episodes)
+        }
     }
 }
 

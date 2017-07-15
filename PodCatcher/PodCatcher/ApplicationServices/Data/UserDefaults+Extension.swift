@@ -21,6 +21,20 @@ extension UserDefaults {
         return false
     }
     
+    static func loadAudioFilesFor(feed: String) -> [String] {
+        if UserDefaults.isKeyPresentInUserDefaults(key: feed) {
+            let subscriptions = UserDefaults.standard.array(forKey: feed) as! [String]
+            return subscriptions
+        }
+        return []
+    }
+    
+    static func saveAudioFile(location: String, forFeed: String) {
+        var audioFiles = loadAudioFilesFor(feed: forFeed)
+        audioFiles.append(location)
+        UserDefaults.standard.set(audioFiles, forKey: forFeed)
+    }
+    
     static func saveSubscriptions(subscriptions: [String]) {
         UserDefaults.standard.set(subscriptions, forKey: "subscriptions")
     }

@@ -60,6 +60,7 @@ final class PlayerViewController: BaseViewController {
         DispatchQueue.main.async {
             self.playerView.hidePause()
         }
+        print(caster.episodes[index].description)
     }
     
     override func viewDidDisappear(_ animated: Bool) {

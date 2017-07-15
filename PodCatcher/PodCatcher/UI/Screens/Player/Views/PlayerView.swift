@@ -44,8 +44,13 @@ final class PlayerView: UIView {
         artist.numberOfLines = 0
         artist.textAlignment = .center
         artist.sizeToFit()
-        artist.font = UIFont.systemFont(ofSize: 16, weight: UIFontWeightMedium)
+        artist.font = UIFont.systemFont(ofSize: 18, weight: UIFontWeightSemibold)
         return artist
+    }()
+    
+    var episodeDescriptionView: UITextView = {
+        var descriptionView = UITextView()
+        return descriptionView
     }()
     
     private var titleLabel: UILabel = {
@@ -213,7 +218,7 @@ final class PlayerView: UIView {
         artistLabel.centerXAnchor.constraint(equalTo: navBar.centerXAnchor).isActive = true
         artistLabel.centerYAnchor.constraint(equalTo: navBar.centerYAnchor).isActive = true
         artistLabel.heightAnchor.constraint(equalTo: navBar.heightAnchor).isActive = true
-        artistLabel.widthAnchor.constraint(equalTo: navBar.widthAnchor, multiplier: 0.78).isActive = true
+        artistLabel.widthAnchor.constraint(equalTo: navBar.widthAnchor, multiplier: 0.8).isActive = true
     }
     
     private func setup(titleView: UIView) {
@@ -262,6 +267,10 @@ final class PlayerView: UIView {
         albumImageView.centerYAnchor.constraint(equalTo: albumView.centerYAnchor, constant: UIScreen.main.bounds.height * -0.018).isActive = true
         albumImageView.heightAnchor.constraint(equalTo: albumView.heightAnchor).isActive = true
         albumImageView.widthAnchor.constraint(equalTo: albumView.widthAnchor, multiplier: 0.95).isActive = true
+    }
+    
+    private func setup(descriptionView: UITextView) {
+        
     }
     
     private func setup(controlsView: UIView) {
@@ -393,14 +402,12 @@ final class PlayerView: UIView {
     }
     
     @objc private func skipButtonTapped() {
-        //delegate?.loading()
         disableButtons()
         delegate?.skipButtonTapped()
         model.reset(playButton: playButton, pauseButton: pauseButton, slider: playtimeSlider)
     }
     
     @objc private func backButtonTapped() {
-        //delegate?.loading()
         disableButtons()
         delegate?.backButtonTapped()
     }

@@ -15,14 +15,17 @@ final class MenuView: UIView {
     private var optionTwoView: MenuOptionView = {
         let optionTwo = MenuOptionView()
         optionTwo.setupConstraints()
-        optionTwo.backgroundColor = .clear
+        optionTwo.isUserInteractionEnabled = true
+        optionTwo.layer.borderWidth = MenuViewConstants.optionBorderWidth
         return optionTwo
     }()
     
     private var optionThreeView: MenuOptionView = {
         let optionThree = MenuOptionView()
         optionThree.setupConstraints()
+        // optionThree.isUserInteractionEnabled = true
         optionThree.backgroundColor = .clear
+        //optionThree.layer.borderWidth = MenuViewConstants.optionBorderWidth
         return optionThree
     }()
     
@@ -42,6 +45,10 @@ final class MenuView: UIView {
     private func addSelectors() {
         let optionOneTapped = UITapGestureRecognizer(target: self, action: #selector(optionOneViewTapped))
         optionOneView.addGestureRecognizer(optionOneTapped)
+        let optionTwoTapped = UITapGestureRecognizer(target: self, action: #selector(optionTwoViewTapped))
+        optionTwoView.addGestureRecognizer(optionTwoTapped)
+        //        let optionThreeTapped = UITapGestureRecognizer(target: self, action: #selector(optionThreeViewTapped))
+        //        optionThreeView.addGestureRecognizer(optionThreeTapped)
         let cancelTapped = UITapGestureRecognizer(target: self, action: #selector(cancelViewTapped))
         optionCancelView.addGestureRecognizer(cancelTapped)
     }
@@ -68,6 +75,8 @@ final class MenuView: UIView {
         layoutSubviews()
         setupConstraints()
         optionOneView.set(with: "Add To Playlist", and: #imageLiteral(resourceName: "cloud-circle-white"))
+        optionTwoView.set(with: "Download", and: #imageLiteral(resourceName: "circle-x-white"))
+        //        optionThreeView.set(with: "Delete From Phone", and: #imageLiteral(resourceName: "dot-circle-icon-white"))
         optionCancelView.set(with: "Cancel", and: #imageLiteral(resourceName: "circle-x-white"))
         addSelectors()
     }
@@ -91,8 +100,14 @@ final class MenuView: UIView {
     
     private func setupConstraints() {
         sharedLayout(view: optionOneView)
-        optionOneView.topAnchor.constraint(equalTo: topAnchor, constant: UIScreen.main.bounds.height * 0.01).isActive = true
+        optionOneView.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        sharedLayout(view: optionTwoView)
+        optionTwoView.topAnchor.constraint(equalTo: optionOneView.bottomAnchor, constant: UIScreen.main.bounds.height * 0.006).isActive = true
         sharedLayout(view: optionCancelView)
-        optionCancelView.topAnchor.constraint(equalTo: optionOneView.bottomAnchor, constant: UIScreen.main.bounds.height * 0.006).isActive = true
+        optionCancelView.topAnchor.constraint(equalTo: optionTwoView.bottomAnchor, constant: UIScreen.main.bounds.height * 0.006).isActive = true
+        //sharedLayout(view: optionThreeView)
+        //optionThreeView.topAnchor.constraint(equalTo: optionTwoView.bottomAnchor, constant: UIScreen.main.bounds.height * 0.006).isActive = true
+        //sharedLayout(view: optionCancelView)
+        // optionCancelView.topAnchor.constraint(equalTo: optionThreeView.bottomAnchor, constant: UIScreen.main.bounds.height * 0.01).isActive = true
     }
 }

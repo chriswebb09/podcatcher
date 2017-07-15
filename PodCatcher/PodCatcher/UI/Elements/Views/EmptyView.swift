@@ -27,7 +27,6 @@ final class EmptyView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
         backgroundColor = UIColor(red:0.32, green:0.13, blue:0.70, alpha:1.0)
         setup(musicIcon: musicIcon)
         setup(infoLabel: infoLabel)

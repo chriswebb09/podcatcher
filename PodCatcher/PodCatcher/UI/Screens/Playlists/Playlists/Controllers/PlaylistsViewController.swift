@@ -15,6 +15,7 @@ final class PlaylistsViewController: BaseTableViewController {
     var mode: PlaylistsInteractionMode = .add
     var index: Int!
     var item: CasterSearchResult!
+    var background = UIView()
     var addItemToPlaylist: PodcastPlaylistItem?
     var fetchedResultsController:NSFetchedResultsController<PodcastPlaylist>!
     
@@ -25,8 +26,12 @@ final class PlaylistsViewController: BaseTableViewController {
         entryPop = EntryPopover()
         title = "Playlists"
         entryPop.delegate = self
+        background.frame = UIScreen.main.bounds
+        view.addSubview(background)
+        view.sendSubview(toBack: background)
         tableView.dataSource = self
-        tableView.backgroundColor = .lightGray
+        tableView.backgroundColor = .clear
+         CALayer.createGradientLayer(with: [UIColor.white.cgColor, UIColor.lightGray.cgColor], layer: background.layer, bounds: tableView.bounds)
         tableView.register(PlaylistCell.self, forCellReuseIdentifier: PlaylistCell.reuseIdentifier)
         tableView.delegate = self
         rightButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "plus-red").withRenderingMode(.alwaysTemplate), style: .done, target: self, action: #selector(addPlaylist))
