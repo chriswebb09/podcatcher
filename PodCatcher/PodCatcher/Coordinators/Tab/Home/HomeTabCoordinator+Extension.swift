@@ -37,7 +37,6 @@ extension HomeTabCoordinator: HomeViewControllerDelegate {
         resultsList.dataSource.user = dataSource.user
         guard let feedUrlString = subscription.feedUrl else { return }
         resultsList.topView.podcastImageView.image = UIImage(data: subscription.artworkImage as! Data)
-        // guard let feedUrlString = resultsList.item.feedUrl else { return }
         dump(resultsList.item)
         let store = SearchResultsDataStore()
         DispatchQueue.global(qos: .background).async { [weak self] in

@@ -21,8 +21,10 @@ extension PlaylistsViewController: UITableViewDelegate {
                 }
                 delegate?.didAssignPlaylist(with: text)
             case .checkList:
+                guard let title = fetchedResultsController.object(at: indexPath).playlistName else { return }
                 let playlist = PlaylistViewController(index: 0)
                 playlist.playlistId = text
+                playlist.playlistTitle = title
                 navigationController?.pushViewController(playlist, animated: false)
             }
         }

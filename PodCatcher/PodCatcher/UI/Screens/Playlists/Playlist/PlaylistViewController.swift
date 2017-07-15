@@ -13,15 +13,16 @@ class PlaylistViewController: BaseCollectionViewController {
     var episodes = [Episodes]()
     var caster = CasterSearchResult()
     var items = [PodcastPlaylistItem]()
-    var fetchedResultsController:NSFetchedResultsController<PodcastPlaylistItem>!
+    var fetchedResultsController: NSFetchedResultsController<PodcastPlaylistItem>!
     let persistentContainer = NSPersistentContainer(name: "PodCatcher")
-    
+    var playlistTitle: String!
     let entryPop = EntryPopover()
     var topView = ListTopView()
     var feedUrl: String!
     
     init(index: Int) {
         self.playlistId = ""
+        self.playlistTitle = "" 
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -43,15 +44,16 @@ class PlaylistViewController: BaseCollectionViewController {
         view.sendSubview(toBack: background)
         collectionView.register(PodcastPlaylistCell.self)
         setupCoordinator()
-        self.player = AudioFilePlayer(url: nil)
-        self.player.delegate = self
-        self.player.observePlayTime()
+        player = AudioFilePlayer(url: nil)
+        player.delegate = self
+        player.observePlayTime()
         topView.preferencesView.moreMenuButton.isHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(false)
         collectionView.alpha = 1
+        navigationController?.navigationBar.topItem?.title = playlistTitle
     }
     
     override func viewWillDisappear(_ animated: Bool) {

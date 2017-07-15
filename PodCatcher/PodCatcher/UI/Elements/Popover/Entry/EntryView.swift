@@ -6,7 +6,8 @@ final class EntryView: UIView {
     
     var entryField: TextFieldExtension = {
         var entryField = TextFieldExtension()
-        entryField.layer.borderColor = DetailViewConstants.mainColor.cgColor
+        entryField.layer.borderColor = UIColor(red:0.00, green:0.46, blue:1.00, alpha:1.0).cgColor
+            //DetailViewConstants.mainColor.cgColor
         entryField.layer.cornerRadius = DetailViewConstants.largeCornerRadius
         entryField.layer.borderWidth = DetailViewConstants.borderWidth
         entryField.placeholder = "Create a new playlist!"
@@ -16,7 +17,8 @@ final class EntryView: UIView {
     
     private var titleLabel: UILabel = {
         var titleLabel = UILabel()
-        titleLabel.backgroundColor = DetailViewConstants.mainColor
+        titleLabel.backgroundColor = UIColor(red:0.00, green:0.46, blue:1.00, alpha:1.0)
+            //DetailViewConstants.mainColor
         titleLabel.textColor = .white
         titleLabel.textAlignment = .center
         titleLabel.font =  UIFont.systemFont(ofSize: 20, weight: UIFontWeightRegular)
@@ -35,9 +37,10 @@ final class EntryView: UIView {
         var button = UIButton()
         button.tintColor = .white
         button.setTitleColor(.white, for: .normal)
-        button.setTitleColor(PlaylistViewControllerConstants.mainColor, for: .normal)
+        button.setTitleColor(UIColor(red:0.00, green:0.46, blue:1.00, alpha:1.0), for: .normal)
         button.setTitle("Done", for: .normal)
-        button.layer.borderColor = PlaylistViewControllerConstants.mainColor.cgColor
+        button.layer.borderColor = UIColor(red:0.00, green:0.46, blue:1.00, alpha:1.0).cgColor
+            //PlaylistViewControllerConstants.mainColor.cgColor
         button.layer.borderWidth = EntryViewConstants.borderWidth
         if let popTitle = button.titleLabel {
             popTitle.font =  UIFont.systemFont(ofSize: 20, weight: UIFontWeightRegular)
@@ -51,19 +54,20 @@ final class EntryView: UIView {
         backgroundColor = UIColor.white
         configureShadow(for: layer)
         layer.borderWidth = EntryViewConstants.borderWidth
-        layer.borderColor = PlaylistViewControllerConstants.mainColor.cgColor
+        layer.borderColor = UIColor(red:0.00, green:0.46, blue:1.00, alpha:1.0).cgColor
+            //PlaylistViewControllerConstants.mainColor.cgColor
     }
     
     private func configureShadow(for layer: CALayer) {
         layer.cornerRadius = DetailViewConstants.cornerRadius
-        layer.shadowColor = UIColor.lightGray.cgColor
+        layer.shadowColor = UIColor.gray.cgColor
         layer.shadowOpacity = DetailViewConstants.shadowOpacity
         layer.masksToBounds = true
         layer.shadowPath = UIBezierPath(roundedRect:bounds, cornerRadius:layer.cornerRadius).cgPath
     }
     
     func configureView() {
-        titleLabel.text = "Add A New Playlist"
+        titleLabel.text = "New Playlist"
         layoutSubviews()
         setupConstraints()
     }
