@@ -57,9 +57,13 @@ class SearchResultListViewController: BaseCollectionViewController {
         navigationController?.navigationBar.backIndicatorTransitionMaskImage = backImage
         navigationController?.setNavigationBarHidden(false, animated: false)
         navigationController?.navigationBar.alpha = 1
+        if let item = item, let title = item.podcastTitle {
+            navigationController?.navigationBar.topItem?.title = title
+            navigationController?.navigationBar.backItem?.title = ""
+        }
         let subscription = UserDefaults.loadSubscriptions()
         if let item = item, let feedUrl = item.feedUrl, !subscription.contains(feedUrl) {
-            rightButtonItem = UIBarButtonItem(title: "Subscribe", style: .plain, target: self, action: #selector(subscribeToFeed))
+            rightButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(subscribeToFeed))
             navigationItem.setRightBarButton(rightButtonItem, animated: false)
             rightButtonItem.tintColor = .white
         }
@@ -71,7 +75,7 @@ class SearchResultListViewController: BaseCollectionViewController {
         let feedStore = FeedCoreDataStack()
         guard let title = item.podcastTitle else { return }
         guard let image = topView.podcastImageView.image else { return }
-
+        
         feedStore.save(feedUrl: item.feedUrlString, podcastTitle: title, episodeCount: episodes.count, lastUpdate: NSDate(), image: image)
         var subscriptions = UserDefaults.loadSubscriptions()
         subscriptions.append(item.feedUrl!)
@@ -84,7 +88,7 @@ class SearchResultListViewController: BaseCollectionViewController {
         DispatchQueue.main.async {
             UIView.animate(withDuration: 0.2) {
                 self.searchResults.showActivityIndicator(viewController: self)
-              
+                
             }
             UIView.animate(withDuration: 1.5) {
                 self.searchResults.loadingView.alpha = 0
@@ -102,9 +106,6 @@ class SearchResultListViewController: BaseCollectionViewController {
         super.viewDidDisappear(false)
         switch state {
         case .toCollection:
-//            self.topView.alpha = 0
-//            self.topView.podcastImageView.alpha = 0
-//            self.view.alpha = 0
             self.dismiss(animated: false, completion: nil)
         case .toPlayer:
             break

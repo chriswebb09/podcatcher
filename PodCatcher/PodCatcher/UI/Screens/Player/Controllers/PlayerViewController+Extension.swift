@@ -57,9 +57,7 @@ extension PlayerViewController: PlayerViewDelegate {
                 }
             }
         }
-        delegate?.skipButton(tapped: true)
     }
-    
     
     func skipButtonTapped() {
         guard index < caster.episodes.count - 1 else {
@@ -87,9 +85,7 @@ extension PlayerViewController: PlayerViewDelegate {
                 }
             }
         }
-        //        delegate?.skipButton(tapped: true)
     }
-    
     
     func pauseButtonTapped() {
         player?.pause()

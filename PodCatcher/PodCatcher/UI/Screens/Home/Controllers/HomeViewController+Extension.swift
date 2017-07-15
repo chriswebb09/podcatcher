@@ -59,7 +59,6 @@ extension HomeViewController: NSFetchedResultsControllerDelegate {
         let fetchRequest:NSFetchRequest<Subscription> = Subscription.fetchRequest()
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "feedUrl", ascending: true)]
         fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: appDelegate.persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: nil)
-        
         do {
             try fetchedResultsController.performFetch()
             collectionView.reloadData()

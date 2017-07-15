@@ -14,7 +14,6 @@ extension CreateAccountViewController: CreateAccountViewDelegate {
                 self.view.layoutSubviews()
                 return
             }
-            
             guard let accessToken = FBSDKAccessToken.current() else { print("Failed to get access token"); return }
             let credential = FacebookAuthProvider.credential(withAccessToken: accessToken.tokenString)
             
