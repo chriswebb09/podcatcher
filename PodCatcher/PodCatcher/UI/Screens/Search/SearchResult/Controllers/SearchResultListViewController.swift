@@ -75,7 +75,6 @@ class SearchResultListViewController: BaseCollectionViewController {
         let feedStore = FeedCoreDataStack()
         guard let title = item.podcastTitle else { return }
         guard let image = topView.podcastImageView.image else { return }
-        
         feedStore.save(feedUrl: item.feedUrlString, podcastTitle: title, episodeCount: episodes.count, lastUpdate: NSDate(), image: image)
         var subscriptions = UserDefaults.loadSubscriptions()
         subscriptions.append(item.feedUrl!)
@@ -88,25 +87,24 @@ class SearchResultListViewController: BaseCollectionViewController {
         DispatchQueue.main.async {
             UIView.animate(withDuration: 0.2) {
                 self.searchResults.showActivityIndicator(viewController: self)
-                
             }
             UIView.animate(withDuration: 1.5) {
                 self.searchResults.loadingView.alpha = 0
             }
         }
-        self.searchResults.hideActivityIndicator(viewController: self)
+        searchResults.hideActivityIndicator(viewController: self)
     }
     
     func navigateBack() {
-        self.collectionView.alpha = 0
-        self.dismiss(animated: false, completion: nil)
+        collectionView.alpha = 0
+        dismiss(animated: false, completion: nil)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(false)
         switch state {
         case .toCollection:
-            self.dismiss(animated: false, completion: nil)
+            dismiss(animated: false, completion: nil)
         case .toPlayer:
             break
         }
