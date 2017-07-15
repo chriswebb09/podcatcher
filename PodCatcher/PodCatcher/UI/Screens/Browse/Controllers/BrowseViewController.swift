@@ -3,7 +3,7 @@ import UIKit
 final class BrowseViewController: BaseCollectionViewController {
     
     weak var delegate: BrowseViewControllerDelegate?
-
+    
     var currentPlaylistId: String = ""
     var topItems = [CasterSearchResult]()
     var topView = BrowseTopView()
@@ -50,15 +50,11 @@ final class BrowseViewController: BaseCollectionViewController {
         collectionView.register(TopPodcastCell.self)
         collectionView.backgroundColor = .darkGray
         tap = UITapGestureRecognizer(target: self, action: #selector(selectAt))
-        DispatchQueue.global(qos: .background).async { [weak self] in
-            if let strongSelf = self {
-                strongSelf.topItems = strongSelf.dataSource.items
-                if strongSelf.dataSource.dataType == .local {
-                    strongSelf.dataSource.topStore.fetchFromCore()
-                    DispatchQueue.main.async {
-                        strongSelf.view.bringSubview(toFront: strongSelf.collectionView)
-                    }
-                }
+        topItems = dataSource.items
+        if dataSource.dataType == .local {
+            dataSource.topStore.fetchFromCore()
+            DispatchQueue.main.async {
+                self.view.bringSubview(toFront: self.collectionView)
             }
         }
     }
