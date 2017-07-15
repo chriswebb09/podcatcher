@@ -57,9 +57,12 @@ class SearchResultListViewController: BaseCollectionViewController {
         navigationController?.navigationBar.backIndicatorTransitionMaskImage = backImage
         navigationController?.setNavigationBarHidden(false, animated: false)
         navigationController?.navigationBar.alpha = 1
-        rightButtonItem = UIBarButtonItem(title: "Subscribe", style: .plain, target: self, action: #selector(subscribeToFeed))
-        navigationItem.setRightBarButton(rightButtonItem, animated: false)
-        rightButtonItem.tintColor = .white
+        let subscription = UserDefaults.loadSubscriptions()
+        if let item = item, let feedUrl = item.feedUrl, !subscription.contains(feedUrl) {
+            rightButtonItem = UIBarButtonItem(title: "Subscribe", style: .plain, target: self, action: #selector(subscribeToFeed))
+            navigationItem.setRightBarButton(rightButtonItem, animated: false)
+            rightButtonItem.tintColor = .white
+        }
         topView.preferencesView.moreMenuButton.isHidden = true
         navigationController?.navigationBar.backItem?.title = ""
     }
@@ -68,17 +71,23 @@ class SearchResultListViewController: BaseCollectionViewController {
         let feedStore = FeedCoreDataStack()
         guard let title = item.podcastTitle else { return }
         guard let image = topView.podcastImageView.image else { return }
+
         feedStore.save(feedUrl: item.feedUrlString, podcastTitle: title, episodeCount: episodes.count, lastUpdate: NSDate(), image: image)
+        var subscriptions = UserDefaults.loadSubscriptions()
+        subscriptions.append(item.feedUrl!)
+        UserDefaults.saveSubscriptions(subscriptions: subscriptions)
+        navigationItem.rightBarButtonItem = nil
     }
     
     func subscribeToFeed() {
         saveFeed()
         DispatchQueue.main.async {
-            UIView.animate(withDuration: 0.7) {
+            UIView.animate(withDuration: 0.2) {
                 self.searchResults.showActivityIndicator(viewController: self)
-                UIView.animate(withDuration: 0.5) {
-                    self.searchResults.loadingView.alpha = 0
-                }
+              
+            }
+            UIView.animate(withDuration: 1.5) {
+                self.searchResults.loadingView.alpha = 0
             }
         }
         self.searchResults.hideActivityIndicator(viewController: self)
@@ -93,9 +102,9 @@ class SearchResultListViewController: BaseCollectionViewController {
         super.viewDidDisappear(false)
         switch state {
         case .toCollection:
-            self.topView.alpha = 0
-            self.topView.podcastImageView.alpha = 0
-            self.view.alpha = 0
+//            self.topView.alpha = 0
+//            self.topView.podcastImageView.alpha = 0
+//            self.view.alpha = 0
             self.dismiss(animated: false, completion: nil)
         case .toPlayer:
             break

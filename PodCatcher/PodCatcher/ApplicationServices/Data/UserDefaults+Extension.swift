@@ -20,5 +20,32 @@ extension UserDefaults {
         }
         return false
     }
+    
+    static func saveSubscriptions(subscriptions: [String]) {
+        UserDefaults.standard.set(subscriptions, forKey: "subscriptions")
+    }
+    
+    static func loadSubscriptions() -> [String] {
+        if UserDefaults.isKeyPresentInUserDefaults(key: "subscriptions") {
+            let subscriptions = UserDefaults.standard.array(forKey: "subscriptions") as! [String]
+            return subscriptions
+        }
+        return []
+    }
+    
+    static func isKeyPresentInUserDefaults(key: String) -> Bool {
+        return UserDefaults.standard.object(forKey: key) != nil
+    }
+    
+        
+       // NSUserDefaults.standardUserDefaults().setObject(myArray, forKey: "\(identity.text!)listA")
+      //  let tabledata = NSUserDefaults.standardUserDefaults().arrayForKey("\(identity.text!)listA")
+//        let launchedBefore = UserDefaults.standard.bool(forKey: key)
+//        if launchedBefore == false {
+//            UserDefaults.standard.set(true, forKey: key)
+//            return false
+//        }
+//        return true
+    //}
 }
 

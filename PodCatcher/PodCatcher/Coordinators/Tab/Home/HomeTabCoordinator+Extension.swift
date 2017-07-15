@@ -35,8 +35,6 @@ extension HomeTabCoordinator: HomeViewControllerDelegate {
         resultsList.delegate = self
         resultsList.dataSource = dataSource
         resultsList.dataSource.user = dataSource.user
-        // resultsList.item = caster as! CasterSearchResult
-        
         guard let feedUrlString = subscription.feedUrl else { return }
         resultsList.topView.podcastImageView.image = UIImage(data: subscription.artworkImage as! Data)
         // guard let feedUrlString = resultsList.item.feedUrl else { return }
@@ -67,22 +65,18 @@ extension HomeTabCoordinator: PodcastListViewControllerDelegate {
     
     
     func didSelect(at index: Int, podcast: CasterSearchResult) {
-        let playerView = PlayerView()
         var playerPodcast = podcast
         playerPodcast.index = index
-        let playerViewController = PlayerViewController(playerView: playerView, index: index, caster: playerPodcast, user: dataSource.user)
+        let playerViewController = PlayerViewController(index: index, caster: playerPodcast, user: dataSource.user)
         playerViewController.delegate = self
         navigationController.viewControllers.append(playerViewController)
     }
     
     func didSelectPodcastAt(at index: Int, podcast: CasterSearchResult, with episodes: [Episodes]) {
-        let playerView = PlayerView()
         var playerPodcast = podcast
-        CALayer.createGradientLayer(with: [UIColor(red:0.94, green:0.31, blue:0.81, alpha:1.0).cgColor, UIColor(red:0.32, green:0.13, blue:0.70, alpha:1.0).cgColor], layer: playerView.backgroundView.layer, bounds: UIScreen.main.bounds)
         playerPodcast.episodes = episodes
         playerPodcast.index = index
-        
-        let playerViewController = PlayerViewController(playerView: playerView, index: index, caster: playerPodcast, user: dataSource.user)
+        let playerViewController = PlayerViewController(index: index, caster: playerPodcast, user: dataSource.user)
         playerViewController.delegate = self
         navigationController.navigationBar.isTranslucent = true
         navigationController.navigationBar.alpha = 0

@@ -67,25 +67,20 @@ extension BrowseTabCoordinator: PodcastListViewControllerDelegate {
     
     
     func didSelect(at index: Int, podcast: CasterSearchResult) {
-        let playerView = PlayerView()
         var playerPodcast = podcast
         playerPodcast.index = index
-        let playerViewController = PlayerViewController(playerView: playerView, index: index, caster: playerPodcast, user: dataSource.user)
+        let playerViewController = PlayerViewController(index: index, caster: playerPodcast, user: dataSource.user)
         playerViewController.delegate = self
         navigationController.viewControllers.append(playerViewController)
     }
     
     func didSelectPodcastAt(at index: Int, podcast: CasterSearchResult, with episodes: [Episodes]) {
-        let playerView = PlayerView()
         var playerPodcast = podcast
         playerPodcast.episodes = episodes
         playerPodcast.index = index
         DispatchQueue.global(qos: .background).async { [weak self] in
             if let strongSelf = self {
-                DispatchQueue.main.async {
-                    CALayer.createGradientLayer(with: [UIColor(red:0.94, green:0.31, blue:0.81, alpha:1.0).cgColor, UIColor(red:0.32, green:0.13, blue:0.70, alpha:1.0).cgColor], layer: playerView.backgroundView.layer, bounds: UIScreen.main.bounds)
-                }
-                let playerViewController = PlayerViewController(playerView: playerView, index: index, caster: playerPodcast, user: strongSelf.dataSource.user)
+                let playerViewController = PlayerViewController(index: index, caster: playerPodcast, user: strongSelf.dataSource.user)
                 playerViewController.delegate = strongSelf
                 DispatchQueue.main.async {
                     strongSelf.navigationController.navigationBar.isTranslucent = true

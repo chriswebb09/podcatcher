@@ -421,10 +421,6 @@ final class PlayerView: UIView {
         pauseButton.alpha = 0
     }
     
-//    func setPauseButtonAlpha() {
-//        pauseButton.alpha = 1
-//    }
-    
     func printSliderBounds() {
         print(playtimeSlider.frame)
     }
@@ -434,11 +430,13 @@ final class PlayerView: UIView {
     }
     
     func disableButtons() {
+        playButton.isEnabled = false
         skipButton.isEnabled = false
         backButton.isEnabled = false
     }
     
     func enableButtons() {
+        playButton.isEnabled = true
         skipButton.isEnabled = true
         backButton.isEnabled = true
     }

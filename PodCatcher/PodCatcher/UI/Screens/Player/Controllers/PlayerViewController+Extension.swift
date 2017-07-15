@@ -7,82 +7,96 @@ import AVFoundation
 
 extension PlayerViewController: PlayerViewDelegate {
     
-    func setModel(model: PlayerViewModel) {
-        playerView.configure(with: model)
+    func setModel(model: PlayerViewModel?) {
+        if let model = model {
+            playerView.configure(with: model)
+        }
     }
     
     func initPlayer(url: URL?)  {
         guard let url = url else { return }
-        player.setUrl(with: url)
-        player.url = url
-        player.playNext()
+        player?.setUrl(with: url)
+        player?.url = url
+        player?.playNext()
     }
     
     func updateTimeValue(time: Double) {
-        player.currentTime = time
-        guard let duration = player.duration else { return }
+        player?.currentTime = time
+        guard let duration = player?.duration else { return }
         DispatchQueue.main.async { [weak self] in
-            let normalizedTime = (self?.player.currentTime)! * 100.0 / duration
-            let timeString = String.constructTimeString(time: (self?.player.currentTime)!)
-            self?.playerView.currentPlayTimeLabel.text = timeString
-            self?.playerView.update(progressBarValue: Float(normalizedTime))
+            if let currentTime = self?.player?.currentTime {
+                let normalizedTime = currentTime * 100.0 / duration
+                let timeString = String.constructTimeString(time: currentTime)
+                self?.playerView.currentPlayTimeLabel.text = timeString
+                self?.playerView.update(progressBarValue: Float(normalizedTime))
+            }
         }
     }
     
     func backButtonTapped() {
-        print(index)
-        showLoadingView(loadingPop: loadingPop)
         guard index > 0 else {
-            hideLoadingView(loadingPop: loadingPop)
             playerView.enableButtons()
             return
         }
-        index -= 1
+        guard let player = player else { return }
         player.pause()
+        index -= 1
         guard let artUrl = caster.podcastArtUrlString else { return }
-        playerViewModel = PlayerViewModel(imageUrl: URL(string: artUrl), title: episodes[index].title)
-        self.setModel(model: self.playerViewModel)
-        if let audioUrl = episodes[index].audioUrlString, let url = URL(string: audioUrl) {
+        showLoadingView(loadingPop: loadingPop)
+        if let audioUrl = caster.episodes[index].audioUrlString, let url = URL(string: audioUrl) {
+            self.player = nil
+            self.player = AudioFilePlayer(url: url)
+            self.player?.delegate = self
+            self.player?.observePlayTime()
             self.initPlayer(url: url)
-            player.playNext()
+            DispatchQueue.main.async { [weak self] in
+                if let strongSelf = self {
+                    strongSelf.playerViewModel = PlayerViewModel(imageUrl: URL(string: artUrl), title: strongSelf.caster.episodes[strongSelf.index].title)
+                    strongSelf.setModel(model: strongSelf.playerViewModel)
+                    strongSelf.title = strongSelf.caster.episodes[strongSelf.index].title
+                }
+            }
         }
-        playerView.enableButtons()
         delegate?.skipButton(tapped: true)
     }
+    
     
     func skipButtonTapped() {
-        showLoadingView(loadingPop: loadingPop)
-        if player.delegate != nil {
-            print("delegate")
-        }
-        guard index < episodes.count - 1 else {
-            hideLoadingView(loadingPop: loadingPop)
+        guard index < caster.episodes.count - 1 else {
             playerView.enableButtons()
             return
         }
-        playerView.reset()
         index += 1
+        guard let player = player else { return }
         player.pause()
         guard let artUrl = caster.podcastArtUrlString else { return }
-        
-        playerViewModel = PlayerViewModel(imageUrl: URL(string: artUrl), title: episodes[index].title)
+        showLoadingView(loadingPop: loadingPop)
+        self.playerViewModel = PlayerViewModel(imageUrl: URL(string: artUrl), title: caster.episodes[index].title)
         self.setModel(model: self.playerViewModel)
-        if let audioUrl = episodes[index].audioUrlString, let url = URL(string: audioUrl) {
+        if let audioUrl = caster.episodes[index].audioUrlString, let url = URL(string: audioUrl) {
+            self.player = nil
+            self.player = AudioFilePlayer(url: url)
+            self.player?.delegate = self
+            self.player?.observePlayTime()
             self.initPlayer(url: url)
-            player.playNext()
+            DispatchQueue.main.async { [weak self] in
+                if let strongSelf = self {
+                    strongSelf.playerViewModel = PlayerViewModel(imageUrl: URL(string: artUrl), title: strongSelf.caster.episodes[strongSelf.index].title)
+                    strongSelf.setModel(model: strongSelf.playerViewModel)
+                    strongSelf.title = strongSelf.caster.episodes[strongSelf.index].title
+                }
+            }
         }
-        playerView.enableButtons()
-        delegate?.skipButton(tapped: true)
+        //        delegate?.skipButton(tapped: true)
     }
     
+    
     func pauseButtonTapped() {
-        player.pause()
-        delegate?.pauseButton(tapped: true)
+        player?.pause()
     }
     
     func playButtonTapped() {
-        player.play()
-        delegate?.playButton(tapped: true)
+        player?.play()
     }
     
     func moreButton(tapped: Bool) {
@@ -101,7 +115,6 @@ extension PlayerViewController: PlayerViewDelegate {
     }
     
     func hidePopMenu() {
-        print("hidePopMenu()")
         bottomMenu.hideFrom(playerView)
     }
     
@@ -126,19 +139,21 @@ extension PlayerViewController: AudioFilePlayerDelegate {
                 strongSelf.setModel(model: strongSelf.playerViewModel)
                 strongSelf.view.bringSubview(toFront: strongSelf.playerView)
                 strongSelf.hideLoadingView(loadingPop: strongSelf.loadingPop)
+                strongSelf.playerView.enableButtons()
             }
         }
     }
     
     func updateProgress(progress: Double) {
-        guard let duration = player.duration else { return }
-        let normalizedTime = player.currentTime * 100.0 / duration
+        guard let duration = player?.duration else { return }
+        guard let currentTime = player?.currentTime else { return }
+        let normalizedTime = currentTime * 100.0 / duration
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }
-            print(String.constructTimeString(time: strongSelf.player.currentTime))
-            strongSelf.playerView.currentPlayTimeLabel.text = String.constructTimeString(time: strongSelf.player.currentTime)
+            print(String.constructTimeString(time: currentTime))
+            strongSelf.playerView.currentPlayTimeLabel.text = String.constructTimeString(time: currentTime)
             strongSelf.playerView.update(progressBarValue: Float(normalizedTime))
-            guard let status = self?.player.player?.status else { return }
+            guard let status = self?.player?.player?.status else { return }
             switch status {
             case .failed:
                 print("failed")

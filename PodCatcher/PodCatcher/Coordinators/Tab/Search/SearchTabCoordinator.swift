@@ -71,7 +71,7 @@ extension SearchTabCoordinator: PodcastListViewControllerDelegate {
         DispatchQueue.global(qos: .background).async {
             var playerPodcast = podcast
             playerPodcast.episodes = episodes
-            let playerViewController = PlayerViewController(playerView: playerView, index: index, caster: playerPodcast, user: self.dataSource.user)
+            let playerViewController = PlayerViewController(index: index, caster: playerPodcast, user: self.dataSource.user)
             playerViewController.delegate = self
             DispatchQueue.main.async {
                 self.navigationController.setNavigationBarHidden(true, animated: false)

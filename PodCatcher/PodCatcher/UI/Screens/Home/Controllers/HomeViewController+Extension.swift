@@ -17,7 +17,13 @@ extension HomeViewController: UICollectionViewDelegate {
         case .edit:
             guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
             let context = appDelegate.persistentContainer.viewContext
+            let feed = fetchedResultsController.object(at: indexPath).feedUrl
             context.delete(fetchedResultsController.object(at: indexPath))
+            var subscriptions = UserDefaults.loadSubscriptions()
+            if let index = subscriptions.index(of: feed!) {
+                subscriptions.remove(at: index)
+                UserDefaults.saveSubscriptions(subscriptions: subscriptions)
+            }
             reloadData()
             do {
                 try context.save()
@@ -26,7 +32,7 @@ extension HomeViewController: UICollectionViewDelegate {
             }
             if let count = fetchedResultsController.fetchedObjects?.count {
                 if count == 0 {
-                    mode = .edit
+                    mode = .subscription
                     rightButtonItem.title = "Edit"
                 }
             }
@@ -85,6 +91,7 @@ extension HomeViewController: UICollectionViewDataSource {
                 viewShown = .collection
                 navigationItem.setRightBarButton(rightButtonItem, animated: false)
             } else if itemNumber == 0 {
+                viewShown = .empty
                 self.navigationItem.rightBarButtonItem = nil
             }
         }
