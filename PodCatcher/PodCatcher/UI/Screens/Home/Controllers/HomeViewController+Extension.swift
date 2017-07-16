@@ -60,6 +60,8 @@ extension HomeViewController: NSFetchedResultsControllerDelegate {
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "feedUrl", ascending: true)]
         if let uid = self.userID {
              fetchRequest.predicate = NSPredicate(format: "uid==%@", uid)
+        } else {
+            fetchRequest.predicate = NSPredicate(format: "uid==%@", "none")
         }
         fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: appDelegate.persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: nil)
         do {

@@ -25,7 +25,11 @@ final class PlaylistsViewController: BaseTableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.userID = mediaDataSource.user?.userId
+        if let user = mediaDataSource.user {
+            self.userID = user.userId
+        } else {
+            self.userID = "none"
+        }
         entryPop = EntryPopover()
         title = "Playlists"
         entryPop.delegate = self
