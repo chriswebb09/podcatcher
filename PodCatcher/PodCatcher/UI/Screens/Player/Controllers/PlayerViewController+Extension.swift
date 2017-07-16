@@ -27,17 +27,11 @@ extension PlayerViewController: PlayerViewDelegate {
             let timeString = String.constructTimeString(time: (self.player?.currentTime)!)
             self.playerView.currentPlayTimeLabel.text = timeString
         }
-        
     }
     
-    func backButtonTapped() {
-        guard index > 0 else {
-            playerView.enableButtons()
-            return
-        }
+    func updateTrack() {
         guard let player = player else { return }
         player.pause()
-        index -= 1
         guard let artUrl = caster.podcastArtUrlString else { return }
         showLoadingView(loadingPop: loadingPop)
         self.player = nil
@@ -52,8 +46,9 @@ extension PlayerViewController: PlayerViewDelegate {
             } else {
                 print("non-local")
                 self.player = AudioFilePlayer(url: url)
-                self.player?.setUrl(with: url)
+                self.player?.delegate = self
                 self.player?.observePlayTime()
+                self.initPlayer(url: url)
             }
             DispatchQueue.main.async { [weak self] in
                 if let strongSelf = self {
@@ -65,36 +60,23 @@ extension PlayerViewController: PlayerViewDelegate {
         }
     }
     
+    func backButtonTapped() {
+        guard index > 0 else {
+            playerView.enableButtons()
+            return
+        }
+        index -= 1
+        updateTrack()
+        
+    }
+    
     func skipButtonTapped() {
         guard index < caster.episodes.count - 1 else {
             playerView.enableButtons()
             return
         }
-        guard let player = player else { return }
-        player.pause()
         index += 1
-        guard let artUrl = caster.podcastArtUrlString else { return }
-        showLoadingView(loadingPop: loadingPop)
-        self.player = nil
-        if let urlString = caster.episodes[index].audioUrlString, let url = URL(string: urlString) {
-            if  LocalStorageManager.localFileExistsForFile(urlString) {
-                self.player = AudioFilePlayer(url: url)
-                self.player?.delegate = self
-                self.player?.observePlayTime()
-                self.initPlayer(url: url)
-            } else {
-                self.player = AudioFilePlayer(url: url)
-                self.player?.setUrl(with: url)
-                self.player?.observePlayTime()
-            }
-            DispatchQueue.main.async { [weak self] in
-                if let strongSelf = self {
-                    strongSelf.playerViewModel = PlayerViewModel(imageUrl: URL(string: artUrl), title: strongSelf.caster.episodes[strongSelf.index].title)
-                    strongSelf.setModel(model: strongSelf.playerViewModel)
-                    strongSelf.title = strongSelf.caster.episodes[strongSelf.index].title
-                }
-            }
-        }
+        updateTrack()
     }
     
     func pauseButtonTapped() {
