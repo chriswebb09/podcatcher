@@ -38,15 +38,8 @@ extension CasterSearchResult: Equatable {
     static func ==(lhs: CasterSearchResult, rhs: CasterSearchResult) -> Bool {
         return lhs.id == rhs.id
     }
-}
-
-extension CasterSearchResult {
     
     var providerId: String {
         return self.id
-    }
-
-    var feedUrlString: String {
-        return self.feedUrl!
     }
 }
