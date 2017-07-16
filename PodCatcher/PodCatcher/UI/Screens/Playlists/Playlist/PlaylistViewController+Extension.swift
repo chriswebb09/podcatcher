@@ -4,7 +4,7 @@ import CoreData
 extension PlaylistViewController: NSFetchedResultsControllerDelegate {
     
     func setupCoordinator() {
-        persistentContainer.loadPersistentStores { (persistentStoreDescription, error) in
+        persistentContainer.loadPersistentStores { persistentStoreDescription, error in
             if let error = error {
                 print("Unable to Load Persistent Store")
                 print("\(error), \(error.localizedDescription)")

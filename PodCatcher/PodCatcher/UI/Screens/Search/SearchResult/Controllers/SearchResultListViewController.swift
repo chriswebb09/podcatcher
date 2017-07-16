@@ -95,11 +95,12 @@ class SearchResultListViewController: BaseCollectionViewController {
             UIView.animate(withDuration: 0.2) {
                 self.searchResults.showActivityIndicator(viewController: self)
             }
-            UIView.animate(withDuration: 1.5) {
+            UIView.animate(withDuration: 1, animations: {
                 self.searchResults.loadingView.alpha = 0
-            }
+            }, completion: { finished in
+                self.searchResults.hideActivityIndicator(viewController: self)
+            })
         }
-        searchResults.hideActivityIndicator(viewController: self)
     }
     
     func navigateBack() {

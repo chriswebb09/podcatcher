@@ -37,7 +37,7 @@ final class DownloaderIndicatorView: UIView {
         loadingView.clipsToBounds = true
     }
     
-    func addSubviews(viewController:UIViewController) {
+    func addSubviews(viewController: UIViewController) {
         loadingView.addSubview(activityIndicator)
         containerView.addSubview(loadingView)
         loadingView.addSubview(percentageCompleteLabel)
@@ -46,8 +46,10 @@ final class DownloaderIndicatorView: UIView {
     }
     
     func activityIndicatorSetup() {
-        activityIndicator.frame = CGRect(x: LoadingViewConstants.ActivityIndicator.originXY, y: LoadingViewConstants.ActivityIndicator.originXY,
-                                         width: LoadingViewConstants.ActivityIndicator.width, height: LoadingViewConstants.ActivityIndicator.height)
+        activityIndicator.frame = CGRect(x: LoadingViewConstants.ActivityIndicator.originXY,
+                                         y: LoadingViewConstants.ActivityIndicator.originXY,
+                                         width: LoadingViewConstants.ActivityIndicator.width,
+                                         height: LoadingViewConstants.ActivityIndicator.height)
         activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.white
         activityIndicator.center = CGPoint(x: loadingView.frame.size.width / 2, y: loadingView.frame.size.height / 2)
         
@@ -63,7 +65,7 @@ final class DownloaderIndicatorView: UIView {
         activityIndicator.startAnimating()
     }
     
-    func hideActivityIndicator(viewController:UIViewController){
+    func hideActivityIndicator(viewController: UIViewController) {
         viewController.view.sendSubview(toBack: containerView)
         activityIndicator.stopAnimating()
     }

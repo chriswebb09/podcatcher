@@ -44,7 +44,7 @@ final class PlayerView: UIView {
         artist.numberOfLines = 0
         artist.textAlignment = .center
         artist.sizeToFit()
-        artist.font = UIFont.systemFont(ofSize: 18, weight: UIFontWeightSemibold)
+        artist.font = UIFont.systemFont(ofSize: 16, weight: UIFontWeightSemibold)
         return artist
     }()
     

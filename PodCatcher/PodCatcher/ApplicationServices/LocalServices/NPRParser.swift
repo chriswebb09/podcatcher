@@ -28,8 +28,7 @@ class NPRParser: RSSParser {
     override func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         if results.count == 40 {
             return
-        }
-        if elementName == "enclosure" {
+        } else if elementName == "enclosure" {
             currentValue = nil
             return
         }

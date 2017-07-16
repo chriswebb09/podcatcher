@@ -19,7 +19,8 @@ final class SubscribedPodcastCell: UICollectionViewCell {
         didSet {
             switch cellState {
             case .edit:
-                overlayView.alpha = 0.4
+                overlayView.alpha = 0.6
+                deleteImageView.alpha = 1
             case .done:
                 overlayView.alpha = 0
             }
@@ -35,6 +36,14 @@ final class SubscribedPodcastCell: UICollectionViewCell {
         let overlay = UIView()
         overlay.backgroundColor = .black
         return overlay
+    }()
+    
+    var deleteImageView: UIImageView = {
+        let delete = UIImageView()
+        let image = #imageLiteral(resourceName: "circle-x").withRenderingMode(.alwaysTemplate)
+        delete.image = image
+        delete.tintColor = .white
+        return delete
     }()
     
     private func setShadow() {
@@ -60,6 +69,7 @@ final class SubscribedPodcastCell: UICollectionViewCell {
         overlayView.frame = contentView.frame
         overlayView.alpha = 0
         contentView.addSubview(overlayView)
+        setup(deleteImageView: deleteImageView)
     }
     
     private func viewConfigurations() {
@@ -78,5 +88,14 @@ final class SubscribedPodcastCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         albumArtView.image = nil
+    }
+    
+    func setup(deleteImageView: UIImageView) {
+        overlayView.addSubview(deleteImageView)
+        deleteImageView.translatesAutoresizingMaskIntoConstraints = false
+        deleteImageView.topAnchor.constraint(equalTo: overlayView.topAnchor).isActive = true
+        deleteImageView.leftAnchor.constraint(equalTo: overlayView.leftAnchor).isActive = true
+        deleteImageView.heightAnchor.constraint(equalTo: overlayView.heightAnchor, multiplier: 0.2).isActive = true
+        deleteImageView.widthAnchor.constraint(equalTo: overlayView.widthAnchor, multiplier: 0.2).isActive = true
     }
 }

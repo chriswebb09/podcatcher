@@ -3,6 +3,7 @@ import UIKit
 // MARK: - PreferencesViewDelegate
 
 extension ListTopView: PreferencesViewDelegate {
+    
     func addTagButton(tapped: Bool) {
         delegate?.entryPop(popped: tapped)
     }

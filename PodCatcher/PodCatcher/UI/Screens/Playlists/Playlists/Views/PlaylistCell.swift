@@ -33,7 +33,19 @@ final class PlaylistCell: UITableViewCell {
         setup(titleLabel: titleLabel)
         setup(numberOfItemsLabel: numberOfItemsLabel)
         setup(albumArtView: albumArtView)
+        setupShadow()
         selectionStyle = .none
+        albumArtView.layer.setCellShadow(contentView: self)
+    }
+    
+    func setupShadow() {
+        let shadowOffset = CGSize(width:-0.45, height: 0.2)
+        let shadowRadius: CGFloat = 1.0
+        let shadowOpacity: Float = 0.4
+        
+        contentView.layer.shadowRadius = shadowRadius
+        contentView.layer.shadowOffset = shadowOffset
+        contentView.layer.shadowOpacity = shadowOpacity
     }
     
     func setup(titleLabel: UILabel) {

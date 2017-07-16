@@ -42,13 +42,19 @@ final class PlaylistsViewController: BaseTableViewController {
         tableView.register(PlaylistCell.self, forCellReuseIdentifier: PlaylistCell.reuseIdentifier)
         tableView.delegate = self
         rightButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "plus-red").withRenderingMode(.alwaysTemplate), style: .done, target: self, action: #selector(addPlaylist))
+        leftButtonItem  = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(edit))
         rightButtonItem.tintColor = Colors.brightHighlight
         navigationItem.setRightBarButton(rightButtonItem, animated: false)
+        navigationItem.setLeftBarButton(leftButtonItem, animated: false)
         reloadData()
     }
     
     func swipeFunc() {
         print("swipe")
+    }
+    
+    func edit() {
+        print("edit")
     }
 }
 

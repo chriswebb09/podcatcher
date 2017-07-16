@@ -43,7 +43,7 @@ final class PlayerViewController: BaseViewController {
             self.showLoadingView(loadingPop: self.loadingPop)
         }
         if let urlString = caster.episodes[index].audioUrlString, let url = URL(string: urlString) {
-            if  LocalStorageManager.localFileExistsForFile(urlString) {
+            if  LocalStorageManager.localFileExistsFor(urlString) {
                 print("local")
                 self.player = AudioFilePlayer(url: url)
                 self.player?.delegate = self

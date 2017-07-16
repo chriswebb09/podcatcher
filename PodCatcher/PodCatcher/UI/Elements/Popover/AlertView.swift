@@ -171,7 +171,7 @@ final class AlertView: UIView {
 
 extension AlertView {
     
-    fileprivate func configureConstaints(label:UILabel) {
+    fileprivate func configureConstaints(label: UILabel) {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
         label.heightAnchor.constraint(equalTo: heightAnchor, multiplier: Constants.Dimension.mainHeight).isActive = true
@@ -202,7 +202,6 @@ extension AlertView {
         doneButton.translatesAutoresizingMaskIntoConstraints = false
         doneButton.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
         doneButton.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-        
         doneButton.heightAnchor.constraint(equalTo: heightAnchor, multiplier: Constants.Dimension.mainHeight).isActive = true
         doneButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier: Constants.Alert.CancelButton.cancelButtonWidth).isActive = true
     }
@@ -211,7 +210,6 @@ extension AlertView {
         cancelButton.translatesAutoresizingMaskIntoConstraints = false
         cancelButton.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         cancelButton.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-        
         cancelButton.heightAnchor.constraint(equalTo: heightAnchor, multiplier: Constants.Dimension.mainHeight).isActive = true
         cancelButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier: Constants.Alert.CancelButton.cancelButtonWidth).isActive = true
     }

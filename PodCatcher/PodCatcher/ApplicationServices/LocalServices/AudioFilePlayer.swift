@@ -22,11 +22,9 @@ final class AudioFilePlayer: NSObject {
     var playerItem: AVPlayerItem?
     
     var currentTime: Double {
-        
         get {
             return CMTimeGetSeconds(player!.currentTime())
         }
-        
         set {
             let newTime = CMTimeMakeWithSeconds(newValue, 1000)
             player?.seek(to: newTime, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero)

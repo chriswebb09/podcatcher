@@ -40,11 +40,8 @@ extension CasterSearchResult: Equatable {
     }
 }
 
-extension CasterSearchResult: ContentProvider {
-    var mediaItems: [Content] {
-        return self.episodes
-    }
-
+extension CasterSearchResult {
+    
     var providerId: String {
         return self.id
     }

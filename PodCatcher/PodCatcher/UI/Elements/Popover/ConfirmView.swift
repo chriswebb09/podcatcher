@@ -60,8 +60,12 @@ final class ConfirmationIndicatorView: UIView {
     }
     
     func activityIndicatorSetup() {
-        percentageCompleteLabel.frame = CGRect(x: LoadingViewConstants.ActivityIndicator.originXY, y: LoadingViewConstants.ActivityIndicator.originXY, width: ConfirmLoadingViewConstants.ActivityIndicator.width, height: ConfirmLoadingViewConstants.ActivityIndicator.height)
-        percentageCompleteLabel.center = CGPoint(x: loadingView.frame.size.width / 2, y: loadingView.frame.size.height / 2)
+        percentageCompleteLabel.frame = CGRect(x: LoadingViewConstants.ActivityIndicator.originXY,
+                                               y: LoadingViewConstants.ActivityIndicator.originXY,
+                                               width: ConfirmLoadingViewConstants.ActivityIndicator.width,
+                                               height: ConfirmLoadingViewConstants.ActivityIndicator.height)
+        percentageCompleteLabel.center = CGPoint(x: loadingView.frame.size.width / 2,
+                                                 y: loadingView.frame.size.height / 2)
     }
     
     func showActivityIndicator(viewController: UIViewController) {
@@ -74,7 +78,7 @@ final class ConfirmationIndicatorView: UIView {
         viewController.view.bringSubview(toFront: loadingView)
     }
     
-    func hideActivityIndicator(viewController:UIViewController){
+    func hideActivityIndicator(viewController: UIViewController) {
         viewController.view.sendSubview(toBack: containerView)
         containerView.removeFromSuperview()
     }

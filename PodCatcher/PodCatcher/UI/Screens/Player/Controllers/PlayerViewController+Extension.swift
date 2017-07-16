@@ -38,7 +38,7 @@ extension PlayerViewController: PlayerViewDelegate {
         showLoadingView(loadingPop: loadingPop)
         self.player = nil
         if let urlString = caster.episodes[index].audioUrlString, let url = URL(string: urlString) {
-            if  LocalStorageManager.localFileExistsForFile(urlString) {
+            if  LocalStorageManager.localFileExistsFor(urlString) {
                 print("local")
                 self.player = AudioFilePlayer(url: url)
                 self.player?.delegate = self
@@ -169,7 +169,7 @@ extension PlayerViewController: MenuDelegate {
     }
     
     func optionTwo(tapped: Bool) {
-        if let urlString = caster.episodes[index].audioUrlString, !LocalStorageManager.localFileExistsForFile(urlString) {
+        if let urlString = caster.episodes[index].audioUrlString, !LocalStorageManager.localFileExistsFor(urlString) {
             downloadingIndicator.showActivityIndicator(viewController: self)
             let download = Download(url: urlString)
             network.startDownload(download)

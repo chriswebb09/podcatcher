@@ -1,6 +1,6 @@
 import Foundation
 
-struct Episodes: AudioFile, Content {
+struct Episodes: AudioFile {
     var mediaUrlString: String
     var audioUrlSting: String
     var title: String
