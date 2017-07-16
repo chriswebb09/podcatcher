@@ -1,27 +1,20 @@
 import Foundation
 import UIKit
 
-protocol DownloadServiceDelegate: class {
-    func download(progress updated: Float)
-    func download(location set: String)
-}
-
 class NetworkService: NSObject {
     
     weak var delegate: DownloadServiceDelegate?
+    let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+    var activeDownloads: [String: Download] = [String: Download]()
     
     lazy var downloadsSession: URLSession = {
         let configuration = URLSessionConfiguration.background(withIdentifier: "background")
         return URLSession(configuration: configuration, delegate: self, delegateQueue: nil)
     }()
     
-    var activeDownloads: [String: Download] = [String: Download]()
-    
     override init() {
         self.activeDownloads = [String: Download]()
     }
-    
-    let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
     
     func localFilePath(for url: URL) -> URL {
         return documentsPath.appendingPathComponent(url.lastPathComponent)
@@ -44,7 +37,7 @@ class NetworkService: NSObject {
 
 extension NetworkService: URLSessionDelegate {
     
-   internal func urlSessionDidFinishEvents(forBackgroundURLSession session: URLSession) {
+    internal func urlSessionDidFinishEvents(forBackgroundURLSession session: URLSession) {
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
             let completionHandler = appDelegate.backgroundSessionCompletionHandler {
             appDelegate.backgroundSessionCompletionHandler = nil
@@ -53,11 +46,10 @@ extension NetworkService: URLSessionDelegate {
             }
         }
     }
-
     
     internal func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64,totalBytesExpectedToWrite: Int64) {
-        if let downloadUrl = downloadTask.originalRequest?.url?.absoluteString, let download = activeDownloads[downloadUrl] {
-            var progress =  Float(totalBytesWritten) / Float(totalBytesExpectedToWrite)
+        if let downloadUrl = downloadTask.originalRequest?.url?.absoluteString {
+            let progress =  Float(totalBytesWritten) / Float(totalBytesExpectedToWrite)
             delegate?.download(progress: progress)
             if progress == 1 {
                 activeDownloads[downloadUrl] = nil
@@ -65,7 +57,7 @@ extension NetworkService: URLSessionDelegate {
         }
     }
     
-    func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
+    internal func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
         if error != nil {
             print(error!.localizedDescription)
         } else {
@@ -88,6 +80,5 @@ extension NetworkService: URLSessionDownloadDelegate {
         } catch let error {
             print("Could not copy file to disk: \(error.localizedDescription)")
         }
-
     }
 }

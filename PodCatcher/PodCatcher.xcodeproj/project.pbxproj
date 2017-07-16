@@ -223,6 +223,7 @@
 		A7B8C39B1EF6E28F001AFFA1 /* PodcastCollectionViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B8C39A1EF6E28F001AFFA1 /* PodcastCollectionViewProtocol.swift */; };
 		A7BA68821EFCE0150032FE48 /* MediaCollectionConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BA68811EFCE0150032FE48 /* MediaCollectionConstants.swift */; };
 		A7BB7C8F1F1B2B6800F80B4C /* Subscription+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BB7C8E1F1B2B6800F80B4C /* Subscription+CoreDataProperties.swift */; };
+		A7BB7C911F1B337500F80B4C /* NetworkServiceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BB7C901F1B337500F80B4C /* NetworkServiceDelegate.swift */; };
 		A7BD12CE1EFF78AB0040FAE5 /* iTunesAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BD12CD1EFF78AB0040FAE5 /* iTunesAPIClient.swift */; };
 		A7BF241C1F0D4B0E002A87BD /* LoginBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BF241B1F0D4B0E002A87BD /* LoginBuilder.swift */; };
 		A7BF241F1F0D4B1D002A87BD /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BF241D1F0D4B1D002A87BD /* LoginViewController.swift */; };
@@ -520,6 +521,7 @@
 		A7B8C39A1EF6E28F001AFFA1 /* PodcastCollectionViewProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodcastCollectionViewProtocol.swift; sourceTree = "<group>"; };
 		A7BA68811EFCE0150032FE48 /* MediaCollectionConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaCollectionConstants.swift; sourceTree = "<group>"; };
 		A7BB7C8E1F1B2B6800F80B4C /* Subscription+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Subscription+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		A7BB7C901F1B337500F80B4C /* NetworkServiceDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkServiceDelegate.swift; sourceTree = "<group>"; };
 		A7BD12CD1EFF78AB0040FAE5 /* iTunesAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = iTunesAPIClient.swift; sourceTree = "<group>"; };
 		A7BF241B1F0D4B0E002A87BD /* LoginBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginBuilder.swift; path = PodCatcher/UI/Screens/Start/Login/Builder/LoginBuilder.swift; sourceTree = SOURCE_ROOT; };
 		A7BF241D1F0D4B1D002A87BD /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginViewController.swift; path = PodCatcher/UI/Screens/Start/Login/Controllers/LoginViewController.swift; sourceTree = SOURCE_ROOT; };
@@ -1470,6 +1472,7 @@
 				A7E45F861F0239480063AC0F /* URLConstructor.swift */,
 				A7F37B681F0DEA44001B5C8C /* NetworkErrors.swift */,
 				A7196B2C1F1AE56000FCED5D /* DownloadService.swift */,
+				A7BB7C901F1B337500F80B4C /* NetworkServiceDelegate.swift */,
 			);
 			path = NetworkServices;
 			sourceTree = "<group>";
@@ -2094,6 +2097,7 @@
 				A7E45F811F0238680063AC0F /* PodcastSearchResult.swift in Sources */,
 				A7905B141EEF7DC900199246 /* AudioFilePlayerDelegate.swift in Sources */,
 				A758E1FE1F196F9800A67614 /* PlaylistsTabCoordinator+Extension.swift in Sources */,
+				A7BB7C911F1B337500F80B4C /* NetworkServiceDelegate.swift in Sources */,
 				A7150EE51EE6566600E3553F /* PodcasterControllState.swift in Sources */,
 				A71ADFBE1F0E3BF500941A43 /* UnderlineTextfieldConstants.swift in Sources */,
 				A71ADFA51F0E270A00941A43 /*  SearchResultListViewController+Extension.swift in Sources */,
