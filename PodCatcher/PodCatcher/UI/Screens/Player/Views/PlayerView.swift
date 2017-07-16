@@ -434,6 +434,9 @@ final class PlayerView: UIView {
     
     func update(progressBarValue: Float) {
         playtimeSlider.value = progressBarValue
+        if progressBarValue == 100 {
+            reset()
+        }
     }
     
     func disableButtons() {
