@@ -47,7 +47,7 @@ final class SplashView: UIView {
             strongSelf.alpha = 0
             }, completion: { finished in
                 DispatchQueue.main.async {
-                    self.delegate?.animationIsComplete()
+                    self.delegate?.animation(true)
                 }
                 handler?()
         })

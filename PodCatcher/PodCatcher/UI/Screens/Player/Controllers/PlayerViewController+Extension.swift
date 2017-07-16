@@ -23,9 +23,11 @@ extension PlayerViewController: PlayerViewDelegate {
     func updateTimeValue(time: Double) {
         guard let duration = player?.duration else { return }
         player?.currentTime = (time * duration) / 100
-        DispatchQueue.main.async {
-            let timeString = String.constructTimeString(time: (self.player?.currentTime)!)
-            self.playerView.currentPlayTimeLabel.text = timeString
+        DispatchQueue.main.async { [weak self] in
+            if let strongSelf = self, let player = strongSelf.player {
+                let timeString = String.constructTimeString(time: player.currentTime)
+                strongSelf.playerView.currentPlayTimeLabel.text = timeString
+            }
         }
     }
     
@@ -37,12 +39,11 @@ extension PlayerViewController: PlayerViewDelegate {
         self.player = nil
         if let urlString = caster.episodes[index].audioUrlString, let url = URL(string: urlString) {
             if  LocalStorageManager.localFileExistsForFile(urlString) {
+                print("local")
                 self.player = AudioFilePlayer(url: url)
                 self.player?.delegate = self
                 self.player?.observePlayTime()
                 self.initPlayer(url: url)
-                print("local")
-                print(LocalStorageManager.getLocalFilePath(caster.episodes[index].audioUrlString!))
             } else {
                 print("non-local")
                 self.player = AudioFilePlayer(url: url)
@@ -67,7 +68,6 @@ extension PlayerViewController: PlayerViewDelegate {
         }
         index -= 1
         updateTrack()
-        
     }
     
     func skipButtonTapped() {
@@ -166,7 +166,6 @@ extension PlayerViewController: MenuDelegate {
     }
     
     func optionTwo(tapped: Bool) {
-        print(LocalStorageManager.getLocalFilePath(caster.episodes[index].audioUrlString!))
         if let urlString = caster.episodes[index].audioUrlString, !LocalStorageManager.localFileExistsForFile(urlString) {
             downloadingIndicator.showActivityIndicator(viewController: self)
             let download = Download(url: urlString)
@@ -202,20 +201,22 @@ extension PlayerViewController: MenuDelegate {
 extension PlayerViewController: DownloadServiceDelegate {
     
     func download(location set: String) {
-        self.player = nil
+        player = nil
         if let url = URL(string: set) {
-            self.player = AudioFilePlayer(url: url)
-            self.player?.delegate = self
-            self.player?.observePlayTime()
-            self.initPlayer(url: url)
+            player = AudioFilePlayer(url: url)
+            player?.delegate = self
+            player?.observePlayTime()
+            initPlayer(url: url)
         }
     }
     
     func download(progress updated: Float) {
         if updated == 1 {
-            DispatchQueue.main.async {
-                UIView.animate(withDuration: 0.5) {
-                    self.downloadingIndicator.hideActivityIndicator(viewController: self)
+            DispatchQueue.main.async { [weak self] in
+                if let strongSelf = self {
+                    UIView.animate(withDuration: 0.5) {
+                        strongSelf.downloadingIndicator.hideActivityIndicator(viewController: strongSelf)
+                    }
                 }
             }
         }

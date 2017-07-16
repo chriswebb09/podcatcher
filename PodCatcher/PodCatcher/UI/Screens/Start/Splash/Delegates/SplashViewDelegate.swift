@@ -1,5 +1,5 @@
 import Foundation
 
 protocol SplashViewDelegate: class {
-    func animationIsComplete()
+    func animation(_ isComplete: Bool)
 }

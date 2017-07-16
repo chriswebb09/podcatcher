@@ -38,7 +38,6 @@ final class PreferencesView: UIView {
     }
     
     func addTagButton(tapped: Bool) {
-        print("tag tapped")
         delegate?.addTagButton(tapped: tapped)
     }
 }

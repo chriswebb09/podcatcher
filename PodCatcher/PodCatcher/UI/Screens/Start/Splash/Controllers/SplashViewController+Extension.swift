@@ -1,16 +1,19 @@
 import UIKit
 
- // MARK: - SplashViewDelegate
+// MARK: - SplashViewDelegate
 
 extension SplashViewController: SplashViewDelegate {
     
-    func animationIsComplete() {
+    func animation(_ isComplete: Bool) {
+        print(isComplete)
         animate()
     }
     
     func animate() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.delegate?.splashViewFinishedAnimation(finished: true)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+            if let strongSelf = self {
+                strongSelf.delegate?.splashAnimation(finished: true)
+            }
         }
     }
 }

@@ -27,7 +27,6 @@ final class Playlist {
     
     func append(newPlaylistItem: PlaylistItem?) {
         itemCount += 1
-        
         guard head != nil else {
             head = newPlaylistItem
             return

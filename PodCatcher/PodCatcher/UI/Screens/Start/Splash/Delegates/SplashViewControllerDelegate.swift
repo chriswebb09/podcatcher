@@ -1,5 +1,5 @@
 import Foundation
 
 protocol SplashViewControllerDelegate: class {
-    func splashViewFinishedAnimation(finished: Bool)
+    func splashAnimation(finished: Bool)
 }

@@ -2,7 +2,7 @@ import UIKit
 
 extension StartCoordinator: SplashViewControllerDelegate {
     
-    func splashViewFinishedAnimation(finished: Bool) {
+    func splashAnimation(finished: Bool) {
         let startViewController = StartViewController()
         startViewController.delegate = self
         addChild(viewController: startViewController)

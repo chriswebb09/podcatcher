@@ -13,12 +13,9 @@ struct CasterSearchResult: PodcastSearchResult {
     var itunesUrlString: String?
     var index: Int!
     
-    init() {
-        
-    }
+    init() { }
     
     init?(json: [String: Any]) {
-        
         guard let artUrl = json["artworkUrl600"] as? String else { return }
         guard let artistName = json["artistName"] as? String else { return }
         guard let trackName = json["trackName"] as? String else { return }
@@ -33,9 +30,7 @@ struct CasterSearchResult: PodcastSearchResult {
         self.podcastTitle = title
         self.feedUrl = feedUrl
         self.id = String(describing: id)
-        
     }
-    
 }
 
 extension CasterSearchResult: Equatable {
@@ -57,5 +52,4 @@ extension CasterSearchResult: ContentProvider {
     var feedUrlString: String {
         return self.feedUrl!
     }
-    
 }

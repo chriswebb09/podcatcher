@@ -55,7 +55,9 @@ extension HomeCollectionDataSource:  UICollectionViewDataSource {
     fileprivate func setCell(indexPath: IndexPath, cell: TopPodcastCell, rowTime: Double) {
         switch dataType {
         case .local:
-            if let title = self.topStore.podcasts[indexPath.row].value(forKey: "podcastTitle") as? String, let imageData = self.topStore.podcasts[indexPath.row].value(forKey: "podcastArt") as? Data, let image = UIImage(data: imageData) {
+            if let title = topStore.podcasts[indexPath.row].value(forKey: "podcastTitle") as? String,
+                let imageData = topStore.podcasts[indexPath.row].value(forKey: "podcastArt") as? Data,
+                let image = UIImage(data: imageData) {
                 let cellViewModel = TopPodcastCellViewModel(trackName: title, podcastImage: image)
                 cell.configureCell(with: cellViewModel, withTime: 0)
             }
@@ -80,7 +82,9 @@ extension HomeCollectionDataSource:  UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as TopPodcastCell
         switch dataType {
         case .local:
-            if indexPath.row == 0, let imageData = self.topStore.podcasts[indexPath.row].value(forKey: "podcastArt") as? Data, let image = UIImage(data: imageData) {
+            if indexPath.row == 0,
+                let imageData = self.topStore.podcasts[indexPath.row].value(forKey: "podcastArt") as? Data,
+                let image = UIImage(data: imageData) {
                 print(image)
             }
         case .network:

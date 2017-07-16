@@ -45,7 +45,6 @@ final class BrowseViewController: BaseCollectionViewController {
         let topFrameWidth = UIScreen.main.bounds.width
         let topFrame = CGRect(x: 0, y: 0, width: topFrameWidth, height: topFrameHeight + 40)
         topView.frame = topFrame
-        
         view.addSubview(topView)
         view.backgroundColor = .clear
         topView.backgroundColor = .clear
@@ -55,9 +54,12 @@ final class BrowseViewController: BaseCollectionViewController {
         collectionView.backgroundColor = .darkGray
         tap = UITapGestureRecognizer(target: self, action: #selector(selectAt))
         topItems = dataSource.items
-        DispatchQueue.main.async {
-            self.view.bringSubview(toFront: self.collectionView)
-             self.collectionView.reloadData()
+        DispatchQueue.main.async { [weak self] in
+            if let strongSelf = self {
+                strongSelf.view.bringSubview(toFront: strongSelf.collectionView)
+                strongSelf.collectionView.reloadData()
+            }
+            
         }
     }
     
@@ -68,8 +70,10 @@ final class BrowseViewController: BaseCollectionViewController {
             self.view.alpha = 1
             self.navigationController?.setNavigationBarHidden(true, animated: false)
         }
-        DispatchQueue.main.async {
-            self.collectionView.reloadData()
+        DispatchQueue.main.async { [weak self] in
+            if let strongSelf = self {
+                strongSelf.collectionView.reloadData()
+            }
         }
     }
     

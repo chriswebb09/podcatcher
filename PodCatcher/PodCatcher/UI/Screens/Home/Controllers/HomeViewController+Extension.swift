@@ -68,14 +68,16 @@ extension HomeViewController: NSFetchedResultsControllerDelegate {
     }
     
     func setupCoordinator() {
-        persistentContainer.loadPersistentStores { persistentStoreDescription, error in
-            if let error = error {
-                print("Unable to Perform Fetch Request \(error), \(error.localizedDescription)")
-            } else {
-                do {
-                    try self.fetchedResultsController.performFetch()
-                } catch let error {
+        persistentContainer.loadPersistentStores { [weak self] persistentStoreDescription, error in
+            if let strongSelf = self {
+                if let error = error {
                     print("Unable to Perform Fetch Request \(error), \(error.localizedDescription)")
+                } else {
+                    do {
+                        try strongSelf.fetchedResultsController.performFetch()
+                    } catch let error {
+                        print("Unable to Perform Fetch Request \(error), \(error.localizedDescription)")
+                    }
                 }
             }
         }
@@ -91,7 +93,7 @@ extension HomeViewController: UICollectionViewDataSource {
                 navigationItem.setRightBarButton(rightButtonItem, animated: false)
             } else if itemNumber == 0 {
                 viewShown = .empty
-                self.navigationItem.rightBarButtonItem = nil
+                navigationItem.rightBarButtonItem = nil
             }
         }
         return fetchedResultsController.sections?[section].numberOfObjects ?? 0
@@ -103,16 +105,15 @@ extension HomeViewController: UICollectionViewDataSource {
         
         if let imageData = item.artworkImage, let image = UIImage(data: imageData as Data) {
             let model = SubscribedPodcastCellViewModel(trackName: item.podcastTitle as! String, albumImageURL: image)
-            DispatchQueue.main.async {
-                switch self.mode {
-                case .edit:
-                    cell.configureCell(with: model, withTime: 0, mode: .edit)
-                     cell.bringSubview(toFront: cell.overlayView)
-                //cell.cellState =
-                case  .subscription:
-                    //cell.cellState = .done
-                    cell.configureCell(with: model, withTime: 0, mode: .done)
-                   
+            DispatchQueue.main.async { [weak self] in
+                if let strongSelf = self {
+                    switch strongSelf.mode {
+                    case .edit:
+                        cell.configureCell(with: model, withTime: 0, mode: .edit)
+                        cell.bringSubview(toFront: cell.overlayView)
+                    case  .subscription:
+                        cell.configureCell(with: model, withTime: 0, mode: .done)
+                    }
                 }
             }
         }
