@@ -6,15 +6,12 @@ extension PlaylistViewController: NSFetchedResultsControllerDelegate {
     func setupCoordinator() {
         persistentContainer.loadPersistentStores { persistentStoreDescription, error in
             if let error = error {
-                print("Unable to Load Persistent Store")
-                print("\(error), \(error.localizedDescription)")
+                print("Unable to Load Persistent Store - \(error), \(error.localizedDescription)")
             } else {
                 do {
                     try self.fetchedResultsController.performFetch()
-                } catch {
-                    let fetchError = error as NSError
-                    print("Unable to Perform Fetch Request")
-                    print("\(fetchError), \(fetchError.localizedDescription)")
+                } catch let fetchError {
+                    print("Unable to Perform Fetch Request - \(fetchError), \(fetchError.localizedDescription)")
                 }
             }
         }
@@ -93,14 +90,12 @@ extension PlaylistViewController: UICollectionViewDelegate {
             player.pause()
             player.state = .paused
             let cell = collectionView.cellForItem(at: indexPath) as! PodcastPlaylistCell
-            dump(cell)
             cell.switchAlpha(hidden: true)
         case .paused:
             player.play()
             player.state = .playing
             let cell = collectionView.cellForItem(at: indexPath) as! PodcastPlaylistCell
             cell.switchAlpha(hidden: false)
-            dump(cell)
         case .stopped:
             self.player = AudioFilePlayer(url: audioUrl)
             self.player.setUrl(with: audioUrl)
@@ -151,8 +146,9 @@ extension PlaylistViewController: UICollectionViewDelegateFlowLayout {
 
 
 extension PlaylistViewController: TopViewDelegate {
+    
     func entryPop(popped: Bool) {
-        
+        print("popped: \(popped)")
     }
     
     func popBottomMenu(popped: Bool) {
@@ -167,7 +163,7 @@ extension PlaylistViewController: TopViewDelegate {
     }
     
     func hidePopMenu() {
-        //
+        print("hidePopMenu")
     }
 }
 
