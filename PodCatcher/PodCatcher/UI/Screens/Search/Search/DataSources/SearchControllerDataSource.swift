@@ -1,6 +1,7 @@
 import UIKit
 
 class SearchControllerDataSource: NSObject {
+    
     var store =  SearchResultsFetcher()
     var items = [PodcastSearchResult]()
     var viewShown: ShowView {
@@ -16,12 +17,6 @@ class SearchControllerDataSource: NSObject {
 extension SearchControllerDataSource: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if items.count >= 0 {
-           // tableView.backgroundView = UIView(frame: UIScreen.main.bounds)
-            //tableView.backgroundView?.addSubview(emptyView)
-        } else {
-       // emptyView.removeFromSuperview()
-        }
         return items.count
     }
     

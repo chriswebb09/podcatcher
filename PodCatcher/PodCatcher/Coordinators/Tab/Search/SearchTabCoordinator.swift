@@ -134,7 +134,11 @@ extension SearchTabCoordinator: PlayerViewControllerDelegate {
     }
     
     func addItemToPlaylist(item: PodcastPlaylistItem) {
-        //        let controller = navigationController.viewControllers.last
-        //        print(controller)
+        let controller = navigationController.viewControllers.last
+        controller?.tabBarController?.selectedIndex = 1
+        guard let tab =  controller?.tabBarController else { return }
+        let nav = tab.viewControllers?[1] as! UINavigationController
+        let playlists = nav.viewControllers[0] as! PlaylistsViewController
+        playlists.addItemToPlaylist = item
     }
 }

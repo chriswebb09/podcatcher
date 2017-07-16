@@ -1,5 +1,9 @@
 import UIKit
 
+enum SubscriptionCellState {
+    case edit, done
+}
+
 final class SubscribedPodcastCell: UICollectionViewCell {
     
     fileprivate var viewModel: SubscribedPodcastCellViewModel? {
@@ -11,9 +15,26 @@ final class SubscribedPodcastCell: UICollectionViewCell {
     
     // MARK: - UI Element Properties
     
+    var cellState: SubscriptionCellState = .done {
+        didSet {
+            switch cellState {
+            case .edit:
+                overlayView.alpha = 0.4
+            case .done:
+                overlayView.alpha = 0
+            }
+        }
+    }
+    
     fileprivate var albumArtView: UIImageView = {
         var album = UIImageView()
         return album
+    }()
+    
+    var overlayView: UIView = {
+        let overlay = UIView()
+        overlay.backgroundColor = .black
+        return overlay
     }()
     
     private func setShadow() {
@@ -22,7 +43,7 @@ final class SubscribedPodcastCell: UICollectionViewCell {
         layer.shadowPath = path.cgPath
     }
     
-    func configureCell(with model: SubscribedPodcastCellViewModel, withTime: Double) {
+    func configureCell(with model: SubscribedPodcastCellViewModel, withTime: Double, mode: SubscriptionCellState) {
         alpha = 0
         self.viewModel  = model
         self.albumArtView.image = model.albumImageUrl
@@ -30,11 +51,15 @@ final class SubscribedPodcastCell: UICollectionViewCell {
         UIView.animate(withDuration: withTime) {
             self.alpha = 1
         }
+        cellState = mode
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         viewConfigurations()
+        overlayView.frame = contentView.frame
+        overlayView.alpha = 0
+        contentView.addSubview(overlayView)
     }
     
     private func viewConfigurations() {

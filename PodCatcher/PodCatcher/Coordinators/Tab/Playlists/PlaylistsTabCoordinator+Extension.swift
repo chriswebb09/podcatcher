@@ -10,16 +10,7 @@ extension PlaylistsTabCoordinator: PlaylistsViewControllerDelegate {
         navigationController.setNavigationBarHidden(false, animated: false)
         controller.tabBarController?.selectedIndex = 2
     }
-    
-    
-    func didAssignPlaylist(playlist: PodcastPlaylist) {
-        
-    }
-    
-    func didAssign(podcast: PodcastPlaylistItem) {
-        
-    }
-    
+
     func logout(tapped: Bool) {
         if dataSource.user != nil {
             dataSource.user = nil
@@ -28,7 +19,6 @@ extension PlaylistsTabCoordinator: PlaylistsViewControllerDelegate {
     }
     
     func didSelect(at index: Int, with playlist: Playlist) {
-        dump(playlist)
         let playlistViewController = PlaylistViewController(index: index)
         playlistViewController.delegate = self
         playlistViewController.caster.podcastTitle = playlist.name

@@ -4,6 +4,7 @@ import CoreData
 final class TopPodcastsDataStore {
     
     var podcasts: [NSManagedObject] = []
+    
     func fetchFromCore() {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         let managedContext = appDelegate.coreData.managedContext

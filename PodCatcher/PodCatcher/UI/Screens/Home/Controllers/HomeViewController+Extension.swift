@@ -100,10 +100,20 @@ extension HomeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as SubscribedPodcastCell
         let item = fetchedResultsController.object(at: indexPath)
+        
         if let imageData = item.artworkImage, let image = UIImage(data: imageData as Data) {
             let model = SubscribedPodcastCellViewModel(trackName: item.podcastTitle as! String, albumImageURL: image)
             DispatchQueue.main.async {
-                cell.configureCell(with: model, withTime: 0)
+                switch self.mode {
+                case .edit:
+                    cell.configureCell(with: model, withTime: 0, mode: .edit)
+                     cell.bringSubview(toFront: cell.overlayView)
+                //cell.cellState =
+                case  .subscription:
+                    //cell.cellState = .done
+                    cell.configureCell(with: model, withTime: 0, mode: .done)
+                   
+                }
             }
         }
         return cell

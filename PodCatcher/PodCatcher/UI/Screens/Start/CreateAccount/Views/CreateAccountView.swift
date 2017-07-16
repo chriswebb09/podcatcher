@@ -138,7 +138,10 @@ final class CreateAccountView: UIView {
     }
     
     func submitButtonTapped() {
-        delegate?.submitButton(tapped: true)
+        guard let email = emailField.text, let password = passwordField.text else { return }
+        delegate?.signupWith(email: email, password: password)
+        
+        // delegate?.submitButton(tapped: true)
     }
     
     func setup(navBar: UIView) {

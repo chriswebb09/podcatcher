@@ -1,4 +1,5 @@
 import UIKit
+import Firebase
 
 extension SettingsViewController: UITableViewDelegate {
     
@@ -30,6 +31,19 @@ extension SettingsViewController: SettingCellDelegate {
     func cellTapped(with label: String) {
         if label == "Log Out" {
             delegate?.guestUserSignIn(tapped: true)
+        } else if label == "Delete Account" {
+            deleteUser()
+        }
+    }
+    
+    func deleteUser() {
+        guard let user = Auth.auth().currentUser else { return }
+        user.delete { error in
+            if let error = error {
+                print(error.localizedDescription)
+            } else {
+                self.delegate?.guestUserSignIn(tapped: true)
+            }
         }
     }
 }

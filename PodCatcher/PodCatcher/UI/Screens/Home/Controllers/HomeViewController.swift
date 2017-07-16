@@ -82,5 +82,6 @@ class HomeViewController: BaseCollectionViewController {
     func changeMode() {
         mode = mode == .edit ? .subscription : .edit
         rightButtonItem.title = mode == .edit ? "Done" : "Edit"
+        collectionView.reloadData()
     }
 }

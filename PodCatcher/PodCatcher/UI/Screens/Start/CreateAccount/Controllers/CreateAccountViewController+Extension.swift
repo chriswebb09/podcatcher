@@ -32,8 +32,24 @@ extension CreateAccountViewController: CreateAccountViewDelegate {
         }
     }
     
+    func signupWith(email: String, password: String) {
+        Auth.auth().createUser(withEmail: email, password: password) { user, error in
+            if let error = error {
+                self.downloadIndicator.hideActivityIndicator(viewController: self)
+                print(error.localizedDescription)
+                return
+            } else {
+                if let user = user {
+                    let podUser = PodCatcherUser(username: user.displayName ?? "unknown", emailAddress: user.email ?? "unknown")
+                    self.delegate?.successfulLogin(for: podUser)
+                }
+            }
+        }
+    }
+    
     func submitButton(tapped: Bool) {
-        delegate?.submitButton(tapped: tapped)
+        
+        // delegate?.submitButton(tapped: tapped)
     }
     
     func navigateBack(tapped: Bool) {

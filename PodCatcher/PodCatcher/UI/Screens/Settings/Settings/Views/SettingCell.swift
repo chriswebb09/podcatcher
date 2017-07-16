@@ -9,7 +9,7 @@ class SettingCell: UITableViewCell {
     var titleLabel: UILabel = {
         let title = UILabel()
         title.textColor = .black
-        title.font = UIFont.systemFont(ofSize: 13, weight: UIFontWeightLight)
+        title.font = UIFont.systemFont(ofSize: 16, weight: UIFontWeightLight)
         title.textAlignment = .center
         title.numberOfLines = 0
         return title
