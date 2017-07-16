@@ -8,12 +8,14 @@ enum PlaylistsInteractionMode {
 final class PlaylistsViewController: BaseTableViewController {
     
     weak var delegate: PlaylistsViewControllerDelegate?
+    var mediaDataSource: BaseMediaControllerDataSource!
     var reference: PlaylistsReference = .checkList
     var playlistDataStack = PlaylistsCoreDataStack()
     var currentPlaylistID: String = ""
     var entryPop: EntryPopover!
     var mode: PlaylistsInteractionMode = .add
     var index: Int!
+    var userID: String!
     var item: CasterSearchResult!
     var background = UIView()
     var addItemToPlaylist: PodcastPlaylistItem?
@@ -23,6 +25,7 @@ final class PlaylistsViewController: BaseTableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.userID = mediaDataSource.user?.userId
         entryPop = EntryPopover()
         title = "Playlists"
         entryPop.delegate = self

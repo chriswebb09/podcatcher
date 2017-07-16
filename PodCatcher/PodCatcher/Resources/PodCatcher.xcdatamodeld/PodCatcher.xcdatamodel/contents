@@ -26,6 +26,7 @@
         <attribute name="playlistId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="playlistName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="timeSpentListening" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="uid" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="PodcastPlaylistItem" representedClassName="PodcastPlaylistItem" syncable="YES">
         <attribute name="artistFeedUrl" optional="YES" attributeType="String" syncable="YES"/>
@@ -48,6 +49,7 @@
         <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="lastUpdate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="podcastTitle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="uid" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="TopPodcast" representedClassName="TopPodcast" syncable="YES">
         <attribute name="itunesId" optional="YES" attributeType="String" syncable="YES"/>
@@ -62,9 +64,9 @@
     <elements>
         <element name="CasterItems" positionX="3130" positionY="113" width="128" height="180"/>
         <element name="PodCaster" positionX="2808" positionY="177" width="128" height="120"/>
-        <element name="PodcastPlaylist" positionX="2628" positionY="192" width="128" height="150"/>
+        <element name="PodcastPlaylist" positionX="2628" positionY="192" width="128" height="165"/>
         <element name="PodcastPlaylistItem" positionX="2383" positionY="216" width="128" height="225"/>
+        <element name="Subscription" positionX="2592" positionY="252" width="128" height="150"/>
         <element name="TopPodcast" positionX="3006" positionY="261" width="128" height="165"/>
-        <element name="Subscription" positionX="2592" positionY="252" width="128" height="135"/>
     </elements>
 </model>

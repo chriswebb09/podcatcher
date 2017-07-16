@@ -34,7 +34,7 @@ extension PlaylistsViewController: UITableViewDelegate {
 extension PlaylistsViewController: EntryPopoverDelegate {
     
     func userDidEnterPlaylistName(name: String) {
-        playlistDataStack.save(name: name)
+        playlistDataStack.save(name: name, uid: userID)
         reloadData()
     }
     

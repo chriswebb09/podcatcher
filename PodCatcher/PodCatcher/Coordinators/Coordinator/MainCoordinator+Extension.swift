@@ -78,6 +78,7 @@ extension MainCoordinator: CoordinatorDelegate {
             let playlistsTab = UINavigationController(rootViewController: playlistsViewController)
             tabbBarCoordinator.setupPlaylistsCoordinator(navigationController: playlistsTab, dataSource: dataSource)
             let playlistsCoord = tabbBarCoordinator.childCoordinators[1] as! PlaylistsTabCoordinator
+            
             playlistsCoord.delegate = self
             playlistsCoord.setup()
             

@@ -58,6 +58,9 @@ extension HomeViewController: NSFetchedResultsControllerDelegate {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         let fetchRequest:NSFetchRequest<Subscription> = Subscription.fetchRequest()
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "feedUrl", ascending: true)]
+        if let uid = self.userID {
+             fetchRequest.predicate = NSPredicate(format: "uid==%@", uid)
+        }
         fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: appDelegate.persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: nil)
         do {
             try fetchedResultsController.performFetch()

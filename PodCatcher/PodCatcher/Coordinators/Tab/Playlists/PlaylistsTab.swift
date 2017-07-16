@@ -22,11 +22,13 @@ final class PlaylistsTabCoordinator: NavigationCoordinator {
     
     func start() {
         let playlistsViewController = navigationController.viewControllers[0] as! PlaylistsViewController
+        
         playlistsViewController.delegate = self
     }
     
     func setup() {
         let playlistsViewController = navigationController.viewControllers[0] as! PlaylistsViewController
         playlistsViewController.delegate = self
+        playlistsViewController.mediaDataSource = dataSource
     }
 }

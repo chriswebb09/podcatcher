@@ -75,7 +75,14 @@ class SearchResultListViewController: BaseCollectionViewController {
         let feedStore = FeedCoreDataStack()
         guard let title = item.podcastTitle else { return }
         guard let image = topView.podcastImageView.image else { return }
-        feedStore.save(feedUrl: item.feedUrlString, podcastTitle: title, episodeCount: episodes.count, lastUpdate: NSDate(), image: image)
+        if let user = dataSource.user {
+            print(user)
+            dump(user.userId)
+            feedStore.save(feedUrl: item.feedUrlString, podcastTitle: title, episodeCount: episodes.count, lastUpdate: NSDate(), image: image, uid: user.userId)
+        } else {
+            feedStore.save(feedUrl: item.feedUrlString, podcastTitle: title, episodeCount: episodes.count, lastUpdate: NSDate(), image: image, uid: "none")
+        }
+        
         var subscriptions = UserDefaults.loadSubscriptions()
         subscriptions.append(item.feedUrl!)
         UserDefaults.saveSubscriptions(subscriptions: subscriptions)

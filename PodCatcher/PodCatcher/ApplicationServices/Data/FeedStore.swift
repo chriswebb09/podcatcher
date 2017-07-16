@@ -5,7 +5,7 @@ class FeedCoreDataStack {
     
     var feeds: [NSManagedObject] = []
     
-    func save(feedUrl: String, podcastTitle: String, episodeCount: Int, lastUpdate: NSDate, image: UIImage) {
+    func save(feedUrl: String, podcastTitle: String, episodeCount: Int, lastUpdate: NSDate, image: UIImage, uid: String) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             return
         }
@@ -19,6 +19,7 @@ class FeedCoreDataStack {
         subscription.setValue(podcastArtImageData, forKey: "artworkImage")
         subscription.setValue(episodeCount, forKey: "episodeCount")
         subscription.setValue(lastUpdate, forKey: "lastUpdate")
+        subscription.setValue(uid, forKey: "uid")
         do {
             try managedContext.save()
             feeds.append(subscription)

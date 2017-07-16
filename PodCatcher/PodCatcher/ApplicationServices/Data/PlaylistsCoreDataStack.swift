@@ -5,7 +5,7 @@ class PlaylistsCoreDataStack {
     
     var playlists: [NSManagedObject] = []
     
-    func save(name: String) {
+    func save(name: String, uid: String) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             return
         }
@@ -21,6 +21,7 @@ class PlaylistsCoreDataStack {
         playlist.setValue(0, forKey: "timeSpentListening")
         playlist.setValue(0, forKey: "numberOfItems")
         playlist.setValue(0, forKey: "numberOfPlays")
+        playlist.setValue(uid, forKey: "uid")
         do {
             try managedContext.save()
             playlists.append(playlist)

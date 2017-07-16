@@ -8,7 +8,7 @@ enum HomeInteractionMode {
 class HomeViewController: BaseCollectionViewController {
     
     // MARK: - Properties
-    
+    let userID: String!
     var mode: HomeInteractionMode = .subscription
     weak var delegate: HomeViewControllerDelegate?
     var dataSource: HomeDataSource
@@ -33,7 +33,9 @@ class HomeViewController: BaseCollectionViewController {
         let homeDataSource = HomeDataSource()
         self.dataSource = homeDataSource
         self.viewShown = .empty
+        self.userID = dataSource.user?.userId
         super.init(nibName: nil, bundle: nil)
+       
     }
     
     required public init(coder aDecoder: NSCoder) {

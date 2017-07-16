@@ -1,3 +1,11 @@
+//
+//  Subscription+CoreDataProperties.swift
+//  
+//
+//  Created by Christopher Webb-Orenstein on 7/16/17.
+//
+//
+
 import Foundation
 import CoreData
 
@@ -8,11 +16,12 @@ extension Subscription {
         return NSFetchRequest<Subscription>(entityName: "Subscription")
     }
 
-    @NSManaged public var feedUrl: String?
-    @NSManaged public var podcastTitle: NSObject?
-    @NSManaged public var episodeCount: Int32
-    @NSManaged public var lastUpdate: NSDate?
-    @NSManaged public var id: String?
     @NSManaged public var artworkImage: NSData?
+    @NSManaged public var episodeCount: Int32
+    @NSManaged public var feedUrl: String?
+    @NSManaged public var id: String?
+    @NSManaged public var lastUpdate: NSDate?
+    @NSManaged public var podcastTitle: String?
+    @NSManaged public var uid: String?
 
 }
