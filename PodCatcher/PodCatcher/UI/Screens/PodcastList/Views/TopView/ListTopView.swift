@@ -19,17 +19,6 @@ final class ListTopView: UIView {
         return podcastTitle
     }()
     
-    var playCountLabel: UILabel! = {
-        var playCountLabel = UILabel()
-        return playCountLabel
-    }()
-    
-    var genreLabel: UILabel! = {
-        var genreLabel = UILabel()
-        return genreLabel
-    }()
-    
-  
     var preferencesView: PreferencesView = {
         var preferencesView = PreferencesView()
         preferencesView.layoutSubviews()
