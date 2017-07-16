@@ -46,13 +46,16 @@ extension SearchTabCoordinator: SearchViewControllerDelegate {
         resultsList.item = caster as! CasterSearchResult
         guard let feedUrlString = resultsList.item.feedUrl else { return }
         let store = SearchResultsDataStore()
-        DispatchQueue.global(qos: .background).async {
-            store.pullFeed(for: feedUrlString) { response in
-                guard let episodes = response.0 else { print("no"); return }
-                resultsList.episodes = episodes
-                DispatchQueue.main.async {
-                    resultsList.collectionView.reloadData()
-                    self.navigationController.viewControllers.append(resultsList)
+        let concurrent = DispatchQueue(label: "concurrentBackground", qos: .background, attributes: .concurrent, autoreleaseFrequency: .inherit, target: nil)
+        concurrent.async { [weak self] in
+            if let strongSelf = self {
+                store.pullFeed(for: feedUrlString) { response in
+                    guard let episodes = response.0 else { print("no"); return }
+                    resultsList.episodes = episodes
+                    DispatchQueue.main.async {
+                        resultsList.collectionView.reloadData()
+                        strongSelf.navigationController.viewControllers.append(resultsList)
+                    }
                 }
             }
         }
@@ -68,14 +71,17 @@ extension SearchTabCoordinator: PodcastListViewControllerDelegate {
     
     func didSelectPodcastAt(at index: Int, podcast: CasterSearchResult, with episodes: [Episodes]) {
         let playerView = PlayerView()
-        DispatchQueue.global(qos: .background).async {
-            var playerPodcast = podcast
-            playerPodcast.episodes = episodes
-            let playerViewController = PlayerViewController(index: index, caster: playerPodcast, user: self.dataSource.user)
-            playerViewController.delegate = self
-            DispatchQueue.main.async {
-                self.navigationController.setNavigationBarHidden(true, animated: false)
-                self.navigationController.viewControllers.append(playerViewController)
+        let concurrent = DispatchQueue(label: "concurrentBackground", qos: .background, attributes: .concurrent, autoreleaseFrequency: .inherit, target: nil)
+        concurrent.async { [weak self] in
+            if let strongSelf = self {
+                var playerPodcast = podcast
+                playerPodcast.episodes = episodes
+                let playerViewController = PlayerViewController(index: index, caster: playerPodcast, user: strongSelf.dataSource.user)
+                playerViewController.delegate = strongSelf
+                DispatchQueue.main.async {
+                    strongSelf.navigationController.setNavigationBarHidden(true, animated: false)
+                    strongSelf.navigationController.viewControllers.append(playerViewController)
+                }
             }
         }
     }

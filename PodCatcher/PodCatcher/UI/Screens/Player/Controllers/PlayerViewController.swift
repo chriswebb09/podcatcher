@@ -19,12 +19,15 @@ final class PlayerViewController: BaseViewController {
     var user: PodCatcherUser?
     let downloadingIndicator = DownloaderIndicatorView()
     var playerViewModel: PlayerViewModel!
+    var network: NetworkService
     
     init(index: Int, caster: CasterSearchResult, user: PodCatcherUser?) {
         self.index = index
         self.caster = caster
         self.episodes = caster.episodes
+        self.network = NetworkService()
         super.init(nibName: nil, bundle: nil)
+        network.delegate = self
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -34,17 +37,25 @@ final class PlayerViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         CALayer.createGradientLayer(with: [UIColor(red:0.94, green:0.31, blue:0.81, alpha:1.0).cgColor, UIColor(red:0.32, green:0.13, blue:0.70, alpha:1.0).cgColor], layer: playerView.backgroundView.layer, bounds: UIScreen.main.bounds)
-        
         guard let artUrl = caster.podcastArtUrlString else { return }
-        if let url = episodes[index].audioUrlString, let audioUrl = URL(string: url) {
-            self.player = AudioFilePlayer(url: audioUrl)
-            self.player?.setUrl(with: audioUrl)
-        }
         DispatchQueue.main.async {
             self.loadingPop = LoadingPopover()
             self.showLoadingView(loadingPop: self.loadingPop)
         }
-        
+        if let urlString = caster.episodes[index].audioUrlString, let url = URL(string: urlString) {
+            if  LocalStorageManager.localFileExistsForFile(urlString) {
+                print("local")
+                self.player = AudioFilePlayer(url: url)
+                self.player?.delegate = self
+                self.player?.observePlayTime()
+                self.initPlayer(url: url)
+            } else {
+                print("non-local")
+                self.player = AudioFilePlayer(url: url)
+                self.player?.setUrl(with: url)
+                self.player?.observePlayTime()
+            }
+        }
         player?.delegate = self
         player?.observePlayTime()
         playerViewModel = PlayerViewModel(imageUrl: URL(string: artUrl), title: episodes[index].title)
@@ -56,11 +67,9 @@ final class PlayerViewController: BaseViewController {
         playerView.artistLabel.text = caster.podcastArtist
         navigationController?.setNavigationBarHidden(true, animated: false)
         tabBarController?.tabBar.alpha = 0
-     
         DispatchQueue.main.async {
             self.playerView.hidePause()
         }
-        print(caster.episodes[index].description)
     }
     
     override func viewDidDisappear(_ animated: Bool) {

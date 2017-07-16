@@ -19,7 +19,8 @@ extension BrowseTabCoordinator: BrowseViewControllerDelegate {
         resultsList.currentPlaylistID = homeVC.currentPlaylistId
         guard let feedUrlString = resultsList.item.feedUrl else { return }
         let store = SearchResultsDataStore()
-        DispatchQueue.global(qos: .background).async { [weak self] in
+        let concurrent = DispatchQueue(label: "concurrentBackground", qos: .background, attributes: .concurrent, autoreleaseFrequency: .inherit, target: nil)
+        concurrent.async { [weak self] in
             if let strongSelf = self {
                 store.pullFeed(for: feedUrlString) { response in
                     guard let episodes = response.0 else { return }
@@ -48,7 +49,8 @@ extension BrowseTabCoordinator: BrowseViewControllerDelegate {
         guard let feedUrlString = caster.feedUrl else { return }
         
         let store = SearchResultsDataStore()
-        DispatchQueue.global(qos: .background).async { [weak self] in
+        let concurrent = DispatchQueue(label: "concurrentBackground", qos: .background, attributes: .concurrent, autoreleaseFrequency: .inherit, target: nil)
+        concurrent.async { [weak self] in
             if let strongSelf = self {
                 store.pullFeed(for: feedUrlString) { response in
                     guard let episodes = response.0 else { return }
@@ -78,7 +80,8 @@ extension BrowseTabCoordinator: PodcastListViewControllerDelegate {
         var playerPodcast = podcast
         playerPodcast.episodes = episodes
         playerPodcast.index = index
-        DispatchQueue.global(qos: .background).async { [weak self] in
+         let concurrent = DispatchQueue(label: "concurrentBackground", qos: .background, attributes: .concurrent, autoreleaseFrequency: .inherit, target: nil)
+        concurrent.async { [weak self] in
             if let strongSelf = self {
                 let playerViewController = PlayerViewController(index: index, caster: playerPodcast, user: strongSelf.dataSource.user)
                 playerViewController.delegate = strongSelf

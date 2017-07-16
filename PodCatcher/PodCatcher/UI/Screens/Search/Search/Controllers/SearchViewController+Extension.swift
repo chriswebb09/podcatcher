@@ -5,7 +5,7 @@ extension SearchViewController: UISearchResultsUpdating {
     func showSearchBar() {
         guard let tabbar = self.tabBarController?.tabBar else { return }
         searchBar.frame = CGRect(x: UIScreen.main.bounds.minX, y: 0, width: UIScreen.main.bounds.width, height: 44)
-        tableView.frame = CGRect(x: UIScreen.main.bounds.minX, y: searchBar.frame.maxY, width: UIScreen.main.bounds.width, height: view.frame.height - tabbar.frame.height)
+        tableView.frame = CGRect(x: UIScreen.main.bounds.minX, y: searchBar.frame.maxY, width: UIScreen.main.bounds.width, height: (view.frame.height - tabbar.frame.height) + 5)
     }
     
     func searchControllerConfigure() {

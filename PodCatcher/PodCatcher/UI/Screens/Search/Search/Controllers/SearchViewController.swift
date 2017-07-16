@@ -39,7 +39,8 @@ class SearchViewController: BaseTableViewController {
                 showSearchBar()
                 searchControllerConfigure()
             } else if !searchBarActive {
-                tableView.frame = CGRect(x: UIScreen.main.bounds.minX, y: searchBar.frame.maxY, width: UIScreen.main.bounds.width, height: view.frame.height)
+                guard let tabbar = self.tabBarController?.tabBar else { return }
+                tableView.frame = CGRect(x: UIScreen.main.bounds.minX, y: searchBar.frame.maxY, width: UIScreen.main.bounds.width, height: (view.frame.height - tabbar.frame.height) + 5)
             }
         }
     }

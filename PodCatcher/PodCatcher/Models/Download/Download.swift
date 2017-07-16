@@ -7,16 +7,26 @@ final class Download {
     var url: String?
     var downloadTask: URLSessionDownloadTask?
     
+    var locationString: String = "" {
+        didSet {
+            updateLocation(string: locationString)
+        }
+    }
     var progress: Float = 0.0 {
         didSet {
             updateProgress(with: progress)
         }
     }
     
+    private func updateLocation(string: String) {
+        delegate?.download(location: string)
+    }
+    
     // Gives float for download progress - for delegate
     
     private func updateProgress(with value: Float) {
-        delegate?.downloadProgressUpdated(for: progress)
+        delegate?.download(progress: value)
+       // delegate?.downloadProgressUpdated(for: progress)
     }
     
     init(url: String) {

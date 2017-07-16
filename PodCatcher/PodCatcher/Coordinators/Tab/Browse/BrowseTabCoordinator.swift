@@ -27,16 +27,16 @@ final class BrowseTabCoordinator: NavigationCoordinator {
         homeViewController.delegate = self
     }
     
-    func setup() {
+    func setupBrowse() {
         let homeViewController = navigationController.viewControllers[0] as! BrowseViewController
-        let mainStore = MainStore()
-        DispatchQueue.global(qos: .background).async { [weak self] in
-            if let strongSelf = self {
-                strongSelf.store.pullFeedTopPodcasts { data, error in
-                    UserDefaults.standard.set(Date(), forKey: "topItems")
-                    guard let data = data else { return }
+        var items = [TopItem]()
+        getTopItems { newItems in
+            items = newItems
+            let concurrentQueue = DispatchQueue(label: "concurrent", qos: .background, attributes: .concurrent, autoreleaseFrequency: .inherit, target: nil)
+            concurrentQueue.async { [weak self] in
+                if let strongSelf = self {
                     var results = [CasterSearchResult]()
-                    for item in data {
+                    for item in items {
                         strongSelf.fetcher.setLookup(term: item.id)
                         strongSelf.fetcher.searchForTracksFromLookup { result in
                             guard let resultItem = result.0 else { return }
@@ -47,7 +47,6 @@ final class BrowseTabCoordinator: NavigationCoordinator {
                                     DispatchQueue.main.async {
                                         homeViewController.collectionView.reloadData()
                                     }
-                                    mainStore.save(podcastItem: caster)
                                 }
                             }
                             homeViewController.dataSource.items = results
@@ -60,6 +59,18 @@ final class BrowseTabCoordinator: NavigationCoordinator {
             }
         }
     }
+    
+    func getTopItems(completion: @escaping ([TopItem]) -> Void) {
+        let concurrentQueue = DispatchQueue(label: "concurrent", qos: .background, attributes: .concurrent, autoreleaseFrequency: .inherit, target: nil)
+        concurrentQueue.async { [weak self] in
+            if let strongSelf = self {
+                strongSelf.store.pullFeedTopPodcasts { data, error in
+                    guard let data = data else { return }
+                    DispatchQueue.main.async {
+                        completion(data)
+                    }
+                }
+            }
+        }
+    }
 }
-
-

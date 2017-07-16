@@ -8,6 +8,8 @@ final class BrowseViewController: BaseCollectionViewController {
     var topItems = [CasterSearchResult]()
     var topView = BrowseTopView()
     var tap: UITapGestureRecognizer!
+    let loadingPop = LoadingPopover()
+    
     var dataSource: HomeCollectionDataSource! {
         didSet {
             viewShown = dataSource.viewShown
@@ -30,6 +32,7 @@ final class BrowseViewController: BaseCollectionViewController {
     init(index: Int, dataSource: BaseMediaControllerDataSource) {
         self.dataSource = HomeCollectionDataSource()
         super.init(nibName: nil, bundle: nil)
+        //showLoadingView(loadingPop: loadingPop)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -42,6 +45,7 @@ final class BrowseViewController: BaseCollectionViewController {
         let topFrameWidth = UIScreen.main.bounds.width
         let topFrame = CGRect(x: 0, y: 0, width: topFrameWidth, height: topFrameHeight + 40)
         topView.frame = topFrame
+        
         view.addSubview(topView)
         view.backgroundColor = .clear
         topView.backgroundColor = .clear
@@ -51,21 +55,21 @@ final class BrowseViewController: BaseCollectionViewController {
         collectionView.backgroundColor = .darkGray
         tap = UITapGestureRecognizer(target: self, action: #selector(selectAt))
         topItems = dataSource.items
-        if dataSource.dataType == .local {
-            dataSource.topStore.fetchFromCore()
-            DispatchQueue.main.async {
-                self.view.bringSubview(toFront: self.collectionView)
-            }
+        DispatchQueue.main.async {
+            self.view.bringSubview(toFront: self.collectionView)
+             self.collectionView.reloadData()
         }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        view.alpha = 0
         topView.addGestureRecognizer(tap)
         UIView.animate(withDuration: 0.15) {
             self.view.alpha = 1
             self.navigationController?.setNavigationBarHidden(true, animated: false)
+        }
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
         }
     }
     

@@ -21,16 +21,13 @@ extension PlayerViewController: PlayerViewDelegate {
     }
     
     func updateTimeValue(time: Double) {
-        player?.currentTime = time
         guard let duration = player?.duration else { return }
-        DispatchQueue.main.async { [weak self] in
-            if let currentTime = self?.player?.currentTime {
-                let normalizedTime = currentTime * 100.0 / duration
-                let timeString = String.constructTimeString(time: currentTime)
-                self?.playerView.currentPlayTimeLabel.text = timeString
-                self?.playerView.update(progressBarValue: Float(normalizedTime))
-            }
+        player?.currentTime = (time * duration) / 100
+        DispatchQueue.main.async {
+            let timeString = String.constructTimeString(time: (self.player?.currentTime)!)
+            self.playerView.currentPlayTimeLabel.text = timeString
         }
+        
     }
     
     func backButtonTapped() {
@@ -43,12 +40,21 @@ extension PlayerViewController: PlayerViewDelegate {
         index -= 1
         guard let artUrl = caster.podcastArtUrlString else { return }
         showLoadingView(loadingPop: loadingPop)
-        if let audioUrl = caster.episodes[index].audioUrlString, let url = URL(string: audioUrl) {
-            self.player = nil
-            self.player = AudioFilePlayer(url: url)
-            self.player?.delegate = self
-            self.player?.observePlayTime()
-            self.initPlayer(url: url)
+        self.player = nil
+        if let urlString = caster.episodes[index].audioUrlString, let url = URL(string: urlString) {
+            if  LocalStorageManager.localFileExistsForFile(urlString) {
+                self.player = AudioFilePlayer(url: url)
+                self.player?.delegate = self
+                self.player?.observePlayTime()
+                self.initPlayer(url: url)
+                print("local")
+                print(LocalStorageManager.getLocalFilePath(caster.episodes[index].audioUrlString!))
+            } else {
+                print("non-local")
+                self.player = AudioFilePlayer(url: url)
+                self.player?.setUrl(with: url)
+                self.player?.observePlayTime()
+            }
             DispatchQueue.main.async { [weak self] in
                 if let strongSelf = self {
                     strongSelf.playerViewModel = PlayerViewModel(imageUrl: URL(string: artUrl), title: strongSelf.caster.episodes[strongSelf.index].title)
@@ -64,19 +70,23 @@ extension PlayerViewController: PlayerViewDelegate {
             playerView.enableButtons()
             return
         }
-        index += 1
         guard let player = player else { return }
         player.pause()
+        index += 1
         guard let artUrl = caster.podcastArtUrlString else { return }
         showLoadingView(loadingPop: loadingPop)
-        self.playerViewModel = PlayerViewModel(imageUrl: URL(string: artUrl), title: caster.episodes[index].title)
-        self.setModel(model: self.playerViewModel)
-        if let audioUrl = caster.episodes[index].audioUrlString, let url = URL(string: audioUrl) {
-            self.player = nil
-            self.player = AudioFilePlayer(url: url)
-            self.player?.delegate = self
-            self.player?.observePlayTime()
-            self.initPlayer(url: url)
+        self.player = nil
+        if let urlString = caster.episodes[index].audioUrlString, let url = URL(string: urlString) {
+            if  LocalStorageManager.localFileExistsForFile(urlString) {
+                self.player = AudioFilePlayer(url: url)
+                self.player?.delegate = self
+                self.player?.observePlayTime()
+                self.initPlayer(url: url)
+            } else {
+                self.player = AudioFilePlayer(url: url)
+                self.player?.setUrl(with: url)
+                self.player?.observePlayTime()
+            }
             DispatchQueue.main.async { [weak self] in
                 if let strongSelf = self {
                     strongSelf.playerViewModel = PlayerViewModel(imageUrl: URL(string: artUrl), title: strongSelf.caster.episodes[strongSelf.index].title)
@@ -146,7 +156,6 @@ extension PlayerViewController: AudioFilePlayerDelegate {
         let normalizedTime = currentTime * 100.0 / duration
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }
-            print(String.constructTimeString(time: currentTime))
             strongSelf.playerView.currentPlayTimeLabel.text = String.constructTimeString(time: currentTime)
             strongSelf.playerView.update(progressBarValue: Float(normalizedTime))
             guard let status = self?.player?.player?.status else { return }
@@ -175,12 +184,11 @@ extension PlayerViewController: MenuDelegate {
     }
     
     func optionTwo(tapped: Bool) {
-        downloadingIndicator.showActivityIndicator(viewController: self)
-        if let urlString = caster.episodes[index].audioUrlString {
+        print(LocalStorageManager.getLocalFilePath(caster.episodes[index].audioUrlString!))
+        if let urlString = caster.episodes[index].audioUrlString, !LocalStorageManager.localFileExistsForFile(urlString) {
+            downloadingIndicator.showActivityIndicator(viewController: self)
             let download = Download(url: urlString)
-            download.delegate = self
-            let client = iTunesAPIClient()
-            client.startDownload(download)
+            network.startDownload(download)
         }
         hidePopMenu()
     }
@@ -209,19 +217,26 @@ extension PlayerViewController: MenuDelegate {
     }
 }
 
-extension PlayerViewController: DownloadDelegate {
+extension PlayerViewController: DownloadServiceDelegate {
     
-    func downloadProgressUpdated(for progress: Float) {
-        if progress == 1 {
+    func download(location set: String) {
+        self.player = nil
+        if let url = URL(string: set) {
+            self.player = AudioFilePlayer(url: url)
+            self.player?.delegate = self
+            self.player?.observePlayTime()
+            self.initPlayer(url: url)
+        }
+    }
+    
+    func download(progress updated: Float) {
+        if updated == 1 {
             DispatchQueue.main.async {
-                self.downloadingIndicator.hideActivityIndicator(viewController: self)
-                if let urlString = self.caster.episodes[self.index].audioUrlString {
-                    let localUrl = LocalStorageManager.localFilePathForUrl(urlString)
-                    guard let localUrlString = localUrl?.absoluteString, let feed = self.caster.feedUrl else { return }
-                    UserDefaults.saveAudioFile(location: localUrlString, forFeed: feed)
+                UIView.animate(withDuration: 0.5) {
+                    self.downloadingIndicator.hideActivityIndicator(viewController: self)
                 }
             }
         }
-        print(String(format: "%.1f%%", progress * 100))
+        print(String(format: "%.1f%%", updated * 100))
     }
 }

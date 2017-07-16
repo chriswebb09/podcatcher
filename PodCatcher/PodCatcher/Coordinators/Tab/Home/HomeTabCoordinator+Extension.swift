@@ -39,7 +39,8 @@ extension HomeTabCoordinator: HomeViewControllerDelegate {
         resultsList.topView.podcastImageView.image = UIImage(data: subscription.artworkImage as! Data)
         dump(resultsList.item)
         let store = SearchResultsDataStore()
-        DispatchQueue.global(qos: .background).async { [weak self] in
+        let concurrent = DispatchQueue(label: "concurrentBackground", qos: .background, attributes: .concurrent, autoreleaseFrequency: .inherit, target: nil)
+        concurrent.async { [weak self] in
             if let strongSelf = self {
                 store.pullFeed(for: feedUrlString) { response in
                     guard let episodes = response.0 else {

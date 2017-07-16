@@ -169,3 +169,4 @@ extension AudioFilePlayer: AVAssetResourceLoaderDelegate {
         player?.pause()
     }
 }
+

@@ -86,7 +86,7 @@ extension MainCoordinator: CoordinatorDelegate {
             tabbBarCoordinator.setupBrowseCoordinator(navigationController: browseTab, dataSource: dataSource)
             let browseCoord = tabbBarCoordinator.childCoordinators[2] as! BrowseTabCoordinator
             browseCoord.delegate = self
-            browseCoord.setup()
+            browseCoord.setupBrowse()
             
             let searchViewController = SearchViewController()
             let searchTab = UINavigationController(rootViewController: searchViewController)

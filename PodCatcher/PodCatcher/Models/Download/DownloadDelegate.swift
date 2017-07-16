@@ -1,5 +1,6 @@
 import UIKit
 
 protocol DownloadDelegate: class {
-    func downloadProgressUpdated(for progress: Float)
+    func download(progress updated: Float)
+    func download(location set: String) 
 }

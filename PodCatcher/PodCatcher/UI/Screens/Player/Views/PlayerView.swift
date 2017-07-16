@@ -388,7 +388,7 @@ final class PlayerView: UIView {
     @objc private func sliderValueChanged() {
         let timeString = String.constructTimeString(time: Double(playtimeSlider.value))
         currentPlayTimeLabel.text = timeString
-        delegate?.updateTimeValue(time: Double(playtimeSlider.value * 2))
+        delegate?.updateTimeValue(time: Double(playtimeSlider.value))
     }
     
     @objc private func playButtonTapped() {
