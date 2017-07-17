@@ -81,6 +81,14 @@ final class MenuView: UIView {
         addSelectors()
     }
     
+    func setOptionOneTitle(string: String) {
+        optionOneView.set(with: string, and: #imageLiteral(resourceName: "cloud-circle-white"))
+    }
+    
+    func setupOptionTwoTitle(title: String) {
+         optionTwoView.set(with: title, and: #imageLiteral(resourceName: "circle-x-white"))
+    }
+    
     func setMenuColor(backgroundColor: UIColor, borderColor: UIColor, labelTextColor: UIColor) {
         let optionViews = [optionOneView, optionTwoView, optionCancelView]
         optionViews.forEach {

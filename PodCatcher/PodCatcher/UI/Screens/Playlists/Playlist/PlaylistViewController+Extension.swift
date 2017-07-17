@@ -160,6 +160,9 @@ extension PlaylistViewController: TopViewDelegate {
         view.addGestureRecognizer(tap)
         collectionView.addGestureRecognizer(tap)
         topView.addGestureRecognizer(tap)
+        UIView.animate(withDuration: 0.05) {
+            self.bottomMenu.showOn(self.collectionView)
+        }
     }
     
     func hidePopMenu() {
@@ -179,5 +182,24 @@ extension PlaylistViewController: AudioFilePlayerDelegate {
     
     func updateProgress(progress: Double) {
         print(progress)
+    }
+}
+
+extension PlaylistViewController: MenuDelegate {
+   
+    func optionOne(tapped: Bool) {
+        
+    }
+
+    func optionTwo(tapped: Bool) {
+        
+    }
+    
+    func optionThree(tapped: Bool) {
+        
+    }
+
+    func cancel(tapped: Bool) {
+        
     }
 }
