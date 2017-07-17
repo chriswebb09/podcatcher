@@ -22,6 +22,6 @@ Podcast App
 
 <p>
 <img src="https://raw.githubusercontent.com/chriswebb09/podcatcher/master/Resource/player-screen.jpg" align="center">
-<img src="https://raw.githubusercontent.com/chriswebb09/podcatcher/master/Resource/add-to.png" align="center">
+<img src="https://raw.githubusercontent.com/chriswebb09/podcatcher/master/Resource/add-to.png" align="right">
 </p>
 
