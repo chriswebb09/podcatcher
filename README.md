@@ -18,9 +18,6 @@ PodCatch parses podcast RSSFeeds and streams audio files from the web. Users can
 
 <h2 align="center">App Screens</h2>
 
-
-<h2 align="center">Start</h2>
-
 <img src="https://raw.githubusercontent.com/chriswebb09/podcatcher/master/Resource/start-screen.jpg" align="left">
 
 <img src="https://raw.githubusercontent.com/chriswebb09/podcatcher/master/Resource/signup.jpg" align="right">
