@@ -25,21 +25,12 @@ PodCatch parses podcast RSSFeeds and streams audio files from the web. Users can
 
 <img src="https://raw.githubusercontent.com/chriswebb09/podcatcher/master/Resource/signup.jpg" align="right">
 
-
-<h2 align="center">Search</h2>
-
 <img src="https://raw.githubusercontent.com/chriswebb09/podcatcher/master/Resource/search-screen.jpg" align="left">
 <img src="https://raw.githubusercontent.com/chriswebb09/podcatcher/master/Resource/playlist-screen.jpg" align="right">
-
-<h2 align="center">Player</h2>
 
 
 <img src="https://raw.githubusercontent.com/chriswebb09/podcatcher/master/Resource/player-screen.jpg" align="left">
 <img src="https://raw.githubusercontent.com/chriswebb09/podcatcher/master/Resource/add-to.png" align="right">
-
-
-<h3 align="center">Browse</h3>
-
 
 <img src="https://raw.githubusercontent.com/chriswebb09/podcatcher/master/Resource/browse-screen.png" align="right">
 
