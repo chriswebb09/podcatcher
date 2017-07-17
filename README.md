@@ -1,7 +1,7 @@
 # PodCatch
+
 > PodCatch is an iOS application for streaming and downloading podcasts.
 
-[![Swift Version][swift-image]][swift-url]
 
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
