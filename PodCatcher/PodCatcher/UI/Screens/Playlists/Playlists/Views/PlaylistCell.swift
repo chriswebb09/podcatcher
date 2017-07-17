@@ -1,8 +1,23 @@
 import UIKit
 
+enum PlaylistCellMode {
+    case select, delete
+}
+
 final class PlaylistCell: UITableViewCell {
     
     static let reuseIdentifier = "PlaylistCell"
+    
+    var mode: PlaylistCellMode = .select {
+        didSet {
+            switch mode {
+            case .select:
+                deleteImageView.alpha = 0
+            case .delete:
+                deleteImageView.alpha = 1
+            }
+        }
+    }
     
     var albumArtView: UIImageView = {
         var album = UIImageView()
@@ -16,6 +31,14 @@ final class PlaylistCell: UITableViewCell {
         title.textAlignment = .center
         title.numberOfLines = 0
         return title
+    }()
+    
+    var deleteImageView: UIImageView = {
+        let delete = UIImageView()
+        let image = #imageLiteral(resourceName: "circle-x").withRenderingMode(.alwaysTemplate)
+        delete.image = image
+        //delete.tintColor = .white
+        return delete
     }()
     
     var numberOfItemsLabel: UILabel = {
@@ -33,6 +56,7 @@ final class PlaylistCell: UITableViewCell {
         setup(titleLabel: titleLabel)
         setup(numberOfItemsLabel: numberOfItemsLabel)
         setup(albumArtView: albumArtView)
+        setup(deleteImageView: deleteImageView)
         setupShadow()
         selectionStyle = .none
         albumArtView.layer.setCellShadow(contentView: self)
@@ -73,6 +97,15 @@ final class PlaylistCell: UITableViewCell {
         albumArtView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
         albumArtView.heightAnchor.constraint(equalTo: contentView.heightAnchor).isActive = true
         albumArtView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.35).isActive = true
+    }
+    
+    func setup(deleteImageView: UIImageView) {
+        contentView.addSubview(deleteImageView)
+        deleteImageView.translatesAutoresizingMaskIntoConstraints = false
+        deleteImageView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: contentView.bounds.width * -0.02).isActive = true
+        deleteImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: 0).isActive = true
+        deleteImageView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.2).isActive = true
+        deleteImageView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.06).isActive = true
     }
 }
 

@@ -107,7 +107,8 @@ extension PlaylistViewController: UICollectionViewDelegate {
         guard let items = fetchedResultsController.fetchedObjects else { return }
         guard let audio = items[indexPath.row].audioUrl, let audioUrl = URL(string: audio), let artUrl = items[indexPath.row].artworkUrl, let url = URL(string: artUrl) else { return }
         topView.podcastImageView.downloadImage(url: url)
-        self.player.setUrl(with: audioUrl)
+        player = nil
+        self.player = AudioFilePlayer(url: audioUrl)
         self.player.playNext()
         switch player.state {
         case .playing:
