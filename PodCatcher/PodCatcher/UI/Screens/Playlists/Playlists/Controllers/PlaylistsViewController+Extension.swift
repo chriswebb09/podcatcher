@@ -23,22 +23,18 @@ extension PlaylistsViewController: UITableViewDelegate {
             } catch let error as NSError {
                 print(error.localizedDescription)
             }
-
             self.reloadData()
-            
             do {
                 try context.save()
             } catch let error {
                 print("Unable to Perform Fetch Request \(error), \(error.localizedDescription)")
             }
-            
             if let count = fetchedResultsController.fetchedObjects?.count {
                 if count == 0 {
                     mode = .add
                     rightButtonItem.title = "Edit"
                 }
             }
-            
         case .add:
             guard let text = fetchedResultsController.object(at: indexPath).playlistId else { return }
             switch reference {

@@ -8,7 +8,7 @@ class SearchResultListViewController: BaseCollectionViewController {
     var dataSource: BaseMediaControllerDataSource!
     
     weak var delegate: PodcastListViewControllerDelegate?
-   // var currentPlaylistID: String = ""
+    
     var episodes = [Episodes]()
     var menuActive: MenuActive = .none
     let entryPop = EntryPopover()
@@ -85,7 +85,11 @@ class SearchResultListViewController: BaseCollectionViewController {
                            lastUpdate: NSDate(),
                            image: image, uid: user.userId)
         } else {
-            feedStore.save(feedUrl: feedUrl, podcastTitle: title, episodeCount: episodes.count, lastUpdate: NSDate(), image: image, uid: "none")
+            feedStore.save(feedUrl: feedUrl,
+                           podcastTitle: title,
+                           episodeCount: episodes.count,
+                           lastUpdate: NSDate(), image:
+                image, uid: "none")
         }
         var subscriptions = UserDefaults.loadSubscriptions()
         subscriptions.append(item.feedUrl!)

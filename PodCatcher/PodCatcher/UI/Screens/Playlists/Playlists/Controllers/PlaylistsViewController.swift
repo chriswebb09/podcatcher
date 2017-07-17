@@ -65,12 +65,10 @@ final class PlaylistsViewController: BaseTableViewController {
 extension PlaylistsViewController: ReloadableTable, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         if let count = fetchedResultsController.sections?[section].numberOfObjects {
             if count <= 0 {
                 tableView.backgroundView?.addSubview(emptyView)
                 navigationItem.leftBarButtonItem = nil
-                
             } else {
                 emptyView?.removeFromSuperview()
                 navigationItem.setLeftBarButton(leftButtonItem, animated: false)
