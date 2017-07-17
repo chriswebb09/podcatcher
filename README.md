@@ -12,7 +12,7 @@ Podcast App
 <p>
 <img src="https://raw.githubusercontent.com/chriswebb09/podcatcher/master/Resource/start-screen.jpg" align="left">
 
-<img src="https://github.com/chriswebb09/podcatcher/blob/master/Resource/sign-up.jpg" align="right">
+<img src="https://raw.githubusercontent.com/chriswebb09/podcatcher/master/Resource/signup.jpg align="right">
 </p>
 
 <p>
