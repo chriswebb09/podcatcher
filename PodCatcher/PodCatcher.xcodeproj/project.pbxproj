@@ -41,7 +41,7 @@
 		A718530E1EE9626500911C87 /* BasicButtonFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718530D1EE9626500911C87 /* BasicButtonFactory.swift */; };
 		A71853101EE9628800911C87 /* LoginButtonFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718530F1EE9628800911C87 /* LoginButtonFactory.swift */; };
 		A71853121EE962BA00911C87 /* BallIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71853111EE962BA00911C87 /* BallIndicatorView.swift */; };
-		A7196B2D1F1AE56000FCED5D /* DownloadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7196B2C1F1AE56000FCED5D /* DownloadService.swift */; };
+		A7196B2D1F1AE56000FCED5D /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7196B2C1F1AE56000FCED5D /* NetworkService.swift */; };
 		A71A5BB01F01DD9500254BE2 /* ApplicationStyling.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71A5BAF1F01DD9500254BE2 /* ApplicationStyling.swift */; };
 		A71A5BB21F01DE5F00254BE2 /* TrackCellConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71A5BB11F01DE5F00254BE2 /* TrackCellConstants.swift */; };
 		A71ADF9A1F0E1F3100941A43 /* DataType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71ADF991F0E1F3100941A43 /* DataType.swift */; };
@@ -328,7 +328,7 @@
 		A718530D1EE9626500911C87 /* BasicButtonFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicButtonFactory.swift; sourceTree = "<group>"; };
 		A718530F1EE9628800911C87 /* LoginButtonFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginButtonFactory.swift; sourceTree = "<group>"; };
 		A71853111EE962BA00911C87 /* BallIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BallIndicatorView.swift; sourceTree = "<group>"; };
-		A7196B2C1F1AE56000FCED5D /* DownloadService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadService.swift; sourceTree = "<group>"; };
+		A7196B2C1F1AE56000FCED5D /* NetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		A71A5BAF1F01DD9500254BE2 /* ApplicationStyling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationStyling.swift; sourceTree = "<group>"; };
 		A71A5BB11F01DE5F00254BE2 /* TrackCellConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackCellConstants.swift; sourceTree = "<group>"; };
 		A71ADF991F0E1F3100941A43 /* DataType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataType.swift; path = States/DataType.swift; sourceTree = "<group>"; };
@@ -1466,7 +1466,7 @@
 				A71640391EFFDB6300895082 /* ReachabilityNotification.swift */,
 				A7E45F861F0239480063AC0F /* URLConstructor.swift */,
 				A7F37B681F0DEA44001B5C8C /* NetworkErrors.swift */,
-				A7196B2C1F1AE56000FCED5D /* DownloadService.swift */,
+				A7196B2C1F1AE56000FCED5D /* NetworkService.swift */,
 				A7BB7C901F1B337500F80B4C /* NetworkServiceDelegate.swift */,
 			);
 			path = NetworkServices;
@@ -2123,7 +2123,7 @@
 				A723B4161F0EB4F000EA6B27 /* PlaylistsViewController+Extension.swift in Sources */,
 				A7AA09D11EF27EFC003A8F8A /* UpdateAccountConstants.swift in Sources */,
 				A7F37B741F0DF935001B5C8C /* LoadingViewConstants.swift in Sources */,
-				A7196B2D1F1AE56000FCED5D /* DownloadService.swift in Sources */,
+				A7196B2D1F1AE56000FCED5D /* NetworkService.swift in Sources */,
 				A77107531F0D4E3A0042D2E4 /* HomeViewControllerDelegate.swift in Sources */,
 				A71D83BA1F09BF48009D0720 /* CasterItems+CoreDataClass.swift in Sources */,
 				A7150EBD1EE62E0300E3553F /* PlayerViewController.swift in Sources */,

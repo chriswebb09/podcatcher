@@ -26,5 +26,11 @@ final class LocalStorageManager {
         }
         return ""
     }
-
+    
+    
+    static func localFilePath(for url: URL) -> URL {
+        let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        return documentsPath.appendingPathComponent(url.lastPathComponent)
+    }
+    
 }

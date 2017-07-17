@@ -4,8 +4,8 @@ import UIKit
 class NetworkService: NSObject {
     
     weak var delegate: DownloadServiceDelegate?
-    let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-    var activeDownloads: [String: Download] = [String: Download]()
+    
+    var activeDownloads: [String: Download]
     
     lazy var downloadsSession: URLSession = {
         let configuration = URLSessionConfiguration.background(withIdentifier: "background")
@@ -16,11 +16,7 @@ class NetworkService: NSObject {
         self.activeDownloads = [String: Download]()
     }
     
-    func localFilePath(for url: URL) -> URL {
-        return documentsPath.appendingPathComponent(url.lastPathComponent)
-    }
-    
-    func downloadTrackPreview(for download: Download?) {
+    internal func downloadTrackPreview(for download: Download?) {
         if let download = download, let urlString = download.url, let url = URL(string: urlString) {
             download.downloadTask = downloadsSession.downloadTask(with: url)
             download.downloadTask?.resume()
@@ -58,8 +54,8 @@ extension NetworkService: URLSessionDelegate {
     }
     
     internal func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
-        if error != nil {
-            print(error!.localizedDescription)
+        if let error = error {
+             print(error.localizedDescription)
         } else {
             print("The task finished transferring data successfully")
         }
@@ -71,7 +67,7 @@ extension NetworkService: URLSessionDownloadDelegate {
     internal func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
         guard let sourceURL = downloadTask.originalRequest?.url else { return }
         activeDownloads[sourceURL.absoluteString] = nil
-        let destinationURL = localFilePath(for: sourceURL)
+        let destinationURL = LocalStorageManager.localFilePath(for: sourceURL)
         let fileManager = FileManager.default
         try? fileManager.removeItem(at: destinationURL)
         do {
