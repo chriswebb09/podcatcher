@@ -109,6 +109,8 @@ extension HomeViewController: UICollectionViewDataSource {
                 navigationItem.setRightBarButton(rightButtonItem, animated: false)
             } else if itemNumber == 0 {
                 viewShown = .empty
+                mode = .subscription
+                rightButtonItem.title = "Edit"
                 navigationItem.rightBarButtonItem = nil
             }
         }

@@ -10,7 +10,6 @@ struct EntryPopoverConstants {
     static let popViewFrameCenterY: CGFloat = UIScreen.main.bounds.height / 2.5
 }
 
-
 final class EntryPopover: BasePopoverAlert {
     
     var state: EntryState = .hidden

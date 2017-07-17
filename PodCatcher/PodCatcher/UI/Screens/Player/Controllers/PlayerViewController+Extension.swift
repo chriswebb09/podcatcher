@@ -139,6 +139,7 @@ extension PlayerViewController: AudioFilePlayerDelegate {
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }
             strongSelf.playerView.currentPlayTimeLabel.text = String.constructTimeString(time: currentTime)
+            strongSelf.playerView.totalPlayTimeLabel.text = String.constructTimeString(time: (duration - currentTime))
             strongSelf.playerView.update(progressBarValue: Float(normalizedTime))
             if Float(normalizedTime) >= 100 {
                 strongSelf.player?.player?.seek(to: kCMTimeZero)
