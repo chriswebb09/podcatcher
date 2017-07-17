@@ -25,7 +25,7 @@ extension UIImage {
             completionHandler(nil)
             return
         }
-        let task: URLSessionDataTask = URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) -> Void in
+        let task: URLSessionDataTask = URLSession.shared.dataTask(with: url, completionHandler: { data, response, error in
             guard let httpURLResponse = response as? HTTPURLResponse , httpURLResponse.statusCode == 200,
                 let mimeType = response?.mimeType, mimeType.hasPrefix("image"),
                 let data = data , error == nil,

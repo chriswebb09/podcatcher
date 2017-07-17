@@ -15,21 +15,32 @@ extension HomeViewController: UICollectionViewDelegate {
             caster.feedUrl = item.feedUrl
             delegate?.didSelect(at: indexPath.row, with: item)
         case .edit:
-            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-            let context = appDelegate.persistentContainer.viewContext
-            let feed = fetchedResultsController.object(at: indexPath).feedUrl
-            context.delete(fetchedResultsController.object(at: indexPath))
-            var subscriptions = UserDefaults.loadSubscriptions()
-            if let index = subscriptions.index(of: feed!) {
-                subscriptions.remove(at: index)
-                UserDefaults.saveSubscriptions(subscriptions: subscriptions)
+            let actionSheetController: UIAlertController = UIAlertController(title: "Are you sure?", message: "Pressing okay will remove this podcast from your subscription list.", preferredStyle: .alert)
+            let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel) { action in
+                return
             }
-            reloadData()
-            do {
-                try context.save()
-            } catch let error {
-                print("Unable to Perform Fetch Request \(error), \(error.localizedDescription)")
+            let okayAction: UIAlertAction =  UIAlertAction(title: "Okay", style: .destructive) { action in
+                guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+                let context = appDelegate.persistentContainer.viewContext
+                let feed = self.fetchedResultsController.object(at: indexPath).feedUrl
+                context.delete(self.fetchedResultsController.object(at: indexPath))
+                var subscriptions = UserDefaults.loadSubscriptions()
+                if let index = subscriptions.index(of: feed!) {
+                    subscriptions.remove(at: index)
+                    UserDefaults.saveSubscriptions(subscriptions: subscriptions)
+                }
+                self.reloadData()
+                do {
+                    try context.save()
+                } catch let error {
+                    print("Unable to Perform Fetch Request \(error), \(error.localizedDescription)")
+                }
             }
+            
+            actionSheetController.addAction(cancelAction)
+            actionSheetController.addAction(okayAction)
+            self.present(actionSheetController, animated: true, completion: nil)
+        
             if let count = fetchedResultsController.fetchedObjects?.count {
                 if count == 0 {
                     mode = .subscription
@@ -108,8 +119,8 @@ extension HomeViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as SubscribedPodcastCell
         let item = fetchedResultsController.object(at: indexPath)
         
-        if let imageData = item.artworkImage, let image = UIImage(data: imageData as Data) {
-            let model = SubscribedPodcastCellViewModel(trackName: item.podcastTitle as! String, albumImageURL: image)
+        if let imageData = item.artworkImage, let image = UIImage(data: imageData as Data), let title = item.podcastTitle {
+            let model = SubscribedPodcastCellViewModel(trackName: title, albumImageURL: image)
             DispatchQueue.main.async { [weak self] in
                 if let strongSelf = self {
                     switch strongSelf.mode {

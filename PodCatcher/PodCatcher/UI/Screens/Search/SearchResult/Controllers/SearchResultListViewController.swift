@@ -8,9 +8,8 @@ class SearchResultListViewController: BaseCollectionViewController {
     var dataSource: BaseMediaControllerDataSource!
     
     weak var delegate: PodcastListViewControllerDelegate?
-    var currentPlaylistID: String = ""
+   // var currentPlaylistID: String = ""
     var episodes = [Episodes]()
-    var newItems = [[String : String]]()
     var menuActive: MenuActive = .none
     let entryPop = EntryPopover()
     var topView = ListTopView()
@@ -63,7 +62,10 @@ class SearchResultListViewController: BaseCollectionViewController {
         }
         let subscription = UserDefaults.loadSubscriptions()
         if let item = item, let feedUrl = item.feedUrl, !subscription.contains(feedUrl) {
-            rightButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(subscribeToFeed))
+            rightButtonItem = UIBarButtonItem(title: "Add",
+                                              style: .plain,
+                                              target: self,
+                                              action: #selector(subscribeToFeed))
             navigationItem.setRightBarButton(rightButtonItem, animated: false)
             rightButtonItem.tintColor = .white
         }
@@ -77,7 +79,11 @@ class SearchResultListViewController: BaseCollectionViewController {
         guard let image = topView.podcastImageView.image else { return }
         guard let feedUrl = item.feedUrl else { return }
         if let user = dataSource.user {
-            feedStore.save(feedUrl: feedUrl, podcastTitle: title, episodeCount: episodes.count, lastUpdate: NSDate(), image: image, uid: user.userId)
+            feedStore.save(feedUrl: feedUrl,
+                           podcastTitle: title,
+                           episodeCount: episodes.count,
+                           lastUpdate: NSDate(),
+                           image: image, uid: user.userId)
         } else {
             feedStore.save(feedUrl: feedUrl, podcastTitle: title, episodeCount: episodes.count, lastUpdate: NSDate(), image: image, uid: "none")
         }
@@ -89,14 +95,15 @@ class SearchResultListViewController: BaseCollectionViewController {
     
     func subscribeToFeed() {
         saveFeed()
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
+            guard let strongSelf = self else { return }
             UIView.animate(withDuration: 0.2) {
-                self.searchResults.showActivityIndicator(viewController: self)
+                strongSelf.searchResults.showActivityIndicator(viewController: strongSelf)
             }
             UIView.animate(withDuration: 1, animations: {
-                self.searchResults.loadingView.alpha = 0
+                strongSelf.searchResults.loadingView.alpha = 0
             }, completion: { finished in
-                self.searchResults.hideActivityIndicator(viewController: self)
+                strongSelf.searchResults.hideActivityIndicator(viewController: strongSelf)
             })
         }
     }

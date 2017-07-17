@@ -97,7 +97,7 @@ extension MainCoordinator: CoordinatorDelegate {
             
             let settingsViewController = SettingsViewController()
             let settingsTab = UINavigationController(rootViewController: settingsViewController)
-            
+            settingsViewController.dataSource = dataSource
             tabbBarCoordinator.setupSettingsCoordinator(navigationController: settingsTab, dataSource: dataSource)
             tabbBarCoordinator.delegate = self
             let settingsCoord = tabbBarCoordinator.childCoordinators[4] as! SettingsTabCoordinator

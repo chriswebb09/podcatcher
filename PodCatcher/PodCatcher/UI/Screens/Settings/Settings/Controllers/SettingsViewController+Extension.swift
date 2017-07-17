@@ -29,10 +29,19 @@ extension SettingsViewController: SettingCellDelegate {
     }
     
     func cellTapped(with label: String) {
-        if label == "Log Out" {
+        if label == "Log Out" || label == "Log Into Account" {
             delegate?.guestUserSignIn(tapped: true)
         } else if label == "Delete Account" {
-            deleteUser()
+            let actionSheetController: UIAlertController = UIAlertController(title: "Please Confirm", message: "Are you sure you want to delete your account?", preferredStyle: .alert)
+            let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel) { action in
+                return
+            }
+            let deleteAction: UIAlertAction = UIAlertAction(title: "Delete Account", style: .destructive) { action in
+                self.deleteUser()
+            }
+            actionSheetController.addAction(cancelAction)
+            actionSheetController.addAction(deleteAction)
+            self.present(actionSheetController, animated: true, completion: nil)
         }
     }
     

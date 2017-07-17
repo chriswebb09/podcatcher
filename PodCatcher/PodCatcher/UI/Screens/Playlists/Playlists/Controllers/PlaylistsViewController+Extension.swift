@@ -10,7 +10,35 @@ extension PlaylistsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch mode {
         case .edit:
-            break
+            let id = fetchedResultsController.object(at: indexPath).playlistId
+            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+            let context = appDelegate.persistentContainer.viewContext
+            context.delete(fetchedResultsController.object(at: indexPath))
+            
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "PodcastPlaylistItem")
+            let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+            fetchRequest.predicate = NSPredicate(format: "playlistId == %@", id!)
+            do {
+                try appDelegate.persistentContainer.viewContext.execute(deleteRequest)
+            } catch let error as NSError {
+                print(error.localizedDescription)
+            }
+
+            self.reloadData()
+            
+            do {
+                try context.save()
+            } catch let error {
+                print("Unable to Perform Fetch Request \(error), \(error.localizedDescription)")
+            }
+            
+            if let count = fetchedResultsController.fetchedObjects?.count {
+                if count == 0 {
+                    mode = .add
+                    rightButtonItem.title = "Edit"
+                }
+            }
+            
         case .add:
             guard let text = fetchedResultsController.object(at: indexPath).playlistId else { return }
             switch reference {

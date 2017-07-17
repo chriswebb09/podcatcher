@@ -179,6 +179,9 @@ extension PlayerViewController: MenuDelegate {
     
     func optionThree(tapped: Bool) {
         // None
+//        let destinationURL = localFilePath(for: sourceURL)
+//        let fileManager = FileManager.default
+//        try? fileManager.removeItem(at: destinationURL)
     }
     
     func cancel(tapped: Bool) {

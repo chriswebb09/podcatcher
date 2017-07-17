@@ -47,7 +47,6 @@ class PlaylistViewController: BaseCollectionViewController {
         player = AudioFilePlayer(url: nil)
         player.delegate = self
         player.observePlayTime()
-        topView.preferencesView.moreMenuButton.isHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {

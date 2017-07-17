@@ -41,7 +41,7 @@ final class PlaylistsViewController: BaseTableViewController {
         CALayer.createGradientLayer(with: [UIColor.white.cgColor, UIColor.lightGray.cgColor], layer: background.layer, bounds: tableView.bounds)
         tableView.register(PlaylistCell.self, forCellReuseIdentifier: PlaylistCell.reuseIdentifier)
         tableView.delegate = self
-        rightButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "plus-red").withRenderingMode(.alwaysTemplate), style: .done, target: self, action: #selector(addPlaylist))
+        rightButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "plus-red").withRenderingMode(.alwaysTemplate), style: .plain, target: self, action: #selector(addPlaylist))
         leftButtonItem  = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(edit))
         rightButtonItem.tintColor = Colors.brightHighlight
         navigationItem.setRightBarButton(rightButtonItem, animated: false)
@@ -54,18 +54,26 @@ final class PlaylistsViewController: BaseTableViewController {
     }
     
     func edit() {
-        print("edit")
+        mode = mode == .edit ? .add : .edit
+        if navigationItem.leftBarButtonItem != nil {
+            leftButtonItem.title = mode == .edit ? "Done" : "Edit"
+        }
+        tableView.reloadData()
     }
 }
 
 extension PlaylistsViewController: ReloadableTable, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
         if let count = fetchedResultsController.sections?[section].numberOfObjects {
             if count <= 0 {
                 tableView.backgroundView?.addSubview(emptyView)
+                navigationItem.leftBarButtonItem = nil
+                
             } else {
                 emptyView?.removeFromSuperview()
+                navigationItem.setLeftBarButton(leftButtonItem, animated: false)
             }
         }
         return fetchedResultsController.sections?[section].numberOfObjects ?? 0
