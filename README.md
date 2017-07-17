@@ -17,5 +17,9 @@ Podcast App
 
 <p>
 <img src="https://raw.githubusercontent.com/chriswebb09/podcatcher/master/Resource/search-screen.jpg" align="left">
+<img src="https://raw.githubusercontent.com/chriswebb09/podcatcher/master/Resource/playlist-screen.jpg" align="right">
 </p>
 
+<p>
+<img src="https://raw.githubusercontent.com/chriswebb09/podcatcher/master/Resource/player-screen.jpg" align="center">
+</p>
