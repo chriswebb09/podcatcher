@@ -5,7 +5,7 @@ Podcast App
 
 <h2 align="center">App Screens</h2>
 
-<div style="text-align:center"><img src="https://raw.githubusercontent.com/chriswebb09/podcatcher/master/Resource/app.gif" align="center"></div>
+<div style="text-align:center"><img src="https://raw.githubusercontent.com/chriswebb09/podcatcher/master/Resource/app.gif"></div>
 
 
 <p>
