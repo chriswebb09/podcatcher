@@ -2,7 +2,7 @@
 //  Subscription+CoreDataProperties.swift
 //  
 //
-//  Created by Christopher Webb-Orenstein on 7/16/17.
+//  Created by Christopher Webb-Orenstein on 7/17/17.
 //
 //
 
@@ -23,5 +23,6 @@ extension Subscription {
     @NSManaged public var lastUpdate: NSDate?
     @NSManaged public var podcastTitle: String?
     @NSManaged public var uid: String?
+    @NSManaged public var artworkImageUrl: String?
 
 }

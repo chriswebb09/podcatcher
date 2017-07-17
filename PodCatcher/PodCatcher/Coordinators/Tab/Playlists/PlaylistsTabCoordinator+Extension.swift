@@ -30,7 +30,7 @@ extension PlaylistsTabCoordinator: PlaylistViewControllerDelegate {
     
     func didSelectPodcast(at index: Int, with episodes: [PodcastPlaylistItem], caster: CasterSearchResult) {
         let playerView = PlayerView()
-        let playerViewController = PlayerViewController(index: index, caster: caster, user: dataSource.user)
+        let playerViewController = PlayerViewController(index: index, caster: caster, user: dataSource.user, image: nil)
         playerViewController.delegate = self
         navigationController.navigationBar.isTranslucent = true
         navigationController.viewControllers.append(playerViewController)

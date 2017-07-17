@@ -96,6 +96,6 @@ final class SubscribedPodcastCell: UICollectionViewCell {
         deleteImageView.topAnchor.constraint(equalTo: overlayView.topAnchor).isActive = true
         deleteImageView.leftAnchor.constraint(equalTo: overlayView.leftAnchor).isActive = true
         deleteImageView.heightAnchor.constraint(equalTo: overlayView.heightAnchor, multiplier: 0.2).isActive = true
-        deleteImageView.widthAnchor.constraint(equalTo: overlayView.widthAnchor, multiplier: 0.2).isActive = true
+        deleteImageView.widthAnchor.constraint(equalTo: overlayView.widthAnchor, multiplier: 0.19).isActive = true
     }
 }

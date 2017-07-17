@@ -10,10 +10,15 @@ extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch mode {
         case .subscription:
+            
             let item = fetchedResultsController.object(at: indexPath)
             var caster = CasterSearchResult()
             caster.feedUrl = item.feedUrl
-            delegate?.didSelect(at: indexPath.row, with: item)
+         //   let item = fetchedResultsController.object(at: indexPath)
+            
+            guard let imageData = item.artworkImage, let image = UIImage(data: imageData as Data) else { return }
+            delegate?.didSelect(at: indexPath.row, with: item, image: image)
+                //.didSelect(at: indexPath.row, with: item)
         case .edit:
             let actionSheetController: UIAlertController = UIAlertController(title: "Are you sure?", message: "Pressing okay will remove this podcast from your subscription list.", preferredStyle: .alert)
             let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel) { action in

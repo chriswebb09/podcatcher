@@ -21,11 +21,14 @@ final class PlayerViewController: BaseViewController {
     var playerViewModel: PlayerViewModel!
     var network: NetworkService
     
-    init(index: Int, caster: CasterSearchResult, user: PodCatcherUser?) {
+    init(index: Int, caster: CasterSearchResult, user: PodCatcherUser?, image: UIImage?) {
         self.index = index
         self.caster = caster
         self.episodes = caster.episodes
         self.network = NetworkService()
+        if let image = image {
+            playerView.albumImageView.image = image 
+        }
         super.init(nibName: nil, bundle: nil)
         network.delegate = self
     }

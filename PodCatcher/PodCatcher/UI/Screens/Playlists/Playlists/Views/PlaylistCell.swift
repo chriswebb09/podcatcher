@@ -37,6 +37,7 @@ final class PlaylistCell: UITableViewCell {
         let delete = UIImageView()
         let image = #imageLiteral(resourceName: "circle-x").withRenderingMode(.alwaysTemplate)
         delete.image = image
+        delete.tintColor = .red
         //delete.tintColor = .white
         return delete
     }()
@@ -102,7 +103,7 @@ final class PlaylistCell: UITableViewCell {
     func setup(deleteImageView: UIImageView) {
         contentView.addSubview(deleteImageView)
         deleteImageView.translatesAutoresizingMaskIntoConstraints = false
-        deleteImageView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: contentView.bounds.width * -0.02).isActive = true
+        deleteImageView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: contentView.bounds.width * -0.04).isActive = true
         deleteImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: 0).isActive = true
         deleteImageView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.2).isActive = true
         deleteImageView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.06).isActive = true

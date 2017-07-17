@@ -1,8 +1,8 @@
-import Foundation
+import UIKit
 
 protocol HomeViewControllerDelegate: class {
     func didSelect(at index: Int)
-    func didSelect(at index: Int, with cast: PodcastSearchResult)
-    func didSelect(at index: Int, with subscription: Subscription)
+    func didSelect(at index: Int, with caster: PodcastSearchResult, image: UIImage)
+    func didSelect(at index: Int, with subscription: Subscription, image: UIImage)
     func logout(tapped: Bool)
 }

@@ -70,7 +70,7 @@ extension BrowseTabCoordinator: PodcastListViewControllerDelegate {
     func didSelect(at index: Int, podcast: CasterSearchResult) {
         var playerPodcast = podcast
         playerPodcast.index = index
-        let playerViewController = PlayerViewController(index: index, caster: playerPodcast, user: dataSource.user)
+        let playerViewController = PlayerViewController(index: index, caster: playerPodcast, user: dataSource.user, image: nil)
         playerViewController.delegate = self
         navigationController.viewControllers.append(playerViewController)
     }
@@ -82,7 +82,7 @@ extension BrowseTabCoordinator: PodcastListViewControllerDelegate {
          let concurrent = DispatchQueue(label: "concurrentBackground", qos: .background, attributes: .concurrent, autoreleaseFrequency: .inherit, target: nil)
         concurrent.async { [weak self] in
             if let strongSelf = self {
-                let playerViewController = PlayerViewController(index: index, caster: playerPodcast, user: strongSelf.dataSource.user)
+                let playerViewController = PlayerViewController(index: index, caster: playerPodcast, user: strongSelf.dataSource.user, image: nil)
                 playerViewController.delegate = strongSelf
                 DispatchQueue.main.async {
                     strongSelf.navigationController.navigationBar.isTranslucent = true

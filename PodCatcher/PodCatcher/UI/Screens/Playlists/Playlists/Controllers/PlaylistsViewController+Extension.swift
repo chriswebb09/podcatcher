@@ -35,7 +35,7 @@ extension PlaylistsViewController: UITableViewDelegate {
             if let count = fetchedResultsController.fetchedObjects?.count {
                 if count == 0 {
                     mode = .add
-                    rightButtonItem.title = "Edit"
+                    leftButtonItem.title = "Edit"
                 }
             }
             

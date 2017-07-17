@@ -45,6 +45,7 @@ final class EntryPopover: BasePopoverAlert {
         guard let listname = popView.entryField.text else { return }
         state = .hidden
         delegate?.userDidEnterPlaylistName(name: listname)
+        popView.entryField.text = "" 
         super.hidePopView(viewController: viewController)
         popView.isHidden = true
         viewController.view.sendSubview(toBack: popView)

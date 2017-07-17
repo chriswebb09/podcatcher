@@ -1,20 +1,12 @@
 import UIKit
 
 extension HomeTabCoordinator: HomeViewControllerDelegate {
-    
-    func logout(tapped: Bool) {
-        if dataSource.user != nil {
-            dataSource.user = nil
-        }
-        delegate?.transitionCoordinator(type: .app, dataSource: dataSource)
-    }
-    
-    func didSelect(at index: Int, with caster: PodcastSearchResult) {
+    func didSelect(at index: Int, with cast: PodcastSearchResult, image: UIImage) {
         let resultsList = SearchResultListViewController(index: index)
         resultsList.delegate = self
         resultsList.dataSource = dataSource
         resultsList.dataSource.user = dataSource.user
-        resultsList.item = caster as! CasterSearchResult
+        resultsList.item = cast as! CasterSearchResult
         guard let feedUrlString = resultsList.item.feedUrl else { return }
         dump(resultsList.item)
         let store = SearchResultsDataStore()
@@ -29,8 +21,16 @@ extension HomeTabCoordinator: HomeViewControllerDelegate {
             }
         }
     }
+
     
-    func didSelect(at index: Int, with subscription: Subscription) {
+    func logout(tapped: Bool) {
+        if dataSource.user != nil {
+            dataSource.user = nil
+        }
+        delegate?.transitionCoordinator(type: .app, dataSource: dataSource)
+    }
+    
+    func didSelect(at index: Int, with subscription: Subscription, image: UIImage) {
         let resultsList = SearchResultListViewController(index: index)
         resultsList.delegate = self
         resultsList.dataSource = dataSource
@@ -39,6 +39,11 @@ extension HomeTabCoordinator: HomeViewControllerDelegate {
         resultsList.topView.podcastImageView.image = UIImage(data: subscription.artworkImage as! Data)
         dump(resultsList.item)
         let store = SearchResultsDataStore()
+        var caster = CasterSearchResult()
+        caster.podcastArtUrlString = subscription.artworkImageUrl
+        caster.podcastTitle = subscription.podcastTitle
+        caster.feedUrl = subscription.feedUrl
+        resultsList.item = caster
         let concurrent = DispatchQueue(label: "concurrentBackground", qos: .background, attributes: .concurrent, autoreleaseFrequency: .inherit, target: nil)
         concurrent.async { [weak self] in
             if let strongSelf = self {
@@ -46,6 +51,7 @@ extension HomeTabCoordinator: HomeViewControllerDelegate {
                     guard let episodes = response.0 else {
                         return
                     }
+                    resultsList.item.episodes = episodes
                     resultsList.episodes = episodes
                     DispatchQueue.main.async {
                         resultsList.collectionView.reloadData()
@@ -62,25 +68,46 @@ extension HomeTabCoordinator: HomeViewControllerDelegate {
 }
 
 extension HomeTabCoordinator: PodcastListViewControllerDelegate {
-    
-    
     func didSelect(at index: Int, podcast: CasterSearchResult) {
+        
+    }
+
+    func didSelect(at index: Int, podcast: CasterSearchResult, image: UIImage) {
         var playerPodcast = podcast
+        playerPodcast.episodes =  podcast.episodes
         playerPodcast.index = index
-        let playerViewController = PlayerViewController(index: index, caster: playerPodcast, user: dataSource.user)
-        playerViewController.delegate = self
-        navigationController.viewControllers.append(playerViewController)
+        let concurrent = DispatchQueue(label: "concurrentBackground", qos: .background, attributes: .concurrent, autoreleaseFrequency: .inherit, target: nil)
+        concurrent.async { [weak self] in
+            if let strongSelf = self {
+                let playerViewController = PlayerViewController(index: index, caster: playerPodcast, user: strongSelf.dataSource.user, image: image)
+                playerViewController.delegate = strongSelf
+                DispatchQueue.main.async {
+                    strongSelf.navigationController.navigationBar.isTranslucent = true
+                    strongSelf.navigationController.navigationBar.alpha = 0
+                    dump(playerViewController)
+                    strongSelf.navigationController.viewControllers.append(playerViewController)
+                }
+            }
+        }
     }
     
     func didSelectPodcastAt(at index: Int, podcast: CasterSearchResult, with episodes: [Episodes]) {
         var playerPodcast = podcast
         playerPodcast.episodes = episodes
+        print("at index: Int, podcast: CasterSearchResult, with episodes: [Episodes])")
         playerPodcast.index = index
-        let playerViewController = PlayerViewController(index: index, caster: playerPodcast, user: dataSource.user)
-        playerViewController.delegate = self
-        navigationController.navigationBar.isTranslucent = true
-        navigationController.navigationBar.alpha = 0
-        navigationController.viewControllers.append(playerViewController)
+        let concurrent = DispatchQueue(label: "concurrentBackground", qos: .background, attributes: .concurrent, autoreleaseFrequency: .inherit, target: nil)
+        concurrent.async { [weak self] in
+            if let strongSelf = self {
+                let playerViewController = PlayerViewController(index: index, caster: playerPodcast, user: strongSelf.dataSource.user, image: nil)
+                playerViewController.delegate = strongSelf
+                DispatchQueue.main.async {
+                    strongSelf.navigationController.navigationBar.isTranslucent = true
+                    strongSelf.navigationController.navigationBar.alpha = 0
+                    strongSelf.navigationController.viewControllers.append(playerViewController)
+                }
+            }
+        }
     }
 }
 
