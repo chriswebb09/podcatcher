@@ -8,6 +8,7 @@ enum HomeInteractionMode {
 class HomeViewController: BaseCollectionViewController {
     
     // MARK: - Properties
+    
     let userID: String!
     var mode: HomeInteractionMode = .subscription
     weak var delegate: HomeViewControllerDelegate?

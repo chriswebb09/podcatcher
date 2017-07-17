@@ -80,6 +80,30 @@ extension PlaylistViewController: UIScrollViewDelegate {
 extension PlaylistViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let index = selectedSongIndex {
+            let playerIndexPath = IndexPath(item: index, section: 0)
+            let cell = collectionView.cellForItem(at: playerIndexPath) as! PodcastPlaylistCell
+            if indexPath.row != index {
+                cell.switchAlpha(hidden: true)
+                player.pause()
+            } else if indexPath.row == index {
+                switch player.state {
+                case .playing:
+                    player.pause()
+                    let cell = collectionView.cellForItem(at: indexPath) as! PodcastPlaylistCell
+                    cell.switchAlpha(hidden: true)
+                    player.state = .paused
+                case .paused:
+                    player.play()
+                    let cell = collectionView.cellForItem(at: indexPath) as! PodcastPlaylistCell
+                    cell.switchAlpha(hidden: false)
+                    player.state = .playing
+                case .stopped:
+                    break
+                }
+                return
+            }
+        }
         guard let items = fetchedResultsController.fetchedObjects else { return }
         guard let audio = items[indexPath.row].audioUrl, let audioUrl = URL(string: audio), let artUrl = items[indexPath.row].artworkUrl, let url = URL(string: artUrl) else { return }
         topView.podcastImageView.downloadImage(url: url)
@@ -106,6 +130,7 @@ extension PlaylistViewController: UICollectionViewDelegate {
             let cell = collectionView.cellForItem(at: indexPath) as! PodcastPlaylistCell
             cell.switchAlpha(hidden: false)
         }
+        selectedSongIndex = indexPath.row
     }
 }
 
@@ -129,6 +154,14 @@ extension PlaylistViewController: UICollectionViewDataSource {
         }
         return cell
     }
+    
+    func initPlayer(url: URL?)  {
+        guard let url = url else { return }
+        player?.setUrl(with: url)
+        player?.url = url
+        player?.playNext()
+    }
+    
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
@@ -186,11 +219,11 @@ extension PlaylistViewController: AudioFilePlayerDelegate {
 }
 
 extension PlaylistViewController: MenuDelegate {
-   
+    
     func optionOne(tapped: Bool) {
         
     }
-
+    
     func optionTwo(tapped: Bool) {
         
     }
@@ -198,7 +231,7 @@ extension PlaylistViewController: MenuDelegate {
     func optionThree(tapped: Bool) {
         
     }
-
+    
     func cancel(tapped: Bool) {
         
     }

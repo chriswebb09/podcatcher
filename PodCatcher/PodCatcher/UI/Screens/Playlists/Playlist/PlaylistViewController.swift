@@ -1,6 +1,10 @@
 import UIKit
 import CoreData
 
+enum PlaylistMode {
+    case player, list
+}
+
 class PlaylistViewController: BaseCollectionViewController {
     
     var item: CasterSearchResult!
@@ -9,7 +13,9 @@ class PlaylistViewController: BaseCollectionViewController {
     var dataSource: BaseMediaControllerDataSource!
     weak var delegate: PlaylistViewControllerDelegate?
     var playlistId: String
+    var selectedSongIndex: Int!
     var episodes = [Episodes]()
+    var mode: PlaylistMode = .list
     var caster = CasterSearchResult()
     var items = [PodcastPlaylistItem]()
     var bottomMenu = BottomMenu()
