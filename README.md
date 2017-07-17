@@ -5,7 +5,7 @@
 
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
-PodCatch parses podcast RSSFeeds and streams audio files from the web. Users can subscribe to playlists, download individual podcast episodes and as well create playlists with their favorites. PodCatch uses CoreData, Firebase and the Facebook API to build the user experience. 
+PodCatch parses podcast RSS feeds and streams audio files from the web. Users can subscribe to playlists, download individual podcast episodes and as well create playlists with their favorites. PodCatch uses CoreData, Firebase and the Facebook API to build the user experience. 
 
 ![](https://raw.githubusercontent.com/chriswebb09/podcatcher/master/Resource/app.gif)
 
