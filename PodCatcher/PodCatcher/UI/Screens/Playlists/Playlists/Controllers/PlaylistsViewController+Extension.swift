@@ -1,6 +1,39 @@
 import UIKit
 import CoreData
 
+extension PlaylistsViewController: ReloadableTable, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if let count = fetchedResultsController.sections?[section].numberOfObjects {
+            if count <= 0 {
+                tableView.backgroundView?.addSubview(emptyView)
+                navigationItem.leftBarButtonItem = nil
+            } else {
+                emptyView?.removeFromSuperview()
+                navigationItem.setLeftBarButton(leftButtonItem, animated: false)
+            }
+        }
+        return fetchedResultsController.sections?[section].numberOfObjects ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as PlaylistCell
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(swipeFunc))
+        swipeRight.direction = .left
+        if let art = fetchedResultsController.object(at: indexPath).artwork {
+            let image = UIImage(data: art as Data)
+            cell.albumArtView.image = image
+        } else {
+            cell.albumArtView.image = #imageLiteral(resourceName: "light-placehoder-2")
+        }
+        let text = fetchedResultsController.object(at: indexPath).playlistName
+        cell.titleLabel.text = text?.uppercased()
+        cell.numberOfItemsLabel.text = "Podcasts"
+        cell.addGestureRecognizer(swipeRight)
+        return cell
+    }
+}
+
 extension PlaylistsViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
