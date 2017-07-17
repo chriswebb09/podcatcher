@@ -1,10 +1,6 @@
 import UIKit
 import CoreData
 
-enum PlaylistsInteractionMode {
-    case add, edit
-}
-
 final class PlaylistsViewController: BaseTableViewController {
     
     weak var delegate: PlaylistsViewControllerDelegate?

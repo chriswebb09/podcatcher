@@ -83,13 +83,15 @@ class SearchResultListViewController: BaseCollectionViewController {
                            podcastTitle: title,
                            episodeCount: episodes.count,
                            lastUpdate: NSDate(),
-                           image: image, uid: user.userId)
+                           image: image,
+                           uid: user.userId)
         } else {
             feedStore.save(feedUrl: feedUrl,
                            podcastTitle: title,
                            episodeCount: episodes.count,
-                           lastUpdate: NSDate(), image:
-                image, uid: "none")
+                           lastUpdate: NSDate(),
+                           image: image,
+                           uid: "none")
         }
         var subscriptions = UserDefaults.loadSubscriptions()
         subscriptions.append(item.feedUrl!)

@@ -42,7 +42,7 @@ final class PodcastPlaylistCell: UICollectionViewCell {
         isUserInteractionEnabled = true
         contentView.layer.borderColor = UIColor.clear.cgColor
         contentView.layer.masksToBounds = true
-        pauseButton.isHidden = true 
+        pauseButton.isHidden = true
         layer.podcastCell(viewRadius: contentView.layer.cornerRadius + 10)
         contentView.layer.setCellShadow(contentView: contentView)
     }

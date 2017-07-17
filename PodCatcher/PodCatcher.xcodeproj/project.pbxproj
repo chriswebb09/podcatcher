@@ -167,6 +167,7 @@
 		A77EDF801EE6007E001A24E5 /* CollectionViewAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EDF7F1EE6007E001A24E5 /* CollectionViewAttributes.swift */; };
 		A77EDF881EE614FB001A24E5 /* ButtonFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EDF871EE614FB001A24E5 /* ButtonFactory.swift */; };
 		A783ECE11EF233F0003E65C0 /* EmptyCastsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A783ECE01EF233F0003E65C0 /* EmptyCastsView.swift */; };
+		A7880D951F1CA20A00EBC6FF /* PlaylistsInteractionMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7880D941F1CA20A00EBC6FF /* PlaylistsInteractionMode.swift */; };
 		A7894F9E1EE69C03000CC190 /* SettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7894F9D1EE69C03000CC190 /* SettingsTests.swift */; };
 		A7894FA01EE69C1E000CC190 /* LoginTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7894F9F1EE69C1E000CC190 /* LoginTests.swift */; };
 		A7894FA21EE69E2B000CC190 /* TestMainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7894FA11EE69E2B000CC190 /* TestMainCoordinator.swift */; };
@@ -462,6 +463,7 @@
 		A77EDF7F1EE6007E001A24E5 /* CollectionViewAttributes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewAttributes.swift; sourceTree = "<group>"; };
 		A77EDF871EE614FB001A24E5 /* ButtonFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonFactory.swift; sourceTree = "<group>"; };
 		A783ECE01EF233F0003E65C0 /* EmptyCastsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyCastsView.swift; sourceTree = "<group>"; };
+		A7880D941F1CA20A00EBC6FF /* PlaylistsInteractionMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlaylistsInteractionMode.swift; path = Playlists/Playlists/Models/PlaylistsInteractionMode.swift; sourceTree = "<group>"; };
 		A7894F9D1EE69C03000CC190 /* SettingsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTests.swift; sourceTree = "<group>"; };
 		A7894F9F1EE69C1E000CC190 /* LoginTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginTests.swift; sourceTree = "<group>"; };
 		A7894FA11EE69E2B000CC190 /* TestMainCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestMainCoordinator.swift; sourceTree = "<group>"; };
@@ -892,6 +894,7 @@
 				A723B4141F0EB4F000EA6B27 /* PlaylistsViewController+Extension.swift */,
 				A723B4191F0EB54300EA6B27 /* PlaylistCell.swift */,
 				A7A762921F13F47400D2C4FF /* PlaylistsReference.swift */,
+				A7880D941F1CA20A00EBC6FF /* PlaylistsInteractionMode.swift */,
 			);
 			name = Playlists;
 			sourceTree = "<group>";
@@ -1948,6 +1951,7 @@
 				A7E45F831F02388A0063AC0F /* TermSearchResult.swift in Sources */,
 				A7B1C0631F0AC94500A42E7D /* StartViewControllerDelegate.swift in Sources */,
 				A73DA4231EE89A060053276E /* MenuActive.swift in Sources */,
+				A7880D951F1CA20A00EBC6FF /* PlaylistsInteractionMode.swift in Sources */,
 				A77EDF801EE6007E001A24E5 /* CollectionViewAttributes.swift in Sources */,
 				A7150EE31EE6563300E3553F /* TabBarConstants.swift in Sources */,
 				A7701F801F181F6100E30C1F /* CoreDataStack.swift in Sources */,
