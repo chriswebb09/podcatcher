@@ -46,8 +46,6 @@ final class PlayerViewController: BaseViewController {
             self.showLoadingView(loadingPop: self.loadingPop)
         }
         loadAudioFile()
-        player?.delegate = self
-        player?.observePlayTime()
         playerViewModel = PlayerViewModel(imageUrl: URL(string: artUrl), title: episodes[index].title)
         setModel(model: playerViewModel)
         view.addView(view: playerView, type: .full)
@@ -57,9 +55,6 @@ final class PlayerViewController: BaseViewController {
         playerView.artistLabel.text = caster.podcastArtist
         navigationController?.setNavigationBarHidden(true, animated: false)
         tabBarController?.tabBar.alpha = 0
-        DispatchQueue.main.async {
-            self.playerView.hidePause()
-        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {

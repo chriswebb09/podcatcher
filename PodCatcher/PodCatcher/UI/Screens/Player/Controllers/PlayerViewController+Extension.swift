@@ -49,13 +49,8 @@ extension PlayerViewController: PlayerViewDelegate {
         }
     }
     
-    func updateTrack() {
-        guard let player = player else { return }
-        player.pause()
-        guard let artUrl = caster.podcastArtUrlString else { return }
-        showLoadingView(loadingPop: loadingPop)
-        self.player = nil
-        loadAudioFile()
+    func updatePlayerViewModel() {
+         guard let artUrl = caster.podcastArtUrlString else { return }
         if let urlString = caster.episodes[index].audioUrlString, let url = URL(string: urlString) {
             DispatchQueue.main.async { [weak self] in
                 if let strongSelf = self {
@@ -65,6 +60,15 @@ extension PlayerViewController: PlayerViewDelegate {
                 }
             }
         }
+    }
+    
+    func updateTrack() {
+        guard let player = player else { return }
+        player.pause()
+        showLoadingView(loadingPop: loadingPop)
+        self.player = nil
+        loadAudioFile()
+        updatePlayerViewModel()
     }
     
     func backButtonTapped() {
