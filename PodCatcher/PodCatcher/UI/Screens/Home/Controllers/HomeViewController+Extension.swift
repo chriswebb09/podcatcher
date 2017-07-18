@@ -14,11 +14,11 @@ extension HomeViewController: UICollectionViewDelegate {
             let item = fetchedResultsController.object(at: indexPath)
             var caster = CasterSearchResult()
             caster.feedUrl = item.feedUrl
-         //   let item = fetchedResultsController.object(at: indexPath)
+            //   let item = fetchedResultsController.object(at: indexPath)
             
             guard let imageData = item.artworkImage, let image = UIImage(data: imageData as Data) else { return }
             delegate?.didSelect(at: indexPath.row, with: item, image: image)
-                //.didSelect(at: indexPath.row, with: item)
+        //.didSelect(at: indexPath.row, with: item)
         case .edit:
             let actionSheetController: UIAlertController = UIAlertController(title: "Are you sure?", message: "Pressing okay will remove this podcast from your subscription list.", preferredStyle: .alert)
             let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel) { action in
@@ -45,7 +45,7 @@ extension HomeViewController: UICollectionViewDelegate {
             actionSheetController.addAction(cancelAction)
             actionSheetController.addAction(okayAction)
             self.present(actionSheetController, animated: true, completion: nil)
-        
+            
             if let count = fetchedResultsController.fetchedObjects?.count {
                 if count == 0 {
                     mode = .subscription
@@ -75,7 +75,7 @@ extension HomeViewController: NSFetchedResultsControllerDelegate {
         let fetchRequest:NSFetchRequest<Subscription> = Subscription.fetchRequest()
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "feedUrl", ascending: true)]
         if let uid = self.userID {
-             fetchRequest.predicate = NSPredicate(format: "uid==%@", uid)
+            fetchRequest.predicate = NSPredicate(format: "uid==%@", uid)
         } else {
             fetchRequest.predicate = NSPredicate(format: "uid==%@", "none")
         }
