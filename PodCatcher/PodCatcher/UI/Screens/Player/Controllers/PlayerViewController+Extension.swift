@@ -50,7 +50,7 @@ extension PlayerViewController: PlayerViewDelegate {
     }
     
     func updatePlayerViewModel() {
-         guard let artUrl = caster.podcastArtUrlString else { return }
+        guard let artUrl = caster.podcastArtUrlString else { return }
         if let urlString = caster.episodes[index].audioUrlString, let url = URL(string: urlString) {
             DispatchQueue.main.async { [weak self] in
                 if let strongSelf = self {
@@ -189,7 +189,7 @@ extension PlayerViewController: MenuDelegate {
     }
     
     func optionThree(tapped: Bool) {
-     
+        
     }
     
     func cancel(tapped: Bool) {
