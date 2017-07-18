@@ -154,16 +154,6 @@ extension PlayerViewController: AudioFilePlayerDelegate {
             if Float(normalizedTime) >= 100 {
                 strongSelf.player?.player?.seek(to: kCMTimeZero)
             }
-            guard let status = self?.player?.player?.status else { return }
-            switch status {
-            case .failed:
-                print("failed")
-                return
-            case .unknown:
-                print("unknown")
-            case .readyToPlay:
-                print("ready")
-            }
         }
     }
 }
