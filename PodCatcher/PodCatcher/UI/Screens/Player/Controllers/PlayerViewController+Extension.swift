@@ -33,18 +33,14 @@ extension PlayerViewController: PlayerViewDelegate {
     
     func loadAudioFile() {
         if let urlString = caster.episodes[index].audioUrlString, let url = URL(string: urlString) {
+            self.player = AudioFilePlayer(url: url)
+            self.player?.delegate = self
+            self.player?.observePlayTime()
+            self.initPlayer(url: url)
             if  LocalStorageManager.localFileExistsFor(urlString) {
                 print("local")
-                self.player = AudioFilePlayer(url: url)
-                self.player?.delegate = self
-                self.player?.observePlayTime()
-                self.initPlayer(url: url)
             } else {
                 print("non-local")
-                self.player = AudioFilePlayer(url: url)
-                self.player?.delegate = self
-                self.player?.observePlayTime()
-                self.initPlayer(url: url)
             }
         }
     }
