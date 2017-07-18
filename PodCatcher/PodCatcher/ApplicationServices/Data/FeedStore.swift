@@ -2,7 +2,6 @@ import UIKit
 import CoreData
 
 class FeedCoreDataStack {
-    
     var feeds: [NSManagedObject] = []
     
     func save(feedUrl: String, podcastTitle: String, episodeCount: Int, lastUpdate: NSDate, image: UIImage, uid: String, artworkUrlString: String) {
@@ -13,7 +12,7 @@ class FeedCoreDataStack {
         let managedContext = appDelegate.coreData.managedContext
         let entity = NSEntityDescription.entity(forEntityName: "Subscription", in: managedContext)!
         let subscription = NSManagedObject(entity: entity, insertInto: managedContext)
-        let podcastArtImageData = UIImageJPEGRepresentation(image, 1) as! NSData
+        let podcastArtImageData = UIImageJPEGRepresentation(image, 1) as? NSData
         subscription.setValue(feedUrl, forKeyPath: "feedUrl")
         subscription.setValue(podcastTitle, forKeyPath: "podcastTitle")
         subscription.setValue(podcastArtImageData, forKey: "artworkImage")
@@ -28,7 +27,6 @@ class FeedCoreDataStack {
             print("Could not save. \(error), \(error.userInfo)")
         }
     }
-    
     func fetchFromCore() {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         let managedContext = appDelegate.coreData.managedContext
