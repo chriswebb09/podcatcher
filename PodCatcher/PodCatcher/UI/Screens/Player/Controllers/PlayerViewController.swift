@@ -45,20 +45,7 @@ final class PlayerViewController: BaseViewController {
             self.loadingPop = LoadingPopover()
             self.showLoadingView(loadingPop: self.loadingPop)
         }
-        if let urlString = caster.episodes[index].audioUrlString, let url = URL(string: urlString) {
-            if  LocalStorageManager.localFileExistsFor(urlString) {
-                print("local")
-                self.player = AudioFilePlayer(url: url)
-                self.player?.delegate = self
-                self.player?.observePlayTime()
-                self.initPlayer(url: url)
-            } else {
-                print("non-local")
-                self.player = AudioFilePlayer(url: url)
-                self.player?.setUrl(with: url)
-                self.player?.observePlayTime()
-            }
-        }
+        loadAudioFile()
         player?.delegate = self
         player?.observePlayTime()
         playerViewModel = PlayerViewModel(imageUrl: URL(string: artUrl), title: episodes[index].title)

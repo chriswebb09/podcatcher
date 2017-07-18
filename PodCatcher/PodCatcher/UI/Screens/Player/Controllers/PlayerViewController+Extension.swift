@@ -31,12 +31,7 @@ extension PlayerViewController: PlayerViewDelegate {
         }
     }
     
-    func updateTrack() {
-        guard let player = player else { return }
-        player.pause()
-        guard let artUrl = caster.podcastArtUrlString else { return }
-        showLoadingView(loadingPop: loadingPop)
-        self.player = nil
+    func loadAudioFile() {
         if let urlString = caster.episodes[index].audioUrlString, let url = URL(string: urlString) {
             if  LocalStorageManager.localFileExistsFor(urlString) {
                 print("local")
@@ -51,6 +46,17 @@ extension PlayerViewController: PlayerViewDelegate {
                 self.player?.observePlayTime()
                 self.initPlayer(url: url)
             }
+        }
+    }
+    
+    func updateTrack() {
+        guard let player = player else { return }
+        player.pause()
+        guard let artUrl = caster.podcastArtUrlString else { return }
+        showLoadingView(loadingPop: loadingPop)
+        self.player = nil
+        loadAudioFile()
+        if let urlString = caster.episodes[index].audioUrlString, let url = URL(string: urlString) {
             DispatchQueue.main.async { [weak self] in
                 if let strongSelf = self {
                     strongSelf.playerViewModel = PlayerViewModel(imageUrl: URL(string: artUrl), title: strongSelf.caster.episodes[strongSelf.index].title)
@@ -179,10 +185,7 @@ extension PlayerViewController: MenuDelegate {
     }
     
     func optionThree(tapped: Bool) {
-        // None
-//        let destinationURL = localFilePath(for: sourceURL)
-//        let fileManager = FileManager.default
-//        try? fileManager.removeItem(at: destinationURL)
+     
     }
     
     func cancel(tapped: Bool) {

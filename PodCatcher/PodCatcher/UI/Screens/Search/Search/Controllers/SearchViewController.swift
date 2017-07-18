@@ -14,9 +14,9 @@ class SearchViewController: BaseTableViewController {
         didSet {
             switch viewShown {
             case .empty:
-                print("case empty")
+                changeView(forView: emptyView, withView: tableView)
             case .collection:
-                print("case collection")
+                changeView(forView: tableView, withView: emptyView)
             }
         }
     }
