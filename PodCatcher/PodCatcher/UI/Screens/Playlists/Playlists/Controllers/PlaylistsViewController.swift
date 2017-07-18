@@ -15,7 +15,7 @@ final class PlaylistsViewController: BaseTableViewController {
     var item: CasterSearchResult!
     var background = UIView()
     var addItemToPlaylist: PodcastPlaylistItem?
-    var datasource = PlaylistsControllerDataSource()
+    //var datasource = PlaylistsControllerDataSource()
     var fetchedResultsController:NSFetchedResultsController<PodcastPlaylist>!
     
     private let persistentContainer = NSPersistentContainer(name: "PodCatcher")

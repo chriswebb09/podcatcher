@@ -8,6 +8,7 @@ extension PlaylistsViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        dump(fetchedResultsController)
         switch mode {
         case .edit:
             let id = fetchedResultsController.object(at: indexPath).playlistId
