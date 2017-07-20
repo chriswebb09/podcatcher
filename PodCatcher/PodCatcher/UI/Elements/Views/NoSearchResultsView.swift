@@ -1,10 +1,10 @@
 import UIKit
 
-final class NetworkConnectionView: UIView {
+final class NoSearchResultsView: UIView {
     
     private var infoLabel: UILabel = {
         var label = UILabel.setupInfoLabel(infoText: "Needs Connection To Network")
-        label.font = UIFont.systemFont(ofSize: 18, weight: UIFontWeightMedium)
+        label.font = UIFont.systemFont(ofSize: 16, weight: UIFontWeightMedium)
         label.textColor = Colors.brightHighlight
         label.alpha = 1
         return label
@@ -49,7 +49,7 @@ final class NetworkConnectionView: UIView {
         addSubview(icon)
         icon.translatesAutoresizingMaskIntoConstraints = false
         icon.heightAnchor.constraint(equalTo: heightAnchor, multiplier: EmptyViewConstants.iconHeightMultiplier).isActive = true
-        icon.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.25).isActive = true
+        icon.widthAnchor.constraint(equalTo: widthAnchor, multiplier: EmptyViewConstants.iconWidthMutliplier).isActive = true
         icon.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         icon.centerYAnchor.constraint(equalTo: centerYAnchor, constant: EmptyViewConstants.iconCenterYOffset).isActive = true
     }
@@ -60,6 +60,6 @@ final class NetworkConnectionView: UIView {
         infoLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: EmptyViewConstants.iconWidthMutliplier).isActive = true
         infoLabel.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
         infoLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        infoLabel.centerYAnchor.constraint(equalTo: centerYAnchor, constant: UIScreen.main.bounds.height * 0.05).isActive = true
+        infoLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
     }
 }

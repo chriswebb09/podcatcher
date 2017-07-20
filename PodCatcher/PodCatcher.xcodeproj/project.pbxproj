@@ -156,6 +156,7 @@
 		A7780F0C1F17477500737DA8 /* BrowseTabCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7780F0B1F17477500737DA8 /* BrowseTabCoordinator.swift */; };
 		A7780F3B1F1778C200737DA8 /* HomeDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7780F3A1F1778C200737DA8 /* HomeDataSource.swift */; };
 		A7780F3D1F17792C00737DA8 /* SubscribedPodcastCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7780F3C1F17792C00737DA8 /* SubscribedPodcastCell.swift */; };
+		A77DF1F31F2069FA00565471 /* NoSearchResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77DF1F21F2069FA00565471 /* NoSearchResultsView.swift */; };
 		A77EDF571EE5FAA5001A24E5 /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EDF561EE5FAA5001A24E5 /* UIImageView+Extension.swift */; };
 		A77EDF591EE5FAC2001A24E5 /* CALayer+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EDF581EE5FAC2001A24E5 /* CALayer+Extension.swift */; };
 		A77EDF5B1EE5FB3B001A24E5 /* MediaCellConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EDF5A1EE5FB3B001A24E5 /* MediaCellConstants.swift */; };
@@ -454,6 +455,7 @@
 		A7780F0B1F17477500737DA8 /* BrowseTabCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BrowseTabCoordinator.swift; path = Browse/BrowseTabCoordinator.swift; sourceTree = "<group>"; };
 		A7780F3A1F1778C200737DA8 /* HomeDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HomeDataSource.swift; path = Home/Datasources/HomeDataSource.swift; sourceTree = "<group>"; };
 		A7780F3C1F17792C00737DA8 /* SubscribedPodcastCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SubscribedPodcastCell.swift; path = Home/Views/SubscribedPodcastCell.swift; sourceTree = "<group>"; };
+		A77DF1F21F2069FA00565471 /* NoSearchResultsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoSearchResultsView.swift; sourceTree = "<group>"; };
 		A77EDF561EE5FAA5001A24E5 /* UIImageView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
 		A77EDF581EE5FAC2001A24E5 /* CALayer+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CALayer+Extension.swift"; sourceTree = "<group>"; };
 		A77EDF5A1EE5FB3B001A24E5 /* MediaCellConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaCellConstants.swift; sourceTree = "<group>"; };
@@ -1223,6 +1225,7 @@
 				A72597901EF1AC5500179301 /* GuestUserView.swift */,
 				A783ECE01EF233F0003E65C0 /* EmptyCastsView.swift */,
 				A7184E021F201968002516AE /* NetworkConnectionView.swift */,
+				A77DF1F21F2069FA00565471 /* NoSearchResultsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2011,6 +2014,7 @@
 				A7B1C07A1F0AE47100A42E7D /* TabBarController.swift in Sources */,
 				A7B1C07B1F0AE47100A42E7D /* TabBarCoordinator.swift in Sources */,
 				A7905B161EEF7E5100199246 /* Playable.swift in Sources */,
+				A77DF1F31F2069FA00565471 /* NoSearchResultsView.swift in Sources */,
 				A7A762931F13F47400D2C4FF /* PlaylistsReference.swift in Sources */,
 				A7A54EB21EE71474009A5538 /* EntryView.swift in Sources */,
 				A71ADF9E1F0E26C900941A43 /* SearchViewController+Extension.swift in Sources */,
