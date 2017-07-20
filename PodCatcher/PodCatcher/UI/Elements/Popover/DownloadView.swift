@@ -39,10 +39,7 @@ final class DownloaderIndicatorView: UIView {
     
     func addSubviews(viewController: UIViewController) {
         loadingView.addSubview(activityIndicator)
-        containerView.addSubview(loadingView)
-        loadingView.addSubview(percentageCompleteLabel)
-        percentageCompleteLabel.center = loadingView.center
-        viewController.view.addSubview(containerView)
+        viewController.view.addSubview(loadingView)
     }
     
     func activityIndicatorSetup() {
@@ -56,8 +53,8 @@ final class DownloaderIndicatorView: UIView {
     }
     
     func showActivityIndicator(viewController: UIViewController) {
-        containerView.frame = UIScreen.main.bounds
-        containerView.center = CGPoint(x: LoadingViewConstants.ActivityIndicator.containerCenterX,
+       // loadingView.frame = UIScreen.main.bounds
+        loadingView.center = CGPoint(x: LoadingViewConstants.ActivityIndicator.containerCenterX,
                                        y: LoadingViewConstants.ActivityIndicator.containerCenterY)
         addLoadingView()
         activityIndicatorSetup()

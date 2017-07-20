@@ -1,5 +1,6 @@
 import UIKit
 import Firebase
+import ReachabilitySwift
 
 extension MainCoordinator: CoordinatorDelegate {
     
@@ -41,6 +42,13 @@ extension MainCoordinator: CoordinatorDelegate {
     }
     
     func transitionCoordinator(type: CoordinatorType, dataSource: BaseMediaControllerDataSource?) {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        NotificationCenter.default.addObserver(self, selector: #selector(self.reachabilityChanged),name: ReachabilityChangedNotification,object: reachability)
+        do {
+            try reachability.startNotifier()
+        } catch {
+            print("could not start reachability notifier")
+        }
         switch type {
         case .app:
             let firebaseAuth = Auth.auth()
@@ -106,4 +114,20 @@ extension MainCoordinator: CoordinatorDelegate {
             start()
         }
     }
+    
+    @objc func reachabilityChanged(note: Notification) {
+        
+        guard let reachability = note.object as? Reachability else { return }
+        
+        if reachability.isReachable {
+            if reachability.isReachableViaWiFi {
+                print("Reachable via WiFi")
+            } else {
+                print("Reachable via Cellular")
+            }
+        } else {
+            print("Network not reachable")
+        }
+    }
+    
 }

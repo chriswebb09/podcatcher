@@ -141,6 +141,7 @@ extension PlayerViewController: AudioFilePlayerDelegate {
     func updateProgress(progress: Double) {
         guard let duration = player?.duration else { return }
         guard let currentTime = player?.currentTime else { return }
+        if currentTime > 0 && duration > 0 {
         let normalizedTime = currentTime * 100.0 / duration
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }
@@ -149,6 +150,9 @@ extension PlayerViewController: AudioFilePlayerDelegate {
             strongSelf.playerView.update(progressBarValue: Float(normalizedTime))
             if Float(normalizedTime) >= 100 {
                 strongSelf.player?.player?.seek(to: kCMTimeZero)
+            
+            }
+            
             }
         }
     }

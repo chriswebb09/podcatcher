@@ -2,6 +2,7 @@ import UIKit
 import CoreData
 import Firebase
 import FBSDKCoreKit
+import ReachabilitySwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -10,6 +11,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var mainCoordinator: MainCoordinator!
     var backgroundSessionCompletionHandler: (() -> Void)?
     var coreData: CoreDataStack!
+    let reachability = Reachability()!
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
@@ -34,7 +36,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         FirebaseApp.configure()
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.reachabilityChanged),name: ReachabilityChangedNotification,object: reachability)
+        do {
+            try reachability.startNotifier()
+        } catch {
+            print("could not start reachability notifier")
+        }
         return true
     }
     
@@ -99,6 +106,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-  
+    
+    
+    func reachabilityChanged(note: Notification) {
+        
+        guard let reachability = note.object as? Reachability else { return }
+    
+        if reachability.isReachable {
+            if reachability.isReachableViaWiFi {
+                print("Reachable via WiFi")
+            } else {
+                print("Reachable via Cellular")
+            }
+        } else {
+            print("Network not reachable")
+        }
+    }
 }
 

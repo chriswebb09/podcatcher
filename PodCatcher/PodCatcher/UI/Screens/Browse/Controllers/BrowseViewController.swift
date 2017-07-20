@@ -1,4 +1,5 @@
 import UIKit
+import ReachabilitySwift
 
 final class BrowseViewController: BaseCollectionViewController {
     
@@ -9,6 +10,8 @@ final class BrowseViewController: BaseCollectionViewController {
     var topView = BrowseTopView()
     var tap: UITapGestureRecognizer!
     let loadingPop = LoadingPopover()
+    let reachability = Reachability()!
+    var network = NetworkConnectionView()
     
     var dataSource: HomeCollectionDataSource! {
         didSet {
@@ -32,7 +35,7 @@ final class BrowseViewController: BaseCollectionViewController {
     init(index: Int, dataSource: BaseMediaControllerDataSource) {
         self.dataSource = HomeCollectionDataSource()
         super.init(nibName: nil, bundle: nil)
-        //showLoadingView(loadingPop: loadingPop)
+        showLoadingView(loadingPop: loadingPop)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -45,11 +48,14 @@ final class BrowseViewController: BaseCollectionViewController {
         let topFrameWidth = UIScreen.main.bounds.width
         let topFrame = CGRect(x: 0, y: 0, width: topFrameWidth, height: topFrameHeight + 40)
         topView.frame = topFrame
+        
         view.addSubview(topView)
         view.backgroundColor = .clear
         topView.backgroundColor = .clear
         view.addSubview(collectionView)
         collectionViewConfiguration()
+        
+        network.frame = view.frame
         collectionView.register(TopPodcastCell.self)
         collectionView.backgroundColor = .darkGray
         tap = UITapGestureRecognizer(target: self, action: #selector(selectAt))
@@ -65,6 +71,13 @@ final class BrowseViewController: BaseCollectionViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        NotificationCenter.default.addObserver(self, selector: #selector(self.reachabilityChanged),name: ReachabilityChangedNotification,object: reachability)
+        do {
+            try reachability.startNotifier()
+        } catch {
+            print("could not start reachability notifier")
+        }
         topView.addGestureRecognizer(tap)
         UIView.animate(withDuration: 0.15) {
             self.view.alpha = 1
@@ -73,6 +86,7 @@ final class BrowseViewController: BaseCollectionViewController {
         DispatchQueue.main.async { [weak self] in
             if let strongSelf = self {
                 strongSelf.collectionView.reloadData()
+                strongSelf.hideLoadingView(loadingPop: strongSelf.loadingPop)
             }
         }
     }
@@ -85,6 +99,23 @@ final class BrowseViewController: BaseCollectionViewController {
         case .network:
             delegate?.didSelect(at: 0, with: dataSource.items[0])
             topView.removeGestureRecognizer(tap)
+        }
+    }
+    
+    func reachabilityChanged(note: Notification) {
+        
+        guard let reachability = note.object as? Reachability else { return }
+        
+        if reachability.isReachable {
+            if reachability.isReachableViaWiFi {
+                print("Reachable via WiFi")
+            } else {
+                print("Reachable via Cellular")
+            }
+        } else {
+            view.addSubview(network)
+            view.bringSubview(toFront: network)
+            print("Network not reachable")
         }
     }
 }
