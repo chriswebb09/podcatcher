@@ -10,12 +10,12 @@ extension BrowseTabCoordinator: BrowseViewControllerDelegate {
     }
     
     func didSelect(at index: Int, with caster: PodcastSearchResult) {
-   
         let resultsList = SearchResultListViewController(index: index)
         resultsList.delegate = self
         resultsList.dataSource = dataSource
         resultsList.dataSource.user = dataSource.user
         resultsList.item = caster as! CasterSearchResult
+        let browseViewController = navigationController.viewControllers[0] as! BrowseViewController
         guard let feedUrlString = resultsList.item.feedUrl else { return }
         let store = SearchResultsDataStore()
         let concurrent = DispatchQueue(label: "concurrentBackground", qos: .background, attributes: .concurrent, autoreleaseFrequency: .inherit, target: nil)
@@ -27,7 +27,6 @@ extension BrowseTabCoordinator: BrowseViewControllerDelegate {
                     DispatchQueue.main.async {
                         resultsList.collectionView.reloadData()
                         strongSelf.navigationController.viewControllers.append(resultsList)
-                        let browseViewController = self?.navigationController.viewControllers[0] as! BrowseViewController
                         browseViewController.collectionView.isUserInteractionEnabled = true
                     }
                 }
@@ -37,7 +36,7 @@ extension BrowseTabCoordinator: BrowseViewControllerDelegate {
     
     func didSelect(at index: Int) {
         let browseViewController = navigationController.viewControllers[0] as! BrowseViewController
-        let data = browseViewController .dataSource.topStore.podcasts
+        let data = browseViewController.dataSource.topStore.podcasts
         let newItem = data[index]
         let resultsList = SearchResultListViewController(index: index)
         resultsList.delegate = self
@@ -81,7 +80,7 @@ extension BrowseTabCoordinator: PodcastListViewControllerDelegate {
         var playerPodcast = podcast
         playerPodcast.episodes = episodes
         playerPodcast.index = index
-        let concurrent = DispatchQueue(label: "concurrentBackground", qos: .background, attributes: .concurrent, autoreleaseFrequency: .inherit, target: nil)
+         let concurrent = DispatchQueue(label: "concurrentBackground", qos: .background, attributes: .concurrent, autoreleaseFrequency: .inherit, target: nil)
         concurrent.async { [weak self] in
             if let strongSelf = self {
                 let playerViewController = PlayerViewController(index: index, caster: playerPodcast, user: strongSelf.dataSource.user, image: nil)
