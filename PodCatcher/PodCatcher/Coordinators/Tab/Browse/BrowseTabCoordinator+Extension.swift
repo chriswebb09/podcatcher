@@ -16,7 +16,6 @@ extension BrowseTabCoordinator: BrowseViewControllerDelegate {
         resultsList.dataSource = dataSource
         resultsList.dataSource.user = dataSource.user
         resultsList.item = caster as! CasterSearchResult
-        let homeVC = navigationController.viewControllers[0] as! BrowseViewController
         guard let feedUrlString = resultsList.item.feedUrl else { return }
         let store = SearchResultsDataStore()
         let concurrent = DispatchQueue(label: "concurrentBackground", qos: .background, attributes: .concurrent, autoreleaseFrequency: .inherit, target: nil)

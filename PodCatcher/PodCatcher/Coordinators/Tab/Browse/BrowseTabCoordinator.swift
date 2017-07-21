@@ -23,12 +23,12 @@ final class BrowseTabCoordinator: NavigationCoordinator {
     }
     
     func start() {
-        let homeViewController = navigationController.viewControllers[0] as! BrowseViewController
-        homeViewController.delegate = self
+        let browseViewController = navigationController.viewControllers[0] as! BrowseViewController
+        browseViewController.delegate = self
     }
     
     func setupBrowse() {
-        let homeViewController = navigationController.viewControllers[0] as! BrowseViewController
+        let browseViewController = navigationController.viewControllers[0] as! BrowseViewController
         var items = [TopItem]()
         getTopItems { newItems in
             items = newItems
@@ -45,14 +45,14 @@ final class BrowseTabCoordinator: NavigationCoordinator {
                                 if let caster = CasterSearchResult(json: resultingData) {
                                     results.append(caster)
                                     DispatchQueue.main.async {
-                                        homeViewController.collectionView.reloadData()
+                                        browseViewController.collectionView.reloadData()
                                     }
                                 }
                             }
-                            homeViewController.dataSource.items = results
-                            guard let urlString = homeViewController.dataSource.items[0].podcastArtUrlString else { return }
+                            browseViewController.dataSource.items = results
+                            guard let urlString = browseViewController.dataSource.items[0].podcastArtUrlString else { return }
                             guard let imageUrl = URL(string: urlString) else { return }
-                            homeViewController.topView.podcastImageView.downloadImage(url: imageUrl)
+                            browseViewController.topView.podcastImageView.downloadImage(url: imageUrl)
                         }
                     }
                 }
