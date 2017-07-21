@@ -14,6 +14,7 @@ extension BrowseViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.isUserInteractionEnabled = false 
         switch dataSource.dataType {
         case .local:
             delegate?.didSelect(at: indexPath.row)
