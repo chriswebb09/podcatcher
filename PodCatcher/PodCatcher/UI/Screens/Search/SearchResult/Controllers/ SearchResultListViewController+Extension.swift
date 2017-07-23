@@ -40,7 +40,7 @@ extension SearchResultListViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offset = scrollView.contentOffset
         let updatedTopViewFrame = CGRect(x: 0, y: 0, width: PodcastListConstants.topFrameWidth, height: PodcastListConstants.topFrameHeight / 1.2)
-        if offset.y > PodcastListConstants.minimumOffset {
+        if offset.y > PodcastListConstants.minimumOffset && dataSource.count > 10 {
             UIView.animate(withDuration: 0.5) {
                 self.topView.removeFromSuperview()
                 self.topView.alpha = 0

@@ -4,8 +4,8 @@ struct PlayerViewConstants {
     static let preferencesViewBackgroundColor = UIColor(red:0.92, green:0.32, blue:0.33, alpha:1.0)
     static let controlsViewBackgroundColor = UIColor(red:0.10, green:0.09, blue:0.12, alpha:1.0)
     static let buttonWidthMultiplier: CGFloat = 0.19
-    static let backButtonWidthMultiplier: CGFloat = 0.08
-    static let backButtonHeightMultiplier: CGFloat = 0.1
+    static let backButtonWidthMultiplier: CGFloat = 0.09
+    static let backButtonHeightMultiplier: CGFloat = 0.11
     static let backButtonCenterYOffset: CGFloat = -0.08
     static let progressViewWidthMultiplier: CGFloat = 0.6
     static let progressViewHeightMultiplier: CGFloat = 0.005
@@ -14,7 +14,7 @@ struct PlayerViewConstants {
     static let trackTitleLabelHeightMultiplier: CGFloat = 1
     static let trackTitleLabelCenterYOffset: CGFloat =  0.5
     static let trackTitleLabelWidthMultiplier: CGFloat =  0.94
-    static let artworkViewHeightMultiplier: CGFloat = 0.45
+    static let artworkViewHeightMultiplier: CGFloat = 0.48
     static let albumWidthMultiplier: CGFloat = 0.3
     static let albumHeightMultiplier: CGFloat = 0.4
     static let preferenceHeightMultiplier: CGFloat = 0.03
