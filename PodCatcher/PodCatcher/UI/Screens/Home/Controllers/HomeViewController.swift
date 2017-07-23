@@ -36,7 +36,7 @@ class HomeViewController: BaseCollectionViewController {
         self.viewShown = .empty
         self.userID = dataSource.user?.userId
         super.init(nibName: nil, bundle: nil)
-        
+        view.addSubview(emptyView)
     }
     
     required public init(coder aDecoder: NSCoder) {

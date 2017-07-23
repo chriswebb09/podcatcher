@@ -1,5 +1,4 @@
 import UIKit
-import Firebase
 import ReachabilitySwift
 
 extension MainCoordinator: CoordinatorDelegate {
@@ -51,14 +50,7 @@ extension MainCoordinator: CoordinatorDelegate {
         }
         switch type {
         case .app:
-            let firebaseAuth = Auth.auth()
-            
-            do {
-                try firebaseAuth.signOut()
-            } catch let signOutError as NSError {
-                print ("Error signing out: %@", signOutError)
-            }
-            
+                      
             let newCoordinator = StartCoordinator(navigationController: UINavigationController(), window: window)
             newCoordinator.delegate = self
             newCoordinator.skipSplash()

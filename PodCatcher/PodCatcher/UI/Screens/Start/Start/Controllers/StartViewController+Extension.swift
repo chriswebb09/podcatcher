@@ -10,12 +10,4 @@ extension StartViewController: StartViewDelegate {
             self.delegate?.continueAsGuestSelected()
         }
     }
-    
-    func createAccountTapped() {
-        delegate?.createAccountSelected()
-    }
-    
-    func loginTapped() {
-        delegate?.loginSelected()
-    }
 }

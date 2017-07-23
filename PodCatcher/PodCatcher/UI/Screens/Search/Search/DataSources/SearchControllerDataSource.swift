@@ -11,7 +11,7 @@ class SearchControllerDataSource: NSObject {
             return .empty
         }
     }
-    var emptyView = EmptyView(frame: UIScreen.main.bounds)
+    var emptyView = NoSearchResultsView()
 }
 
 extension SearchControllerDataSource: UITableViewDataSource {

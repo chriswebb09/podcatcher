@@ -6,25 +6,6 @@ target 'PodCatcher' do
   use_frameworks!
 
   # Pods for PodCatcher
-  
-  pod 'Firebase/Core'
-  pod 'Firebase/Auth'
-  pod 'Firebase/Database'
   pod 'ReachabilitySwift', '~> 3'
-  pod 'FacebookCore'
-  pod 'FacebookLogin'
-  pod 'FacebookShare'
-
-  target 'PodCatcherTests' do
-    inherit! :search_paths
-    pod 'Firebase'
-    # Pods for testing
-  end
-
-  target 'PodCatcherUITests' do
-    inherit! :search_paths
-    # Pods for testing
-    pod 'Firebase'
-  end
 
 end

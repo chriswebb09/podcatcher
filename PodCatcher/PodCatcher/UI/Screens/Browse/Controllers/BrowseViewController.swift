@@ -23,11 +23,9 @@ final class BrowseViewController: BaseCollectionViewController {
         didSet {
             switch viewShown {
             case .empty:
-                view.addSubview(emptyView)
-                changeView(forView: emptyView, withView: collectionView)
+                print("empty")
             case .collection:
-                changeView(forView: collectionView, withView: emptyView)
-                emptyView.removeFromSuperview()
+                print("collection")
             }
         }
     }

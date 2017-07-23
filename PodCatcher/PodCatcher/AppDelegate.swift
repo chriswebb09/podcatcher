@@ -1,7 +1,5 @@
 import UIKit
 import CoreData
-import Firebase
-import FBSDKCoreKit
 import ReachabilitySwift
 
 @UIApplicationMain
@@ -34,8 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             mainCoordinator.start()
         }
         
-        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
-        FirebaseApp.configure()
+       
         NotificationCenter.default.addObserver(self, selector: #selector(self.reachabilityChanged),name: ReachabilityChangedNotification,object: reachability)
         do {
             try reachability.startNotifier()
@@ -48,11 +45,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, handleEventsForBackgroundURLSession identifier: String, completionHandler: @escaping () -> Void) {
         print("background")
         backgroundSessionCompletionHandler = completionHandler
-    }
-    
-    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-        let handled = FBSDKApplicationDelegate.sharedInstance().application(app, open: url, options: options)
-        return handled
     }
     
     func applicationWillTerminate(_ application: UIApplication) {
@@ -98,11 +90,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             do {
                 try context.save()
             } catch {
-                //  print(error.localizedDescription)
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nserror = error as NSError
-                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+                print(error.localizedDescription)
             }
         }
     }
@@ -123,4 +111,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
 }
-

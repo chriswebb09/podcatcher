@@ -1,6 +1,6 @@
 import UIKit
 
-class BrowseItemsFlowLayout: UICollectionViewFlowLayout {
+final class BrowseItemsFlowLayout: UICollectionViewFlowLayout {
     
     func setup() {
         scrollDirection = .horizontal

@@ -1,5 +1,4 @@
 import UIKit
-import Firebase
 import ReachabilitySwift
 import CoreData
 

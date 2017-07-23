@@ -3,7 +3,7 @@ import UIKit
 final class NoSearchResultsView: UIView {
     
     private var infoLabel: UILabel = {
-        var label = UILabel.setupInfoLabel(infoText: "Needs Connection To Network")
+        var label = UILabel.setupInfoLabel(infoText: "Could not locate any podcasts with that name.")
         label.font = UIFont.systemFont(ofSize: 16, weight: UIFontWeightMedium)
         label.textColor = Colors.brightHighlight
         label.alpha = 1
@@ -17,9 +17,9 @@ final class NoSearchResultsView: UIView {
         return imageView
     }()
     
-    private var networkIcon: UIImageView = {
+    private var podcastIcon: UIImageView = {
         var network = UIImageView()
-        network.image = #imageLiteral(resourceName: "network-icon").withRenderingMode(.alwaysTemplate)
+        network.image = #imageLiteral(resourceName: "GrayPodcasts-icon copy").withRenderingMode(.alwaysTemplate)
         // network.image =
         return network
     }()
@@ -27,7 +27,7 @@ final class NoSearchResultsView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         backgroundColor = UIColor(red:0.32, green:0.13, blue:0.70, alpha:1.0)
-        setup(icon: networkIcon)
+        setup(icon: podcastIcon)
         setup(infoLabel: infoLabel)
         addSubview(backgroundImageView)
         addBlurEffect()

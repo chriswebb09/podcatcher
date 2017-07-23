@@ -10,8 +10,9 @@ class SearchViewController: BaseTableViewController {
         }
     }
     
-    var viewShown: ShowView = .empty {
+    var viewShown: ShowView! {
         didSet {
+            guard let viewShown = viewShown else { return }
             switch viewShown {
             case .empty:
                 changeView(forView: emptyView, withView: tableView)
