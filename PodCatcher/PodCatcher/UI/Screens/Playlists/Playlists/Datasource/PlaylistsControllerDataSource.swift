@@ -21,8 +21,6 @@ extension PlaylistsControllerDataSource: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as PlaylistCell
-        //let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(swipeFunc))
-        // swipeRight.direction = .left
         switch mode {
         case .add:
             cell.mode = .select
@@ -38,7 +36,6 @@ extension PlaylistsControllerDataSource: UITableViewDataSource {
         let text = fetchedResultsController.object(at: indexPath).playlistName
         cell.titleLabel.text = text?.uppercased()
         cell.numberOfItemsLabel.text = "Podcasts"
-        //cell.addGestureRecognizer(swipeRight)
         return cell
         
     }
@@ -50,5 +47,4 @@ extension PlaylistsControllerDataSource: UITableViewDataSource {
         fetchRequest.predicate = NSPredicate(format: "uid == %@", userID)
         fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: appDelegate.persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: nil)
     }
-    
 }
