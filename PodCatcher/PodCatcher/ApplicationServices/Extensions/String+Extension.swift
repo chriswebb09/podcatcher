@@ -3,20 +3,31 @@ import Foundation
 extension String {
     
     static func constructTimeString(time: Double) -> String {
-        print("Double \(time)")
-        let minutes = Int(time / 60)
-        print(time)
+
+        let hours: Int = Int(time / 3600)
+        let minutes = Int(time.truncatingRemainder(dividingBy: 3600) / 60)
         let seconds = Int(time.truncatingRemainder(dividingBy: 60))
-        
-        print("Seconds \(seconds)")
-        var timerString = ""
-        if seconds < 10 {
-            timerString = "\(minutes):0\(seconds)"
+
+        let formattedMinutes = formatString(time: minutes)
+        let formattedSeconds = formatString(time: seconds)
+  
+        var formattedTime = ""
+        if hours > 0 {
+            formattedTime = "\(hours):\(formattedMinutes):\(formattedSeconds)"
         } else {
-            timerString = "\(minutes):\(seconds)"
+            formattedTime = "\(formattedMinutes):\(formattedSeconds)"
         }
-        print(timerString)
-        return timerString
+        return formattedTime
+    }
+    
+    static func formatString(time: Int) -> String {
+        var formattedString = ""
+        if time < 10 {
+            formattedString = "0\(time)"
+        } else {
+            formattedString = "\(time)"
+        }
+        return formattedString
     }
     
     // String extension check that itself for valid email pattern and returns boolean
