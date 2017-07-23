@@ -8,3 +8,7 @@ enum ViewType {
     case full, element
 }
 
+
+enum DataType {
+    case local, network
+}
