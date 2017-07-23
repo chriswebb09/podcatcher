@@ -12,13 +12,20 @@ extension ItemCreator {
             let pubDate = data["pubDate"]
             let title = data["title"]
             let category = data["category"]
-            if let itemLink = link, let id = String.extractID(from: itemLink), let date = pubDate, let title = title, let category = category {
+            if let itemLink = link,
+                let id = String.extractID(from: itemLink),
+                let date = pubDate, let title = title,
+                let category = category {
                 var itemCategory = "N/A"
                 if category != "podcast" {
                     itemCategory = category
                 }
                 let index = id.index(id.startIndex, offsetBy: 2)
-                let item = TopItem(title: title, id: id.substring(from: index), pubDate: date, category: itemCategory, itunesLinkString: itemLink)
+                let item = TopItem(title: title,
+                                   id: id.substring(from: index),
+                                   pubDate: date,
+                                   category: itemCategory,
+                                   itunesLinkString: itemLink)
                 items.append(item)
             }
         }

@@ -2,11 +2,10 @@ import CoreData
 import UIKit
 
 protocol ReloadableTable: class {
-    
     var fetchedResultsController:NSFetchedResultsController<PodcastPlaylist>! { get set }
     var tableView: UITableView { get set }
-    func reloadData()
     var userID: String! { get set }
+    func reloadData()
 }
 
 extension ReloadableTable {
