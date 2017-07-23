@@ -1,7 +1,6 @@
-import Foundation
 import UIKit
 
-class NetworkService: NSObject {
+final class NetworkService: NSObject {
     
     weak var delegate: DownloadServiceDelegate?
     
