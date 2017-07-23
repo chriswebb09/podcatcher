@@ -37,7 +37,6 @@ extension PlaylistsControllerDataSource: UITableViewDataSource {
         cell.titleLabel.text = text?.uppercased()
         cell.numberOfItemsLabel.text = "Podcasts"
         return cell
-        
     }
     
     func setFetch() {
@@ -45,6 +44,9 @@ extension PlaylistsControllerDataSource: UITableViewDataSource {
         let fetchRequest:NSFetchRequest<PodcastPlaylist> = PodcastPlaylist.fetchRequest()
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "playlistId", ascending: true)]
         fetchRequest.predicate = NSPredicate(format: "uid == %@", userID)
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: appDelegate.persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest,
+                                                              managedObjectContext: appDelegate.persistentContainer.viewContext,
+                                                              sectionNameKeyPath: nil,
+                                                              cacheName: nil)
     }
 }

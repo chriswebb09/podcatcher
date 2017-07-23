@@ -15,7 +15,6 @@ final class PlaylistsViewController: BaseTableViewController {
     var item: CasterSearchResult!
     var background = UIView()
     var addItemToPlaylist: PodcastPlaylistItem?
-    //var datasource = PlaylistsControllerDataSource()
     var fetchedResultsController:NSFetchedResultsController<PodcastPlaylist>!
     
     private let persistentContainer = NSPersistentContainer(name: "PodCatcher")
@@ -62,7 +61,6 @@ final class PlaylistsViewController: BaseTableViewController {
 extension PlaylistsViewController: ReloadableTable, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         if let count = fetchedResultsController.sections?[section].numberOfObjects {
             if count <= 0 {
                 tableView.backgroundView?.addSubview(emptyView)
