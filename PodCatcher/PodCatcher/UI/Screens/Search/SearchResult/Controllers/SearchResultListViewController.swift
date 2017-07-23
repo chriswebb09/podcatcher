@@ -78,25 +78,18 @@ class SearchResultListViewController: BaseCollectionViewController {
         guard let title = item.podcastTitle else { return }
         guard let image = topView.podcastImageView.image else { return }
         guard let feedUrl = item.feedUrl else { return }
-        if let user = dataSource.user {
-            feedStore.save(feedUrl: feedUrl,
-                           podcastTitle: title,
-                           episodeCount: episodes.count,
-                           lastUpdate: NSDate(),
-                           image: image,
-                           uid: user.userId,
-                           artworkUrlString: item.podcastArtUrlString!)
-        } else {
-            feedStore.save(feedUrl: feedUrl,
-                           podcastTitle: title,
-                           episodeCount: episodes.count,
-                           lastUpdate: NSDate(),
-                           image: image,
-                           uid: "none",
-                           artworkUrlString: item.podcastArtUrlString!)
-        }
+        guard let artist = item.podcastArtist else { return }
+        guard let artUrl = item.podcastArtUrlString else { return }
+        feedStore.save(feedUrl: feedUrl,
+                       podcastTitle: title,
+                       episodeCount: episodes.count,
+                       lastUpdate: NSDate(),
+                       image: image,
+                       uid: "none",
+                       artworkUrlString: artUrl,
+                       artistName: artist)
         var subscriptions = UserDefaults.loadSubscriptions()
-        subscriptions.append(item.feedUrl!)
+        subscriptions.append(feedUrl)
         UserDefaults.saveSubscriptions(subscriptions: subscriptions)
         navigationItem.rightBarButtonItem = nil
     }

@@ -38,7 +38,7 @@ final class PlayerView: UIView {
         return backButton
     }()
     
-   var artistLabel: UILabel = {
+    var artistLabel: UILabel = {
         let artist = UILabel()
         artist.textColor = .white
         artist.numberOfLines = 0
@@ -96,7 +96,8 @@ final class PlayerView: UIView {
         slider.thumbTintColor = .white
         slider.maximumTrackTintColor = UIColor(red:1.00, green:0.71, blue:0.71, alpha:1.0)
         let thumbImage = #imageLiteral(resourceName: "line-gray").scaleToSize(CGSize(width: 2.5, height: 18))
-        slider.setThumbImage(thumbImage, for: .normal)
+        //slider.setThumbImage(self.generateHandleImage(thumbImage), for: .normal)
+        slider.setThumbImage(slider.generateHandleImage(with: .white), for: .normal)
         slider.setThumbImage(thumbImage, for: .selected)
         slider.minimumValue = 0
         slider.maximumValue = 100
@@ -291,7 +292,7 @@ final class PlayerView: UIView {
     private func setup(playButton: UIButton, pauseButton: UIButton) {
         setup(trackButton: playButton)
         setup(trackButton: pauseButton)
-     
+        
     }
     
     private func skipButtonsSharedLayout(controlsView: UIView, button: UIButton) {
@@ -304,10 +305,12 @@ final class PlayerView: UIView {
     
     private func setup(skipButton: UIButton, backButton: UIButton) {
         skipButtonsSharedLayout(controlsView: controlsView, button: skipButton)
-        skipButton.rightAnchor.constraint(equalTo: playButton.rightAnchor, constant: UIScreen.main.bounds.width * 0.28).isActive = true
+        skipButton.rightAnchor.constraint(equalTo: playButton.rightAnchor, constant: UIScreen.main.bounds.width * 0.27).isActive = true
         skipButtonsSharedLayout(controlsView: controlsView, button: backButton)
-        backButton.leftAnchor.constraint(equalTo: playButton.leftAnchor, constant: UIScreen.main.bounds.width * -0.28).isActive = true
+        backButton.leftAnchor.constraint(equalTo: playButton.leftAnchor, constant: UIScreen.main.bounds.width * -0.27).isActive = true
     }
+    
+    
     
     func setup(playtimeSliderView: UIView) {
         controlsView.addSubview(playtimeSliderView)
@@ -333,7 +336,7 @@ final class PlayerView: UIView {
         totalPlayTimeLabel.widthAnchor.constraint(equalTo: controlsView.widthAnchor, multiplier: 0.14).isActive = true
         totalPlayTimeLabel.heightAnchor.constraint(equalTo: controlsView.heightAnchor, multiplier: PlayerViewConstants.backButtonHeightMultiplier).isActive = true
         totalPlayTimeLabel.bottomAnchor.constraint(equalTo: controlsView.bottomAnchor, constant: UIScreen.main.bounds.height * -0.02).isActive = true
-        totalPlayTimeLabel.rightAnchor.constraint(equalTo: controlsView.rightAnchor, constant: UIScreen.main.bounds.width * -0.11).isActive = true
+        totalPlayTimeLabel.rightAnchor.constraint(equalTo: controlsView.rightAnchor, constant: UIScreen.main.bounds.width * -0.08).isActive = true
     }
     
     private func setup(currentTimeLabel: UILabel) {
@@ -342,7 +345,7 @@ final class PlayerView: UIView {
         currentTimeLabel.widthAnchor.constraint(equalTo: controlsView.widthAnchor, multiplier: 0.1).isActive = true
         currentTimeLabel.heightAnchor.constraint(equalTo: controlsView.heightAnchor, multiplier: PlayerViewConstants.backButtonHeightMultiplier).isActive = true
         currentTimeLabel.bottomAnchor.constraint(equalTo: controlsView.bottomAnchor, constant: UIScreen.main.bounds.height * -0.02).isActive = true
-        currentTimeLabel.leftAnchor.constraint(equalTo: controlsView.leftAnchor, constant: UIScreen.main.bounds.width * 0.11).isActive = true
+        currentTimeLabel.leftAnchor.constraint(equalTo: controlsView.leftAnchor, constant: UIScreen.main.bounds.width * 0.08).isActive = true
     }
     
     private func setupViews() {
@@ -449,5 +452,15 @@ final class PlayerView: UIView {
         playButton.isEnabled = true
         skipButton.isEnabled = true
         backButton.isEnabled = true
+    }
+}
+
+extension UISlider {
+    func generateHandleImage(with color: UIColor) -> UIImage {
+        let rect = CGRect(x: 0, y: 0, width: self.bounds.size.height + 20, height: self.bounds.size.height + 20)
+        return UIGraphicsImageRenderer(size: rect.size).image { imageContext in
+            imageContext.cgContext.setFillColor(color.cgColor)
+            imageContext.cgContext.fill(rect.insetBy(dx: 10, dy: 10))
+        }
     }
 }

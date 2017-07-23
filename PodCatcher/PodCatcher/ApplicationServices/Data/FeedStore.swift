@@ -4,7 +4,7 @@ import CoreData
 class FeedCoreDataStack {
     var feeds: [NSManagedObject] = []
     
-    func save(feedUrl: String, podcastTitle: String, episodeCount: Int, lastUpdate: NSDate, image: UIImage, uid: String, artworkUrlString: String) {
+    func save(feedUrl: String, podcastTitle: String, episodeCount: Int, lastUpdate: NSDate, image: UIImage, uid: String, artworkUrlString: String, artistName: String) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             return
         }
@@ -15,6 +15,7 @@ class FeedCoreDataStack {
         let podcastArtImageData = UIImageJPEGRepresentation(image, 1) as? NSData
         subscription.setValue(feedUrl, forKeyPath: "feedUrl")
         subscription.setValue(podcastTitle, forKeyPath: "podcastTitle")
+        subscription.setValue(artistName, forKeyPath: "podcastArtist")
         subscription.setValue(podcastArtImageData, forKey: "artworkImage")
         subscription.setValue(episodeCount, forKey: "episodeCount")
         subscription.setValue(lastUpdate, forKey: "lastUpdate")

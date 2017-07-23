@@ -4,7 +4,7 @@ final class EmptyView: UIView {
     
     private var infoLabel: UILabel = {
         var label = UILabel.setupInfoLabel(infoText: "No Podcasts Have Been Added")
-        label.font = UIFont.systemFont(ofSize: 16, weight: UIFontWeightMedium)
+        label.font = UIFont.systemFont(ofSize: 18, weight: UIFontWeightMedium)
         label.textColor = Colors.brightHighlight
         label.alpha = 1
         return label
@@ -20,7 +20,7 @@ final class EmptyView: UIView {
     private var musicIcon: UIImageView = {
         var musicIcon = UIImageView()
         musicIcon.image = #imageLiteral(resourceName: "mic-icon").withRenderingMode(.alwaysTemplate)
-        musicIcon.tintColor = Colors.brightHighlight
+       // musicIcon.tintColor = Colors.brightHighlight
         musicIcon.alpha = 1
         return musicIcon
     }()
@@ -52,7 +52,7 @@ final class EmptyView: UIView {
         musicIcon.heightAnchor.constraint(equalTo: heightAnchor, multiplier: EmptyViewConstants.iconHeightMultiplier).isActive = true
         musicIcon.widthAnchor.constraint(equalTo: widthAnchor, multiplier: EmptyViewConstants.iconWidthMutliplier).isActive = true
         musicIcon.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        musicIcon.centerYAnchor.constraint(equalTo: centerYAnchor, constant: EmptyViewConstants.iconCenterYOffset).isActive = true
+        musicIcon.centerYAnchor.constraint(equalTo: centerYAnchor, constant: UIScreen.main.bounds.height * -0.15).isActive = true
     }
     
     private func setup(infoLabel: UILabel) {

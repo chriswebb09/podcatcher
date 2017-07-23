@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="12141" systemVersion="16F73" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="12141" systemVersion="16G29" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="CasterItems" representedClassName="CasterItems" syncable="YES">
         <attribute name="audioFile" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="audioUrl" optional="YES" attributeType="String" syncable="YES"/>
@@ -49,6 +49,7 @@
         <attribute name="feedUrl" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="lastUpdate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="podcastArtist" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="podcastTitle" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="uid" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
@@ -67,7 +68,7 @@
         <element name="PodCaster" positionX="2808" positionY="177" width="128" height="120"/>
         <element name="PodcastPlaylist" positionX="2628" positionY="192" width="128" height="165"/>
         <element name="PodcastPlaylistItem" positionX="2383" positionY="216" width="128" height="225"/>
-        <element name="Subscription" positionX="2592" positionY="252" width="128" height="165"/>
+        <element name="Subscription" positionX="2592" positionY="252" width="128" height="180"/>
         <element name="TopPodcast" positionX="3006" positionY="261" width="128" height="165"/>
     </elements>
 </model>

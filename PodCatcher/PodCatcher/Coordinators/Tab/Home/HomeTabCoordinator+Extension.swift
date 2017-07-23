@@ -43,6 +43,7 @@ extension HomeTabCoordinator: HomeViewControllerDelegate {
         caster.podcastArtUrlString = subscription.artworkImageUrl
         caster.podcastTitle = subscription.podcastTitle
         caster.feedUrl = subscription.feedUrl
+        caster.podcastArtist = subscription.podcastArtist
         resultsList.item = caster
         let concurrent = DispatchQueue(label: "concurrentBackground", qos: .background, attributes: .concurrent, autoreleaseFrequency: .inherit, target: nil)
         concurrent.async { [weak self] in
