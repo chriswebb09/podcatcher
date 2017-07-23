@@ -231,7 +231,7 @@ final class PlayerView: UIView {
         titleView.addSubview(titleLabel)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.centerXAnchor.constraint(equalTo: titleView.centerXAnchor).isActive = true
-        titleLabel.centerYAnchor.constraint(equalTo: titleView.centerYAnchor, constant: UIScreen.main.bounds.height * 0.045).isActive = true
+        titleLabel.centerYAnchor.constraint(equalTo: titleView.centerYAnchor, constant: UIScreen.main.bounds.height * 0.046).isActive = true
         titleLabel.heightAnchor.constraint(equalTo: titleView.heightAnchor, multiplier: PlayerViewConstants.trackTitleLabelHeightMultiplier).isActive = true
         titleLabel.widthAnchor.constraint(equalTo: titleView.widthAnchor, multiplier: PlayerViewConstants.trackTitleLabelWidthMultiplier).isActive = true
     }
@@ -241,7 +241,7 @@ final class PlayerView: UIView {
         preferencesView.translatesAutoresizingMaskIntoConstraints = false
         preferencesView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
         preferencesView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: PlayerViewConstants.preferenceHeightMultiplier).isActive = true
-        preferencesView.topAnchor.constraint(equalTo: albumImageView.bottomAnchor, constant: UIScreen.main.bounds.height * 0.03).isActive = true
+        preferencesView.topAnchor.constraint(equalTo: albumImageView.bottomAnchor, constant: UIScreen.main.bounds.height * 0.02).isActive = true
     }
     
     private func setupMoreButton(moreButton: UIButton) {
@@ -266,7 +266,7 @@ final class PlayerView: UIView {
         albumImageView.centerXAnchor.constraint(equalTo: albumView.centerXAnchor).isActive = true
         albumImageView.centerYAnchor.constraint(equalTo: albumView.centerYAnchor, constant: UIScreen.main.bounds.height * -0.018).isActive = true
         albumImageView.heightAnchor.constraint(equalTo: albumView.heightAnchor).isActive = true
-        albumImageView.widthAnchor.constraint(equalTo: albumView.widthAnchor, multiplier: 0.95).isActive = true
+        albumImageView.widthAnchor.constraint(equalTo: albumView.widthAnchor, multiplier: 0.96).isActive = true
     }
     
     private func setup(descriptionView: UITextView) {
@@ -284,7 +284,7 @@ final class PlayerView: UIView {
         trackButton.translatesAutoresizingMaskIntoConstraints = false
         trackButton.heightAnchor.constraint(equalTo: controlsView.heightAnchor, multiplier: 0.42).isActive = true
         trackButton.widthAnchor.constraint(equalTo: controlsView.widthAnchor, multiplier: 0.24).isActive = true
-        trackButton.bottomAnchor.constraint(equalTo: controlsView.centerYAnchor, constant: UIScreen.main.bounds.height * 0.016).isActive = true
+        trackButton.bottomAnchor.constraint(equalTo: controlsView.centerYAnchor, constant: UIScreen.main.bounds.height * 0.025).isActive = true
         trackButton.centerXAnchor.constraint(equalTo: controlsView.centerXAnchor).isActive = true
     }
     
@@ -304,16 +304,16 @@ final class PlayerView: UIView {
     
     private func setup(skipButton: UIButton, backButton: UIButton) {
         skipButtonsSharedLayout(controlsView: controlsView, button: skipButton)
-        skipButton.rightAnchor.constraint(equalTo: playButton.rightAnchor, constant: UIScreen.main.bounds.width * 0.25).isActive = true
+        skipButton.rightAnchor.constraint(equalTo: playButton.rightAnchor, constant: UIScreen.main.bounds.width * 0.28).isActive = true
         skipButtonsSharedLayout(controlsView: controlsView, button: backButton)
-        backButton.leftAnchor.constraint(equalTo: playButton.leftAnchor, constant: UIScreen.main.bounds.width * -0.25).isActive = true
+        backButton.leftAnchor.constraint(equalTo: playButton.leftAnchor, constant: UIScreen.main.bounds.width * -0.28).isActive = true
     }
     
     func setup(playtimeSliderView: UIView) {
         controlsView.addSubview(playtimeSliderView)
         playtimeSliderView.translatesAutoresizingMaskIntoConstraints = false
         playtimeSliderView.centerXAnchor.constraint(equalTo: controlsView.centerXAnchor).isActive = true
-        playtimeSliderView.widthAnchor.constraint(equalTo: controlsView.widthAnchor, multiplier: 0.8).isActive = true
+        playtimeSliderView.widthAnchor.constraint(equalTo: controlsView.widthAnchor, multiplier: 0.85).isActive = true
         playtimeSliderView.heightAnchor.constraint(equalTo: controlsView.heightAnchor, multiplier: 0.2).isActive = true
         playtimeSliderView.centerYAnchor.constraint(equalTo: controlsView.centerYAnchor, constant: UIScreen.main.bounds.height * 0.08).isActive = true
     }

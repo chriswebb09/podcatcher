@@ -47,13 +47,11 @@ extension PlayerViewController: PlayerViewDelegate {
     
     func updatePlayerViewModel() {
         guard let artUrl = caster.podcastArtUrlString else { return }
-        if let urlString = caster.episodes[index].audioUrlString, let url = URL(string: urlString) {
-            DispatchQueue.main.async { [weak self] in
-                if let strongSelf = self {
-                    strongSelf.playerViewModel = PlayerViewModel(imageUrl: URL(string: artUrl), title: strongSelf.caster.episodes[strongSelf.index].title)
-                    strongSelf.setModel(model: strongSelf.playerViewModel)
-                    strongSelf.title = strongSelf.caster.episodes[strongSelf.index].title
-                }
+        DispatchQueue.main.async { [weak self] in
+            if let strongSelf = self {
+                strongSelf.playerViewModel = PlayerViewModel(imageUrl: URL(string: artUrl), title: strongSelf.caster.episodes[strongSelf.index].title)
+                strongSelf.setModel(model: strongSelf.playerViewModel)
+                strongSelf.title = strongSelf.caster.episodes[strongSelf.index].title
             }
         }
     }
@@ -142,17 +140,15 @@ extension PlayerViewController: AudioFilePlayerDelegate {
         guard let duration = player?.duration else { return }
         guard let currentTime = player?.currentTime else { return }
         if currentTime > 0 && duration > 0 {
-        let normalizedTime = currentTime * 100.0 / duration
-        DispatchQueue.main.async { [weak self] in
-            guard let strongSelf = self else { return }
-            strongSelf.playerView.currentPlayTimeLabel.text = String.constructTimeString(time: currentTime)
-            strongSelf.playerView.totalPlayTimeLabel.text = String.constructTimeString(time: (duration - currentTime))
-            strongSelf.playerView.update(progressBarValue: Float(normalizedTime))
-            if Float(normalizedTime) >= 100 {
-                strongSelf.player?.player?.seek(to: kCMTimeZero)
-            
-            }
-            
+            let normalizedTime = currentTime * 100.0 / duration
+            DispatchQueue.main.async { [weak self] in
+                guard let strongSelf = self else { return }
+                strongSelf.playerView.currentPlayTimeLabel.text = String.constructTimeString(time: currentTime)
+                strongSelf.playerView.totalPlayTimeLabel.text = String.constructTimeString(time: (duration - currentTime))
+                strongSelf.playerView.update(progressBarValue: Float(normalizedTime))
+                if normalizedTime >= 100 {
+                    strongSelf.player?.player?.seek(to: kCMTimeZero)
+                }
             }
         }
     }
