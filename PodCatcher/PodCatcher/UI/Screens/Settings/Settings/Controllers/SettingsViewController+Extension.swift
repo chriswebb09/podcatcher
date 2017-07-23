@@ -23,10 +23,6 @@ extension SettingsViewController: UITableViewDataSource {
 
 extension SettingsViewController: SettingCellDelegate {
     
-    func onTap() {
-        print("tapped")
-    }
-    
     func cellTapped(with label: String) {
         if label == "Log Out" || label == "Log Into Account" {
             delegate?.guestUserSignIn(tapped: true)

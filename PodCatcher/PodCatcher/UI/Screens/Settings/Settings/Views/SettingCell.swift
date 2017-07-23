@@ -37,8 +37,6 @@ class SettingCell: UITableViewCell {
         titleLabel.heightAnchor.constraint(equalTo: contentView.heightAnchor).isActive = true
         titleLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.6).isActive = true
     }
-    
-    
 }
 
 extension SettingCell: Reusable {}
