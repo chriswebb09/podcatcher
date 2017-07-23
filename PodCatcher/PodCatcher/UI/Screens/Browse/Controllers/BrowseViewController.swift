@@ -64,7 +64,6 @@ final class BrowseViewController: BaseCollectionViewController {
                 strongSelf.view.bringSubview(toFront: strongSelf.collectionView)
                 strongSelf.collectionView.reloadData()
             }
-            
         }
     }
     
