@@ -21,13 +21,20 @@ extension PlayerViewController: PlayerViewDelegate {
     }
     
     func updateTimeValue(time: Double) {
-        guard let duration = player?.duration else { return }
-        player?.currentTime = (time * duration) / 100
-        DispatchQueue.main.async { [weak self] in
-            if let player = self?.player {
+        var paused = false
+        if let player = self.player {
+            if player.state == .playing {
+                paused = true
+                player.pause()
+            }
+            guard let duration = player.duration else { return }
+            player.currentTime = (time * duration) / 100
+            DispatchQueue.main.async { [weak self] in
                 let timeString = String.constructTimeString(time: player.currentTime)
                 self?.playerView.currentPlayTimeLabel.text = timeString
-                player.play()
+                if paused == true {
+                    player.play()
+                }
             }
         }
     }

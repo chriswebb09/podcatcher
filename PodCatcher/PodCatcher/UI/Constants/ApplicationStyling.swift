@@ -3,7 +3,7 @@ import UIKit
 class ApplicationStyling {
     
     static func setupUI() {
-        let titleFontAttribute = UIFont.systemFont(ofSize: 16, weight: UIFontWeightMedium)
+        let titleFontAttribute = UIFont.systemFont(ofSize: 16, weight: UIFontWeightRegular)
         let tabBar = UITabBar.appearance()
         tabBar.barTintColor = UIColor.clear
         UINavigationBar.appearance().tintColor = .white
