@@ -50,19 +50,15 @@ final class BrowseTopView: UIView {
         podcastImageView.translatesAutoresizingMaskIntoConstraints = false
         podcastImageView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: BrowseListTopViewConstants.podcastImageViewCenterYOffset).isActive = true
         podcastImageView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        podcastImageView.heightAnchor.constraint(equalTo: heightAnchor,
-                                                 multiplier: BrowseListTopViewConstants.podcastImageViewHeightMultiplier).isActive = true
-        podcastImageView.widthAnchor.constraint(equalTo: widthAnchor,
-                                                multiplier: BrowseListTopViewConstants.podcastImageViewWidthMultiplier).isActive = true
+        podcastImageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: BrowseListTopViewConstants.podcastImageViewHeightMultiplier).isActive = true
+        podcastImageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: BrowseListTopViewConstants.podcastImageViewWidthMultiplier).isActive = true
     }
     
     func setup(titleLabel: UILabel) {
         addSubview(titleLabel)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.topAnchor.constraint(equalTo: podcastImageView.bottomAnchor,
-                                        constant: PodcastListTopViewConstants.titleLabelTopOffset).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: podcastImageView.bottomAnchor, constant: PodcastListTopViewConstants.titleLabelTopOffset).isActive = true
         titleLabel.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
-        titleLabel.heightAnchor.constraint(equalTo: heightAnchor,
-                                           multiplier: PodcastListTopViewConstants.titleLabelHeightMultiplier).isActive = true
+        titleLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: PodcastListTopViewConstants.titleLabelHeightMultiplier).isActive = true
     }
 }

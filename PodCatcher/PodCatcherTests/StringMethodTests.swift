@@ -15,7 +15,7 @@ class StringMethodTests: XCTestCase {
         var time = String.constructTimeString(time: 869.844)
         XCTAssertEqual(time, "14:29")
         time = String.constructTimeString(time: 0.0)
-        XCTAssertEqual(time, "0:00")
+        XCTAssertEqual(time, "00:00")
     }
     
     func testValidEmail() {
