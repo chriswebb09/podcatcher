@@ -209,10 +209,9 @@ extension PlayerViewController: DownloadServiceDelegate {
     func download(progress updated: Float) {
         if updated == 1 {
             DispatchQueue.main.async { [weak self] in
-                if let strongSelf = self {
-                    UIView.animate(withDuration: 0.5) {
-                        strongSelf.downloadingIndicator.hideActivityIndicator(viewController: strongSelf)
-                    }
+                guard let strongSelf = self else { return }
+                UIView.animate(withDuration: 0.5) {
+                    strongSelf.downloadingIndicator.hideActivityIndicator(viewController: strongSelf)
                 }
             }
         }
