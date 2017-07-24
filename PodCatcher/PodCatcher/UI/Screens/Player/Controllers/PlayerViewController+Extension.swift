@@ -24,10 +24,10 @@ extension PlayerViewController: PlayerViewDelegate {
         guard let duration = player?.duration else { return }
         player?.currentTime = (time * duration) / 100
         DispatchQueue.main.async { [weak self] in
-            if let strongSelf = self, let player = strongSelf.player {
+            if let player = self?.player {
                 let timeString = String.constructTimeString(time: player.currentTime)
-                strongSelf.playerView.currentPlayTimeLabel.text = timeString
-                strongSelf.player?.play()
+                self?.playerView.currentPlayTimeLabel.text = timeString
+                player.play()
             }
         }
     }
@@ -49,11 +49,11 @@ extension PlayerViewController: PlayerViewDelegate {
     func updatePlayerViewModel() {
         guard let artUrl = caster.podcastArtUrlString else { return }
         DispatchQueue.main.async { [weak self] in
-            if let strongSelf = self {
-                strongSelf.playerViewModel = PlayerViewModel(imageUrl: URL(string: artUrl), title: strongSelf.caster.episodes[strongSelf.index].title)
-                strongSelf.setModel(model: strongSelf.playerViewModel)
-                strongSelf.title = strongSelf.caster.episodes[strongSelf.index].title
-            }
+            guard let index = self?.index, let caster = self?.caster else { return }
+            self?.playerViewModel = PlayerViewModel(imageUrl: URL(string: artUrl), title: caster.episodes[index].title)
+            guard let model = self?.playerViewModel else { return }
+            self?.setModel(model: model)
+            self?.title = caster.episodes[index].title
         }
     }
     
