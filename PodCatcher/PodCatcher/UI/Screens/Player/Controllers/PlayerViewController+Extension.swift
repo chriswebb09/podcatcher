@@ -187,11 +187,10 @@ extension PlayerViewController: MenuDelegate {
     
     func navigateBack(tapped: Bool) {
         DispatchQueue.main.async { [weak self] in
-            if let strongSelf = self {
-                strongSelf.hideLoadingView(loadingPop: strongSelf.loadingPop)
-                strongSelf.delegate?.navigateBack(tapped: tapped)
-                strongSelf.navigationController?.popViewController(animated: false)
-            }
+            guard let loadingPop = self?.loadingPop else { return }
+            self?.hideLoadingView(loadingPop: loadingPop)
+            self?.delegate?.navigateBack(tapped: tapped)
+            self?.navigationController?.popViewController(animated: false)
         }
     }
 }
