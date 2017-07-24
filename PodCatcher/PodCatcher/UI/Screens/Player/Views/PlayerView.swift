@@ -457,10 +457,10 @@ final class PlayerView: UIView {
 
 extension UISlider {
     func generateHandleImage(with color: UIColor) -> UIImage {
-        let rect = CGRect(x: 0, y: 0, width: self.bounds.size.height + 20, height: self.bounds.size.height + 20)
+        let rect = CGRect(x: 0, y: 0, width: self.bounds.size.height / 6, height: self.bounds.size.height + 15)
         return UIGraphicsImageRenderer(size: rect.size).image { imageContext in
             imageContext.cgContext.setFillColor(color.cgColor)
-            imageContext.cgContext.fill(rect.insetBy(dx: 10, dy: 10))
+            imageContext.cgContext.fill(rect.insetBy(dx: 0, dy: 10))
         }
     }
 }

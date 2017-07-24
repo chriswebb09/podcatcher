@@ -27,6 +27,7 @@ extension PlayerViewController: PlayerViewDelegate {
             if let strongSelf = self, let player = strongSelf.player {
                 let timeString = String.constructTimeString(time: player.currentTime)
                 strongSelf.playerView.currentPlayTimeLabel.text = timeString
+                strongSelf.player?.play()
             }
         }
     }
@@ -126,13 +127,12 @@ extension PlayerViewController: AudioFilePlayerDelegate {
     func trackDurationCalculated(stringTime: String, timeValue: Float64) {
         print(stringTime)
         DispatchQueue.main.async { [weak self] in
-            if let strongSelf = self {
-                strongSelf.playerViewModel.totalTimeString = stringTime
-                strongSelf.setModel(model: strongSelf.playerViewModel)
-                strongSelf.view.bringSubview(toFront: strongSelf.playerView)
-                strongSelf.hideLoadingView(loadingPop: strongSelf.loadingPop)
-                strongSelf.playerView.enableButtons()
-            }
+            guard let loadingPop = self?.loadingPop, let playerView = self?.playerView else { return }
+            self?.playerViewModel.totalTimeString = stringTime
+            self?.setModel(model: self?.playerViewModel)
+            self?.view.bringSubview(toFront: playerView)
+            self?.hideLoadingView(loadingPop: loadingPop)
+            self?.playerView.enableButtons()
         }
     }
     
@@ -142,12 +142,11 @@ extension PlayerViewController: AudioFilePlayerDelegate {
         if currentTime > 0 && duration > 0 {
             let normalizedTime = currentTime * 100.0 / duration
             DispatchQueue.main.async { [weak self] in
-                guard let strongSelf = self else { return }
-                strongSelf.playerView.currentPlayTimeLabel.text = String.constructTimeString(time: currentTime)
-                strongSelf.playerView.totalPlayTimeLabel.text = String.constructTimeString(time: (duration - currentTime))
-                strongSelf.playerView.update(progressBarValue: Float(normalizedTime))
+                self?.playerView.currentPlayTimeLabel.text = String.constructTimeString(time: currentTime)
+                self?.playerView.totalPlayTimeLabel.text = String.constructTimeString(time: (duration - currentTime))
+                self?.playerView.update(progressBarValue: Float(normalizedTime))
                 if normalizedTime >= 100 {
-                    strongSelf.player?.player?.seek(to: kCMTimeZero)
+                    self?.player?.player?.seek(to: kCMTimeZero)
                 }
             }
         }
@@ -158,10 +157,9 @@ extension PlayerViewController: MenuDelegate {
     
     func optionOne(tapped: Bool) {
         DispatchQueue.main.async { [weak self] in
-            if let strongSelf = self {
-                strongSelf.hideLoadingView(loadingPop: strongSelf.loadingPop)
-                strongSelf.delegate?.addItemToPlaylist(item: strongSelf.caster , index: strongSelf.index)
-            }
+            guard let loadingPop = self?.loadingPop, let caster = self?.caster, let index = self?.index else { return }
+            self?.hideLoadingView(loadingPop: loadingPop)
+            self?.delegate?.addItemToPlaylist(item: caster , index: index)
         }
     }
     
