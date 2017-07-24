@@ -178,10 +178,9 @@ extension PlayerViewController: MenuDelegate {
     
     func cancel(tapped: Bool) {
         DispatchQueue.main.async { [weak self] in
-            if let strongSelf = self {
-                strongSelf.hideLoadingView(loadingPop: strongSelf.loadingPop)
-                strongSelf.hidePopMenu()
-            }
+            guard let loadingPop = self?.loadingPop else { return }
+            self?.hideLoadingView(loadingPop: loadingPop)
+            self?.hidePopMenu()
         }
     }
     
