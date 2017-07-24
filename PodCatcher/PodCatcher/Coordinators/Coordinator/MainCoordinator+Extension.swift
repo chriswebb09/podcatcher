@@ -41,7 +41,6 @@ extension MainCoordinator: CoordinatorDelegate {
     }
     
     func transitionCoordinator(type: CoordinatorType, dataSource: BaseMediaControllerDataSource?) {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         NotificationCenter.default.addObserver(self, selector: #selector(self.reachabilityChanged),name: ReachabilityChangedNotification,object: reachability)
         do {
             try reachability.startNotifier()
@@ -63,6 +62,7 @@ extension MainCoordinator: CoordinatorDelegate {
             if let user = dataSource?.user {
                 user.customGenres = ["Test one", "test two"]
             }
+            
             var getData = false
             tabbarController.dataSource = self.dataSource
             self.tabbBarCoordinator = TabBarCoordinator(tabBarController: tabbarController, window: window)

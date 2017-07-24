@@ -15,8 +15,6 @@ final class iTunesAPIClient {
                     DispatchQueue.main.async {
                         completion(.success(responseObject))
                     }
-                } catch let error {
-                    print(error.localizedDescription)
                 }
             }
             }.resume()
@@ -35,8 +33,6 @@ final class iTunesAPIClient {
                     DispatchQueue.main.async {
                         completion(.success(responseObject))
                     }
-                } catch let error {
-                    print(error.localizedDescription)
                 }
             }
             }.resume()

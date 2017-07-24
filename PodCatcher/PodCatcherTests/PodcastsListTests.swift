@@ -5,8 +5,6 @@ class PodcastsListTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        //var caster = Caster()
-       // caster.name = "Test Name"
     }
     
     override func tearDown() {

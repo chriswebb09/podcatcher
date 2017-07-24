@@ -161,7 +161,6 @@
 		A783ECE11EF233F0003E65C0 /* EmptyCastsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A783ECE01EF233F0003E65C0 /* EmptyCastsView.swift */; };
 		A7880D951F1CA20A00EBC6FF /* PlaylistsInteractionMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7880D941F1CA20A00EBC6FF /* PlaylistsInteractionMode.swift */; };
 		A7894F9E1EE69C03000CC190 /* SettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7894F9D1EE69C03000CC190 /* SettingsTests.swift */; };
-		A7894FA01EE69C1E000CC190 /* LoginTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7894F9F1EE69C1E000CC190 /* LoginTests.swift */; };
 		A7894FA21EE69E2B000CC190 /* TestMainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7894FA11EE69E2B000CC190 /* TestMainCoordinator.swift */; };
 		A7894FA61EE6AE44000CC190 /* PodCatcherUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7894FA51EE6AE44000CC190 /* PodCatcherUser.swift */; };
 		A7905B101EEF7CC100199246 /* APIClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7905B0F1EEF7CC100199246 /* APIClientTests.swift */; };
@@ -437,7 +436,6 @@
 		A783ECE01EF233F0003E65C0 /* EmptyCastsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyCastsView.swift; sourceTree = "<group>"; };
 		A7880D941F1CA20A00EBC6FF /* PlaylistsInteractionMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlaylistsInteractionMode.swift; path = Playlists/Playlists/Models/PlaylistsInteractionMode.swift; sourceTree = "<group>"; };
 		A7894F9D1EE69C03000CC190 /* SettingsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTests.swift; sourceTree = "<group>"; };
-		A7894F9F1EE69C1E000CC190 /* LoginTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginTests.swift; sourceTree = "<group>"; };
 		A7894FA11EE69E2B000CC190 /* TestMainCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestMainCoordinator.swift; sourceTree = "<group>"; };
 		A7894FA51EE6AE44000CC190 /* PodCatcherUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodCatcherUser.swift; sourceTree = "<group>"; };
 		A7905B0F1EEF7CC100199246 /* APIClientTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIClientTests.swift; sourceTree = "<group>"; };
@@ -736,7 +734,6 @@
 				A7150EDC1EE6399200E3553F /* PlayerControllerTests.swift */,
 				A7150ED61EE638A900E3553F /* StartCoordinatorTests.swift */,
 				A7894F9D1EE69C03000CC190 /* SettingsTests.swift */,
-				A7894F9F1EE69C1E000CC190 /* LoginTests.swift */,
 				A7894FA11EE69E2B000CC190 /* TestMainCoordinator.swift */,
 				A71BFB891EE6FCB400A35D8E /* PodcastsListTests.swift */,
 				A7A54E9E1EE70CFB009A5538 /* PopoverTests.swift */,
@@ -1633,7 +1630,6 @@
 				A7150EDD1EE6399200E3553F /* PlayerControllerTests.swift in Sources */,
 				A7A762871F13417B00D2C4FF /* HomeCoordinatorTests.swift in Sources */,
 				A7A54E9F1EE70CFB009A5538 /* PopoverTests.swift in Sources */,
-				A7894FA01EE69C1E000CC190 /* LoginTests.swift in Sources */,
 				A7894F9E1EE69C03000CC190 /* SettingsTests.swift in Sources */,
 				A7150EDB1EE638E000E3553F /* MediaPlayerTests.swift in Sources */,
 				A7A7628B1F1341BC00D2C4FF /* RSSFeedParserAPIClient.swift in Sources */,

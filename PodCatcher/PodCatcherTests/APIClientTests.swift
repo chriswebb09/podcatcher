@@ -1,5 +1,4 @@
 import XCTest
-@testable import Firebase
 @testable import PodCatcher
 
 class APIClientTests: XCTestCase {

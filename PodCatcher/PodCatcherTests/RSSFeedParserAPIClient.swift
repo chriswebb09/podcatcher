@@ -1,13 +1,4 @@
-//
-//  RSSFeedParserAPIClient.swift
-//  PodCatcher
-//
-//  Created by Christopher Webb-Orenstein on 7/10/17.
-//  Copyright © 2017 Christopher Webb-Orenstein. All rights reserved.
-//
-
 import XCTest
-@testable import Firebase
 @testable import PodCatcher
 
 class RSSFeedParserAPIClient: XCTestCase {

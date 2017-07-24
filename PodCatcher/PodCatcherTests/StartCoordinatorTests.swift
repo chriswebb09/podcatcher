@@ -29,7 +29,7 @@ class StartCoordinatorTests: XCTestCase {
     func testGoToStart() {
         startCoordinator.start()
         XCTAssertEqual(navigationController.viewControllers.count, 1)
-        startCoordinator.splashViewFinishedAnimation(finished: true)
+        startCoordinator.splashAnimation(finished: true)
         XCTAssertEqual(navigationController.viewControllers.count, 2)
         XCTAssertNotNil(navigationController.viewControllers[1] as! StartViewController)
     }
@@ -37,20 +37,16 @@ class StartCoordinatorTests: XCTestCase {
     func testGoToLogin() {
         startCoordinator.start()
         XCTAssertEqual(navigationController.viewControllers.count, 1)
-        startCoordinator.splashViewFinishedAnimation(finished: true)
+        startCoordinator.splashAnimation(finished: true)
         XCTAssertEqual(navigationController.viewControllers.count, 2)
         XCTAssertNotNil(navigationController.viewControllers[1] as! StartViewController)
-        startCoordinator.loginSelected()
-        XCTAssertNotNil(navigationController.viewControllers[2] as! LoginViewController)
     }
     
     func testGoToCreateAccount() {
         startCoordinator.start()
         XCTAssertEqual(navigationController.viewControllers.count, 1)
-        startCoordinator.splashViewFinishedAnimation(finished: true)
+        startCoordinator.splashAnimation(finished: true)
         XCTAssertEqual(navigationController.viewControllers.count, 2)
         XCTAssertNotNil(navigationController.viewControllers[1] as! StartViewController)
-        startCoordinator.createAccountSelected()
-        XCTAssertNotNil(navigationController.viewControllers[2] as! CreateAccountViewController)
     }
 }
