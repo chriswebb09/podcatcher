@@ -67,19 +67,13 @@ extension PlayerViewController: PlayerViewDelegate {
     }
     
     func backButtonTapped() {
-        guard index > 0 else {
-            playerView.enableButtons()
-            return
-        }
+        guard index > 0 else { playerView.enableButtons(); return }
         index -= 1
         updateTrack()
     }
     
     func skipButtonTapped() {
-        guard index < caster.episodes.count - 1 else {
-            playerView.enableButtons()
-            return
-        }
+        guard index < caster.episodes.count - 1 else { playerView.enableButtons(); return }
         index += 1
         updateTrack()
     }
