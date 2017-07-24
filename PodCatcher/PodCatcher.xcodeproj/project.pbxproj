@@ -30,8 +30,8 @@
 		A7175B0C1F257075008946DE /* PodcastCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7175B071F257075008946DE /* PodcastCell.swift */; };
 		A7175B0D1F257075008946DE /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7175B081F257075008946DE /* PreferencesView.swift */; };
 		A7175B0E1F257075008946DE /* PreferencesViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7175B091F257075008946DE /* PreferencesViewDelegate.swift */; };
-		A7175B111F25709F008946DE /* MenuActive.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7175B0F1F25709F008946DE /* MenuActive.swift */; };
-		A7175B121F25709F008946DE /* PodcasterControllState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7175B101F25709F008946DE /* PodcasterControllState.swift */; };
+		A7175B141F2570F1008946DE /* MenuActive.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7175B131F2570F1008946DE /* MenuActive.swift */; };
+		A7175B161F2570FA008946DE /* PodcasterControllState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7175B151F2570FA008946DE /* PodcasterControllState.swift */; };
 		A717982F1F253B45007AD5EF /* Subscription+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A717982D1F253B45007AD5EF /* Subscription+CoreDataClass.swift */; };
 		A71798301F253B45007AD5EF /* Subscription+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A717982E1F253B45007AD5EF /* Subscription+CoreDataProperties.swift */; };
 		A7184E031F201968002516AE /* NetworkConnectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7184E021F201968002516AE /* NetworkConnectionView.swift */; };
@@ -297,8 +297,8 @@
 		A7175B071F257075008946DE /* PodcastCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PodcastCell.swift; path = Search/SearchResult/Views/PodcastCell.swift; sourceTree = "<group>"; };
 		A7175B081F257075008946DE /* PreferencesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PreferencesView.swift; path = Search/SearchResult/Views/PreferencesView.swift; sourceTree = "<group>"; };
 		A7175B091F257075008946DE /* PreferencesViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PreferencesViewDelegate.swift; path = Search/SearchResult/Views/PreferencesViewDelegate.swift; sourceTree = "<group>"; };
-		A7175B0F1F25709F008946DE /* MenuActive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuActive.swift; sourceTree = "<group>"; };
-		A7175B101F25709F008946DE /* PodcasterControllState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodcasterControllState.swift; sourceTree = "<group>"; };
+		A7175B131F2570F1008946DE /* MenuActive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuActive.swift; path = Search/SearchResult/MenuActive.swift; sourceTree = "<group>"; };
+		A7175B151F2570FA008946DE /* PodcasterControllState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PodcasterControllState.swift; path = Search/SearchResult/PodcasterControllState.swift; sourceTree = "<group>"; };
 		A717982D1F253B45007AD5EF /* Subscription+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Subscription+CoreDataClass.swift"; sourceTree = "<group>"; };
 		A717982E1F253B45007AD5EF /* Subscription+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Subscription+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		A7184E021F201968002516AE /* NetworkConnectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkConnectionView.swift; sourceTree = "<group>"; };
@@ -676,8 +676,8 @@
 		A71A5BB61F01E83100254BE2 /* SearchResult */ = {
 			isa = PBXGroup;
 			children = (
-				A7175B0F1F25709F008946DE /* MenuActive.swift */,
-				A7175B101F25709F008946DE /* PodcasterControllState.swift */,
+				A7175B151F2570FA008946DE /* PodcasterControllState.swift */,
+				A7175B131F2570F1008946DE /* MenuActive.swift */,
 				A7175B051F257075008946DE /* ListTopView.swift */,
 				A7175B061F257075008946DE /* ListTopView+Extension.swift */,
 				A7175B071F257075008946DE /* PodcastCell.swift */,
@@ -1672,7 +1672,6 @@
 				A7EBA0C41EE682DF00FAAC9C /* MenuOptionView.swift in Sources */,
 				A7BA68821EFCE0150032FE48 /* MediaCollectionConstants.swift in Sources */,
 				A71D83BC1F09BF48009D0720 /* PodCaster+CoreDataClass.swift in Sources */,
-				A7175B121F25709F008946DE /* PodcasterControllState.swift in Sources */,
 				A71ADFAE1F0E281F00941A43 /* PodcastResultsCellViewModel.swift in Sources */,
 				A71A5BB21F01DE5F00254BE2 /* TrackCellConstants.swift in Sources */,
 				A76F0D571F17D21900444025 /* FeedStore.swift in Sources */,
@@ -1840,6 +1839,7 @@
 				A7AA09D11EF27EFC003A8F8A /* UpdateAccountConstants.swift in Sources */,
 				A7F37B741F0DF935001B5C8C /* LoadingViewConstants.swift in Sources */,
 				A7196B2D1F1AE56000FCED5D /* NetworkService.swift in Sources */,
+				A7175B161F2570FA008946DE /* PodcasterControllState.swift in Sources */,
 				A77107531F0D4E3A0042D2E4 /* HomeViewControllerDelegate.swift in Sources */,
 				A71D83BA1F09BF48009D0720 /* CasterItems+CoreDataClass.swift in Sources */,
 				A7150EBD1EE62E0300E3553F /* PlayerViewController.swift in Sources */,
@@ -1854,6 +1854,7 @@
 				A7A54EB01EE71474009A5538 /* EntryPopover.swift in Sources */,
 				A7EBA0A71EE6743800FAAC9C /* TextFieldExtension.swift in Sources */,
 				A723B4181F0EB50600EA6B27 /* PlaylistsViewControllerDelegate.swift in Sources */,
+				A7175B141F2570F1008946DE /* MenuActive.swift in Sources */,
 				A776D14F1EE9098400400EB4 /* PlayState.swift in Sources */,
 				A7C620D11F12BA1900A0D33A /* PodcastItemCoreStack.swift in Sources */,
 				A7D0AD4D1F0D4A7C007E4063 /* SplashViewController+Extension.swift in Sources */,
@@ -1869,7 +1870,6 @@
 				A7DF73681F1180BC00AAC675 /* Parser.swift in Sources */,
 				A7175B0A1F257075008946DE /* ListTopView.swift in Sources */,
 				A71AE3071F17F87E00AFC8CC /* MiniPlayerView.swift in Sources */,
-				A7175B111F25709F008946DE /* MenuActive.swift in Sources */,
 				A7175B0D1F257075008946DE /* PreferencesView.swift in Sources */,
 				A7B1C0871F0B056200A42E7D /* TopItem.swift in Sources */,
 				A716403A1EFFDB6300895082 /* ReachabilityNotification.swift in Sources */,
