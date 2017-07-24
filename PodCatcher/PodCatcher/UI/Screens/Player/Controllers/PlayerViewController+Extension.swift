@@ -33,7 +33,8 @@ extension PlayerViewController: PlayerViewDelegate {
     }
     
     func loadAudioFile() {
-        if let urlString = caster.episodes[index].audioUrlString, let url = URL(string: urlString) {
+        if let urlString = caster.episodes[index].audioUrlString,
+            let url = URL(string: urlString) {
             self.player = AudioFilePlayer(url: url)
             self.player?.delegate = self
             self.player?.observePlayTime()
@@ -97,7 +98,9 @@ extension PlayerViewController: PlayerViewDelegate {
         bottomMenu.setMenu(size)
         bottomMenu.setMenu(origin)
         bottomMenu.setupMenu()
-        bottomMenu.setMenu(color: .white, borderColor: .darkGray, textColor: .darkGray)
+        bottomMenu.setMenu(color: .white,
+                           borderColor: .darkGray,
+                           textColor: .darkGray)
         showPopMenu()
     }
     
@@ -150,11 +153,8 @@ extension PlayerViewController: AudioFilePlayerDelegate {
 extension PlayerViewController: MenuDelegate {
     
     func optionOne(tapped: Bool) {
-        DispatchQueue.main.async { [weak self] in
-            guard let loadingPop = self?.loadingPop, let caster = self?.caster, let index = self?.index else { return }
-            self?.hideLoadingView(loadingPop: loadingPop)
-            self?.delegate?.addItemToPlaylist(item: caster , index: index)
-        }
+        hideLoadingView(loadingPop: loadingPop)
+        delegate?.addItemToPlaylist(item: caster , index: index)
     }
     
     func optionTwo(tapped: Bool) {
@@ -171,20 +171,14 @@ extension PlayerViewController: MenuDelegate {
     }
     
     func cancel(tapped: Bool) {
-        DispatchQueue.main.async { [weak self] in
-            guard let loadingPop = self?.loadingPop else { return }
-            self?.hideLoadingView(loadingPop: loadingPop)
-            self?.hidePopMenu()
-        }
+        hideLoadingView(loadingPop: loadingPop)
+        hidePopMenu()
     }
     
     func navigateBack(tapped: Bool) {
-        DispatchQueue.main.async { [weak self] in
-            guard let loadingPop = self?.loadingPop else { return }
-            self?.hideLoadingView(loadingPop: loadingPop)
-            self?.delegate?.navigateBack(tapped: tapped)
-            self?.navigationController?.popViewController(animated: false)
-        }
+        hideLoadingView(loadingPop: loadingPop)
+        delegate?.navigateBack(tapped: tapped)
+        navigationController?.popViewController(animated: false)
     }
 }
 
