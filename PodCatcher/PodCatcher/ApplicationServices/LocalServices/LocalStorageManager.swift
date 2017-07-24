@@ -11,7 +11,7 @@ final class LocalStorageManager {
         return nil
     }
     
-    static func localFileExistsFor(_ urlString: String) -> Bool {
+    static func localFileExists(for urlString: String) -> Bool {
         if let localUrl = LocalStorageManager.localFilePathForUrl(urlString) {
             var isDir : ObjCBool = false
             return FileManager.default.fileExists(atPath: localUrl.path , isDirectory: &isDir)

@@ -35,14 +35,17 @@ extension PlayerViewController: PlayerViewDelegate {
     func loadAudioFile() {
         if let urlString = caster.episodes[index].audioUrlString,
             let url = URL(string: urlString) {
-            self.player = AudioFilePlayer(url: url)
-            self.player?.delegate = self
-            self.player?.observePlayTime()
-            self.initPlayer(url: url)
-            if  LocalStorageManager.localFileExistsFor(urlString) {
-                print("local")
+            if LocalStorageManager.localFileExists(for: urlString) {
+                let audioUrl = LocalStorageManager.localFilePath(for: url)
+                self.player = AudioFilePlayer(url: audioUrl)
+                self.player?.delegate = self
+                self.player?.observePlayTime()
+                self.initPlayer(url: audioUrl)
             } else {
-                print("non-local")
+                self.player = AudioFilePlayer(url: url)
+                self.player?.delegate = self
+                self.player?.observePlayTime()
+                self.initPlayer(url: url)
             }
         }
     }
@@ -158,7 +161,7 @@ extension PlayerViewController: MenuDelegate {
     }
     
     func optionTwo(tapped: Bool) {
-        if let urlString = caster.episodes[index].audioUrlString, !LocalStorageManager.localFileExistsFor(urlString) {
+        if let urlString = caster.episodes[index].audioUrlString, !LocalStorageManager.localFileExists(for: urlString) {
             downloadingIndicator.showActivityIndicator(viewController: self)
             let download = Download(url: urlString)
             network.startDownload(download)
