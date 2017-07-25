@@ -173,7 +173,6 @@
 		A7C620C71F12B51A00A0D33A /* HomeListTopViewConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C620C61F12B51A00A0D33A /* HomeListTopViewConstants.swift */; };
 		A7C620CF1F12B98800A0D33A /* PodcastPlaylistCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C620CE1F12B98800A0D33A /* PodcastPlaylistCell.swift */; };
 		A7C620D31F12BC7F00A0D33A /* PlaylistViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C620D21F12BC7F00A0D33A /* PlaylistViewController+Extension.swift */; };
-		A7C620D51F12BCE600A0D33A /* PodcastPlaylistCellConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C620D41F12BCE600A0D33A /* PodcastPlaylistCellConstants.swift */; };
 		A7D0AD4C1F0D4A7C007E4063 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D0AD4A1F0D4A7C007E4063 /* SplashViewController.swift */; };
 		A7D0AD501F0D4A89007E4063 /* SplashViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D0AD4E1F0D4A89007E4063 /* SplashViewControllerDelegate.swift */; };
 		A7D0AD511F0D4A89007E4063 /* SplashViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D0AD4F1F0D4A89007E4063 /* SplashViewDelegate.swift */; };
@@ -391,7 +390,6 @@
 		A7C620C61F12B51A00A0D33A /* HomeListTopViewConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HomeListTopViewConstants.swift; path = Home/Models/HomeListTopViewConstants.swift; sourceTree = "<group>"; };
 		A7C620CE1F12B98800A0D33A /* PodcastPlaylistCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PodcastPlaylistCell.swift; path = Playlists/Playlist/PodcastPlaylistCell.swift; sourceTree = "<group>"; };
 		A7C620D21F12BC7F00A0D33A /* PlaylistViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "PlaylistViewController+Extension.swift"; path = "Playlists/Playlist/PlaylistViewController+Extension.swift"; sourceTree = "<group>"; };
-		A7C620D41F12BCE600A0D33A /* PodcastPlaylistCellConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PodcastPlaylistCellConstants.swift; path = Playlists/Playlist/PodcastPlaylistCellConstants.swift; sourceTree = "<group>"; };
 		A7D0AD4A1F0D4A7C007E4063 /* SplashViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SplashViewController.swift; path = PodCatcher/UI/Screens/Start/Splash/Controllers/SplashViewController.swift; sourceTree = SOURCE_ROOT; };
 		A7D0AD4E1F0D4A89007E4063 /* SplashViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SplashViewControllerDelegate.swift; path = PodCatcher/UI/Screens/Start/Splash/Delegates/SplashViewControllerDelegate.swift; sourceTree = SOURCE_ROOT; };
 		A7D0AD4F1F0D4A89007E4063 /* SplashViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SplashViewDelegate.swift; path = PodCatcher/UI/Screens/Start/Splash/Delegates/SplashViewDelegate.swift; sourceTree = SOURCE_ROOT; };
@@ -968,7 +966,6 @@
 				A7C620D21F12BC7F00A0D33A /* PlaylistViewController+Extension.swift */,
 				A76C3B321F122A4B000DDFAC /* TopView.swift */,
 				A7C620CE1F12B98800A0D33A /* PodcastPlaylistCell.swift */,
-				A7C620D41F12BCE600A0D33A /* PodcastPlaylistCellConstants.swift */,
 			);
 			name = Playlist;
 			sourceTree = "<group>";
@@ -1533,7 +1530,6 @@
 				A7E45F7F1F0238450063AC0F /* Episode.swift in Sources */,
 				A7780F081F1740BF00737DA8 /* TopPodcastCell.swift in Sources */,
 				A7C620D31F12BC7F00A0D33A /* PlaylistViewController+Extension.swift in Sources */,
-				A7C620D51F12BCE600A0D33A /* PodcastPlaylistCellConstants.swift in Sources */,
 				A7780F3D1F17792C00737DA8 /* SubscribedPodcastCell.swift in Sources */,
 				A73D740E1EE685FF004571A5 /* AnimationDelegate.swift in Sources */,
 				A7F37B6B1F0DEDEA001B5C8C /* BaseMediaCollectionDataSource.swift in Sources */,

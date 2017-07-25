@@ -56,9 +56,6 @@ class PlaylistViewController: BaseCollectionViewController {
         view.sendSubview(toBack: background)
         collectionView.register(PodcastPlaylistCell.self)
         setupCoordinator()
-//        player = AudioFilePlayer
-//        player.delegate = self
-//        player.observePlayTime()
     }
     
     override func viewWillAppear(_ animated: Bool) {
