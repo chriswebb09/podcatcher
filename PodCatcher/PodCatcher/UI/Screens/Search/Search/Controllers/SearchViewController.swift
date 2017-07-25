@@ -47,11 +47,17 @@ class SearchViewController: BaseTableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.tabBarController?.tabBar.alpha = 1
-        self.navigationController?.navigationBar.alpha = 1
+        tabBarController?.tabBar.alpha = 1
+        navigationController?.navigationBar.alpha = 1
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        navigationController?.navigationBar.topItem?.title = "Search"
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         searchController.isActive = false
     }
     
