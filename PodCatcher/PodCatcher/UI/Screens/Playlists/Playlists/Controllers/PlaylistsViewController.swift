@@ -102,21 +102,25 @@ extension PlaylistsViewController: UITableViewDelegate {
         case .edit:
             editFor(indexPath: indexPath)
         case .add:
-            guard let text = fetchedResultsController.object(at: indexPath).playlistId else { return }
-            switch reference {
-            case .addPodcast:
-                reference = .checkList
-                DispatchQueue.main.async {
-                    self.reloadData()
-                }
-                delegate?.didAssignPlaylist(with: text)
-            case .checkList:
-                guard let title = fetchedResultsController.object(at: indexPath).playlistName else { return }
-                let playlist = PlaylistViewController(index: 0)
-                playlist.playlistId = text
-                playlist.playlistTitle = title
-                navigationController?.pushViewController(playlist, animated: false)
+            addFor(indexPath: indexPath)
+        }
+    }
+    
+    func addFor(indexPath: IndexPath) {
+        guard let text = fetchedResultsController.object(at: indexPath).playlistId else { return }
+        switch reference {
+        case .addPodcast:
+            reference = .checkList
+            DispatchQueue.main.async {
+                self.reloadData()
             }
+            delegate?.didAssignPlaylist(with: text)
+        case .checkList:
+            guard let title = fetchedResultsController.object(at: indexPath).playlistName else { return }
+            let playlist = PlaylistViewController(index: 0)
+            playlist.playlistId = text
+            playlist.playlistTitle = title
+            navigationController?.pushViewController(playlist, animated: false)
         }
     }
     
