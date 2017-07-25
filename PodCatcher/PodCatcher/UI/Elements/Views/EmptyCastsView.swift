@@ -18,7 +18,7 @@ class EmptyCastsView: UIView {
     private func setup(infoLabel: UILabel) {
         addSubview(infoLabel)
         infoLabel.translatesAutoresizingMaskIntoConstraints = false
-        infoLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: EmptyCastsViewConstants.musicIconWidthMutliplier).isActive = true
+        infoLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.22).isActive = true
         infoLabel.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
         infoLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         infoLabel.centerYAnchor.constraint(equalTo: centerYAnchor, constant: UIScreen.main.bounds.height * -0.05).isActive = true
