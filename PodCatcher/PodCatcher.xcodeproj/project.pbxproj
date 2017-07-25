@@ -51,7 +51,6 @@
 		A71A5BB01F01DD9500254BE2 /* ApplicationStyling.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71A5BAF1F01DD9500254BE2 /* ApplicationStyling.swift */; };
 		A71A5BB21F01DE5F00254BE2 /* TrackCellConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71A5BB11F01DE5F00254BE2 /* TrackCellConstants.swift */; };
 		A71ADF9D1F0E26C900941A43 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71ADF9B1F0E26C900941A43 /* SearchViewController.swift */; };
-		A71ADF9E1F0E26C900941A43 /* SearchViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71ADF9C1F0E26C900941A43 /* SearchViewController+Extension.swift */; };
 		A71ADFA01F0E26E200941A43 /* SearchViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71ADF9F1F0E26E200941A43 /* SearchViewControllerDelegate.swift */; };
 		A71ADFA21F0E26F500941A43 /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71ADFA11F0E26F500941A43 /* SearchResultCell.swift */; };
 		A71ADFA51F0E270A00941A43 /*  SearchResultListViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71ADFA31F0E270A00941A43 /*  SearchResultListViewController+Extension.swift */; };
@@ -316,7 +315,6 @@
 		A71A5BAF1F01DD9500254BE2 /* ApplicationStyling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationStyling.swift; sourceTree = "<group>"; };
 		A71A5BB11F01DE5F00254BE2 /* TrackCellConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackCellConstants.swift; sourceTree = "<group>"; };
 		A71ADF9B1F0E26C900941A43 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchViewController.swift; path = Search/Search/Controllers/SearchViewController.swift; sourceTree = "<group>"; };
-		A71ADF9C1F0E26C900941A43 /* SearchViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "SearchViewController+Extension.swift"; path = "Search/Search/Controllers/SearchViewController+Extension.swift"; sourceTree = "<group>"; };
 		A71ADF9F1F0E26E200941A43 /* SearchViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchViewControllerDelegate.swift; path = Search/Search/Delegates/SearchViewControllerDelegate.swift; sourceTree = "<group>"; };
 		A71ADFA11F0E26F500941A43 /* SearchResultCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchResultCell.swift; path = Search/Search/Views/SearchResultCell.swift; sourceTree = "<group>"; };
 		A71ADFA31F0E270A00941A43 /*  SearchResultListViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = " SearchResultListViewController+Extension.swift"; path = "Search/SearchResult/Controllers/ SearchResultListViewController+Extension.swift"; sourceTree = "<group>"; };
@@ -1252,7 +1250,6 @@
 				A71ADFA11F0E26F500941A43 /* SearchResultCell.swift */,
 				A71ADF9F1F0E26E200941A43 /* SearchViewControllerDelegate.swift */,
 				A71ADF9B1F0E26C900941A43 /* SearchViewController.swift */,
-				A71ADF9C1F0E26C900941A43 /* SearchViewController+Extension.swift */,
 			);
 			name = Search;
 			sourceTree = "<group>";
@@ -1714,7 +1711,6 @@
 				A7B1C07B1F0AE47100A42E7D /* TabBarCoordinator.swift in Sources */,
 				A77DF1F31F2069FA00565471 /* NoSearchResultsView.swift in Sources */,
 				A7A54EB21EE71474009A5538 /* EntryView.swift in Sources */,
-				A71ADF9E1F0E26C900941A43 /* SearchViewController+Extension.swift in Sources */,
 				A7150EBB1EE62DF900E3553F /* PlayerView.swift in Sources */,
 				A77EDF781EE5FF72001A24E5 /* UIColor+Extension.swift in Sources */,
 				A7A54EB11EE71474009A5538 /* EntryPopoverDelegate.swift in Sources */,
