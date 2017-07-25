@@ -46,7 +46,6 @@
 		A7188F511F1DB4D900BFEF73 /* PlaylistsControllerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7188F501F1DB4D900BFEF73 /* PlaylistsControllerDataSource.swift */; };
 		A7196B2D1F1AE56000FCED5D /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7196B2C1F1AE56000FCED5D /* NetworkService.swift */; };
 		A71A5BB01F01DD9500254BE2 /* ApplicationStyling.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71A5BAF1F01DD9500254BE2 /* ApplicationStyling.swift */; };
-		A71A5BB21F01DE5F00254BE2 /* TrackCellConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71A5BB11F01DE5F00254BE2 /* TrackCellConstants.swift */; };
 		A71ADF9D1F0E26C900941A43 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71ADF9B1F0E26C900941A43 /* SearchViewController.swift */; };
 		A71ADFA01F0E26E200941A43 /* SearchViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71ADF9F1F0E26E200941A43 /* SearchViewControllerDelegate.swift */; };
 		A71ADFA21F0E26F500941A43 /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71ADFA11F0E26F500941A43 /* SearchResultCell.swift */; };
@@ -295,7 +294,6 @@
 		A7188F501F1DB4D900BFEF73 /* PlaylistsControllerDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlaylistsControllerDataSource.swift; path = Playlists/Playlists/Datasource/PlaylistsControllerDataSource.swift; sourceTree = "<group>"; };
 		A7196B2C1F1AE56000FCED5D /* NetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		A71A5BAF1F01DD9500254BE2 /* ApplicationStyling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationStyling.swift; sourceTree = "<group>"; };
-		A71A5BB11F01DE5F00254BE2 /* TrackCellConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackCellConstants.swift; sourceTree = "<group>"; };
 		A71ADF9B1F0E26C900941A43 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchViewController.swift; path = Search/Search/Controllers/SearchViewController.swift; sourceTree = "<group>"; };
 		A71ADF9F1F0E26E200941A43 /* SearchViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchViewControllerDelegate.swift; path = Search/Search/Delegates/SearchViewControllerDelegate.swift; sourceTree = "<group>"; };
 		A71ADFA11F0E26F500941A43 /* SearchResultCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchResultCell.swift; path = Search/Search/Views/SearchResultCell.swift; sourceTree = "<group>"; };
@@ -1239,7 +1237,6 @@
 				A7AA09D01EF27EFC003A8F8A /* UpdateAccountConstants.swift */,
 				A7BA68811EFCE0150032FE48 /* MediaCollectionConstants.swift */,
 				A71A5BAF1F01DD9500254BE2 /* ApplicationStyling.swift */,
-				A71A5BB11F01DE5F00254BE2 /* TrackCellConstants.swift */,
 				A7A99FA71F07254C00BFEA4C /* Colors.swift */,
 				A7F37B731F0DF935001B5C8C /* LoadingViewConstants.swift */,
 				A71ADFBD1F0E3BF500941A43 /* UnderlineTextfieldConstants.swift */,
@@ -1617,7 +1614,6 @@
 				A7BA68821EFCE0150032FE48 /* MediaCollectionConstants.swift in Sources */,
 				A71D83BC1F09BF48009D0720 /* PodCaster+CoreDataClass.swift in Sources */,
 				A71ADFAE1F0E281F00941A43 /* PodcastResultsCellViewModel.swift in Sources */,
-				A71A5BB21F01DE5F00254BE2 /* TrackCellConstants.swift in Sources */,
 				A76F0D571F17D21900444025 /* FeedStore.swift in Sources */,
 				A7A7627F1F131AAE00D2C4FF /* ReloadableTable.swift in Sources */,
 				A7C620BD1F12813B00A0D33A /* PodcastPlaylist+CoreDataProperties.swift in Sources */,
