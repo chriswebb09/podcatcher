@@ -19,7 +19,6 @@ final class LocalStorageManager {
         return false
     }
     
-    
     static func getLocalFilePath(_ urlString: String) -> String {
         if let localUrl = LocalStorageManager.localFilePathForUrl(urlString) {
             return localUrl.path
@@ -27,10 +26,8 @@ final class LocalStorageManager {
         return ""
     }
     
-    
     static func localFilePath(for url: URL) -> URL {
         let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         return documentsPath.appendingPathComponent(url.lastPathComponent)
     }
-    
 }
