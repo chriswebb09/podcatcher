@@ -66,11 +66,6 @@ extension SearchTabCoordinator: SearchViewControllerDelegate {
 
 extension SearchTabCoordinator: PodcastListViewControllerDelegate {
     
-    func didSelect(at index: Int, podcast: CasterSearchResult) {
-        let playerView = PlayerView()
-        print(playerView)
-    }
-    
     func didSelectPodcastAt(at index: Int, podcast: CasterSearchResult, with episodes: [Episodes]) {
         let playerView = PlayerView()
         let concurrent = DispatchQueue(label: "concurrentBackground", qos: .background, attributes: .concurrent, autoreleaseFrequency: .inherit, target: nil)

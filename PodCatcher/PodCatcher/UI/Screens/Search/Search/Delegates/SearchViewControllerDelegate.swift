@@ -7,5 +7,4 @@ protocol SearchViewControllerDelegate: class {
 
 protocol PodcastListViewControllerDelegate: class {
     func didSelectPodcastAt(at index: Int, podcast: CasterSearchResult, with episodes: [Episodes])
-    func didSelect(at index: Int, podcast: CasterSearchResult) 
 }

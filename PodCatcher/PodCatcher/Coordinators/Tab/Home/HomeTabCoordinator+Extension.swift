@@ -8,7 +8,6 @@ extension HomeTabCoordinator: HomeViewControllerDelegate {
         resultsList.dataSource.user = dataSource.user
         resultsList.item = cast as! CasterSearchResult
         guard let feedUrlString = resultsList.item.feedUrl else { return }
-        dump(resultsList.item)
         let store = SearchResultsDataStore()
         store.pullFeed(for: feedUrlString) { response in
             guard let episodes = response.0 else { return }
@@ -62,16 +61,9 @@ extension HomeTabCoordinator: HomeViewControllerDelegate {
             }
         }
     }
-    
-    func didSelect(at index: Int) {
-        
-    }
 }
 
 extension HomeTabCoordinator: PodcastListViewControllerDelegate {
-    func didSelect(at index: Int, podcast: CasterSearchResult) {
-        
-    }
     
     func didSelect(at index: Int, podcast: CasterSearchResult, image: UIImage) {
         var playerPodcast = podcast
