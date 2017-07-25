@@ -43,7 +43,11 @@ extension HomeTabCoordinator: HomeViewControllerDelegate {
         caster.feedUrl = subscription.feedUrl
         caster.podcastArtist = subscription.podcastArtist
         resultsList.item = caster
-        let concurrent = DispatchQueue(label: "concurrentBackground", qos: .background, attributes: .concurrent, autoreleaseFrequency: .inherit, target: nil)
+        let concurrent = DispatchQueue(label: "concurrentBackground",
+                                       qos: .background,
+                                       attributes: .concurrent,
+                                       autoreleaseFrequency: .inherit,
+                                       target: nil)
         concurrent.async { [weak self] in
             if let strongSelf = self {
                 store.pullFeed(for: feedUrlString) { response in
@@ -99,10 +103,17 @@ extension HomeTabCoordinator: PodcastListViewControllerDelegate {
         playerPodcast.episodes = episodes
         print("at index: Int, podcast: CasterSearchResult, with episodes: [Episodes])")
         playerPodcast.index = index
-        let concurrent = DispatchQueue(label: "concurrentBackground", qos: .background, attributes: .concurrent, autoreleaseFrequency: .inherit, target: nil)
+        let concurrent = DispatchQueue(label: "concurrentBackground",
+                                       qos: .background,
+                                       attributes: .concurrent,
+                                       autoreleaseFrequency: .inherit,
+                                       target: nil)
         concurrent.async { [weak self] in
             if let strongSelf = self {
-                let playerViewController = PlayerViewController(index: index, caster: playerPodcast, user: strongSelf.dataSource.user, image: nil)
+                let playerViewController = PlayerViewController(index: index,
+                                                                caster: playerPodcast,
+                                                                user: strongSelf.dataSource.user,
+                                                                image: nil)
                 playerViewController.delegate = strongSelf
                 DispatchQueue.main.async {
                     strongSelf.navigationController.navigationBar.isTranslucent = true
