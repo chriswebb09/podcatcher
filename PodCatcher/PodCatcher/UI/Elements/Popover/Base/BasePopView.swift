@@ -23,7 +23,7 @@ class BasePopView: UIView {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.topAnchor.constraint(equalTo: topAnchor).isActive = true
         view.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        view.heightAnchor.constraint(equalTo: heightAnchor, multiplier: BasePopConstants.heightMultiplier).isActive = true
+        view.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.25).isActive = true
         view.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
     }
     
