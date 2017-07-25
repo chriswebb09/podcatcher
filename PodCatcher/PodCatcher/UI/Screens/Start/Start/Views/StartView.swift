@@ -49,7 +49,7 @@ final class StartView: UIView {
         logoView.translatesAutoresizingMaskIntoConstraints = false
         logoView.translatesAutoresizingMaskIntoConstraints = false
         logoView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        logoView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: StartViewConstants.logoViewCenterYOffset).isActive = true
+        logoView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: UIScreen.main.bounds.height * -0.15).isActive = true
         logoView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.72).isActive = true
         logoView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.1).isActive = true
     }
@@ -59,7 +59,7 @@ final class StartView: UIView {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         view.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
-        view.heightAnchor.constraint(equalTo: heightAnchor, multiplier: StartViewConstants.sharedLayoutHeightMultiplier).isActive = true
+        view.heightAnchor.constraint(equalTo: heightAnchor, multiplier:  0.1).isActive = true
     }
     
     private func setup(guestUserButton: UIButton) {
