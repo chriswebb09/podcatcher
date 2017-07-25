@@ -1,5 +1,9 @@
 import UIKit
 
+enum EntryState {
+    case enabled, hidden
+}
+
 final class EntryView: UIView {
     
     // Input for playlist name
