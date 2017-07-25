@@ -100,40 +100,7 @@ extension PlaylistsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch mode {
         case .edit:
-            let id = fetchedResultsController.object(at: indexPath).playlistId
-            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-            let context = appDelegate.persistentContainer.viewContext
-            context.delete(fetchedResultsController.object(at: indexPath))
-            
-            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "PodcastPlaylistItem")
-            let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-            fetchRequest.predicate = NSPredicate(format: "playlistId == %@", id!)
-            do {
-                try appDelegate.persistentContainer.viewContext.execute(deleteRequest)
-            } catch let error as NSError {
-                print(error.localizedDescription)
-            }
-            
-            self.reloadData()
-            
-            do {
-                try context.save()
-            } catch let error {
-                let actionSheetController: UIAlertController = UIAlertController(title: "Error", message: "\(error.localizedDescription)", preferredStyle: .alert)
-                let okayAction: UIAlertAction =  UIAlertAction(title: "Okay", style: .cancel) { action in
-                    actionSheetController.dismiss(animated: false, completion: nil)
-                }
-                actionSheetController.addAction(okayAction)
-                self.present(actionSheetController, animated: false)
-            }
-            
-            if let count = fetchedResultsController.fetchedObjects?.count {
-                if count == 0 {
-                    mode = .add
-                    leftButtonItem.title = "Edit"
-                }
-            }
-            
+            editFor(indexPath: indexPath)
         case .add:
             guard let text = fetchedResultsController.object(at: indexPath).playlistId else { return }
             switch reference {
@@ -149,6 +116,42 @@ extension PlaylistsViewController: UITableViewDelegate {
                 playlist.playlistId = text
                 playlist.playlistTitle = title
                 navigationController?.pushViewController(playlist, animated: false)
+            }
+        }
+    }
+    
+    func editFor(indexPath: IndexPath) {
+        let id = fetchedResultsController.object(at: indexPath).playlistId
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        let context = appDelegate.persistentContainer.viewContext
+        context.delete(fetchedResultsController.object(at: indexPath))
+        
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "PodcastPlaylistItem")
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+        fetchRequest.predicate = NSPredicate(format: "playlistId == %@", id!)
+        do {
+            try appDelegate.persistentContainer.viewContext.execute(deleteRequest)
+        } catch let error as NSError {
+            print(error.localizedDescription)
+        }
+        
+        self.reloadData()
+        
+        do {
+            try context.save()
+        } catch let error {
+            let actionSheetController: UIAlertController = UIAlertController(title: "Error", message: "\(error.localizedDescription)", preferredStyle: .alert)
+            let okayAction: UIAlertAction =  UIAlertAction(title: "Okay", style: .cancel) { action in
+                actionSheetController.dismiss(animated: false, completion: nil)
+            }
+            actionSheetController.addAction(okayAction)
+            self.present(actionSheetController, animated: false)
+        }
+        
+        if let count = fetchedResultsController.fetchedObjects?.count {
+            if count == 0 {
+                mode = .add
+                leftButtonItem.title = "Edit"
             }
         }
     }
