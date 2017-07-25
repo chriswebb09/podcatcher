@@ -22,7 +22,6 @@ final class PlaylistsTabCoordinator: NavigationCoordinator {
     
     func start() {
         let playlistsViewController = navigationController.viewControllers[0] as! PlaylistsViewController
-        
         playlistsViewController.delegate = self
     }
     
@@ -61,7 +60,6 @@ extension PlaylistsTabCoordinator: PlaylistsViewControllerDelegate {
 extension PlaylistsTabCoordinator: PlaylistViewControllerDelegate {
     
     func didSelectPodcast(at index: Int, with episodes: [PodcastPlaylistItem], caster: CasterSearchResult) {
-        let playerView = PlayerView()
         let playerViewController = PlayerViewController(index: index, caster: caster, user: dataSource.user, image: nil)
         playerViewController.delegate = self
         navigationController.navigationBar.isTranslucent = true
@@ -90,9 +88,5 @@ extension PlaylistsTabCoordinator: PlayerViewControllerDelegate {
     func navigateBack(tapped: Bool) {
         navigationController.setNavigationBarHidden(false, animated: false)
         navigationController.viewControllers.last?.tabBarController?.tabBar.alpha = 1
-    }
-    
-    func addItemToPlaylist(item: PodcastPlaylistItem) {
-        
     }
 }

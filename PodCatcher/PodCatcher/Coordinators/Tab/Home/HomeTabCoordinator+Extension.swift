@@ -158,13 +158,4 @@ extension HomeTabCoordinator: PlayerViewControllerDelegate {
         navigationController.setNavigationBarHidden(false, animated: false)
         navigationController.viewControllers.last?.tabBarController?.tabBar.alpha = 1
     }
-    
-    func addItemToPlaylist(item: PodcastPlaylistItem) {
-        let controller = navigationController.viewControllers.last
-        controller?.tabBarController?.selectedIndex = 1
-        guard let tab =  controller?.tabBarController else { return }
-        let nav = tab.viewControllers?[1] as! UINavigationController
-        let playlists = nav.viewControllers[0] as! PlaylistsViewController
-        playlists.addItemToPlaylist = item
-    }
 }
