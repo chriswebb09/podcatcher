@@ -267,11 +267,7 @@ final class PlayerView: UIView {
         albumImageView.centerXAnchor.constraint(equalTo: albumView.centerXAnchor).isActive = true
         albumImageView.centerYAnchor.constraint(equalTo: albumView.centerYAnchor, constant: UIScreen.main.bounds.height * -0.018).isActive = true
         albumImageView.heightAnchor.constraint(equalTo: albumView.heightAnchor).isActive = true
-        albumImageView.widthAnchor.constraint(equalTo: albumView.widthAnchor, multiplier: 0.96).isActive = true
-    }
-    
-    private func setup(descriptionView: UITextView) {
-        
+        albumImageView.widthAnchor.constraint(equalTo: albumView.widthAnchor, multiplier: 0.98).isActive = true
     }
     
     private func setup(controlsView: UIView) {
@@ -292,7 +288,6 @@ final class PlayerView: UIView {
     private func setup(playButton: UIButton, pauseButton: UIButton) {
         setup(trackButton: playButton)
         setup(trackButton: pauseButton)
-        
     }
     
     private func skipButtonsSharedLayout(controlsView: UIView, button: UIButton) {
@@ -309,8 +304,6 @@ final class PlayerView: UIView {
         skipButtonsSharedLayout(controlsView: controlsView, button: backButton)
         backButton.leftAnchor.constraint(equalTo: playButton.leftAnchor, constant: UIScreen.main.bounds.width * -0.27).isActive = true
     }
-    
-    
     
     func setup(playtimeSliderView: UIView) {
         controlsView.addSubview(playtimeSliderView)
@@ -373,7 +366,6 @@ final class PlayerView: UIView {
         let path =  UIBezierPath(roundedRect: rect, cornerRadius: albumImageView.layer.cornerRadius)
         layer.shadowPath = path.cgPath
         addSelectors()
-        
     }
     
     private func addSelectors() {
