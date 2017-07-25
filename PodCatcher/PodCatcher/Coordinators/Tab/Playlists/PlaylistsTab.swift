@@ -48,13 +48,6 @@ extension PlaylistsTabCoordinator: PlaylistsViewControllerDelegate {
         }
         delegate?.transitionCoordinator(type: .app, dataSource: dataSource)
     }
-    
-    func didSelect(at index: Int, with playlist: Playlist) {
-        let playlistViewController = PlaylistViewController(index: index, player: AudioFilePlayer.shared)
-        playlistViewController.delegate = self
-        playlistViewController.caster.podcastTitle = playlist.name
-        navigationController.viewControllers.append(playlistViewController)
-    }
 }
 
 extension PlaylistsTabCoordinator: PlaylistViewControllerDelegate {

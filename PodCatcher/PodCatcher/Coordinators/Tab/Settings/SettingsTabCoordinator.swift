@@ -24,3 +24,9 @@ final class SettingsTabCoordinator: NavigationCoordinator {
         settingsViewController.delegate = self
     }
 }
+
+extension SettingsTabCoordinator: SettingsViewControllerDelegate {
+    func guestUserSignIn(tapped: Bool) {
+        delegate?.transitionCoordinator(type: .app, dataSource: dataSource)
+    }
+}
