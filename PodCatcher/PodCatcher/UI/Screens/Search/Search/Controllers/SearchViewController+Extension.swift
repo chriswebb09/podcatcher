@@ -72,6 +72,7 @@ extension SearchViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.isUserInteractionEnabled = false
         let reachability = Reachability()!
         reachability.whenReachable = { reachability in
             DispatchQueue.main.async {
@@ -85,13 +86,13 @@ extension SearchViewController: UITableViewDelegate {
             DispatchQueue.main.async {
                 let actionSheetController: UIAlertController = UIAlertController(title: "Error", message: "The Internet connection appears to be offline.", preferredStyle: .alert)
                 let okayAction: UIAlertAction =  UIAlertAction(title: "Okay", style: .cancel) { action in
+                    tableView.isUserInteractionEnabled = true
                     actionSheetController.dismiss(animated: false, completion: nil)
                 }
                 actionSheetController.addAction(okayAction)
                 self.present(actionSheetController, animated: false)
             }
         }
-        
         do {
             try reachability.startNotifier()
         } catch {

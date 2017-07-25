@@ -39,6 +39,7 @@ extension SearchTabCoordinator: SearchViewControllerDelegate {
     }
     
     func didSelect(at index: Int, with caster: PodcastSearchResult) {
+        let searchViewController = navigationController.viewControllers[0] as! SearchViewController
         let resultsList = SearchResultListViewController(index: index)
         resultsList.delegate = self
         resultsList.dataSource = dataSource
@@ -55,6 +56,7 @@ extension SearchTabCoordinator: SearchViewControllerDelegate {
                     DispatchQueue.main.async {
                         resultsList.collectionView.reloadData()
                         strongSelf.navigationController.viewControllers.append(resultsList)
+                        searchViewController.tableView.isUserInteractionEnabled = true
                     }
                 }
             }
