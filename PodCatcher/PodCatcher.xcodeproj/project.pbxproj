@@ -48,7 +48,6 @@
 		A71ADFAE1F0E281F00941A43 /* PodcastResultsCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71ADFAD1F0E281F00941A43 /* PodcastResultsCellViewModel.swift */; };
 		A71ADFB11F0E285700941A43 /* SearchControllerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71ADFAF1F0E285700941A43 /* SearchControllerDataSource.swift */; };
 		A71ADFB21F0E285700941A43 /* SearchResultsFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71ADFB01F0E285700941A43 /* SearchResultsFetcher.swift */; };
-		A71ADFB41F0E38B900941A43 /* PlayerBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71ADFB31F0E38B900941A43 /* PlayerBuilder.swift */; };
 		A71AE3091F18085D00AFC8CC /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71AE3081F18085D00AFC8CC /* SettingCell.swift */; };
 		A71B26F21EE5D24700613CF4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71B26F11EE5D24700613CF4 /* AppDelegate.swift */; };
 		A71B26FA1EE5D24700613CF4 /* PodCatcher.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A71B26F81EE5D24700613CF4 /* PodCatcher.xcdatamodeld */; };
@@ -172,7 +171,6 @@
 		A7C620D31F12BC7F00A0D33A /* PlaylistViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C620D21F12BC7F00A0D33A /* PlaylistViewController+Extension.swift */; };
 		A7D0AD4C1F0D4A7C007E4063 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D0AD4A1F0D4A7C007E4063 /* SplashViewController.swift */; };
 		A7D0AD501F0D4A89007E4063 /* SplashViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D0AD4E1F0D4A89007E4063 /* SplashViewControllerDelegate.swift */; };
-		A7D0AD511F0D4A89007E4063 /* SplashViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D0AD4F1F0D4A89007E4063 /* SplashViewDelegate.swift */; };
 		A7E45F7F1F0238450063AC0F /* Episode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7E45F7E1F0238450063AC0F /* Episode.swift */; };
 		A7E45F811F0238680063AC0F /* PodcastSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7E45F801F0238680063AC0F /* PodcastSearchResult.swift */; };
 		A7E45F831F02388A0063AC0F /* TermSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7E45F821F02388A0063AC0F /* TermSearchResult.swift */; };
@@ -253,7 +251,6 @@
 		A71ADFAD1F0E281F00941A43 /* PodcastResultsCellViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PodcastResultsCellViewModel.swift; path = Search/SearchResult/Models/PodcastResultsCellViewModel.swift; sourceTree = "<group>"; };
 		A71ADFAF1F0E285700941A43 /* SearchControllerDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchControllerDataSource.swift; path = Search/Search/DataSources/SearchControllerDataSource.swift; sourceTree = "<group>"; };
 		A71ADFB01F0E285700941A43 /* SearchResultsFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchResultsFetcher.swift; path = Search/Search/DataSources/SearchResultsFetcher.swift; sourceTree = "<group>"; };
-		A71ADFB31F0E38B900941A43 /* PlayerBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlayerBuilder.swift; path = Builder/PlayerBuilder.swift; sourceTree = "<group>"; };
 		A71AE3081F18085D00AFC8CC /* SettingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingCell.swift; path = PodCatcher/UI/Screens/Settings/Settings/Views/SettingCell.swift; sourceTree = SOURCE_ROOT; };
 		A71B26EE1EE5D24700613CF4 /* PodCatcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PodCatcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A71B26F11EE5D24700613CF4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -386,7 +383,6 @@
 		A7C620D21F12BC7F00A0D33A /* PlaylistViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "PlaylistViewController+Extension.swift"; path = "Playlists/Playlist/PlaylistViewController+Extension.swift"; sourceTree = "<group>"; };
 		A7D0AD4A1F0D4A7C007E4063 /* SplashViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SplashViewController.swift; path = PodCatcher/UI/Screens/Start/Splash/Controllers/SplashViewController.swift; sourceTree = SOURCE_ROOT; };
 		A7D0AD4E1F0D4A89007E4063 /* SplashViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SplashViewControllerDelegate.swift; path = PodCatcher/UI/Screens/Start/Splash/Delegates/SplashViewControllerDelegate.swift; sourceTree = SOURCE_ROOT; };
-		A7D0AD4F1F0D4A89007E4063 /* SplashViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SplashViewDelegate.swift; path = PodCatcher/UI/Screens/Start/Splash/Delegates/SplashViewDelegate.swift; sourceTree = SOURCE_ROOT; };
 		A7E45F7E1F0238450063AC0F /* Episode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Episode.swift; sourceTree = "<group>"; };
 		A7E45F801F0238680063AC0F /* PodcastSearchResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodcastSearchResult.swift; sourceTree = "<group>"; };
 		A7E45F821F02388A0063AC0F /* TermSearchResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermSearchResult.swift; sourceTree = "<group>"; };
@@ -473,7 +469,6 @@
 		A7150EC21EE631DA00E3553F /* Player */ = {
 			isa = PBXGroup;
 			children = (
-				A71ADFB31F0E38B900941A43 /* PlayerBuilder.swift */,
 				A73D74361EE68865004571A5 /* Controllers */,
 				A73D74381EE68871004571A5 /* Delegates */,
 				A73D74371EE6886B004571A5 /* Models */,
@@ -826,7 +821,6 @@
 			isa = PBXGroup;
 			children = (
 				A7D0AD4E1F0D4A89007E4063 /* SplashViewControllerDelegate.swift */,
-				A7D0AD4F1F0D4A89007E4063 /* SplashViewDelegate.swift */,
 			);
 			path = Delegates;
 			sourceTree = "<group>";
@@ -1532,14 +1526,12 @@
 				A7A762971F14143E00D2C4FF /* SettingsViewController+Extension.swift in Sources */,
 				A7A7627D1F131A8A00D2C4FF /* ReloadableCollection.swift in Sources */,
 				A723A5A91EE93116002E49BF /* PodcastListConstants.swift in Sources */,
-				A7D0AD511F0D4A89007E4063 /* SplashViewDelegate.swift in Sources */,
 				A71853101EE9628800911C87 /* LoginButtonFactory.swift in Sources */,
 				A7C620C71F12B51A00A0D33A /* HomeListTopViewConstants.swift in Sources */,
 				A7EBA0A51EE6740300FAAC9C /* String+Extension.swift in Sources */,
 				A77EDF721EE5FDA9001A24E5 /* UICollectionView+Extension.swift in Sources */,
 				A71853121EE962BA00911C87 /* BallIndicatorView.swift in Sources */,
 				A7B1C0601F0AC93800A42E7D /* StartView.swift in Sources */,
-				A71ADFB41F0E38B900941A43 /* PlayerBuilder.swift in Sources */,
 				A71B27291EE5D31300613CF4 /* Coordinator.swift in Sources */,
 				A77107501F0D4E1F0042D2E4 /* HomeItemsLayout.swift in Sources */,
 				A77EDF881EE614FB001A24E5 /* ButtonFactory.swift in Sources */,
