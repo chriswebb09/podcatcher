@@ -185,7 +185,6 @@
 		A7B1C05D1F0AC90E00A42E7D /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B1C05B1F0AC90E00A42E7D /* StartViewController.swift */; };
 		A7B1C0601F0AC93800A42E7D /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B1C05F1F0AC93800A42E7D /* StartView.swift */; };
 		A7B1C0631F0AC94500A42E7D /* StartViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B1C0611F0AC94500A42E7D /* StartViewControllerDelegate.swift */; };
-		A7B1C0641F0AC94500A42E7D /* StartViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B1C0621F0AC94500A42E7D /* StartViewDelegate.swift */; };
 		A7B1C06D1F0ADC6B00A42E7D /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B1C06C1F0ADC6B00A42E7D /* UITableView+Extension.swift */; };
 		A7B1C0761F0AE43500A42E7D /* SettingsTabCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B1C0741F0AE43500A42E7D /* SettingsTabCoordinator.swift */; };
 		A7B1C0771F0AE43500A42E7D /* SettingsTabCoordinator+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B1C0751F0AE43500A42E7D /* SettingsTabCoordinator+Extension.swift */; };
@@ -217,7 +216,6 @@
 		A7C620D31F12BC7F00A0D33A /* PlaylistViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C620D21F12BC7F00A0D33A /* PlaylistViewController+Extension.swift */; };
 		A7C620D51F12BCE600A0D33A /* PodcastPlaylistCellConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C620D41F12BCE600A0D33A /* PodcastPlaylistCellConstants.swift */; };
 		A7D0AD4C1F0D4A7C007E4063 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D0AD4A1F0D4A7C007E4063 /* SplashViewController.swift */; };
-		A7D0AD4D1F0D4A7C007E4063 /* SplashViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D0AD4B1F0D4A7C007E4063 /* SplashViewController+Extension.swift */; };
 		A7D0AD501F0D4A89007E4063 /* SplashViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D0AD4E1F0D4A89007E4063 /* SplashViewControllerDelegate.swift */; };
 		A7D0AD511F0D4A89007E4063 /* SplashViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D0AD4F1F0D4A89007E4063 /* SplashViewDelegate.swift */; };
 		A7DF73681F1180BC00AAC675 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DF73671F1180BC00AAC675 /* Parser.swift */; };
@@ -454,7 +452,6 @@
 		A7B1C05B1F0AC90E00A42E7D /* StartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StartViewController.swift; path = PodCatcher/UI/Screens/Start/Start/Controllers/StartViewController.swift; sourceTree = SOURCE_ROOT; };
 		A7B1C05F1F0AC93800A42E7D /* StartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StartView.swift; path = PodCatcher/UI/Screens/Start/Start/Views/StartView.swift; sourceTree = SOURCE_ROOT; };
 		A7B1C0611F0AC94500A42E7D /* StartViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StartViewControllerDelegate.swift; path = PodCatcher/UI/Screens/Start/Start/Delegates/StartViewControllerDelegate.swift; sourceTree = SOURCE_ROOT; };
-		A7B1C0621F0AC94500A42E7D /* StartViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StartViewDelegate.swift; path = PodCatcher/UI/Screens/Start/Start/Delegates/StartViewDelegate.swift; sourceTree = SOURCE_ROOT; };
 		A7B1C06C1F0ADC6B00A42E7D /* UITableView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
 		A7B1C0741F0AE43500A42E7D /* SettingsTabCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsTabCoordinator.swift; path = Settings/SettingsTabCoordinator.swift; sourceTree = "<group>"; };
 		A7B1C0751F0AE43500A42E7D /* SettingsTabCoordinator+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "SettingsTabCoordinator+Extension.swift"; path = "Settings/SettingsTabCoordinator+Extension.swift"; sourceTree = "<group>"; };
@@ -486,7 +483,6 @@
 		A7C620D21F12BC7F00A0D33A /* PlaylistViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "PlaylistViewController+Extension.swift"; path = "Playlists/Playlist/PlaylistViewController+Extension.swift"; sourceTree = "<group>"; };
 		A7C620D41F12BCE600A0D33A /* PodcastPlaylistCellConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PodcastPlaylistCellConstants.swift; path = Playlists/Playlist/PodcastPlaylistCellConstants.swift; sourceTree = "<group>"; };
 		A7D0AD4A1F0D4A7C007E4063 /* SplashViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SplashViewController.swift; path = PodCatcher/UI/Screens/Start/Splash/Controllers/SplashViewController.swift; sourceTree = SOURCE_ROOT; };
-		A7D0AD4B1F0D4A7C007E4063 /* SplashViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "SplashViewController+Extension.swift"; path = "PodCatcher/UI/Screens/Start/Splash/Controllers/SplashViewController+Extension.swift"; sourceTree = SOURCE_ROOT; };
 		A7D0AD4E1F0D4A89007E4063 /* SplashViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SplashViewControllerDelegate.swift; path = PodCatcher/UI/Screens/Start/Splash/Delegates/SplashViewControllerDelegate.swift; sourceTree = SOURCE_ROOT; };
 		A7D0AD4F1F0D4A89007E4063 /* SplashViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SplashViewDelegate.swift; path = PodCatcher/UI/Screens/Start/Splash/Delegates/SplashViewDelegate.swift; sourceTree = SOURCE_ROOT; };
 		A7DF73671F1180BC00AAC675 /* Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
@@ -920,7 +916,6 @@
 			isa = PBXGroup;
 			children = (
 				A7B1C0611F0AC94500A42E7D /* StartViewControllerDelegate.swift */,
-				A7B1C0621F0AC94500A42E7D /* StartViewDelegate.swift */,
 			);
 			path = Delegates;
 			sourceTree = "<group>";
@@ -929,7 +924,6 @@
 			isa = PBXGroup;
 			children = (
 				A7D0AD4A1F0D4A7C007E4063 /* SplashViewController.swift */,
-				A7D0AD4B1F0D4A7C007E4063 /* SplashViewController+Extension.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1741,7 +1735,6 @@
 				A77107501F0D4E1F0042D2E4 /* HomeItemsLayout.swift in Sources */,
 				A77EDF881EE614FB001A24E5 /* ButtonFactory.swift in Sources */,
 				A7B1C05D1F0AC90E00A42E7D /* StartViewController.swift in Sources */,
-				A7B1C0641F0AC94500A42E7D /* StartViewDelegate.swift in Sources */,
 				A71B272D1EE5D55E00613CF4 /* CoordinatorDelegate.swift in Sources */,
 				A7B8C3991EF6E18E001AFFA1 /* BaseViewController.swift in Sources */,
 				A7B840CF1EEDDDE70049BB78 /* AudioFilePlayer.swift in Sources */,
@@ -1829,7 +1822,6 @@
 				A7175B141F2570F1008946DE /* MenuActive.swift in Sources */,
 				A776D14F1EE9098400400EB4 /* PlayState.swift in Sources */,
 				A7C620D11F12BA1900A0D33A /* PodcastItemCoreStack.swift in Sources */,
-				A7D0AD4D1F0D4A7C007E4063 /* SplashViewController+Extension.swift in Sources */,
 				A7175B0C1F257075008946DE /* PodcastCell.swift in Sources */,
 				A716B8041F0B357C0060D492 /* SearchTabCoordinator.swift in Sources */,
 				A71B26FA1EE5D24700613CF4 /* PodCatcher.xcdatamodeld in Sources */,
