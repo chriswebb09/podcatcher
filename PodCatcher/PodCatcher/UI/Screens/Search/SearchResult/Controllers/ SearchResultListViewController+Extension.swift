@@ -2,7 +2,7 @@ import UIKit
 
 // MARK: - PodcastCollectionViewProtocol
 
-extension SearchResultListViewController: PodcastCollectionViewProtocol {
+extension SearchResultListViewController {
     
     func configureTopView() {
         topView.frame = PodcastListConstants.topFrame
@@ -13,6 +13,13 @@ extension SearchResultListViewController: PodcastCollectionViewProtocol {
         view.addSubview(topView)
         view.bringSubview(toFront: topView)
         setupView()
+    }
+    
+    func setup(dataSource: UICollectionViewDataSource, delegate: UICollectionViewDelegate) {
+        collectionView.dataSource = dataSource
+        collectionView.delegate = delegate
+        collectionView.register(PodcastCell.self)
+        collectionView.backgroundColor = PodcastListConstants.backgroundColor
     }
     
     func setupView() {

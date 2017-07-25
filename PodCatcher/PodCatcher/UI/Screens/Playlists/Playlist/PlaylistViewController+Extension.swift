@@ -20,7 +20,14 @@ extension PlaylistViewController: NSFetchedResultsControllerDelegate {
 
 // MARK: - PodcastCollectionViewProtocol
 
-extension PlaylistViewController: PodcastCollectionViewProtocol {
+extension PlaylistViewController {
+    
+    func setup(dataSource: UICollectionViewDataSource, delegate: UICollectionViewDelegate) {
+        collectionView.dataSource = dataSource
+        collectionView.delegate = delegate
+        collectionView.register(PodcastCell.self)
+        collectionView.backgroundColor = PodcastListConstants.backgroundColor
+    }
     
     func configureTopView() {
         topView.frame = PodcastListConstants.topFrame
