@@ -94,7 +94,8 @@ extension PlayerViewController: PlayerViewDelegate {
     }
     
     func playButtonTapped() {
-        player?.play()
+        guard let player = player else { return }
+        player.play()
     }
     
     func moreButton(tapped: Bool) {

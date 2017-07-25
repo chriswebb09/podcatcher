@@ -318,7 +318,7 @@ final class PlayerView: UIView {
         playtimeSliderView.centerXAnchor.constraint(equalTo: controlsView.centerXAnchor).isActive = true
         playtimeSliderView.widthAnchor.constraint(equalTo: controlsView.widthAnchor, multiplier: 0.85).isActive = true
         playtimeSliderView.heightAnchor.constraint(equalTo: controlsView.heightAnchor, multiplier: 0.2).isActive = true
-        playtimeSliderView.centerYAnchor.constraint(equalTo: controlsView.centerYAnchor, constant: UIScreen.main.bounds.height * 0.08).isActive = true
+        playtimeSliderView.centerYAnchor.constraint(equalTo: controlsView.centerYAnchor, constant: UIScreen.main.bounds.height * 0.06).isActive = true
     }
     
     private func setup(playtimeSlider: UISlider) {
@@ -335,7 +335,7 @@ final class PlayerView: UIView {
         totalPlayTimeLabel.translatesAutoresizingMaskIntoConstraints = false
         totalPlayTimeLabel.widthAnchor.constraint(equalTo: controlsView.widthAnchor, multiplier: 0.14).isActive = true
         totalPlayTimeLabel.heightAnchor.constraint(equalTo: controlsView.heightAnchor, multiplier: PlayerViewConstants.backButtonHeightMultiplier).isActive = true
-        totalPlayTimeLabel.bottomAnchor.constraint(equalTo: controlsView.bottomAnchor, constant: UIScreen.main.bounds.height * -0.02).isActive = true
+        totalPlayTimeLabel.bottomAnchor.constraint(equalTo: controlsView.bottomAnchor, constant: UIScreen.main.bounds.height * -0.025).isActive = true
         totalPlayTimeLabel.rightAnchor.constraint(equalTo: controlsView.rightAnchor, constant: UIScreen.main.bounds.width * -0.08).isActive = true
     }
     
@@ -344,7 +344,7 @@ final class PlayerView: UIView {
         currentTimeLabel.translatesAutoresizingMaskIntoConstraints = false
         currentTimeLabel.widthAnchor.constraint(equalTo: controlsView.widthAnchor, multiplier: 0.14).isActive = true
         currentTimeLabel.heightAnchor.constraint(equalTo: controlsView.heightAnchor, multiplier: PlayerViewConstants.backButtonHeightMultiplier).isActive = true
-        currentTimeLabel.bottomAnchor.constraint(equalTo: controlsView.bottomAnchor, constant: UIScreen.main.bounds.height * -0.02).isActive = true
+        currentTimeLabel.bottomAnchor.constraint(equalTo: controlsView.bottomAnchor, constant: UIScreen.main.bounds.height * -0.025).isActive = true
         currentTimeLabel.leftAnchor.constraint(equalTo: controlsView.leftAnchor, constant: UIScreen.main.bounds.width * 0.08).isActive = true
     }
     
@@ -457,7 +457,7 @@ final class PlayerView: UIView {
 
 extension UISlider {
     func generateHandleImage(with color: UIColor) -> UIImage {
-        let rect = CGRect(x: 0, y: 0, width: self.bounds.size.height / 8, height: self.bounds.size.height + 12)
+        let rect = CGRect(x: 0, y: 0, width: self.bounds.size.height / 8, height: self.bounds.size.height + 10)
         return UIGraphicsImageRenderer(size: rect.size).image { imageContext in
             imageContext.cgContext.setFillColor(color.cgColor)
             imageContext.cgContext.fill(rect.insetBy(dx: 0, dy: 10))

@@ -36,13 +36,13 @@ class SearchViewController: BaseTableViewController {
         viewShown = dataSource.viewShown
         tableView.backgroundColor = UIColor(red:0.94, green:0.95, blue:0.96, alpha:1.0)
         tableView.register(SearchResultCell.self, forCellReuseIdentifier: SearchResultCell.reuseIdentifier)
-        searchBar = searchController.searchBar
-        searchController.defaultConfiguration()
+        
         tableView.delegate = self
         guard let tabbar = self.tabBarController?.tabBar else { return }
         searchBar.frame = CGRect(x: UIScreen.main.bounds.minX, y: 0, width: UIScreen.main.bounds.width, height: 44)
         tableView.frame = CGRect(x: UIScreen.main.bounds.minX, y: searchBar.frame.maxY, width: UIScreen.main.bounds.width, height: (view.frame.height - tabbar.frame.height) + 5)
         searchControllerConfigure()
+        searchController.defaultConfiguration()
         view.addSubview(searchBar)
     }
     
@@ -67,6 +67,7 @@ class SearchViewController: BaseTableViewController {
         searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
         searchBar.tintColor = .black
+        
         let textFieldInsideSearchBar = searchBar.value(forKey: "searchField") as? UITextField
         textFieldInsideSearchBar?.textColor = .white
         

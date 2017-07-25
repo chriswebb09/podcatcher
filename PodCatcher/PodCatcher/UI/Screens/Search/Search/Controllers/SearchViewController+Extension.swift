@@ -1,4 +1,5 @@
 import UIKit
+import ReachabilitySwift
 
 extension SearchViewController: UISearchResultsUpdating {
     
@@ -23,7 +24,14 @@ extension SearchViewController: UISearchControllerDelegate {
     func setSearch() {
         dataSource.store.searchForTracks { [weak self] playlist, error in
             if let error = error {
-                print(error.localizedDescription)
+                DispatchQueue.main.async {
+                    let actionSheetController: UIAlertController = UIAlertController(title: "Error", message: "\(error.localizedDescription)", preferredStyle: .alert)
+                    let okayAction: UIAlertAction =  UIAlertAction(title: "Okay", style: .cancel) { action in
+                        actionSheetController.dismiss(animated: false, completion: nil)
+                    }
+                    actionSheetController.addAction(okayAction)
+                    self?.present(actionSheetController, animated: false)
+                }
                 return
             }
             guard let playlist = playlist, let strongSelf = self else { return }
@@ -64,10 +72,32 @@ extension SearchViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if dataSource.items.count > 0 {
-            searchController.isActive = false
-            delegate?.didSelect(at: indexPath.row, with: dataSource.items[indexPath.row])
+        let reachability = Reachability()!
+        reachability.whenReachable = { reachability in
+            DispatchQueue.main.async {
+                if self.dataSource.items.count > 0 {
+                    self.searchController.isActive = false
+                    self.delegate?.didSelect(at: indexPath.row, with: self.dataSource.items[indexPath.row])
+                }
+            }
         }
+        reachability.whenUnreachable = { reachability in
+            DispatchQueue.main.async {
+                let actionSheetController: UIAlertController = UIAlertController(title: "Error", message: "The Internet connection appears to be offline.", preferredStyle: .alert)
+                let okayAction: UIAlertAction =  UIAlertAction(title: "Okay", style: .cancel) { action in
+                    actionSheetController.dismiss(animated: false, completion: nil)
+                }
+                actionSheetController.addAction(okayAction)
+                self.present(actionSheetController, animated: false)
+            }
+        }
+        
+        do {
+            try reachability.startNotifier()
+        } catch {
+            print("Unable to start notifier")
+        }
+      
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {

@@ -30,6 +30,12 @@ extension PlaylistsViewController: UITableViewDelegate {
             do {
                 try context.save()
             } catch let error {
+                let actionSheetController: UIAlertController = UIAlertController(title: "Error", message: "\(error.localizedDescription)", preferredStyle: .alert)
+                let okayAction: UIAlertAction =  UIAlertAction(title: "Okay", style: .cancel) { action in
+                    actionSheetController.dismiss(animated: false, completion: nil)
+                }
+                actionSheetController.addAction(okayAction)
+                self.present(actionSheetController, animated: false)
                 print("Unable to Perform Fetch Request \(error), \(error.localizedDescription)")
             }
             
