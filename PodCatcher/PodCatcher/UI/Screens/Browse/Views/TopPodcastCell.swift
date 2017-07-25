@@ -74,7 +74,7 @@ final internal class TopPodcastCell: UICollectionViewCell {
     private func setup(titleView: UIView) {
         contentView.addSubview(titleView)
         titleView.translatesAutoresizingMaskIntoConstraints = false
-        titleView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: TopPodcastCellConstants.labelHeightMultiplier).isActive = true
+        titleView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.86).isActive = true
         titleView.widthAnchor.constraint(equalTo: contentView.widthAnchor).isActive = true
         titleView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
         titleView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
