@@ -55,7 +55,6 @@ extension PlaylistsViewController: ReloadableTable, UITableViewDataSource {
             if count <= 0 {
                 tableView.backgroundView?.addSubview(emptyView)
                 navigationItem.leftBarButtonItem = nil
-                
             } else {
                 emptyView?.removeFromSuperview()
                 navigationItem.setLeftBarButton(leftButtonItem, animated: false)
@@ -104,18 +103,24 @@ extension PlaylistsViewController: UITableViewDelegate {
         guard let text = fetchedResultsController.object(at: indexPath).playlistId else { return }
         switch reference {
         case .addPodcast:
-            reference = .checkList
-            DispatchQueue.main.async {
-                self.reloadData()
-            }
-            delegate?.didAssignPlaylist(with: text)
+            add(text: text)
         case .checkList:
-            guard let title = fetchedResultsController.object(at: indexPath).playlistName else { return }
-            let playlist = PlaylistViewController(index: 0)
-            playlist.playlistId = text
-            playlist.playlistTitle = title
-            navigationController?.pushViewController(playlist, animated: false)
+            add(text: text, from: indexPath)
         }
+    }
+    
+    func add(text: String) {
+        reference = .checkList
+        DispatchQueue.main.async { self.reloadData() }
+        delegate?.didAssignPlaylist(with: text)
+    }
+    
+    func add(text: String, from indexPath: IndexPath) {
+        guard let title = fetchedResultsController.object(at: indexPath).playlistName else { return }
+        let playlist = PlaylistViewController(index: 0)
+        playlist.playlistId = text
+        playlist.playlistTitle = title
+        navigationController?.pushViewController(playlist, animated: false)
     }
     
     func editFor(indexPath: IndexPath) {
