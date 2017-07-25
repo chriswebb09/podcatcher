@@ -128,7 +128,6 @@
 		A7701F7E1F181F1A00E30C1F /* PlayerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7701F7D1F181F1A00E30C1F /* PlayerState.swift */; };
 		A7701F801F181F6100E30C1F /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7701F7F1F181F6100E30C1F /* CoreDataStack.swift */; };
 		A77107441F0D4DE90042D2E4 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77107421F0D4DE90042D2E4 /* HomeViewController.swift */; };
-		A77107451F0D4DE90042D2E4 /* HomeViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77107431F0D4DE90042D2E4 /* HomeViewController+Extension.swift */; };
 		A77107501F0D4E1F0042D2E4 /* HomeItemsLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A771074E1F0D4E1F0042D2E4 /* HomeItemsLayout.swift */; };
 		A77107531F0D4E3A0042D2E4 /* HomeViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77107521F0D4E3A0042D2E4 /* HomeViewControllerDelegate.swift */; };
 		A776D14F1EE9098400400EB4 /* PlayState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A776D14E1EE9098400400EB4 /* PlayState.swift */; };
@@ -400,7 +399,6 @@
 		A7701F7D1F181F1A00E30C1F /* PlayerState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerState.swift; sourceTree = "<group>"; };
 		A7701F7F1F181F6100E30C1F /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		A77107421F0D4DE90042D2E4 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HomeViewController.swift; path = Home/Controllers/HomeViewController.swift; sourceTree = "<group>"; };
-		A77107431F0D4DE90042D2E4 /* HomeViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "HomeViewController+Extension.swift"; path = "Home/Controllers/HomeViewController+Extension.swift"; sourceTree = "<group>"; };
 		A771074E1F0D4E1F0042D2E4 /* HomeItemsLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HomeItemsLayout.swift; path = Home/Models/HomeItemsLayout.swift; sourceTree = "<group>"; };
 		A77107521F0D4E3A0042D2E4 /* HomeViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HomeViewControllerDelegate.swift; path = Home/Delegates/HomeViewControllerDelegate.swift; sourceTree = "<group>"; };
 		A776D14E1EE9098400400EB4 /* PlayState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayState.swift; sourceTree = "<group>"; };
@@ -1100,7 +1098,6 @@
 			isa = PBXGroup;
 			children = (
 				A77107421F0D4DE90042D2E4 /* HomeViewController.swift */,
-				A77107431F0D4DE90042D2E4 /* HomeViewController+Extension.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -1688,7 +1685,6 @@
 				A723B4121F0EB08D00EA6B27 /* PlaylistsCoreDataStack.swift in Sources */,
 				A7150EC11EE62E1700E3553F /* PlayerViewControllerDelegate.swift in Sources */,
 				A723A5B31EE93C32002E49BF /* SettingsViewConstants.swift in Sources */,
-				A77107451F0D4DE90042D2E4 /* HomeViewController+Extension.swift in Sources */,
 				A7A762951F13F9A000D2C4FF /* NPRParser.swift in Sources */,
 				A77EDF591EE5FAC2001A24E5 /* CALayer+Extension.swift in Sources */,
 				A73D74091EE684C4004571A5 /* LoadingPopover.swift in Sources */,
