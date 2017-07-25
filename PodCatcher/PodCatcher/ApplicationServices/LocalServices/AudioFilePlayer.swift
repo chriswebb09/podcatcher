@@ -15,7 +15,7 @@ protocol AudioFile {
 
 final class AudioFilePlayer: NSObject {
     
-    var url: URL?
+    var url: URL!
     
     static let shared = AudioFilePlayer()
     
@@ -23,24 +23,24 @@ final class AudioFilePlayer: NSObject {
     
     weak var delegate: AudioFilePlayerDelegate?
     
-    var asset: AVURLAsset?
+    var asset: AVURLAsset!
     
-    var player: AVPlayer?
+    var player: AVPlayer
     
-    var playerItem: AVPlayerItem?
+    var playerItem: AVPlayerItem!
     
     var currentTime: Double {
         get {
-            return CMTimeGetSeconds(player!.currentTime())
+            return CMTimeGetSeconds(player.currentTime())
         }
         set {
             let newTime = CMTimeMakeWithSeconds(newValue, 1000)
-            player?.seek(to: newTime, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero)
+            player.seek(to: newTime, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero)
         }
     }
     
     var duration: Double? {
-        guard let currentItem = player?.currentItem else { return 0.0 }
+        guard let currentItem = player.currentItem else { return 0.0 }
         return CMTimeGetSeconds(currentItem.duration)
     }
     
@@ -48,43 +48,26 @@ final class AudioFilePlayer: NSObject {
     
     deinit {
         if let timeObserverToken = timeObserver {
-            player?.removeTimeObserver(timeObserverToken)
+            player.removeTimeObserver(timeObserverToken)
             self.timeObserver = nil
-            player = nil
-            asset = nil
-            url = nil
         }
     }
     
-//    init(url: URL?) {
-//        self.url = url
-//        super.init()
-//        guard let url = self.url else { return }
-//        self.asset = AVURLAsset(url: url)
-//        guard let asset = asset else { return }
-//        playerItem = AVPlayerItem(asset: asset)
-//        player = AVPlayer(playerItem: playerItem)
-//        player?.actionAtItemEnd = AVPlayerActionAtItemEnd.pause
-//        getTrackDuration(asset: asset)
-//    }
-//    
-//    convenience override init() {
-//        self.init(url: nil)
-//        guard let url = URL(string: "test") else { return }
-//        self.url = url
-//    }
+    override init() {
+        self.player = AVPlayer()
+        super.init()
+    }
 }
 
 extension AudioFilePlayer {
     
     func play() {
         state = .playing
-        player?.playImmediately(atRate: 1)
+        player.playImmediately(atRate: 1)
     }
     
     func pause() {
         state = .paused
-        guard let player = player else { return }
         player.pause()
     }
     
@@ -92,28 +75,24 @@ extension AudioFilePlayer {
         guard let urlString = string else { return }
         guard let url = URL(string: urlString) else { return }
         self.url = url
-        guard let asset = asset else { return }
         getTrackDuration(asset: asset)
     }
     
     func setUrl(with url: URL) {
         self.url = url
-        guard let asset = asset else { return }
         getTrackDuration(asset: asset)
     }
     
     func removePeriodicTimeObserver() {
         guard let token = timeObserver else { return }
-        player?.removeTimeObserver(token)
+        player.removeTimeObserver(token)
         timeObserver = nil
     }
     
     func playNext() {
-        guard let url = self.url else { return }
         self.asset = AVURLAsset(url: url)
-        guard let asset = asset else { return }
         playerItem = AVPlayerItem(asset: asset)
-        player?.replaceCurrentItem(with: playerItem)
+        player.replaceCurrentItem(with: playerItem)
         getTrackDuration(asset: asset)
     }
 }
@@ -159,8 +138,8 @@ extension AudioFilePlayer: AVAssetResourceLoaderDelegate {
     func observePlayTime() {
         let interval = CMTime(seconds: 0.5, preferredTimescale: CMTimeScale(NSEC_PER_SEC))
         let mainQueue = DispatchQueue.main
-        timeObserver = player?.addPeriodicTimeObserver(forInterval: interval, queue: mainQueue) { [weak self] time in
-            guard let currentItem = self?.player?.currentItem else { return }
+        timeObserver = player.addPeriodicTimeObserver(forInterval: interval, queue: mainQueue) { [weak self] time in
+            guard let currentItem = self?.player.currentItem else { return }
             let fraction = CMTimeGetSeconds(time) / CMTimeGetSeconds(currentItem.duration)
             let time = fraction / 450
             self?.delegate?.updateProgress(progress: time)
@@ -170,8 +149,8 @@ extension AudioFilePlayer: AVAssetResourceLoaderDelegate {
     func playerItemDidReachEnd(notification: NSNotification) {
         state = .stopped
         delegate?.trackFinishedPlaying()
-        player?.seek(to: kCMTimeZero)
-        player?.pause()
+        player.seek(to: kCMTimeZero)
+        player.pause()
     }
 }
 

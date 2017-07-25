@@ -73,13 +73,11 @@ extension PlayerViewController: PlayerViewDelegate {
     }
     
     func pauseButtonTapped() {
-        // player?.pause()
+        player.pause()
     }
     
     func playButtonTapped() {
         player.play()
-        player.player?.play()
-        player.player?.playImmediately(atRate: 1)
     }
     
     func moreButton(tapped: Bool) {
@@ -135,7 +133,7 @@ extension PlayerViewController: AudioFilePlayerDelegate {
                 self?.playerView.totalPlayTimeLabel.text = String.constructTimeString(time: (duration - (self?.player.currentTime)!))
                 self?.playerView.update(progressBarValue: Float(normalizedTime))
                 if normalizedTime >= 100 {
-                    self?.player.player?.seek(to: kCMTimeZero)
+                    self?.player.player.seek(to: kCMTimeZero)
                 }
             }
         }
