@@ -32,7 +32,11 @@ final class BrowseTabCoordinator: NavigationCoordinator {
         var items = [TopItem]()
         getTopItems { newItems in
             items = newItems
-            let concurrentQueue = DispatchQueue(label: "concurrent", qos: .background, attributes: .concurrent, autoreleaseFrequency: .inherit, target: nil)
+            let concurrentQueue = DispatchQueue(label: "concurrent",
+                                                qos: .background,
+                                                attributes: .concurrent,
+                                                autoreleaseFrequency: .inherit,
+                                                target: nil)
             concurrentQueue.async { [weak self] in
                 guard let strongSelf = self else { return }
                 var results = [CasterSearchResult]()
