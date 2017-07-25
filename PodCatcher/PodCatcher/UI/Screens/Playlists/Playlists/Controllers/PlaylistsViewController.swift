@@ -121,7 +121,6 @@ extension PlaylistsViewController: UITableViewDelegate {
     }
     
     func editFor(indexPath: IndexPath) {
-        
         let id = fetchedResultsController.object(at: indexPath).playlistId
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         let context = appDelegate.persistentContainer.viewContext
@@ -135,7 +134,7 @@ extension PlaylistsViewController: UITableViewDelegate {
         do {
             try appDelegate.persistentContainer.viewContext.execute(deleteRequest)
         } catch let error as NSError {
-            print(error.localizedDescription)
+            showError(errorString: "\(error.localizedDescription)")
         }
         
         reloadData()
@@ -143,12 +142,7 @@ extension PlaylistsViewController: UITableViewDelegate {
         do {
             try context.save()
         } catch let error {
-            let actionSheetController: UIAlertController = UIAlertController(title: "Error", message: "\(error.localizedDescription)", preferredStyle: .alert)
-            let okayAction: UIAlertAction =  UIAlertAction(title: "Okay", style: .cancel) { action in
-                actionSheetController.dismiss(animated: false, completion: nil)
-            }
-            actionSheetController.addAction(okayAction)
-            self.present(actionSheetController, animated: false)
+            showError(errorString: "\(error.localizedDescription)")
         }
         if let count = fetchedResultsController.fetchedObjects?.count {
             if count == 0 {
@@ -156,6 +150,15 @@ extension PlaylistsViewController: UITableViewDelegate {
                 leftButtonItem.title = "Edit"
             }
         }
+    }
+    
+    func showError(errorString: String) {
+        let actionSheetController: UIAlertController = UIAlertController(title: "Error", message: errorString, preferredStyle: .alert)
+        let okayAction: UIAlertAction =  UIAlertAction(title: "Okay", style: .cancel) { action in
+            actionSheetController.dismiss(animated: false, completion: nil)
+        }
+        actionSheetController.addAction(okayAction)
+        present(actionSheetController, animated: false)
     }
 }
 
