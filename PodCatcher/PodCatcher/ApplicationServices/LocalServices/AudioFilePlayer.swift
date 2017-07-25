@@ -17,6 +17,8 @@ final class AudioFilePlayer: NSObject {
     
     var url: URL?
     
+    static let shared = AudioFilePlayer()
+    
     var state: PlayerState = .stopped
     
     weak var delegate: AudioFilePlayerDelegate?
@@ -54,23 +56,23 @@ final class AudioFilePlayer: NSObject {
         }
     }
     
-    init(url: URL?) {
-        self.url = url
-        super.init()
-        guard let url = self.url else { return }
-        self.asset = AVURLAsset(url: url)
-        guard let asset = asset else { return }
-        playerItem = AVPlayerItem(asset: asset)
-        player = AVPlayer(playerItem: playerItem)
-        player?.actionAtItemEnd = AVPlayerActionAtItemEnd.pause
-        getTrackDuration(asset: asset)
-    }
-    
-    convenience override init() {
-        self.init()
-        guard let url = URL(string: "test") else { return }
-        self.url = url
-    }
+//    init(url: URL?) {
+//        self.url = url
+//        super.init()
+//        guard let url = self.url else { return }
+//        self.asset = AVURLAsset(url: url)
+//        guard let asset = asset else { return }
+//        playerItem = AVPlayerItem(asset: asset)
+//        player = AVPlayer(playerItem: playerItem)
+//        player?.actionAtItemEnd = AVPlayerActionAtItemEnd.pause
+//        getTrackDuration(asset: asset)
+//    }
+//    
+//    convenience override init() {
+//        self.init(url: nil)
+//        guard let url = URL(string: "test") else { return }
+//        self.url = url
+//    }
 }
 
 extension AudioFilePlayer {

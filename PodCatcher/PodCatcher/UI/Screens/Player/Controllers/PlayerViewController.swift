@@ -14,14 +14,16 @@ final class PlayerViewController: BaseViewController {
     var episodes: [Episodes]!
     var caster: CasterSearchResult
     var menuActive: MenuActive = .none
-    var player: AudioFilePlayer?
+    var player: AudioFilePlayer
     var index: Int
     var user: PodCatcherUser?
     let downloadingIndicator = DownloaderIndicatorView()
     var playerViewModel: PlayerViewModel!
     var network: NetworkService = NetworkService()
     
-    init(index: Int, caster: CasterSearchResult, user: PodCatcherUser?, image: UIImage?) {
+    init(index: Int, caster: CasterSearchResult, user: PodCatcherUser?, image: UIImage?, player: AudioFilePlayer) {
+        self.player = player
+        
         self.index = index
         self.caster = caster
         self.episodes = caster.episodes
@@ -30,6 +32,14 @@ final class PlayerViewController: BaseViewController {
         }
         super.init(nibName: nil, bundle: nil)
         network.delegate = self
+        if let urlString = caster.episodes[index].audioUrlString,
+            let url = URL(string: urlString) {
+            player.setUrl(with: url)
+            player.url = url
+            player.playNext()
+        }
+        self.player.delegate = self
+        self.player.observePlayTime()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -44,7 +54,6 @@ final class PlayerViewController: BaseViewController {
             self.loadingPop = LoadingPopover()
             self.showLoadingView(loadingPop: self.loadingPop)
         }
-        loadAudioFile()
         playerViewModel = PlayerViewModel(imageUrl: URL(string: artUrl), title: episodes[index].title)
         setModel(model: playerViewModel)
         view.addView(view: playerView, type: .full)
@@ -58,9 +67,9 @@ final class PlayerViewController: BaseViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        player?.removePeriodicTimeObserver()
+        player.removePeriodicTimeObserver()
         navigationController?.popViewController(animated: false)
-        player?.pause()
+        player.pause()
         hideLoadingView(loadingPop: loadingPop)
         hidePopMenu()
     }

@@ -50,7 +50,7 @@ extension PlaylistsTabCoordinator: PlaylistsViewControllerDelegate {
     }
     
     func didSelect(at index: Int, with playlist: Playlist) {
-        let playlistViewController = PlaylistViewController(index: index)
+        let playlistViewController = PlaylistViewController(index: index, player: AudioFilePlayer.shared)
         playlistViewController.delegate = self
         playlistViewController.caster.podcastTitle = playlist.name
         navigationController.viewControllers.append(playlistViewController)
@@ -60,7 +60,7 @@ extension PlaylistsTabCoordinator: PlaylistsViewControllerDelegate {
 extension PlaylistsTabCoordinator: PlaylistViewControllerDelegate {
     
     func didSelectPodcast(at index: Int, with episodes: [PodcastPlaylistItem], caster: CasterSearchResult) {
-        let playerViewController = PlayerViewController(index: index, caster: caster, user: dataSource.user, image: nil)
+        let playerViewController = PlayerViewController(index: index, caster: caster, user: dataSource.user, image: nil, player: AudioFilePlayer.shared)
         playerViewController.delegate = self
         navigationController.navigationBar.isTranslucent = true
         navigationController.viewControllers.append(playerViewController)

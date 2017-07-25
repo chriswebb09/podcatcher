@@ -12,6 +12,7 @@ class MainCoordinator: ApplicationCoordinator {
     var itemIndex: Int!
     let reachability = Reachability()!
     var store = SearchResultsDataStore()
+    var audioPlayer = AudioFilePlayer.shared
     var managedContext: NSManagedObjectContext!
     
     init(window: UIWindow) {

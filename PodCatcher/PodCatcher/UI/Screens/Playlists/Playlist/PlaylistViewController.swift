@@ -9,7 +9,7 @@ class PlaylistViewController: BaseCollectionViewController {
     
     var item: CasterSearchResult!
     var state: PodcasterControlState = .toCollection
-    var player: AudioFilePlayer!
+    var player: AudioFilePlayer
     var dataSource: BaseMediaControllerDataSource!
     weak var delegate: PlaylistViewControllerDelegate?
     var playlistId: String
@@ -26,9 +26,10 @@ class PlaylistViewController: BaseCollectionViewController {
     var topView = ListTopView()
     var feedUrl: String!
     
-    init(index: Int) {
+    init(index: Int, player: AudioFilePlayer) {
         self.playlistId = ""
         self.playlistTitle = ""
+        self.player = player
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -51,9 +52,9 @@ class PlaylistViewController: BaseCollectionViewController {
         view.sendSubview(toBack: background)
         collectionView.register(PodcastPlaylistCell.self)
         setupCoordinator()
-        player = AudioFilePlayer(url: nil)
-        player.delegate = self
-        player.observePlayTime()
+//        player = AudioFilePlayer
+//        player.delegate = self
+//        player.observePlayTime()
     }
     
     override func viewWillAppear(_ animated: Bool) {

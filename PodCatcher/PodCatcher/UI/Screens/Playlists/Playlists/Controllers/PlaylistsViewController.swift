@@ -117,7 +117,7 @@ extension PlaylistsViewController: UITableViewDelegate {
     
     func add(text: String, from indexPath: IndexPath) {
         guard let title = fetchedResultsController.object(at: indexPath).playlistName else { return }
-        let playlist = PlaylistViewController(index: 0)
+        let playlist = PlaylistViewController(index: 0, player: AudioFilePlayer.shared)
         playlist.playlistId = text
         playlist.playlistTitle = title
         navigationController?.pushViewController(playlist, animated: false)

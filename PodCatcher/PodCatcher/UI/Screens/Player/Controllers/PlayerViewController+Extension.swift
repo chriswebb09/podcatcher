@@ -15,47 +15,28 @@ extension PlayerViewController: PlayerViewDelegate {
     
     func initPlayer(url: URL?)  {
         guard let url = url else { return }
-        player?.setUrl(with: url)
-        player?.url = url
-        player?.playNext()
+        player.setUrl(with: url)
+        player.url = url
+        player.playNext()
     }
     
     func updateTimeValue(time: Double) {
         var paused = false
-        if let player = self.player {
-            if player.state == .playing {
-                paused = true
-                player.pause()
-            }
-            guard let duration = player.duration else { return }
-            player.currentTime = (time * duration) / 100
-            DispatchQueue.main.async { [weak self] in
-                let timeString = String.constructTimeString(time: player.currentTime)
-                self?.playerView.currentPlayTimeLabel.text = timeString
-                if paused == true {
-                    player.play()
-                }
+        if player.state == .playing {
+            paused = true
+            player.pause()
+        }
+        guard let duration = player.duration else { return }
+        player.currentTime = (time * duration) / 100
+        DispatchQueue.main.async { [weak self] in
+            let timeString = String.constructTimeString(time: (self?.player.currentTime)!)
+            self?.playerView.currentPlayTimeLabel.text = timeString
+            if paused == true {
+                self?.player.play()
             }
         }
     }
-    
-    func loadAudioFile() {
-        if let urlString = caster.episodes[index].audioUrlString,
-            let url = URL(string: urlString) {
-            if LocalStorageManager.localFileExists(for: urlString) {
-                let audioUrl = LocalStorageManager.localFilePath(for: url)
-                self.player = AudioFilePlayer(url: audioUrl)
-                self.player?.delegate = self
-                self.player?.observePlayTime()
-                self.initPlayer(url: audioUrl)
-            } else {
-                self.player = AudioFilePlayer(url: url)
-                self.player?.delegate = self
-                self.player?.observePlayTime()
-                self.initPlayer(url: url)
-            }
-        }
-    }
+
     
     func updatePlayerViewModel() {
         guard let artUrl = caster.podcastArtUrlString else { return }
@@ -69,11 +50,13 @@ extension PlayerViewController: PlayerViewDelegate {
     }
     
     func updateTrack() {
-        guard let player = player else { return }
         player.pause()
         showLoadingView(loadingPop: loadingPop)
-        self.player = nil
-        loadAudioFile()
+        if let urlString = caster.episodes[index].audioUrlString, let url = URL(string: urlString) {
+            player.setUrl(with: url)
+            self.player.delegate = self
+            self.player.observePlayTime()
+        }
         updatePlayerViewModel()
     }
     
@@ -90,12 +73,13 @@ extension PlayerViewController: PlayerViewDelegate {
     }
     
     func pauseButtonTapped() {
-        player?.pause()
+        // player?.pause()
     }
     
     func playButtonTapped() {
-        guard let player = player else { return }
         player.play()
+        player.player?.play()
+        player.player?.playImmediately(atRate: 1)
     }
     
     func moreButton(tapped: Bool) {
@@ -143,16 +127,15 @@ extension PlayerViewController: AudioFilePlayerDelegate {
     }
     
     func updateProgress(progress: Double) {
-        guard let duration = player?.duration else { return }
-        guard let currentTime = player?.currentTime else { return }
-        if currentTime > 0 && duration > 0 {
-            let normalizedTime = currentTime * 100.0 / duration
+        guard let duration = player.duration else { return }
+        if player.currentTime > 0 && duration > 0 {
+            let normalizedTime = player.currentTime * 100.0 / duration
             DispatchQueue.main.async { [weak self] in
-                self?.playerView.currentPlayTimeLabel.text = String.constructTimeString(time: currentTime)
-                self?.playerView.totalPlayTimeLabel.text = String.constructTimeString(time: (duration - currentTime))
+                self?.playerView.currentPlayTimeLabel.text = String.constructTimeString(time: (self?.player.currentTime)!)
+                self?.playerView.totalPlayTimeLabel.text = String.constructTimeString(time: (duration - (self?.player.currentTime)!))
                 self?.playerView.update(progressBarValue: Float(normalizedTime))
                 if normalizedTime >= 100 {
-                    self?.player?.player?.seek(to: kCMTimeZero)
+                    self?.player.player?.seek(to: kCMTimeZero)
                 }
             }
         }
@@ -194,13 +177,7 @@ extension PlayerViewController: MenuDelegate {
 extension PlayerViewController: DownloadServiceDelegate {
     
     func download(location set: String) {
-        player = nil
-        if let url = URL(string: set) {
-            player = AudioFilePlayer(url: url)
-            player?.delegate = self
-            player?.observePlayTime()
-            initPlayer(url: url)
-        }
+
     }
     
     func download(progress updated: Float) {
