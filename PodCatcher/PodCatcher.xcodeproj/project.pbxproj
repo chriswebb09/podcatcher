@@ -35,9 +35,7 @@
 		A71852FE1EE9527400911C87 /* EmptyViewConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71852FD1EE9527400911C87 /* EmptyViewConstants.swift */; };
 		A71853001EE9580D00911C87 /* PodcastListViewControllerConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71852FF1EE9580D00911C87 /* PodcastListViewControllerConstants.swift */; };
 		A71853021EE9584E00911C87 /* BaseMenuPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71853011EE9584E00911C87 /* BaseMenuPopover.swift */; };
-		A71853041EE958A900911C87 /* MenuViewConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71853031EE958A900911C87 /* MenuViewConstants.swift */; };
 		A71853061EE95A7F00911C87 /* MenuOptionViewConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71853051EE95A7F00911C87 /* MenuOptionViewConstants.swift */; };
-		A71853081EE95C0E00911C87 /* PreferenceViewConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71853071EE95C0E00911C87 /* PreferenceViewConstants.swift */; };
 		A718530A1EE9609A00911C87 /* EntryState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71853091EE9609A00911C87 /* EntryState.swift */; };
 		A718530C1EE960C400911C87 /* PopDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718530B1EE960C400911C87 /* PopDelegate.swift */; };
 		A718530E1EE9626500911C87 /* BasicButtonFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718530D1EE9626500911C87 /* BasicButtonFactory.swift */; };
@@ -283,9 +281,7 @@
 		A71852FD1EE9527400911C87 /* EmptyViewConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyViewConstants.swift; sourceTree = "<group>"; };
 		A71852FF1EE9580D00911C87 /* PodcastListViewControllerConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodcastListViewControllerConstants.swift; sourceTree = "<group>"; };
 		A71853011EE9584E00911C87 /* BaseMenuPopover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseMenuPopover.swift; sourceTree = "<group>"; };
-		A71853031EE958A900911C87 /* MenuViewConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewConstants.swift; sourceTree = "<group>"; };
 		A71853051EE95A7F00911C87 /* MenuOptionViewConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuOptionViewConstants.swift; sourceTree = "<group>"; };
-		A71853071EE95C0E00911C87 /* PreferenceViewConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferenceViewConstants.swift; sourceTree = "<group>"; };
 		A71853091EE9609A00911C87 /* EntryState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EntryState.swift; path = Entry/EntryState.swift; sourceTree = "<group>"; };
 		A718530B1EE960C400911C87 /* PopDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PopDelegate.swift; path = Entry/PopDelegate.swift; sourceTree = "<group>"; };
 		A718530D1EE9626500911C87 /* BasicButtonFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicButtonFactory.swift; sourceTree = "<group>"; };
@@ -1231,9 +1227,7 @@
 				A723A5C01EE9480C002E49BF /* EntryViewConstants.swift */,
 				A71852FD1EE9527400911C87 /* EmptyViewConstants.swift */,
 				A71852FF1EE9580D00911C87 /* PodcastListViewControllerConstants.swift */,
-				A71853031EE958A900911C87 /* MenuViewConstants.swift */,
 				A71853051EE95A7F00911C87 /* MenuOptionViewConstants.swift */,
-				A71853071EE95C0E00911C87 /* PreferenceViewConstants.swift */,
 				A7AA09D01EF27EFC003A8F8A /* UpdateAccountConstants.swift */,
 				A7BA68811EFCE0150032FE48 /* MediaCollectionConstants.swift */,
 				A71A5BAF1F01DD9500254BE2 /* ApplicationStyling.swift */,
@@ -1674,7 +1668,6 @@
 				A77EDF5B1EE5FB3B001A24E5 /* MediaCellConstants.swift in Sources */,
 				A7780F081F1740BF00737DA8 /* TopPodcastCell.swift in Sources */,
 				A7C620D31F12BC7F00A0D33A /* PlaylistViewController+Extension.swift in Sources */,
-				A71853081EE95C0E00911C87 /* PreferenceViewConstants.swift in Sources */,
 				A7C620D51F12BCE600A0D33A /* PodcastPlaylistCellConstants.swift in Sources */,
 				A71852FE1EE9527400911C87 /* EmptyViewConstants.swift in Sources */,
 				A7780F3D1F17792C00737DA8 /* SubscribedPodcastCell.swift in Sources */,
@@ -1755,7 +1748,6 @@
 				A71BFB881EE6F62B00A35D8E /* UnderLineTextField.swift in Sources */,
 				A7E45F891F025D690063AC0F /* RSSFeedAPI.swift in Sources */,
 				A72597911EF1AC5500179301 /* GuestUserView.swift in Sources */,
-				A71853041EE958A900911C87 /* MenuViewConstants.swift in Sources */,
 				A7D0AD4C1F0D4A7C007E4063 /* SplashViewController.swift in Sources */,
 				A71ADFA01F0E26E200941A43 /* SearchViewControllerDelegate.swift in Sources */,
 				A7240A4B1F243AEF003FC525 /* Constants.swift in Sources */,

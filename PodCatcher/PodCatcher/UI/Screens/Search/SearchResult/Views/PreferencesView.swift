@@ -29,8 +29,8 @@ final class PreferencesView: UIView {
         addSubview(moreButton)
         moreButton.translatesAutoresizingMaskIntoConstraints = false
         moreButton.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        moreButton.heightAnchor.constraint(equalTo: heightAnchor, multiplier: PreferencesViewConstants.tagButtonHeightMultiplier).isActive = true
-        moreButton.rightAnchor.constraint(equalTo: rightAnchor, constant: PreferencesViewConstants.moreButtonRightOffset).isActive = true
+        moreButton.heightAnchor.constraint(equalTo: heightAnchor).isActive = true
+        moreButton.rightAnchor.constraint(equalTo: rightAnchor, constant: UIScreen.main.bounds.width * -0.1).isActive = true
     }
     
     func moreButton(tapped: Bool) {
