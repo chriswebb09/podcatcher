@@ -1,6 +1,12 @@
 import UIKit
 import ReachabilitySwift
 
+protocol BrowseViewControllerDelegate: class {
+    func didSelect(at index: Int)
+    func didSelect(at index: Int, with cast: PodcastSearchResult)
+    func logout(tapped: Bool)
+}
+
 final class BrowseViewController: BaseCollectionViewController {
     
     weak var delegate: BrowseViewControllerDelegate?
