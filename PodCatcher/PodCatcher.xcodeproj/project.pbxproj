@@ -183,7 +183,6 @@
 		A7AA09D11EF27EFC003A8F8A /* UpdateAccountConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7AA09D01EF27EFC003A8F8A /* UpdateAccountConstants.swift */; };
 		A7AA09D31EF2DB5A003A8F8A /* MainCoordinator+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7AA09D21EF2DB5A003A8F8A /* MainCoordinator+Extension.swift */; };
 		A7B1C05D1F0AC90E00A42E7D /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B1C05B1F0AC90E00A42E7D /* StartViewController.swift */; };
-		A7B1C05E1F0AC90E00A42E7D /* StartViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B1C05C1F0AC90E00A42E7D /* StartViewController+Extension.swift */; };
 		A7B1C0601F0AC93800A42E7D /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B1C05F1F0AC93800A42E7D /* StartView.swift */; };
 		A7B1C0631F0AC94500A42E7D /* StartViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B1C0611F0AC94500A42E7D /* StartViewControllerDelegate.swift */; };
 		A7B1C0641F0AC94500A42E7D /* StartViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B1C0621F0AC94500A42E7D /* StartViewDelegate.swift */; };
@@ -453,7 +452,6 @@
 		A7AA09D01EF27EFC003A8F8A /* UpdateAccountConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateAccountConstants.swift; sourceTree = "<group>"; };
 		A7AA09D21EF2DB5A003A8F8A /* MainCoordinator+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MainCoordinator+Extension.swift"; sourceTree = "<group>"; };
 		A7B1C05B1F0AC90E00A42E7D /* StartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StartViewController.swift; path = PodCatcher/UI/Screens/Start/Start/Controllers/StartViewController.swift; sourceTree = SOURCE_ROOT; };
-		A7B1C05C1F0AC90E00A42E7D /* StartViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "StartViewController+Extension.swift"; path = "PodCatcher/UI/Screens/Start/Start/Controllers/StartViewController+Extension.swift"; sourceTree = SOURCE_ROOT; };
 		A7B1C05F1F0AC93800A42E7D /* StartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StartView.swift; path = PodCatcher/UI/Screens/Start/Start/Views/StartView.swift; sourceTree = SOURCE_ROOT; };
 		A7B1C0611F0AC94500A42E7D /* StartViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StartViewControllerDelegate.swift; path = PodCatcher/UI/Screens/Start/Start/Delegates/StartViewControllerDelegate.swift; sourceTree = SOURCE_ROOT; };
 		A7B1C0621F0AC94500A42E7D /* StartViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StartViewDelegate.swift; path = PodCatcher/UI/Screens/Start/Start/Delegates/StartViewDelegate.swift; sourceTree = SOURCE_ROOT; };
@@ -906,7 +904,6 @@
 			isa = PBXGroup;
 			children = (
 				A7B1C05B1F0AC90E00A42E7D /* StartViewController.swift */,
-				A7B1C05C1F0AC90E00A42E7D /* StartViewController+Extension.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1716,7 +1713,6 @@
 				A77EDF5B1EE5FB3B001A24E5 /* MediaCellConstants.swift in Sources */,
 				A7780F081F1740BF00737DA8 /* TopPodcastCell.swift in Sources */,
 				A7C620D31F12BC7F00A0D33A /* PlaylistViewController+Extension.swift in Sources */,
-				A7B1C05E1F0AC90E00A42E7D /* StartViewController+Extension.swift in Sources */,
 				A71853081EE95C0E00911C87 /* PreferenceViewConstants.swift in Sources */,
 				A7C620D51F12BCE600A0D33A /* PodcastPlaylistCellConstants.swift in Sources */,
 				A71852FE1EE9527400911C87 /* EmptyViewConstants.swift in Sources */,

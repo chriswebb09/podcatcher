@@ -23,3 +23,15 @@ final class StartViewController: UIViewController {
         startView.delegate = self
     }
 }
+
+// MARK: - StartViewDelegate
+
+extension StartViewController: StartViewDelegate {
+    
+    func continueAsGuestTapped() {
+        showLoadingView(loadingPop: loadingPop)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            self.delegate?.continueAsGuestSelected()
+        }
+    }
+}
