@@ -2,31 +2,6 @@ import UIKit
 
 extension SearchViewController: UISearchResultsUpdating {
     
-    func showSearchBar() {
-        guard let tabbar = self.tabBarController?.tabBar else { return }
-        searchBar.frame = CGRect(x: UIScreen.main.bounds.minX, y: 0, width: UIScreen.main.bounds.width, height: 44)
-        tableView.frame = CGRect(x: UIScreen.main.bounds.minX, y: searchBar.frame.maxY, width: UIScreen.main.bounds.width, height: (view.frame.height - tabbar.frame.height) + 5)
-    }
-    
-    func searchControllerConfigure() {
-        searchController.delegate = self
-        searchBar = searchController.searchBar
-        searchController.searchResultsUpdater = self
-        searchController.searchBar.delegate = self
-        searchBar.tintColor = .black
-        let textFieldInsideSearchBar = searchBar.value(forKey: "searchField") as? UITextField
-        textFieldInsideSearchBar?.textColor = .white
-        
-        if let textFieldInsideSearchBar = searchBar.value(forKey: "searchField") as? UITextField,
-            let glassIconView = textFieldInsideSearchBar.leftView as? UIImageView {
-            textFieldInsideSearchBar.backgroundColor = Colors.brightHighlight
-            textFieldInsideSearchBar.clearButtonMode = .never
-            textFieldInsideSearchBar.attributedPlaceholder = NSAttributedString(string: textFieldInsideSearchBar.placeholder != nil ? textFieldInsideSearchBar.placeholder! : "", attributes: [NSForegroundColorAttributeName: UIColor.white])
-            glassIconView.image = glassIconView.image?.withRenderingMode(.alwaysTemplate)
-            glassIconView.tintColor = .white
-        }
-    }
-    
     func updateSearchResults(for searchController: UISearchController) {
         updateSearchResultsForSearchController(searchController: searchController)
     }
@@ -69,7 +44,6 @@ extension SearchViewController: UISearchBarDelegate {
             tableView.reloadData()
             return
         } else if text != "" {
-            searchBarActive = true
             dataSource.store.setSearch(term: text)
             NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(setSearch), object: nil)
             self.perform(#selector(setSearch), with: nil, afterDelay: 0.35)
@@ -91,7 +65,6 @@ extension SearchViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if dataSource.items.count > 0 {
-            searchBarActive = false
             searchController.isActive = false
             delegate?.didSelect(at: indexPath.row, with: dataSource.items[indexPath.row])
         }
@@ -99,10 +72,7 @@ extension SearchViewController: UITableViewDelegate {
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         searchBar.setShowsCancelButton(false, animated: false)
-        searchBarActive = false
         searchController.isActive = false
-        DispatchQueue.main.async {
-            self.title = "Search"
-        }
+        title = "Search"
     }
 }

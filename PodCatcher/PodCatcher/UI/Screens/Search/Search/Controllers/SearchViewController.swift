@@ -28,48 +28,49 @@ class SearchViewController: BaseTableViewController {
         }
     }
     
-    var searchController = UISearchController(searchResultsController: nil) {
-        didSet {
-            searchController.view.frame = CGRect.zero
-        }
-    }
-    
-    var searchBarActive: Bool = false {
-        didSet {
-            if searchBarActive {
-                showSearchBar()
-                searchControllerConfigure()
-            } else if !searchBarActive {
-                guard let tabbar = self.tabBarController?.tabBar else { return }
-                tableView.frame = CGRect(x: UIScreen.main.bounds.minX, y: searchBar.frame.maxY, width: UIScreen.main.bounds.width, height: (view.frame.height - tabbar.frame.height) + 5)
-            }
-        }
-    }
+    var searchController = UISearchController(searchResultsController: nil)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = dataSource
         viewShown = dataSource.viewShown
         tableView.backgroundColor = UIColor(red:0.94, green:0.95, blue:0.96, alpha:1.0)
-        searchControllerConfigure()
         tableView.register(SearchResultCell.self, forCellReuseIdentifier: SearchResultCell.reuseIdentifier)
         searchBar = searchController.searchBar
-        searchBarActive = true
         searchController.defaultConfiguration()
         tableView.delegate = self
+        guard let tabbar = self.tabBarController?.tabBar else { return }
+        searchBar.frame = CGRect(x: UIScreen.main.bounds.minX, y: 0, width: UIScreen.main.bounds.width, height: 44)
+        tableView.frame = CGRect(x: UIScreen.main.bounds.minX, y: searchBar.frame.maxY, width: UIScreen.main.bounds.width, height: (view.frame.height - tabbar.frame.height) + 5)
         searchControllerConfigure()
         view.addSubview(searchBar)
-        title = "Search"
     }
     
     override func viewWillAppear(_ animated: Bool) {
         self.tabBarController?.tabBar.alpha = 1
         self.navigationController?.navigationBar.alpha = 1
-        emptyView.alpha = 0
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        searchBarActive = false
         searchController.isActive = false
+    }
+    
+    func searchControllerConfigure() {
+        searchController.delegate = self
+        searchBar = searchController.searchBar
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.delegate = self
+        searchBar.tintColor = .black
+        let textFieldInsideSearchBar = searchBar.value(forKey: "searchField") as? UITextField
+        textFieldInsideSearchBar?.textColor = .white
+        
+        if let textFieldInsideSearchBar = searchBar.value(forKey: "searchField") as? UITextField,
+            let glassIconView = textFieldInsideSearchBar.leftView as? UIImageView {
+            textFieldInsideSearchBar.backgroundColor = Colors.brightHighlight
+            textFieldInsideSearchBar.clearButtonMode = .never
+            textFieldInsideSearchBar.attributedPlaceholder = NSAttributedString(string: textFieldInsideSearchBar.placeholder != nil ? textFieldInsideSearchBar.placeholder! : "", attributes: [NSForegroundColorAttributeName: UIColor.white])
+            glassIconView.image = glassIconView.image?.withRenderingMode(.alwaysTemplate)
+            glassIconView.tintColor = .white
+        }
     }
 }

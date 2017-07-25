@@ -40,13 +40,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 mainCoordinator.start()
             }
         }
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(reachabilityChanged),name: ReachabilityChangedNotification,object: reachability)
-        do {
-            try reachability.startNotifier()
-        } catch {
-            print("could not start reachability notifier")
-        }
         return true
     }
     
@@ -79,22 +72,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             } catch {
                 print(error.localizedDescription)
             }
-        }
-    }
-    
-    
-    func reachabilityChanged(note: Notification) {
-        
-        guard let reachability = note.object as? Reachability else { return }
-        
-        if reachability.isReachable {
-            if reachability.isReachableViaWiFi {
-                print("Reachable via WiFi")
-            } else {
-                print("Reachable via Cellular")
-            }
-        } else {
-            print("Network not reachable")
         }
     }
 }
