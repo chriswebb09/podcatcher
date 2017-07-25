@@ -66,3 +66,16 @@ final class ListTopView: UIView {
         preferencesView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: PodcastListTopViewConstants.preferencesViewHeightMultiplier).isActive = true
     }
 }
+
+// MARK: - PreferencesViewDelegate
+
+extension ListTopView: PreferencesViewDelegate {
+    
+    func addTagButton(tapped: Bool) {
+        delegate?.entryPop(popped: tapped)
+    }
+    
+    func moreButton(tapped: Bool) {
+        delegate?.popBottomMenu(popped: tapped)
+    }
+}
