@@ -32,7 +32,7 @@ final class StartView: UIView {
     private func setupElements() {
         setup(logoView: logoView)
         setup(guestUserButton: guestUserButton)
-        guestUserButton.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightMedium)
+        guestUserButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: UIFontWeightMedium)
         guestUserButton.alpha = 0.8
     }
     
@@ -50,7 +50,7 @@ final class StartView: UIView {
         logoView.translatesAutoresizingMaskIntoConstraints = false
         logoView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         logoView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: StartViewConstants.logoViewCenterYOffset).isActive = true
-        logoView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.7).isActive = true
+        logoView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.72).isActive = true
         logoView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.1).isActive = true
     }
     
@@ -64,6 +64,6 @@ final class StartView: UIView {
     
     private func setup(guestUserButton: UIButton) {
         sharedLayout(view: guestUserButton)
-        guestUserButton.topAnchor.constraint(equalTo: logoView.bottomAnchor, constant: UIScreen.main.bounds.height * 0.1).isActive = true
+        guestUserButton.topAnchor.constraint(equalTo: logoView.bottomAnchor, constant: UIScreen.main.bounds.height * 0.12).isActive = true
     }
 }

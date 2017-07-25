@@ -19,15 +19,14 @@ final class PlayerViewController: BaseViewController {
     var user: PodCatcherUser?
     let downloadingIndicator = DownloaderIndicatorView()
     var playerViewModel: PlayerViewModel!
-    var network: NetworkService
+    var network: NetworkService = NetworkService()
     
     init(index: Int, caster: CasterSearchResult, user: PodCatcherUser?, image: UIImage?) {
         self.index = index
         self.caster = caster
         self.episodes = caster.episodes
-        self.network = NetworkService()
         if let image = image {
-            playerView.albumImageView.image = image 
+            playerView.albumImageView.image = image
         }
         super.init(nibName: nil, bundle: nil)
         network.delegate = self
@@ -62,9 +61,7 @@ final class PlayerViewController: BaseViewController {
         player?.removePeriodicTimeObserver()
         navigationController?.popViewController(animated: false)
         player?.pause()
-        DispatchQueue.main.async {
-            self.hideLoadingView(loadingPop: self.loadingPop)
-            self.hidePopMenu()
-        }
+        hideLoadingView(loadingPop: loadingPop)
+        hidePopMenu()
     }
 }

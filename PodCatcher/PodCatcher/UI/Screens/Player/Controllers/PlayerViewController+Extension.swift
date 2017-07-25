@@ -119,9 +119,7 @@ extension PlayerViewController: PlayerViewDelegate {
     }
     
     func showPopMenu() {
-        UIView.animate(withDuration: 0.05) {
-            self.bottomMenu.showOn(self.playerView)
-        }
+        bottomMenu.showOn(playerView)
     }
 }
 
@@ -177,7 +175,7 @@ extension PlayerViewController: MenuDelegate {
     }
     
     func optionThree(tapped: Bool) {
-        
+        print("option three")
     }
     
     func cancel(tapped: Bool) {
