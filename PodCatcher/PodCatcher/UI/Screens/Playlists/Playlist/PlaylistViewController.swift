@@ -5,6 +5,10 @@ enum PlaylistMode {
     case player, list
 }
 
+protocol PlaylistViewControllerDelegate: class {
+    func didSelectPodcast(at index: Int, with episodes: [PodcastPlaylistItem], caster: CasterSearchResult)
+}
+
 class PlaylistViewController: BaseCollectionViewController {
     
     var item: CasterSearchResult!
