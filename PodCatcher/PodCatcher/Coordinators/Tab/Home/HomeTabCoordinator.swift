@@ -29,7 +29,6 @@ final class HomeTabCoordinator: NavigationCoordinator {
 }
 
 extension HomeTabCoordinator: HomeViewControllerDelegate {
-    
     func didSelect(at index: Int, with cast: PodcastSearchResult, image: UIImage) {
         let resultsList = SearchResultListViewController(index: index)
         resultsList.delegate = self
@@ -49,6 +48,9 @@ extension HomeTabCoordinator: HomeViewControllerDelegate {
     }
     
     func logout(tapped: Bool) {
+        if dataSource.user != nil {
+            dataSource.user = nil
+        }
         delegate?.transitionCoordinator(type: .app, dataSource: dataSource)
     }
     
