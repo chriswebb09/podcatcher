@@ -121,6 +121,7 @@ extension PlaylistsViewController: UITableViewDelegate {
     }
     
     func editFor(indexPath: IndexPath) {
+        
         let id = fetchedResultsController.object(at: indexPath).playlistId
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         let context = appDelegate.persistentContainer.viewContext
@@ -128,14 +129,16 @@ extension PlaylistsViewController: UITableViewDelegate {
         
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "PodcastPlaylistItem")
         let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-        fetchRequest.predicate = NSPredicate(format: "playlistId == %@", id!)
+        guard let playlistId = id else { return }
+        fetchRequest.predicate = NSPredicate(format: "playlistId == %@", playlistId)
+        
         do {
             try appDelegate.persistentContainer.viewContext.execute(deleteRequest)
         } catch let error as NSError {
             print(error.localizedDescription)
         }
         
-        self.reloadData()
+        reloadData()
         
         do {
             try context.save()
@@ -147,7 +150,6 @@ extension PlaylistsViewController: UITableViewDelegate {
             actionSheetController.addAction(okayAction)
             self.present(actionSheetController, animated: false)
         }
-        
         if let count = fetchedResultsController.fetchedObjects?.count {
             if count == 0 {
                 mode = .add
