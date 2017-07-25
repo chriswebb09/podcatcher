@@ -1,11 +1,7 @@
 import UIKit
 import CoreData
 
-class HomeDataSource: BaseMediaControllerDataSource {
-    
-}
-
-extension HomeDataSource: UICollectionViewDataSource {
+class HomeDataSource: BaseMediaControllerDataSource, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as SubscribedPodcastCell
@@ -71,22 +67,13 @@ extension HomeCollectionDataSource:  UICollectionViewDataSource {
                 }
             }
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + rowTime) {
-            UIView.animate(withDuration: rowTime) {
-                cell.alpha = 0.98
-            }
-        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as TopPodcastCell
         switch dataType {
         case .local:
-            if indexPath.row == 0,
-                let imageData = self.topStore.podcasts[indexPath.row].value(forKey: "podcastArt") as? Data,
-                let image = UIImage(data: imageData) {
-                print(image)
-            }
+            break
         case .network:
             if indexPath.row == 0 || indexPath.row == 1 {
                 reserveItems.append(items[indexPath.row])
