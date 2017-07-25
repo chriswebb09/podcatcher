@@ -29,9 +29,7 @@ final class BrowseTabCoordinator: NavigationCoordinator {
     
     func setupBrowse() {
         let browseViewController = navigationController.viewControllers[0] as! BrowseViewController
-        var items = [TopItem]()
         getTopItems { newItems in
-            items = newItems
             let concurrentQueue = DispatchQueue(label: "concurrent",
                                                 qos: .background,
                                                 attributes: .concurrent,
@@ -40,7 +38,7 @@ final class BrowseTabCoordinator: NavigationCoordinator {
             concurrentQueue.async { [weak self] in
                 guard let strongSelf = self else { return }
                 var results = [CasterSearchResult]()
-                for item in items {
+                for item in newItems {
                     strongSelf.fetcher.setLookup(term: item.id)
                     strongSelf.fetcher.searchForTracksFromLookup { result in
                         guard let resultItem = result.0 else { return }
