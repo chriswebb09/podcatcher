@@ -18,17 +18,20 @@ extension BrowseTabCoordinator: BrowseViewControllerDelegate {
         let browseViewController = navigationController.viewControllers[0] as! BrowseViewController
         guard let feedUrlString = resultsList.item.feedUrl else { return }
         let store = SearchResultsDataStore()
-        let concurrent = DispatchQueue(label: "concurrentBackground", qos: .background, attributes: .concurrent, autoreleaseFrequency: .inherit, target: nil)
+        let concurrent = DispatchQueue(label: "concurrentBackground",
+                                       qos: .background,
+                                       attributes: .concurrent,
+                                       autoreleaseFrequency: .inherit,
+                                       target: nil)
         concurrent.async { [weak self] in
-            if let strongSelf = self {
-                store.pullFeed(for: feedUrlString) { response in
-                    guard let episodes = response.0 else { return }
-                    resultsList.episodes = episodes
-                    DispatchQueue.main.async {
-                        resultsList.collectionView.reloadData()
-                        strongSelf.navigationController.viewControllers.append(resultsList)
-                        browseViewController.collectionView.isUserInteractionEnabled = true
-                    }
+            guard let strongSelf = self else { return }
+            store.pullFeed(for: feedUrlString) { response in
+                guard let episodes = response.0 else { return }
+                resultsList.episodes = episodes
+                DispatchQueue.main.async {
+                    resultsList.collectionView.reloadData()
+                    strongSelf.navigationController.viewControllers.append(resultsList)
+                    browseViewController.collectionView.isUserInteractionEnabled = true
                 }
             }
         }
@@ -49,17 +52,20 @@ extension BrowseTabCoordinator: BrowseViewControllerDelegate {
         guard let feedUrlString = caster.feedUrl else { return }
         
         let store = SearchResultsDataStore()
-        let concurrent = DispatchQueue(label: "concurrentBackground", qos: .background, attributes: .concurrent, autoreleaseFrequency: .inherit, target: nil)
+        let concurrent = DispatchQueue(label: "concurrentBackground",
+                                       qos: .background,
+                                       attributes: .concurrent,
+                                       autoreleaseFrequency: .inherit,
+                                       target: nil)
         concurrent.async { [weak self] in
-            if let strongSelf = self {
-                store.pullFeed(for: feedUrlString) { response in
-                    guard let episodes = response.0 else { return }
-                    resultsList.episodes = episodes
-                }
-                DispatchQueue.main.async {
-                    resultsList.collectionView.reloadData()
-                    strongSelf.navigationController.viewControllers.append(resultsList)
-                }
+            guard let strongSelf = self else { return }
+            store.pullFeed(for: feedUrlString) { response in
+                guard let episodes = response.0 else { return }
+                resultsList.episodes = episodes
+            }
+            DispatchQueue.main.async {
+                resultsList.collectionView.reloadData()
+                strongSelf.navigationController.viewControllers.append(resultsList)
             }
         }
     }
@@ -67,11 +73,13 @@ extension BrowseTabCoordinator: BrowseViewControllerDelegate {
 
 extension BrowseTabCoordinator: PodcastListViewControllerDelegate {
     
-    
     func didSelect(at index: Int, podcast: CasterSearchResult) {
         var playerPodcast = podcast
         playerPodcast.index = index
-        let playerViewController = PlayerViewController(index: index, caster: playerPodcast, user: dataSource.user, image: nil)
+        let playerViewController = PlayerViewController(index: index,
+                                                        caster: playerPodcast,
+                                                        user: dataSource.user,
+                                                        image: nil)
         playerViewController.delegate = self
         navigationController.viewControllers.append(playerViewController)
     }
@@ -80,16 +88,22 @@ extension BrowseTabCoordinator: PodcastListViewControllerDelegate {
         var playerPodcast = podcast
         playerPodcast.episodes = episodes
         playerPodcast.index = index
-         let concurrent = DispatchQueue(label: "concurrentBackground", qos: .background, attributes: .concurrent, autoreleaseFrequency: .inherit, target: nil)
+        let concurrent = DispatchQueue(label: "concurrentBackground",
+                                       qos: .background,
+                                       attributes: .concurrent,
+                                       autoreleaseFrequency: .inherit,
+                                       target: nil)
         concurrent.async { [weak self] in
-            if let strongSelf = self {
-                let playerViewController = PlayerViewController(index: index, caster: playerPodcast, user: strongSelf.dataSource.user, image: nil)
-                playerViewController.delegate = strongSelf
-                DispatchQueue.main.async {
-                    strongSelf.navigationController.navigationBar.isTranslucent = true
-                    strongSelf.navigationController.navigationBar.alpha = 0
-                    strongSelf.navigationController.viewControllers.append(playerViewController)
-                }
+            guard let strongSelf = self else { return }
+            let playerViewController = PlayerViewController(index: index,
+                                                            caster: playerPodcast,
+                                                            user: strongSelf.dataSource.user,
+                                                            image: nil)
+            playerViewController.delegate = strongSelf
+            DispatchQueue.main.async {
+                strongSelf.navigationController.navigationBar.isTranslucent = true
+                strongSelf.navigationController.navigationBar.alpha = 0
+                strongSelf.navigationController.viewControllers.append(playerViewController)
             }
         }
     }
