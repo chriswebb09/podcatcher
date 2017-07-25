@@ -105,34 +105,13 @@ extension PlaylistViewController: UICollectionViewDelegate {
             }
         }
         guard let items = fetchedResultsController.fetchedObjects else { return }
-     //   guard let audio = items[indexPath.row].audioUrl, let audioUrl = URL(string: audio), let artUrl = items[indexPath.row].artworkUrl, let url = URL(string: artUrl) else { return }
-        //topView.podcastImageView.downloadImage(url: url)
-        //player = nil
-      //  self.player = AudioFilePlayer(url: audioUrl)
-        //self.player.playNext()
         switch player.state {
         case .playing:
             break
-//            player.pause()
-//            player.state = .paused
-//            let cell = collectionView.cellForItem(at: indexPath) as! PodcastPlaylistCell
-          //  cell.switchAlpha(hidden: true)
         case .paused:
             break
-//            player.play()
-//            player.state = .playing
-//            let cell = collectionView.cellForItem(at: indexPath) as! PodcastPlaylistCell
-//            cell.switchAlpha(hidden: false)
         case .stopped:
             break
-//            self.player = AudioFilePlayer(url: audioUrl)
-//            self.player.setUrl(with: audioUrl)
-//            self.player.delegate = self
-//            self.player.observePlayTime()
-//            player.play()
-//            player.state = .playing
-//            let cell = collectionView.cellForItem(at: indexPath) as! PodcastPlaylistCell
-//            cell.switchAlpha(hidden: false)
         }
         selectedSongIndex = indexPath.row
     }
@@ -160,10 +139,7 @@ extension PlaylistViewController: UICollectionViewDataSource {
     }
     
     func initPlayer(url: URL?)  {
-        guard let url = url else { return }
-   //     player?.setUrl(with: url)
-//        player?.url = url
-//        player?.playNext()
+        print(url)
     }
     
 }
@@ -180,15 +156,6 @@ extension PlaylistViewController: UICollectionViewDelegateFlowLayout {
         return 4
     }
 }
-
-
-
-//struct PodcastListViewControllerConstants {
-//    static let itemSize: CGSize = CGSize(width: UIScreen.main.bounds.width, height: 90)
-//    static let size = CGSize(width: UIScreen.main.bounds.width / 1.01, height: UIScreen.main.bounds.height / 10)
-//    static let space: CGFloat = 4
-//}
-
 
 extension PlaylistViewController: TopViewDelegate {
     
