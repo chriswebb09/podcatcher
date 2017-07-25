@@ -173,13 +173,21 @@ extension PlaylistViewController: UICollectionViewDataSource {
 extension PlaylistViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return PodcastListViewControllerConstants.size
+        return CGSize(width: UIScreen.main.bounds.width / 1.01, height: UIScreen.main.bounds.height / 10)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return PodcastListViewControllerConstants.space
+        return 4
     }
 }
+
+
+
+//struct PodcastListViewControllerConstants {
+//    static let itemSize: CGSize = CGSize(width: UIScreen.main.bounds.width, height: 90)
+//    static let size = CGSize(width: UIScreen.main.bounds.width / 1.01, height: UIScreen.main.bounds.height / 10)
+//    static let space: CGFloat = 4
+//}
 
 
 extension PlaylistViewController: TopViewDelegate {
