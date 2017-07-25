@@ -84,7 +84,6 @@ class PlaylistViewController: BaseCollectionViewController {
         let originX = view.bounds.width * 0.001
         let originY = view.bounds.height * 0.6
         let origin = CGPoint(x: originX, y: originY)
-        bottomMenu.menu.delegate = self
         bottomMenu.setMenu(size)
         bottomMenu.setMenu(origin)
         bottomMenu.setupMenu()
