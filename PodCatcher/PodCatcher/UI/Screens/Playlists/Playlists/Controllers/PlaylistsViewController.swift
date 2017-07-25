@@ -8,10 +8,10 @@ final class PlaylistsViewController: BaseTableViewController {
     var reference: PlaylistsReference = .checkList
     var playlistDataStack = PlaylistsCoreDataStack()
     var currentPlaylistID: String = ""
-    var entryPop: EntryPopover!
+    var entryPop: EntryPopover = EntryPopover()
     var mode: PlaylistsInteractionMode = .add
     var index: Int!
-    var userID: String!
+    var userID: String = "none"
     var item: CasterSearchResult!
     var background = UIView()
     var addItemToPlaylist: PodcastPlaylistItem?
@@ -21,8 +21,6 @@ final class PlaylistsViewController: BaseTableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        userID = "none"
-        entryPop = EntryPopover()
         title = "Playlists"
         entryPop.delegate = self
         background.frame = UIScreen.main.bounds
