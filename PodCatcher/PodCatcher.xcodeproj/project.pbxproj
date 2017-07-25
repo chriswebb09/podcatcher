@@ -53,7 +53,6 @@
 		A71ADFB21F0E285700941A43 /* SearchResultsFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71ADFB01F0E285700941A43 /* SearchResultsFetcher.swift */; };
 		A71ADFB41F0E38B900941A43 /* PlayerBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71ADFB31F0E38B900941A43 /* PlayerBuilder.swift */; };
 		A71ADFBE1F0E3BF500941A43 /* UnderlineTextfieldConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71ADFBD1F0E3BF500941A43 /* UnderlineTextfieldConstants.swift */; };
-		A71AE3031F17F27E00AFC8CC /* BrowseListTopViewConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71AE3021F17F27E00AFC8CC /* BrowseListTopViewConstants.swift */; };
 		A71AE3051F17F2B000AFC8CC /* BrowseViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71AE3041F17F2B000AFC8CC /* BrowseViewControllerDelegate.swift */; };
 		A71AE3071F17F87E00AFC8CC /* MiniPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71AE3061F17F87E00AFC8CC /* MiniPlayerView.swift */; };
 		A71AE3091F18085D00AFC8CC /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71AE3081F18085D00AFC8CC /* SettingCell.swift */; };
@@ -127,7 +126,6 @@
 		A77DF1F31F2069FA00565471 /* NoSearchResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77DF1F21F2069FA00565471 /* NoSearchResultsView.swift */; };
 		A77EDF571EE5FAA5001A24E5 /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EDF561EE5FAA5001A24E5 /* UIImageView+Extension.swift */; };
 		A77EDF591EE5FAC2001A24E5 /* CALayer+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EDF581EE5FAC2001A24E5 /* CALayer+Extension.swift */; };
-		A77EDF5B1EE5FB3B001A24E5 /* MediaCellConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EDF5A1EE5FB3B001A24E5 /* MediaCellConstants.swift */; };
 		A77EDF5D1EE5FB5F001A24E5 /* ReusableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EDF5C1EE5FB5F001A24E5 /* ReusableProtocol.swift */; };
 		A77EDF5F1EE5FB83001A24E5 /* MediaCellModelerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EDF5E1EE5FB83001A24E5 /* MediaCellModelerProtocol.swift */; };
 		A77EDF651EE5FC17001A24E5 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EDF641EE5FC17001A24E5 /* EmptyView.swift */; };
@@ -289,7 +287,6 @@
 		A71ADFB01F0E285700941A43 /* SearchResultsFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchResultsFetcher.swift; path = Search/Search/DataSources/SearchResultsFetcher.swift; sourceTree = "<group>"; };
 		A71ADFB31F0E38B900941A43 /* PlayerBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlayerBuilder.swift; path = Builder/PlayerBuilder.swift; sourceTree = "<group>"; };
 		A71ADFBD1F0E3BF500941A43 /* UnderlineTextfieldConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnderlineTextfieldConstants.swift; sourceTree = "<group>"; };
-		A71AE3021F17F27E00AFC8CC /* BrowseListTopViewConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseListTopViewConstants.swift; sourceTree = "<group>"; };
 		A71AE3041F17F2B000AFC8CC /* BrowseViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BrowseViewControllerDelegate.swift; path = Browse/Delegates/BrowseViewControllerDelegate.swift; sourceTree = "<group>"; };
 		A71AE3061F17F87E00AFC8CC /* MiniPlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MiniPlayerView.swift; path = Playlists/Playlist/MiniPlayerView.swift; sourceTree = "<group>"; };
 		A71AE3081F18085D00AFC8CC /* SettingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingCell.swift; path = PodCatcher/UI/Screens/Settings/Settings/Views/SettingCell.swift; sourceTree = SOURCE_ROOT; };
@@ -372,7 +369,6 @@
 		A77DF1F21F2069FA00565471 /* NoSearchResultsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoSearchResultsView.swift; sourceTree = "<group>"; };
 		A77EDF561EE5FAA5001A24E5 /* UIImageView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
 		A77EDF581EE5FAC2001A24E5 /* CALayer+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CALayer+Extension.swift"; sourceTree = "<group>"; };
-		A77EDF5A1EE5FB3B001A24E5 /* MediaCellConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaCellConstants.swift; sourceTree = "<group>"; };
 		A77EDF5C1EE5FB5F001A24E5 /* ReusableProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReusableProtocol.swift; sourceTree = "<group>"; };
 		A77EDF5E1EE5FB83001A24E5 /* MediaCellModelerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaCellModelerProtocol.swift; sourceTree = "<group>"; };
 		A77EDF641EE5FC17001A24E5 /* EmptyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
@@ -1190,7 +1186,6 @@
 			children = (
 				A7EBA0BF1EE6828A00FAAC9C /* BasePopConstants.swift */,
 				A7EBA0C51EE6830400FAAC9C /* DetailViewConstants.swift */,
-				A77EDF5A1EE5FB3B001A24E5 /* MediaCellConstants.swift */,
 				A7150EED1EE65B2300E3553F /* PlayerViewConstants.swift */,
 				A7150EE21EE6563300E3553F /* TabBarConstants.swift */,
 				A7A54EA41EE7133C009A5538 /* EntryFieldConstants.swift */,
@@ -1205,7 +1200,6 @@
 				A7A99FA71F07254C00BFEA4C /* Colors.swift */,
 				A7F37B731F0DF935001B5C8C /* LoadingViewConstants.swift */,
 				A71ADFBD1F0E3BF500941A43 /* UnderlineTextfieldConstants.swift */,
-				A71AE3021F17F27E00AFC8CC /* BrowseListTopViewConstants.swift */,
 				A7240A4A1F243AEF003FC525 /* Constants.swift */,
 			);
 			path = Constants;
@@ -1598,7 +1592,6 @@
 				A77107441F0D4DE90042D2E4 /* HomeViewController.swift in Sources */,
 				A7B8C39B1EF6E28F001AFFA1 /* PodcastCollectionViewProtocol.swift in Sources */,
 				A7A877B21F10656300D0968D /* TopPodcast+CoreDataProperties.swift in Sources */,
-				A71AE3031F17F27E00AFC8CC /* BrowseListTopViewConstants.swift in Sources */,
 				A723B4121F0EB08D00EA6B27 /* PlaylistsCoreDataStack.swift in Sources */,
 				A7150EC11EE62E1700E3553F /* PlayerViewControllerDelegate.swift in Sources */,
 				A7A762951F13F9A000D2C4FF /* NPRParser.swift in Sources */,
@@ -1632,7 +1625,6 @@
 				A7EBA0C81EE6831F00FAAC9C /* MenuDelegate.swift in Sources */,
 				A71AE3051F17F2B000AFC8CC /* BrowseViewControllerDelegate.swift in Sources */,
 				A723A5B11EE93BC8002E49BF /* StartViewConstants.swift in Sources */,
-				A77EDF5B1EE5FB3B001A24E5 /* MediaCellConstants.swift in Sources */,
 				A7780F081F1740BF00737DA8 /* TopPodcastCell.swift in Sources */,
 				A7C620D31F12BC7F00A0D33A /* PlaylistViewController+Extension.swift in Sources */,
 				A7C620D51F12BCE600A0D33A /* PodcastPlaylistCellConstants.swift in Sources */,
