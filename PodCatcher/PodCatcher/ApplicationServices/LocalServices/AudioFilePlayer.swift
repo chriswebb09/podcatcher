@@ -3,6 +3,12 @@ import AVFoundation
 
 var audioCache = NSCache<NSString, AVAsset>()
 
+protocol AudioFilePlayerDelegate: class {
+    func updateProgress(progress: Double)
+    func trackDurationCalculated(stringTime: String, timeValue: Float64)
+    func trackFinishedPlaying()
+}
+
 protocol AudioFile {
     var audioUrlSting: String { get set }
 }
@@ -95,10 +101,9 @@ extension AudioFilePlayer {
     }
     
     func removePeriodicTimeObserver() {
-        if let token = timeObserver {
-            player?.removeTimeObserver(token)
-            timeObserver = nil
-        }
+        guard let token = timeObserver else { return }
+        player?.removeTimeObserver(token)
+        timeObserver = nil
     }
     
     func playNext() {
