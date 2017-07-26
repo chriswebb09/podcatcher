@@ -1,23 +1,9 @@
 import UIKit
 
-import Foundation
-
 typealias JSON = [String : Any]
 
 enum Response {
     case success(JSON?), failed(Error)
-}
-
-struct URLConstructor {
-    
-    var searchTerm: String
-    
-    func build(searchTerm: String) -> URL? {
-        guard let encodedQuery = searchTerm.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else { return nil }
-        let urlString = URLRouter.base.url + URLRouter.path.url + encodedQuery
-        print(urlString)
-        return URL(string: urlString)
-    }
 }
 
 enum URLRouter {
@@ -33,10 +19,6 @@ enum URLRouter {
             
         }
     }
-}
-
-enum URLPath {
-    case podcastAuth(searchTerm: String), keyTerm(searchTerm: String)
 }
 
 class RSSFeedAPIClient: NSObject {
@@ -101,8 +83,7 @@ extension RSSFeedAPIClient: XMLParserDelegate {
 final class iTunesAPIClient {
     
     static func search(for query: String, completion: @escaping (Response) -> Void) {
-        let urlConstructor = URLConstructor(searchTerm: query)
-        guard let url = urlConstructor.build(searchTerm: urlConstructor.searchTerm) else { return }
+        guard let url = build(searchTerm: query) else { return }
         URLSession(configuration: .ephemeral).dataTask(with: URLRequest(url: url)) { data, response, error in
             if let error = error {
                 completion(.failed(error))
@@ -114,8 +95,7 @@ final class iTunesAPIClient {
                         completion(.success(responseObject))
                     }
                 }
-            }
-            }.resume()
+            }}.resume()
     }
     
     static func search(forLookup: String?, completion: @escaping (Response) -> Void) {
@@ -132,7 +112,13 @@ final class iTunesAPIClient {
                         completion(.success(responseObject))
                     }
                 }
-            }
-            }.resume()
+            }}.resume()
+    }
+    
+    static func build(searchTerm: String) -> URL? {
+        guard let encodedQuery = searchTerm.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else { return nil }
+        let urlString = URLRouter.base.url + URLRouter.path.url + encodedQuery
+        print(urlString)
+        return URL(string: urlString)
     }
 }
