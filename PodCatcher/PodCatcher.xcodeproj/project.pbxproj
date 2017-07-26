@@ -146,7 +146,6 @@
 		A7B1C0761F0AE43500A42E7D /* SettingsTabCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B1C0741F0AE43500A42E7D /* SettingsTabCoordinator.swift */; };
 		A7B1C07A1F0AE47100A42E7D /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B1C0781F0AE47100A42E7D /* TabBarController.swift */; };
 		A7B1C07B1F0AE47100A42E7D /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B1C0791F0AE47100A42E7D /* TabBarCoordinator.swift */; };
-		A7B1C07E1F0AE4A100A42E7D /* TabControllerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B1C07C1F0AE4A100A42E7D /* TabControllerCoordinator.swift */; };
 		A7B1C07F1F0AE4A100A42E7D /* TabCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B1C07D1F0AE4A100A42E7D /* TabCoordinator.swift */; };
 		A7B1C0811F0AE54400A42E7D /* HomeTabCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B1C0801F0AE54400A42E7D /* HomeTabCoordinator.swift */; };
 		A7B1C0871F0B056200A42E7D /* TopItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B1C0861F0B056200A42E7D /* TopItem.swift */; };
@@ -353,7 +352,6 @@
 		A7B1C0741F0AE43500A42E7D /* SettingsTabCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsTabCoordinator.swift; path = Settings/SettingsTabCoordinator.swift; sourceTree = "<group>"; };
 		A7B1C0781F0AE47100A42E7D /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TabBarController.swift; path = TabBar/TabBarController.swift; sourceTree = "<group>"; };
 		A7B1C0791F0AE47100A42E7D /* TabBarCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TabBarCoordinator.swift; path = TabBar/TabBarCoordinator.swift; sourceTree = "<group>"; };
-		A7B1C07C1F0AE4A100A42E7D /* TabControllerCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TabControllerCoordinator.swift; path = Tab/TabControllerCoordinator.swift; sourceTree = "<group>"; };
 		A7B1C07D1F0AE4A100A42E7D /* TabCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TabCoordinator.swift; path = Tab/TabCoordinator.swift; sourceTree = "<group>"; };
 		A7B1C0801F0AE54400A42E7D /* HomeTabCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HomeTabCoordinator.swift; path = Home/HomeTabCoordinator.swift; sourceTree = "<group>"; };
 		A7B1C0861F0B056200A42E7D /* TopItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopItem.swift; sourceTree = "<group>"; };
@@ -1195,7 +1193,6 @@
 			children = (
 				A7B1C0781F0AE47100A42E7D /* TabBarController.swift */,
 				A7B1C0791F0AE47100A42E7D /* TabBarCoordinator.swift */,
-				A7B1C07C1F0AE4A100A42E7D /* TabControllerCoordinator.swift */,
 				A7B1C07D1F0AE4A100A42E7D /* TabCoordinator.swift */,
 			);
 			name = TabBar;
@@ -1473,7 +1470,6 @@
 				A77EDF591EE5FAC2001A24E5 /* CALayer+Extension.swift in Sources */,
 				A73D74091EE684C4004571A5 /* LoadingPopover.swift in Sources */,
 				A71AE3091F18085D00AFC8CC /* SettingCell.swift in Sources */,
-				A7B1C07E1F0AE4A100A42E7D /* TabControllerCoordinator.swift in Sources */,
 				A7188F511F1DB4D900BFEF73 /* PlaylistsControllerDataSource.swift in Sources */,
 				A77EDF651EE5FC17001A24E5 /* EmptyView.swift in Sources */,
 				A7150EF21EE66C0E00E3553F /* PlayerViewModel.swift in Sources */,
