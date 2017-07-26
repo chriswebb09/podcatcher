@@ -13,7 +13,7 @@ class HomeDataSource: BaseMediaControllerDataSource, UICollectionViewDataSource 
     }
 }
 
-final class HomeCollectionDataSource: BaseMediaControllerDataSource {
+final class BrowseCollectionDataSource: BaseMediaControllerDataSource {
     
     var dataType: DataType = .network
     
@@ -37,7 +37,7 @@ final class HomeCollectionDataSource: BaseMediaControllerDataSource {
     }
 }
 
-extension HomeCollectionDataSource:  UICollectionViewDataSource {
+extension BrowseCollectionDataSource:  UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch dataType {

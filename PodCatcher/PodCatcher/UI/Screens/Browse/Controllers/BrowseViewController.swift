@@ -19,7 +19,7 @@ final class BrowseViewController: BaseCollectionViewController {
     let reachability = Reachability()!
     var network = NetworkConnectionView()
     
-    var dataSource: HomeCollectionDataSource! {
+    var dataSource: BrowseCollectionDataSource! {
         didSet {
             viewShown = dataSource.viewShown
         }
@@ -37,7 +37,7 @@ final class BrowseViewController: BaseCollectionViewController {
     }
     
     init(index: Int, dataSource: BaseMediaControllerDataSource) {
-        self.dataSource = HomeCollectionDataSource()
+        self.dataSource = BrowseCollectionDataSource()
         super.init(nibName: nil, bundle: nil)
         showLoadingView(loadingPop: loadingPop)
     }
@@ -75,7 +75,10 @@ final class BrowseViewController: BaseCollectionViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.reachabilityChanged),name: ReachabilityChangedNotification,object: reachability)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(reachabilityChanged),
+                                               name: ReachabilityChangedNotification,
+                                               object: reachability)
         do {
             try reachability.startNotifier()
         } catch {
