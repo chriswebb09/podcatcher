@@ -122,7 +122,8 @@ extension PlayerViewController: PlayerViewDelegate {
         guard let duration = player.duration else { return }
         player.currentTime = (time * duration) / 100
         DispatchQueue.main.async { [weak self] in
-            let timeString = String.constructTimeString(time: (self?.player.currentTime)!)
+            guard let currentTime = self?.player.currentTime else { return }
+            let timeString = String.constructTimeString(time: currentTime)
             self?.playerView.currentPlayTimeLabel.text = timeString
             if paused == true {
                 self?.player.play()
@@ -201,8 +202,9 @@ extension PlayerViewController: AudioFilePlayerDelegate {
         if player.currentTime > 0 && duration > 0 {
             let normalizedTime = player.currentTime * 100.0 / duration
             DispatchQueue.main.async { [weak self] in
-                self?.playerView.currentPlayTimeLabel.text = String.constructTimeString(time: (self?.player.currentTime)!)
-                self?.playerView.totalPlayTimeLabel.text = String.constructTimeString(time: (duration - (self?.player.currentTime)!))
+                guard let currentTime = self?.player.currentTime else { return }
+                self?.playerView.currentPlayTimeLabel.text = String.constructTimeString(time: currentTime)
+                self?.playerView.totalPlayTimeLabel.text = String.constructTimeString(time: (duration - currentTime))
                 self?.playerView.update(progressBarValue: Float(normalizedTime))
                 if normalizedTime >= 100 {
                     self?.player.player.seek(to: kCMTimeZero)
