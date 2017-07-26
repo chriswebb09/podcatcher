@@ -93,7 +93,16 @@ extension PlaylistsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch mode {
         case .edit:
-            editFor(indexPath: indexPath)
+            let actionSheetController: UIAlertController = UIAlertController(title: "Are you sure?", message: "Pressing okay will delete this playlist.", preferredStyle: .alert)
+            let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel) { action in
+                actionSheetController.dismiss(animated: false, completion: nil)
+            }
+            let okayAction: UIAlertAction =  UIAlertAction(title: "Okay", style: .destructive) { action in
+                  self.editFor(indexPath: indexPath)
+            }
+            actionSheetController.addAction(cancelAction)
+            actionSheetController.addAction(okayAction)
+            self.present(actionSheetController, animated: true, completion: nil)
         case .add:
             addFor(indexPath: indexPath)
         }
