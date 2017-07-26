@@ -35,7 +35,6 @@
 		A7188F511F1DB4D900BFEF73 /* PlaylistsControllerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7188F501F1DB4D900BFEF73 /* PlaylistsControllerDataSource.swift */; };
 		A7196B2D1F1AE56000FCED5D /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7196B2C1F1AE56000FCED5D /* NetworkService.swift */; };
 		A71ADF9D1F0E26C900941A43 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71ADF9B1F0E26C900941A43 /* SearchViewController.swift */; };
-		A71ADFA01F0E26E200941A43 /* SearchViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71ADF9F1F0E26E200941A43 /* SearchViewControllerDelegate.swift */; };
 		A71ADFA21F0E26F500941A43 /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71ADFA11F0E26F500941A43 /* SearchResultCell.swift */; };
 		A71ADFA51F0E270A00941A43 /*  SearchResultListViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71ADFA31F0E270A00941A43 /*  SearchResultListViewController+Extension.swift */; };
 		A71ADFA61F0E270A00941A43 /* SearchResultListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71ADFA41F0E270A00941A43 /* SearchResultListViewController.swift */; };
@@ -205,7 +204,6 @@
 		A7188F501F1DB4D900BFEF73 /* PlaylistsControllerDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlaylistsControllerDataSource.swift; path = Playlists/Playlists/Datasource/PlaylistsControllerDataSource.swift; sourceTree = "<group>"; };
 		A7196B2C1F1AE56000FCED5D /* NetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		A71ADF9B1F0E26C900941A43 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchViewController.swift; path = Search/Search/Controllers/SearchViewController.swift; sourceTree = "<group>"; };
-		A71ADF9F1F0E26E200941A43 /* SearchViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchViewControllerDelegate.swift; path = Search/Search/Delegates/SearchViewControllerDelegate.swift; sourceTree = "<group>"; };
 		A71ADFA11F0E26F500941A43 /* SearchResultCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchResultCell.swift; path = Search/Search/Views/SearchResultCell.swift; sourceTree = "<group>"; };
 		A71ADFA31F0E270A00941A43 /*  SearchResultListViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = " SearchResultListViewController+Extension.swift"; path = "Search/SearchResult/Controllers/ SearchResultListViewController+Extension.swift"; sourceTree = "<group>"; };
 		A71ADFA41F0E270A00941A43 /* SearchResultListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchResultListViewController.swift; path = Search/SearchResult/Controllers/SearchResultListViewController.swift; sourceTree = "<group>"; };
@@ -973,7 +971,6 @@
 			children = (
 				A71ADFAF1F0E285700941A43 /* SearchControllerDataSource.swift */,
 				A71ADFA11F0E26F500941A43 /* SearchResultCell.swift */,
-				A71ADF9F1F0E26E200941A43 /* SearchViewControllerDelegate.swift */,
 				A71ADF9B1F0E26C900941A43 /* SearchViewController.swift */,
 			);
 			name = Search;
@@ -1424,7 +1421,6 @@
 				A71BFB881EE6F62B00A35D8E /* UnderLineTextField.swift in Sources */,
 				A72597911EF1AC5500179301 /* GuestUserView.swift in Sources */,
 				A7D0AD4C1F0D4A7C007E4063 /* SplashViewController.swift in Sources */,
-				A71ADFA01F0E26E200941A43 /* SearchViewControllerDelegate.swift in Sources */,
 				A7240A4B1F243AEF003FC525 /* Constants.swift in Sources */,
 				A7EBA0CC1EE683C900FAAC9C /* BallAnimation.swift in Sources */,
 				A7A99FA81F07254D00BFEA4C /* Colors.swift in Sources */,
