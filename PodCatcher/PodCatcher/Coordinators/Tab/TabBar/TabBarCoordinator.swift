@@ -6,6 +6,16 @@ protocol TabControllerCoordinator: Coordinator {
     var childCoordinators: [NavigationCoordinator] { get set }
 }
 
+extension TabControllerCoordinator {
+    func addChild(coordinator: NavigationCoordinator) {
+        childCoordinators.append(coordinator)
+    }
+    
+    func removeChild(coordinator: NavigationCoordinator) {
+        childCoordinators = childCoordinators.filter { $0 !== coordinator }
+    }
+}
+
 final class TabCoordinator: NavigationCoordinator {
     
     var type: CoordinatorType = .tabbar
@@ -49,10 +59,6 @@ class TabBarCoordinator: TabControllerCoordinator {
         self.init(tabBarController: tabBarController)
         self.window = window
     }
-    
-    func start(viewController: UIViewController) {
-        // Fix
-    }
 }
 
 extension TabBarCoordinator: Coordinator {
@@ -68,28 +74,28 @@ extension TabBarCoordinator: Coordinator {
         let tabCoordinator = PlaylistsTabCoordinator(navigationController: navigationController)
         tabCoordinator.start()
         tabCoordinator.dataSource = dataSource
-        childCoordinators.append(tabCoordinator)
+        addChild(coordinator: tabCoordinator)
     }
     
     func setupBrowseCoordinator(navigationController: UINavigationController, dataSource: BaseMediaControllerDataSource) {
         let tabCoordinator = BrowseTabCoordinator(navigationController: navigationController)
         tabCoordinator.start()
         tabCoordinator.dataSource = dataSource
-        childCoordinators.append(tabCoordinator)
+        addChild(coordinator: tabCoordinator)
     }
     
     func setupSearchCoordinator(navigationController: UINavigationController, dataSource: BaseMediaControllerDataSource) {
         let tabCoordinator = SearchTabCoordinator(navigationController: navigationController)
         tabCoordinator.start()
         tabCoordinator.dataSource = dataSource
-        childCoordinators.append(tabCoordinator)
+        addChild(coordinator: tabCoordinator)
     }
     
     func setupSettingsCoordinator(navigationController: UINavigationController, dataSource: BaseMediaControllerDataSource) {
         let tabCoordinator = SettingsTabCoordinator(navigationController: navigationController)
         tabCoordinator.start()
         tabCoordinator.dataSource = dataSource
-        childCoordinators.append(tabCoordinator)
+        addChild(coordinator: tabCoordinator)
     }
     
     func start() {

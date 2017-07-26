@@ -45,6 +45,10 @@ class StartCoordinator: NavigationCoordinator {
         childViewControllers.append(viewController)
         navigationController.viewControllers = childViewControllers
     }
+    
+    func removeChild(viewController: UIViewController) {
+        childViewControllers = childViewControllers.filter { $0 !== viewController }
+    }
 }
 
 extension StartCoordinator: SplashViewControllerDelegate {
