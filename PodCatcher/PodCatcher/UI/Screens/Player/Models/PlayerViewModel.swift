@@ -1,5 +1,9 @@
 import UIKit
 
+enum PlayState {
+    case queued, playing, paused, done
+}
+
 class PlayerViewModel {
     
     let title: String

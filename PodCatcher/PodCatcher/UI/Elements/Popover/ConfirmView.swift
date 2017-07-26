@@ -1,22 +1,5 @@
 import UIKit
 
-struct ConfirmLoadingViewConstants {
-    static let frameOriginX: CGFloat = 0
-    static let frameOriginY: CGFloat = 0
-    static let frameWidth: CGFloat = 150
-    static let frameHeight: CGFloat = 140
-    static let cornerRadius: CGFloat = 10
-    static let backgroundColor: UIColor = UIColor(red:0.27, green:0.27, blue:0.27, alpha:0.8)
-    
-    struct ActivityIndicator {
-        static let originXY: CGFloat = 0
-        static let width: CGFloat = 100
-        static let height: CGFloat = 100
-        static let containerCenterX: CGFloat = UIScreen.main.bounds.width / 2
-        static let containerCenterY: CGFloat = UIScreen.main.bounds.height / 2.5
-    }
-}
-
 final class ConfirmationIndicatorView: UIView {
     
     var percentageCompleteLabel: UILabel = {
