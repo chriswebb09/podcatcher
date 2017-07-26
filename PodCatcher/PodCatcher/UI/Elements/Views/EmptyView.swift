@@ -20,7 +20,6 @@ final class EmptyView: UIView {
     private var musicIcon: UIImageView = {
         var musicIcon = UIImageView()
         musicIcon.image = #imageLiteral(resourceName: "mic-icon").withRenderingMode(.alwaysTemplate)
-       // musicIcon.tintColor = Colors.brightHighlight
         musicIcon.alpha = 1
         return musicIcon
     }()
