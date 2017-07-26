@@ -15,9 +15,19 @@ class SearchResultsDataStore {
             for data in rssData {
                 guard let title = data["title"] else { continue }
                 guard let audioUrl = data["audio"] else { continue }
-                var episode = Episodes(mediaUrlString: audioUrl, audioUrlSting: audioUrl, title: title, date: "", description: "", duration: 000, audioUrlString: audioUrl, stringDuration: "")
+                var episode = Episodes(mediaUrlString: audioUrl,
+                                       audioUrlSting: audioUrl,
+                                       title: title,
+                                       date: "",
+                                       description: "",
+                                       duration: 000,
+                                       audioUrlString: audioUrl,
+                                       stringDuration: "")
                 if var duration = data["itunes:duration"] {
-                    duration = duration.replacingOccurrences(of: "00:", with: "", options: NSString.CompareOptions.literal, range: nil)
+                    duration = duration.replacingOccurrences(of: "00:",
+                                                             with: "",
+                                                             options: NSString.CompareOptions.literal,
+                                                             range: nil)
                     if !duration.contains(":") {
                         duration = String.constructTimeString(time: Double(duration)!)
                     }
