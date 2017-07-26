@@ -1,6 +1,6 @@
 import UIKit
 
-class SettingsViewController: BaseTableViewController {
+final class SettingsViewController: BaseTableViewController {
     
     weak var delegate: SettingsViewControllerDelegate?
     var dataSource: BaseMediaControllerDataSource!
