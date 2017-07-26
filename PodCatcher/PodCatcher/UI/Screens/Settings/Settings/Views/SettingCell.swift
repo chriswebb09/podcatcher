@@ -1,6 +1,6 @@
 import UIKit
 
-class SettingCell: UITableViewCell, Reusable {
+final class SettingCell: UITableViewCell, Reusable {
     
     weak var delegate: SettingCellDelegate?
     

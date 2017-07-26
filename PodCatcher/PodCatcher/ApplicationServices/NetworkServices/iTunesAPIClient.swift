@@ -21,65 +21,6 @@ enum URLRouter {
     }
 }
 
-class RSSFeedAPIClient: NSObject {
-    
-    static func requestFeed(for urlString: String, completion: @escaping ([[String: String]]?, Error?) -> Void) {
-        guard let url = URL(string: urlString) else { return }
-        let nprParse = ["344098539", "510298", "510200", "510318", "510208", "510282", "500005", "510307", "510322", "510308", "510310", "510019", "510313", "510289", "381444908", "510299"]
-        URLSession(configuration: .ephemeral).dataTask(with: URLRequest(url: url)) { data, response, error in
-            if let error = error {
-                print(error.localizedDescription)
-                DispatchQueue.main.async {
-                    completion(nil, error)
-                }
-            } else {
-                guard let data = data else { return }
-                if urlString.hasPrefix("https://www.npr.org/rss/podcast.php") {
-                    for npr in nprParse {
-                        if urlString.hasSuffix(npr) {
-                            let rssParser = NPRParser()
-                            rssParser.recordKey = "item"
-                            rssParser.dictionaryKeys = ["itunes:new-feed-url", "itunes:summary", " itunes:author", "tunes:subtitle", "pubDate", "enclosure", "itunes:duration", "title", "audio/mp3", "audio/mpeg", "itunes:keywords", "itunes:image", "category", "itunes:author", "itunes:summary", "description", "enclosure"]
-                            rssParser.parseResponse(data) { parsedRSS in
-                                DispatchQueue.main.async {
-                                    completion(parsedRSS, nil)
-                                }
-                            }
-                        }
-                    }
-                } else {
-                    let rssParser = RSSParser()
-                    rssParser.parseResponse(data) { parsedRSS in
-                        DispatchQueue.main.async {
-                            completion(parsedRSS, nil)
-                        }
-                    }}
-            }}.resume()
-    }
-}
-
-extension RSSFeedAPIClient: XMLParserDelegate {
-    
-    static func getTopPodcasts(completion: @escaping ([[String: String]]?, Error?) -> Void) {
-        guard let url = URL(string: "https://rss.itunes.apple.com/api/v1/us/podcasts/top-podcasts/40/explicit/xml") else { return }
-        URLSession(configuration: .ephemeral).dataTask(with: URLRequest(url: url)) { data, response, error in
-            if let error = error {
-                print(error.localizedDescription)
-                DispatchQueue.main.async {
-                    completion(nil, error)
-                }
-            } else {
-                guard let data = data else { return }
-                let rssParser = RSSParser()
-                rssParser.parseResponse(data) { parsedRSS in
-                    DispatchQueue.main.async {
-                        completion(parsedRSS, nil)
-                    }
-                }
-            }}.resume()
-    }
-}
-
 final class iTunesAPIClient {
     
     static func search(for query: String, completion: @escaping (Response) -> Void) {
@@ -120,5 +61,60 @@ final class iTunesAPIClient {
         let urlString = URLRouter.base.url + URLRouter.path.url + encodedQuery
         print(urlString)
         return URL(string: urlString)
+    }
+}
+
+struct SearchResultsFetcher {
+    
+    var searchTerm: String? = ""
+    var lookup: String? = ""
+    
+    mutating func setSearch(term: String?) {
+        searchTerm = term
+    }
+    
+    mutating func setLookup(term: String?) {
+        lookup = term
+    }
+    
+    func searchForTracksFromLookup(completion: @escaping (_ results: [[String: Any]?]? , _ error: Error?) -> Void) {
+        iTunesAPIClient.search(forLookup: lookup) { response in
+            switch response {
+            case .success(let data):
+                guard let data = data else { return }
+                let resultsData = data["results"] as? [[String: Any]?]?
+                DispatchQueue.main.async {
+                    guard let resultsData = resultsData else { return }
+                    completion(resultsData, nil)
+                }
+            case .failed(let error):
+                completion(nil, error)
+            }
+        }
+    }
+    
+    func searchForTracks(completion: @escaping (_ results: [CasterSearchResult]? , _ error: Error?) -> Void) {
+        guard let searchTerm = searchTerm else { return }
+        iTunesAPIClient.search(for: searchTerm) { response in
+            switch response {
+            case .success(let data):
+                guard let data = data else { return }
+                let resultsData = data["results"] as? [[String: Any]?]?
+                if let resultsData = resultsData {
+                    var results = [CasterSearchResult]()
+                    resultsData?.forEach { resultingData in
+                        guard let resultingData = resultingData else { return }
+                        if let caster = CasterSearchResult(json: resultingData) {
+                            results.append(caster)
+                        }
+                    }
+                    DispatchQueue.main.async {
+                        completion(results, nil)
+                    }
+                }
+            case .failed(let error):
+                completion(nil, error)
+            }
+        }
     }
 }
