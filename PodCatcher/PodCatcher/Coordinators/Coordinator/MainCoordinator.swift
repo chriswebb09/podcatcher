@@ -73,12 +73,6 @@ extension MainCoordinator: CoordinatorDelegate {
     }
     
     func transitionCoordinator(type: CoordinatorType, dataSource: BaseMediaControllerDataSource?) {
-        NotificationCenter.default.addObserver(self, selector: #selector(self.reachabilityChanged),name: ReachabilityChangedNotification,object: reachability)
-        do {
-            try reachability.startNotifier()
-        } catch {
-            print("could not start reachability notifier")
-        }
         switch type {
         case .app:
             
@@ -152,20 +146,4 @@ extension MainCoordinator: CoordinatorDelegate {
         let settingsCoord = tabbBarCoordinator.childCoordinators[4] as! SettingsTabCoordinator
         settingsCoord.delegate = self
     }
-    
-    @objc func reachabilityChanged(note: Notification) {
-        
-        guard let reachability = note.object as? Reachability else { return }
-        
-        if reachability.isReachable {
-            if reachability.isReachableViaWiFi {
-                print("Reachable via WiFi")
-            } else {
-                print("Reachable via Cellular")
-            }
-        } else {
-            print("Network not reachable")
-        }
-    }
-    
 }
