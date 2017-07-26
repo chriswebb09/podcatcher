@@ -5,6 +5,15 @@ enum HomeInteractionMode {
     case subscription, edit
 }
 
+class HomeItemsFlowLayout: UICollectionViewFlowLayout {
+    func setup() {
+        scrollDirection = .vertical
+        itemSize = CGSize(width: UIScreen.main.bounds.width / 3.4, height: UIScreen.main.bounds.height / 7)
+        sectionInset = UIEdgeInsets(top: 5, left: 10, bottom: 0, right: 10)
+        minimumLineSpacing = 15
+    }
+}
+
 class HomeViewController: BaseCollectionViewController {
     
     // MARK: - Properties
@@ -100,11 +109,8 @@ extension HomeViewController: UICollectionViewDelegate {
             let item = fetchedResultsController.object(at: indexPath)
             var caster = CasterSearchResult()
             caster.feedUrl = item.feedUrl
-            //   let item = fetchedResultsController.object(at: indexPath)
-            
             guard let imageData = item.artworkImage, let image = UIImage(data: imageData as Data) else { return }
             delegate?.didSelect(at: indexPath.row, with: item, image: image)
-        //.didSelect(at: indexPath.row, with: item)
         case .edit:
             let actionSheetController: UIAlertController = UIAlertController(title: "Are you sure?", message: "Pressing okay will remove this podcast from your subscription list.", preferredStyle: .alert)
             let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel) { action in
