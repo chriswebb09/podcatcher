@@ -5,7 +5,7 @@ import CoreData
 class MainCoordinator: ApplicationCoordinator {
     
     var window: UIWindow
-    var appCoordinator: Coordinator!
+    var appCoordinator: Coordinator
     var dataSource: BaseMediaControllerDataSource!
     var tabbBarCoordinator:  TabBarCoordinator!
     var itemToSave: CasterSearchResult!
@@ -17,27 +17,26 @@ class MainCoordinator: ApplicationCoordinator {
     
     init(window: UIWindow) {
         self.window = window
-        self.appCoordinator = StartCoordinator(navigationController: UINavigationController(), window: window)
+        appCoordinator = StartCoordinator(navigationController: UINavigationController(), window: window)
         appCoordinator.delegate = self
     }
     
     convenience init(window: UIWindow, coordinator: Coordinator) {
         self.init(window: window)
-        self.appCoordinator = coordinator
+        appCoordinator = coordinator
         appCoordinator.delegate = self
     }
     
     func start() {
-        guard let coordinator = appCoordinator else { return }
-        coordinator.start()
+        appCoordinator.start()
     }
 }
 
 extension MainCoordinator: CoordinatorDelegate {
     
     func podcastItem(toAdd: CasterSearchResult, with index: Int) {
-        self.itemToSave = toAdd
-        self.itemIndex = index
+        itemToSave = toAdd
+        itemIndex = index
     }
     
     func updatePodcast(with playlistId: String) {
@@ -75,13 +74,11 @@ extension MainCoordinator: CoordinatorDelegate {
     func transitionCoordinator(type: CoordinatorType, dataSource: BaseMediaControllerDataSource?) {
         switch type {
         case .app:
-            
             let newCoordinator = StartCoordinator(navigationController: UINavigationController(), window: window)
             newCoordinator.delegate = self
             newCoordinator.skipSplash()
-            self.appCoordinator = newCoordinator
-            self.appCoordinator.delegate = self
-            
+            appCoordinator = newCoordinator
+            appCoordinator.delegate = self
         case .tabbar:
             setupTabCoordinator(dataSource: dataSource)
         }
@@ -92,7 +89,6 @@ extension MainCoordinator: CoordinatorDelegate {
         self.dataSource = dataSource
         tabbarController.dataSource = self.dataSource
         self.tabbBarCoordinator = TabBarCoordinator(tabBarController: tabbarController, window: window)
-        guard let dataSource = dataSource else { return }
         setupHomeTab()
         setupPlaylistsTab()
         setupBrowseTab()
@@ -115,7 +111,6 @@ extension MainCoordinator: CoordinatorDelegate {
         let playlistsTab = UINavigationController(rootViewController: playlistsViewController)
         tabbBarCoordinator.setupPlaylistsCoordinator(navigationController: playlistsTab, dataSource: dataSource)
         let playlistsCoord = tabbBarCoordinator.childCoordinators[1] as! PlaylistsTabCoordinator
-        
         playlistsCoord.delegate = self
         playlistsCoord.setup()
     }

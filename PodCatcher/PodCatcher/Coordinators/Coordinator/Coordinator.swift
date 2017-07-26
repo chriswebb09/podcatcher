@@ -17,7 +17,7 @@ protocol Coordinator: class {
 }
 
 protocol ApplicationCoordinator {
-    var appCoordinator: Coordinator! { get set }
+    var appCoordinator: Coordinator { get set }
     var window: UIWindow { get set }
     func start()
 }
