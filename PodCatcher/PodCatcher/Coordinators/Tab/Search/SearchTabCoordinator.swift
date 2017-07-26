@@ -1,9 +1,5 @@
 import UIKit
 
-enum TabType {
-    case home, playlists, playlist, search, results, player
-}
-
 final class SearchTabCoordinator: NavigationCoordinator {
     
     weak var delegate: CoordinatorDelegate?
@@ -15,7 +11,7 @@ final class SearchTabCoordinator: NavigationCoordinator {
     
     required init(navigationController: UINavigationController) {
         self.navigationController = navigationController
-        self.childViewControllers = navigationController.viewControllers
+        childViewControllers = navigationController.viewControllers
     }
     
     convenience init(navigationController: UINavigationController, controller: UIViewController) {
@@ -80,11 +76,9 @@ extension SearchTabCoordinator: PodcastListViewControllerDelegate {
 extension SearchTabCoordinator: PlayerViewControllerDelegate {
     
     func addItemToPlaylist(item: CasterSearchResult, index: Int) {
-        
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         let managedContext = appDelegate.coreData.managedContext
         let newItem = PodcastPlaylistItem(context: managedContext)
-        
         newItem.audioUrl = item.episodes[index].audioUrlString
         newItem.artworkUrl = item.podcastArtUrlString
         newItem.artistId = item.id
