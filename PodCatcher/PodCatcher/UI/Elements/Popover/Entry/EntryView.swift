@@ -1,9 +1,5 @@
 import UIKit
 
-enum EntryState {
-    case enabled, hidden
-}
-
 final class EntryView: UIView {
     
     // Input for playlist name
@@ -11,7 +7,6 @@ final class EntryView: UIView {
     var entryField: TextFieldExtension = {
         var entryField = TextFieldExtension()
         entryField.layer.borderColor = Colors.brightHighlight.cgColor
-            //UIColor(red:0.00, green:0.46, blue:1.00, alpha:1.0).cgColor
         entryField.layer.cornerRadius = DetailViewConstants.largeCornerRadius
         entryField.layer.borderWidth = DetailViewConstants.borderWidth
         entryField.placeholder = "Create a new playlist!"
@@ -22,7 +17,6 @@ final class EntryView: UIView {
     private var titleLabel: UILabel = {
         var titleLabel = UILabel()
         titleLabel.backgroundColor = Colors.brightHighlight
-            //UIColor(red:0.00, green:0.46, blue:1.00, alpha:1.0)
         titleLabel.textColor = .white
         titleLabel.textAlignment = .center
         titleLabel.font =  UIFont.systemFont(ofSize: 20, weight: UIFontWeightRegular)
@@ -44,7 +38,6 @@ final class EntryView: UIView {
         button.setTitleColor(Colors.brightHighlight, for: .normal)
         button.setTitle("Done", for: .normal)
         button.layer.borderColor = Colors.brightHighlight.cgColor
-            //PlaylistViewControllerConstants.mainColor.cgColor
         button.layer.borderWidth = EntryViewConstants.borderWidth
         if let popTitle = button.titleLabel {
             popTitle.font =  UIFont.systemFont(ofSize: 20, weight: UIFontWeightRegular)
@@ -59,7 +52,6 @@ final class EntryView: UIView {
         configureShadow(for: layer)
         layer.borderWidth = EntryViewConstants.borderWidth
         layer.borderColor = Colors.brightHighlight.cgColor
-            //PlaylistViewControllerConstants.mainColor.cgColor
     }
     
     private func configureShadow(for layer: CALayer) {
