@@ -1,4 +1,22 @@
-import UIKit
+import Foundation
+
+enum ResultType {
+    case podcast, topic, caster, term
+}
+
+protocol PodcastSearchResult {
+    var podcastArtUrlString: String? { get set }
+    var podcastTitle: String? { get set }
+    var podcastArtist: String? { get set }
+    var podcastSearchType: ResultType? { get set }
+}
+
+struct TermSearchResult: PodcastSearchResult {
+    var podcastSearchType: ResultType?
+    var podcastArtist: String?
+    var podcastTitle: String?
+    var podcastArtUrlString: String?
+}
 
 struct CasterSearchResult: PodcastSearchResult {
     
