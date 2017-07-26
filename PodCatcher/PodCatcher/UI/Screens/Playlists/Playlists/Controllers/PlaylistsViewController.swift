@@ -1,6 +1,11 @@
 import UIKit
 import CoreData
 
+protocol PlaylistsViewControllerDelegate: class {
+    func didAssignPlaylist(with id: String)
+    func logout(tapped: Bool)
+}
+
 final class PlaylistsViewController: BaseTableViewController {
     
     weak var delegate: PlaylistsViewControllerDelegate?
