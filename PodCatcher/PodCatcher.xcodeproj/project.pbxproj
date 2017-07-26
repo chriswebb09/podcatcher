@@ -135,9 +135,7 @@
 		A7EBA0B51EE680BE00FAAC9C /* BasePopoverAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EBA0B41EE680BE00FAAC9C /* BasePopoverAlert.swift */; };
 		A7EBA0B71EE680DF00FAAC9C /* BasePopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EBA0B61EE680DF00FAAC9C /* BasePopView.swift */; };
 		A7EBA0B91EE6815300FAAC9C /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EBA0B81EE6815300FAAC9C /* MenuView.swift */; };
-		A7EBA0BB1EE681F400FAAC9C /* BottomMenuPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EBA0BA1EE681F400FAAC9C /* BottomMenuPopover.swift */; };
 		A7EBA0C21EE682B200FAAC9C /* BaseMenuPopoverAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EBA0C11EE682B200FAAC9C /* BaseMenuPopoverAlert.swift */; };
-		A7EBA0C41EE682DF00FAAC9C /* MenuOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EBA0C31EE682DF00FAAC9C /* MenuOptionView.swift */; };
 		A7EBA0CA1EE6836400FAAC9C /* NSError+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EBA0C91EE6836400FAAC9C /* NSError+Extension.swift */; };
 		A7EBA0CC1EE683C900FAAC9C /* BallAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EBA0CB1EE683C900FAAC9C /* BallAnimation.swift */; };
 		A7F0615B1F0D772100946411 /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F0615A1F0D772100946411 /* BaseTableViewController.swift */; };
@@ -302,9 +300,7 @@
 		A7EBA0B41EE680BE00FAAC9C /* BasePopoverAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasePopoverAlert.swift; sourceTree = "<group>"; };
 		A7EBA0B61EE680DF00FAAC9C /* BasePopView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasePopView.swift; sourceTree = "<group>"; };
 		A7EBA0B81EE6815300FAAC9C /* MenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
-		A7EBA0BA1EE681F400FAAC9C /* BottomMenuPopover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomMenuPopover.swift; sourceTree = "<group>"; };
 		A7EBA0C11EE682B200FAAC9C /* BaseMenuPopoverAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseMenuPopoverAlert.swift; sourceTree = "<group>"; };
-		A7EBA0C31EE682DF00FAAC9C /* MenuOptionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuOptionView.swift; sourceTree = "<group>"; };
 		A7EBA0C91EE6836400FAAC9C /* NSError+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSError+Extension.swift"; sourceTree = "<group>"; };
 		A7EBA0CB1EE683C900FAAC9C /* BallAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BallAnimation.swift; sourceTree = "<group>"; };
 		A7F0615A1F0D772100946411 /* BaseTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseTableViewController.swift; path = Base/BaseTableViewController.swift; sourceTree = "<group>"; };
@@ -1007,8 +1003,6 @@
 			isa = PBXGroup;
 			children = (
 				A7EBA0C11EE682B200FAAC9C /* BaseMenuPopoverAlert.swift */,
-				A7EBA0BA1EE681F400FAAC9C /* BottomMenuPopover.swift */,
-				A7EBA0C31EE682DF00FAAC9C /* MenuOptionView.swift */,
 				A7EBA0B81EE6815300FAAC9C /* MenuView.swift */,
 				A71853011EE9584E00911C87 /* BaseMenuPopover.swift */,
 			);
@@ -1300,7 +1294,6 @@
 				A77EDF671EE5FC38001A24E5 /* UILabel+Extension.swift in Sources */,
 				A77EDF7E1EE5FFE9001A24E5 /* CALayerConstants.swift in Sources */,
 				A7B1C07F1F0AE4A100A42E7D /* TabCoordinator.swift in Sources */,
-				A7EBA0C41EE682DF00FAAC9C /* MenuOptionView.swift in Sources */,
 				A76F0D571F17D21900444025 /* FeedStore.swift in Sources */,
 				A7C620BD1F12813B00A0D33A /* PodcastPlaylist+CoreDataProperties.swift in Sources */,
 				A7150EBF1EE62E0D00E3553F /* PlayerViewDelegate.swift in Sources */,
@@ -1309,7 +1302,6 @@
 				A7EBA0B91EE6815300FAAC9C /* MenuView.swift in Sources */,
 				A7B1C0631F0AC94500A42E7D /* StartViewControllerDelegate.swift in Sources */,
 				A783ECE11EF233F0003E65C0 /* EmptyCastsView.swift in Sources */,
-				A7EBA0BB1EE681F400FAAC9C /* BottomMenuPopover.swift in Sources */,
 				A71B27371EE5D87900613CF4 /* UIView+Extension.swift in Sources */,
 				A77107441F0D4DE90042D2E4 /* HomeViewController.swift in Sources */,
 				A7A877B21F10656300D0968D /* TopPodcast+CoreDataProperties.swift in Sources */,
