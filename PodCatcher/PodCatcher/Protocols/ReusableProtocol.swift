@@ -1,9 +1,5 @@
 import UIKit
 
-//protocol CollectionViewProtocol: class {
-//    var collectionView: UICollectionView { get set }
-//}
-
 protocol Reusable { }
 
 extension Reusable where Self: UICollectionViewCell  {
