@@ -7,8 +7,6 @@ final class HomeTabCoordinator: NavigationCoordinator {
     var dataSource: BaseMediaControllerDataSource!
     var store = SearchResultsDataStore()
     var fetcher = SearchResultsFetcher()
-    
-    let mainStore = MainStore()
     var childViewControllers: [UIViewController] = []
     var navigationController: UINavigationController
     
