@@ -63,6 +63,7 @@
 		A77041411F29325A00346FC7 /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A770413E1F29325A00346FC7 /* AlertView.swift */; };
 		A77041421F29325A00346FC7 /* ConfirmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A770413F1F29325A00346FC7 /* ConfirmView.swift */; };
 		A77041431F29325A00346FC7 /* DownloadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77041401F29325A00346FC7 /* DownloadView.swift */; };
+		A77041461F2932F000346FC7 /* MenuDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77041451F2932F000346FC7 /* MenuDelegate.swift */; };
 		A77107441F0D4DE90042D2E4 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77107421F0D4DE90042D2E4 /* HomeViewController.swift */; };
 		A7780EFD1F173F1900737DA8 /* BrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7780EFC1F173F1900737DA8 /* BrowseViewController.swift */; };
 		A7780F001F173FAA00737DA8 /* BrowseTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7780EFF1F173FAA00737DA8 /* BrowseTopView.swift */; };
@@ -209,6 +210,7 @@
 		A770413E1F29325A00346FC7 /* AlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AlertView.swift; path = Views/AlertView.swift; sourceTree = "<group>"; };
 		A770413F1F29325A00346FC7 /* ConfirmView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConfirmView.swift; path = Views/ConfirmView.swift; sourceTree = "<group>"; };
 		A77041401F29325A00346FC7 /* DownloadView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DownloadView.swift; path = Views/DownloadView.swift; sourceTree = "<group>"; };
+		A77041451F2932F000346FC7 /* MenuDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuDelegate.swift; sourceTree = "<group>"; };
 		A77107421F0D4DE90042D2E4 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HomeViewController.swift; path = Home/Controllers/HomeViewController.swift; sourceTree = "<group>"; };
 		A7780EFC1F173F1900737DA8 /* BrowseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BrowseViewController.swift; path = Browse/Controllers/BrowseViewController.swift; sourceTree = "<group>"; };
 		A7780EFF1F173FAA00737DA8 /* BrowseTopView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BrowseTopView.swift; path = Browse/Views/BrowseTopView.swift; sourceTree = "<group>"; };
@@ -925,6 +927,7 @@
 				A7EBA0C11EE682B200FAAC9C /* BaseMenuPopoverAlert.swift */,
 				A7EBA0B81EE6815300FAAC9C /* MenuView.swift */,
 				A71853011EE9584E00911C87 /* BaseMenuPopover.swift */,
+				A77041451F2932F000346FC7 /* MenuDelegate.swift */,
 			);
 			path = Menu;
 			sourceTree = "<group>";
@@ -1296,6 +1299,7 @@
 				A71B26FA1EE5D24700613CF4 /* PodCatcher.xcdatamodeld in Sources */,
 				A71ADF9D1F0E26C900941A43 /* SearchViewController.swift in Sources */,
 				A7C620CF1F12B98800A0D33A /* PodcastPlaylistCell.swift in Sources */,
+				A77041461F2932F000346FC7 /* MenuDelegate.swift in Sources */,
 				A7175B0A1F257075008946DE /* ListTopView.swift in Sources */,
 				A7175B0D1F257075008946DE /* PreferencesView.swift in Sources */,
 				A7B1C0871F0B056200A42E7D /* TopItem.swift in Sources */,
