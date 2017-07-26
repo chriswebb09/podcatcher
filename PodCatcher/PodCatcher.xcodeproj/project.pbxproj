@@ -60,6 +60,8 @@
 		A77041331F291ACD00346FC7 /* PlayerViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77041321F291ACD00346FC7 /* PlayerViewControllerDelegate.swift */; };
 		A77041351F292FC000346FC7 /* TabControllerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77041341F292FC000346FC7 /* TabControllerCoordinator.swift */; };
 		A77041371F29302000346FC7 /* TabCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77041361F29302000346FC7 /* TabCoordinator.swift */; };
+		A77041391F29310F00346FC7 /* SettingsViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77041381F29310F00346FC7 /* SettingsViewControllerDelegate.swift */; };
+		A770413B1F29313600346FC7 /* SettingCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A770413A1F29313600346FC7 /* SettingCellDelegate.swift */; };
 		A77107441F0D4DE90042D2E4 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77107421F0D4DE90042D2E4 /* HomeViewController.swift */; };
 		A7780EFD1F173F1900737DA8 /* BrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7780EFC1F173F1900737DA8 /* BrowseViewController.swift */; };
 		A7780F001F173FAA00737DA8 /* BrowseTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7780EFF1F173FAA00737DA8 /* BrowseTopView.swift */; };
@@ -203,6 +205,8 @@
 		A77041321F291ACD00346FC7 /* PlayerViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerViewControllerDelegate.swift; sourceTree = "<group>"; };
 		A77041341F292FC000346FC7 /* TabControllerCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TabControllerCoordinator.swift; path = TabBar/TabControllerCoordinator.swift; sourceTree = "<group>"; };
 		A77041361F29302000346FC7 /* TabCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TabCoordinator.swift; path = TabBar/TabCoordinator.swift; sourceTree = "<group>"; };
+		A77041381F29310F00346FC7 /* SettingsViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsViewControllerDelegate.swift; path = Settings/SettingsViewControllerDelegate.swift; sourceTree = "<group>"; };
+		A770413A1F29313600346FC7 /* SettingCellDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingCellDelegate.swift; path = Settings/SettingCellDelegate.swift; sourceTree = "<group>"; };
 		A77107421F0D4DE90042D2E4 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HomeViewController.swift; path = Home/Controllers/HomeViewController.swift; sourceTree = "<group>"; };
 		A7780EFC1F173F1900737DA8 /* BrowseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BrowseViewController.swift; path = Browse/Controllers/BrowseViewController.swift; sourceTree = "<group>"; };
 		A7780EFF1F173FAA00737DA8 /* BrowseTopView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BrowseTopView.swift; path = Browse/Views/BrowseTopView.swift; sourceTree = "<group>"; };
@@ -655,6 +659,8 @@
 			children = (
 				A73D74441EE68926004571A5 /* Controllers */,
 				A73D74431EE68922004571A5 /* Views */,
+				A77041381F29310F00346FC7 /* SettingsViewControllerDelegate.swift */,
+				A770413A1F29313600346FC7 /* SettingCellDelegate.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -1194,6 +1200,8 @@
 				A7EBA0B91EE6815300FAAC9C /* MenuView.swift in Sources */,
 				A7B1C0631F0AC94500A42E7D /* StartViewControllerDelegate.swift in Sources */,
 				A783ECE11EF233F0003E65C0 /* EmptyCastsView.swift in Sources */,
+				A77041391F29310F00346FC7 /* SettingsViewControllerDelegate.swift in Sources */,
+				A770413B1F29313600346FC7 /* SettingCellDelegate.swift in Sources */,
 				A71B27371EE5D87900613CF4 /* UIView+Extension.swift in Sources */,
 				A77107441F0D4DE90042D2E4 /* HomeViewController.swift in Sources */,
 				A7A877B21F10656300D0968D /* TopPodcast+CoreDataProperties.swift in Sources */,

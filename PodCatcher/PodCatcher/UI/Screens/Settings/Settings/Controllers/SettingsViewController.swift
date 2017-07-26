@@ -1,18 +1,10 @@
 import UIKit
 
-protocol SettingsViewControllerDelegate: class {
-    func guestUserSignIn(tapped: Bool)
-}
-
-protocol SettingCellDelegate: class {
-    func cellTapped(with label: String)
-}
-
 class SettingsViewController: BaseTableViewController {
     
     weak var delegate: SettingsViewControllerDelegate?
     var dataSource: BaseMediaControllerDataSource!
-    var options = ["Log Out", "Delete Account"]
+    var options = ["Log Out"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,22 +41,7 @@ extension SettingsViewController: SettingCellDelegate {
     
     func cellTapped(with label: String) {
         if label == "Log Out" || label == "Log Into Account" {
-            delegate?.guestUserSignIn(tapped: true)
-        } else if label == "Delete Account" {
-            let actionSheetController: UIAlertController = UIAlertController(title: "Please Confirm", message: "Are you sure you want to delete your account?", preferredStyle: .alert)
-            let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel) { action in
-                return
-            }
-            let deleteAction: UIAlertAction = UIAlertAction(title: "Delete Account", style: .destructive) { action in
-                self.deleteUser()
-            }
-            actionSheetController.addAction(cancelAction)
-            actionSheetController.addAction(deleteAction)
-            self.present(actionSheetController, animated: true, completion: nil)
+            delegate?.guestUserSignIn(true)
         }
-    }
-    
-    func deleteUser() {
-        
     }
 }
