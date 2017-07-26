@@ -67,6 +67,10 @@
 		A77041481F29332600346FC7 /* MenuOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77041471F29332600346FC7 /* MenuOptionView.swift */; };
 		A770414A1F2933A500346FC7 /* BottomMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77041491F2933A500346FC7 /* BottomMenu.swift */; };
 		A770414C1F2933DD00346FC7 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A770414B1F2933DD00346FC7 /* LoadingView.swift */; };
+		A770414E1F29343200346FC7 /* ButtonMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A770414D1F29343200346FC7 /* ButtonMaker.swift */; };
+		A77041501F29345100346FC7 /* ButtonType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A770414F1F29345100346FC7 /* ButtonType.swift */; };
+		A77041521F29346D00346FC7 /* TagButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77041511F29346D00346FC7 /* TagButton.swift */; };
+		A77041541F29349900346FC7 /* LoginButtonFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77041531F29349900346FC7 /* LoginButtonFactory.swift */; };
 		A77107441F0D4DE90042D2E4 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77107421F0D4DE90042D2E4 /* HomeViewController.swift */; };
 		A7780EFD1F173F1900737DA8 /* BrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7780EFC1F173F1900737DA8 /* BrowseViewController.swift */; };
 		A7780F001F173FAA00737DA8 /* BrowseTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7780EFF1F173FAA00737DA8 /* BrowseTopView.swift */; };
@@ -217,6 +221,10 @@
 		A77041471F29332600346FC7 /* MenuOptionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuOptionView.swift; sourceTree = "<group>"; };
 		A77041491F2933A500346FC7 /* BottomMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomMenu.swift; sourceTree = "<group>"; };
 		A770414B1F2933DD00346FC7 /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		A770414D1F29343200346FC7 /* ButtonMaker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonMaker.swift; sourceTree = "<group>"; };
+		A770414F1F29345100346FC7 /* ButtonType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonType.swift; sourceTree = "<group>"; };
+		A77041511F29346D00346FC7 /* TagButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagButton.swift; sourceTree = "<group>"; };
+		A77041531F29349900346FC7 /* LoginButtonFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginButtonFactory.swift; sourceTree = "<group>"; };
 		A77107421F0D4DE90042D2E4 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HomeViewController.swift; path = Home/Controllers/HomeViewController.swift; sourceTree = "<group>"; };
 		A7780EFC1F173F1900737DA8 /* BrowseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BrowseViewController.swift; path = Browse/Controllers/BrowseViewController.swift; sourceTree = "<group>"; };
 		A7780EFF1F173FAA00737DA8 /* BrowseTopView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BrowseTopView.swift; path = Browse/Views/BrowseTopView.swift; sourceTree = "<group>"; };
@@ -705,6 +713,10 @@
 			isa = PBXGroup;
 			children = (
 				A77EDF871EE614FB001A24E5 /* ButtonFactory.swift */,
+				A770414D1F29343200346FC7 /* ButtonMaker.swift */,
+				A770414F1F29345100346FC7 /* ButtonType.swift */,
+				A77041511F29346D00346FC7 /* TagButton.swift */,
+				A77041531F29349900346FC7 /* LoginButtonFactory.swift */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -1211,6 +1223,7 @@
 				A770414C1F2933DD00346FC7 /* LoadingView.swift in Sources */,
 				A71514A11F05281100F123CD /* UISearchController+Extension.swift in Sources */,
 				A71B26F21EE5D24700613CF4 /* AppDelegate.swift in Sources */,
+				A77041541F29349900346FC7 /* LoginButtonFactory.swift in Sources */,
 				A770414A1F2933A500346FC7 /* BottomMenu.swift in Sources */,
 				A71D83DB1F0AC781009D0720 /* SettingsViewController.swift in Sources */,
 				A7A7628F1F13EE0500D2C4FF /* ItemCreator.swift in Sources */,
@@ -1227,6 +1240,7 @@
 				A77041391F29310F00346FC7 /* SettingsViewControllerDelegate.swift in Sources */,
 				A770413B1F29313600346FC7 /* SettingCellDelegate.swift in Sources */,
 				A71B27371EE5D87900613CF4 /* UIView+Extension.swift in Sources */,
+				A770414E1F29343200346FC7 /* ButtonMaker.swift in Sources */,
 				A77107441F0D4DE90042D2E4 /* HomeViewController.swift in Sources */,
 				A7A877B21F10656300D0968D /* TopPodcast+CoreDataProperties.swift in Sources */,
 				A77EDF591EE5FAC2001A24E5 /* CALayer+Extension.swift in Sources */,
@@ -1261,6 +1275,7 @@
 				A7B1C0601F0AC93800A42E7D /* StartView.swift in Sources */,
 				A71B27291EE5D31300613CF4 /* Coordinator.swift in Sources */,
 				A77EDF881EE614FB001A24E5 /* ButtonFactory.swift in Sources */,
+				A77041501F29345100346FC7 /* ButtonType.swift in Sources */,
 				A7B1C05D1F0AC90E00A42E7D /* StartViewController.swift in Sources */,
 				A7B8C3991EF6E18E001AFFA1 /* BaseViewController.swift in Sources */,
 				A7B840CF1EEDDDE70049BB78 /* AudioFilePlayer.swift in Sources */,
@@ -1308,6 +1323,7 @@
 				A7EBA0A71EE6743800FAAC9C /* TextFieldExtension.swift in Sources */,
 				A7175B0C1F257075008946DE /* PodcastCell.swift in Sources */,
 				A716B8041F0B357C0060D492 /* SearchTabCoordinator.swift in Sources */,
+				A77041521F29346D00346FC7 /* TagButton.swift in Sources */,
 				A71B26FA1EE5D24700613CF4 /* PodCatcher.xcdatamodeld in Sources */,
 				A71ADF9D1F0E26C900941A43 /* SearchViewController.swift in Sources */,
 				A7C620CF1F12B98800A0D33A /* PodcastPlaylistCell.swift in Sources */,
