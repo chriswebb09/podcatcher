@@ -68,8 +68,6 @@
 		A76F0D571F17D21900444025 /* FeedStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A76F0D561F17D21900444025 /* FeedStore.swift */; };
 		A76FA18C1F028BEF006A6127 /* RSSDataParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A76FA18B1F028BEF006A6127 /* RSSDataParser.swift */; };
 		A77107441F0D4DE90042D2E4 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77107421F0D4DE90042D2E4 /* HomeViewController.swift */; };
-		A77107501F0D4E1F0042D2E4 /* HomeItemsLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A771074E1F0D4E1F0042D2E4 /* HomeItemsLayout.swift */; };
-		A77107531F0D4E3A0042D2E4 /* HomeViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77107521F0D4E3A0042D2E4 /* HomeViewControllerDelegate.swift */; };
 		A7780EFD1F173F1900737DA8 /* BrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7780EFC1F173F1900737DA8 /* BrowseViewController.swift */; };
 		A7780F001F173FAA00737DA8 /* BrowseTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7780EFF1F173FAA00737DA8 /* BrowseTopView.swift */; };
 		A7780F061F17407300737DA8 /* TopPocastsDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7780F051F17407300737DA8 /* TopPocastsDataStore.swift */; };
@@ -232,8 +230,6 @@
 		A76F0D561F17D21900444025 /* FeedStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedStore.swift; sourceTree = "<group>"; };
 		A76FA18B1F028BEF006A6127 /* RSSDataParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSSDataParser.swift; sourceTree = "<group>"; };
 		A77107421F0D4DE90042D2E4 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HomeViewController.swift; path = Home/Controllers/HomeViewController.swift; sourceTree = "<group>"; };
-		A771074E1F0D4E1F0042D2E4 /* HomeItemsLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HomeItemsLayout.swift; path = Home/Models/HomeItemsLayout.swift; sourceTree = "<group>"; };
-		A77107521F0D4E3A0042D2E4 /* HomeViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HomeViewControllerDelegate.swift; path = Home/Delegates/HomeViewControllerDelegate.swift; sourceTree = "<group>"; };
 		A7780EFC1F173F1900737DA8 /* BrowseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BrowseViewController.swift; path = Browse/Controllers/BrowseViewController.swift; sourceTree = "<group>"; };
 		A7780EFF1F173FAA00737DA8 /* BrowseTopView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BrowseTopView.swift; path = Browse/Views/BrowseTopView.swift; sourceTree = "<group>"; };
 		A7780F051F17407300737DA8 /* TopPocastsDataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TopPocastsDataStore.swift; path = Browse/Models/TopPocastsDataStore.swift; sourceTree = "<group>"; };
@@ -547,9 +543,7 @@
 		A71D83D51F0AC6C5009D0720 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				A77107521F0D4E3A0042D2E4 /* HomeViewControllerDelegate.swift */,
-				A771074E1F0D4E1F0042D2E4 /* HomeItemsLayout.swift */,
-				A76F0D531F17B55100444025 /* Controllers */,
+				A77107421F0D4DE90042D2E4 /* HomeViewController.swift */,
 				A7C620C61F12B51A00A0D33A /* HomeListTopViewConstants.swift */,
 				A7780F3A1F1778C200737DA8 /* HomeDataSource.swift */,
 				A7780F3C1F17792C00737DA8 /* SubscribedPodcastCell.swift */,
@@ -810,14 +804,6 @@
 				A7C620CE1F12B98800A0D33A /* PodcastPlaylistCell.swift */,
 			);
 			name = Playlist;
-			sourceTree = "<group>";
-		};
-		A76F0D531F17B55100444025 /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				A77107421F0D4DE90042D2E4 /* HomeViewController.swift */,
-			);
-			name = Controllers;
 			sourceTree = "<group>";
 		};
 		A7780EFE1F173F1F00737DA8 /* Browser */ = {
@@ -1337,7 +1323,6 @@
 				A77EDF721EE5FDA9001A24E5 /* UICollectionView+Extension.swift in Sources */,
 				A7B1C0601F0AC93800A42E7D /* StartView.swift in Sources */,
 				A71B27291EE5D31300613CF4 /* Coordinator.swift in Sources */,
-				A77107501F0D4E1F0042D2E4 /* HomeItemsLayout.swift in Sources */,
 				A77EDF881EE614FB001A24E5 /* ButtonFactory.swift in Sources */,
 				A7B1C05D1F0AC90E00A42E7D /* StartViewController.swift in Sources */,
 				A7B8C3991EF6E18E001AFFA1 /* BaseViewController.swift in Sources */,
@@ -1374,7 +1359,6 @@
 				A7A99FA81F07254D00BFEA4C /* Colors.swift in Sources */,
 				A7780F3B1F1778C200737DA8 /* HomeDataSource.swift in Sources */,
 				A7196B2D1F1AE56000FCED5D /* NetworkService.swift in Sources */,
-				A77107531F0D4E3A0042D2E4 /* HomeViewControllerDelegate.swift in Sources */,
 				A7150EBD1EE62E0300E3553F /* PlayerViewController.swift in Sources */,
 				A731728B1F004964006A6A24 /* Download.swift in Sources */,
 				A717982F1F253B45007AD5EF /* Subscription+CoreDataClass.swift in Sources */,
