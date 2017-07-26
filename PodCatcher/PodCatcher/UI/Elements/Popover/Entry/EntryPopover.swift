@@ -1,5 +1,11 @@
 import UIKit
 
+protocol PopDelegate: class { }
+
+protocol EntryPopoverDelegate: PopDelegate {
+    func userDidEnterPlaylistName(name: String)
+}
+
 struct EntryPopoverConstants {
     static let cornerRadius: CGFloat = 10
     static let borderWidth: CGFloat = 10
