@@ -1,5 +1,10 @@
 import UIKit
 
+struct PodcastResultCellViewModel {
+    var podcastTitle: String
+    var playtimeLabel: String
+}
+
 class PodcastResultCell: UICollectionViewCell {
     
     // MARK: - UI Properties
