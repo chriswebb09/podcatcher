@@ -113,7 +113,7 @@ extension BrowseTabCoordinator: BrowseViewControllerDelegate {
     
     func didSelect(at index: Int) {
         let browseViewController = navigationController.viewControllers[0] as! BrowseViewController
-        let data = browseViewController.dataSource.topStore.podcasts
+        let data = browseViewController.dataSource.podcasts
         let newItem = data[index]
         let resultsList = SearchResultListViewController(index: index)
         resultsList.delegate = self
