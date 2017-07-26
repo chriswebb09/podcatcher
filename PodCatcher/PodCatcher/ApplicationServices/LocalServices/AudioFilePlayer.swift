@@ -27,8 +27,6 @@ final class AudioFilePlayer: NSObject {
     
     weak var delegate: AudioFilePlayerDelegate?
     
-    var asset: AVURLAsset!
-    
     var player: AVPlayer
     
     var playerItem: AVPlayerItem!
@@ -72,19 +70,18 @@ extension AudioFilePlayer {
     
     func pause() {
         state = .paused
-        player.pause()
+      //  player.pause()
+        player.playImmediately(atRate: 0)
     }
     
     func setUrl(from string: String?) {
         guard let urlString = string else { return }
         guard let url = URL(string: urlString) else { return }
         self.url = url
-        getTrackDuration(asset: asset)
     }
     
     func setUrl(with url: URL) {
         self.url = url
-        getTrackDuration(asset: asset)
     }
     
     func removePeriodicTimeObserver() {
@@ -93,8 +90,7 @@ extension AudioFilePlayer {
         timeObserver = nil
     }
     
-    func playNext() {
-        self.asset = AVURLAsset(url: url)
+    func playNext(asset: AVURLAsset) {
         playerItem = AVPlayerItem(asset: asset)
         player.replaceCurrentItem(with: playerItem)
         getTrackDuration(asset: asset)
@@ -107,8 +103,7 @@ extension AudioFilePlayer: AVAssetResourceLoaderDelegate {
         
         guard let asset = asset else { return }
         asset.loadValuesAsynchronously(forKeys: ["tracks", "duration"]) { [weak self] in
-            
-            guard let asset = self?.asset else { return }
+
             let audioDuration = asset.duration
             let audioDurationSeconds = CMTimeGetSeconds(audioDuration)
             let hours: Int = Int(audioDurationSeconds / 3600)

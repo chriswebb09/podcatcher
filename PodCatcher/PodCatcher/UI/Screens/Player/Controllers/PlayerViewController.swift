@@ -36,8 +36,7 @@ final class PlayerViewController: BaseViewController {
         if let urlString = caster.episodes[index].audioUrlString,
             let url = URL(string: urlString) {
             player.setUrl(with: url)
-            player.url = url
-            player.playNext()
+            player.playNext(asset: AVURLAsset(url: url))
         }
         self.player.delegate = self
         self.player.observePlayTime()
@@ -79,15 +78,17 @@ final class PlayerViewController: BaseViewController {
 // MARK: - PlayerViewDelegate
 
 extension PlayerViewController: PlayerViewDelegate {
-
+    
     func pauseButton(tapped: Bool) {
+        // player.player.pause()
+        player.removePeriodicTimeObserver()
         player.pause()
     }
-
+    
     func playButton(tapped: Bool) {
         player.play()
     }
-
+    
     func backButton(tapped: Bool) {
         guard index > 0 else { playerView.enableButtons(); return }
         index -= 1
@@ -99,7 +100,7 @@ extension PlayerViewController: PlayerViewDelegate {
         index += 1
         updateTrack()
     }
-
+    
     func setModel(model: PlayerViewModel?) {
         if let model = model {
             playerView.configure(with: model)
@@ -110,7 +111,7 @@ extension PlayerViewController: PlayerViewDelegate {
         guard let url = url else { return }
         player.setUrl(with: url)
         player.url = url
-        player.playNext()
+        player.playNext(asset: AVURLAsset(url: url))
     }
     
     func updateTimeValue(time: Double) {
