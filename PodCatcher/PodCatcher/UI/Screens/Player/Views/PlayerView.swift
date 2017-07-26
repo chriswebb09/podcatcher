@@ -96,8 +96,8 @@ final class PlayerView: UIView {
         slider.thumbTintColor = .white
         slider.maximumTrackTintColor = UIColor(red:1.00, green:0.71, blue:0.71, alpha:1.0)
         let thumbImage = #imageLiteral(resourceName: "line-gray").scaleToSize(CGSize(width: 2.5, height: 18))
-        //slider.setThumbImage(self.generateHandleImage(thumbImage), for: .normal)
-        slider.setThumbImage(slider.generateHandleImage(with: .white), for: .normal)
+       
+        slider.setThumbImage(slider.handleImage(with: .white), for: .normal)
         slider.setThumbImage(thumbImage, for: .selected)
         slider.minimumValue = 0
         slider.maximumValue = 100
