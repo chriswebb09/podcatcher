@@ -131,13 +131,11 @@ final class BrowseViewController: BaseCollectionViewController {
         } else if (reachability.whenUnreachable != nil) {
             view.addSubview(network)
             view.bringSubview(toFront: network)
-            print("Network not reachable")
         } else {
             DispatchQueue.main.async {
                 self.view.addSubview(self.network)
                 self.view.bringSubview(toFront: self.network)
             }
-            print("- Network not reachable")
         }
     }
 }

@@ -146,6 +146,15 @@ extension HomeViewController: UICollectionViewDelegate {
             }
         }
     }
+    
+    func showError(errorString: String) {
+        let actionSheetController: UIAlertController = UIAlertController(title: "Error", message: errorString, preferredStyle: .alert)
+        let okayAction: UIAlertAction =  UIAlertAction(title: "Okay", style: .cancel) { action in
+            actionSheetController.dismiss(animated: false, completion: nil)
+        }
+        actionSheetController.addAction(okayAction)
+        present(actionSheetController, animated: false)
+    }
 }
 
 extension HomeViewController: UIScrollViewDelegate {
@@ -175,21 +184,19 @@ extension HomeViewController: NSFetchedResultsControllerDelegate {
             try fetchedResultsController.performFetch()
             collectionView.reloadData()
         } catch let error {
-            print(error)
+            showError(errorString: "\(error.localizedDescription)")
         }
     }
     
     func setupCoordinator() {
-        persistentContainer.loadPersistentStores { [weak self] persistentStoreDescription, error in
-            if let strongSelf = self {
-                if let error = error {
-                    print("Unable to Perform Fetch Request \(error), \(error.localizedDescription)")
-                } else {
-                    do {
-                        try strongSelf.fetchedResultsController.performFetch()
-                    } catch let error {
-                        print("Unable to Perform Fetch Request \(error), \(error.localizedDescription)")
-                    }
+        persistentContainer.loadPersistentStores { persistentStoreDescription, error in
+            if let error = error {
+                self.showError(errorString: "\(error.localizedDescription)")
+            } else {
+                do {
+                    try self.fetchedResultsController.performFetch()
+                } catch let error {
+                    self.showError(errorString: "\(error.localizedDescription)")
                 }
             }
         }
@@ -219,16 +226,12 @@ extension HomeViewController: UICollectionViewDataSource {
         
         if let imageData = item.artworkImage, let image = UIImage(data: imageData as Data), let title = item.podcastTitle {
             let model = SubscribedPodcastCellViewModel(trackName: title, albumImageURL: image)
-            DispatchQueue.main.async { [weak self] in
-                if let strongSelf = self {
-                    switch strongSelf.mode {
-                    case .edit:
-                        cell.configureCell(with: model, withTime: 0, mode: .edit)
-                        cell.bringSubview(toFront: cell.overlayView)
-                    case  .subscription:
-                        cell.configureCell(with: model, withTime: 0, mode: .done)
-                    }
-                }
+            switch mode {
+            case .edit:
+                cell.configureCell(with: model, withTime: 0, mode: .edit)
+                cell.bringSubview(toFront: cell.overlayView)
+            case  .subscription:
+                cell.configureCell(with: model, withTime: 0, mode: .done)
             }
         }
         return cell
