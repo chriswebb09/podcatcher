@@ -1,43 +1,5 @@
 import UIKit
 
-class LoadingHUD: UIView {
-    
-    var animating: Bool {
-        guard let ball = self.loadingView.ball else { return false }
-        return ball.isAnimating
-    }
-    
-    var loadingView: LoadingView = {
-        let loadingView = LoadingView()
-        loadingView.isUserInteractionEnabled = true
-        return loadingView
-    }()
-    
-    func setIndicator(_ size: CGSize) {
-        loadingView.frame.size = size
-    }
-    
-    func setupIndicator(_ origin: CGPoint) {
-        loadingView.frame.origin = origin
-    }
-    
-    func showOn(_ view: UIView) {
-        view.addSubview(loadingView)
-        loadingView.configureView()
-        view.bringSubview(toFront: loadingView)
-        let ball = BallIndicatorView(frame: view.frame)
-        loadingView.startAnimating(ball: ball)
-    }
-    
-    func hideFrom(_ view: UIView) {
-        view.sendSubview(toBack: loadingView)
-        loadingView.ball?.removeFromSuperview()
-        loadingView.removeFromSuperview()
-        guard let ball = loadingView.ball else { return }
-        loadingView.stopAnimating(ball: ball)
-    }
-}
-
 final class LoadingPopover: BasePopoverAlert {
     
     var animating: Bool {
@@ -94,4 +56,3 @@ final class LoadingPopover: BasePopoverAlert {
         controller.view.sendSubview(toBack: self)
     }
 }
-
