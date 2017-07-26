@@ -1,6 +1,6 @@
 import UIKit
 
-class SettingCell: UITableViewCell {
+class SettingCell: UITableViewCell, Reusable {
     
     weak var delegate: SettingCellDelegate?
     
@@ -38,5 +38,3 @@ class SettingCell: UITableViewCell {
         titleLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.6).isActive = true
     }
 }
-
-extension SettingCell: Reusable {}
