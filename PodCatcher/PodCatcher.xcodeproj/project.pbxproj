@@ -65,6 +65,7 @@
 		A77041431F29325A00346FC7 /* DownloadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77041401F29325A00346FC7 /* DownloadView.swift */; };
 		A77041461F2932F000346FC7 /* MenuDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77041451F2932F000346FC7 /* MenuDelegate.swift */; };
 		A77041481F29332600346FC7 /* MenuOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77041471F29332600346FC7 /* MenuOptionView.swift */; };
+		A770414A1F2933A500346FC7 /* BottomMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77041491F2933A500346FC7 /* BottomMenu.swift */; };
 		A77107441F0D4DE90042D2E4 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77107421F0D4DE90042D2E4 /* HomeViewController.swift */; };
 		A7780EFD1F173F1900737DA8 /* BrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7780EFC1F173F1900737DA8 /* BrowseViewController.swift */; };
 		A7780F001F173FAA00737DA8 /* BrowseTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7780EFF1F173FAA00737DA8 /* BrowseTopView.swift */; };
@@ -213,6 +214,7 @@
 		A77041401F29325A00346FC7 /* DownloadView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DownloadView.swift; path = Views/DownloadView.swift; sourceTree = "<group>"; };
 		A77041451F2932F000346FC7 /* MenuDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuDelegate.swift; sourceTree = "<group>"; };
 		A77041471F29332600346FC7 /* MenuOptionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuOptionView.swift; sourceTree = "<group>"; };
+		A77041491F2933A500346FC7 /* BottomMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomMenu.swift; sourceTree = "<group>"; };
 		A77107421F0D4DE90042D2E4 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HomeViewController.swift; path = Home/Controllers/HomeViewController.swift; sourceTree = "<group>"; };
 		A7780EFC1F173F1900737DA8 /* BrowseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BrowseViewController.swift; path = Browse/Controllers/BrowseViewController.swift; sourceTree = "<group>"; };
 		A7780EFF1F173FAA00737DA8 /* BrowseTopView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BrowseTopView.swift; path = Browse/Views/BrowseTopView.swift; sourceTree = "<group>"; };
@@ -931,6 +933,7 @@
 				A71853011EE9584E00911C87 /* BaseMenuPopover.swift */,
 				A77041451F2932F000346FC7 /* MenuDelegate.swift */,
 				A77041471F29332600346FC7 /* MenuOptionView.swift */,
+				A77041491F2933A500346FC7 /* BottomMenu.swift */,
 			);
 			path = Menu;
 			sourceTree = "<group>";
@@ -1204,6 +1207,7 @@
 				A77EDF7A1EE5FF93001A24E5 /* UIViewController+Extension.swift in Sources */,
 				A71514A11F05281100F123CD /* UISearchController+Extension.swift in Sources */,
 				A71B26F21EE5D24700613CF4 /* AppDelegate.swift in Sources */,
+				A770414A1F2933A500346FC7 /* BottomMenu.swift in Sources */,
 				A71D83DB1F0AC781009D0720 /* SettingsViewController.swift in Sources */,
 				A7A7628F1F13EE0500D2C4FF /* ItemCreator.swift in Sources */,
 				A7B8C3981EF6E18E001AFFA1 /* BaseCollectionViewController.swift in Sources */,
