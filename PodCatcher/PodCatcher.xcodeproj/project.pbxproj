@@ -152,7 +152,6 @@
 		A7150ED61EE638A900E3553F /* StartCoordinatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartCoordinatorTests.swift; sourceTree = "<group>"; };
 		A7150EDA1EE638E000E3553F /* MediaPlayerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaPlayerTests.swift; sourceTree = "<group>"; };
 		A7150EDC1EE6399200E3553F /* PlayerControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerControllerTests.swift; sourceTree = "<group>"; };
-		A7150EDE1EE63E7200E3553F /* PodcastCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodcastCell.swift; sourceTree = "<group>"; };
 		A71514A01F05281100F123CD /* UISearchController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UISearchController+Extension.swift"; sourceTree = "<group>"; };
 		A71640371EFFDAFE00895082 /* UserDefaults+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UserDefaults+Extension.swift"; path = "../Data/UserDefaults+Extension.swift"; sourceTree = "<group>"; };
 		A716B8031F0B357C0060D492 /* SearchTabCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchTabCoordinator.swift; path = Search/SearchTabCoordinator.swift; sourceTree = "<group>"; };
@@ -603,7 +602,6 @@
 		A73D74221EE68781004571A5 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				A7150EDE1EE63E7200E3553F /* PodcastCell.swift */,
 			);
 			name = Cell;
 			path = PodcastList/Views/Cell;
