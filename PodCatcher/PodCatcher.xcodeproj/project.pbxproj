@@ -71,6 +71,7 @@
 		A77041501F29345100346FC7 /* ButtonType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A770414F1F29345100346FC7 /* ButtonType.swift */; };
 		A77041521F29346D00346FC7 /* TagButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77041511F29346D00346FC7 /* TagButton.swift */; };
 		A77041541F29349900346FC7 /* LoginButtonFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77041531F29349900346FC7 /* LoginButtonFactory.swift */; };
+		A77041561F2935A300346FC7 /* PodcastItemCoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77041551F2935A300346FC7 /* PodcastItemCoreDataStack.swift */; };
 		A77107441F0D4DE90042D2E4 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77107421F0D4DE90042D2E4 /* HomeViewController.swift */; };
 		A7780EFD1F173F1900737DA8 /* BrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7780EFC1F173F1900737DA8 /* BrowseViewController.swift */; };
 		A7780F001F173FAA00737DA8 /* BrowseTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7780EFF1F173FAA00737DA8 /* BrowseTopView.swift */; };
@@ -225,6 +226,7 @@
 		A770414F1F29345100346FC7 /* ButtonType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonType.swift; sourceTree = "<group>"; };
 		A77041511F29346D00346FC7 /* TagButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagButton.swift; sourceTree = "<group>"; };
 		A77041531F29349900346FC7 /* LoginButtonFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginButtonFactory.swift; sourceTree = "<group>"; };
+		A77041551F2935A300346FC7 /* PodcastItemCoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodcastItemCoreDataStack.swift; sourceTree = "<group>"; };
 		A77107421F0D4DE90042D2E4 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HomeViewController.swift; path = Home/Controllers/HomeViewController.swift; sourceTree = "<group>"; };
 		A7780EFC1F173F1900737DA8 /* BrowseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BrowseViewController.swift; path = Browse/Controllers/BrowseViewController.swift; sourceTree = "<group>"; };
 		A7780EFF1F173FAA00737DA8 /* BrowseTopView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BrowseTopView.swift; path = Browse/Views/BrowseTopView.swift; sourceTree = "<group>"; };
@@ -346,6 +348,7 @@
 			children = (
 				A7F37B6C1F0DF0C2001B5C8C /* CoreData */,
 				A76F0D561F17D21900444025 /* FeedStore.swift */,
+				A77041551F2935A300346FC7 /* PodcastItemCoreDataStack.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -1305,6 +1308,7 @@
 				A7B1C0811F0AE54400A42E7D /* HomeTabCoordinator.swift in Sources */,
 				A71BFB881EE6F62B00A35D8E /* UnderLineTextField.swift in Sources */,
 				A7D0AD4C1F0D4A7C007E4063 /* SplashViewController.swift in Sources */,
+				A77041561F2935A300346FC7 /* PodcastItemCoreDataStack.swift in Sources */,
 				A7240A4B1F243AEF003FC525 /* Constants.swift in Sources */,
 				A7EBA0CC1EE683C900FAAC9C /* BallAnimation.swift in Sources */,
 				A7A99FA81F07254D00BFEA4C /* Colors.swift in Sources */,
