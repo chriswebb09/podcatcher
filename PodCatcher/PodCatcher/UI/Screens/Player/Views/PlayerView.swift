@@ -217,7 +217,7 @@ final class PlayerView: UIView {
     func configure(with model: PlayerViewModel) {
         self.model = model
         setupViews()
-        backgroundColor = .mainColor
+        backgroundColor = UIColor(red:0.92, green:0.32, blue:0.33, alpha:1.0)
     }
     
     private func sharedLayout(view: UIView) {

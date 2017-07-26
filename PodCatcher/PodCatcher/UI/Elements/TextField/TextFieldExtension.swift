@@ -23,7 +23,7 @@ extension TextFieldExtension {
     
     static func configureField(field: UITextField) {
         field.font = UIFont(name: "AvenirNext-Regular", size: 18)!
-        field.layer.borderColor = UIColor.mainColor.cgColor
+        field.layer.borderColor = UIColor(red:0.92, green:0.32, blue:0.33, alpha:1.0).cgColor
         field.layer.borderWidth = 2
         field.layer.cornerRadius = 3
     }
