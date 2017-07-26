@@ -1,6 +1,14 @@
 import UIKit
 import CoreData
 
+enum PlaylistsInteractionMode {
+    case add, edit
+}
+
+enum PlaylistsReference {
+    case addPodcast, checkList
+}
+
 class PlaylistsControllerDataSource: NSObject {
     var fetchedResultsController: NSFetchedResultsController<PodcastPlaylist>!
     var userID: String!
