@@ -29,7 +29,6 @@
 		A71798301F253B45007AD5EF /* Subscription+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A717982E1F253B45007AD5EF /* Subscription+CoreDataProperties.swift */; };
 		A7184E031F201968002516AE /* NetworkConnectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7184E021F201968002516AE /* NetworkConnectionView.swift */; };
 		A71853021EE9584E00911C87 /* BaseMenuPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71853011EE9584E00911C87 /* BaseMenuPopover.swift */; };
-		A71853121EE962BA00911C87 /* BallIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71853111EE962BA00911C87 /* BallIndicatorView.swift */; };
 		A7188F511F1DB4D900BFEF73 /* PlaylistsControllerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7188F501F1DB4D900BFEF73 /* PlaylistsControllerDataSource.swift */; };
 		A7196B2D1F1AE56000FCED5D /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7196B2C1F1AE56000FCED5D /* NetworkService.swift */; };
 		A71ADF9D1F0E26C900941A43 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71ADF9B1F0E26C900941A43 /* SearchViewController.swift */; };
@@ -191,7 +190,6 @@
 		A717982E1F253B45007AD5EF /* Subscription+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Subscription+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		A7184E021F201968002516AE /* NetworkConnectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkConnectionView.swift; sourceTree = "<group>"; };
 		A71853011EE9584E00911C87 /* BaseMenuPopover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseMenuPopover.swift; sourceTree = "<group>"; };
-		A71853111EE962BA00911C87 /* BallIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BallIndicatorView.swift; sourceTree = "<group>"; };
 		A7188F501F1DB4D900BFEF73 /* PlaylistsControllerDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlaylistsControllerDataSource.swift; path = Playlists/Playlists/Datasource/PlaylistsControllerDataSource.swift; sourceTree = "<group>"; };
 		A7196B2C1F1AE56000FCED5D /* NetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		A71ADF9B1F0E26C900941A43 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchViewController.swift; path = Search/Search/Controllers/SearchViewController.swift; sourceTree = "<group>"; };
@@ -642,7 +640,6 @@
 			isa = PBXGroup;
 			children = (
 				A7EBA0CB1EE683C900FAAC9C /* BallAnimation.swift */,
-				A71853111EE962BA00911C87 /* BallIndicatorView.swift */,
 			);
 			path = Ball;
 			sourceTree = "<group>";
@@ -1358,7 +1355,6 @@
 				A7C620C71F12B51A00A0D33A /* HomeListTopViewConstants.swift in Sources */,
 				A7EBA0A51EE6740300FAAC9C /* String+Extension.swift in Sources */,
 				A77EDF721EE5FDA9001A24E5 /* UICollectionView+Extension.swift in Sources */,
-				A71853121EE962BA00911C87 /* BallIndicatorView.swift in Sources */,
 				A7B1C0601F0AC93800A42E7D /* StartView.swift in Sources */,
 				A71B27291EE5D31300613CF4 /* Coordinator.swift in Sources */,
 				A77107501F0D4E1F0042D2E4 /* HomeItemsLayout.swift in Sources */,
