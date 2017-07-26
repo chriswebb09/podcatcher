@@ -58,6 +58,8 @@
 		A76F0D571F17D21900444025 /* FeedStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A76F0D561F17D21900444025 /* FeedStore.swift */; };
 		A76FA18C1F028BEF006A6127 /* RSSDataParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A76FA18B1F028BEF006A6127 /* RSSDataParser.swift */; };
 		A77041331F291ACD00346FC7 /* PlayerViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77041321F291ACD00346FC7 /* PlayerViewControllerDelegate.swift */; };
+		A77041351F292FC000346FC7 /* TabControllerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77041341F292FC000346FC7 /* TabControllerCoordinator.swift */; };
+		A77041371F29302000346FC7 /* TabCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77041361F29302000346FC7 /* TabCoordinator.swift */; };
 		A77107441F0D4DE90042D2E4 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77107421F0D4DE90042D2E4 /* HomeViewController.swift */; };
 		A7780EFD1F173F1900737DA8 /* BrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7780EFC1F173F1900737DA8 /* BrowseViewController.swift */; };
 		A7780F001F173FAA00737DA8 /* BrowseTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7780EFF1F173FAA00737DA8 /* BrowseTopView.swift */; };
@@ -199,6 +201,8 @@
 		A76F0D561F17D21900444025 /* FeedStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedStore.swift; sourceTree = "<group>"; };
 		A76FA18B1F028BEF006A6127 /* RSSDataParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSSDataParser.swift; sourceTree = "<group>"; };
 		A77041321F291ACD00346FC7 /* PlayerViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerViewControllerDelegate.swift; sourceTree = "<group>"; };
+		A77041341F292FC000346FC7 /* TabControllerCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TabControllerCoordinator.swift; path = TabBar/TabControllerCoordinator.swift; sourceTree = "<group>"; };
+		A77041361F29302000346FC7 /* TabCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TabCoordinator.swift; path = TabBar/TabCoordinator.swift; sourceTree = "<group>"; };
 		A77107421F0D4DE90042D2E4 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HomeViewController.swift; path = Home/Controllers/HomeViewController.swift; sourceTree = "<group>"; };
 		A7780EFC1F173F1900737DA8 /* BrowseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BrowseViewController.swift; path = Browse/Controllers/BrowseViewController.swift; sourceTree = "<group>"; };
 		A7780EFF1F173FAA00737DA8 /* BrowseTopView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BrowseTopView.swift; path = Browse/Views/BrowseTopView.swift; sourceTree = "<group>"; };
@@ -944,6 +948,8 @@
 			children = (
 				A7B1C0781F0AE47100A42E7D /* TabBarController.swift */,
 				A7B1C0791F0AE47100A42E7D /* TabBarCoordinator.swift */,
+				A77041341F292FC000346FC7 /* TabControllerCoordinator.swift */,
+				A77041361F29302000346FC7 /* TabCoordinator.swift */,
 			);
 			name = TabBar;
 			sourceTree = "<group>";
@@ -1234,10 +1240,12 @@
 				A7EBA0CA1EE6836400FAAC9C /* NSError+Extension.swift in Sources */,
 				A7BD12CE1EFF78AB0040FAE5 /* iTunesAPIClient.swift in Sources */,
 				A7C620C51F12AD9100A0D33A /* PodcastPlaylistItem+CoreDataProperties.swift in Sources */,
+				A77041351F292FC000346FC7 /* TabControllerCoordinator.swift in Sources */,
 				A76F0D521F17A82600444025 /* AlertView.swift in Sources */,
 				A7A762911F13EE3C00D2C4FF /* SearchResultsDataStore.swift in Sources */,
 				A767522F1F0BF6FC007F1100 /* PlaylistsTab.swift in Sources */,
 				A71853021EE9584E00911C87 /* BaseMenuPopover.swift in Sources */,
+				A77041371F29302000346FC7 /* TabCoordinator.swift in Sources */,
 				A7252A8E1EFF2A240034EA93 /* ViewType.swift in Sources */,
 				A723B41C1F0EB54300EA6B27 /* PlaylistCell.swift in Sources */,
 				A7780F0C1F17477500737DA8 /* BrowseTabCoordinator.swift in Sources */,
