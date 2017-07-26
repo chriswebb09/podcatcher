@@ -427,13 +427,13 @@ final class PlayerView: UIView {
     
     @objc private func skipButtonTapped() {
         disableButtons()
-        delegate?.skipButtonTapped()
+        delegate?.skipButton(tapped: true)
         model.reset(playButton: playButton, pauseButton: pauseButton, slider: playtimeSlider)
     }
     
     @objc private func backButtonTapped() {
         disableButtons()
-        delegate?.backButtonTapped()
+        delegate?.backButton(tapped: true)
     }
     
     func reset() {

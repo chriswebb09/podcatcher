@@ -3,24 +3,6 @@ import CoreMedia
 import CoreData
 import AVFoundation
 
-protocol PlayerViewControllerDelegate: class {
-    func playButton(tapped: Bool)
-    func pauseButton(tapped: Bool)
-    func skipButton(tapped: Bool)
-    func navigateBack(tapped: Bool)
-    func addItemToPlaylist(item: CasterSearchResult, index: Int)
-}
-
-protocol PlayerViewDelegate: class {
-    func playButton(tapped: Bool)
-    func pauseButton(tapped: Bool)
-    func skipButtonTapped()
-    func backButtonTapped()
-    func moreButton(tapped: Bool)
-    func updateTimeValue(time: Double)
-    func navigateBack(tapped: Bool)
-}
-
 final class PlayerViewController: BaseViewController {
     
     weak var delegate: PlayerViewControllerDelegate?
@@ -106,6 +88,18 @@ extension PlayerViewController: PlayerViewDelegate {
         player.play()
     }
 
+    func backButton(tapped: Bool) {
+        guard index > 0 else { playerView.enableButtons(); return }
+        index -= 1
+        updateTrack()
+    }
+    
+    func skipButton(tapped: Bool) {
+        guard index < caster.episodes.count - 1 else { playerView.enableButtons(); return }
+        index += 1
+        updateTrack()
+    }
+
     func setModel(model: PlayerViewModel?) {
         if let model = model {
             playerView.configure(with: model)
@@ -157,18 +151,6 @@ extension PlayerViewController: PlayerViewDelegate {
             self.player.observePlayTime()
         }
         updatePlayerViewModel()
-    }
-    
-    func backButtonTapped() {
-        guard index > 0 else { playerView.enableButtons(); return }
-        index -= 1
-        updateTrack()
-    }
-    
-    func skipButtonTapped() {
-        guard index < caster.episodes.count - 1 else { playerView.enableButtons(); return }
-        index += 1
-        updateTrack()
     }
     
     func moreButton(tapped: Bool) {
