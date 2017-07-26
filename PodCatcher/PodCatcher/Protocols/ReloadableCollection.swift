@@ -1,6 +1,20 @@
 import UIKit
 import CoreData
 
+protocol Reusable { }
+
+extension Reusable where Self: UICollectionViewCell  {
+    static var reuseIdentifier: String {
+        return String(describing: self)
+    }
+}
+
+extension Reusable where Self: UITableViewCell {
+    static var reuseIdentifier: String {
+        return String(describing: self)
+    }
+}
+
 protocol ReloadableCollection: class {
     var playlistId: String { get set }
     var fetchedResultsController:NSFetchedResultsController<PodcastPlaylistItem>! { get set }

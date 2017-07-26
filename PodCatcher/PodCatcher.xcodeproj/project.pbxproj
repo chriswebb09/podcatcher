@@ -73,7 +73,6 @@
 		A77DF1F31F2069FA00565471 /* NoSearchResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77DF1F21F2069FA00565471 /* NoSearchResultsView.swift */; };
 		A77EDF571EE5FAA5001A24E5 /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EDF561EE5FAA5001A24E5 /* UIImageView+Extension.swift */; };
 		A77EDF591EE5FAC2001A24E5 /* CALayer+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EDF581EE5FAC2001A24E5 /* CALayer+Extension.swift */; };
-		A77EDF5D1EE5FB5F001A24E5 /* ReusableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EDF5C1EE5FB5F001A24E5 /* ReusableProtocol.swift */; };
 		A77EDF651EE5FC17001A24E5 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EDF641EE5FC17001A24E5 /* EmptyView.swift */; };
 		A77EDF671EE5FC38001A24E5 /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EDF661EE5FC38001A24E5 /* UILabel+Extension.swift */; };
 		A77EDF721EE5FDA9001A24E5 /* UICollectionView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EDF711EE5FDA9001A24E5 /* UICollectionView+Extension.swift */; };
@@ -228,7 +227,6 @@
 		A77DF1F21F2069FA00565471 /* NoSearchResultsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoSearchResultsView.swift; sourceTree = "<group>"; };
 		A77EDF561EE5FAA5001A24E5 /* UIImageView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
 		A77EDF581EE5FAC2001A24E5 /* CALayer+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CALayer+Extension.swift"; sourceTree = "<group>"; };
-		A77EDF5C1EE5FB5F001A24E5 /* ReusableProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReusableProtocol.swift; sourceTree = "<group>"; };
 		A77EDF641EE5FC17001A24E5 /* EmptyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
 		A77EDF661EE5FC38001A24E5 /* UILabel+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
 		A77EDF711EE5FDA9001A24E5 /* UICollectionView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extension.swift"; sourceTree = "<group>"; };
@@ -841,7 +839,6 @@
 		A77EDF6C1EE5FCBC001A24E5 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				A77EDF5C1EE5FB5F001A24E5 /* ReusableProtocol.swift */,
 				A7A7627C1F131A8A00D2C4FF /* ReloadableCollection.swift */,
 				A7A7628E1F13EE0500D2C4FF /* ItemCreator.swift */,
 			);
@@ -1300,7 +1297,6 @@
 				A73D74301EE6881E004571A5 /* LogoConstants.swift in Sources */,
 				A7F0615B1F0D772100946411 /* BaseTableViewController.swift in Sources */,
 				A7B1C0811F0AE54400A42E7D /* HomeTabCoordinator.swift in Sources */,
-				A77EDF5D1EE5FB5F001A24E5 /* ReusableProtocol.swift in Sources */,
 				A71BFB881EE6F62B00A35D8E /* UnderLineTextField.swift in Sources */,
 				A7D0AD4C1F0D4A7C007E4063 /* SplashViewController.swift in Sources */,
 				A7240A4B1F243AEF003FC525 /* Constants.swift in Sources */,

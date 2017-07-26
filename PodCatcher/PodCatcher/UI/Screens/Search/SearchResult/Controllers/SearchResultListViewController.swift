@@ -161,10 +161,10 @@ extension SearchResultListViewController {
         if casters.count > 0 {
             view.addSubview(collectionView)
         } else {
-            let emptyView = EmptyCastsView(frame: PodcastListConstants.emptyCastViewFrame)
-            emptyView.backgroundColor = .white
-            emptyView.layoutSubviews()
-            view.addSubview(emptyView)
+//            let emptyView = EmptyCastsView(frame: PodcastListConstants.emptyCastViewFrame)
+//            emptyView.backgroundColor = .white
+//            emptyView.layoutSubviews()
+//            view.addSubview(emptyView)
         }
     }
 }
