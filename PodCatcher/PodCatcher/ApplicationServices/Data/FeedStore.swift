@@ -75,10 +75,7 @@ class PlaylistsCoreDataStack {
     var playlists: [NSManagedObject] = []
     
     func save(name: String, uid: String) {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-            return
-        }
-        
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         let managedContext = appDelegate.coreData.managedContext
         guard let entity = NSEntityDescription.entity(forEntityName: "PodcastPlaylist", in: managedContext) else { return }
         let playlist = NSManagedObject(entity: entity, insertInto: managedContext)
@@ -116,10 +113,7 @@ class PodcastItemCoreDataStack {
     var podcasts: [NSManagedObject] = []
     
     func save(audioUrlString: String, name: String, playlist: String, image: UIImage) {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-            return
-        }
-        
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         let managedContext = appDelegate.coreData.managedContext
         guard let entity = NSEntityDescription.entity(forEntityName: "PodcastPlaylistItem", in: managedContext) else { return }
         let podcast = NSManagedObject(entity: entity, insertInto: managedContext)

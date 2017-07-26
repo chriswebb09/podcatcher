@@ -417,12 +417,12 @@ final class PlayerView: UIView {
     
     @objc private func playButtonTapped() {
         model.switchButtonAlpha(for: pauseButton, withButton: playButton)
-        delegate?.playButtonTapped()
+        delegate?.playButton(tapped: true)
     }
     
     @objc private func pauseButtonTapped() {
         model.switchButtonAlpha(for: playButton, withButton: pauseButton)
-        delegate?.pauseButtonTapped()
+        delegate?.playButton(tapped: true)
     }
     
     @objc private func skipButtonTapped() {

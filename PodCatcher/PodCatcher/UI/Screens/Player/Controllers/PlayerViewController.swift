@@ -12,14 +12,13 @@ protocol PlayerViewControllerDelegate: class {
 }
 
 protocol PlayerViewDelegate: class {
-    func playButtonTapped()
-    func pauseButtonTapped()
+    func playButton(tapped: Bool)
+    func pauseButton(tapped: Bool)
     func skipButtonTapped()
     func backButtonTapped()
     func moreButton(tapped: Bool)
     func updateTimeValue(time: Double)
     func navigateBack(tapped: Bool)
-    //   func loading()
 }
 
 final class PlayerViewController: BaseViewController {
@@ -98,7 +97,15 @@ final class PlayerViewController: BaseViewController {
 // MARK: - PlayerViewDelegate
 
 extension PlayerViewController: PlayerViewDelegate {
-    
+
+    func pauseButton(tapped: Bool) {
+        player.pause()
+    }
+
+    func playButton(tapped: Bool) {
+        player.play()
+    }
+
     func setModel(model: PlayerViewModel?) {
         if let model = model {
             playerView.configure(with: model)
@@ -162,14 +169,6 @@ extension PlayerViewController: PlayerViewDelegate {
         guard index < caster.episodes.count - 1 else { playerView.enableButtons(); return }
         index += 1
         updateTrack()
-    }
-    
-    func pauseButtonTapped() {
-        player.pause()
-    }
-    
-    func playButtonTapped() {
-        player.play()
     }
     
     func moreButton(tapped: Bool) {
@@ -264,7 +263,7 @@ extension PlayerViewController: MenuDelegate {
     }
 }
 
-extension PlayerViewController: DownloadServiceDelegate {
+extension PlayerViewController: NetworkServiceDelegate {
     
     func download(location set: String) {
         
