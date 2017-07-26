@@ -1,6 +1,6 @@
 import UIKit
 
-class SearchResultCell: UITableViewCell {
+class SearchResultCell: UITableViewCell, Reusable {
     
     static let reuseIdentifier = "SearchResultCell"
     
@@ -55,5 +55,3 @@ class SearchResultCell: UITableViewCell {
         albumArtView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.35).isActive = true
     }
 }
-
-extension SearchResultCell: Reusable {}
