@@ -105,7 +105,6 @@ extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch mode {
         case .subscription:
-            
             let item = fetchedResultsController.object(at: indexPath)
             var caster = CasterSearchResult()
             caster.feedUrl = item.feedUrl
@@ -114,7 +113,7 @@ extension HomeViewController: UICollectionViewDelegate {
         case .edit:
             let actionSheetController: UIAlertController = UIAlertController(title: "Are you sure?", message: "Pressing okay will remove this podcast from your subscription list.", preferredStyle: .alert)
             let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel) { action in
-                return
+                actionSheetController.dismiss(animated: false, completion: nil)
             }
             let okayAction: UIAlertAction =  UIAlertAction(title: "Okay", style: .destructive) { action in
                 guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
@@ -130,6 +129,7 @@ extension HomeViewController: UICollectionViewDelegate {
                 do {
                     try context.save()
                 } catch let error {
+                    self.showError(errorString: " \(error.localizedDescription)")
                     print("Unable to Perform Fetch Request \(error), \(error.localizedDescription)")
                 }
             }
@@ -175,10 +175,7 @@ extension HomeViewController: NSFetchedResultsControllerDelegate {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         let fetchRequest:NSFetchRequest<Subscription> = Subscription.fetchRequest()
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "feedUrl", ascending: true)]
-        
-        
         fetchRequest.predicate = NSPredicate(format: "uid==%@", "none")
-        
         fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: appDelegate.persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: nil)
         do {
             try fetchedResultsController.performFetch()
@@ -223,8 +220,9 @@ extension HomeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as SubscribedPodcastCell
         let item = fetchedResultsController.object(at: indexPath)
-        
-        if let imageData = item.artworkImage, let image = UIImage(data: imageData as Data), let title = item.podcastTitle {
+        if let imageData = item.artworkImage,
+            let image = UIImage(data: imageData as Data),
+            let title = item.podcastTitle {
             let model = SubscribedPodcastCellViewModel(trackName: title, albumImageURL: image)
             switch mode {
             case .edit:

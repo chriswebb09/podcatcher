@@ -6,16 +6,15 @@ class PlaylistsControllerDataSource: NSObject {
     var userID: String!
     let mode: PlaylistsInteractionMode = .add
     
-    init(userID: String, fetchController:  NSFetchedResultsController<PodcastPlaylist>) {
+    init(fetchController:  NSFetchedResultsController<PodcastPlaylist>) {
         self.fetchedResultsController = fetchController
-        self.userID = userID
+        self.userID = "none"
     }
 }
 
 extension PlaylistsControllerDataSource: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        dump(fetchedResultsController.sections?[section].numberOfObjects)
         return fetchedResultsController.sections?[section].numberOfObjects ?? 0
     }
     
