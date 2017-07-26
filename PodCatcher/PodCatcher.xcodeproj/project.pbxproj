@@ -129,9 +129,7 @@
 		A7B1C07F1F0AE4A100A42E7D /* TabCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B1C07D1F0AE4A100A42E7D /* TabCoordinator.swift */; };
 		A7B1C0811F0AE54400A42E7D /* HomeTabCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B1C0801F0AE54400A42E7D /* HomeTabCoordinator.swift */; };
 		A7B1C0871F0B056200A42E7D /* TopItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B1C0861F0B056200A42E7D /* TopItem.swift */; };
-		A7B840C71EECD70E0049BB78 /* ApplicationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B840C61EECD70E0049BB78 /* ApplicationCoordinator.swift */; };
 		A7B840CA1EECD7160049BB78 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B840C81EECD7160049BB78 /* MainCoordinator.swift */; };
-		A7B840CB1EECD7160049BB78 /* NavigationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B840C91EECD7160049BB78 /* NavigationCoordinator.swift */; };
 		A7B840CF1EEDDDE70049BB78 /* AudioFilePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B840CE1EEDDDE70049BB78 /* AudioFilePlayer.swift */; };
 		A7B8C3981EF6E18E001AFFA1 /* BaseCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B8C3961EF6E18E001AFFA1 /* BaseCollectionViewController.swift */; };
 		A7B8C3991EF6E18E001AFFA1 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B8C3971EF6E18E001AFFA1 /* BaseViewController.swift */; };
@@ -313,9 +311,7 @@
 		A7B1C07D1F0AE4A100A42E7D /* TabCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TabCoordinator.swift; path = Tab/TabCoordinator.swift; sourceTree = "<group>"; };
 		A7B1C0801F0AE54400A42E7D /* HomeTabCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HomeTabCoordinator.swift; path = Home/HomeTabCoordinator.swift; sourceTree = "<group>"; };
 		A7B1C0861F0B056200A42E7D /* TopItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopItem.swift; sourceTree = "<group>"; };
-		A7B840C61EECD70E0049BB78 /* ApplicationCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationCoordinator.swift; sourceTree = "<group>"; };
 		A7B840C81EECD7160049BB78 /* MainCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
-		A7B840C91EECD7160049BB78 /* NavigationCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationCoordinator.swift; sourceTree = "<group>"; };
 		A7B840CE1EEDDDE70049BB78 /* AudioFilePlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioFilePlayer.swift; sourceTree = "<group>"; };
 		A7B8C3961EF6E18E001AFFA1 /* BaseCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseCollectionViewController.swift; path = Base/BaseCollectionViewController.swift; sourceTree = "<group>"; };
 		A7B8C3971EF6E18E001AFFA1 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseViewController.swift; path = Base/BaseViewController.swift; sourceTree = "<group>"; };
@@ -425,8 +421,6 @@
 			isa = PBXGroup;
 			children = (
 				A7B840C81EECD7160049BB78 /* MainCoordinator.swift */,
-				A7B840C91EECD7160049BB78 /* NavigationCoordinator.swift */,
-				A7B840C61EECD70E0049BB78 /* ApplicationCoordinator.swift */,
 				A71B27281EE5D31300613CF4 /* Coordinator.swift */,
 			);
 			path = Coordinator;
@@ -1343,12 +1337,10 @@
 				A7780EFD1F173F1900737DA8 /* BrowseViewController.swift in Sources */,
 				A77EDF7A1EE5FF93001A24E5 /* UIViewController+Extension.swift in Sources */,
 				A71514A11F05281100F123CD /* UISearchController+Extension.swift in Sources */,
-				A7B840CB1EECD7160049BB78 /* NavigationCoordinator.swift in Sources */,
 				A71B26F21EE5D24700613CF4 /* AppDelegate.swift in Sources */,
 				A71D83DB1F0AC781009D0720 /* SettingsViewController.swift in Sources */,
 				A7A7628F1F13EE0500D2C4FF /* ItemCreator.swift in Sources */,
 				A761DB1F1F195BAA00D9043D /* ConfirmView.swift in Sources */,
-				A7B840C71EECD70E0049BB78 /* ApplicationCoordinator.swift in Sources */,
 				A7B8C3981EF6E18E001AFFA1 /* BaseCollectionViewController.swift in Sources */,
 				A73172811F00466C006A6A24 /* LocalStorageManager.swift in Sources */,
 				A77EDF671EE5FC38001A24E5 /* UILabel+Extension.swift in Sources */,
