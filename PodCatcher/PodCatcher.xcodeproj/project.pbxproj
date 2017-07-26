@@ -64,6 +64,7 @@
 		A77041421F29325A00346FC7 /* ConfirmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A770413F1F29325A00346FC7 /* ConfirmView.swift */; };
 		A77041431F29325A00346FC7 /* DownloadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77041401F29325A00346FC7 /* DownloadView.swift */; };
 		A77041461F2932F000346FC7 /* MenuDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77041451F2932F000346FC7 /* MenuDelegate.swift */; };
+		A77041481F29332600346FC7 /* MenuOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77041471F29332600346FC7 /* MenuOptionView.swift */; };
 		A77107441F0D4DE90042D2E4 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77107421F0D4DE90042D2E4 /* HomeViewController.swift */; };
 		A7780EFD1F173F1900737DA8 /* BrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7780EFC1F173F1900737DA8 /* BrowseViewController.swift */; };
 		A7780F001F173FAA00737DA8 /* BrowseTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7780EFF1F173FAA00737DA8 /* BrowseTopView.swift */; };
@@ -211,6 +212,7 @@
 		A770413F1F29325A00346FC7 /* ConfirmView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConfirmView.swift; path = Views/ConfirmView.swift; sourceTree = "<group>"; };
 		A77041401F29325A00346FC7 /* DownloadView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DownloadView.swift; path = Views/DownloadView.swift; sourceTree = "<group>"; };
 		A77041451F2932F000346FC7 /* MenuDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuDelegate.swift; sourceTree = "<group>"; };
+		A77041471F29332600346FC7 /* MenuOptionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuOptionView.swift; sourceTree = "<group>"; };
 		A77107421F0D4DE90042D2E4 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HomeViewController.swift; path = Home/Controllers/HomeViewController.swift; sourceTree = "<group>"; };
 		A7780EFC1F173F1900737DA8 /* BrowseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BrowseViewController.swift; path = Browse/Controllers/BrowseViewController.swift; sourceTree = "<group>"; };
 		A7780EFF1F173FAA00737DA8 /* BrowseTopView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BrowseTopView.swift; path = Browse/Views/BrowseTopView.swift; sourceTree = "<group>"; };
@@ -928,6 +930,7 @@
 				A7EBA0B81EE6815300FAAC9C /* MenuView.swift */,
 				A71853011EE9584E00911C87 /* BaseMenuPopover.swift */,
 				A77041451F2932F000346FC7 /* MenuDelegate.swift */,
+				A77041471F29332600346FC7 /* MenuOptionView.swift */,
 			);
 			path = Menu;
 			sourceTree = "<group>";
@@ -1288,6 +1291,7 @@
 				A731728B1F004964006A6A24 /* Download.swift in Sources */,
 				A717982F1F253B45007AD5EF /* Subscription+CoreDataClass.swift in Sources */,
 				A77041331F291ACD00346FC7 /* PlayerViewControllerDelegate.swift in Sources */,
+				A77041481F29332600346FC7 /* MenuOptionView.swift in Sources */,
 				A7EBA0C21EE682B200FAAC9C /* BaseMenuPopoverAlert.swift in Sources */,
 				A76C3B331F122A4B000DDFAC /* TopView.swift in Sources */,
 				A71B27311EE5D6F500613CF4 /* StartCoordinator.swift in Sources */,
