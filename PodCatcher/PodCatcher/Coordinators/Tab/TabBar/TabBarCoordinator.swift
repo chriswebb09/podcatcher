@@ -67,7 +67,12 @@ extension TabBarCoordinator: Coordinator {
     }
     
     func setup() {
-        tabBarController.setTabTitles(controllers: [childCoordinators[0].navigationController, childCoordinators[1].navigationController, childCoordinators[2].navigationController, childCoordinators[3].navigationController, childCoordinators[4].navigationController])
+        let controllers = [childCoordinators[0].navigationController,
+                           childCoordinators[1].navigationController,
+                           childCoordinators[2].navigationController,
+                           childCoordinators[3].navigationController,
+                           childCoordinators[4].navigationController]
+        tabBarController.setTabTitles(controllers: controllers)
     }
 }
 
