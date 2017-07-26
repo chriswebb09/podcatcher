@@ -182,10 +182,9 @@ extension PlaylistsViewController: EntryPopoverDelegate {
     }
     
     func addPlaylist() {
-        UIView.animate(withDuration: 0.05) { [weak self] in
-            guard let strongSelf = self else { return }
-            strongSelf.entryPop.showPopView(viewController: strongSelf)
-            strongSelf.entryPop.popView.isHidden = false
+        UIView.animate(withDuration: 0.05) {
+            self.entryPop.showPopView(viewController: self)
+            self.entryPop.popView.isHidden = false
         }
         entryPop.popView.doneButton.addTarget(self, action: #selector(hidePop), for: .touchUpInside)
     }
