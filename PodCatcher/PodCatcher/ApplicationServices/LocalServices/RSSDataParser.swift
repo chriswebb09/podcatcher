@@ -1,17 +1,6 @@
 import Foundation
 
-protocol Parser: class {
-    
-    var recordKey: String { get set }
-    var dictionaryKeys: [String] { get set }
-    var currentDictionary: [String: String]! { get set }
-    var currentValue: String? { get set }
-    var results: [[String: String]] { get set }
-    
-    func parseResponse(_ data: Data, completion: @escaping ([[String: String]]) -> Void)
-}
-
-class RSSParser: NSObject, Parser {
+class RSSParser: NSObject {
     var recordKey = "item"
     var dictionaryKeys = ["itunes:summary", " itunes:author", "tunes:subtitle", "pubDate", "enclosure", "itunes:duration", "title", "audio/mp3", "audio/mpeg", "itunes:keywords", "itunes:image", "link", "category", "itunes:author", "itunes:summary", "description", "enclosure"]
     
