@@ -164,7 +164,7 @@ final class MenuView: UIView {
         addSubview(view)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        view.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.9).isActive = true
+        view.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.94).isActive = true
         view.heightAnchor.constraint(equalTo: heightAnchor, multiplier: MenuViewConstants.sharedHeightMultiplier).isActive = true
     }
     
