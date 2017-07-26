@@ -24,7 +24,8 @@ final class StartView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        CALayer.createGradientLayer(with: [UIColor(red:0.94, green:0.31, blue:0.81, alpha:1.0).cgColor, UIColor(red:0.32, green:0.13, blue:0.70, alpha:1.0).cgColor], layer: layer, bounds: bounds)
+        CALayer.createGradientLayer(with: [UIColor(red:0.94, green:0.31, blue:0.81, alpha:1.0).cgColor,
+                                           UIColor(red:0.32, green:0.13, blue:0.70, alpha:1.0).cgColor], layer: layer, bounds: bounds)
         setupElements()
         setupSelectors()
     }

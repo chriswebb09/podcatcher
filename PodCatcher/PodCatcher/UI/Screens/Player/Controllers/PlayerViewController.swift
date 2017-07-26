@@ -204,7 +204,6 @@ extension PlayerViewController: AudioFilePlayerDelegate {
     }
     
     func trackDurationCalculated(stringTime: String, timeValue: Float64) {
-        print(stringTime)
         DispatchQueue.main.async { [weak self] in
             guard let loadingPop = self?.loadingPop, let playerView = self?.playerView else { return }
             self?.playerViewModel.totalTimeString = stringTime
