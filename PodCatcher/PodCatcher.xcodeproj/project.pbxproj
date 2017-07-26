@@ -40,7 +40,6 @@
 		A71B27311EE5D6F500613CF4 /* StartCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71B27301EE5D6F500613CF4 /* StartCoordinator.swift */; };
 		A71B27371EE5D87900613CF4 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71B27361EE5D87900613CF4 /* UIView+Extension.swift */; };
 		A71BFB881EE6F62B00A35D8E /* UnderLineTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71BFB871EE6F62B00A35D8E /* UnderLineTextField.swift */; };
-		A71BFB8A1EE6FCB400A35D8E /* PodcastsListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71BFB891EE6FCB400A35D8E /* PodcastsListTests.swift */; };
 		A71D83BF1F09C40E009D0720 /* DownloadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71D83BE1F09C40E009D0720 /* DownloadView.swift */; };
 		A71D83DB1F0AC781009D0720 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71D83D91F0AC781009D0720 /* SettingsViewController.swift */; };
 		A723B4151F0EB4F000EA6B27 /* PlaylistsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A723B4131F0EB4F000EA6B27 /* PlaylistsViewController.swift */; };
@@ -179,7 +178,6 @@
 		A71B27301EE5D6F500613CF4 /* StartCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartCoordinator.swift; sourceTree = "<group>"; };
 		A71B27361EE5D87900613CF4 /* UIView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		A71BFB871EE6F62B00A35D8E /* UnderLineTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnderLineTextField.swift; sourceTree = "<group>"; };
-		A71BFB891EE6FCB400A35D8E /* PodcastsListTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodcastsListTests.swift; sourceTree = "<group>"; };
 		A71D83BE1F09C40E009D0720 /* DownloadView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadView.swift; sourceTree = "<group>"; };
 		A71D83D91F0AC781009D0720 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsViewController.swift; path = PodCatcher/UI/Screens/Settings/Settings/Controllers/SettingsViewController.swift; sourceTree = SOURCE_ROOT; };
 		A71DD3701EEF2CE9002BB10A /* FirebaseCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseCore.framework; path = Pods/FirebaseCore/Frameworks/FirebaseCore.framework; sourceTree = "<group>"; };
@@ -448,7 +446,6 @@
 				A7150EDC1EE6399200E3553F /* PlayerControllerTests.swift */,
 				A7150ED61EE638A900E3553F /* StartCoordinatorTests.swift */,
 				A7894FA11EE69E2B000CC190 /* TestMainCoordinator.swift */,
-				A71BFB891EE6FCB400A35D8E /* PodcastsListTests.swift */,
 				A7A54E9E1EE70CFB009A5538 /* PopoverTests.swift */,
 				A7A762861F13417B00D2C4FF /* HomeCoordinatorTests.swift */,
 				A7A7628A1F1341BC00D2C4FF /* RSSFeedParserAPIClient.swift */,
@@ -1165,7 +1162,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A7150ED71EE638A900E3553F /* StartCoordinatorTests.swift in Sources */,
-				A71BFB8A1EE6FCB400A35D8E /* PodcastsListTests.swift in Sources */,
 				A7A7628D1F1341FA00D2C4FF /* StringMethodTests.swift in Sources */,
 				A7150EDD1EE6399200E3553F /* PlayerControllerTests.swift in Sources */,
 				A7A762871F13417B00D2C4FF /* HomeCoordinatorTests.swift in Sources */,
