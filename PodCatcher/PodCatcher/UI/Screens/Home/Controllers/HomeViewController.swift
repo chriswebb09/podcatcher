@@ -9,7 +9,7 @@ class HomeViewController: BaseCollectionViewController {
     
     // MARK: - Properties
     
-    let userID: String!
+    let userID: String = "none"
     var mode: HomeInteractionMode = .subscription
     weak var delegate: HomeViewControllerDelegate?
     var dataSource: HomeDataSource
@@ -34,7 +34,6 @@ class HomeViewController: BaseCollectionViewController {
         let homeDataSource = HomeDataSource()
         self.dataSource = homeDataSource
         self.viewShown = .empty
-        self.userID = dataSource.user?.userId
         super.init(nibName: nil, bundle: nil)
         view.addSubview(emptyView)
     }
@@ -161,11 +160,10 @@ extension HomeViewController: NSFetchedResultsControllerDelegate {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         let fetchRequest:NSFetchRequest<Subscription> = Subscription.fetchRequest()
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "feedUrl", ascending: true)]
-        if let uid = self.userID {
-            fetchRequest.predicate = NSPredicate(format: "uid==%@", uid)
-        } else {
-            fetchRequest.predicate = NSPredicate(format: "uid==%@", "none")
-        }
+        
+        
+        fetchRequest.predicate = NSPredicate(format: "uid==%@", "none")
+        
         fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: appDelegate.persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: nil)
         do {
             try fetchedResultsController.performFetch()

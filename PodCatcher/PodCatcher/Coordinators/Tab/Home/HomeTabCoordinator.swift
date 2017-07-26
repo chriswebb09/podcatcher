@@ -33,7 +33,6 @@ extension HomeTabCoordinator: HomeViewControllerDelegate {
         let resultsList = SearchResultListViewController(index: index)
         resultsList.delegate = self
         resultsList.dataSource = dataSource
-        resultsList.dataSource.user = dataSource.user
         resultsList.item = cast as! CasterSearchResult
         guard let feedUrlString = resultsList.item.feedUrl else { return }
         let store = SearchResultsDataStore()
@@ -48,9 +47,6 @@ extension HomeTabCoordinator: HomeViewControllerDelegate {
     }
     
     func logout(tapped: Bool) {
-        if dataSource.user != nil {
-            dataSource.user = nil
-        }
         delegate?.transitionCoordinator(type: .app, dataSource: dataSource)
     }
     
@@ -58,7 +54,6 @@ extension HomeTabCoordinator: HomeViewControllerDelegate {
         let resultsList = SearchResultListViewController(index: index)
         resultsList.delegate = self
         resultsList.dataSource = dataSource
-        resultsList.dataSource.user = dataSource.user
         guard let feedUrlString = subscription.feedUrl else { return }
         if let imageData =  subscription.artworkImage as Data? {
             resultsList.topView.podcastImageView.image = UIImage(data: imageData)
@@ -106,7 +101,6 @@ extension HomeTabCoordinator: PodcastListViewControllerDelegate {
             if let strongSelf = self {
                 let playerViewController = PlayerViewController(index: index,
                                                                 caster: playerPodcast,
-                                                                user: strongSelf.dataSource.user,
                                                                 image: image, player: AudioFilePlayer.shared)
                 playerViewController.delegate = strongSelf
                 DispatchQueue.main.async {
@@ -132,7 +126,6 @@ extension HomeTabCoordinator: PodcastListViewControllerDelegate {
             if let strongSelf = self {
                 let playerViewController = PlayerViewController(index: index,
                                                                 caster: playerPodcast,
-                                                                user: strongSelf.dataSource.user,
                                                                 image: nil, player: AudioFilePlayer.shared)
                 playerViewController.delegate = strongSelf
                 DispatchQueue.main.async {

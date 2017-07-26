@@ -9,13 +9,9 @@ class SettingsViewController: BaseTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Settings"
-        if dataSource.user == nil {
-            self.options =  ["Log Into Account"]
-        }
         tableView.rowHeight = 100
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(SettingCell.self)
-        
     }
 }

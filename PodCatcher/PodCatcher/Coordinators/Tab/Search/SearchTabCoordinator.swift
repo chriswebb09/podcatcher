@@ -32,9 +32,6 @@ final class SearchTabCoordinator: NavigationCoordinator {
 extension SearchTabCoordinator: SearchViewControllerDelegate {
     
     func logout(tapped: Bool) {
-        if dataSource.user != nil {
-            dataSource.user = nil
-        }
         delegate?.transitionCoordinator(type: .app, dataSource: dataSource)
     }
     
@@ -43,7 +40,6 @@ extension SearchTabCoordinator: SearchViewControllerDelegate {
         let resultsList = SearchResultListViewController(index: index)
         resultsList.delegate = self
         resultsList.dataSource = dataSource
-        resultsList.dataSource.user = dataSource.user
         resultsList.item = caster as! CasterSearchResult
         guard let feedUrlString = resultsList.item.feedUrl else { return }
         let store = SearchResultsDataStore()
@@ -71,7 +67,7 @@ extension SearchTabCoordinator: PodcastListViewControllerDelegate {
             guard let strongSelf = self else { return }
             var playerPodcast = podcast
             playerPodcast.episodes = episodes
-            let playerViewController = PlayerViewController(index: index, caster: playerPodcast, user: strongSelf.dataSource.user, image: nil, player: AudioFilePlayer.shared)
+            let playerViewController = PlayerViewController(index: index, caster: playerPodcast, image: nil, player: AudioFilePlayer.shared)
             playerViewController.delegate = strongSelf
             DispatchQueue.main.async {
                 strongSelf.navigationController.setNavigationBarHidden(true, animated: false)

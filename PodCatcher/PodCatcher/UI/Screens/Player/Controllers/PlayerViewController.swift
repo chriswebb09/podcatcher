@@ -16,12 +16,11 @@ final class PlayerViewController: BaseViewController {
     var menuActive: MenuActive = .none
     var player: AudioFilePlayer
     var index: Int
-    var user: PodCatcherUser?
     let downloadingIndicator = DownloaderIndicatorView()
     var playerViewModel: PlayerViewModel!
     var network: NetworkService = NetworkService()
     
-    init(index: Int, caster: CasterSearchResult, user: PodCatcherUser?, image: UIImage?, player: AudioFilePlayer) {
+    init(index: Int, caster: CasterSearchResult, image: UIImage?, player: AudioFilePlayer) {
         self.player = player
         
         self.index = index

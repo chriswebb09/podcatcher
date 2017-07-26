@@ -2,8 +2,6 @@ import UIKit
 
 class BaseMediaControllerDataSource: NSObject {
     
-    var user: PodCatcherUser?
-    
     var casters: [PodcastSearchResult]?
     
     var count: Int {

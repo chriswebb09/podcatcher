@@ -43,9 +43,6 @@ extension PlaylistsTabCoordinator: PlaylistsViewControllerDelegate {
     }
     
     func logout(tapped: Bool) {
-        if dataSource.user != nil {
-            dataSource.user = nil
-        }
         delegate?.transitionCoordinator(type: .app, dataSource: dataSource)
     }
 }
@@ -53,7 +50,7 @@ extension PlaylistsTabCoordinator: PlaylistsViewControllerDelegate {
 extension PlaylistsTabCoordinator: PlaylistViewControllerDelegate {
     
     func didSelectPodcast(at index: Int, with episodes: [PodcastPlaylistItem], caster: CasterSearchResult) {
-        let playerViewController = PlayerViewController(index: index, caster: caster, user: dataSource.user, image: nil, player: AudioFilePlayer.shared)
+        let playerViewController = PlayerViewController(index: index, caster: caster, image: nil, player: AudioFilePlayer.shared)
         playerViewController.delegate = self
         navigationController.navigationBar.isTranslucent = true
         navigationController.viewControllers.append(playerViewController)

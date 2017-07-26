@@ -83,9 +83,6 @@ final class BrowseTabCoordinator: NavigationCoordinator {
 extension BrowseTabCoordinator: BrowseViewControllerDelegate {
     
     func logout(tapped: Bool) {
-        if dataSource.user != nil {
-            dataSource.user = nil
-        }
         delegate?.transitionCoordinator(type: .app, dataSource: dataSource)
     }
     
@@ -93,7 +90,6 @@ extension BrowseTabCoordinator: BrowseViewControllerDelegate {
         let resultsList = SearchResultListViewController(index: index)
         resultsList.delegate = self
         resultsList.dataSource = dataSource
-        resultsList.dataSource.user = dataSource.user
         resultsList.item = caster as! CasterSearchResult
         let browseViewController = navigationController.viewControllers[0] as! BrowseViewController
         guard let feedUrlString = resultsList.item.feedUrl else { return }
@@ -124,7 +120,6 @@ extension BrowseTabCoordinator: BrowseViewControllerDelegate {
         let resultsList = SearchResultListViewController(index: index)
         resultsList.delegate = self
         resultsList.dataSource = dataSource
-        resultsList.dataSource.user = dataSource.user
         var caster = CasterSearchResult()
         caster.feedUrl = newItem.value(forKey: "podcastFeedUrlString") as? String
         guard let imageData = newItem.value(forKey: "podcastArt") as? Data else { return }
@@ -158,7 +153,6 @@ extension BrowseTabCoordinator: PodcastListViewControllerDelegate {
         playerPodcast.index = index
         let playerViewController = PlayerViewController(index: index,
                                                         caster: playerPodcast,
-                                                        user: dataSource.user,
                                                         image: nil, player: AudioFilePlayer.shared)
         playerViewController.delegate = self
         navigationController.viewControllers.append(playerViewController)
@@ -177,7 +171,6 @@ extension BrowseTabCoordinator: PodcastListViewControllerDelegate {
             guard let strongSelf = self else { return }
             let playerViewController = PlayerViewController(index: index,
                                                             caster: playerPodcast,
-                                                            user: strongSelf.dataSource.user,
                                                             image: nil, player: AudioFilePlayer.shared)
             playerViewController.delegate = strongSelf
             DispatchQueue.main.async {
