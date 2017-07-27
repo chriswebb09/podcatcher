@@ -2,7 +2,7 @@ import UIKit
 
 class RSSFeedAPIClient: NSObject {
     
-    static func process(urlString: String, data: Data, completion: @escaping ([[String: String]]?) -> Void) {
+    static func processNPR(urlString: String, data: Data, completion: @escaping ([[String: String]]?) -> Void) {
         let nprParse = ["344098539", "510298", "510200", "510318", "510208", "510282", "500005", "510307", "510322", "510308", "510310", "510019", "510313", "510289", "381444908", "510299"]
         for npr in nprParse {
             if urlString.hasSuffix(npr) {
@@ -28,7 +28,7 @@ class RSSFeedAPIClient: NSObject {
             } else {
                 guard let data = data else { return }
                 if urlString.hasPrefix("https://www.npr.org/rss/podcast.php") {
-                    RSSFeedAPIClient.process(urlString: urlString, data: data) { processedResponse in
+                    RSSFeedAPIClient.processNPR(urlString: urlString, data: data) { processedResponse in
                         completion(processedResponse, nil)
                     }
                 } else {
