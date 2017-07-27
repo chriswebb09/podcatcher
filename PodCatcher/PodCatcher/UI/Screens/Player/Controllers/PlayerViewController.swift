@@ -80,8 +80,6 @@ final class PlayerViewController: BaseViewController {
 extension PlayerViewController: PlayerViewDelegate {
     
     func pauseButton(tapped: Bool) {
-        // player.player.pause()
-        player.removePeriodicTimeObserver()
         player.pause()
     }
     
@@ -149,8 +147,9 @@ extension PlayerViewController: PlayerViewDelegate {
         showLoadingView(loadingPop: loadingPop)
         if let urlString = caster.episodes[index].audioUrlString, let url = URL(string: urlString) {
             player.setUrl(with: url)
-            self.player.delegate = self
+            player.delegate = self
             self.player.observePlayTime()
+            player.playNext(asset: AVURLAsset(url: url))
         }
         updatePlayerViewModel()
     }

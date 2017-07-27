@@ -7,7 +7,7 @@ final class ConfirmationIndicatorView: UIView {
         label.text = "Subscribed"
         label.textAlignment = .center
         label.textColor = .white
-        label.font = UIFont.systemFont(ofSize: 18, weight: UIFontWeightMedium)
+        label.font = UIFont.systemFont(ofSize: 18, weight: UIFontWeightRegular)
         label.sizeToFit()
         return label
     }()

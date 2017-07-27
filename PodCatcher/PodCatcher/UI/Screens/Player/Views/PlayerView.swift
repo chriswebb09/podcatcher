@@ -177,12 +177,6 @@ final class PlayerView: UIView {
         return slider
     }()
     
-    private var volumeIcon: UIImageView = {
-        let volumeIcon = #imageLiteral(resourceName: "low-volume-white")
-        let iconView = UIImageView(image: volumeIcon)
-        return iconView
-    }()
-    
     // MARK: - Configuration Methods
     
     func configure(with model: PlayerViewModel) {
@@ -279,8 +273,8 @@ final class PlayerView: UIView {
     private func setup(trackButton: UIButton) {
         controlsView.addSubview(trackButton)
         trackButton.translatesAutoresizingMaskIntoConstraints = false
-        trackButton.heightAnchor.constraint(equalTo: controlsView.heightAnchor, multiplier: 0.42).isActive = true
-        trackButton.widthAnchor.constraint(equalTo: controlsView.widthAnchor, multiplier: 0.24).isActive = true
+        trackButton.heightAnchor.constraint(equalTo: controlsView.heightAnchor, multiplier: 0.44).isActive = true
+        trackButton.widthAnchor.constraint(equalTo: controlsView.widthAnchor, multiplier: 0.25).isActive = true
         trackButton.bottomAnchor.constraint(equalTo: controlsView.centerYAnchor, constant: UIScreen.main.bounds.height * 0.025).isActive = true
         trackButton.centerXAnchor.constraint(equalTo: controlsView.centerXAnchor).isActive = true
     }
@@ -393,7 +387,7 @@ final class PlayerView: UIView {
     
     @objc private func pauseButtonTapped() {
         model.switchButtonAlpha(for: playButton, withButton: pauseButton)
-        delegate?.playButton(tapped: true)
+        delegate?.pauseButton(tapped: true)
     }
     
     @objc private func skipButtonTapped() {
