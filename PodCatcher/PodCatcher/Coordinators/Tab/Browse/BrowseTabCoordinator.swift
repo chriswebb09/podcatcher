@@ -29,7 +29,7 @@ final class BrowseTabCoordinator: NavigationCoordinator {
     func setupBrowse() {
         let browseViewController = navigationController.viewControllers[0] as! BrowseViewController
         getTopItems { newItems in
-            
+            var list = ["Joe Rogan", "HowStuffWorks", "ESPN, ESPN Films, 30for30", "Matt Behdjou", "Mike & Matt", "Tenderfoot", "Mathis Entertainment, Inc."]
             let concurrentQueue = DispatchQueue(label: "concurrent",
                                                 qos: .background,
                                                 attributes: .concurrent,
@@ -49,17 +49,22 @@ final class BrowseTabCoordinator: NavigationCoordinator {
                         resultItem.forEach { resultingData in
                             guard let resultingData = resultingData else { return }
                             
-                            if let caster = CasterSearchResult(json: resultingData) {
-                                results.append(caster)
+                            if let caster = CasterSearchResult(json: resultingData), let artist = caster.podcastArtist {
+                                if !list.contains(artist) {
+                                    results.append(caster)
+                                    
+                                }
                                 DispatchQueue.main.async {
                                     browseViewController.collectionView.reloadData()
                                 }
                             }
                         }
                         browseViewController.dataSource.items = results
-                        guard let urlString = browseViewController.dataSource.items[0].podcastArtUrlString else { return }
-                        guard let imageUrl = URL(string: urlString) else { return }
-                        browseViewController.topView.podcastImageView.downloadImage(url: imageUrl)
+                        if browseViewController.dataSource.items.count > 0 {
+                            guard let urlString = browseViewController.dataSource.items[0].podcastArtUrlString else { return }
+                            guard let imageUrl = URL(string: urlString) else { return }
+                            browseViewController.topView.podcastImageView.downloadImage(url: imageUrl)
+                        }
                     }
                 }
             }

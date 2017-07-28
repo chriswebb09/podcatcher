@@ -27,6 +27,7 @@ final class HomeTabCoordinator: NavigationCoordinator {
 }
 
 extension HomeTabCoordinator: HomeViewControllerDelegate {
+    
     func didSelect(at index: Int, with cast: PodcastSearchResult, image: UIImage) {
         let resultsList = SearchResultListViewController(index: index)
         resultsList.delegate = self

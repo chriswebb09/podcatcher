@@ -37,10 +37,7 @@ extension BrowseCollectionDataSource:  UICollectionViewDataSource {
         if let urlString = items[indexPath.row].podcastArtUrlString,
             let url = URL(string: urlString),
             let title = items[indexPath.row].podcastTitle {
-            UIImage.downloadImage(url: url) { image in
-                let cellViewModel = TopPodcastCellViewModel(trackName: title, podcastImage: image)
-                cell.configureCell(with: cellViewModel, withTime: 0)
-            }
+            cell.configureCell(with: url, title: title)
         }
         return cell
     }

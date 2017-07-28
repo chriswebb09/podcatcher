@@ -39,6 +39,16 @@ final internal class TopPodcastCell: UICollectionViewCell {
         layer.shadowPath = path.cgPath
     }
     
+    func configureCell(with imageUrl: URL, title: String) {
+        trackNameLabel.text = title
+        albumArtView.downloadImage(url: imageUrl)
+        layer.borderWidth = 1
+        contentView.layer.cornerRadius = 3
+        layer.borderColor = UIColor.lightText.cgColor
+        contentView.backgroundColor = Colors.lightCharcoal
+    }
+    
+    
     func configureCell(with model: TopPodcastCellViewModel, withTime: Double) {
         viewModel = model
         layer.borderWidth = 1
@@ -95,9 +105,3 @@ final internal class TopPodcastCell: UICollectionViewCell {
         trackNameLabel.text = ""
     }
 }
-
-//extension TopPodcastCell: TopPodcastCellViewModelDelegate {
-//    func cellViewModel(_ cellViewModel: TopPodcastCellViewModel, canDisplay image: UIImage) -> Bool {
-//        
-//    }
-//}
