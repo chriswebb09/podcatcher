@@ -50,9 +50,7 @@ extension PlaylistsControllerDataSource: UITableViewDataSource {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         let fetchRequest:NSFetchRequest<PodcastPlaylist> = PodcastPlaylist.fetchRequest()
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "playlistId", ascending: true)]
-        fetchRequest.predicate = NSPredicate(format: "uid == %@", userID)
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest,
-                                                              managedObjectContext: appDelegate.persistentContainer.viewContext,
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: appDelegate.persistentContainer.viewContext,
                                                               sectionNameKeyPath: nil,
                                                               cacheName: nil)
     }

@@ -73,8 +73,7 @@ extension SearchTabCoordinator: PodcastListViewControllerDelegate {
             playerPodcast.episodes = episodes
             let playerViewController = PlayerViewController(index: index,
                                                             caster: playerPodcast,
-                                                            image: nil,
-                                                            player: AudioFilePlayer.shared)
+                                                            image: nil)
             playerViewController.delegate = strongSelf
             DispatchQueue.main.async {
                 strongSelf.navigationController.setNavigationBarHidden(true, animated: false)
@@ -103,17 +102,33 @@ extension SearchTabCoordinator: PlayerViewControllerDelegate {
         delegate?.podcastItem(toAdd: item, with: index)
     }
     
-    func skipButton(tapped: Bool) {
-        print("SkipButton tapped \(tapped)")
+    func skipButton(tapped: String) {
+        print(tapped)
     }
     
-    func pauseButton(tapped: Bool) {
-        print("PauseButton tapped \(tapped)")
+    
+    func backButton(tapped: String) {
+        print(tapped)
     }
     
-    func playButton(tapped: Bool) {
-        print("PlayButton tapped \(tapped)")
+    func pauseButton(tapped: String) {
+        print(tapped)
     }
+    
+    func playButton(tapped: String) {
+        print(tapped)
+    }
+//    func skipButton(tapped: Bool) {
+//        print("SkipButton tapped \(tapped)")
+//    }
+//    
+//    func pauseButton(tapped: Bool) {
+//        print("PauseButton tapped \(tapped)")
+//    }
+//    
+//    func playButton(tapped: Bool) {
+//        print("PlayButton tapped \(tapped)")
+//    }
     
     func navigateBack(tapped: Bool) {
         navigationController.setNavigationBarHidden(false, animated: false)

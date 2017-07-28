@@ -67,12 +67,4 @@ final class TopView: UIView {
         preferencesView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         preferencesView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: PodcastListTopViewConstants.preferencesViewHeightMultiplier).isActive = true
     }
-    
-    func setup(miniPlayer: UIView) {
-        addSubview(miniPlayer)
-        miniPlayer.translatesAutoresizingMaskIntoConstraints = false
-        miniPlayer.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
-        miniPlayer.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-        miniPlayer.heightAnchor.constraint(equalTo: heightAnchor, multiplier: PodcastListTopViewConstants.preferencesViewHeightMultiplier).isActive = true
-    }
 }

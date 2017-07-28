@@ -76,11 +76,14 @@ final class BrowseViewController: BaseCollectionViewController {
             print("could not start reachability notifier")
         }
         topView.addGestureRecognizer(tap)
+        UIView.animate(withDuration: 0.15) {
+            self.view.alpha = 1
+            self.navigationController?.setNavigationBarHidden(true, animated: false)
+        }
         DispatchQueue.main.async { [weak self] in
-            guard let strongSelf = self else { return }
-            strongSelf.view.alpha = 1
-            strongSelf.navigationController?.setNavigationBarHidden(true, animated: false)
-            strongSelf.collectionView.reloadData()
+            if let strongSelf = self {
+                strongSelf.collectionView.reloadData()
+            }
         }
     }
     

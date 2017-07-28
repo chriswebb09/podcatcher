@@ -12,6 +12,8 @@ final class PlayerView: UIView {
             if let imageUrl = model.imageUrl {
                 albumImageView.downloadImage(url: imageUrl)
             }
+            model.setControlButton(button: pauseButton)
+            model.setControlButton(button: playButton)
             totalPlayTimeLabel.text = model.totalTimeString
         }
     }
@@ -136,13 +138,14 @@ final class PlayerView: UIView {
     
     private var playButton: UIButton = {
         var playButton = UIButton()
-        playButton.setImage(#imageLiteral(resourceName: "bordered-white-play"), for: .normal)
+      //  playButton.setImage(#imageLiteral(resourceName: "bordered-white-play"), for: .normal)
         return playButton
     }()
     
     private var pauseButton: UIButton = {
         var pauseButton = UIButton()
-        pauseButton.setImage(#imageLiteral(resourceName: "white-bordered-pause"), for: .normal)
+        //pauseButton.setImage(self.mode, for: <#T##UIControlState#>)
+       // pauseButton.setImage(#imageLiteral(resourceName: "white-bordered-pause"), for: .normal)
         return pauseButton
     }()
     
@@ -183,6 +186,8 @@ final class PlayerView: UIView {
         self.model = model
         setupViews()
         backgroundColor = UIColor(red:0.92, green:0.32, blue:0.33, alpha:1.0)
+        model.setControlButton(button: pauseButton)
+        model.setControlButton(button: playButton)
     }
     
     private func sharedLayout(view: UIView) {

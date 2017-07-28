@@ -1,9 +1,7 @@
-//
-//  HomeViewControllerDelegate.swift
-//  PodCatcher
-//
-//  Created by Christopher Webb-Orenstein on 7/27/17.
-//  Copyright © 2017 Christopher Webb-Orenstein. All rights reserved.
-//
+import UIKit
 
-import Foundation
+protocol HomeViewControllerDelegate: class {
+    func didSelect(at index: Int, with caster: PodcastSearchResult, image: UIImage)
+    func didSelect(at index: Int, with subscription: Subscription, image: UIImage)
+    func logout(tapped: Bool)
+}

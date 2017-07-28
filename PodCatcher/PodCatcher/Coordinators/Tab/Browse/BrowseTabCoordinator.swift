@@ -122,7 +122,7 @@ extension BrowseTabCoordinator: PodcastListViewControllerDelegate {
         playerPodcast.index = index
         let playerViewController = PlayerViewController(index: index,
                                                         caster: playerPodcast,
-                                                        image: nil, player: AudioFilePlayer.shared)
+                                                        image: nil)
         playerViewController.delegate = self
         navigationController.viewControllers.append(playerViewController)
     }
@@ -140,7 +140,7 @@ extension BrowseTabCoordinator: PodcastListViewControllerDelegate {
             guard let strongSelf = self else { return }
             let playerViewController = PlayerViewController(index: index,
                                                             caster: playerPodcast,
-                                                            image: nil, player: AudioFilePlayer.shared)
+                                                            image: nil)
             playerViewController.delegate = strongSelf
             
             DispatchQueue.main.async {
@@ -153,6 +153,15 @@ extension BrowseTabCoordinator: PodcastListViewControllerDelegate {
 }
 
 extension BrowseTabCoordinator: PlayerViewControllerDelegate {
+    
+    func backButton(tapped: String) {
+        print(tapped)
+    }
+
+    func playButton(tapped: String) {
+        print(tapped)
+    }
+
     
     func addItemToPlaylist(item: CasterSearchResult, index: Int) {
         PodcastPlaylistItem.addItem(item: item, for: index)
@@ -169,17 +178,30 @@ extension BrowseTabCoordinator: PlayerViewControllerDelegate {
         delegate?.podcastItem(toAdd: item, with: index)
     }
     
-    func skipButton(tapped: Bool) {
-        print("SkipButton tapped \(tapped)")
-    }
     
-    func pauseButton(tapped: Bool) {
-        print("PauseButton tapped \(tapped)")
+    func skipButton(tapped: String) {
+        print(tapped)
     }
     
     func playButton(tapped: Bool) {
-        print("PlayButton tapped \(tapped)")
+        print(tapped)
     }
+    
+    func pauseButton(tapped: String) {
+        print(tapped)
+    }
+    
+//    func skipButton(tapped: Bool) {
+//        print("SkipButton tapped \(tapped)")
+//    }
+//    
+//    func pauseButton(tapped: Bool) {
+//        print("PauseButton tapped \(tapped)")
+//    }
+//    
+//    func playButton(tapped: Bool) {
+//        print("PlayButton tapped \(tapped)")
+//    }
     
     func navigateBack(tapped: Bool) {
         navigationController.setNavigationBarHidden(false, animated: false)

@@ -10,27 +10,29 @@ final class PlayerViewController: BaseViewController {
     // MARK: - UI Properties
     
     var playerView = PlayerView()
-    var playerState: PlayState!
-    var loadingPop: LoadingPopover!
+    var loadingPop: LoadingPopover = LoadingPopover()
     var bottomMenu = BottomMenu()
     var episodes: [Episodes]!
     var caster: CasterSearchResult
     var menuActive: MenuActive = .none
-    var player: AudioFilePlayer
+    
+    var player: AudioFilePlayer {
+        didSet {
+            playerViewModel.state = player.state
+        }
+    }
+    
     var index: Int
     let downloadingIndicator = DownloaderIndicatorView()
     var playerViewModel: PlayerViewModel!
     var network: NetworkService = NetworkService()
     
-    init(index: Int, caster: CasterSearchResult, image: UIImage?, player: AudioFilePlayer) {
-        self.player = player
-        
+    init(index: Int, caster: CasterSearchResult, image: UIImage?) {
+        self.player = AudioFilePlayer.shared
         self.index = index
         self.caster = caster
         self.episodes = caster.episodes
-        if let image = image {
-            playerView.albumImageView.image = image
-        }
+        if let image = image { playerView.albumImageView.image = image }
         super.init(nibName: nil, bundle: nil)
         network.delegate = self
         if let urlString = caster.episodes[index].audioUrlString,
@@ -40,6 +42,7 @@ final class PlayerViewController: BaseViewController {
         }
         self.player.delegate = self
         self.player.observePlayTime()
+        view.addView(view: playerView, type: .full)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -51,14 +54,11 @@ final class PlayerViewController: BaseViewController {
         CALayer.createGradientLayer(with: [UIColor(red:0.94, green:0.31, blue:0.81, alpha:1.0).cgColor, UIColor(red:0.32, green:0.13, blue:0.70, alpha:1.0).cgColor], layer: playerView.backgroundView.layer, bounds: UIScreen.main.bounds)
         guard let artUrl = caster.podcastArtUrlString else { return }
         DispatchQueue.main.async {
-            self.loadingPop = LoadingPopover()
             self.showLoadingView(loadingPop: self.loadingPop)
         }
         playerViewModel = PlayerViewModel(imageUrl: URL(string: artUrl), title: episodes[index].title)
         setModel(model: playerViewModel)
-        view.addView(view: playerView, type: .full)
         playerView.delegate = self
-        playerState = .queued
         playerView.hidePause()
         playerView.artistLabel.text = caster.podcastArtist
         navigationController?.setNavigationBarHidden(true, animated: false)
@@ -69,9 +69,8 @@ final class PlayerViewController: BaseViewController {
         super.viewDidDisappear(animated)
         player.removePeriodicTimeObserver()
         navigationController?.popViewController(animated: false)
-        player.pause()
         hideLoadingView(loadingPop: loadingPop)
-        hidePopMenu()
+        hidePopMenu(playerView)
     }
 }
 
@@ -81,22 +80,28 @@ extension PlayerViewController: PlayerViewDelegate {
     
     func pauseButton(tapped: Bool) {
         player.pause()
+        delegate?.pauseButton(tapped: caster.episodes[index].audioUrlString!)
+        updatePlayerViewModel()
     }
     
     func playButton(tapped: Bool) {
         player.play()
+        delegate?.playButton(tapped: caster.episodes[index].audioUrlString!)
+        updatePlayerViewModel()
     }
     
     func backButton(tapped: Bool) {
         guard index > 0 else { playerView.enableButtons(); return }
         index -= 1
         updateTrack()
+        delegate?.backButton(tapped: caster.episodes[index].audioUrlString!)
     }
     
     func skipButton(tapped: Bool) {
         guard index < caster.episodes.count - 1 else { playerView.enableButtons(); return }
         index += 1
         updateTrack()
+        delegate?.skipButton(tapped: caster.episodes[index].audioUrlString!)
     }
     
     func setModel(model: PlayerViewModel?) {
@@ -105,31 +110,15 @@ extension PlayerViewController: PlayerViewDelegate {
         }
     }
     
-    func initPlayer(url: URL?)  {
-        guard let url = url else { return }
-        player.setUrl(with: url)
-        player.url = url
-        player.playNext(asset: AVURLAsset(url: url))
-    }
-    
     func updateTimeValue(time: Double) {
-        var paused = false
-        if player.state == .playing {
-            paused = true
-            player.pause()
-        }
         guard let duration = player.duration else { return }
         player.currentTime = (time * duration) / 100
         DispatchQueue.main.async { [weak self] in
             guard let currentTime = self?.player.currentTime else { return }
             let timeString = String.constructTimeString(time: currentTime)
             self?.playerView.currentPlayTimeLabel.text = timeString
-            if paused == true {
-                self?.player.play()
-            }
         }
     }
-    
     
     func updatePlayerViewModel() {
         guard let artUrl = caster.podcastArtUrlString else { return }
@@ -152,7 +141,11 @@ extension PlayerViewController: PlayerViewDelegate {
             player.playNext(asset: AVURLAsset(url: url))
         }
         updatePlayerViewModel()
+        playerViewModel.state = player.state
     }
+}
+
+extension PlayerViewController: BottomMenuViewable {
     
     func moreButton(tapped: Bool) {
         let height = view.bounds.height * 0.5
@@ -168,15 +161,7 @@ extension PlayerViewController: PlayerViewDelegate {
         bottomMenu.setMenu(color: .white,
                            borderColor: .darkGray,
                            textColor: .darkGray)
-        showPopMenu()
-    }
-    
-    func hidePopMenu() {
-        bottomMenu.hideFrom(playerView)
-    }
-    
-    func showPopMenu() {
-        bottomMenu.showOn(playerView)
+        showPopMenu(playerView)
     }
 }
 
@@ -188,7 +173,9 @@ extension PlayerViewController: AudioFilePlayerDelegate {
     
     func trackDurationCalculated(stringTime: String, timeValue: Float64) {
         DispatchQueue.main.async { [weak self] in
-            guard let loadingPop = self?.loadingPop, let playerView = self?.playerView else { return }
+            guard let loadingPop = self?.loadingPop,
+                let playerView = self?.playerView
+                else { return }
             self?.playerViewModel.totalTimeString = stringTime
             self?.setModel(model: self?.playerViewModel)
             self?.view.bringSubview(toFront: playerView)
@@ -227,7 +214,7 @@ extension PlayerViewController: MenuDelegate {
             let download = Download(url: urlString)
             network.startDownload(download)
         }
-        hidePopMenu()
+        hidePopMenu(playerView)
     }
     
     func optionThree(tapped: Bool) {
@@ -236,7 +223,7 @@ extension PlayerViewController: MenuDelegate {
     
     func cancel(tapped: Bool) {
         hideLoadingView(loadingPop: loadingPop)
-        hidePopMenu()
+        hidePopMenu(playerView)
     }
     
     func navigateBack(tapped: Bool) {

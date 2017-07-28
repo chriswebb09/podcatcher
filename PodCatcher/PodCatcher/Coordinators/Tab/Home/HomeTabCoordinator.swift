@@ -108,8 +108,7 @@ extension HomeTabCoordinator: PodcastListViewControllerDelegate {
             if let strongSelf = self {
                 let playerViewController = PlayerViewController(index: index,
                                                                 caster: playerPodcast,
-                                                                image: image,
-                                                                player: AudioFilePlayer.shared)
+                                                                image: image)
                 playerViewController.delegate = strongSelf
                 DispatchQueue.main.async {
                     strongSelf.navigationController.navigationBar.isTranslucent = true
@@ -136,8 +135,7 @@ extension HomeTabCoordinator: PodcastListViewControllerDelegate {
             if let strongSelf = self {
                 let playerViewController = PlayerViewController(index: index,
                                                                 caster: playerPodcast,
-                                                                image: nil,
-                                                                player: AudioFilePlayer.shared)
+                                                                image: nil)
                 playerViewController.delegate = strongSelf
                 DispatchQueue.main.async {
                     strongSelf.navigationController.navigationBar.isTranslucent = true
@@ -150,6 +148,15 @@ extension HomeTabCoordinator: PodcastListViewControllerDelegate {
 }
 
 extension HomeTabCoordinator: PlayerViewControllerDelegate {
+    
+    func backButton(tapped: String) {
+        print(tapped)
+    }
+
+    func playButton(tapped: String) {
+        print(tapped)
+    }
+
     
     func addItemToPlaylist(item: CasterSearchResult, index: Int) {
         PodcastPlaylistItem.addItem(item: item, for: index)
@@ -166,16 +173,16 @@ extension HomeTabCoordinator: PlayerViewControllerDelegate {
         delegate?.podcastItem(toAdd: item, with: index)
     }
     
-    func skipButton(tapped: Bool) {
-        print("SkipButton tapped \(tapped)")
+    func skipButton(tapped: String) {
+        print(tapped)
     }
     
-    func pauseButton(tapped: Bool) {
-        print("PauseButton tapped \(tapped)")
+    func pauseButton(tapped: String) {
+        print(tapped)
     }
     
     func playButton(tapped: Bool) {
-        print("PlayButton tapped \(tapped)")
+        print(tapped)
     }
     
     func navigateBack(tapped: Bool) {
