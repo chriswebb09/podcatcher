@@ -50,37 +50,3 @@ extension PlaylistsTabCoordinator: PlaylistsViewControllerDelegate {
         delegate?.transitionCoordinator(type: .app, dataSource: dataSource)
     }
 }
-
-extension PlaylistsTabCoordinator: PlaylistViewControllerDelegate {
-    
-    func didSelectPodcast(at index: Int, with episodes: [PodcastPlaylistItem], caster: CasterSearchResult) {
-        let playerViewController = PlayerViewController(index: index, caster: caster, image: nil, player: AudioFilePlayer.shared)
-        playerViewController.delegate = self
-        navigationController.navigationBar.isTranslucent = true
-        navigationController.viewControllers.append(playerViewController)
-    }
-}
-
-extension PlaylistsTabCoordinator: PlayerViewControllerDelegate {
-    
-    func addItemToPlaylist(item: CasterSearchResult, index: Int) {
-        
-    }
-    
-    func skipButton(tapped: Bool) {
-        print("SkipButton tapped \(tapped)")
-    }
-    
-    func pauseButton(tapped: Bool) {
-        print("PauseButton tapped \(tapped)")
-    }
-    
-    func playButton(tapped: Bool) {
-        print("PlayButton tapped \(tapped)")
-    }
-    
-    func navigateBack(tapped: Bool) {
-        navigationController.setNavigationBarHidden(false, animated: false)
-        navigationController.viewControllers.last?.tabBarController?.tabBar.alpha = 1
-    }
-}

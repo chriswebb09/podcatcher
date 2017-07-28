@@ -39,7 +39,11 @@ extension SearchTabCoordinator: SearchViewControllerDelegate {
         resultsList.item = caster as! CasterSearchResult
         guard let feedUrlString = resultsList.item.feedUrl else { return }
         let store = SearchResultsDataStore()
-        let concurrent = DispatchQueue(label: "concurrentBackground", qos: .background, attributes: .concurrent, autoreleaseFrequency: .inherit, target: nil)
+        let concurrent = DispatchQueue(label: "concurrentBackground",
+                                       qos: .background,
+                                       attributes: .concurrent,
+                                       autoreleaseFrequency: .inherit,
+                                       target: nil)
         concurrent.async { [weak self] in
             guard let strongSelf = self else { return }
             store.pullFeed(for: feedUrlString) { response in
@@ -58,12 +62,19 @@ extension SearchTabCoordinator: SearchViewControllerDelegate {
 extension SearchTabCoordinator: PodcastListViewControllerDelegate {
     
     func didSelectPodcastAt(at index: Int, podcast: CasterSearchResult, with episodes: [Episodes]) {
-        let concurrent = DispatchQueue(label: "concurrentBackground", qos: .background, attributes: .concurrent, autoreleaseFrequency: .inherit, target: nil)
+        let concurrent = DispatchQueue(label: "concurrentBackground",
+                                       qos: .background,
+                                       attributes: .concurrent,
+                                       autoreleaseFrequency: .inherit,
+                                       target: nil)
         concurrent.async { [weak self] in
             guard let strongSelf = self else { return }
             var playerPodcast = podcast
             playerPodcast.episodes = episodes
-            let playerViewController = PlayerViewController(index: index, caster: playerPodcast, image: nil, player: AudioFilePlayer.shared)
+            let playerViewController = PlayerViewController(index: index,
+                                                            caster: playerPodcast,
+                                                            image: nil,
+                                                            player: AudioFilePlayer.shared)
             playerViewController.delegate = strongSelf
             DispatchQueue.main.async {
                 strongSelf.navigationController.setNavigationBarHidden(true, animated: false)

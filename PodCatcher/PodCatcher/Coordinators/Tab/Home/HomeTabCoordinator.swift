@@ -105,7 +105,8 @@ extension HomeTabCoordinator: PodcastListViewControllerDelegate {
             if let strongSelf = self {
                 let playerViewController = PlayerViewController(index: index,
                                                                 caster: playerPodcast,
-                                                                image: image, player: AudioFilePlayer.shared)
+                                                                image: image,
+                                                                player: AudioFilePlayer.shared)
                 playerViewController.delegate = strongSelf
                 DispatchQueue.main.async {
                     strongSelf.navigationController.navigationBar.isTranslucent = true
@@ -132,7 +133,8 @@ extension HomeTabCoordinator: PodcastListViewControllerDelegate {
             if let strongSelf = self {
                 let playerViewController = PlayerViewController(index: index,
                                                                 caster: playerPodcast,
-                                                                image: nil, player: AudioFilePlayer.shared)
+                                                                image: nil,
+                                                                player: AudioFilePlayer.shared)
                 playerViewController.delegate = strongSelf
                 DispatchQueue.main.async {
                     strongSelf.navigationController.navigationBar.isTranslucent = true
