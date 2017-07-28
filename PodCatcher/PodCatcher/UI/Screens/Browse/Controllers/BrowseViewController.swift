@@ -93,26 +93,14 @@ final class BrowseViewController: BaseCollectionViewController {
             }
         }
     }
+}
+
+extension BrowseViewController: UICollectionViewDelegate {
     
     func selectAt() {
         delegate?.didSelect(at: 0, with: dataSource.items[0])
         topView.removeGestureRecognizer(tap)
     }
-    
-    func reachabilityChanged(note: Notification) {
-        guard let reachability = note.object as? Reachability else { return }
-        if reachability.isReachable {
-            print("new is reachabile")
-        } else {
-            DispatchQueue.main.async {
-                self.view.addSubview(self.network)
-                self.view.bringSubview(toFront: self.network)
-            }
-        }
-    }
-}
-
-extension BrowseViewController: UICollectionViewDelegate {
     
     func setup(view: UIView, newLayout: BrowseItemsFlowLayout) {
         newLayout.setup()
@@ -128,11 +116,22 @@ extension BrowseViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.isUserInteractionEnabled = false
         delegate?.didSelect(at: indexPath.row, with: dataSource.items[indexPath.row])
-        
     }
 }
 
 extension BrowseViewController: UIScrollViewDelegate {
+    
+    func reachabilityChanged(note: Notification) {
+        guard let reachability = note.object as? Reachability else { return }
+        if reachability.isReachable {
+            print("new is reachabile")
+        } else {
+            DispatchQueue.main.async {
+                self.view.addSubview(self.network)
+                self.view.bringSubview(toFront: self.network)
+            }
+        }
+    }
     
     func collectionViewConfiguration() {
         setup(view: view, newLayout: BrowseItemsFlowLayout())
