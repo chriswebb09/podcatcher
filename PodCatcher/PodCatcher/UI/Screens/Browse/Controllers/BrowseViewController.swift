@@ -59,44 +59,37 @@ final class BrowseViewController: BaseCollectionViewController {
         collectionView.backgroundColor = .darkGray
         tap = UITapGestureRecognizer(target: self, action: #selector(selectAt))
         topItems = dataSource.items
+        
         DispatchQueue.main.async { [weak self] in
-            if let strongSelf = self {
-                strongSelf.view.bringSubview(toFront: strongSelf.collectionView)
-                strongSelf.collectionView.reloadData()
-            }
+            guard let strongSelf = self else { return }
+            strongSelf.view.bringSubview(toFront: strongSelf.collectionView)
+            strongSelf.collectionView.reloadData()
         }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(reachabilityChanged),
-                                               name: ReachabilityChangedNotification,
-                                               object: reachability)
+        NotificationCenter.default.addObserver(self, selector: #selector(reachabilityChanged), name: ReachabilityChangedNotification, object: reachability)
         do {
             try reachability.startNotifier()
         } catch {
             print("could not start reachability notifier")
         }
         topView.addGestureRecognizer(tap)
-        UIView.animate(withDuration: 0.15) {
-            self.view.alpha = 1
-            self.navigationController?.setNavigationBarHidden(true, animated: false)
-        }
         DispatchQueue.main.async { [weak self] in
-            if let strongSelf = self {
-                strongSelf.collectionView.reloadData()
-            }
+            guard let strongSelf = self else { return }
+            strongSelf.view.alpha = 1
+            strongSelf.navigationController?.setNavigationBarHidden(true, animated: false)
+            strongSelf.collectionView.reloadData()
         }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         DispatchQueue.main.async { [weak self] in
-            if let strongSelf = self {
-                UIView.animate(withDuration: 0.6) {
-                    strongSelf.hideLoadingView(loadingPop: strongSelf.loadingPop)
-                }
+            guard let strongSelf = self else { return }
+            UIView.animate(withDuration: 0.6) {
+                strongSelf.hideLoadingView(loadingPop: strongSelf.loadingPop)
             }
         }
     }
@@ -107,18 +100,9 @@ final class BrowseViewController: BaseCollectionViewController {
     }
     
     func reachabilityChanged(note: Notification) {
-        
         guard let reachability = note.object as? Reachability else { return }
-        
         if reachability.isReachable {
-            if reachability.isReachableViaWiFi {
-                print("Reachable via WiFi")
-            } else {
-                print("Reachable via Cellular")
-            }
-        } else if (reachability.whenUnreachable != nil) {
-            view.addSubview(network)
-            view.bringSubview(toFront: network)
+            print("new is reachabile")
         } else {
             DispatchQueue.main.async {
                 self.view.addSubview(self.network)
