@@ -29,7 +29,6 @@ final class BrowseTabCoordinator: NavigationCoordinator {
     func setupBrowse() {
         let browseViewController = navigationController.viewControllers[0] as! BrowseViewController
         getTopItems { newItems in
-            var list = ["Joe Rogan", "HowStuffWorks", "ESPN, ESPN Films, 30for30", "Matt Behdjou", "Mike & Matt", "Tenderfoot", "Mathis Entertainment, Inc."]
             let concurrentQueue = DispatchQueue(label: "concurrent",
                                                 qos: .background,
                                                 attributes: .concurrent,
@@ -49,11 +48,8 @@ final class BrowseTabCoordinator: NavigationCoordinator {
                         resultItem.forEach { resultingData in
                             guard let resultingData = resultingData else { return }
                             
-                            if let caster = CasterSearchResult(json: resultingData), let artist = caster.podcastArtist {
-                                if !list.contains(artist) {
-                                    results.append(caster)
-                                    
-                                }
+                            if let caster = CasterSearchResult(json: resultingData) {
+                                results.append(caster)
                                 DispatchQueue.main.async {
                                     browseViewController.collectionView.reloadData()
                                 }

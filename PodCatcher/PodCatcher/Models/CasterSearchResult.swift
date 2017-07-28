@@ -34,11 +34,13 @@ struct CasterSearchResult: PodcastSearchResult {
     init() { }
     
     init?(json: [String: Any]) {
+        let list = ["Joe Rogan", "HowStuffWorks", "ESPN, ESPN Films, 30for30", "Matt Behdjou", "Mike & Matt", "Tenderfoot", "Mathis Entertainment, Inc."]
+        guard !list.contains(json["artistName"] as! String) else { return nil }
         guard let artUrl = json["artworkUrl600"] as? String else { return }
         guard let artistName = json["artistName"] as? String else { return }
         guard let trackName = json["trackName"] as? String else { return }
         guard let title = json["collectionName"] as? String else { return }
-        guard let releaseDate = json["releaseDate"] as? String else { return }
+        guard let releaseDate = json["releaseDate"] as? String else { return nil }
         guard let id = json["collectionId"] as? Int else { return }
         guard let feedUrl = json["feedUrl"] as? String else { return }
         let episode = Episodes(mediaUrlString: "", audioUrlSting: "", title: trackName, date: releaseDate, description: "test", duration: 29134, audioUrlString: nil, stringDuration: nil)
