@@ -24,6 +24,7 @@ extension PodcastPlaylistItem {
 
 
 extension PodcastPlaylistItem {
+    @discardableResult
     static func addItem(item: CasterSearchResult, for index: Int) -> PodcastPlaylistItem? {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return nil }
         let managedContext = appDelegate.coreData.managedContext

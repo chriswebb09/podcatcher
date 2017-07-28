@@ -39,6 +39,7 @@
 		A71B27311EE5D6F500613CF4 /* StartCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71B27301EE5D6F500613CF4 /* StartCoordinator.swift */; };
 		A71B27371EE5D87900613CF4 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71B27361EE5D87900613CF4 /* UIView+Extension.swift */; };
 		A71BFB881EE6F62B00A35D8E /* UnderLineTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71BFB871EE6F62B00A35D8E /* UnderLineTextField.swift */; };
+		A71C93721F2ABAAA009F3EC9 /* NetworkServiceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71C93711F2ABAAA009F3EC9 /* NetworkServiceDelegate.swift */; };
 		A71D83DB1F0AC781009D0720 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71D83D91F0AC781009D0720 /* SettingsViewController.swift */; };
 		A71DC1B51F29C9270025133A /* HomeTopBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71DC1B41F29C9270025133A /* HomeTopBarController.swift */; };
 		A723B4151F0EB4F000EA6B27 /* PlaylistsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A723B4131F0EB4F000EA6B27 /* PlaylistsViewController.swift */; };
@@ -196,6 +197,7 @@
 		A71B27301EE5D6F500613CF4 /* StartCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartCoordinator.swift; sourceTree = "<group>"; };
 		A71B27361EE5D87900613CF4 /* UIView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		A71BFB871EE6F62B00A35D8E /* UnderLineTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnderLineTextField.swift; sourceTree = "<group>"; };
+		A71C93711F2ABAAA009F3EC9 /* NetworkServiceDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkServiceDelegate.swift; sourceTree = "<group>"; };
 		A71D83D91F0AC781009D0720 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsViewController.swift; path = PodCatcher/UI/Screens/Settings/Settings/Controllers/SettingsViewController.swift; sourceTree = SOURCE_ROOT; };
 		A71DC1B41F29C9270025133A /* HomeTopBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HomeTopBarController.swift; path = Home/Controllers/HomeTopBarController.swift; sourceTree = "<group>"; };
 		A71DD3701EEF2CE9002BB10A /* FirebaseCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseCore.framework; path = Pods/FirebaseCore/Frameworks/FirebaseCore.framework; sourceTree = "<group>"; };
@@ -921,6 +923,7 @@
 				A7BD12CD1EFF78AB0040FAE5 /* iTunesAPIClient.swift */,
 				A7A762901F13EE3C00D2C4FF /* SearchResultsDataStore.swift */,
 				A7196B2C1F1AE56000FCED5D /* NetworkService.swift */,
+				A71C93711F2ABAAA009F3EC9 /* NetworkServiceDelegate.swift */,
 				A770415D1F29382C00346FC7 /* RSSFeedAPIClient.swift */,
 			);
 			path = NetworkServices;
@@ -1251,6 +1254,7 @@
 				A7A7628F1F13EE0500D2C4FF /* ItemCreator.swift in Sources */,
 				A7B8C3981EF6E18E001AFFA1 /* BaseCollectionViewController.swift in Sources */,
 				A73172811F00466C006A6A24 /* LocalStorageManager.swift in Sources */,
+				A71C93721F2ABAAA009F3EC9 /* NetworkServiceDelegate.swift in Sources */,
 				A77EDF671EE5FC38001A24E5 /* UILabel+Extension.swift in Sources */,
 				A76F0D571F17D21900444025 /* FeedStore.swift in Sources */,
 				A7C620BD1F12813B00A0D33A /* PodcastPlaylist+CoreDataProperties.swift in Sources */,

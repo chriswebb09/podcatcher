@@ -1,10 +1,5 @@
 import UIKit
 
-protocol NetworkServiceDelegate: class {
-    func download(progress updated: Float)
-    func download(location set: String)
-}
-
 final class NetworkService: NSObject {
     
     weak var delegate: NetworkServiceDelegate?

@@ -29,20 +29,26 @@ final class BrowseTabCoordinator: NavigationCoordinator {
     func setupBrowse() {
         let browseViewController = navigationController.viewControllers[0] as! BrowseViewController
         getTopItems { newItems in
+            
             let concurrentQueue = DispatchQueue(label: "concurrent",
                                                 qos: .background,
                                                 attributes: .concurrent,
                                                 autoreleaseFrequency: .inherit,
                                                 target: nil)
+            
             concurrentQueue.async { [weak self] in
                 guard let strongSelf = self else { return }
                 var results = [CasterSearchResult]()
+                
                 for item in newItems {
+                    
                     strongSelf.fetcher.setLookup(term: item.id)
                     strongSelf.fetcher.searchForTracksFromLookup { result in
                         guard let resultItem = result.0 else { return }
+                        
                         resultItem.forEach { resultingData in
                             guard let resultingData = resultingData else { return }
+                            
                             if let caster = CasterSearchResult(json: resultingData) {
                                 results.append(caster)
                                 DispatchQueue.main.async {
@@ -112,13 +118,16 @@ extension BrowseTabCoordinator: BrowseViewControllerDelegate {
     }
     
     func didSelect(at index: Int) {
+        
         let browseViewController = navigationController.viewControllers[0] as! BrowseViewController
         let data = browseViewController.dataSource.podcasts
         let newItem = data[index]
         let resultsList = SearchResultListViewController(index: index)
+        
         resultsList.delegate = self
         resultsList.dataSource = dataSource
         var caster = CasterSearchResult()
+        
         caster.feedUrl = newItem.value(forKey: "podcastFeedUrlString") as? String
         guard let imageData = newItem.value(forKey: "podcastArt") as? Data else { return }
         resultsList.topView.podcastImageView.image = UIImage(data: imageData)
@@ -171,6 +180,7 @@ extension BrowseTabCoordinator: PodcastListViewControllerDelegate {
                                                             caster: playerPodcast,
                                                             image: nil, player: AudioFilePlayer.shared)
             playerViewController.delegate = strongSelf
+            
             DispatchQueue.main.async {
                 strongSelf.navigationController.navigationBar.isTranslucent = true
                 strongSelf.navigationController.navigationBar.alpha = 0
@@ -183,7 +193,7 @@ extension BrowseTabCoordinator: PodcastListViewControllerDelegate {
 extension BrowseTabCoordinator: PlayerViewControllerDelegate {
     
     func addItemToPlaylist(item: CasterSearchResult, index: Int) {
-        guard let newItem = PodcastPlaylistItem.addItem(item: item, for: index) else { return }
+        PodcastPlaylistItem.addItem(item: item, for: index)
         let controller = navigationController.viewControllers.last
         controller?.tabBarController?.selectedIndex = 1
         guard let tab =  controller?.tabBarController else { return }

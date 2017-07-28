@@ -93,9 +93,11 @@ extension HomeTabCoordinator: HomeViewControllerDelegate {
 extension HomeTabCoordinator: PodcastListViewControllerDelegate {
     
     func didSelect(at index: Int, podcast: CasterSearchResult, image: UIImage) {
+        
         var playerPodcast = podcast
         playerPodcast.episodes =  podcast.episodes
         playerPodcast.index = index
+        
         let concurrent = DispatchQueue(label: "concurrentBackground",
                                        qos: .background,
                                        attributes: .concurrent,
@@ -149,7 +151,7 @@ extension HomeTabCoordinator: PodcastListViewControllerDelegate {
 extension HomeTabCoordinator: PlayerViewControllerDelegate {
     
     func addItemToPlaylist(item: CasterSearchResult, index: Int) {
-        guard let newItem = PodcastPlaylistItem.addItem(item: item, for: index) else { return }
+        PodcastPlaylistItem.addItem(item: item, for: index)
         let controller = navigationController.viewControllers.last
         controller?.tabBarController?.selectedIndex = 1
         guard let tab =  controller?.tabBarController else { return }
