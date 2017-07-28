@@ -53,7 +53,6 @@ final class DownloaderIndicatorView: UIView {
     }
     
     func showActivityIndicator(viewController: UIViewController) {
-       // loadingView.frame = UIScreen.main.bounds
         loadingView.center = CGPoint(x: LoadingViewConstants.ActivityIndicator.containerCenterX,
                                        y: LoadingViewConstants.ActivityIndicator.containerCenterY)
         addLoadingView()
