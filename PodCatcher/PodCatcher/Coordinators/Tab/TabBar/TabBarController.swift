@@ -23,16 +23,6 @@ final class TabBarController: UITabBarController {
         tabBar.clipsToBounds = true
     }
     
-    func addBlurEffect() {
-        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
-        let blurEffectView = UIVisualEffectView(effect: blurEffect)
-        blurEffectView.frame = tabBar.bounds
-        blurEffectView.alpha = 0.1
-        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        tabBar.backgroundImage = UIImage.getImageWithColor(color: .clear, size: tabBar.frame.size)
-        tabBar.insertSubview(blurEffectView, at: 0)
-    }
-    
     func setup(with controllers: [UINavigationController]) {
         setTabTitles(controllers: controllers)
     }

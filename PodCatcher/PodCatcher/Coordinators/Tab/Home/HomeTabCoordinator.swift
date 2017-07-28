@@ -34,6 +34,7 @@ extension HomeTabCoordinator: HomeViewControllerDelegate {
         resultsList.item = cast as! CasterSearchResult
         guard let feedUrlString = resultsList.item.feedUrl else { return }
         let store = SearchResultsDataStore()
+        
         store.pullFeed(for: feedUrlString) { response in
             guard let episodes = response.0 else { return }
             DispatchQueue.main.async {
@@ -49,13 +50,16 @@ extension HomeTabCoordinator: HomeViewControllerDelegate {
     }
     
     func didSelect(at index: Int, with subscription: Subscription, image: UIImage) {
+        
         let resultsList = SearchResultListViewController(index: index)
         resultsList.delegate = self
         resultsList.dataSource = dataSource
+        
         guard let feedUrlString = subscription.feedUrl else { return }
         if let imageData =  subscription.artworkImage as Data? {
             resultsList.topView.podcastImageView.image = UIImage(data: imageData)
         }
+        
         let store = SearchResultsDataStore()
         var caster = CasterSearchResult()
         caster.podcastArtUrlString = subscription.artworkImageUrl
@@ -63,11 +67,13 @@ extension HomeTabCoordinator: HomeViewControllerDelegate {
         caster.feedUrl = subscription.feedUrl
         caster.podcastArtist = subscription.podcastArtist
         resultsList.item = caster
+        
         let concurrent = DispatchQueue(label: "concurrentBackground",
                                        qos: .background,
                                        attributes: .concurrent,
                                        autoreleaseFrequency: .inherit,
                                        target: nil)
+        
         concurrent.async { [weak self] in
             if let strongSelf = self {
                 store.pullFeed(for: feedUrlString) { response in
@@ -111,15 +117,17 @@ extension HomeTabCoordinator: PodcastListViewControllerDelegate {
     }
     
     func didSelectPodcastAt(at index: Int, podcast: CasterSearchResult, with episodes: [Episodes]) {
+        
         var playerPodcast = podcast
         playerPodcast.episodes = episodes
-        print("at index: Int, podcast: CasterSearchResult, with episodes: [Episodes])")
         playerPodcast.index = index
+        
         let concurrent = DispatchQueue(label: "concurrentBackground",
                                        qos: .background,
                                        attributes: .concurrent,
                                        autoreleaseFrequency: .inherit,
                                        target: nil)
+        
         concurrent.async { [weak self] in
             if let strongSelf = self {
                 let playerViewController = PlayerViewController(index: index,
@@ -139,15 +147,7 @@ extension HomeTabCoordinator: PodcastListViewControllerDelegate {
 extension HomeTabCoordinator: PlayerViewControllerDelegate {
     
     func addItemToPlaylist(item: CasterSearchResult, index: Int) {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-        let managedContext = appDelegate.coreData.managedContext
-        let newItem = PodcastPlaylistItem(context: managedContext)
-        newItem.audioUrl = item.episodes[index].audioUrlString
-        newItem.artworkUrl = item.podcastArtUrlString
-        newItem.artistId = item.id
-        newItem.episodeTitle = item.episodes[index].title
-        newItem.episodeDescription = item.episodes[index].description
-        newItem.stringDate = item.episodes[index].date
+        guard let newItem = PodcastPlaylistItem.addItem(item: item, for: index) else { return }
         let controller = navigationController.viewControllers.last
         controller?.tabBarController?.selectedIndex = 1
         guard let tab =  controller?.tabBarController else { return }

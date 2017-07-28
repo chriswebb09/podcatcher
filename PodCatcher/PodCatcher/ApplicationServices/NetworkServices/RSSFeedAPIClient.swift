@@ -21,12 +21,12 @@ class RSSFeedAPIClient: NSObject {
     static func requestFeed(for urlString: String, completion: @escaping ([[String: String]]?, Error?) -> Void) {
         guard let url = URL(string: urlString) else { return }
         URLSession(configuration: .ephemeral).dataTask(with: URLRequest(url: url)) { data, response, error in
+            guard let data = data else { return }
             if let error = error {
                 DispatchQueue.main.async {
                     completion(nil, error)
                 }
             } else {
-                guard let data = data else { return }
                 if urlString.hasPrefix("https://www.npr.org/rss/podcast.php") {
                     RSSFeedAPIClient.processNPR(urlString: urlString, data: data) { processedResponse in
                         completion(processedResponse, nil)

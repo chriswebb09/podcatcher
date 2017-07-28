@@ -76,15 +76,7 @@ extension SearchTabCoordinator: PodcastListViewControllerDelegate {
 extension SearchTabCoordinator: PlayerViewControllerDelegate {
     
     func addItemToPlaylist(item: CasterSearchResult, index: Int) {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-        let managedContext = appDelegate.coreData.managedContext
-        let newItem = PodcastPlaylistItem(context: managedContext)
-        newItem.audioUrl = item.episodes[index].audioUrlString
-        newItem.artworkUrl = item.podcastArtUrlString
-        newItem.artistId = item.id
-        newItem.episodeTitle = item.episodes[index].title
-        newItem.episodeDescription = item.episodes[index].description
-        newItem.stringDate = item.episodes[index].date
+        guard let newItem = PodcastPlaylistItem.addItem(item: item, for: index) else { return }
         let controller = navigationController.viewControllers.last as! PlayerViewController
         navigationController.setNavigationBarHidden(false, animated: false)
         controller.tabBarController?.selectedIndex = 1

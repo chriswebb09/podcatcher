@@ -45,6 +45,14 @@ class HomeViewController: BaseCollectionViewController {
         }
     }
     
+    lazy var animator: UIViewPropertyAnimator = {
+        let cubicParameters = UICubicTimingParameters(controlPoint1: CGPoint(x: 0, y: 0.5), controlPoint2: CGPoint(x: 1.0, y: 0.5))
+        let animator = UIViewPropertyAnimator(duration: 1.0, timingParameters: cubicParameters)
+        animator.isInterruptible = true
+        return animator
+    }()
+    
+    
     init(dataSource: BaseMediaControllerDataSource) {
         let homeDataSource = HomeDataSource()
         self.dataSource = homeDataSource
@@ -62,6 +70,62 @@ class HomeViewController: BaseCollectionViewController {
         self.collectionView = collectionView
     }
     
+    
+    
+//    func handleTap(from recognizer: UITapGestureRecognizer) {
+//        let touchPoint = recognizer.location(in: view)
+//        
+//        switch recognizer.state {
+//        case .recognized:
+//            
+//            if animator.isRunning {
+//                animator.stopAnimation(true)
+//            }
+//            
+//            animator.addAnimations {
+//                self.collectionView.frame = CGRect(x: touchPoint.x-30, y: touchPoint.y-30, width: 60, height: 60)
+//                // self.redView.frame = CGRect(x: touchPoint.x-30, y: touchPoint.y-30, width: 60, height: 60)
+//            }
+//            animator.startAnimation()
+//            
+//        default:
+//            break
+//        }
+//    }
+//
+//    func handlePan(from recognizer: UIPanGestureRecognizer) {
+//        
+//        // Get the position of the finger in the controller's view
+//        let touchPoint = recognizer.location(in: view)
+//        
+//        switch recognizer.state {
+//            
+//        // When the gesture began, I check if the animator is running and if it is, then I stop the animation
+//        case .began:
+//            if animator.isRunning {
+//                animator.stopAnimation(true)
+//            }
+//            
+//        // While performing the gesture, I change the color of the view and make the view following the finger
+//        case .changed:
+//            collectionView.center = touchPoint
+//            //            redView.center = touchPoint
+//            //            redView.backgroundColor = UIColor.green
+//            
+//        // If the gesture ends or is cancelled, I add a new animation and start it
+//        case .ended, .cancelled:
+//            //redView.backgroundColor = UIColor.red
+//            animator.addAnimations {
+//                //self.collectionView.frame = CGRect(x: 20, y: 20, width: 60, height: 60)
+//            }
+//            animator.startAnimation()
+//            
+//        default:
+//            break
+//        }
+//    }
+//    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         reloadData()
@@ -75,6 +139,8 @@ class HomeViewController: BaseCollectionViewController {
         CALayer.createGradientLayer(with: [UIColor.white.cgColor, UIColor.darkGray.cgColor], layer: background.layer, bounds: collectionView.bounds)
         rightButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(changeMode))
         rightButtonItem.tintColor = .white
+//        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(from:)))
+//        view.addGestureRecognizer(panGesture)
     }
     
     override func viewWillAppear(_ animated: Bool) {

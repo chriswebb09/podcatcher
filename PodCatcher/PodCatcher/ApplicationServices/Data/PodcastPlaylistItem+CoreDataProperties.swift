@@ -1,4 +1,4 @@
-import Foundation
+import UIKit
 import CoreData
 
 extension PodcastPlaylistItem {
@@ -20,4 +20,20 @@ extension PodcastPlaylistItem {
     @NSManaged public var artistName: String?
     @NSManaged public var artistFeedUrl: String?
 
+}
+
+
+extension PodcastPlaylistItem {
+    static func addItem(item: CasterSearchResult, for index: Int) -> PodcastPlaylistItem? {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return nil }
+        let managedContext = appDelegate.coreData.managedContext
+        let newItem = PodcastPlaylistItem(context: managedContext)
+        newItem.audioUrl = item.episodes[index].audioUrlString
+        newItem.artworkUrl = item.podcastArtUrlString
+        newItem.artistId = item.id
+        newItem.episodeTitle = item.episodes[index].title
+        newItem.episodeDescription = item.episodes[index].description
+        newItem.stringDate = item.episodes[index].date
+        return newItem
+    }
 }
