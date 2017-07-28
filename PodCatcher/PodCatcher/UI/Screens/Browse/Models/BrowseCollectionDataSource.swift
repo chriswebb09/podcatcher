@@ -26,10 +26,14 @@ final class BrowseCollectionDataSource: BaseMediaControllerDataSource {
 extension BrowseCollectionDataSource:  UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if items.count > 0 {
+            reserveItems.append(items[0])
+        }
         return items.count
     }
     
-    fileprivate func setCell(indexPath: IndexPath, cell: TopPodcastCell, rowTime: Double) {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as TopPodcastCell
         if let urlString = items[indexPath.row].podcastArtUrlString,
             let url = URL(string: urlString),
             let title = items[indexPath.row].podcastTitle {
@@ -38,14 +42,6 @@ extension BrowseCollectionDataSource:  UICollectionViewDataSource {
                 cell.configureCell(with: cellViewModel, withTime: 0)
             }
         }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as TopPodcastCell
-        if indexPath.row == 0 || indexPath.row == 1 {
-            reserveItems.append(items[indexPath.row])
-        }
-        setCell(indexPath: indexPath, cell: cell, rowTime: 0)
         return cell
     }
 }
