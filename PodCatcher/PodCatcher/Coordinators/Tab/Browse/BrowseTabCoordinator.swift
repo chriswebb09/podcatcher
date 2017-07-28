@@ -86,10 +86,6 @@ final class BrowseTabCoordinator: NavigationCoordinator {
 
 extension BrowseTabCoordinator: BrowseViewControllerDelegate {
     
-    func logout(tapped: Bool) {
-        delegate?.transitionCoordinator(type: .app, dataSource: dataSource)
-    }
-    
     func didSelect(at index: Int, with caster: PodcastSearchResult) {
         let resultsList = SearchResultListViewController(index: index)
         resultsList.delegate = self
@@ -113,41 +109,6 @@ extension BrowseTabCoordinator: BrowseViewControllerDelegate {
                     strongSelf.navigationController.viewControllers.append(resultsList)
                     browseViewController.collectionView.isUserInteractionEnabled = true
                 }
-            }
-        }
-    }
-    
-    func didSelect(at index: Int) {
-        
-        let browseViewController = navigationController.viewControllers[0] as! BrowseViewController
-        let data = browseViewController.dataSource.podcasts
-        let newItem = data[index]
-        let resultsList = SearchResultListViewController(index: index)
-        
-        resultsList.delegate = self
-        resultsList.dataSource = dataSource
-        var caster = CasterSearchResult()
-        
-        caster.feedUrl = newItem.value(forKey: "podcastFeedUrlString") as? String
-        guard let imageData = newItem.value(forKey: "podcastArt") as? Data else { return }
-        resultsList.topView.podcastImageView.image = UIImage(data: imageData)
-        guard let feedUrlString = caster.feedUrl else { return }
-        
-        let store = SearchResultsDataStore()
-        let concurrent = DispatchQueue(label: "concurrentBackground",
-                                       qos: .background,
-                                       attributes: .concurrent,
-                                       autoreleaseFrequency: .inherit,
-                                       target: nil)
-        concurrent.async { [weak self] in
-            guard let strongSelf = self else { return }
-            store.pullFeed(for: feedUrlString) { response in
-                guard let episodes = response.0 else { return }
-                resultsList.episodes = episodes
-            }
-            DispatchQueue.main.async {
-                resultsList.collectionView.reloadData()
-                strongSelf.navigationController.viewControllers.append(resultsList)
             }
         }
     }

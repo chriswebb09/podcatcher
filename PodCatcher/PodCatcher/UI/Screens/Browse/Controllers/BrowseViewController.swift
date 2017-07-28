@@ -1,11 +1,8 @@
 import UIKit
 import ReachabilitySwift
-import CoreData
 
 protocol BrowseViewControllerDelegate: class {
-    func didSelect(at index: Int)
     func didSelect(at index: Int, with cast: PodcastSearchResult)
-    func logout(tapped: Bool)
 }
 
 final class BrowseItemsFlowLayout: UICollectionViewFlowLayout {
@@ -119,14 +116,8 @@ final class BrowseViewController: BaseCollectionViewController {
     }
     
     func selectAt() {
-        switch dataSource.dataType {
-        case .local:
-            delegate?.didSelect(at: 0)
-            topView.removeGestureRecognizer(tap)
-        case .network:
-            delegate?.didSelect(at: 0, with: dataSource.items[0])
-            topView.removeGestureRecognizer(tap)
-        }
+        delegate?.didSelect(at: 0, with: dataSource.items[0])
+        topView.removeGestureRecognizer(tap)
     }
     
     func reachabilityChanged(note: Notification) {
@@ -166,16 +157,8 @@ extension BrowseViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.isUserInteractionEnabled = false
-        switch dataSource.dataType {
-        case .local:
-            delegate?.didSelect(at: indexPath.row)
-        case .network:
-            delegate?.didSelect(at: indexPath.row, with: dataSource.items[indexPath.row])
-        }
-    }
-    
-    func logoutTapped() {
-        delegate?.logout(tapped: true)
+        delegate?.didSelect(at: indexPath.row, with: dataSource.items[indexPath.row])
+        
     }
 }
 
