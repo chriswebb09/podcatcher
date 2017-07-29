@@ -58,7 +58,7 @@ class HomeViewController: BaseCollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         reloadData()
-        collectionViewConfiguration()
+        collectionViewConfigure(collectionViewDelegate: self, dataSource: dataSource)
         setupCollectionView(view: view, newLayout: HomeItemsFlowLayout())
         collectionView.delegate = self
         collectionView.register(SubscribedPodcastCell.self)
@@ -76,6 +76,9 @@ class HomeViewController: BaseCollectionViewController {
         tabBarController?.tabBar.isHidden = false
         navigationController?.navigationBar.topItem?.title = "Subscribed Podcasts"
     }
+}
+
+extension HomeViewController: UIScrollViewDelegate, CollectionViewProtocol {
     
     func setup(with newLayout: HomeItemsFlowLayout) {
         newLayout.setup()
@@ -154,18 +157,6 @@ extension HomeViewController: UICollectionViewDelegate {
         }
         actionSheetController.addAction(okayAction)
         present(actionSheetController, animated: false)
-    }
-}
-
-extension HomeViewController: UIScrollViewDelegate {
-    
-    func collectionViewConfiguration() {
-        collectionView.delegate = self
-        collectionView.dataSource = dataSource
-        collectionView.isPagingEnabled = true
-        collectionView.isScrollEnabled = true
-        collectionView.decelerationRate = UIScrollViewDecelerationRateFast
-        collectionView.backgroundColor = .clear
     }
 }
 

@@ -2,6 +2,7 @@ import UIKit
 import CoreData
 
 class FeedCoreDataStack {
+    
     var feeds: [NSManagedObject] = []
     
     func save(feedUrl: String, podcastTitle: String, episodeCount: Int, lastUpdate: NSDate, image: UIImage, uid: String, artworkUrlString: String, artistName: String) {

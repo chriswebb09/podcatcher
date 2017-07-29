@@ -5,12 +5,6 @@ enum PlayerState {
     case playing, paused, stopped
 }
 
-protocol AudioFilePlayerDelegate: class {
-    func updateProgress(progress: Double)
-    func trackDurationCalculated(stringTime: String, timeValue: Float64)
-    func trackFinishedPlaying()
-}
-
 final class AudioFilePlayer: NSObject {
     
     var url: URL!
