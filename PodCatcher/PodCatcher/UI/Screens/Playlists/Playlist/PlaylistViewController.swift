@@ -1,14 +1,6 @@
 import UIKit
 import CoreData
 
-enum PlaylistMode {
-    case player, list
-}
-
-protocol PlaylistViewControllerDelegate: class {
-    func didSelectPodcast(at index: Int, with episodes: [PodcastPlaylistItem], caster: CasterSearchResult)
-}
-
 class PlaylistViewController: BaseCollectionViewController {
     
     var item: CasterSearchResult!
@@ -185,16 +177,16 @@ extension PlaylistViewController: UICollectionViewDelegate {
             let cell = collectionView.cellForItem(at: playerIndexPath) as! PodcastPlaylistCell
             if indexPath.row != index {
                 cell.switchAlpha(hidden: true)
-                player.pause()
+                player.playPause()
             } else if indexPath.row == index {
                 switch player.state {
                 case .playing:
-                    player.pause()
+                    player.playPause()
                     let cell = collectionView.cellForItem(at: indexPath) as! PodcastPlaylistCell
                     cell.switchAlpha(hidden: true)
                     player.state = .paused
                 case .paused:
-                    player.play()
+                    player.playPause()
                     let cell = collectionView.cellForItem(at: indexPath) as! PodcastPlaylistCell
                     cell.switchAlpha(hidden: false)
                     player.state = .playing
@@ -294,4 +286,3 @@ extension PlaylistViewController: AudioFilePlayerDelegate {
         print(progress)
     }
 }
-

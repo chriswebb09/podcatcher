@@ -69,4 +69,3 @@ final class PodcastCell: UICollectionViewCell {
         playTimeLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
     }
 }
-

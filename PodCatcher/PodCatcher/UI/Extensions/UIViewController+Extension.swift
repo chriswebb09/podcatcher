@@ -35,4 +35,13 @@ extension UIViewController {
     func hideLoadingView(loadingPop: LoadingPopover) {
         loadingPop.hidePopView(viewController: self)
     }
+    
+    func showError(errorString: String) {
+        let actionSheetController: UIAlertController = UIAlertController(title: "Error", message: errorString, preferredStyle: .alert)
+        let okayAction: UIAlertAction =  UIAlertAction(title: "Okay", style: .cancel) { action in
+            actionSheetController.dismiss(animated: false, completion: nil)
+        }
+        actionSheetController.addAction(okayAction)
+        present(actionSheetController, animated: false)
+    }
 }

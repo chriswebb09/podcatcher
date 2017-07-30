@@ -5,7 +5,7 @@ class CoreDataStack {
     
     private let modelName: String
     
-    private lazy var storeContainer: NSPersistentContainer = {
+    lazy var storeContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: self.modelName)
         container.loadPersistentStores { storeDescription, error in
             if let error = error as NSError? {
@@ -18,6 +18,8 @@ class CoreDataStack {
     lazy var managedContext: NSManagedObjectContext = {
         return self.storeContainer.viewContext
     }()
+    
+    
     
     init(modelName: String) {
         self.modelName = modelName

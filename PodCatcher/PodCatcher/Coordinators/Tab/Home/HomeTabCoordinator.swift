@@ -46,10 +46,6 @@ extension HomeTabCoordinator: HomeViewControllerDelegate {
         }
     }
     
-    func logout(tapped: Bool) {
-        delegate?.transitionCoordinator(type: .app, dataSource: dataSource)
-    }
-    
     func didSelect(at index: Int, with subscription: Subscription, image: UIImage) {
         
         let resultsList = SearchResultListViewController(index: index)
@@ -148,6 +144,10 @@ extension HomeTabCoordinator: PodcastListViewControllerDelegate {
 }
 
 extension HomeTabCoordinator: PlayerViewControllerDelegate {
+    func playPaused(tapped: Bool) {
+        
+    }
+
     
     func backButton(tapped: String) {
         print(tapped)

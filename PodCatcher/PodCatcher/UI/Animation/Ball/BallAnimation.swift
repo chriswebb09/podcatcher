@@ -2,6 +2,42 @@
 
 import UIKit
 
+
+protocol AnimatableView {
+    func animate(from view: UIView, with offset: CGFloat?, completion: ((Bool) -> Void)?)
+}
+
+class SpinAnimation: AnimatableView {
+    fileprivate let AnimationDuration: Double = 0.25
+    fileprivate let AnimationOffset: CGFloat = -40
+    
+    static func animate(from view: UIView, with offset: CGFloat?, completion: ((Bool) -> Void)?) {
+        let animation = SpinAnimation()
+        animation.animate(from: view, with: offset, completion: completion)
+    }
+    
+    func animate(from view: UIView, with offset: CGFloat?, completion: ((Bool) -> Void)?) {
+        let offset  = offset ?? AnimationOffset
+        let offToolbar = CGAffineTransform(translationX: 0, y: offset)
+        
+        UIView.animate(withDuration: AnimationDuration, delay: 0.0, usingSpringWithDamping: 0.6, initialSpringVelocity: 2.0, options: [], animations: { () -> Void in
+            view.transform = offToolbar
+            let rotation = CABasicAnimation(keyPath: "transform.rotation")
+            rotation.toValue = CGFloat(2.0 * Double.pi)
+            rotation.isCumulative = true
+            rotation.duration = self.AnimationDuration + 0.07
+            rotation.repeatCount = 1.0
+            rotation.timingFunction = CAMediaTimingFunction(controlPoints: 0.32, 0.70, 0.18, 1.00)
+            view.layer.add(rotation, forKey: "rotateStar")
+        }, completion: { finished in
+            UIView.animate(withDuration: self.AnimationDuration, delay: 0.15, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [], animations: { finished in
+                view.transform = CGAffineTransform.identity
+            }, completion: completion)
+        })
+    }
+    
+}
+
 protocol AnimationDelegate {
     func setUpAnimation(in layer: CALayer, size: CGSize, color: UIColor)
 }

@@ -12,9 +12,23 @@ class HomeViewController: BaseCollectionViewController {
     let userID: String = "none"
     var mode: HomeInteractionMode = .subscription
     weak var delegate: HomeViewControllerDelegate?
-    var dataSource: HomeDataSource
+    
     var items = [Subscription]()
-    var fetchedResultsController:NSFetchedResultsController<Subscription>!
+    
+    var managedContext: NSManagedObjectContext! {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return nil }
+        let context = appDelegate.persistentContainer.viewContext
+        return context
+    }
+    
+    lazy var fetchedResultsController:NSFetchedResultsController<Subscription> = {
+        let fetchRequest:NSFetchRequest<Subscription> = Subscription.fetchRequest()
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "feedUrl", ascending: true)]
+        var controller = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.managedContext, sectionNameKeyPath: nil, cacheName: nil)
+        try! controller.performFetch()
+        return controller
+    }()
+    
     let persistentContainer = NSPersistentContainer(name: "PodCatcher")
     
     // MARK: - UI Properties
@@ -39,8 +53,6 @@ class HomeViewController: BaseCollectionViewController {
     
     
     init(dataSource: BaseMediaControllerDataSource) {
-        let homeDataSource = HomeDataSource()
-        self.dataSource = homeDataSource
         self.viewShown = .empty
         super.init(nibName: nil, bundle: nil)
         view.addSubview(emptyView)
@@ -57,8 +69,6 @@ class HomeViewController: BaseCollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        reloadData()
-        collectionViewConfigure(collectionViewDelegate: self, dataSource: dataSource)
         setupCollectionView(view: view, newLayout: HomeItemsFlowLayout())
         collectionView.delegate = self
         collectionView.register(SubscribedPodcastCell.self)
@@ -68,6 +78,8 @@ class HomeViewController: BaseCollectionViewController {
         CALayer.createGradientLayer(with: [UIColor.white.cgColor, UIColor.darkGray.cgColor], layer: background.layer, bounds: collectionView.bounds)
         rightButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(changeMode))
         rightButtonItem.tintColor = .white
+        fetchedResultsController.delegate = self
+        reloadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -100,11 +112,10 @@ extension HomeViewController: UIScrollViewDelegate, CollectionViewProtocol {
 
 extension HomeViewController: UICollectionViewDelegate {
     
-    func logoutTapped() {
-        delegate?.logout(tapped: true)
-    }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath)
+        SpinAnimation.animate(from: cell!, with: 2, completion: nil)
         switch mode {
         case .subscription:
             let item = fetchedResultsController.object(at: indexPath)
@@ -118,23 +129,7 @@ extension HomeViewController: UICollectionViewDelegate {
                 actionSheetController.dismiss(animated: false, completion: nil)
             }
             let okayAction: UIAlertAction =  UIAlertAction(title: "Okay", style: .destructive) { action in
-                guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-                let context = appDelegate.persistentContainer.viewContext
-                let feed = self.fetchedResultsController.object(at: indexPath).feedUrl
-                context.delete(self.fetchedResultsController.object(at: indexPath))
-                var subscriptions = UserDefaults.loadSubscriptions()
-                guard let feedUrl = feed else { return }
-                if let index = subscriptions.index(of: feedUrl) {
-                    subscriptions.remove(at: index)
-                    UserDefaults.saveSubscriptions(subscriptions: subscriptions)
-                }
-                self.reloadData()
-                do {
-                    try context.save()
-                } catch let error {
-                    self.showError(errorString: " \(error.localizedDescription)")
-                    print("Unable to Perform Fetch Request \(error), \(error.localizedDescription)")
-                }
+                self.save(for: indexPath)
             }
             
             actionSheetController.addAction(cancelAction)
@@ -150,30 +145,39 @@ extension HomeViewController: UICollectionViewDelegate {
         }
     }
     
-    func showError(errorString: String) {
-        let actionSheetController: UIAlertController = UIAlertController(title: "Error", message: errorString, preferredStyle: .alert)
-        let okayAction: UIAlertAction =  UIAlertAction(title: "Okay", style: .cancel) { action in
-            actionSheetController.dismiss(animated: false, completion: nil)
+    func save(for indexPath: IndexPath) {
+        let feed = self.fetchedResultsController.object(at: indexPath).feedUrl
+        managedContext.delete(self.fetchedResultsController.object(at: indexPath))
+        var subscriptions = UserDefaults.loadSubscriptions()
+        guard let feedUrl = feed else { return }
+        
+        if let index = subscriptions.index(of: feedUrl) {
+            subscriptions.remove(at: index)
+            UserDefaults.saveSubscriptions(subscriptions: subscriptions)
         }
-        actionSheetController.addAction(okayAction)
-        present(actionSheetController, animated: false)
+        
+        reloadData()
+        
+        do {
+            try managedContext.save()
+        } catch let error {
+            self.showError(errorString: " \(error.localizedDescription)")
+            print("Unable to Perform Fetch Request \(error), \(error.localizedDescription)")
+        }
     }
 }
 
 extension HomeViewController: NSFetchedResultsControllerDelegate {
+
+        func reloadData() {
     
-    func reloadData() {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-        let fetchRequest:NSFetchRequest<Subscription> = Subscription.fetchRequest()
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "feedUrl", ascending: true)]
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: appDelegate.persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: nil)
-        do {
-            try fetchedResultsController.performFetch()
-            collectionView.reloadData()
-        } catch let error {
-            showError(errorString: "\(error.localizedDescription)")
+            do {
+                try fetchedResultsController.performFetch()
+                collectionView.reloadData()
+            } catch let error {
+                showError(errorString: "\(error.localizedDescription)")
+            }
         }
-    }
     
     func setupCoordinator() {
         persistentContainer.loadPersistentStores { persistentStoreDescription, error in
@@ -224,4 +228,10 @@ extension HomeViewController: UICollectionViewDataSource {
         }
         return cell
     }
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        print("Change")
+    }
 }
+
+

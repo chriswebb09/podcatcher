@@ -12,7 +12,6 @@ class BaseCollectionViewController: BaseViewController {
         view.addSubview(background)
         view.sendSubview(toBack: background)
         view.addSubview(collectionView)
-        //view.addSubview(emptyView)
         edgesForExtendedLayout = []
         collectionView.setupBackground(frame: view.bounds)
         collectionView.autoresizingMask = [.flexibleHeight, .flexibleWidth, .flexibleTopMargin, .flexibleBottomMargin]

@@ -2,8 +2,24 @@ import Foundation
 
 extension String {
     
+    static func createTimeString(time: Float) -> String {
+        
+        let timeRemainingFormatter: DateComponentsFormatter = {
+            let formatter = DateComponentsFormatter()
+            formatter.zeroFormattingBehavior = .pad
+            formatter.allowedUnits = [.minute, .second]
+            return formatter
+        }()
+        
+        let components = NSDateComponents()
+        components.second = Int(max(0.0, time))
+        return timeRemainingFormatter.string(from: components as DateComponents)!
+    }
+    
     static func constructTimeString(time: Double) -> String {
-
+        if time < 0 {
+            return ""
+        }
         let hours: Int = Int(time / 3600)
         let minutes = Int(time.truncatingRemainder(dividingBy: 3600) / 60)
         let seconds = Int(time.truncatingRemainder(dividingBy: 60))

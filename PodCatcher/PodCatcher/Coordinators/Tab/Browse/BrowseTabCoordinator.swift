@@ -153,6 +153,10 @@ extension BrowseTabCoordinator: PodcastListViewControllerDelegate {
 }
 
 extension BrowseTabCoordinator: PlayerViewControllerDelegate {
+    func playPaused(tapped: Bool) {
+        
+    }
+
     
     func backButton(tapped: String) {
         print(tapped)

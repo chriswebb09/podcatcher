@@ -4,7 +4,7 @@ enum PlaylistCellMode {
     case select, delete
 }
 
-final class PlaylistCell: UITableViewCell {
+final class PlaylistCell: UITableViewCell, Reusable {
     
     static let reuseIdentifier = "PlaylistCell"
     
@@ -63,6 +63,13 @@ final class PlaylistCell: UITableViewCell {
         albumArtView.layer.setCellShadow(contentView: self)
     }
     
+    func configure(image: UIImage, title: String, mode: PlaylistCellMode) {
+        self.mode = mode
+        self.albumArtView.image = image
+        self.titleLabel.text = title.uppercased()
+        self.numberOfItemsLabel.text = "Podcasts"
+    }
+    
     func setupShadow() {
         let shadowOffset = CGSize(width:-0.45, height: 0.2)
         let shadowRadius: CGFloat = 1.0
@@ -109,5 +116,3 @@ final class PlaylistCell: UITableViewCell {
         deleteImageView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.06).isActive = true
     }
 }
-
-extension PlaylistCell: Reusable {}

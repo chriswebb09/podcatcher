@@ -45,8 +45,4 @@ extension PlaylistsTabCoordinator: PlaylistsViewControllerDelegate {
         navigationController.setNavigationBarHidden(false, animated: false)
         controller.tabBarController?.selectedIndex = 2
     }
-    
-    func logout(tapped: Bool) {
-        delegate?.transitionCoordinator(type: .app, dataSource: dataSource)
-    }
 }

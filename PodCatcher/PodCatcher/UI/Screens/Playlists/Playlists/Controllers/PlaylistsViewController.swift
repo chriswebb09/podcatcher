@@ -3,7 +3,6 @@ import CoreData
 
 protocol PlaylistsViewControllerDelegate: class {
     func didAssignPlaylist(with id: String)
-    func logout(tapped: Bool)
 }
 
 final class PlaylistsViewController: BaseTableViewController {
@@ -16,13 +15,26 @@ final class PlaylistsViewController: BaseTableViewController {
     var entryPop: EntryPopover = EntryPopover()
     var mode: PlaylistsInteractionMode = .add
     var index: Int!
-    var userID: String = "none"
     var item: CasterSearchResult!
+    
+    var managedContext: NSManagedObjectContext! {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return nil }
+        let context = appDelegate.persistentContainer.viewContext
+        return context
+    }
+    
+    lazy var fetchedResultsController:NSFetchedResultsController<PodcastPlaylist> = {
+        let fetchRequest:NSFetchRequest<PodcastPlaylist> = PodcastPlaylist.fetchRequest()
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "playlistId", ascending: true)]
+        var controller = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.managedContext, sectionNameKeyPath: nil, cacheName: nil)
+        try! controller.performFetch()
+        return controller
+    }()
+    
     var background = UIView()
     var addItemToPlaylist: PodcastPlaylistItem?
-    var fetchedResultsController:NSFetchedResultsController<PodcastPlaylist>!
-    
-    private let persistentContainer = NSPersistentContainer(name: "PodCatcher")
+    var testDataSource: TableViewDataSource<PlaylistsViewController>!
+    let persistentContainer = NSPersistentContainer(name: "PodCatcher")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,7 +43,7 @@ final class PlaylistsViewController: BaseTableViewController {
         background.frame = UIScreen.main.bounds
         view.addSubview(background)
         view.sendSubview(toBack: background)
-        tableView.dataSource = self
+        
         tableView.backgroundColor = .clear
         CALayer.createGradientLayer(with: [UIColor.white.cgColor, UIColor.lightGray.cgColor], layer: background.layer, bounds: tableView.bounds)
         tableView.register(PlaylistCell.self, forCellReuseIdentifier: PlaylistCell.reuseIdentifier)
@@ -41,7 +53,10 @@ final class PlaylistsViewController: BaseTableViewController {
         rightButtonItem.tintColor = Colors.brightHighlight
         navigationItem.setRightBarButton(rightButtonItem, animated: false)
         navigationItem.setLeftBarButton(leftButtonItem, animated: false)
-        reloadData()
+        fetchedResultsController.fetchRequest
+        testDataSource = TableViewDataSource(tableView: tableView, cellIdentifier: "PlaylistCell", fetchedResultsController: fetchedResultsController, delegate: self)
+        testDataSource.reloadData()
+        tableView.dataSource = testDataSource
     }
     
     func edit() {
@@ -49,43 +64,10 @@ final class PlaylistsViewController: BaseTableViewController {
         if navigationItem.leftBarButtonItem != nil {
             leftButtonItem.title = mode == .edit ? "Done" : "Edit"
         }
-        tableView.reloadData()
-    }
-}
-
-extension PlaylistsViewController: ReloadableTable, UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let count = fetchedResultsController.sections?[section].numberOfObjects {
-            if count <= 0 {
-                tableView.backgroundView?.addSubview(emptyView)
-                navigationItem.leftBarButtonItem = nil
-            } else {
-                emptyView?.removeFromSuperview()
-                navigationItem.setLeftBarButton(leftButtonItem, animated: false)
-            }
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
         }
-        return fetchedResultsController.sections?[section].numberOfObjects ?? 0
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as PlaylistCell
-        switch mode {
-        case .add:
-            cell.mode = .select
-        case .edit:
-            cell.mode = .delete
-        }
-        if let art = fetchedResultsController.object(at: indexPath).artwork {
-            let image = UIImage(data: art as Data)
-            cell.albumArtView.image = image
-        } else {
-            cell.albumArtView.image = #imageLiteral(resourceName: "light-placehoder-2")
-        }
-        let text = fetchedResultsController.object(at: indexPath).playlistName
-        cell.titleLabel.text = text?.uppercased()
-        cell.numberOfItemsLabel.text = "Podcasts"
-        return cell
+        
     }
 }
 
@@ -98,16 +80,18 @@ extension PlaylistsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch mode {
         case .edit:
-            let actionSheetController: UIAlertController = UIAlertController(title: "Are you sure?", message: "Pressing okay will delete this playlist.", preferredStyle: .alert)
-            let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel) { action in
-                actionSheetController.dismiss(animated: false, completion: nil)
+            DispatchQueue.main.async {
+                let actionSheetController: UIAlertController = UIAlertController(title: "Are you sure?", message: "Pressing okay will delete this playlist.", preferredStyle: .alert)
+                let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel) { action in
+                    actionSheetController.dismiss(animated: false, completion: nil)
+                }
+                let okayAction: UIAlertAction =  UIAlertAction(title: "Okay", style: .destructive) { action in
+                    self.editFor(indexPath: indexPath)
+                }
+                actionSheetController.addAction(cancelAction)
+                actionSheetController.addAction(okayAction)
+                self.present(actionSheetController, animated: true, completion: nil)
             }
-            let okayAction: UIAlertAction =  UIAlertAction(title: "Okay", style: .destructive) { action in
-                  self.editFor(indexPath: indexPath)
-            }
-            actionSheetController.addAction(cancelAction)
-            actionSheetController.addAction(okayAction)
-            self.present(actionSheetController, animated: true, completion: nil)
         case .add:
             addFor(indexPath: indexPath)
         }
@@ -125,65 +109,54 @@ extension PlaylistsViewController: UITableViewDelegate {
     
     func add(text: String) {
         reference = .checkList
-        DispatchQueue.main.async { self.reloadData() }
+        DispatchQueue.main.async { self.testDataSource.reloadData() }
         delegate?.didAssignPlaylist(with: text)
     }
     
     func add(text: String, from indexPath: IndexPath) {
         guard let title = fetchedResultsController.object(at: indexPath).playlistName else { return }
-        let playlist = PlaylistViewController(index: 0, player: AudioFilePlayer.shared)
+        let playlist = PlaylistViewController(index: 0, player: AudioFilePlayer())
         playlist.playlistId = text
         playlist.playlistTitle = title
         navigationController?.pushViewController(playlist, animated: false)
     }
     
     func editFor(indexPath: IndexPath) {
+        
         let id = fetchedResultsController.object(at: indexPath).playlistId
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-        let context = appDelegate.persistentContainer.viewContext
-        context.delete(fetchedResultsController.object(at: indexPath))
-        
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "PodcastPlaylistItem")
-        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-        guard let playlistId = id else { return }
-        fetchRequest.predicate = NSPredicate(format: "playlistId == %@", playlistId)
-        
-        do {
-            try appDelegate.persistentContainer.viewContext.execute(deleteRequest)
-        } catch let error as NSError {
-            showError(errorString: "\(error.localizedDescription)")
-        }
-        
-        reloadData()
-        
-        do {
-            try context.save()
-        } catch let error {
-            showError(errorString: "\(error.localizedDescription)")
-        }
-        if let count = fetchedResultsController.fetchedObjects?.count {
-            if count == 0 {
-                mode = .add
-                leftButtonItem.title = "Edit"
+        persistentContainer.performBackgroundTask { _ in
+            self.managedContext.delete(self.fetchedResultsController.object(at: indexPath))
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "PodcastPlaylistItem")
+            let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+            do {
+                try self.managedContext.execute(deleteRequest)
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            } catch let error as NSError {
+                self.showError(errorString: "\(error.localizedDescription)")
+            }
+            self.testDataSource.reloadData()
+            do {
+                try self.managedContext.save()
+            } catch let error {
+                self.showError(errorString: "\(error.localizedDescription)")
+            }
+            if let count = self.fetchedResultsController.fetchedObjects?.count {
+                if count == 0 {
+                    self.mode = .add
+                    self.leftButtonItem.title = "Edit"
+                }
             }
         }
-    }
-    
-    func showError(errorString: String) {
-        let actionSheetController: UIAlertController = UIAlertController(title: "Error", message: errorString, preferredStyle: .alert)
-        let okayAction: UIAlertAction =  UIAlertAction(title: "Okay", style: .cancel) { action in
-            actionSheetController.dismiss(animated: false, completion: nil)
-        }
-        actionSheetController.addAction(okayAction)
-        present(actionSheetController, animated: false)
     }
 }
 
 extension PlaylistsViewController: EntryPopoverDelegate {
     
     func userDidEnterPlaylistName(name: String) {
-        playlistDataStack.save(name: name, uid: userID)
-        reloadData()
+        playlistDataStack.save(name: name, uid: "none")
+        testDataSource.reloadData()
     }
     
     func addPlaylist() {
@@ -197,5 +170,27 @@ extension PlaylistsViewController: EntryPopoverDelegate {
     func hidePop() {
         entryPop.hidePopView(viewController: self)
         tableView.reloadData()
+        testDataSource.reloadData()
+    }
+}
+
+extension PlaylistsViewController: TableViewDataSourceDelegate {
+    
+    typealias Cell = PlaylistCell
+    typealias Object = PodcastPlaylist
+    
+    func configure(_ cell: PlaylistCell, for object: PodcastPlaylist) {
+        var cellMode: PlaylistCellMode = .select
+        switch mode {
+        case .add:
+            cellMode = .select
+        case .edit:
+            cellMode = .delete
+        }
+        if let artWorkImageData = object.artwork as? Data, let artworkImage = UIImage(data: artWorkImageData) {
+            cell.configure(image: artworkImage, title: object.playlistName!, mode: cellMode)
+        } else {
+            cell.configure(image: #imageLiteral(resourceName: "light-placehoder-2"), title: object.playlistName!, mode: cellMode)
+        }
     }
 }

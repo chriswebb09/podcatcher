@@ -3,6 +3,8 @@ import CoreMedia
 import CoreData
 import AVFoundation
 
+private var playerViewControllerKVOContext = 0
+
 final class PlayerViewController: BaseViewController {
     
     weak var delegate: PlayerViewControllerDelegate?
@@ -28,7 +30,7 @@ final class PlayerViewController: BaseViewController {
     var network: NetworkService = NetworkService()
     
     init(index: Int, caster: CasterSearchResult, image: UIImage?) {
-        self.player = AudioFilePlayer.shared
+        self.player = AudioFilePlayer()
         self.index = index
         self.caster = caster
         self.episodes = caster.episodes
@@ -37,13 +39,14 @@ final class PlayerViewController: BaseViewController {
         network.delegate = self
         if let urlString = caster.episodes[index].audioUrlString,
             let url = URL(string: urlString) {
-            player.setUrl(with: url)
-            player.playNext(asset: AVURLAsset(url: url))
+            player.asset = AVURLAsset(url: url)
+            // player.playNext(asset: AVURLAsset(url: url))
         }
         self.player.delegate = self
-        self.player.observePlayTime()
         view.addView(view: playerView, type: .full)
     }
+    
+    private var timeObserverToken: Any?
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -51,6 +54,14 @@ final class PlayerViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        
+        addObserver(self, forKeyPath: #keyPath(PlayerViewController.player.player.currentItem.duration), options: [.new, .initial], context: &playerViewControllerKVOContext)
+        addObserver(self, forKeyPath: #keyPath(PlayerViewController.player.player.rate), options: [.new, .initial], context: &playerViewControllerKVOContext)
+        addObserver(self, forKeyPath: #keyPath(PlayerViewController.player.player.currentItem.status), options: [.new, .initial], context: &playerViewControllerKVOContext)
+        
+        
+        
         CALayer.createGradientLayer(with: [UIColor(red:0.94, green:0.31, blue:0.81, alpha:1.0).cgColor, UIColor(red:0.32, green:0.13, blue:0.70, alpha:1.0).cgColor], layer: playerView.backgroundView.layer, bounds: UIScreen.main.bounds)
         guard let artUrl = caster.podcastArtUrlString else { return }
         DispatchQueue.main.async {
@@ -63,6 +74,15 @@ final class PlayerViewController: BaseViewController {
         playerView.artistLabel.text = caster.podcastArtist
         navigationController?.setNavigationBarHidden(true, animated: false)
         tabBarController?.tabBar.alpha = 0
+        let interval = CMTimeMake(1, 1)
+        
+        timeObserverToken = player.player.addPeriodicTimeObserver(forInterval: interval, queue: DispatchQueue.main) { [unowned self] time in
+            let timeElapsed = Float(CMTimeGetSeconds(time))
+            self.playerView.playtimeSlider.value = Float(timeElapsed)
+            self.playerView.currentPlayTimeLabel.text = String.createTimeString(time: timeElapsed)
+            var timeLeft = (Float(self.player.duration) - timeElapsed)
+            self.playerView.totalPlayTimeLabel.text = String.createTimeString(time: timeLeft)
+        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -71,21 +91,140 @@ final class PlayerViewController: BaseViewController {
         navigationController?.popViewController(animated: false)
         hideLoadingView(loadingPop: loadingPop)
         hidePopMenu(playerView)
+        
+        
+        removeObserver(self, forKeyPath: #keyPath(PlayerViewController.player.player.currentItem.duration), context: &playerViewControllerKVOContext)
+        removeObserver(self, forKeyPath: #keyPath(PlayerViewController.player.player.rate), context: &playerViewControllerKVOContext)
+        removeObserver(self, forKeyPath: #keyPath(PlayerViewController.player.player.currentItem.status), context: &playerViewControllerKVOContext)
+        
+        if let timeObserverToken = timeObserverToken {
+            player.player.removeTimeObserver(timeObserverToken)
+            self.timeObserverToken = nil
+        }
+        
+        player.playPause()
     }
+    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
+        // Make sure the this KVO callback was intended for this view controller.
+        guard context == &playerViewControllerKVOContext else {
+            super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
+            return
+        }
+        
+        if keyPath == #keyPath(PlayerViewController.player.player.currentItem.duration) {
+
+            let newDuration: CMTime
+            if let newDurationAsValue = change?[NSKeyValueChangeKey.newKey] as? NSValue {
+                newDuration = newDurationAsValue.timeValue
+                print("new duration \(newDuration)")
+            }
+            else {
+                newDuration = kCMTimeZero
+            }
+            let hasValidDuration = newDuration.isNumeric && newDuration.value != 0
+            let newDurationSeconds = hasValidDuration ? CMTimeGetSeconds(newDuration) : 0.0
+            print("new duration seconss \(newDurationSeconds)")
+            DispatchQueue.main.async { [weak self] in
+                let currentTime = hasValidDuration ? Float(CMTimeGetSeconds((self?.player.player.currentTime())!)) : 0.0
+                guard let loadingPop = self?.loadingPop,
+                    let playerView = self?.playerView
+                    else { return }
+                self?.playerViewModel.totalTimeString = String.constructTimeString(time: Double(newDurationSeconds))
+                self?.setModel(model: self?.playerViewModel)
+                playerView.playtimeSlider.maximumValue = Float(newDurationSeconds)
+                playerView.playtimeSlider.value = currentTime
+                self?.view.bringSubview(toFront: playerView)
+                self?.hideLoadingView(loadingPop: loadingPop)
+                self?.playerView.enableButtons()
+            }
+            
+            var currentTimeSeconds = CMTimeGetSeconds(self.player.player.currentTime())
+            
+            DispatchQueue.main.async { [weak self] in
+                guard let currentTime = self?.player.player.currentTime() else { return }
+                self?.playerView.currentPlayTimeLabel.text = String.createTimeString(time: Float(currentTimeSeconds))
+                if newDurationSeconds > 0 {
+                     self?.playerView.totalPlayTimeLabel.text = String.constructTimeString(time: newDurationSeconds - currentTimeSeconds)
+                }
+                self?.playerView.update(progressBarValue: Float(currentTimeSeconds))
+            }
+        }
+        
+        else if keyPath == #keyPath(PlayerViewController.player.player.rate) {
+            let newRate = (change?[NSKeyValueChangeKey.newKey] as! NSNumber).doubleValue
+            print("new rate \(newRate)")
+            let buttonImageName = newRate == 1.0 ? "PauseButton" : "PlayButton"
+        }
+        else if keyPath == #keyPath(PlayerViewController.player.player.currentItem.status) {
+            let newStatus: AVPlayerItemStatus
+            
+            if let newStatusAsNumber = change?[NSKeyValueChangeKey.newKey] as? NSNumber {
+                newStatus = AVPlayerItemStatus(rawValue: newStatusAsNumber.intValue)!
+                print("new status \(newStatus)")
+            }
+            else {
+                newStatus = .unknown
+            }
+            
+            if newStatus == .failed {
+                handleErrorWithMessage(player.player.currentItem?.error?.localizedDescription, error:player.player.currentItem?.error)
+            }
+        }
+    }
+    
+    // Trigger KVO for anyone observing our properties affected by player and player.currentItem
+    override class func keyPathsForValuesAffectingValue(forKey key: String) -> Set<String> {
+        let affectedKeyPathsMappingByKey: [String: Set<String>] = [
+            "duration":     [#keyPath(PlayerViewController.player.player.currentItem.duration)],
+            "rate":         [#keyPath(PlayerViewController.player.player.rate)]
+        ]
+        
+        return affectedKeyPathsMappingByKey[key] ?? super.keyPathsForValuesAffectingValue(forKey: key)
+    }
+    
+    // MARK: - Error Handling
+    
+    func handleErrorWithMessage(_ message: String?, error: Error? = nil) {
+        NSLog("Error occured with message: \(message), error: \(error).")
+        
+        let alertTitle = NSLocalizedString("alert.error.title", comment: "Alert title for errors")
+        let defaultAlertMessage = NSLocalizedString("error.default.description", comment: "Default error message when no NSError provided")
+        
+        let alert = UIAlertController(title: alertTitle, message: message == nil ? defaultAlertMessage : message, preferredStyle: UIAlertControllerStyle.alert)
+        
+        let alertActionTitle = NSLocalizedString("alert.error.actions.OK", comment: "OK on error alert")
+        
+        let alertAction = UIAlertAction(title: alertActionTitle, style: .default, handler: nil)
+        
+        alert.addAction(alertAction)
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
 }
+
 
 // MARK: - PlayerViewDelegate
 
 extension PlayerViewController: PlayerViewDelegate {
     
+    func playPause(tapped: Bool) {
+        player.playPause()
+        delegate?.playPaused(tapped: true)
+        //delegate?.playButton(tapped: caster.episodes[index].audioUrlString!)
+        updatePlayerViewModel()
+    }
+
+    
     func pauseButton(tapped: Bool) {
-        player.pause()
+        player.playPause()
         delegate?.pauseButton(tapped: caster.episodes[index].audioUrlString!)
         updatePlayerViewModel()
     }
     
     func playButton(tapped: Bool) {
-        player.play()
+        player.playPause()
         delegate?.playButton(tapped: caster.episodes[index].audioUrlString!)
         updatePlayerViewModel()
     }
@@ -111,8 +250,7 @@ extension PlayerViewController: PlayerViewDelegate {
     }
     
     func updateTimeValue(time: Double) {
-        guard let duration = player.duration else { return }
-        player.currentTime = (time * duration) / 100
+        player.currentTime = (time * player.duration) / 100
         DispatchQueue.main.async { [weak self] in
             guard let currentTime = self?.player.currentTime else { return }
             let timeString = String.constructTimeString(time: currentTime)
@@ -132,13 +270,11 @@ extension PlayerViewController: PlayerViewDelegate {
     }
     
     func updateTrack() {
-        player.pause()
+        player.playPause()
         showLoadingView(loadingPop: loadingPop)
         if let urlString = caster.episodes[index].audioUrlString, let url = URL(string: urlString) {
-            player.setUrl(with: url)
             player.delegate = self
-            self.player.observePlayTime()
-            player.playNext(asset: AVURLAsset(url: url))
+            player.asset = AVURLAsset(url: url)
         }
         updatePlayerViewModel()
         playerViewModel.state = player.state
@@ -171,33 +307,8 @@ extension PlayerViewController: AudioFilePlayerDelegate {
         print("Finished")
     }
     
-    func trackDurationCalculated(stringTime: String, timeValue: Float64) {
-        DispatchQueue.main.async { [weak self] in
-            guard let loadingPop = self?.loadingPop,
-                let playerView = self?.playerView
-                else { return }
-            self?.playerViewModel.totalTimeString = stringTime
-            self?.setModel(model: self?.playerViewModel)
-            self?.view.bringSubview(toFront: playerView)
-            self?.hideLoadingView(loadingPop: loadingPop)
-            self?.playerView.enableButtons()
-        }
-    }
-    
     func updateProgress(progress: Double) {
-        guard let duration = player.duration else { return }
-        if player.currentTime > 0 && duration > 0 {
-            let normalizedTime = player.currentTime * 100.0 / duration
-            DispatchQueue.main.async { [weak self] in
-                guard let currentTime = self?.player.currentTime else { return }
-                self?.playerView.currentPlayTimeLabel.text = String.constructTimeString(time: currentTime)
-                self?.playerView.totalPlayTimeLabel.text = String.constructTimeString(time: (duration - currentTime))
-                self?.playerView.update(progressBarValue: Float(normalizedTime))
-                if normalizedTime >= 100 {
-                    self?.player.player.seek(to: kCMTimeZero)
-                }
-            }
-        }
+
     }
 }
 

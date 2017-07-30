@@ -1,68 +1,133 @@
 import Foundation
 import AVFoundation
 
+public struct NotificationDescriptor<A> {
+    let name: Notification.Name
+    let convert: (Notification) -> A
+}
+
+public extension AVPlayerItem {
+    static let didPlayToEndTime = NotificationDescriptor<()>(name: .AVPlayerItemDidPlayToEndTime) { _ in () }
+}
+
 enum PlayerState {
     case playing, paused, stopped
 }
 
+//private var playerViewControllerKVOContext = 0
+
 final class AudioFilePlayer: NSObject {
+    // MARK: Properties
     
-    var url: URL!
-    static let shared = AudioFilePlayer()
-    var state: PlayerState = .stopped
+    // Attempt load and test these asset keys before playing.
+    static let assetKeysRequiredToPlay = [
+        "playable",
+        "hasProtectedContent"
+    ]
     
-    weak var delegate: AudioFilePlayerDelegate?
-    
-    var player: AVPlayer
-    var playerItem: AVPlayerItem!
+    let player = AVPlayer()
     
     var currentTime: Double {
         get {
             return CMTimeGetSeconds(player.currentTime())
         }
         set {
-            let newTime = CMTimeMakeWithSeconds(newValue, 1000)
+            let newTime = CMTimeMakeWithSeconds(newValue, 1)
             player.seek(to: newTime, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero)
         }
     }
     
-    var duration: Double? {
+    var duration: Double {
         guard let currentItem = player.currentItem else { return 0.0 }
+        
         return CMTimeGetSeconds(currentItem.duration)
     }
     
-    var timeObserver: Any?
-    
-    deinit {
-        if let timeObserverToken = timeObserver {
-            player.removeTimeObserver(timeObserverToken)
-            self.timeObserver = nil
+    var rate: Float {
+        get {
+            return player.rate
+        }
+        
+        set {
+            player.rate = newValue
         }
     }
     
+    var asset: AVURLAsset? {
+        didSet {
+            guard let newAsset = asset else { return }
+            
+            asynchronouslyLoadURLAsset(newAsset)
+        }
+    }
+    
+    weak var delegate: AudioFilePlayerDelegate?
+    var state: PlayerState = .stopped
+    
+    
+    var timeObserver: Any?
+    //
+    var playerItem: AVPlayerItem? = nil {
+        didSet {
+            player.replaceCurrentItem(with: self.playerItem)
+        }
+    }
+    
+    
     override init() {
-        self.player = AVPlayer()
+        // self.player = AVPlayer()
         super.init()
     }
     
+    func playPause() {
+        if player.rate != 1.0 {
+            state = .playing
+            // Not playing forward, so play.
+            if currentTime == duration {
+                // At end, so got back to begining.
+                currentTime = 0.0
+            }
+            
+            player.play()
+        } else {
+            state = .paused
+            // Playing, so pause.
+            player.pause()
+        }
+    }
+    
     func play() {
-        player.playImmediately(atRate: 1)
+        if player.rate != 1.0 {
+            // Not playing forward, so play.
+            if currentTime == duration {
+                // At end, so got back to begining.
+                currentTime = 0.0
+            }
+            
+            player.play()
+        }
+        else {
+            // Playing, so pause.
+            player.pause()
+        }
         state = .playing
     }
     
     func pause() {
-        player.playImmediately(atRate: 0)
+        if player.rate != 1.0 {
+            // Not playing forward, so play.
+            if currentTime == duration {
+                // At end, so got back to begining.
+                currentTime = 0.0
+            }
+            
+            player.play()
+        }
+        else {
+            // Playing, so pause.
+            player.pause()
+        }
         state = .paused
-    }
-    
-    func setUrl(from string: String?) {
-        guard let urlString = string else { return }
-        guard let url = URL(string: urlString) else { return }
-        self.url = url
-    }
-    
-    func setUrl(with url: URL) {
-        self.url = url
     }
     
     func removePeriodicTimeObserver() {
@@ -70,43 +135,56 @@ final class AudioFilePlayer: NSObject {
         player.removeTimeObserver(token)
         timeObserver = nil
     }
-    
-    func playNext(asset: AVURLAsset) {
-        playerItem = AVPlayerItem(asset: asset)
-        player.replaceCurrentItem(with: playerItem)
-        getTrackDuration(asset: asset)
-    }
-    
-    func initPlayer(url: URL?)  {
-        guard let url = url else { return }
-        setUrl(with: url)
-        self.url = url
-        playNext(asset: AVURLAsset(url: url))
-    }
 }
 
 extension AudioFilePlayer: AVAssetResourceLoaderDelegate {
     
-    func getTrackDuration(asset: AVURLAsset?) {
-        guard let asset = asset else { return }
-        asset.loadValuesAsynchronously(forKeys: ["tracks", "duration"]) { [weak self] in
-            let audioDuration = asset.duration
-            let audioDurationSeconds = CMTimeGetSeconds(audioDuration)
-            guard let strongSelf = self else { return }
-            let formattedTime = String.constructTimeString(time: Double(audioDurationSeconds))
-            strongSelf.delegate?.trackDurationCalculated(stringTime: formattedTime, timeValue: audioDurationSeconds)
-        }
-    }
+    // MARK: - Asset Loading
     
-    func observePlayTime() {
-        let interval = CMTime(seconds: 0.5, preferredTimescale: CMTimeScale(NSEC_PER_SEC))
-        let mainQueue = DispatchQueue.main
-        timeObserver = player.addPeriodicTimeObserver(forInterval: interval, queue: mainQueue) { [weak self] time in
-            guard let strongSelf = self else { return }
-            guard let currentItem = strongSelf.player.currentItem else { return }
-            let fraction = CMTimeGetSeconds(time) / CMTimeGetSeconds(currentItem.duration)
-            let time = fraction / 450
-            strongSelf.delegate?.updateProgress(progress: time)
+    func asynchronouslyLoadURLAsset(_ newAsset: AVURLAsset) {
+        /*
+         Using AVAsset now runs the risk of blocking the current thread (the
+         main UI thread) whilst I/O happens to populate the properties. It's
+         prudent to defer our work until the properties we need have been loaded.
+         */
+        newAsset.loadValuesAsynchronously(forKeys: AudioFilePlayer.assetKeysRequiredToPlay) {
+            /*
+             The asset invokes its completion handler on an arbitrary queue.
+             To avoid multiple threads using our internal state at the same time
+             we'll elect to use the main thread at all times, let's dispatch
+             our handler to the main queue.
+             */
+            DispatchQueue.main.async {
+                /*
+                 `self.asset` has already changed! No point continuing because
+                 another `newAsset` will come along in a moment.
+                 */
+                guard newAsset == self.asset else { return }
+                
+                /*
+                 Test whether the values of each of the keys we need have been
+                 successfully loaded.
+                 */
+                for key in AudioFilePlayer.assetKeysRequiredToPlay {
+                    var error: NSError?
+                    
+                    if newAsset.statusOfValue(forKey: key, error: &error) == .failed {
+                        let stringFormat = NSLocalizedString("error.asset_key_%@_failed.description", comment: "Can't use this AVAsset because one of it's keys failed to load")
+                        
+                        let message = String.localizedStringWithFormat(stringFormat, key)
+                        print(message)
+                        // self.handleErrorWithMessage(message, error: error)
+                        
+                        return
+                    }
+                }
+                if !newAsset.isPlayable || newAsset.hasProtectedContent {
+                    let message = NSLocalizedString("error.asset_not_playable.description", comment: "Can't use this AVAsset because it isn't playable or has protected content")
+                    print(message)
+                    return
+                }
+                self.playerItem = AVPlayerItem(asset: newAsset)
+            }
         }
     }
     

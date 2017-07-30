@@ -55,7 +55,8 @@ final class BrowseViewController: BaseCollectionViewController {
         collectionViewConfiguration()
         
         network.frame = view.frame
-        collectionView.register(TopPodcastCell.self)
+        collectionView.register(TopPodcastCell)
+        //collectionView.register(TopPodcastCell.self)
         collectionView.backgroundColor = .darkGray
         tap = UITapGestureRecognizer(target: self, action: #selector(selectAt))
         topItems = dataSource.items

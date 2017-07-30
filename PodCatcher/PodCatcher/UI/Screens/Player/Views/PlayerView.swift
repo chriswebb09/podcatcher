@@ -102,7 +102,6 @@ final class PlayerView: UIView {
         slider.setThumbImage(slider.handleImage(with: .white), for: .normal)
         slider.setThumbImage(thumbImage, for: .selected)
         slider.minimumValue = 0
-        slider.maximumValue = 100
         slider.tintColor = .white
         slider.isUserInteractionEnabled = true
         return slider
@@ -387,7 +386,7 @@ final class PlayerView: UIView {
     
     @objc private func playButtonTapped() {
         model.switchButtonAlpha(for: pauseButton, withButton: playButton)
-        delegate?.playButton(tapped: true)
+        delegate?.playPause(tapped: true)
     }
     
     @objc private func pauseButtonTapped() {
