@@ -1,10 +1,6 @@
 import UIKit
 import CoreData
 
-protocol PlaylistsViewControllerDelegate: class {
-    func didAssignPlaylist(with id: String)
-}
-
 final class PlaylistsViewController: BaseTableViewController {
     
     weak var delegate: PlaylistsViewControllerDelegate?

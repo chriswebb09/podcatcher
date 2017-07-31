@@ -15,7 +15,6 @@ extension Sequence where Iterator.Element: AnyObject {
     }
 }
 
-
 extension Array {
     var decomposed: (Iterator.Element, [Iterator.Element])? {
         guard let x = first else { return nil }

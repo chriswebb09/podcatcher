@@ -115,9 +115,9 @@ extension HomeViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath)
-        SpinAnimation.animate(from: cell!, with: 2, completion: nil)
         switch mode {
         case .subscription:
+            SpinAnimation.animate(from: cell!, with: 2, completion: nil)
             let item = fetchedResultsController.object(at: indexPath)
             var caster = CasterSearchResult()
             caster.feedUrl = item.feedUrl

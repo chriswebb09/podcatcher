@@ -20,7 +20,6 @@ final class NoSearchResultsView: UIView {
     private var podcastIcon: UIImageView = {
         var network = UIImageView()
         network.image = #imageLiteral(resourceName: "GrayPodcasts-icon copy").withRenderingMode(.alwaysTemplate)
-        // network.image =
         return network
     }()
     

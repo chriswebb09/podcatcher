@@ -25,6 +25,6 @@ protocol PlayerViewDelegate: class {
     func skipButton(tapped: Bool)
     func backButton(tapped: Bool)
     func moreButton(tapped: Bool)
-    func updateTimeValue(time: Double)
+    //func updateTimeValue(time: Double)
     func navigateBack(tapped: Bool)
 }

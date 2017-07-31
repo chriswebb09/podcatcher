@@ -126,7 +126,6 @@ extension BrowseViewController: UICollectionViewDelegate {
 extension BrowseViewController: UIScrollViewDelegate {
     
     func reachabilityChanged(note: Notification) {
-        guard let reachability = note.object as? Reachability else { return }
         if reachability.isReachable {
             print("new is reachabile")
         } else {

@@ -172,39 +172,54 @@ extension PlaylistViewController: UIScrollViewDelegate {
 extension PlaylistViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let item = fetchedResultsController.object(at: indexPath)
+        let artData = item.artwork as! Data
+        let artImage = UIImage(data: artData)
+        topView.podcastImageView.image = artImage
+        
+        // topView.podcastImageView.image = item.
         if let index = selectedSongIndex {
+            
             let playerIndexPath = IndexPath(item: index, section: 0)
             let cell = collectionView.cellForItem(at: playerIndexPath) as! PodcastPlaylistCell
             if indexPath.row != index {
                 cell.switchAlpha(hidden: true)
                 player.playPause()
             } else if indexPath.row == index {
-                switch player.state {
-                case .playing:
-                    player.playPause()
-                    let cell = collectionView.cellForItem(at: indexPath) as! PodcastPlaylistCell
-                    cell.switchAlpha(hidden: true)
-                    player.state = .paused
-                case .paused:
-                    player.playPause()
-                    let cell = collectionView.cellForItem(at: indexPath) as! PodcastPlaylistCell
-                    cell.switchAlpha(hidden: false)
-                    player.state = .playing
-                case .stopped:
-                    break
-                }
-                return
+                let cell = collectionView.cellForItem(at: indexPath) as! PodcastPlaylistCell
+                cell.switchAlpha(hidden: true)
+//                switch player.state {
+//                case .playing:
+//                    player.playPause()
+//                    let cell = collectionView.cellForItem(at: indexPath) as! PodcastPlaylistCell
+//                    cell.switchAlpha(hidden: true)
+//                    player.state = .paused
+//                    cell.playButton.isHidden = false
+//                    cell.pauseButton.isHidden = true
+//                case .paused:
+//                    player.playPause()
+//                    let cell = collectionView.cellForItem(at: indexPath) as! PodcastPlaylistCell
+//                    cell.switchAlpha(hidden: false)
+//                    player.state = .playing
+//                    cell.playButton.isHidden = true
+//                    cell.pauseButton.isHidden = false
+//                case .stopped:
+//                    break
+//                }
+//                return
             }
         }
-        guard let items = fetchedResultsController.fetchedObjects else { return }
-        switch player.state {
-        case .playing:
-            break
-        case .paused:
-            break
-        case .stopped:
-            break
-        }
+        let cell = collectionView.cellForItem(at: indexPath) as! PodcastPlaylistCell
+        cell.switchAlpha(hidden: false)
+       // guard let items = fetchedResultsController.fetchedObjects else { return }
+//        switch player.state {
+//        case .playing:
+//            break
+//        case .paused:
+//            break
+//        case .stopped:
+//            break
+//        }
         selectedSongIndex = indexPath.row
     }
 }

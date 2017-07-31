@@ -12,9 +12,9 @@ final class PlayerView: UIView {
             if let imageUrl = model.imageUrl {
                 albumImageView.downloadImage(url: imageUrl)
             }
-            model.setControlButton(button: pauseButton)
-            model.setControlButton(button: playButton)
-            totalPlayTimeLabel.text = model.totalTimeString
+           // model.setControlButton(button: pauseButton)
+           // model.setControlButton(button: playButton)
+           // totalPlayTimeLabel.text = model.totalTimeString
         }
     }
     
@@ -121,13 +121,11 @@ final class PlayerView: UIView {
         return currentPlayTime
     }()
     
-    var totalPlayTimeLabel: UILabel = {
-        let totalPlayTime = UILabel()
-        totalPlayTime.textAlignment = .right
-        totalPlayTime.textColor = .white
-        totalPlayTime.font = UIFont.systemFont(ofSize: 12, weight: UIFontWeightThin)
-        return totalPlayTime
-    }()
+    var totalPlayTimeLabel: UILabel = UILabel() {
+        didSet {
+            print(totalPlayTimeLabel.text)
+        }
+    }
     
     private var controlsView: UIView = {
         let controls = UIView()
@@ -137,14 +135,11 @@ final class PlayerView: UIView {
     
     private var playButton: UIButton = {
         var playButton = UIButton()
-      //  playButton.setImage(#imageLiteral(resourceName: "bordered-white-play"), for: .normal)
         return playButton
     }()
     
     private var pauseButton: UIButton = {
         var pauseButton = UIButton()
-        //pauseButton.setImage(self.mode, for: <#T##UIControlState#>)
-       // pauseButton.setImage(#imageLiteral(resourceName: "white-bordered-pause"), for: .normal)
         return pauseButton
     }()
     
@@ -185,8 +180,12 @@ final class PlayerView: UIView {
         self.model = model
         setupViews()
         backgroundColor = UIColor(red:0.92, green:0.32, blue:0.33, alpha:1.0)
-        model.setControlButton(button: pauseButton)
-        model.setControlButton(button: playButton)
+//        model.setControlButton(button: pauseButton)
+//        model.setControlButton(button: playButton)
+    }
+    
+    func updateViewModel(model: PlayerViewModel) {
+        self.model = model 
     }
     
     private func sharedLayout(view: UIView) {
@@ -204,6 +203,9 @@ final class PlayerView: UIView {
     
     func setup(navigationButton: UIButton) {
         navBar.addSubview(navigationButton)
+        self.totalPlayTimeLabel.textAlignment = .right
+        self.totalPlayTimeLabel.textColor = .white
+        self.totalPlayTimeLabel.font = UIFont.systemFont(ofSize: 12, weight: UIFontWeightThin)
         navigationButton.translatesAutoresizingMaskIntoConstraints = false
         navigationButton.leftAnchor.constraint(equalTo: navBar.leftAnchor, constant: UIScreen.main.bounds.width * 0.01).isActive = true
         navigationButton.centerYAnchor.constraint(equalTo: navBar.centerYAnchor).isActive = true
@@ -224,6 +226,13 @@ final class PlayerView: UIView {
         sharedLayout(view: titleView)
         titleView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: PlayerViewConstants.trackTitleViewHeightMultiplier).isActive = true
         titleView.bottomAnchor.constraint(equalTo: centerYAnchor, constant: UIScreen.main.bounds.height * 0.2).isActive = true
+    }
+    
+    func setButtonImages(image: UIImage) {
+        DispatchQueue.main.async {
+            self.playButton.setImage(image, for: .normal)
+            self.pauseButton.setImage(image, for: .normal)
+        }
     }
     
     private func setup(titleLabel: UILabel) {
@@ -381,7 +390,7 @@ final class PlayerView: UIView {
     @objc private func sliderValueChanged() {
         let timeString = String.constructTimeString(time: Double(playtimeSlider.value))
         currentPlayTimeLabel.text = timeString
-        delegate?.updateTimeValue(time: Double(playtimeSlider.value))
+        //delegate?.updateTimeValue(time: Double(playtimeSlider.value))
     }
     
     @objc private func playButtonTapped() {

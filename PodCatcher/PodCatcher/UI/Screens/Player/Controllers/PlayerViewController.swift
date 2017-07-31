@@ -3,6 +3,8 @@ import CoreMedia
 import CoreData
 import AVFoundation
 
+
+
 private var playerViewControllerKVOContext = 0
 
 final class PlayerViewController: BaseViewController {
@@ -18,11 +20,23 @@ final class PlayerViewController: BaseViewController {
     var caster: CasterSearchResult
     var menuActive: MenuActive = .none
     
+    public var didPlayToEnd: (() -> ())?
+    private var didPlayToEndTimeToken: NotificationToken?
+    
+    var durationText = "" {
+        didSet {
+           // playerView.totalPlayTimeLabel.t
+            print(durationText)
+        }
+    }
+    
     var player: AudioFilePlayer {
         didSet {
             playerViewModel.state = player.state
         }
     }
+    
+    //  var temporaryDuration:
     
     var index: Int
     let downloadingIndicator = DownloaderIndicatorView()
@@ -40,7 +54,6 @@ final class PlayerViewController: BaseViewController {
         if let urlString = caster.episodes[index].audioUrlString,
             let url = URL(string: urlString) {
             player.asset = AVURLAsset(url: url)
-            // player.playNext(asset: AVURLAsset(url: url))
         }
         self.player.delegate = self
         view.addView(view: playerView, type: .full)
@@ -55,12 +68,9 @@ final class PlayerViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        
         addObserver(self, forKeyPath: #keyPath(PlayerViewController.player.player.currentItem.duration), options: [.new, .initial], context: &playerViewControllerKVOContext)
         addObserver(self, forKeyPath: #keyPath(PlayerViewController.player.player.rate), options: [.new, .initial], context: &playerViewControllerKVOContext)
         addObserver(self, forKeyPath: #keyPath(PlayerViewController.player.player.currentItem.status), options: [.new, .initial], context: &playerViewControllerKVOContext)
-        
-        
         
         CALayer.createGradientLayer(with: [UIColor(red:0.94, green:0.31, blue:0.81, alpha:1.0).cgColor, UIColor(red:0.32, green:0.13, blue:0.70, alpha:1.0).cgColor], layer: playerView.backgroundView.layer, bounds: UIScreen.main.bounds)
         guard let artUrl = caster.podcastArtUrlString else { return }
@@ -76,18 +86,36 @@ final class PlayerViewController: BaseViewController {
         tabBarController?.tabBar.alpha = 0
         let interval = CMTimeMake(1, 1)
         
-        timeObserverToken = player.player.addPeriodicTimeObserver(forInterval: interval, queue: DispatchQueue.main) { [unowned self] time in
+        timeObserverToken = player.player.addPeriodicTimeObserver(forInterval: interval, queue: DispatchQueue.main) { [weak self] time in
             let timeElapsed = Float(CMTimeGetSeconds(time))
-            self.playerView.playtimeSlider.value = Float(timeElapsed)
-            self.playerView.currentPlayTimeLabel.text = String.createTimeString(time: timeElapsed)
-            var timeLeft = (Float(self.player.duration) - timeElapsed)
-            self.playerView.totalPlayTimeLabel.text = String.createTimeString(time: timeLeft)
+            DispatchQueue.main.async {
+                if let strongSelf = self {
+                    
+                    strongSelf.playerView.playtimeSlider.value = Float(timeElapsed)
+                    strongSelf.playerView.currentPlayTimeLabel.text = String.createTimeString(time: timeElapsed)
+                    var timeLeft = (Float(strongSelf.player.duration) - timeElapsed)
+                    print(timeLeft)
+                    strongSelf.playerView.totalPlayTimeLabel.text = String.createTimeString(time: timeLeft)
+                }
+                
+            }
         }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        didPlayToEnd = done
+        if let playerItem = player.player.currentItem {
+            didPlayToEndTimeToken = NotificationCenter.default.addObserver(descriptor: AVPlayerItem.didPlayToEndTime, object: playerItem) { [unowned self] _ in
+                self.didPlayToEnd?()
+            }
+        }
+        
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        player.removePeriodicTimeObserver()
+        // player.removePeriodicTimeObserver()
         navigationController?.popViewController(animated: false)
         hideLoadingView(loadingPop: loadingPop)
         hidePopMenu(playerView)
@@ -101,74 +129,114 @@ final class PlayerViewController: BaseViewController {
             player.player.removeTimeObserver(timeObserverToken)
             self.timeObserverToken = nil
         }
-        
+        didPlayToEndTimeToken = nil
         player.playPause()
     }
     
+    func done() {
+        print("done")
+    }
+    
+    private func setupPlayerPeriodicTimeObserver() {
+        // Only add the time observer if one hasn't been created yet.
+        guard timeObserverToken == nil else { return }
+        
+        let time = CMTimeMake(1, 1)
+        
+        // Use a weak self variable to avoid a retain cycle in the block.
+        timeObserverToken = player.player.addPeriodicTimeObserver(forInterval: time, queue: DispatchQueue.main) {
+            [weak self] time in
+            guard let strongSelf = self else { return }
+            strongSelf.playerView.playtimeSlider.value = Float(CMTimeGetSeconds(time))
+            } as AnyObject?
+    }
+    
+    private func cleanUpPlayerPeriodicTimeObserver() {
+        if let timeObserverToken = timeObserverToken {
+            player.player.removeTimeObserver(timeObserverToken)
+            self.timeObserverToken = nil
+        }
+    }
+    
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
+        
         // Make sure the this KVO callback was intended for this view controller.
+        
         guard context == &playerViewControllerKVOContext else {
             super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
             return
         }
         
         if keyPath == #keyPath(PlayerViewController.player.player.currentItem.duration) {
-
+            
             let newDuration: CMTime
             if let newDurationAsValue = change?[NSKeyValueChangeKey.newKey] as? NSValue {
                 newDuration = newDurationAsValue.timeValue
-                print("new duration \(newDuration)")
-            }
-            else {
+            } else {
                 newDuration = kCMTimeZero
             }
+            
             let hasValidDuration = newDuration.isNumeric && newDuration.value != 0
             let newDurationSeconds = hasValidDuration ? CMTimeGetSeconds(newDuration) : 0.0
-            print("new duration seconss \(newDurationSeconds)")
+            
+            
+            print("new duration seconds \(newDurationSeconds)")
             DispatchQueue.main.async { [weak self] in
-                let currentTime = hasValidDuration ? Float(CMTimeGetSeconds((self?.player.player.currentTime())!)) : 0.0
+                guard let strongSelf = self else { return }
+                // let currentTime = hasValidDuration ? Float(CMTimeGetSeconds((self?.player.player.currentTime())!)) : 0.0
                 guard let loadingPop = self?.loadingPop,
                     let playerView = self?.playerView
                     else { return }
-                self?.playerViewModel.totalTimeString = String.constructTimeString(time: Double(newDurationSeconds))
-                self?.setModel(model: self?.playerViewModel)
                 playerView.playtimeSlider.maximumValue = Float(newDurationSeconds)
-                playerView.playtimeSlider.value = currentTime
-                self?.view.bringSubview(toFront: playerView)
-                self?.hideLoadingView(loadingPop: loadingPop)
-                self?.playerView.enableButtons()
+                playerView.playtimeSlider.value = 0
+                strongSelf.view.bringSubview(toFront: playerView)
+                strongSelf.hideLoadingView(loadingPop: loadingPop)
+                strongSelf.playerView.enableButtons()
             }
-            
-            var currentTimeSeconds = CMTimeGetSeconds(self.player.player.currentTime())
             
             DispatchQueue.main.async { [weak self] in
-                guard let currentTime = self?.player.player.currentTime() else { return }
-                self?.playerView.currentPlayTimeLabel.text = String.createTimeString(time: Float(currentTimeSeconds))
-                if newDurationSeconds > 0 {
-                     self?.playerView.totalPlayTimeLabel.text = String.constructTimeString(time: newDurationSeconds - currentTimeSeconds)
-                }
-                self?.playerView.update(progressBarValue: Float(currentTimeSeconds))
+                guard let strongSelf = self else { return }
+                let currentTime = strongSelf.player.player.currentTime()
+                let currentSeconds = CMTimeGetSeconds(currentTime)
+                strongSelf.playerView.currentPlayTimeLabel.text = String.createTimeString(time: Float(currentSeconds))
+                strongSelf.playerView.update(progressBarValue: Float(currentSeconds))
             }
-        }
-        
-        else if keyPath == #keyPath(PlayerViewController.player.player.rate) {
+            
+        } else if keyPath == #keyPath(PlayerViewController.player.player.rate) {
             let newRate = (change?[NSKeyValueChangeKey.newKey] as! NSNumber).doubleValue
-            print("new rate \(newRate)")
-            let buttonImageName = newRate == 1.0 ? "PauseButton" : "PlayButton"
+            let buttonImageName = newRate == 1.0 ? #imageLiteral(resourceName: "white-bordered-pause") : #imageLiteral(resourceName: "play-icon")
+            DispatchQueue.main.async {
+                self.playerView.setButtonImages(image: buttonImageName)
+            }
+            
         }
         else if keyPath == #keyPath(PlayerViewController.player.player.currentItem.status) {
             let newStatus: AVPlayerItemStatus
             
             if let newStatusAsNumber = change?[NSKeyValueChangeKey.newKey] as? NSNumber {
                 newStatus = AVPlayerItemStatus(rawValue: newStatusAsNumber.intValue)!
-                print("new status \(newStatus)")
             }
             else {
                 newStatus = .unknown
             }
             
             if newStatus == .failed {
-                handleErrorWithMessage(player.player.currentItem?.error?.localizedDescription, error:player.player.currentItem?.error)
+                //handleErrorWithMessage(self.player.player.currentTime().error?.localizedDescription, error:player.currentItem?.error)
+            } else if newStatus == .readyToPlay {
+                print("READY TO PLAY")
+                
+                print(player.player.currentItem?.duration)
+                DispatchQueue.main.async { [weak self] in
+                    guard let strongSelf = self else { return }
+                    guard let currentTime = self?.player.player.currentTime() else { return }
+                    let currentSeconds = CMTimeGetSeconds(currentTime)
+                    let durationSeconds = CMTimeGetSeconds((strongSelf.player.player.currentItem?.duration)!)
+                    strongSelf.playerView.currentPlayTimeLabel.text = String.createTimeString(time: Float(currentSeconds))
+                    //if newDurationSeconds > 0 {
+                    strongSelf.durationText = String.constructTimeString(time: durationSeconds)
+                    strongSelf.playerView.totalPlayTimeLabel.text = String.constructTimeString(time: durationSeconds)
+                    //}
+                }
             }
         }
     }
@@ -212,10 +280,17 @@ extension PlayerViewController: PlayerViewDelegate {
     func playPause(tapped: Bool) {
         player.playPause()
         delegate?.playPaused(tapped: true)
-        //delegate?.playButton(tapped: caster.episodes[index].audioUrlString!)
-        updatePlayerViewModel()
+        guard let artUrl = caster.podcastArtUrlString else { return }
+        DispatchQueue.main.async { [weak self] in
+            guard let strongSelf = self else { return }
+            guard let index = self?.index, let caster = self?.caster else { return }
+            strongSelf.playerViewModel = PlayerViewModel(imageUrl: URL(string: artUrl), title: caster.episodes[index].title)
+            guard let model = self?.playerViewModel else { return }
+            strongSelf.playerView.updateViewModel(model: model)
+            strongSelf.title = caster.episodes[index].title
+        }
     }
-
+    
     
     func pauseButton(tapped: Bool) {
         player.playPause()
@@ -249,15 +324,6 @@ extension PlayerViewController: PlayerViewDelegate {
         }
     }
     
-    func updateTimeValue(time: Double) {
-        player.currentTime = (time * player.duration) / 100
-        DispatchQueue.main.async { [weak self] in
-            guard let currentTime = self?.player.currentTime else { return }
-            let timeString = String.constructTimeString(time: currentTime)
-            self?.playerView.currentPlayTimeLabel.text = timeString
-        }
-    }
-    
     func updatePlayerViewModel() {
         guard let artUrl = caster.podcastArtUrlString else { return }
         DispatchQueue.main.async { [weak self] in
@@ -279,6 +345,27 @@ extension PlayerViewController: PlayerViewDelegate {
         updatePlayerViewModel()
         playerViewModel.state = player.state
     }
+    
+//    func loadNextTrack() {
+//        player.playPause()
+//        showLoadingView(loadingPop: loadingPop)
+//        if let urlString = caster.episodes[index].audioUrlString, let url = URL(string: urlString) {
+//            player.delegate = self
+//            player.asset = AVURLAsset(url: url)
+//        }
+//        guard let artUrl = caster.podcastArtUrlString else { return }
+//        DispatchQueue.main.async { [weak self] in
+//            
+//            guard let index = self?.index, let caster = self?.caster else { return }
+//            self?.playerViewModel = PlayerViewModel(imageUrl: URL(string: artUrl), title: caster.episodes[index].title)
+//            guard let model = self?.playerViewModel else { return }
+//            if let model = self?.playerViewModel {
+//                self?.playerView.updateViewModel(model: model)
+//            }
+//            self?.title = caster.episodes[index].title
+//        }
+//        playerViewModel.state = player.state
+//    }
 }
 
 extension PlayerViewController: BottomMenuViewable {
@@ -308,7 +395,7 @@ extension PlayerViewController: AudioFilePlayerDelegate {
     }
     
     func updateProgress(progress: Double) {
-
+        
     }
 }
 

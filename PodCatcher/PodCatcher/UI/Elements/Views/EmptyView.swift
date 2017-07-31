@@ -3,7 +3,7 @@ import UIKit
 final class EmptyView: UIView {
     
     private var infoLabel: UILabel = {
-        var label = UILabel.setupInfoLabel(infoText: "No Podcasts Have Been Added")
+        var label = UILabel.setupInfoLabel(infoText: "Subscribe To Your Favorite Podcasts!")
         label.font = UIFont.systemFont(ofSize: 18, weight: UIFontWeightMedium)
         label.textColor = Colors.brightHighlight
         label.alpha = 1

@@ -11,6 +11,7 @@ extension Sequence {
     }
     
     /// Returns a sequence that repeatedly cycles through the elements of `self`.
+    
     public func cycled() -> AnySequence<Iterator.Element> {
         return AnySequence { _ -> AnyIterator<Iterator.Element> in
             var iterator = self.makeIterator()

@@ -15,7 +15,7 @@ final class StartView: UIView {
     private var guestUserButton: UIButton = {
         let button = UIButton()
         let buttonImage = #imageLiteral(resourceName: "button-background")
-        button.setTitle("CONTINUE", for: .normal)
+        button.setTitle("GET STARTED", for: .normal)
         button.setBackgroundImage(buttonImage, for: .normal)
         return button
     }()

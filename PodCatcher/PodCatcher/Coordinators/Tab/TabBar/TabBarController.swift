@@ -55,7 +55,4 @@ final class TabBarController: UITabBarController {
     private func setupTab(settingsViewController: UIViewController) -> UINavigationController {
         return UINavigationController(rootViewController: settingsViewController)
     }
-    
-    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-    }
 }
