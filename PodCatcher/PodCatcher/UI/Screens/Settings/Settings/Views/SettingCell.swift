@@ -9,7 +9,7 @@ final class SettingCell: UITableViewCell, Reusable {
     var titleLabel: UILabel = {
         let title = UILabel()
         title.textColor = .black
-        title.font = UIFont.systemFont(ofSize: 16, weight: UIFontWeightLight)
+        title.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.light)
         title.textAlignment = .center
         title.numberOfLines = 0
         return title
@@ -24,7 +24,7 @@ final class SettingCell: UITableViewCell, Reusable {
         selectionStyle = .none
     }
     
-    func onTap() {
+    @objc func onTap() {
         guard let label = titleLabel.text else { return }
         delegate?.cellTapped(with: label)
     }

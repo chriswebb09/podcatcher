@@ -36,12 +36,12 @@ extension HomeTabCoordinator: HomeViewControllerDelegate {
         guard let feedUrlString = resultsList.item.feedUrl else { return }
         let store = SearchResultsDataStore()
         
-        store.pullFeed(for: feedUrlString) { response in
-            guard let episodes = response.0 else { return }
+        store.pullFeed(for: feedUrlString) { response, arg  in
+            guard let episodes = response else { return }
             DispatchQueue.main.async {
                 resultsList.episodes = episodes
                 resultsList.collectionView.reloadData()
-                self.navigationController.viewControllers.append(resultsList)
+                self.navigationController.pushViewController(resultsList, animated: false)
             }
         }
     }
@@ -73,13 +73,13 @@ extension HomeTabCoordinator: HomeViewControllerDelegate {
         
         concurrent.async { [weak self] in
             if let strongSelf = self {
-                store.pullFeed(for: feedUrlString) { response in
-                    guard let episodes = response.0 else { return }
+                store.pullFeed(for: feedUrlString) { response, arg  in
+                    guard let episodes = response else { return }
                     resultsList.item.episodes = episodes
                     resultsList.episodes = episodes
                     DispatchQueue.main.async {
                         resultsList.collectionView.reloadData()
-                        strongSelf.navigationController.viewControllers.append(resultsList)
+                        strongSelf.navigationController.pushViewController(resultsList, animated: false)
                     }
                 }
             }
@@ -109,7 +109,7 @@ extension HomeTabCoordinator: PodcastListViewControllerDelegate {
                 DispatchQueue.main.async {
                     strongSelf.navigationController.navigationBar.isTranslucent = true
                     strongSelf.navigationController.navigationBar.alpha = 0
-                    strongSelf.navigationController.viewControllers.append(playerViewController)
+                    strongSelf.navigationController.pushViewController(playerViewController, animated: false)
                 }
             }
         }
@@ -136,7 +136,7 @@ extension HomeTabCoordinator: PodcastListViewControllerDelegate {
                 DispatchQueue.main.async {
                     strongSelf.navigationController.navigationBar.isTranslucent = true
                     strongSelf.navigationController.navigationBar.alpha = 0
-                    strongSelf.navigationController.viewControllers.append(playerViewController)
+                    strongSelf.navigationController.pushViewController(playerViewController, animated: false)
                 }
             }
         }

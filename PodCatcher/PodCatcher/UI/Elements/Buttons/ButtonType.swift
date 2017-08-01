@@ -7,7 +7,7 @@ enum ButtonType {
     fileprivate func setupLoginButton(with title:String) -> UIButton {
         let button = UIButton()
         button.backgroundColor = Constants.Color.mainColor.setColor
-        button.setAttributedTitle(NSAttributedString(string: title, attributes: [NSForegroundColorAttributeName: UIColor.white, NSFontAttributeName: Constants.Font.fontNormal!]), for: .normal)
+        button.setAttributedTitle(NSAttributedString(string: title, attributes: [NSAttributedStringKey.foregroundColor: UIColor.white, NSAttributedStringKey.font: Constants.Font.fontNormal!]), for: .normal)
         configureButton(button: button)
         return button
     }
@@ -20,8 +20,8 @@ enum ButtonType {
     fileprivate func setupSystemButton(with title:String, color: UIColor?) -> UIButton {
         let button = UIButton()
         let buttonColor = color ?? .black
-        button.setAttributedTitle(NSAttributedString(string: title, attributes: [NSForegroundColorAttributeName: buttonColor,
-                                                                                  NSFontAttributeName: Constants.Font.fontNormal!]), for: .normal)
+        button.setAttributedTitle(NSAttributedString(string: title, attributes: [NSAttributedStringKey.foregroundColor: buttonColor,
+                                                                                  NSAttributedStringKey.font: Constants.Font.fontNormal!]), for: .normal)
         configureButton(button: button)
         return button as UIButton
     }

@@ -42,8 +42,8 @@ final class BrowseTabCoordinator: NavigationCoordinator {
                 for item in newItems {
                     
                     strongSelf.fetcher.setLookup(term: item.id)
-                    strongSelf.fetcher.searchForTracksFromLookup { result in
-                        guard let resultItem = result.0 else { return }
+                    strongSelf.fetcher.searchForTracksFromLookup { result, arg  in
+                        guard let resultItem = result else { return }
                         
                         resultItem.forEach { resultingData in
                             guard let resultingData = resultingData else { return }
@@ -102,12 +102,12 @@ extension BrowseTabCoordinator: BrowseViewControllerDelegate {
                                        target: nil)
         concurrent.async { [weak self] in
             guard let strongSelf = self else { return }
-            store.pullFeed(for: feedUrlString) { response in
-                guard let episodes = response.0 else { return }
+            store.pullFeed(for: feedUrlString) { response, arg  in
+                guard let episodes = response else { return }
                 resultsList.episodes = episodes
                 DispatchQueue.main.async {
                     resultsList.collectionView.reloadData()
-                    strongSelf.navigationController.viewControllers.append(resultsList)
+                    strongSelf.navigationController.pushViewController(resultsList, animated: false)
                     browseViewController.collectionView.isUserInteractionEnabled = true
                 }
             }
@@ -124,7 +124,7 @@ extension BrowseTabCoordinator: PodcastListViewControllerDelegate {
                                                         caster: playerPodcast,
                                                         image: nil)
         playerViewController.delegate = self
-        navigationController.viewControllers.append(playerViewController)
+        navigationController.pushViewController(playerViewController, animated: false)
     }
     
     func didSelectPodcastAt(at index: Int, podcast: CasterSearchResult, with episodes: [Episodes]) {
@@ -146,7 +146,7 @@ extension BrowseTabCoordinator: PodcastListViewControllerDelegate {
             DispatchQueue.main.async {
                 strongSelf.navigationController.navigationBar.isTranslucent = true
                 strongSelf.navigationController.navigationBar.alpha = 0
-                strongSelf.navigationController.viewControllers.append(playerViewController)
+                strongSelf.navigationController.pushViewController(playerViewController, animated: false)
             }
         }
     }

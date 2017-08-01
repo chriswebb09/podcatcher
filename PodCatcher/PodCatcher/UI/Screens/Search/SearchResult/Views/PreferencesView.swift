@@ -38,7 +38,7 @@ final class PreferencesView: UIView {
         moreButton.rightAnchor.constraint(equalTo: rightAnchor, constant: UIScreen.main.bounds.width * -0.1).isActive = true
     }
     
-    func moreButton(tapped: Bool) {
+    @objc func moreButton(tapped: Bool) {
         delegate?.moreButton(tapped: tapped)
     }
     

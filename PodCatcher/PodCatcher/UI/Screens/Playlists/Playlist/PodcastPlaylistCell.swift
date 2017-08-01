@@ -16,7 +16,7 @@ final class PodcastPlaylistCell: UICollectionViewCell {
         podcastTitleLabel.numberOfLines = 0
         podcastTitleLabel.textAlignment = .left
         podcastTitleLabel.textColor = .darkGray
-        podcastTitleLabel.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightThin)
+        podcastTitleLabel.font = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.thin)
         return podcastTitleLabel
     }()
     

@@ -103,7 +103,7 @@ extension HomeViewController: UIScrollViewDelegate, CollectionViewProtocol {
         collectionView.frame = UIScreen.main.bounds
     }
     
-    func changeMode() {
+    @objc func changeMode() {
         mode = mode == .edit ? .subscription : .edit
         rightButtonItem.title = mode == .edit ? "Done" : "Edit"
         collectionView.reloadData()

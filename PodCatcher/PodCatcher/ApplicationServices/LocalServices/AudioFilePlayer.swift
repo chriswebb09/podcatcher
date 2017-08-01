@@ -14,6 +14,7 @@ enum PlayerState {
     case playing, paused, stopped
 }
 
+@objcMembers
 final class AudioFilePlayer: NSObject {
     // MARK: Properties
 

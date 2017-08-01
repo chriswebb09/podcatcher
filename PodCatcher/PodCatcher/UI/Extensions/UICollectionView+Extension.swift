@@ -13,11 +13,11 @@ class TrackItemsFlowLayout: UICollectionViewFlowLayout {
 
 extension UICollectionView {
     
-    func register<T: UICollectionViewCell>(_ :T.Type) where T: Reusable {
+    func register<T: UICollectionViewCell>(_ :T.Type) {
         register(T.self, forCellWithReuseIdentifier: T.reuseIdentifier)
     }
     
-    func dequeueReusableCell<T: UICollectionViewCell>(forIndexPath indexPath: IndexPath) -> T where T: Reusable {
+    func dequeueReusableCell<T: UICollectionViewCell>(forIndexPath indexPath: IndexPath) -> T {
         guard let cell = dequeueReusableCell(withReuseIdentifier: T.reuseIdentifier, for: indexPath) as? T else {
             fatalError("Could not deque cell")
         }
