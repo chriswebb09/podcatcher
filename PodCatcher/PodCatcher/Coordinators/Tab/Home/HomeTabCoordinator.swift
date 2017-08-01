@@ -41,7 +41,7 @@ extension HomeTabCoordinator: HomeViewControllerDelegate {
             DispatchQueue.main.async {
                 resultsList.episodes = episodes
                 resultsList.collectionView.reloadData()
-                self.navigationController.viewControllers.append(resultsList)
+                self.navigationController.pushViewController(resultsList, animated: false)
             }
         }
     }
@@ -79,7 +79,7 @@ extension HomeTabCoordinator: HomeViewControllerDelegate {
                     resultsList.episodes = episodes
                     DispatchQueue.main.async {
                         resultsList.collectionView.reloadData()
-                        strongSelf.navigationController.viewControllers.append(resultsList)
+                        strongSelf.navigationController.pushViewController(resultsList, animated: false)
                     }
                 }
             }
@@ -109,7 +109,7 @@ extension HomeTabCoordinator: PodcastListViewControllerDelegate {
                 DispatchQueue.main.async {
                     strongSelf.navigationController.navigationBar.isTranslucent = true
                     strongSelf.navigationController.navigationBar.alpha = 0
-                    strongSelf.navigationController.viewControllers.append(playerViewController)
+                    strongSelf.navigationController.pushViewController(playerViewController, animated: false)
                 }
             }
         }
@@ -136,7 +136,7 @@ extension HomeTabCoordinator: PodcastListViewControllerDelegate {
                 DispatchQueue.main.async {
                     strongSelf.navigationController.navigationBar.isTranslucent = true
                     strongSelf.navigationController.navigationBar.alpha = 0
-                    strongSelf.navigationController.viewControllers.append(playerViewController)
+                    strongSelf.navigationController.pushViewController(playerViewController, animated: false)
                 }
             }
         }

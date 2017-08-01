@@ -119,7 +119,7 @@ extension PlaylistsViewController: UITableViewDelegate {
     
     func editFor(indexPath: IndexPath) {
         
-        let id = fetchedResultsController.object(at: indexPath).playlistId
+     //   let id = fetchedResultsController.object(at: indexPath).playlistId
         persistentContainer.performBackgroundTask { _ in
             self.managedContext.delete(self.fetchedResultsController.object(at: indexPath))
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "PodcastPlaylistItem")

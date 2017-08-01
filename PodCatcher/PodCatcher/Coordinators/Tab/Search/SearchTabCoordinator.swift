@@ -51,7 +51,7 @@ extension SearchTabCoordinator: SearchViewControllerDelegate {
                 resultsList.episodes = episodes
                 DispatchQueue.main.async {
                     resultsList.collectionView.reloadData()
-                    strongSelf.navigationController.viewControllers.append(resultsList)
+                    strongSelf.navigationController.pushViewController(resultsList, animated: false)
                     searchViewController.tableView.isUserInteractionEnabled = true
                 }
             }
@@ -77,7 +77,7 @@ extension SearchTabCoordinator: PodcastListViewControllerDelegate {
             playerViewController.delegate = strongSelf
             DispatchQueue.main.async {
                 strongSelf.navigationController.setNavigationBarHidden(true, animated: false)
-                strongSelf.navigationController.viewControllers.append(playerViewController)
+                strongSelf.navigationController.pushViewController(playerViewController, animated: false)
             }
         }
     }
@@ -122,17 +122,6 @@ extension SearchTabCoordinator: PlayerViewControllerDelegate {
     func playButton(tapped: String) {
         print(tapped)
     }
-//    func skipButton(tapped: Bool) {
-//        print("SkipButton tapped \(tapped)")
-//    }
-//    
-//    func pauseButton(tapped: Bool) {
-//        print("PauseButton tapped \(tapped)")
-//    }
-//    
-//    func playButton(tapped: Bool) {
-//        print("PlayButton tapped \(tapped)")
-//    }
     
     func navigateBack(tapped: Bool) {
         navigationController.setNavigationBarHidden(false, animated: false)

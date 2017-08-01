@@ -107,7 +107,7 @@ extension BrowseTabCoordinator: BrowseViewControllerDelegate {
                 resultsList.episodes = episodes
                 DispatchQueue.main.async {
                     resultsList.collectionView.reloadData()
-                    strongSelf.navigationController.viewControllers.append(resultsList)
+                    strongSelf.navigationController.pushViewController(resultsList, animated: false)
                     browseViewController.collectionView.isUserInteractionEnabled = true
                 }
             }
@@ -124,7 +124,7 @@ extension BrowseTabCoordinator: PodcastListViewControllerDelegate {
                                                         caster: playerPodcast,
                                                         image: nil)
         playerViewController.delegate = self
-        navigationController.viewControllers.append(playerViewController)
+        navigationController.pushViewController(playerViewController, animated: false)
     }
     
     func didSelectPodcastAt(at index: Int, podcast: CasterSearchResult, with episodes: [Episodes]) {
@@ -146,7 +146,7 @@ extension BrowseTabCoordinator: PodcastListViewControllerDelegate {
             DispatchQueue.main.async {
                 strongSelf.navigationController.navigationBar.isTranslucent = true
                 strongSelf.navigationController.navigationBar.alpha = 0
-                strongSelf.navigationController.viewControllers.append(playerViewController)
+                strongSelf.navigationController.pushViewController(playerViewController, animated: false)
             }
         }
     }

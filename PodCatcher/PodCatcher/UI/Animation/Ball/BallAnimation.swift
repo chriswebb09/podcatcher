@@ -8,7 +8,7 @@ protocol AnimatableView {
 }
 
 class SpinAnimation: AnimatableView {
-    fileprivate let AnimationDuration: Double = 0.25
+    fileprivate let AnimationDuration: Double = 0.2
     fileprivate let AnimationOffset: CGFloat = -40
     
     static func animate(from view: UIView, with offset: CGFloat?, completion: ((Bool) -> Void)?) {
@@ -18,25 +18,89 @@ class SpinAnimation: AnimatableView {
     
     func animate(from view: UIView, with offset: CGFloat?, completion: ((Bool) -> Void)?) {
         let offset  = offset ?? AnimationOffset
-        let offToolbar = CGAffineTransform(translationX: 0, y: offset)
+        let up = CGAffineTransform(translationX: 0, y: offset + 22)
         
-        UIView.animate(withDuration: AnimationDuration, delay: 0.0, usingSpringWithDamping: 0.6, initialSpringVelocity: 2.0, options: [], animations: { () -> Void in
-            view.transform = offToolbar
+        UIView.animate(withDuration: AnimationDuration, delay: 0.0, usingSpringWithDamping: 0.4, initialSpringVelocity: 1.0, options: [], animations: { _ in
+            view.transform = up
             let rotation = CABasicAnimation(keyPath: "transform.rotation")
             rotation.toValue = CGFloat(2.0 * Double.pi)
-            rotation.isCumulative = true
+
             rotation.duration = self.AnimationDuration + 0.07
             rotation.repeatCount = 1.0
             rotation.timingFunction = CAMediaTimingFunction(controlPoints: 0.32, 0.70, 0.18, 1.00)
             view.layer.add(rotation, forKey: "rotateStar")
         }, completion: { finished in
-            UIView.animate(withDuration: self.AnimationDuration, delay: 0.15, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [], animations: { finished in
+            UIView.animate(withDuration: self.AnimationDuration, delay: 0.1, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [], animations: { finished in
                 view.transform = CGAffineTransform.identity
+                UIView.animate(withDuration: 0.25, animations: {
+                    view.transform = CGAffineTransform(scaleX: 1.05, y: 1.05)
+                }, completion: { finish in
+                    view.transform = CGAffineTransform(scaleX: 1, y: 1)
+                })
             }, completion: completion)
         })
     }
     
 }
+
+
+class BigAnimation: AnimatableView {
+    fileprivate let AnimationDuration: Double = 0.25
+    fileprivate let AnimationOffset: CGFloat = -40
+    
+    static func animate(from view: UIView, with offset: CGFloat?, completion: ((Bool) -> Void)?) {
+        let animation =  BigAnimation()
+        animation.animate(from: view, with: offset, completion: completion)
+    }
+    
+    func animate(from view: UIView, with offset: CGFloat?, completion: ((Bool) -> Void)?) {
+        let offset  = offset ?? AnimationOffset
+        let up = CGAffineTransform(translationX: 0, y: offset + 22)
+        
+        UIView.animate(withDuration: AnimationDuration, delay: 0.0, usingSpringWithDamping: 0.4, initialSpringVelocity: 1.0, options: [], animations: { _ in
+            view.transform = up
+            let rotation = CABasicAnimation(keyPath: "transform.rotation")
+            rotation.toValue = CGFloat(2.0 * Double.pi)
+            
+            rotation.duration = self.AnimationDuration + 0.07
+            rotation.repeatCount = 1.0
+            rotation.timingFunction = CAMediaTimingFunction(controlPoints: 0.32, 0.70, 0.18, 1.00)
+            view.layer.add(rotation, forKey: "rotateStar")
+        }, completion: { finished in
+            UIView.animate(withDuration: self.AnimationDuration, delay: 0.01, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [], animations: { finished in
+               // view.transform = CGAffineTransform.identity
+                view.transform = CGAffineTransform(scaleX: 8, y: 18)
+            }, completion: completion)
+        })
+    }
+    
+    
+    private func setupSlowAnimation(animation: CABasicAnimation) {
+        animation.duration = 0.3
+        animation.fromValue = 1
+        animation.toValue = 2
+        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        animation.autoreverses = true
+        animation.repeatCount = 2
+    }
+    
+    private func animateYSlow() -> CABasicAnimation {
+        let animation = CABasicAnimation(keyPath: "transform.scale.y")
+        setupSlowAnimation(animation: animation)
+        return animation
+    }
+    
+   // CGAffineTransform(scaleX: 8, y: 18)
+    
+    // Animates sides
+    
+    private func animateXSlow() -> CABasicAnimation {
+        let animation = CABasicAnimation(keyPath: "transform.scale.x")
+        setupSlowAnimation(animation: animation)
+        return animation
+    }
+}
+
 
 protocol AnimationDelegate {
     func setUpAnimation(in layer: CALayer, size: CGSize, color: UIColor)

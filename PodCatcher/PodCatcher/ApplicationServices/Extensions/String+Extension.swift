@@ -12,7 +12,7 @@ extension String {
         }()
         
         let components = NSDateComponents()
-        components.second = Int(max(0.0, time))
+        components.second = Int(Swift.max(0.0, time))
         return timeRemainingFormatter.string(from: components as DateComponents)!
     }
     

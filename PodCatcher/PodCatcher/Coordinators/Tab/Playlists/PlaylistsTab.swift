@@ -40,7 +40,6 @@ extension PlaylistsTabCoordinator: PlaylistsViewControllerDelegate {
     
     func didAssignPlaylist(with id: String) {
         delegate?.updatePodcast(with: id)
-        print(id)
         let controller = navigationController.viewControllers.last as! PlaylistsViewController
         navigationController.setNavigationBarHidden(false, animated: false)
         controller.tabBarController?.selectedIndex = 2

@@ -10,7 +10,7 @@ class SearchResultListViewController: BaseCollectionViewController {
     var state: PodcasterControlState = .toCollection
     var searchResults = ConfirmationIndicatorView()
     var dataSource: BaseMediaControllerDataSource!
-    
+      
     weak var delegate: PodcastListViewControllerDelegate?
     
     var episodes = [Episodes]()
@@ -246,3 +246,4 @@ extension SearchResultListViewController: UICollectionViewDelegateFlowLayout {
         return UIEdgeInsets(top: 0, left: 0, bottom: 30, right: 0)
     }
 }
+
