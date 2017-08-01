@@ -2,7 +2,6 @@ import UIKit
 
 final class MenuOptionView: UIView {
     
-
     private var optionLabel: UILabel = {
         let option = UILabel()
         option.textColor = .white

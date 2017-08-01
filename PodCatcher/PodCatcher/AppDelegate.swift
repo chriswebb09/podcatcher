@@ -1,6 +1,5 @@
 import UIKit
 import CoreData
-import ReachabilitySwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -9,7 +8,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var mainCoordinator: MainCoordinator!
     var backgroundSessionCompletionHandler: (() -> Void)?
     var coreData: CoreDataStack!
-    let reachability = Reachability()!
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
@@ -75,15 +73,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
 }
-
-public extension UIViewController {
-    func presentAlert(message: String) {
-        DispatchQueue.main.async {
-            let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-            let closeButton = UIAlertAction(title: "Close", style: .default, handler: nil)
-            alert.addAction(closeButton)
-            self.present(alert, animated: true, completion: nil)
-        }
-    }
-}
-

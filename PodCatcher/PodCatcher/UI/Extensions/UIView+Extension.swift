@@ -16,7 +16,7 @@ extension UIView {
 }
 
 extension UIView {
-
+    
     static func findSubViewWithFirstResponder(_ view: UIView) -> UIView? {
         let subviews = view.subviews
         if subviews.count == 0 {
@@ -64,19 +64,6 @@ extension UIView {
         guard let container = view ?? self.superview else { fatalError() }
         centerXAnchor.constrainEqual(container.centerXAnchor)
         centerYAnchor.constrainEqual(container.centerYAnchor)
-    }
-    
-    public var debugBorder: UIColor? {
-        get { return layer.borderColor.map { UIColor(cgColor: $0) } }
-        set {
-            layer.borderColor = newValue?.cgColor
-            layer.borderWidth = newValue != nil ? 1 : 0
-        }
-    }
-    
-    public static func activateDebugBorders(_ views: [UIView]) {
-        let colors: [UIColor] = [.magenta, .orange, .green, .blue, .red]
-       
     }
 }
 

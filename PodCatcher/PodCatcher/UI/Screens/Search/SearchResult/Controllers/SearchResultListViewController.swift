@@ -161,10 +161,7 @@ extension SearchResultListViewController {
         if casters.count > 0 {
             view.addSubview(collectionView)
         } else {
-            //            let emptyView = EmptyCastsView(frame: PodcastListConstants.emptyCastViewFrame)
-            //            emptyView.backgroundColor = .white
-            //            emptyView.layoutSubviews()
-            //            view.addSubview(emptyView)
+            // Add empty view
         }
     }
 }
@@ -246,4 +243,3 @@ extension SearchResultListViewController: UICollectionViewDelegateFlowLayout {
         return UIEdgeInsets(top: 0, left: 0, bottom: 30, right: 0)
     }
 }
-

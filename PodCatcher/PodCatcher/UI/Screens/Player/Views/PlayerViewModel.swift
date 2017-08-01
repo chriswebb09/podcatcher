@@ -5,24 +5,6 @@ final class PlayerViewModel {
     let title: String
     var totalTimeString: String?
     var currentTimeString: String = "0:00"
-    
-   // var controlButtonImage: UIImage {
-//        switch self.state {
-//        case .paused:
-//            print("paused")
-//            return #imageLiteral(resourceName: "play-icon")
-//        case .playing:
-//            print("playing")
-//            return #imageLiteral(resourceName: "white-bordered-pause")
-//        case .stopped:
-//            print("stopped")
-//            return #imageLiteral(resourceName: "play-icon")
-//        default:
-//            print("default")
-//            return #imageLiteral(resourceName: "white-bordered-pause")
-//        }
-//    }
-    
     let imageUrl: URL?
     
     init(imageUrl: URL?, title: String) {
@@ -40,8 +22,4 @@ final class PlayerViewModel {
         playButton.alpha = 1
         slider.value = 0
     }
-    
-//    func setControlButton(button: UIButton) {
-//        button.setImage(controlButtonImage, for: .normal)
-//    }
 }

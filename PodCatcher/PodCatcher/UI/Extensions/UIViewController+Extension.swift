@@ -5,11 +5,10 @@ extension UIViewController {
     func setupDefaultUI() {
         navigationController?.navigationBar.barTintColor = .white
         let cancelButtonAttributes: NSDictionary = [NSAttributedStringKey.foregroundColor: Colors.brightHighlight]
+        UIBarButtonItem.appearance(whenContainedInInstancesOf:[UISearchBar.self]).setTitleTextAttributes(cancelButtonAttributes as! [NSAttributedStringKey : Any], for: .normal)
+        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).attributedPlaceholder = NSAttributedString(string: "Search for Podcasts...", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
+        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).tintColor = .white
     }
-//        UIAppearance.appearance().setTitleTextAttributes(cancelButtonAttributes as? [String : AnyObject], for: .normal)
-//        UIAppearance.appearance(whenContainedInInstancesOf: [UISearchBar.self]).attributedPlaceholder = NSAttributedString(string: "Search for Podcasts...", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
-//        UIAppearance.appearance(whenContainedInInstancesOf: [UISearchBar.self]).tintColor = .white
-//    }
     
     func changeView(forView: UIView, withView: UIView) {
         view.sendSubview(toBack: withView)
@@ -44,5 +43,17 @@ extension UIViewController {
         }
         actionSheetController.addAction(okayAction)
         present(actionSheetController, animated: false)
+    }
+}
+
+public extension UIViewController {
+    
+    func presentAlert(message: String) {
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+            let closeButton = UIAlertAction(title: "Close", style: .default, handler: nil)
+            alert.addAction(closeButton)
+            self.present(alert, animated: true, completion: nil)
+        }
     }
 }

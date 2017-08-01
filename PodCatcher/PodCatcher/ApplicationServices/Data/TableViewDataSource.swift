@@ -7,8 +7,6 @@ protocol TableViewDataSourceDelegate: class {
     func configure(_ cell: Cell, for object: Object)
 }
 
-/// Note: this class doesn't support working with multiple sections
-
 class TableViewDataSource<Delegate: TableViewDataSourceDelegate>: NSObject, UITableViewDataSource, NSFetchedResultsControllerDelegate {
     
     typealias Object = Delegate.Object
