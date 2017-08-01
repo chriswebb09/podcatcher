@@ -54,7 +54,7 @@ extension NetworkService: URLSessionDelegate {
     
     internal func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
         if let error = error {
-             print(error.localizedDescription)
+            print(error.localizedDescription)
         } else {
             print("The task finished transferring data successfully")
         }
@@ -62,17 +62,7 @@ extension NetworkService: URLSessionDelegate {
 }
 
 extension NetworkService: URLSessionDownloadDelegate {
-    
-//    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
-//        modifyState(for: downloadTask) {
-//            $0.progress = 1
-//            $0.state = .finished
-//        }
-//        let state = states[downloadTask]!
-//        saveDownload?(state.url, location)
-//        states[downloadTask] = nil
-//    }
-//    
+  
     internal func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
         guard let sourceURL = downloadTask.originalRequest?.url else { return }
         activeDownloads[sourceURL.absoluteString] = nil

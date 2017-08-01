@@ -17,7 +17,7 @@ enum PlayerState {
 @objcMembers
 final class AudioFilePlayer: NSObject {
     // MARK: Properties
-
+    
     static let assetKeysRequiredToPlay = [
         "playable",
         "hasProtectedContent"
@@ -41,7 +41,7 @@ final class AudioFilePlayer: NSObject {
         formatter.allowedUnits = [.minute, .second]
         return formatter
     }()
-
+    
     
     var duration: Double {
         guard let currentItem = player.currentItem else { return 0.0 }
@@ -121,7 +121,7 @@ final class AudioFilePlayer: NSObject {
             player.play()
         }
         else {
-
+            
             player.pause()
         }
         state = .paused
@@ -133,7 +133,7 @@ extension AudioFilePlayer: AVAssetResourceLoaderDelegate {
     // MARK: - Asset Loading
     
     func asynchronouslyLoadURLAsset(_ newAsset: AVURLAsset) {
-       
+        
         
         newAsset.loadValuesAsynchronously(forKeys: AudioFilePlayer.assetKeysRequiredToPlay) {
             DispatchQueue.main.async {

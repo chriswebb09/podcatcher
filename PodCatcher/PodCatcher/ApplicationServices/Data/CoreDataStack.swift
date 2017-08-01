@@ -19,8 +19,6 @@ class CoreDataStack {
         return self.storeContainer.viewContext
     }()
     
-    
-    
     init(modelName: String) {
         self.modelName = modelName
     }

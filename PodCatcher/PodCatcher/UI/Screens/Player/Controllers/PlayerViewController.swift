@@ -171,7 +171,7 @@ final class PlayerViewController: BaseViewController {
                 strongSelf.hideLoadingView(loadingPop: loadingPop)
                 strongSelf.playerView.enableButtons()
             }
-
+            
             DispatchQueue.main.async { [weak self] in
                 guard let strongSelf = self else { return }
                 let currentTime = strongSelf.player.player.currentTime()
@@ -179,7 +179,7 @@ final class PlayerViewController: BaseViewController {
                 strongSelf.playerView.currentPlayTimeLabel.text = String.createTimeString(time: Float(currentSeconds))
                 strongSelf.playerView.update(progressBarValue: Float(currentSeconds))
             }
-
+            
         } else if keyPath == #keyPath(PlayerViewController.player.player.rate) {
             let newRate = (change?[NSKeyValueChangeKey.newKey] as! NSNumber).doubleValue
             let buttonImageName = newRate == 1.0 ? #imageLiteral(resourceName: "white-bordered-pause") : #imageLiteral(resourceName: "play-icon")
@@ -189,7 +189,7 @@ final class PlayerViewController: BaseViewController {
         }
         else if keyPath == #keyPath(PlayerViewController.player.player.currentItem.status) {
             let newStatus: AVPlayerItemStatus
-
+            
             if let newStatusAsNumber = change?[NSKeyValueChangeKey.newKey] as? NSNumber {
                 newStatus = AVPlayerItemStatus(rawValue: newStatusAsNumber.intValue)!
             } else {
@@ -210,7 +210,7 @@ final class PlayerViewController: BaseViewController {
             }
         }
     }
-
+    
     override class func keyPathsForValuesAffectingValue(forKey key: String) -> Set<String> {
         let affectedKeyPathsMappingByKey: [String: Set<String>] = [
             "duration":     [#keyPath(PlayerViewController.player.player.currentItem.duration)],
