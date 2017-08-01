@@ -1,6 +1,6 @@
 import UIKit
 
-protocol ItemCreator: class {
+protocol ItemCreator {
     func createItems(rssData: [[String: String]]) -> [TopItem]
 }
 

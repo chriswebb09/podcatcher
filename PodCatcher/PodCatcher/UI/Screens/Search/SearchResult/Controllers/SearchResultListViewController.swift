@@ -10,7 +10,7 @@ class SearchResultListViewController: BaseCollectionViewController {
     var state: PodcasterControlState = .toCollection
     var searchResults = ConfirmationIndicatorView()
     var dataSource: BaseMediaControllerDataSource!
-      
+    
     weak var delegate: PodcastListViewControllerDelegate?
     
     var episodes = [Episodes]()
@@ -78,7 +78,7 @@ class SearchResultListViewController: BaseCollectionViewController {
     }
     
     func saveFeed() {
-        let feedStore = FeedCoreDataStack()
+        var feedStore = FeedCoreDataStack()
         guard let title = item.podcastTitle else { return }
         guard let image = topView.podcastImageView.image else { return }
         guard let feedUrl = item.feedUrl else { return }
@@ -161,10 +161,10 @@ extension SearchResultListViewController {
         if casters.count > 0 {
             view.addSubview(collectionView)
         } else {
-//            let emptyView = EmptyCastsView(frame: PodcastListConstants.emptyCastViewFrame)
-//            emptyView.backgroundColor = .white
-//            emptyView.layoutSubviews()
-//            view.addSubview(emptyView)
+            //            let emptyView = EmptyCastsView(frame: PodcastListConstants.emptyCastViewFrame)
+            //            emptyView.backgroundColor = .white
+            //            emptyView.layoutSubviews()
+            //            view.addSubview(emptyView)
         }
     }
 }

@@ -1,6 +1,6 @@
 import UIKit
 
-class StartCoordinator: NavigationCoordinator {
+final class StartCoordinator: NavigationCoordinator {
     
     var type: CoordinatorType = .app
     weak var delegate: CoordinatorDelegate?

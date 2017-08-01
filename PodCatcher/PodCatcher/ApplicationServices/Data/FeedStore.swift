@@ -1,11 +1,11 @@
 import UIKit
 import CoreData
 
-class FeedCoreDataStack {
+struct FeedCoreDataStack {
     
     var feeds: [NSManagedObject] = []
     
-    func save(feedUrl: String, podcastTitle: String, episodeCount: Int, lastUpdate: NSDate, image: UIImage, uid: String, artworkUrlString: String, artistName: String) {
+    mutating func save(feedUrl: String, podcastTitle: String, episodeCount: Int, lastUpdate: NSDate, image: UIImage, uid: String, artworkUrlString: String, artistName: String) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         let managedContext = appDelegate.coreData.managedContext
         let entity = NSEntityDescription.entity(forEntityName: "Subscription", in: managedContext)!
@@ -27,7 +27,8 @@ class FeedCoreDataStack {
             print("Could not save. \(error), \(error.userInfo)")
         }
     }
-    func fetchFromCore() {
+    
+    mutating func fetchFromCore() {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         let managedContext = appDelegate.coreData.managedContext
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Subscription")

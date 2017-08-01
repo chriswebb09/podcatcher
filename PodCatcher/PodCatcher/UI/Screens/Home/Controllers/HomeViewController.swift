@@ -168,16 +168,16 @@ extension HomeViewController: UICollectionViewDelegate {
 }
 
 extension HomeViewController: NSFetchedResultsControllerDelegate {
-
-        func reloadData() {
     
-            do {
-                try fetchedResultsController.performFetch()
-                collectionView.reloadData()
-            } catch let error {
-                showError(errorString: "\(error.localizedDescription)")
-            }
+    func reloadData() {
+        
+        do {
+            try fetchedResultsController.performFetch()
+            collectionView.reloadData()
+        } catch let error {
+            showError(errorString: "\(error.localizedDescription)")
         }
+    }
     
     func setupCoordinator() {
         persistentContainer.loadPersistentStores { persistentStoreDescription, error in
@@ -233,5 +233,3 @@ extension HomeViewController: UICollectionViewDataSource {
         print("Change")
     }
 }
-
-

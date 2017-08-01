@@ -39,7 +39,7 @@ final class ListTopView: UIView {
         preferencesView.layoutSubviews()
         preferencesView.delegate = self
     }
-
+    
     
     func setup(podcastImageView: UIImageView) {
         addSubview(podcastImageView)

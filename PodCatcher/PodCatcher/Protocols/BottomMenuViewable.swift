@@ -17,6 +17,5 @@ extension BottomMenuViewable {
     
     func showPopMenu(_ view: UIView){
         bottomMenu.showOn(view)
-    }
-    
+    }    
 }

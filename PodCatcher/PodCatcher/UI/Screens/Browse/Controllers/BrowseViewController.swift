@@ -4,7 +4,7 @@ import ReachabilitySwift
 final class BrowseViewController: BaseCollectionViewController {
     
     weak var delegate: BrowseViewControllerDelegate?
-
+    
     var currentPlaylistId: String = ""
     var topItems = [CasterSearchResult]()
     var topView = BrowseTopView()
@@ -146,4 +146,3 @@ extension BrowseViewController: UIScrollViewDelegate {
         collectionView.backgroundColor = .clear
     }
 }
-

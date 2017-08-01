@@ -2,7 +2,6 @@
 
 import UIKit
 
-
 protocol AnimatableView {
     func animate(from view: UIView, with offset: CGFloat?, completion: ((Bool) -> Void)?)
 }
@@ -51,7 +50,7 @@ class BigAnimation: AnimatableView {
     
     func animate(from view: UIView, with offset: CGFloat?, completion: ((Bool) -> Void)?) {
     }
-   
+    
     private func setupSlowAnimation(animation: CABasicAnimation) {
         animation.duration = 0.3
         animation.fromValue = 1

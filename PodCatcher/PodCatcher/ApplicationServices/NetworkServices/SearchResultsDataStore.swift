@@ -1,6 +1,6 @@
 import UIKit
 
-class SearchResultsDataStore {
+struct SearchResultsDataStore {
     
     func pullFeed(for podCast: String, competion: @escaping (([Episodes]?, Error?) -> Void)) {
         var episodes = [Episodes]()

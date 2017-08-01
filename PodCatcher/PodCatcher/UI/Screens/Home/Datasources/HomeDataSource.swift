@@ -59,9 +59,8 @@ final class FlatArrayDataManager<T>: DataManager {
     }
 }
 
-
 final class DataSource<T: DataManager, U: CollectionCellPopulator>: NSObject, UICollectionViewDataSource where U.DataType == T.DataType {
-   
+    
     internal let dataManager: T
     private let cellPopulator: U
     
@@ -73,12 +72,12 @@ final class DataSource<T: DataManager, U: CollectionCellPopulator>: NSObject, UI
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 1
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         print(dataManager.itemCount())
         return dataManager.itemCount()
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         dump(collectionView)
         return cellPopulator.populate(collectionView, for: indexPath, from: dataManager.itemAtIndexPath(indexPath))

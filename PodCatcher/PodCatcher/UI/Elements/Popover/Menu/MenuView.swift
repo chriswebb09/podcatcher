@@ -81,7 +81,7 @@ final class MenuView: UIView {
     }
     
     func setupOptionTwoTitle(title: String) {
-         optionTwoView.set(with: title, and: #imageLiteral(resourceName: "circle-x-white"))
+        optionTwoView.set(with: title, and: #imageLiteral(resourceName: "circle-x-white"))
     }
     
     func setMenuColor(backgroundColor: UIColor, borderColor: UIColor, labelTextColor: UIColor) {

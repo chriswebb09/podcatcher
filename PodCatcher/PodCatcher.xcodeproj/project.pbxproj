@@ -135,7 +135,6 @@
 		A7C620CF1F12B98800A0D33A /* PodcastPlaylistCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C620CE1F12B98800A0D33A /* PodcastPlaylistCell.swift */; };
 		A7D0AD4C1F0D4A7C007E4063 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D0AD4A1F0D4A7C007E4063 /* SplashViewController.swift */; };
 		A7DF81E61F2DFC1000ADB86B /* TableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DF81E51F2DFC1000ADB86B /* TableViewDataSource.swift */; };
-		A7DF81E81F2DFCF100ADB86B /* InsetButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DF81E71F2DFCF100ADB86B /* InsetButton.swift */; };
 		A7DF81EA1F2DFD1C00ADB86B /* NSLayoutAnchor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DF81E91F2DFD1C00ADB86B /* NSLayoutAnchor+Extension.swift */; };
 		A7DF81EC1F2DFD4300ADB86B /* Sequence+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DF81EB1F2DFD4300ADB86B /* Sequence+Extension.swift */; };
 		A7DF81EE1F2DFE0800ADB86B /* TopViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DF81ED1F2DFE0800ADB86B /* TopViewDelegate.swift */; };
@@ -309,7 +308,6 @@
 		A7C620CE1F12B98800A0D33A /* PodcastPlaylistCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PodcastPlaylistCell.swift; path = Playlists/Playlist/PodcastPlaylistCell.swift; sourceTree = "<group>"; };
 		A7D0AD4A1F0D4A7C007E4063 /* SplashViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SplashViewController.swift; path = PodCatcher/UI/Screens/Start/Splash/Controllers/SplashViewController.swift; sourceTree = SOURCE_ROOT; };
 		A7DF81E51F2DFC1000ADB86B /* TableViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TableViewDataSource.swift; path = PodCatcher/ApplicationServices/Data/TableViewDataSource.swift; sourceTree = SOURCE_ROOT; };
-		A7DF81E71F2DFCF100ADB86B /* InsetButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InsetButton.swift; sourceTree = "<group>"; };
 		A7DF81E91F2DFD1C00ADB86B /* NSLayoutAnchor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSLayoutAnchor+Extension.swift"; sourceTree = "<group>"; };
 		A7DF81EB1F2DFD4300ADB86B /* Sequence+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Sequence+Extension.swift"; sourceTree = "<group>"; };
 		A7DF81ED1F2DFE0800ADB86B /* TopViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TopViewDelegate.swift; path = Playlists/Playlist/TopViewDelegate.swift; sourceTree = "<group>"; };
@@ -752,7 +750,6 @@
 			isa = PBXGroup;
 			children = (
 				A770414F1F29345100346FC7 /* ButtonType.swift */,
-				A7DF81E71F2DFCF100ADB86B /* InsetButton.swift */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -1309,7 +1306,6 @@
 				A7188F511F1DB4D900BFEF73 /* PlaylistsControllerDataSource.swift in Sources */,
 				A77EDF651EE5FC17001A24E5 /* EmptyView.swift in Sources */,
 				A7C0824F1F2C143F00FB1B8B /* CollectionViewProtocol.swift in Sources */,
-				A7DF81E81F2DFCF100ADB86B /* InsetButton.swift in Sources */,
 				A71384BD1F006DF3003B9C9E /* CasterSearchResult.swift in Sources */,
 				A71798301F253B45007AD5EF /* Subscription+CoreDataProperties.swift in Sources */,
 				A7B1C07A1F0AE47100A42E7D /* TabBarController.swift in Sources */,

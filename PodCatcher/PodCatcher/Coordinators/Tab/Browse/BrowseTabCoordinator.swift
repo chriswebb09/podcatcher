@@ -157,7 +157,6 @@ extension BrowseTabCoordinator: PlayerViewControllerDelegate {
         
     }
     
-    
     func backButton(tapped: String) {
         print(tapped)
     }
@@ -165,7 +164,6 @@ extension BrowseTabCoordinator: PlayerViewControllerDelegate {
     func playButton(tapped: String) {
         print(tapped)
     }
-    
     
     func addItemToPlaylist(item: CasterSearchResult, index: Int) {
         PodcastPlaylistItem.addItem(item: item, for: index)
@@ -181,7 +179,6 @@ extension BrowseTabCoordinator: PlayerViewControllerDelegate {
         navigationController.navigationBar.alpha = 1
         delegate?.podcastItem(toAdd: item, with: index)
     }
-    
     
     func skipButton(tapped: String) {
         print(tapped)

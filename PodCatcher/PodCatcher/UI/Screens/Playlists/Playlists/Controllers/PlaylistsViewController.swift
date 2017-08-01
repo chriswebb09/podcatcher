@@ -6,7 +6,7 @@ final class PlaylistsViewController: BaseTableViewController {
     weak var delegate: PlaylistsViewControllerDelegate?
     var mediaDataSource: BaseMediaControllerDataSource!
     var reference: PlaylistsReference = .checkList
-    var playlistDataStack = PlaylistsCoreDataStack()
+    var playlistDataStack = PlaylistsCoreData()
     var currentPlaylistID: String = ""
     var entryPop: EntryPopover = EntryPopover()
     var mode: PlaylistsInteractionMode = .add
@@ -63,7 +63,6 @@ final class PlaylistsViewController: BaseTableViewController {
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
-        
     }
 }
 
@@ -118,8 +117,6 @@ extension PlaylistsViewController: UITableViewDelegate {
     }
     
     func editFor(indexPath: IndexPath) {
-        
-     //   let id = fetchedResultsController.object(at: indexPath).playlistId
         persistentContainer.performBackgroundTask { _ in
             self.managedContext.delete(self.fetchedResultsController.object(at: indexPath))
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "PodcastPlaylistItem")

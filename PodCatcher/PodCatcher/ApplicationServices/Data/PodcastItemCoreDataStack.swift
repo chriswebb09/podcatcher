@@ -1,11 +1,11 @@
 import UIKit
 import CoreData
 
-class PodcastItemCoreDataStack {
+struct PodcastItemCoreDataStack {
     
     var podcasts: [NSManagedObject] = []
     
-    func save(audioUrlString: String, name: String, playlist: String, image: UIImage) {
+    mutating func save(audioUrlString: String, name: String, playlist: String, image: UIImage) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         let managedContext = appDelegate.coreData.managedContext
         guard let entity = NSEntityDescription.entity(forEntityName: "PodcastPlaylistItem", in: managedContext) else { return }
@@ -22,7 +22,7 @@ class PodcastItemCoreDataStack {
         }
     }
     
-    func fetchFromCore() {
+    mutating func fetchFromCore() {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         let managedContext = appDelegate.coreData.managedContext
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "PodcastPlaylist")

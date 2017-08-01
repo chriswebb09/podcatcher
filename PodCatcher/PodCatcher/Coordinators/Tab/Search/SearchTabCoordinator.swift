@@ -88,7 +88,6 @@ extension SearchTabCoordinator: PlayerViewControllerDelegate {
         
     }
     
-    
     func addItemToPlaylist(item: CasterSearchResult, index: Int) {
         guard let newItem = PodcastPlaylistItem.addItem(item: item, for: index) else { return }
         let controller = navigationController.viewControllers.last as! PlayerViewController
@@ -109,7 +108,6 @@ extension SearchTabCoordinator: PlayerViewControllerDelegate {
     func skipButton(tapped: String) {
         print(tapped)
     }
-    
     
     func backButton(tapped: String) {
         print(tapped)

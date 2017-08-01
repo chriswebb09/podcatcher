@@ -21,11 +21,11 @@ enum ButtonType {
         let button = UIButton()
         let buttonColor = color ?? .black
         button.setAttributedTitle(NSAttributedString(string: title, attributes: [NSAttributedStringKey.foregroundColor: buttonColor,
-                                                                                  NSAttributedStringKey.font: Constants.Font.fontNormal!]), for: .normal)
+                                                                                 NSAttributedStringKey.font: Constants.Font.fontNormal!]), for: .normal)
         configureButton(button: button)
         return button as UIButton
     }
-  
+    
     public var newButton: UIButton {
         switch self {
         case let .login(title):
