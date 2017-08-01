@@ -36,8 +36,8 @@ extension HomeTabCoordinator: HomeViewControllerDelegate {
         guard let feedUrlString = resultsList.item.feedUrl else { return }
         let store = SearchResultsDataStore()
         
-        store.pullFeed(for: feedUrlString) { response in
-            guard let episodes = response.0 else { return }
+        store.pullFeed(for: feedUrlString) { response, arg  in
+            guard let episodes = response else { return }
             DispatchQueue.main.async {
                 resultsList.episodes = episodes
                 resultsList.collectionView.reloadData()
@@ -73,8 +73,8 @@ extension HomeTabCoordinator: HomeViewControllerDelegate {
         
         concurrent.async { [weak self] in
             if let strongSelf = self {
-                store.pullFeed(for: feedUrlString) { response in
-                    guard let episodes = response.0 else { return }
+                store.pullFeed(for: feedUrlString) { response, arg  in
+                    guard let episodes = response else { return }
                     resultsList.item.episodes = episodes
                     resultsList.episodes = episodes
                     DispatchQueue.main.async {

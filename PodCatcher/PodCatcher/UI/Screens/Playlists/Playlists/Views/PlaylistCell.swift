@@ -27,7 +27,7 @@ final class PlaylistCell: UITableViewCell, Reusable {
     var titleLabel: UILabel = {
         let title = UILabel()
         title.textColor = .black
-        title.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightMedium)
+        title.font = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.medium)
         title.textAlignment = .center
         title.numberOfLines = 0
         return title
@@ -45,7 +45,7 @@ final class PlaylistCell: UITableViewCell, Reusable {
     var numberOfItemsLabel: UILabel = {
         let numberOfItems = UILabel()
         numberOfItems.textColor = .black
-        numberOfItems.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightThin)
+        numberOfItems.font = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.thin)
         numberOfItems.textAlignment = .center
         numberOfItems.numberOfLines = 0
         return numberOfItems

@@ -4,11 +4,12 @@ extension UIViewController {
     
     func setupDefaultUI() {
         navigationController?.navigationBar.barTintColor = .white
-        let cancelButtonAttributes: NSDictionary = [NSForegroundColorAttributeName: Colors.brightHighlight]
-        UIBarButtonItem.appearance().setTitleTextAttributes(cancelButtonAttributes as? [String : AnyObject], for: .normal)
-        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).attributedPlaceholder = NSAttributedString(string: "Search for Podcasts...", attributes: [NSForegroundColorAttributeName: UIColor.white])
-        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).tintColor = .white
+        let cancelButtonAttributes: NSDictionary = [NSAttributedStringKey.foregroundColor: Colors.brightHighlight]
     }
+//        UIAppearance.appearance().setTitleTextAttributes(cancelButtonAttributes as? [String : AnyObject], for: .normal)
+//        UIAppearance.appearance(whenContainedInInstancesOf: [UISearchBar.self]).attributedPlaceholder = NSAttributedString(string: "Search for Podcasts...", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
+//        UIAppearance.appearance(whenContainedInInstancesOf: [UISearchBar.self]).tintColor = .white
+//    }
     
     func changeView(forView: UIView, withView: UIView) {
         view.sendSubview(toBack: withView)
@@ -21,7 +22,7 @@ extension UIViewController {
         view.addGestureRecognizer(tap)
     }
     
-    func dismissKeyboard() {
+    @objc func dismissKeyboard() {
         view.endEditing(true)
     }
 }

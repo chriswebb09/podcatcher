@@ -33,7 +33,7 @@ final class StartView: UIView {
     private func setupElements() {
         setup(logoView: logoView)
         setup(guestUserButton: guestUserButton)
-        guestUserButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: UIFontWeightMedium)
+        guestUserButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.medium)
         guestUserButton.alpha = 0.8
     }
     
@@ -41,7 +41,7 @@ final class StartView: UIView {
         guestUserButton.addTarget(self, action: #selector(guestUserButtonTapped), for: .touchUpInside)
     }
     
-    func guestUserButtonTapped() {
+    @objc func guestUserButtonTapped() {
         delegate?.continueAsGuestTapped()
     }
     

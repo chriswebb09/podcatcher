@@ -76,9 +76,7 @@ extension UIView {
     
     public static func activateDebugBorders(_ views: [UIView]) {
         let colors: [UIColor] = [.magenta, .orange, .green, .blue, .red]
-        for (view, color) in zip(views, colors.cycled()) {
-            view.debugBorder = color
-        }
+       
     }
 }
 

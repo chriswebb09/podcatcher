@@ -1,11 +1,14 @@
 import UIKit
 
-let imageCache: NSCache<NSString, UIImage> = {
-    var cache = NSCache<NSString, UIImage>()
-    cache.totalCostLimit = 30
-    cache.countLimit = 30
-    return cache
-}()
+class WebDataCache {
+    static let imageCache: NSCache<NSString, UIImage> = {
+        var cache = NSCache<NSString, UIImage>()
+        cache.name = "ImageCache"
+        cache.countLimit = 20
+        cache.totalCostLimit = 10 * 1024 * 1024
+        return cache
+    }()
+}
 
 extension UIImageView {
     
@@ -18,7 +21,7 @@ extension UIImageView {
     }
     
     func downloadImage(url: URL) {
-        if let cachedImage = imageCache.object(forKey: url.absoluteString as NSString) {
+        if let cachedImage = WebDataCache.imageCache.object(forKey: url.absoluteString as NSString) {
             self.image = cachedImage
             return
         }
@@ -28,7 +31,7 @@ extension UIImageView {
             }
             DispatchQueue.main.async {
                 if let data = data, let image = UIImage(data: data) {
-                    imageCache.setObject(image, forKey: url.absoluteString as NSString)
+                    WebDataCache.imageCache.setObject(image, forKey: url.absoluteString as NSString)
                     self.image = image
                 }
             }}.resume()
@@ -75,7 +78,7 @@ extension UIImage {
     
     
     static func downloadImage(url: URL, completionHandler: @escaping (UIImage) -> Void) {
-        if let cachedImage = imageCache.object(forKey: url.absoluteString as NSString) {
+        if let cachedImage = WebDataCache.imageCache.object(forKey: url.absoluteString as NSString) {
             completionHandler(cachedImage)
             return
         }
@@ -85,7 +88,7 @@ extension UIImage {
             }
             DispatchQueue.main.async {
                 if let data = data, let image = UIImage(data: data) {
-                    imageCache.setObject(image, forKey: url.absoluteString as NSString)
+                    WebDataCache.imageCache.setObject(image, forKey: url.absoluteString as NSString)
                     completionHandler(image)
                 }
             }

@@ -15,17 +15,18 @@ struct Colors {
 class ApplicationStyling {
     
     static func setupUI() {
-        let titleFontAttribute = UIFont.systemFont(ofSize: 16, weight: UIFontWeightRegular)
-        let tabBar = UITabBar.appearance()
-        tabBar.barTintColor = UIColor.clear
-        UINavigationBar.appearance().tintColor = .white
-        let appearance = UINavigationBar.appearance()
-        appearance.barTintColor = .black
-        UINavigationBar.appearance().backgroundColor = .black
+        let titleFontAttribute = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.regular)
+        UITabBar.appearance().tintColor = .white
+        UITabBar.appearance().backgroundColor = .black
+        let nav = UINavigationBar.appearance()
+        nav.barTintColor = .black
+        nav.tintColor = .white
+        let tabbar = UITabBar.appearance()
+        tabbar.barTintColor = .clear
         UINavigationBar.appearance().titleTextAttributes = [
-            NSFontAttributeName: titleFontAttribute,
-            NSForegroundColorAttributeName: UIColor.white,
-            NSBackgroundColorAttributeName: UIColor.black
+            NSAttributedStringKey.font: titleFontAttribute,
+            NSAttributedStringKey.foregroundColor: UIColor.white,
+            NSAttributedStringKey.backgroundColor: UIColor.black
         ]
     }
 }

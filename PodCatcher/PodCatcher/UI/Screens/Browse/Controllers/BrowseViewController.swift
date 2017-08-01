@@ -55,7 +55,7 @@ final class BrowseViewController: BaseCollectionViewController {
         collectionViewConfiguration()
         
         network.frame = view.frame
-        collectionView.register(TopPodcastCell)
+        collectionView.register(TopPodcastCell.self)
         //collectionView.register(TopPodcastCell.self)
         collectionView.backgroundColor = .darkGray
         tap = UITapGestureRecognizer(target: self, action: #selector(selectAt))
@@ -101,7 +101,7 @@ final class BrowseViewController: BaseCollectionViewController {
 
 extension BrowseViewController: UICollectionViewDelegate {
     
-    func selectAt() {
+    @objc func selectAt() {
         delegate?.didSelect(at: 0, with: dataSource.items[0])
         topView.removeGestureRecognizer(tap)
     }
@@ -125,7 +125,7 @@ extension BrowseViewController: UICollectionViewDelegate {
 
 extension BrowseViewController: UIScrollViewDelegate {
     
-    func reachabilityChanged(note: Notification) {
+    @objc func reachabilityChanged(note: Notification) {
         if reachability.isReachable {
             print("new is reachabile")
         } else {

@@ -55,7 +55,7 @@ final class PlaylistsViewController: BaseTableViewController {
         tableView.dataSource = testDataSource
     }
     
-    func edit() {
+    @objc func edit() {
         mode = mode == .edit ? .add : .edit
         if navigationItem.leftBarButtonItem != nil {
             leftButtonItem.title = mode == .edit ? "Done" : "Edit"
@@ -155,7 +155,7 @@ extension PlaylistsViewController: EntryPopoverDelegate {
         testDataSource.reloadData()
     }
     
-    func addPlaylist() {
+    @objc func addPlaylist() {
         UIView.animate(withDuration: 0.05) {
             self.entryPop.showPopView(viewController: self)
             self.entryPop.popView.isHidden = false
@@ -163,7 +163,7 @@ extension PlaylistsViewController: EntryPopoverDelegate {
         entryPop.popView.doneButton.addTarget(self, action: #selector(hidePop), for: .touchUpInside)
     }
     
-    func hidePop() {
+    @objc func hidePop() {
         entryPop.hidePopView(viewController: self)
         tableView.reloadData()
         testDataSource.reloadData()

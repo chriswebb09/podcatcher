@@ -46,7 +46,7 @@ final class PlayerView: UIView {
         artist.numberOfLines = 0
         artist.textAlignment = .center
         artist.sizeToFit()
-        artist.font = UIFont.systemFont(ofSize: 16, weight: UIFontWeightSemibold)
+        artist.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.semibold)
         return artist
     }()
     
@@ -61,7 +61,7 @@ final class PlayerView: UIView {
         title.numberOfLines = 0
         title.textAlignment = .center
         title.sizeToFit()
-        title.font = UIFont.systemFont(ofSize: 16, weight: UIFontWeightLight)
+        title.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.light)
         return title
     }()
     
@@ -117,7 +117,7 @@ final class PlayerView: UIView {
         currentPlayTime.textAlignment = .left
         currentPlayTime.textColor = .white
         currentPlayTime.text = "0:00"
-        currentPlayTime.font = UIFont.systemFont(ofSize: 12, weight: UIFontWeightThin)
+        currentPlayTime.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.thin)
         return currentPlayTime
     }()
     
@@ -205,7 +205,7 @@ final class PlayerView: UIView {
         navBar.addSubview(navigationButton)
         self.totalPlayTimeLabel.textAlignment = .right
         self.totalPlayTimeLabel.textColor = .white
-        self.totalPlayTimeLabel.font = UIFont.systemFont(ofSize: 12, weight: UIFontWeightThin)
+        self.totalPlayTimeLabel.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.thin)
         navigationButton.translatesAutoresizingMaskIntoConstraints = false
         navigationButton.leftAnchor.constraint(equalTo: navBar.leftAnchor, constant: UIScreen.main.bounds.width * 0.01).isActive = true
         navigationButton.centerYAnchor.constraint(equalTo: navBar.centerYAnchor).isActive = true

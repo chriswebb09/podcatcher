@@ -98,7 +98,7 @@ class SearchResultListViewController: BaseCollectionViewController {
         navigationItem.rightBarButtonItem = nil
     }
     
-    func subscribeToFeed() {
+    @objc func subscribeToFeed() {
         saveFeed()
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }

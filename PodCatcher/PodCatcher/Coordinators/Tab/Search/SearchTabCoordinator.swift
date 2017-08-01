@@ -46,8 +46,8 @@ extension SearchTabCoordinator: SearchViewControllerDelegate {
                                        target: nil)
         concurrent.async { [weak self] in
             guard let strongSelf = self else { return }
-            store.pullFeed(for: feedUrlString) { response in
-                guard let episodes = response.0 else { print("no"); return }
+            store.pullFeed(for: feedUrlString) { response, arg  in
+                guard let episodes = response else { print("no"); return }
                 resultsList.episodes = episodes
                 DispatchQueue.main.async {
                     resultsList.collectionView.reloadData()

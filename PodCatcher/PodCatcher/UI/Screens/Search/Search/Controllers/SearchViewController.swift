@@ -85,7 +85,7 @@ class SearchViewController: BaseTableViewController {
             let glassIconView = textFieldInsideSearchBar.leftView as? UIImageView {
             textFieldInsideSearchBar.backgroundColor = Colors.brightHighlight
             textFieldInsideSearchBar.clearButtonMode = .never
-            textFieldInsideSearchBar.attributedPlaceholder = NSAttributedString(string: textFieldInsideSearchBar.placeholder != nil ? textFieldInsideSearchBar.placeholder! : "", attributes: [NSForegroundColorAttributeName: UIColor.white])
+            textFieldInsideSearchBar.attributedPlaceholder = NSAttributedString(string: textFieldInsideSearchBar.placeholder != nil ? textFieldInsideSearchBar.placeholder! : "", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
             glassIconView.image = glassIconView.image?.withRenderingMode(.alwaysTemplate)
             glassIconView.tintColor = .white
         }
@@ -112,7 +112,7 @@ extension SearchViewController: UISearchResultsUpdating {
 
 extension SearchViewController: UISearchControllerDelegate {
     
-    func setSearch() {
+    @objc func setSearch() {
         dataSource.store.searchForTracks { [weak self] playlist, error in
             if let error = error {
                 DispatchQueue.main.async {

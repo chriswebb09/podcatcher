@@ -297,7 +297,7 @@ extension PlaylistViewController: TopViewDelegate {
         bottomMenu.showOn(collectionView)
     }
     
-    func hidePopMenu() {
+    @objc func hidePopMenu() {
         print("hidePopMenu")
     }
 }

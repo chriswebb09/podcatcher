@@ -20,44 +20,7 @@ class SpinAnimation: AnimatableView {
         let offset  = offset ?? AnimationOffset
         let up = CGAffineTransform(translationX: 0, y: offset + 22)
         
-        UIView.animate(withDuration: AnimationDuration, delay: 0.0, usingSpringWithDamping: 0.4, initialSpringVelocity: 1.0, options: [], animations: { _ in
-            view.transform = up
-            let rotation = CABasicAnimation(keyPath: "transform.rotation")
-            rotation.toValue = CGFloat(2.0 * Double.pi)
-
-            rotation.duration = self.AnimationDuration + 0.07
-            rotation.repeatCount = 1.0
-            rotation.timingFunction = CAMediaTimingFunction(controlPoints: 0.32, 0.70, 0.18, 1.00)
-            view.layer.add(rotation, forKey: "rotateStar")
-        }, completion: { finished in
-            UIView.animate(withDuration: self.AnimationDuration, delay: 0.1, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [], animations: { finished in
-                view.transform = CGAffineTransform.identity
-                UIView.animate(withDuration: 0.25, animations: {
-                    view.transform = CGAffineTransform(scaleX: 1.05, y: 1.05)
-                }, completion: { finish in
-                    view.transform = CGAffineTransform(scaleX: 1, y: 1)
-                })
-            }, completion: completion)
-        })
-    }
-    
-}
-
-
-class BigAnimation: AnimatableView {
-    fileprivate let AnimationDuration: Double = 0.25
-    fileprivate let AnimationOffset: CGFloat = -40
-    
-    static func animate(from view: UIView, with offset: CGFloat?, completion: ((Bool) -> Void)?) {
-        let animation =  BigAnimation()
-        animation.animate(from: view, with: offset, completion: completion)
-    }
-    
-    func animate(from view: UIView, with offset: CGFloat?, completion: ((Bool) -> Void)?) {
-        let offset  = offset ?? AnimationOffset
-        let up = CGAffineTransform(translationX: 0, y: offset + 22)
-        
-        UIView.animate(withDuration: AnimationDuration, delay: 0.0, usingSpringWithDamping: 0.4, initialSpringVelocity: 1.0, options: [], animations: { _ in
+        let spinAnimation = UIViewPropertyAnimator(duration: AnimationDuration, dampingRatio: 0.4, animations: {
             view.transform = up
             let rotation = CABasicAnimation(keyPath: "transform.rotation")
             rotation.toValue = CGFloat(2.0 * Double.pi)
@@ -66,15 +29,29 @@ class BigAnimation: AnimatableView {
             rotation.repeatCount = 1.0
             rotation.timingFunction = CAMediaTimingFunction(controlPoints: 0.32, 0.70, 0.18, 1.00)
             view.layer.add(rotation, forKey: "rotateStar")
-        }, completion: { finished in
-            UIView.animate(withDuration: self.AnimationDuration, delay: 0.01, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [], animations: { finished in
-               // view.transform = CGAffineTransform.identity
-                view.transform = CGAffineTransform(scaleX: 8, y: 18)
-            }, completion: completion)
         })
+        
+        let jumpAnimation = UIViewPropertyAnimator(duration: 0.25, curve: .linear, animations: {
+            view.transform = CGAffineTransform.identity
+        })
+        
+        let growAnimation = UIViewPropertyAnimator(duration: 0.25, curve: .linear, animations: {
+            view.transform = CGAffineTransform(scaleX: 1.05, y: 1.05)
+        })
+        
+        spinAnimation.startAnimation()
+        jumpAnimation.startAnimation()
+        growAnimation.startAnimation()
     }
     
+}
+
+
+class BigAnimation: AnimatableView {
     
+    func animate(from view: UIView, with offset: CGFloat?, completion: ((Bool) -> Void)?) {
+    }
+   
     private func setupSlowAnimation(animation: CABasicAnimation) {
         animation.duration = 0.3
         animation.fromValue = 1
@@ -89,10 +66,6 @@ class BigAnimation: AnimatableView {
         setupSlowAnimation(animation: animation)
         return animation
     }
-    
-   // CGAffineTransform(scaleX: 8, y: 18)
-    
-    // Animates sides
     
     private func animateXSlow() -> CABasicAnimation {
         let animation = CABasicAnimation(keyPath: "transform.scale.x")
