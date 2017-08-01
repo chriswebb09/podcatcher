@@ -10,5 +10,3 @@ struct Episodes {
     var audioUrlString: String?
     var stringDuration: String?
 }
-
-

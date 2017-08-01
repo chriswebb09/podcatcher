@@ -87,7 +87,7 @@ extension SearchTabCoordinator: PlayerViewControllerDelegate {
     func playPaused(tapped: Bool) {
         
     }
-
+    
     
     func addItemToPlaylist(item: CasterSearchResult, index: Int) {
         guard let newItem = PodcastPlaylistItem.addItem(item: item, for: index) else { return }

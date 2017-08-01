@@ -62,7 +62,7 @@ extension NetworkService: URLSessionDelegate {
 }
 
 extension NetworkService: URLSessionDownloadDelegate {
-  
+    
     internal func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
         guard let sourceURL = downloadTask.originalRequest?.url else { return }
         activeDownloads[sourceURL.absoluteString] = nil

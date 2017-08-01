@@ -156,16 +156,16 @@ extension BrowseTabCoordinator: PlayerViewControllerDelegate {
     func playPaused(tapped: Bool) {
         
     }
-
+    
     
     func backButton(tapped: String) {
         print(tapped)
     }
-
+    
     func playButton(tapped: String) {
         print(tapped)
     }
-
+    
     
     func addItemToPlaylist(item: CasterSearchResult, index: Int) {
         PodcastPlaylistItem.addItem(item: item, for: index)
@@ -195,17 +195,17 @@ extension BrowseTabCoordinator: PlayerViewControllerDelegate {
         print(tapped)
     }
     
-//    func skipButton(tapped: Bool) {
-//        print("SkipButton tapped \(tapped)")
-//    }
-//    
-//    func pauseButton(tapped: Bool) {
-//        print("PauseButton tapped \(tapped)")
-//    }
-//    
-//    func playButton(tapped: Bool) {
-//        print("PlayButton tapped \(tapped)")
-//    }
+    //    func skipButton(tapped: Bool) {
+    //        print("SkipButton tapped \(tapped)")
+    //    }
+    //    
+    //    func pauseButton(tapped: Bool) {
+    //        print("PauseButton tapped \(tapped)")
+    //    }
+    //    
+    //    func playButton(tapped: Bool) {
+    //        print("PlayButton tapped \(tapped)")
+    //    }
     
     func navigateBack(tapped: Bool) {
         navigationController.setNavigationBarHidden(false, animated: false)
