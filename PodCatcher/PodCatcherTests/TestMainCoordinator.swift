@@ -42,7 +42,7 @@ class TestMainCoordinator: XCTestCase {
         XCTAssertNoThrow(startCoord?.childViewControllers[1] as? StartViewController)
         XCTAssertEqual(mainCoordinator?.appCoordinator.type, .app)
     }
-
+    
     func testGoToCreateAccount() {
         mainCoordinator.start()
         let startCoord = mainCoordinator.appCoordinator as? StartCoordinator
