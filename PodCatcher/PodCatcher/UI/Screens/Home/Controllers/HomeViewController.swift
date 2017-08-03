@@ -66,7 +66,6 @@ class HomeViewController: BaseCollectionViewController {
     
     init(dataSource: BaseMediaControllerDataSource) {
         super.init(nibName: nil, bundle: nil)
-        
     }
     
     required public init(coder aDecoder: NSCoder) {
@@ -174,7 +173,6 @@ extension HomeViewController: UICollectionViewDelegate {
                 try self.managedContext.save()
             } catch let error {
                 self.showError(errorString: " \(error.localizedDescription)")
-                print("Unable to Perform Fetch Request \(error), \(error.localizedDescription)")
             }
         }
     }

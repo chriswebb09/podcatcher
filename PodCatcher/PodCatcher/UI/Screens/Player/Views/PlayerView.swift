@@ -12,9 +12,6 @@ final class PlayerView: UIView {
             if let imageUrl = model.imageUrl {
                 albumImageView.downloadImage(url: imageUrl)
             }
-           // model.setControlButton(button: pauseButton)
-           // model.setControlButton(button: playButton)
-           // totalPlayTimeLabel.text = model.totalTimeString
         }
     }
     
@@ -121,11 +118,7 @@ final class PlayerView: UIView {
         return currentPlayTime
     }()
     
-    var totalPlayTimeLabel: UILabel = UILabel() {
-        didSet {
-            print(totalPlayTimeLabel.text)
-        }
-    }
+    var totalPlayTimeLabel: UILabel = UILabel()
     
     private var controlsView: UIView = {
         let controls = UIView()
@@ -180,8 +173,6 @@ final class PlayerView: UIView {
         self.model = model
         setupViews()
         backgroundColor = UIColor(red:0.92, green:0.32, blue:0.33, alpha:1.0)
-//        model.setControlButton(button: pauseButton)
-//        model.setControlButton(button: playButton)
     }
     
     func updateViewModel(model: PlayerViewModel) {
@@ -390,7 +381,6 @@ final class PlayerView: UIView {
     @objc private func sliderValueChanged() {
         let timeString = String.constructTimeString(time: Double(playtimeSlider.value))
         currentPlayTimeLabel.text = timeString
-        //delegate?.updateTimeValue(time: Double(playtimeSlider.value))
     }
     
     @objc private func playButtonTapped() {
