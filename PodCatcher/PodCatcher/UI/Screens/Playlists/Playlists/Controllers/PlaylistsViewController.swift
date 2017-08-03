@@ -49,7 +49,6 @@ final class PlaylistsViewController: BaseTableViewController {
         rightButtonItem.tintColor = Colors.brightHighlight
         navigationItem.setRightBarButton(rightButtonItem, animated: false)
         navigationItem.setLeftBarButton(leftButtonItem, animated: false)
-        fetchedResultsController.fetchRequest
         testDataSource = TableViewDataSource(tableView: tableView, cellIdentifier: "PlaylistCell", fetchedResultsController: fetchedResultsController, delegate: self)
         testDataSource.reloadData()
         tableView.dataSource = testDataSource

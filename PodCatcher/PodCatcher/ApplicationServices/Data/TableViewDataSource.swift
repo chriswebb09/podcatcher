@@ -12,6 +12,13 @@ class TableViewDataSource<Delegate: TableViewDataSourceDelegate>: NSObject, UITa
     typealias Object = Delegate.Object
     typealias Cell = Delegate.Cell
     
+    // MARK: Private
+    
+    fileprivate let tableView: UITableView
+    fileprivate let fetchedResultsController: NSFetchedResultsController<Object>
+    fileprivate weak var delegate: Delegate!
+    fileprivate let cellIdentifier: String
+    
     required init(tableView: UITableView, cellIdentifier: String, fetchedResultsController: NSFetchedResultsController<Object>, delegate: Delegate) {
         
         self.tableView = tableView
@@ -52,13 +59,6 @@ class TableViewDataSource<Delegate: TableViewDataSourceDelegate>: NSObject, UITa
             print(error)
         }
     }
-    
-    // MARK: Private
-    
-    fileprivate let tableView: UITableView
-    fileprivate let fetchedResultsController: NSFetchedResultsController<Object>
-    fileprivate weak var delegate: Delegate!
-    fileprivate let cellIdentifier: String
     
     // MARK: UITableViewDataSource
     

@@ -88,10 +88,12 @@ final class PlayerViewController: BaseViewController {
             DispatchQueue.main.async {
                 if let strongSelf = self {
                     strongSelf.playerView.playtimeSlider.value = Float(timeElapsed)
-                    strongSelf.playerView.currentPlayTimeLabel.text = String.createTimeString(time: timeElapsed)
-                    let timeLeft = (Float(strongSelf.player.duration) - timeElapsed)
+                    strongSelf.playerView.currentPlayTimeLabel.text = String.constructTimeString(time: Double(timeElapsed))
+                    //createTimeString(time: timeElapsed)
+                    let timeLeft = Double(Float(strongSelf.player.duration) - timeElapsed)
                     print(timeLeft)
-                    strongSelf.playerView.totalPlayTimeLabel.text = String.createTimeString(time: timeLeft)
+                    strongSelf.playerView.totalPlayTimeLabel.text = String.constructTimeString(time: timeLeft)
+                    //createTimeString(time: timeLeft)
                 }
             }
         }
@@ -176,7 +178,8 @@ final class PlayerViewController: BaseViewController {
                 guard let strongSelf = self else { return }
                 let currentTime = strongSelf.player.player.currentTime()
                 let currentSeconds = CMTimeGetSeconds(currentTime)
-                strongSelf.playerView.currentPlayTimeLabel.text = String.createTimeString(time: Float(currentSeconds))
+                strongSelf.playerView.currentPlayTimeLabel.text = String.constructTimeString(time: Double(currentSeconds))
+                    //.createTimeString(time: Float(currentSeconds))
                 strongSelf.playerView.update(progressBarValue: Float(currentSeconds))
             }
             
@@ -203,7 +206,8 @@ final class PlayerViewController: BaseViewController {
                     guard let currentTime = self?.player.player.currentTime() else { return }
                     let currentSeconds = CMTimeGetSeconds(currentTime)
                     let durationSeconds = CMTimeGetSeconds((strongSelf.player.player.currentItem?.duration)!)
-                    strongSelf.playerView.currentPlayTimeLabel.text = String.createTimeString(time: Float(currentSeconds))
+                    strongSelf.playerView.currentPlayTimeLabel.text = String.constructTimeString(time: Double(currentSeconds))
+                        //.createTimeString(time: Float(currentSeconds))
                     strongSelf.durationText = String.constructTimeString(time: durationSeconds)
                     strongSelf.playerView.totalPlayTimeLabel.text = String.constructTimeString(time: durationSeconds)
                 }

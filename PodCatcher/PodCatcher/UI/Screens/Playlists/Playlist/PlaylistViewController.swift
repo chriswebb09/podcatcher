@@ -191,8 +191,6 @@ extension PlaylistViewController: UICollectionViewDelegate {
         let artData = item.artwork as! Data
         let artImage = UIImage(data: artData)
         topView.podcastImageView.image = artImage
-        
-        // topView.podcastImageView.image = item.
         if let index = selectedSongIndex {
             
             let playerIndexPath = IndexPath(item: index, section: 0)

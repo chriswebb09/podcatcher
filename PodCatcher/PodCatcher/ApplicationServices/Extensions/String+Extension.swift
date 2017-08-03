@@ -2,23 +2,9 @@ import Foundation
 
 extension String {
     
-    static func createTimeString(time: Float) -> String {
-        
-        let timeRemainingFormatter: DateComponentsFormatter = {
-            let formatter = DateComponentsFormatter()
-            formatter.zeroFormattingBehavior = .pad
-            formatter.allowedUnits = [.minute, .second]
-            return formatter
-        }()
-        
-        let components = NSDateComponents()
-        components.second = Int(Swift.max(0.0, time))
-        return timeRemainingFormatter.string(from: components as DateComponents)!
-    }
-    
     static func constructTimeString(time: Double) -> String {
-        if time < 0 {
-            return ""
+        guard time > 0 else {
+            return "0:00"
         }
         let hours: Int = Int(time / 3600)
         let minutes = Int(time.truncatingRemainder(dividingBy: 3600) / 60)
@@ -53,30 +39,6 @@ extension String {
         let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         let result = emailTest.evaluate(with: self)
         return result
-    }
-    
-    // MARK: - Helpers
-    
-    static func constructTimeString(time: Int) -> String {
-        print(time)
-        var timeString = String(describing: time)
-        var timerString = ""
-        if timeString.characters.count < 2 {
-            timerString = "0:0\(timeString)"
-        } else if timeString.characters.count == 2 {
-            timerString = "0:\(timeString)"
-        }
-        if time >= 60 {
-            print(time)
-            let minutes = time / 60
-            let seconds = time % 10
-            if seconds < 10 {
-                timerString = "\(minutes):0\(seconds)"
-            } else {
-                timerString = "\(minutes):\(seconds)"
-            }
-        }
-        return timerString
     }
     
     static func extractID(from link: String) -> String? {

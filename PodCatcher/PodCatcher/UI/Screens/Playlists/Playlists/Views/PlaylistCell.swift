@@ -38,7 +38,6 @@ final class PlaylistCell: UITableViewCell, Reusable {
         let image = #imageLiteral(resourceName: "circle-x").withRenderingMode(.alwaysTemplate)
         delete.image = image
         delete.tintColor = .red
-        //delete.tintColor = .white
         return delete
     }()
     

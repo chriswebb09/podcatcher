@@ -37,12 +37,14 @@ extension UIViewController {
     }
     
     func showError(errorString: String) {
-        let actionSheetController: UIAlertController = UIAlertController(title: "Error", message: errorString, preferredStyle: .alert)
-        let okayAction: UIAlertAction =  UIAlertAction(title: "Okay", style: .cancel) { action in
-            actionSheetController.dismiss(animated: false, completion: nil)
+        DispatchQueue.main.async {
+            let actionSheetController: UIAlertController = UIAlertController(title: "Error", message: errorString, preferredStyle: .alert)
+            let okayAction: UIAlertAction =  UIAlertAction(title: "Okay", style: .cancel) { action in
+                actionSheetController.dismiss(animated: false, completion: nil)
+            }
+            actionSheetController.addAction(okayAction)
+            self.present(actionSheetController, animated: false)
         }
-        actionSheetController.addAction(okayAction)
-        present(actionSheetController, animated: false)
     }
 }
 
