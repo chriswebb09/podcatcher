@@ -15,13 +15,11 @@ final class PlaylistCell: UITableViewCell, Reusable {
                 deleteImageView.alpha = 1
                 let image = #imageLiteral(resourceName: "next").withRenderingMode(.alwaysTemplate)
                 deleteImageView.image = image
-               // deleteImageView.layer.setImageShadow(contentView: self)
                 deleteImageView.tintColor = .darkGray
             case .delete:
                 deleteImageView.alpha = 1
                 let image = #imageLiteral(resourceName: "circle-x").withRenderingMode(.alwaysTemplate)
                 deleteImageView.image = image
-             //   deleteImageView.layer.setImageShadow(contentView: self)
                 deleteImageView.tintColor = .red
             }
         }
@@ -35,7 +33,7 @@ final class PlaylistCell: UITableViewCell, Reusable {
     var titleLabel: UILabel = {
         let title = UILabel()
         title.textColor = .black
-        title.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.medium)
+        title.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.thin)
         title.textAlignment = .center
         title.numberOfLines = 0
         return title

@@ -1,10 +1,6 @@
 import UIKit
 import CoreData
 
-enum HomeInteractionMode {
-    case subscription, edit
-}
-
 class HomeViewController: BaseCollectionViewController {
     
     // MARK: - Properties
@@ -89,8 +85,8 @@ class HomeViewController: BaseCollectionViewController {
         navigationItem.setRightBarButton(rightButtonItem, animated: false)
         reloadData()
         homeDataSource = CollectionViewDataSource(collectionView: collectionView, identifier: SubscribedPodcastCell.reuseIdentifier, fetchedResultsController: fetchedResultsController, delegate: self)
-        collectionView.dataSource = homeDataSource
         homeDataSource.reloadData()
+        collectionView.dataSource = homeDataSource
         collectionView.delegate = self
         view.bringSubview(toFront: collectionView)
     }
@@ -165,7 +161,7 @@ extension HomeViewController: UICollectionViewDelegate {
                 subscriptions.remove(at: index)
                 UserDefaults.saveSubscriptions(subscriptions: subscriptions)
             }
-            self.reloadData()
+            self.homeDataSource.reloadData()
             do {
                 try self.managedContext.save()
             } catch let error {
@@ -180,7 +176,9 @@ extension HomeViewController {
     func reloadData() {
         do {
             try fetchedResultsController.performFetch()
-            collectionView.reloadData()
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
         } catch let error {
             showError(errorString: "\(error.localizedDescription)")
         }

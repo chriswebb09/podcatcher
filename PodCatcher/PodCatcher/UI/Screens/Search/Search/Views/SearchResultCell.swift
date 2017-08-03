@@ -12,7 +12,7 @@ class SearchResultCell: UITableViewCell, Reusable {
     var titleLabel: UILabel = {
         let title = UILabel()
         title.textColor = .black
-        title.font = UIFont.systemFont(ofSize: 13, weight: UIFont.Weight.light)
+        title.font = UIFont.systemFont(ofSize: 13, weight: UIFont.Weight.regular)
         title.textAlignment = .center
         title.numberOfLines = 0
         return title
@@ -31,7 +31,6 @@ class SearchResultCell: UITableViewCell, Reusable {
         let shadowOffset = CGSize(width:-0.45, height: 0.2)
         let shadowRadius: CGFloat = 1.0
         let shadowOpacity: Float = 0.4
-        
         contentView.layer.shadowRadius = shadowRadius
         contentView.layer.shadowOffset = shadowOffset
         contentView.layer.shadowOpacity = shadowOpacity

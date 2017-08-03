@@ -12,11 +12,12 @@ class CollectionViewDataSource<Delegate: CollectionViewDataSourceDelegate>: NSOb
     
     // MARK: Private
     
+    fileprivate let emptyView = EmptyView()
     fileprivate let collectionView: UICollectionView
     fileprivate let fetchedResultsController: NSFetchedResultsController<Object>
     fileprivate weak var delegate: Delegate!
     fileprivate let cellIdentifier: String
-    
+    fileprivate let backgroundView = UIView()
     var contentState: ContentState = .empty
     var itemCount: Int = 0
     
@@ -30,6 +31,11 @@ class CollectionViewDataSource<Delegate: CollectionViewDataSourceDelegate>: NSOb
         try! fetchedResultsController.performFetch()
         collectionView.dataSource = self
         collectionView.reloadData()
+        emptyView.frame = UIScreen.main.bounds
+        backgroundView.frame = UIScreen.main.bounds
+        collectionView.backgroundView = emptyView
+        backgroundView.backgroundColor = .lightGray
+        
     }
     
     var selectedObject: Object? {
@@ -68,7 +74,9 @@ class CollectionViewDataSource<Delegate: CollectionViewDataSourceDelegate>: NSOb
         guard let section = fetchedResultsController.sections?[section] else { contentState = .empty; return 0 }
         itemCount = section.numberOfObjects
         if itemCount > 0 {
-            contentState = .collection
+            collectionView.backgroundView = backgroundView
+        } else {
+            collectionView.backgroundView = emptyView
         }
         return section.numberOfObjects
     }

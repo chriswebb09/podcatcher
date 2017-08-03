@@ -1,9 +1,5 @@
 import UIKit
 
-enum SubscriptionCellState {
-    case edit, done
-}
-
 final class SubscribedPodcastCell: UICollectionViewCell {
     
     fileprivate var viewModel: SubscribedPodcastCellViewModel? {

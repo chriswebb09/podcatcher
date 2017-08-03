@@ -30,19 +30,10 @@ final class EmptyView: UIView {
         setup(musicIcon: musicIcon)
         setup(infoLabel: infoLabel)
         addSubview(backgroundImageView)
-        addBlurEffect()
     }
     
     func configure() {
         layoutSubviews()
-    }
-    
-    func addBlurEffect() {
-        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
-        let blurEffectView = UIVisualEffectView(effect: blurEffect)
-        blurEffectView.frame = bounds
-        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        backgroundImageView.addSubview(blurEffectView)
     }
     
     private func setup(musicIcon: UIView) {

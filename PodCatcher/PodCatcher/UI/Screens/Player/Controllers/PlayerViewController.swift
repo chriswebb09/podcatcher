@@ -19,6 +19,7 @@ final class PlayerViewController: BaseViewController {
     var menuActive: MenuActive = .none
     
     public var didPlayToEnd: (() -> ())?
+    
     private var didPlayToEndTimeToken: NotificationToken?
     
     var durationText = ""

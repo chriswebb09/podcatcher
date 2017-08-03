@@ -226,7 +226,6 @@ extension SearchResultListViewController: UICollectionViewDataSource {
     }
 }
 
-
 // MARK: - UICollectionViewDelegateFlowLayout
 
 extension SearchResultListViewController: UICollectionViewDelegateFlowLayout {

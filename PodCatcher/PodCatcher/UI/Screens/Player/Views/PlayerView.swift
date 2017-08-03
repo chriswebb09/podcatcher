@@ -258,7 +258,7 @@ final class PlayerView: UIView {
         playButton.translatesAutoresizingMaskIntoConstraints = false
         playButton.heightAnchor.constraint(equalTo: controlsView.heightAnchor, multiplier: 0.44).isActive = true
         playButton.widthAnchor.constraint(equalTo: controlsView.widthAnchor, multiplier: 0.25).isActive = true
-        playButton.bottomAnchor.constraint(equalTo: controlsView.centerYAnchor, constant: UIScreen.main.bounds.height * 0.025).isActive = true
+        playButton.bottomAnchor.constraint(equalTo: controlsView.centerYAnchor, constant: UIScreen.main.bounds.height * 0.03).isActive = true
         playButton.centerXAnchor.constraint(equalTo: controlsView.centerXAnchor).isActive = true
     }
     
