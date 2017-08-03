@@ -188,7 +188,7 @@ extension PlaylistViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let item = fetchedResultsController.object(at: indexPath)
-        let artData = item.artwork as! Data
+        guard let artData = item.artwork as? Data else { return }
         let artImage = UIImage(data: artData)
         topView.podcastImageView.image = artImage
         if let index = selectedSongIndex {

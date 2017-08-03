@@ -59,7 +59,7 @@ extension UIView {
         constrainEqual(.bottom, to: view, .bottomMargin)
     }
     
-    /// If the `view` is nil, we take the superview.
+   
     public func center(inView view: UIView? = nil) {
         guard let container = view ?? self.superview else { fatalError() }
         centerXAnchor.constrainEqual(container.centerXAnchor)

@@ -32,13 +32,10 @@ class CollectionViewDataSource<Delegate: CollectionViewDataSourceDelegate>: NSOb
         self.cellIdentifier = identifier
         self.fetchedResultsController = fetchedResultsController
         self.delegate = delegate
-        
         super.init()
-        
         fetchedResultsController.delegate = self
         try! fetchedResultsController.performFetch()
         collectionView.dataSource = self
-        collectionView.register(SubscribedPodcastCell.self)
         collectionView.reloadData()
     }
   
@@ -54,7 +51,11 @@ class CollectionViewDataSource<Delegate: CollectionViewDataSourceDelegate>: NSOb
     func reconfigureFetchRequest(_ configure: (NSFetchRequest<Object>) -> ()) {
         NSFetchedResultsController<NSFetchRequestResult>.deleteCache(withName: fetchedResultsController.cacheName)
         configure(fetchedResultsController.fetchRequest)
-        do { try fetchedResultsController.performFetch() } catch { fatalError("fetch request failed") }
+        do {
+            try fetchedResultsController.performFetch()
+        } catch {
+            fatalError("fetch request failed")
+        }
         DispatchQueue.main.async {
             self.collectionView.reloadData()
         }
@@ -76,7 +77,6 @@ class CollectionViewDataSource<Delegate: CollectionViewDataSourceDelegate>: NSOb
         if itemCount > 0 {
             contentState = .collection
         }
-        print(contentState)
         return section.numberOfObjects
     }
     
@@ -92,7 +92,6 @@ class CollectionViewDataSource<Delegate: CollectionViewDataSourceDelegate>: NSOb
     // MARK: NSFetchedResultsControllerDelegate
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-        
         switch type {
         case .insert:
             guard let indexPath = newIndexPath else { return }
