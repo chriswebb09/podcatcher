@@ -117,7 +117,8 @@ extension HomeViewController: UICollectionViewDelegate {
         let cell = collectionView.cellForItem(at: indexPath)
         switch mode {
         case .subscription:
-            SpinAnimation.animate(from: cell!, with: 2, completion: nil)
+            guard let cell = cell else { return }
+            SpinAnimation.animate(from: cell, with: 2, completion: nil)
             let item = fetchedResultsController.object(at: indexPath)
             var caster = CasterSearchResult()
             caster.feedUrl = item.feedUrl
@@ -170,7 +171,6 @@ extension HomeViewController: UICollectionViewDelegate {
 extension HomeViewController: NSFetchedResultsControllerDelegate {
     
     func reloadData() {
-        
         do {
             try fetchedResultsController.performFetch()
             collectionView.reloadData()

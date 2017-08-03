@@ -127,7 +127,7 @@ extension BrowseViewController: UIScrollViewDelegate {
     
     @objc func reachabilityChanged(note: Notification) {
         if reachability.isReachable {
-            print("new is reachabile")
+            print("browse is reachabile")
         } else {
             DispatchQueue.main.async {
                 self.view.addSubview(self.network)

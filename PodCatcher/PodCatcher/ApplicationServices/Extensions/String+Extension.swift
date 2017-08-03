@@ -33,14 +33,7 @@ extension String {
     }
     
     // String extension check that itself for valid email pattern and returns boolean
-    
-    func isValidEmail() -> Bool {
-        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
-        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
-        let result = emailTest.evaluate(with: self)
-        return result
-    }
-    
+
     static func extractID(from link: String) -> String? {
         let pattern = "id([0-9]+)"
         guard let regExp = try? NSRegularExpression(pattern: pattern, options: .caseInsensitive) else {
