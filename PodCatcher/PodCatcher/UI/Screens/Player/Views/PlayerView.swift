@@ -95,7 +95,6 @@ final class PlayerView: UIView {
         slider.thumbTintColor = .white
         slider.maximumTrackTintColor = UIColor(red:1.00, green:0.71, blue:0.71, alpha:1.0)
         let thumbImage = #imageLiteral(resourceName: "line-gray").scaleToSize(CGSize(width: 2.5, height: 18))
-       
         slider.setThumbImage(slider.handleImage(with: .white), for: .normal)
         slider.setThumbImage(thumbImage, for: .selected)
         slider.minimumValue = 0
@@ -283,9 +282,8 @@ final class PlayerView: UIView {
         trackButton.centerXAnchor.constraint(equalTo: controlsView.centerXAnchor).isActive = true
     }
     
-    private func setup(playButton: UIButton, pauseButton: UIButton) {
+    private func setup(playButton: UIButton) {
         setup(trackButton: playButton)
-        setup(trackButton: pauseButton)
     }
     
     private func skipButtonsSharedLayout(controlsView: UIView, button: UIButton) {
@@ -355,7 +353,7 @@ final class PlayerView: UIView {
         setup(playtimeSliderView: playtimeSliderView)
         setup(playtimeSlider: playtimeSlider)
         setup(controlsView: controlsView)
-        setup(playButton: playButton, pauseButton: pauseButton)
+        setup(playButton: playButton)
         setup(skipButton: skipButton, backButton: backButton)
         setup(totalTimeLabel: totalPlayTimeLabel)
         setup(currentTimeLabel: currentPlayTimeLabel)
@@ -384,28 +382,21 @@ final class PlayerView: UIView {
     }
     
     @objc private func playButtonTapped() {
-        model.switchButtonAlpha(for: pauseButton, withButton: playButton)
         delegate?.playPause(tapped: true)
     }
     
     @objc private func pauseButtonTapped() {
-        model.switchButtonAlpha(for: playButton, withButton: pauseButton)
         delegate?.pauseButton(tapped: true)
     }
     
     @objc private func skipButtonTapped() {
         disableButtons()
         delegate?.skipButton(tapped: true)
-        model.reset(playButton: playButton, pauseButton: pauseButton, slider: playtimeSlider)
     }
     
     @objc private func backButtonTapped() {
         disableButtons()
         delegate?.backButton(tapped: true)
-    }
-    
-    func reset() {
-        model.reset(playButton: playButton, pauseButton: pauseButton, slider: playtimeSlider)
     }
     
     @objc private func moreButtonTapped() {
@@ -416,20 +407,9 @@ final class PlayerView: UIView {
         delegate?.navigateBack(tapped: true)
     }
     
-    func hidePause() {
-        pauseButton.alpha = 0
-    }
-    
-    func printSliderBounds() {
-        print(playtimeSlider.frame)
-    }
-    
-    func update(progressBarValue: Float) {
-        playtimeSlider.value = progressBarValue
-        if progressBarValue == 100 {
-            reset()
-        }
-    }
+//    func update(progressBarValue: Float) {
+//        playtimeSlider.value = progressBarValue
+//    }
     
     func disableButtons() {
         playButton.isEnabled = false

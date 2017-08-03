@@ -26,9 +26,6 @@ final class BrowseCollectionDataSource: BaseMediaControllerDataSource {
 extension BrowseCollectionDataSource:  UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if items.count > 0 {
-            reserveItems.append(items[0])
-        }
         return items.count
     }
     

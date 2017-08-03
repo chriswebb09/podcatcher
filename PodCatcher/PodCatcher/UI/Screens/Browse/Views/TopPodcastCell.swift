@@ -49,14 +49,12 @@ final internal class TopPodcastCell: UICollectionViewCell {
         albumArtView.layer.setCellShadow(contentView: self)
     }
     
-    
     func configureCell(with model: TopPodcastCellViewModel, withTime: Double) {
         viewModel = model
         layer.borderWidth = 1
         contentView.layer.cornerRadius = 3
         layer.borderColor = UIColor.lightText.cgColor
         contentView.backgroundColor = Colors.lightCharcoal
-    
     }
     
     override func layoutSubviews() {

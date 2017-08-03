@@ -161,14 +161,11 @@ extension HomeViewController: UICollectionViewDelegate {
             self.managedContext.delete(self.fetchedResultsController.object(at: indexPath))
             var subscriptions = UserDefaults.loadSubscriptions()
             guard let feedUrl = feed else { return }
-            
             if let index = subscriptions.index(of: feedUrl) {
                 subscriptions.remove(at: index)
                 UserDefaults.saveSubscriptions(subscriptions: subscriptions)
             }
-            
             self.reloadData()
-            
             do {
                 try self.managedContext.save()
             } catch let error {

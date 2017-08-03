@@ -5,13 +5,6 @@ enum ContentState {
     case empty, collection
 }
 
-protocol CollectionViewDataSourceDelegate: class {
-    associatedtype Object: NSFetchRequestResult
-    associatedtype Cell: UICollectionViewCell
-    func configure(_ cell: Cell, for object: Object)
-}
-
-
 class CollectionViewDataSource<Delegate: CollectionViewDataSourceDelegate>: NSObject, UICollectionViewDataSource, NSFetchedResultsControllerDelegate {
     
     typealias Object = Delegate.Object
@@ -38,7 +31,7 @@ class CollectionViewDataSource<Delegate: CollectionViewDataSourceDelegate>: NSOb
         collectionView.dataSource = self
         collectionView.reloadData()
     }
-  
+    
     var selectedObject: Object? {
         guard let indexPath = collectionView.indexPathsForSelectedItems?[0] else { return nil }
         return objectAtIndexPath(indexPath)
@@ -121,4 +114,3 @@ class CollectionViewDataSource<Delegate: CollectionViewDataSourceDelegate>: NSOb
         }
     }
 }
-

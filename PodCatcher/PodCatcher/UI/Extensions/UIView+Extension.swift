@@ -13,9 +13,6 @@ extension UIView {
             view.layoutSubviews()
         }
     }
-}
-
-extension UIView {
     
     static func findSubViewWithFirstResponder(_ view: UIView) -> UIView? {
         let subviews = view.subviews
@@ -30,37 +27,33 @@ extension UIView {
         }
         return nil
     }
-}
-
-extension UIView {
     
-    public func constrainEqual(_ attribute: NSLayoutAttribute, to: AnyObject, multiplier: CGFloat = 1, constant: CGFloat = 0) {
+    func constrainEqual(_ attribute: NSLayoutAttribute, to: AnyObject, multiplier: CGFloat = 1, constant: CGFloat = 0) {
         constrainEqual(attribute, to: to, attribute, multiplier: multiplier, constant: constant)
     }
     
-    public func constrainEqual(_ attribute: NSLayoutAttribute, to: AnyObject, _ toAttribute: NSLayoutAttribute, multiplier: CGFloat = 1, constant: CGFloat = 0) {
+    func constrainEqual(_ attribute: NSLayoutAttribute, to: AnyObject, _ toAttribute: NSLayoutAttribute, multiplier: CGFloat = 1, constant: CGFloat = 0) {
         NSLayoutConstraint.activate([
             NSLayoutConstraint(item: self, attribute: attribute, relatedBy: .equal, toItem: to, attribute: toAttribute, multiplier: multiplier, constant: constant)
             ]
         )
     }
     
-    public func constrainEdges(to other: UILayoutGuide) {
+    func constrainEdges(to other: UILayoutGuide) {
         topAnchor.constrainEqual(other.topAnchor)
         bottomAnchor.constrainEqual(other.bottomAnchor)
         leadingAnchor.constrainEqual(other.leadingAnchor)
         trailingAnchor.constrainEqual(other.trailingAnchor)
     }
     
-    public func constrainEdges(toMarginOf view: UIView) {
+    func constrainEdges(toMarginOf view: UIView) {
         constrainEqual(.top, to: view, .topMargin)
         constrainEqual(.leading, to: view, .leadingMargin)
         constrainEqual(.trailing, to: view, .trailingMargin)
         constrainEqual(.bottom, to: view, .bottomMargin)
     }
     
-   
-    public func center(inView view: UIView? = nil) {
+    func center(inView view: UIView? = nil) {
         guard let container = view ?? self.superview else { fatalError() }
         centerXAnchor.constrainEqual(container.centerXAnchor)
         centerYAnchor.constrainEqual(container.centerYAnchor)

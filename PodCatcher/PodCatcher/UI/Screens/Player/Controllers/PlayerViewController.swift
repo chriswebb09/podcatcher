@@ -21,19 +21,13 @@ final class PlayerViewController: BaseViewController {
     public var didPlayToEnd: (() -> ())?
     private var didPlayToEndTimeToken: NotificationToken?
     
-    var durationText = "" {
-        didSet {
-            print(durationText)
-        }
-    }
+    var durationText = ""
     
     @objc var player: AudioFilePlayer {
         didSet {
             playerViewModel.state = player.state
         }
     }
-    
-    //  var temporaryDuration:
     
     var index: Int
     let downloadingIndicator = DownloaderIndicatorView()
@@ -77,7 +71,6 @@ final class PlayerViewController: BaseViewController {
         playerViewModel = PlayerViewModel(imageUrl: URL(string: artUrl), title: episodes[index].title)
         setModel(model: playerViewModel)
         playerView.delegate = self
-        playerView.hidePause()
         playerView.artistLabel.text = caster.podcastArtist
         navigationController?.setNavigationBarHidden(true, animated: false)
         tabBarController?.tabBar.alpha = 0
@@ -104,7 +97,6 @@ final class PlayerViewController: BaseViewController {
                 self.didPlayToEnd?()
             }
         }
-        
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -166,26 +158,18 @@ final class PlayerViewController: BaseViewController {
                 strongSelf.view.bringSubview(toFront: playerView)
                 strongSelf.hideLoadingView(loadingPop: loadingPop)
                 strongSelf.playerView.enableButtons()
-            }
-            
-            DispatchQueue.main.async { [weak self] in
-                guard let strongSelf = self else { return }
                 let currentTime = strongSelf.player.player.currentTime()
                 let currentSeconds = CMTimeGetSeconds(currentTime)
                 strongSelf.playerView.currentPlayTimeLabel.text = String.constructTimeString(time: Double(currentSeconds))
-                strongSelf.playerView.update(progressBarValue: Float(currentSeconds))
             }
-            
         } else if keyPath == #keyPath(PlayerViewController.player.player.rate) {
             let newRate = (change?[NSKeyValueChangeKey.newKey] as! NSNumber).doubleValue
             let buttonImageName = newRate == 1.0 ? #imageLiteral(resourceName: "white-bordered-pause") : #imageLiteral(resourceName: "play-icon")
             DispatchQueue.main.async {
                 self.playerView.setButtonImages(image: buttonImageName)
             }
-        }
-        else if keyPath == #keyPath(PlayerViewController.player.player.currentItem.status) {
+        } else if keyPath == #keyPath(PlayerViewController.player.player.currentItem.status) {
             let newStatus: AVPlayerItemStatus
-            
             if let newStatusAsNumber = change?[NSKeyValueChangeKey.newKey] as? NSNumber {
                 newStatus = AVPlayerItemStatus(rawValue: newStatusAsNumber.intValue)!
             } else {
@@ -356,7 +340,7 @@ extension PlayerViewController: MenuDelegate {
 extension PlayerViewController: NetworkServiceDelegate {
     
     func download(location set: String) {
-        
+        print(set)
     }
     
     func download(progress updated: Float) {

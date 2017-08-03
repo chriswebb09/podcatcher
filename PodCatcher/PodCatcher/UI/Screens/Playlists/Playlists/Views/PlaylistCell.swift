@@ -15,13 +15,13 @@ final class PlaylistCell: UITableViewCell, Reusable {
                 deleteImageView.alpha = 1
                 let image = #imageLiteral(resourceName: "next").withRenderingMode(.alwaysTemplate)
                 deleteImageView.image = image
-                deleteImageView.layer.setImageShadow(contentView: self)
+               // deleteImageView.layer.setImageShadow(contentView: self)
                 deleteImageView.tintColor = .darkGray
             case .delete:
                 deleteImageView.alpha = 1
                 let image = #imageLiteral(resourceName: "circle-x").withRenderingMode(.alwaysTemplate)
                 deleteImageView.image = image
-                deleteImageView.layer.setImageShadow(contentView: self)
+             //   deleteImageView.layer.setImageShadow(contentView: self)
                 deleteImageView.tintColor = .red
             }
         }
@@ -106,7 +106,7 @@ final class PlaylistCell: UITableViewCell, Reusable {
         albumArtView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: contentView.bounds.width * 0.02).isActive = true
         albumArtView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
         albumArtView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.9).isActive = true
-        albumArtView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.32).isActive = true
+        albumArtView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.3).isActive = true
     }
     
     func setup(deleteImageView: UIImageView) {

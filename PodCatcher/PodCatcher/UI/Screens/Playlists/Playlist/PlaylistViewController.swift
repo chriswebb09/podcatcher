@@ -136,7 +136,6 @@ extension PlaylistViewController {
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "playlistId", ascending: true)]
         fetchRequest.predicate = NSPredicate(format: "playlistId == %@", playlistId)
         fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: appDelegate.persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: nil)
-        
         do {
             try fetchedResultsController.performFetch()
             collectionView.reloadData()
@@ -201,38 +200,10 @@ extension PlaylistViewController: UICollectionViewDelegate {
             } else if indexPath.row == index {
                 let cell = collectionView.cellForItem(at: indexPath) as! PodcastPlaylistCell
                 cell.switchAlpha(hidden: true)
-                //                switch player.state {
-                //                case .playing:
-                //                    player.playPause()
-                //                    let cell = collectionView.cellForItem(at: indexPath) as! PodcastPlaylistCell
-                //                    cell.switchAlpha(hidden: true)
-                //                    player.state = .paused
-                //                    cell.playButton.isHidden = false
-                //                    cell.pauseButton.isHidden = true
-                //                case .paused:
-                //                    player.playPause()
-                //                    let cell = collectionView.cellForItem(at: indexPath) as! PodcastPlaylistCell
-                //                    cell.switchAlpha(hidden: false)
-                //                    player.state = .playing
-                //                    cell.playButton.isHidden = true
-                //                    cell.pauseButton.isHidden = false
-                //                case .stopped:
-                //                    break
-                //                }
-                //                return
             }
         }
         let cell = collectionView.cellForItem(at: indexPath) as! PodcastPlaylistCell
         cell.switchAlpha(hidden: false)
-        // guard let items = fetchedResultsController.fetchedObjects else { return }
-        //        switch player.state {
-        //        case .playing:
-        //            break
-        //        case .paused:
-        //            break
-        //        case .stopped:
-        //            break
-        //        }
         selectedSongIndex = indexPath.row
     }
 }
@@ -257,11 +228,6 @@ extension PlaylistViewController: UICollectionViewDataSource {
         }
         return cell
     }
-    
-    func initPlayer(url: URL?)  {
-        print(url)
-    }
-    
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout

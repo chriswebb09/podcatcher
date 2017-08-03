@@ -12,25 +12,6 @@ struct Colors {
     static let nearWhite = UIColor(red:0.98, green:0.98, blue:1.00, alpha:1.0)
 }
 
-class ApplicationStyling {
-    
-    static func setupUI() {
-        let titleFontAttribute = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.regular)
-        UITabBar.appearance().tintColor = .white
-        UITabBar.appearance().backgroundColor = .black
-        let nav = UINavigationBar.appearance()
-        nav.barTintColor = .black
-        nav.tintColor = .white
-        let tabbar = UITabBar.appearance()
-        tabbar.barTintColor = .clear
-        UINavigationBar.appearance().titleTextAttributes = [
-            NSAttributedStringKey.font: titleFontAttribute,
-            NSAttributedStringKey.foregroundColor: UIColor.white,
-            NSAttributedStringKey.backgroundColor: UIColor.black
-        ]
-    }
-}
-
 struct MenuViewConstants {
     static let sharedHeightMultiplier: CGFloat = 0.2
     static let backgroundColor = UIColor(red:0.09, green:0.14, blue:0.31, alpha:1.0)
