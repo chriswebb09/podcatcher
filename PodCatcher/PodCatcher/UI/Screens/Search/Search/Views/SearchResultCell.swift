@@ -49,9 +49,9 @@ class SearchResultCell: UITableViewCell, Reusable {
     private func setup(albumArtView: UIImageView) {
         contentView.addSubview(albumArtView)
         albumArtView.translatesAutoresizingMaskIntoConstraints = false
-        albumArtView.leftAnchor.constraint(equalTo: contentView.leftAnchor).isActive = true
+        albumArtView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: contentView.bounds.width * 0.02).isActive = true
         albumArtView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
-        albumArtView.heightAnchor.constraint(equalTo: contentView.heightAnchor).isActive = true
-        albumArtView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.35).isActive = true
+        albumArtView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.9).isActive = true
+        albumArtView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.32).isActive = true
     }
 }

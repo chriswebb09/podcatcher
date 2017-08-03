@@ -53,14 +53,11 @@ final class BrowseViewController: BaseCollectionViewController {
         topView.backgroundColor = .clear
         view.addSubview(collectionView)
         collectionViewConfiguration()
-        
         network.frame = view.frame
         collectionView.register(TopPodcastCell.self)
-        //collectionView.register(TopPodcastCell.self)
         collectionView.backgroundColor = .darkGray
         tap = UITapGestureRecognizer(target: self, action: #selector(selectAt))
         topItems = dataSource.items
-        
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }
             strongSelf.view.bringSubview(toFront: strongSelf.collectionView)

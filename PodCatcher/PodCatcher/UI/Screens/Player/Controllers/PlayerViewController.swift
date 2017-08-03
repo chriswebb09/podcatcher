@@ -89,11 +89,8 @@ final class PlayerViewController: BaseViewController {
                 if let strongSelf = self {
                     strongSelf.playerView.playtimeSlider.value = Float(timeElapsed)
                     strongSelf.playerView.currentPlayTimeLabel.text = String.constructTimeString(time: Double(timeElapsed))
-                    //createTimeString(time: timeElapsed)
                     let timeLeft = Double(Float(strongSelf.player.duration) - timeElapsed)
-                    print(timeLeft)
                     strongSelf.playerView.totalPlayTimeLabel.text = String.constructTimeString(time: timeLeft)
-                    //createTimeString(time: timeLeft)
                 }
             }
         }
@@ -112,12 +109,9 @@ final class PlayerViewController: BaseViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        // player.removePeriodicTimeObserver()
         navigationController?.popViewController(animated: false)
         hideLoadingView(loadingPop: loadingPop)
         hidePopMenu(playerView)
-        
-        
         removeObserver(self, forKeyPath: #keyPath(PlayerViewController.player.player.currentItem.duration), context: &playerViewControllerKVOContext)
         removeObserver(self, forKeyPath: #keyPath(PlayerViewController.player.player.rate), context: &playerViewControllerKVOContext)
         removeObserver(self, forKeyPath: #keyPath(PlayerViewController.player.player.currentItem.status), context: &playerViewControllerKVOContext)
@@ -179,7 +173,6 @@ final class PlayerViewController: BaseViewController {
                 let currentTime = strongSelf.player.player.currentTime()
                 let currentSeconds = CMTimeGetSeconds(currentTime)
                 strongSelf.playerView.currentPlayTimeLabel.text = String.constructTimeString(time: Double(currentSeconds))
-                    //.createTimeString(time: Float(currentSeconds))
                 strongSelf.playerView.update(progressBarValue: Float(currentSeconds))
             }
             
@@ -207,7 +200,6 @@ final class PlayerViewController: BaseViewController {
                     let currentSeconds = CMTimeGetSeconds(currentTime)
                     let durationSeconds = CMTimeGetSeconds((strongSelf.player.player.currentItem?.duration)!)
                     strongSelf.playerView.currentPlayTimeLabel.text = String.constructTimeString(time: Double(currentSeconds))
-                        //.createTimeString(time: Float(currentSeconds))
                     strongSelf.durationText = String.constructTimeString(time: durationSeconds)
                     strongSelf.playerView.totalPlayTimeLabel.text = String.constructTimeString(time: durationSeconds)
                 }

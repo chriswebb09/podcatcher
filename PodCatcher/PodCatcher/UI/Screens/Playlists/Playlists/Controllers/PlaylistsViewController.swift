@@ -1,6 +1,14 @@
 import UIKit
 import CoreData
 
+enum PlaylistsInteractionMode {
+    case add, edit
+}
+
+enum PlaylistsReference {
+    case addPodcast, checkList
+}
+
 final class PlaylistsViewController: BaseTableViewController {
     
     weak var delegate: PlaylistsViewControllerDelegate?
@@ -29,7 +37,7 @@ final class PlaylistsViewController: BaseTableViewController {
     
     var background = UIView()
     var addItemToPlaylist: PodcastPlaylistItem?
-    var testDataSource: TableViewDataSource<PlaylistsViewController>!
+    var homeDataSource: TableViewDataSource<PlaylistsViewController>!
     let persistentContainer = NSPersistentContainer(name: "PodCatcher")
     
     override func viewDidLoad() {
@@ -49,9 +57,9 @@ final class PlaylistsViewController: BaseTableViewController {
         rightButtonItem.tintColor = Colors.brightHighlight
         navigationItem.setRightBarButton(rightButtonItem, animated: false)
         navigationItem.setLeftBarButton(leftButtonItem, animated: false)
-        testDataSource = TableViewDataSource(tableView: tableView, cellIdentifier: "PlaylistCell", fetchedResultsController: fetchedResultsController, delegate: self)
-        testDataSource.reloadData()
-        tableView.dataSource = testDataSource
+        homeDataSource = TableViewDataSource(tableView: tableView, identifier: "PlaylistCell", fetchedResultsController: fetchedResultsController, delegate: self)
+        homeDataSource.reloadData()
+        tableView.dataSource = homeDataSource
     }
     
     @objc func edit() {
@@ -103,7 +111,7 @@ extension PlaylistsViewController: UITableViewDelegate {
     
     func add(text: String) {
         reference = .checkList
-        DispatchQueue.main.async { self.testDataSource.reloadData() }
+        DispatchQueue.main.async { self.homeDataSource.reloadData() }
         delegate?.didAssignPlaylist(with: text)
     }
     
@@ -128,7 +136,7 @@ extension PlaylistsViewController: UITableViewDelegate {
             } catch let error as NSError {
                 self.showError(errorString: "\(error.localizedDescription)")
             }
-            self.testDataSource.reloadData()
+            self.homeDataSource.reloadData()
             do {
                 try self.managedContext.save()
             } catch let error {
@@ -148,7 +156,7 @@ extension PlaylistsViewController: EntryPopoverDelegate {
     
     func userDidEnterPlaylistName(name: String) {
         playlistDataStack.save(name: name, uid: "none")
-        testDataSource.reloadData()
+        homeDataSource.reloadData()
     }
     
     @objc func addPlaylist() {
@@ -162,7 +170,7 @@ extension PlaylistsViewController: EntryPopoverDelegate {
     @objc func hidePop() {
         entryPop.hidePopView(viewController: self)
         tableView.reloadData()
-        testDataSource.reloadData()
+        homeDataSource.reloadData()
     }
 }
 

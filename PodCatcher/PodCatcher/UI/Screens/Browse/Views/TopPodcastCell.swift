@@ -46,6 +46,7 @@ final internal class TopPodcastCell: UICollectionViewCell {
         contentView.layer.cornerRadius = 3
         layer.borderColor = UIColor.lightText.cgColor
         contentView.backgroundColor = Colors.lightCharcoal
+        albumArtView.layer.setCellShadow(contentView: self)
     }
     
     
@@ -55,6 +56,7 @@ final internal class TopPodcastCell: UICollectionViewCell {
         contentView.layer.cornerRadius = 3
         layer.borderColor = UIColor.lightText.cgColor
         contentView.backgroundColor = Colors.lightCharcoal
+    
     }
     
     override func layoutSubviews() {

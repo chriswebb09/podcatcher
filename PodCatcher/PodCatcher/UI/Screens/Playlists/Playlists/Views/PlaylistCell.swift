@@ -12,9 +12,17 @@ final class PlaylistCell: UITableViewCell, Reusable {
         didSet {
             switch mode {
             case .select:
-                deleteImageView.alpha = 0
+                deleteImageView.alpha = 1
+                let image = #imageLiteral(resourceName: "next").withRenderingMode(.alwaysTemplate)
+                deleteImageView.image = image
+                deleteImageView.layer.setImageShadow(contentView: self)
+                deleteImageView.tintColor = .darkGray
             case .delete:
                 deleteImageView.alpha = 1
+                let image = #imageLiteral(resourceName: "circle-x").withRenderingMode(.alwaysTemplate)
+                deleteImageView.image = image
+                deleteImageView.layer.setImageShadow(contentView: self)
+                deleteImageView.tintColor = .red
             }
         }
     }
@@ -27,7 +35,7 @@ final class PlaylistCell: UITableViewCell, Reusable {
     var titleLabel: UILabel = {
         let title = UILabel()
         title.textColor = .black
-        title.font = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.medium)
+        title.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.medium)
         title.textAlignment = .center
         title.numberOfLines = 0
         return title
@@ -35,9 +43,6 @@ final class PlaylistCell: UITableViewCell, Reusable {
     
     var deleteImageView: UIImageView = {
         let delete = UIImageView()
-        let image = #imageLiteral(resourceName: "circle-x").withRenderingMode(.alwaysTemplate)
-        delete.image = image
-        delete.tintColor = .red
         return delete
     }()
     
@@ -57,7 +62,6 @@ final class PlaylistCell: UITableViewCell, Reusable {
         setup(numberOfItemsLabel: numberOfItemsLabel)
         setup(albumArtView: albumArtView)
         setup(deleteImageView: deleteImageView)
-        setupShadow()
         selectionStyle = .none
         albumArtView.layer.setCellShadow(contentView: self)
     }
@@ -73,7 +77,6 @@ final class PlaylistCell: UITableViewCell, Reusable {
         let shadowOffset = CGSize(width:-0.45, height: 0.2)
         let shadowRadius: CGFloat = 1.0
         let shadowOpacity: Float = 0.4
-        
         contentView.layer.shadowRadius = shadowRadius
         contentView.layer.shadowOffset = shadowOffset
         contentView.layer.shadowOpacity = shadowOpacity
@@ -82,7 +85,7 @@ final class PlaylistCell: UITableViewCell, Reusable {
     func setup(titleLabel: UILabel) {
         contentView.addSubview(titleLabel)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor, constant: contentView.bounds.width * 0.2).isActive = true
+        titleLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor, constant: contentView.bounds.width * 0.13).isActive = true
         titleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: contentView.bounds.height * -0.1).isActive = true
         titleLabel.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.25).isActive = true
         titleLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.5).isActive = true
@@ -91,8 +94,8 @@ final class PlaylistCell: UITableViewCell, Reusable {
     func setup(numberOfItemsLabel: UILabel) {
         contentView.addSubview(numberOfItemsLabel)
         numberOfItemsLabel.translatesAutoresizingMaskIntoConstraints = false
-        numberOfItemsLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor, constant: contentView.bounds.width * 0.2).isActive = true
-        numberOfItemsLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: contentView.bounds.height * 0.01).isActive = true
+        numberOfItemsLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor, constant: contentView.bounds.width * 0.13).isActive = true
+        numberOfItemsLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: contentView.bounds.height * 0.008).isActive = true
         numberOfItemsLabel.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.25).isActive = true
         numberOfItemsLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.5).isActive = true
     }
@@ -100,18 +103,18 @@ final class PlaylistCell: UITableViewCell, Reusable {
     private func setup(albumArtView: UIImageView) {
         contentView.addSubview(albumArtView)
         albumArtView.translatesAutoresizingMaskIntoConstraints = false
-        albumArtView.leftAnchor.constraint(equalTo: contentView.leftAnchor).isActive = true
+        albumArtView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: contentView.bounds.width * 0.02).isActive = true
         albumArtView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
-        albumArtView.heightAnchor.constraint(equalTo: contentView.heightAnchor).isActive = true
-        albumArtView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.35).isActive = true
+        albumArtView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.9).isActive = true
+        albumArtView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.32).isActive = true
     }
     
     func setup(deleteImageView: UIImageView) {
         contentView.addSubview(deleteImageView)
         deleteImageView.translatesAutoresizingMaskIntoConstraints = false
         deleteImageView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: contentView.bounds.width * -0.04).isActive = true
-        deleteImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: 0).isActive = true
-        deleteImageView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.2).isActive = true
-        deleteImageView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.06).isActive = true
+        deleteImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
+        deleteImageView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.24).isActive = true
+        deleteImageView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.08).isActive = true
     }
 }

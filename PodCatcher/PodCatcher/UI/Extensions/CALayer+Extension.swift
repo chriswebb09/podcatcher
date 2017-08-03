@@ -18,6 +18,16 @@ extension CALayer {
         shadowOpacity = 0.7
     }
     
+    
+    func setImageShadow(contentView: UIView) {
+        let shadowOffsetWidth: CGFloat = contentView.bounds.height * CALayerConstants.shadowWidthMultiplier
+        let shadowOffsetHeight: CGFloat = contentView.bounds.width * CALayerConstants.shadowHeightMultiplier
+        shadowColor = UIColor.black.cgColor
+        shadowOffset = CGSize(width: shadowOffsetWidth, height: shadowOffsetHeight)
+        shadowRadius =  1
+        shadowOpacity = 0.5
+    }
+    
     static func drawCircleLayerWith(size: CGSize, color: UIColor) -> CALayer {
         let layer: CAShapeLayer = CAShapeLayer()
         let path: UIBezierPath = UIBezierPath()

@@ -1,20 +1,34 @@
 import CoreData
 import UIKit
 
-class TableViewDataSource<Delegate: TableViewDataSourceDelegate>: NSObject, UITableViewDataSource, NSFetchedResultsControllerDelegate {
+enum ContentState {
+    case empty, collection
+}
+
+protocol CollectionViewDataSourceDelegate: class {
+    associatedtype Object: NSFetchRequestResult
+    associatedtype Cell: UICollectionViewCell
+    func configure(_ cell: Cell, for object: Object)
+}
+
+
+class CollectionViewDataSource<Delegate: CollectionViewDataSourceDelegate>: NSObject, UICollectionViewDataSource, NSFetchedResultsControllerDelegate {
     
     typealias Object = Delegate.Object
     typealias Cell = Delegate.Cell
     
     // MARK: Private
     
-    fileprivate let tableView: UITableView
+    fileprivate let collectionView: UICollectionView
     fileprivate let fetchedResultsController: NSFetchedResultsController<Object>
     fileprivate weak var delegate: Delegate!
     fileprivate let cellIdentifier: String
     
-    required init(tableView: UITableView, identifier: String, fetchedResultsController: NSFetchedResultsController<Object>, delegate: Delegate) {
-        self.tableView = tableView
+    var contentState: ContentState = .empty
+    var itemCount: Int = 0
+    
+    required init(collectionView: UICollectionView, identifier: String, fetchedResultsController: NSFetchedResultsController<Object>, delegate: Delegate) {
+        self.collectionView = collectionView
         self.cellIdentifier = identifier
         self.fetchedResultsController = fetchedResultsController
         self.delegate = delegate
@@ -23,12 +37,13 @@ class TableViewDataSource<Delegate: TableViewDataSourceDelegate>: NSObject, UITa
         
         fetchedResultsController.delegate = self
         try! fetchedResultsController.performFetch()
-        tableView.dataSource = self
-        tableView.reloadData()
+        collectionView.dataSource = self
+        collectionView.register(SubscribedPodcastCell.self)
+        collectionView.reloadData()
     }
-    
+  
     var selectedObject: Object? {
-        guard let indexPath = tableView.indexPathForSelectedRow else { return nil }
+        guard let indexPath = collectionView.indexPathsForSelectedItems?[0] else { return nil }
         return objectAtIndexPath(indexPath)
     }
     
@@ -41,7 +56,7 @@ class TableViewDataSource<Delegate: TableViewDataSourceDelegate>: NSObject, UITa
         configure(fetchedResultsController.fetchRequest)
         do { try fetchedResultsController.performFetch() } catch { fatalError("fetch request failed") }
         DispatchQueue.main.async {
-            self.tableView.reloadData()
+            self.collectionView.reloadData()
         }
     }
     
@@ -55,14 +70,19 @@ class TableViewDataSource<Delegate: TableViewDataSourceDelegate>: NSObject, UITa
     
     // MARK: UITableViewDataSource
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let section = fetchedResultsController.sections?[section] else { return 0 }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        guard let section = fetchedResultsController.sections?[section] else { contentState = .empty; return 0 }
+        itemCount = section.numberOfObjects
+        if itemCount > 0 {
+            contentState = .collection
+        }
+        print(contentState)
         return section.numberOfObjects
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let object = fetchedResultsController.object(at: indexPath)
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? Cell else { fatalError("Unexpected cell type at \(indexPath)") }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as? Cell else { fatalError("Unexpected cell type at \(indexPath)") }
         DispatchQueue.main.async {
             self.delegate.configure(cell, for: object)
         }
@@ -71,35 +91,35 @@ class TableViewDataSource<Delegate: TableViewDataSourceDelegate>: NSObject, UITa
     
     // MARK: NSFetchedResultsControllerDelegate
     
-    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        tableView.beginUpdates()
-    }
-    
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        
         switch type {
         case .insert:
             guard let indexPath = newIndexPath else { return }
-            tableView.insertRows(at: [indexPath], with: .fade)
+            collectionView.performBatchUpdates({
+                collectionView.insertItems(at: [indexPath])
+            }, completion: nil)
         case .update:
             guard let indexPath = indexPath else { return }
             let object = objectAtIndexPath(indexPath)
-            guard let cell = tableView.cellForRow(at: indexPath) as? Cell else { break }
+            guard let cell = collectionView.cellForItem(at: indexPath) as? Cell else { break }
             delegate.configure(cell, for: object)
         case .move:
             guard let indexPath = indexPath else { return }
             guard let newIndexPath = newIndexPath else { return }
-            tableView.deleteRows(at: [indexPath], with: .fade)
-            tableView.insertRows(at: [newIndexPath], with: .fade)
+            collectionView.performBatchUpdates({
+                collectionView.deleteItems(at: [indexPath])
+                collectionView.insertItems(at: [newIndexPath])
+            })
         case .delete:
             guard let indexPath = indexPath else { return }
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            collectionView.performBatchUpdates({
+                collectionView.deleteItems(at: [indexPath])
+            })
         }
         DispatchQueue.main.async {
-            self.tableView.reloadData()
+            self.collectionView.reloadData()
         }
     }
-    
-    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        tableView.endUpdates()
-    }
 }
+

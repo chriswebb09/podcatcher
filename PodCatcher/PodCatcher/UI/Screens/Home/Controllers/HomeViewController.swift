@@ -29,20 +29,32 @@ class HomeViewController: BaseCollectionViewController {
         return controller
     }()
     
-    let persistentContainer = NSPersistentContainer(name: "PodCatcher")
+    var itemCount: Int {
+        return self.homeDataSource.itemCount
+    }
     
-    // MARK: - UI Properties
-    
-    var viewShown: ShowView {
+    var homeDataSource: CollectionViewDataSource<HomeViewController>! {
         didSet {
-            switch viewShown {
+            self.contentState = homeDataSource.contentState
+        }
+    }
+    
+    var contentState: ContentState = .empty {
+        didSet {
+            switch self.contentState {
             case .empty:
-                changeView(forView: emptyView, withView: collectionView)
+                self.view.sendSubview(toBack: collectionView)
+                self.view.bringSubview(toFront: emptyView)
             case .collection:
-                changeView(forView: collectionView, withView: emptyView)
+                self.view.sendSubview(toBack: emptyView)
+                self.view.bringSubview(toFront: collectionView)
             }
         }
     }
+    
+    let persistentContainer = NSPersistentContainer(name: "PodCatcher")
+    
+    // MARK: - UI Properties
     
     lazy var animator: UIViewPropertyAnimator = {
         let cubicParameters = UICubicTimingParameters(controlPoint1: CGPoint(x: 0, y: 0.5), controlPoint2: CGPoint(x: 1.0, y: 0.5))
@@ -53,9 +65,8 @@ class HomeViewController: BaseCollectionViewController {
     
     
     init(dataSource: BaseMediaControllerDataSource) {
-        self.viewShown = .empty
         super.init(nibName: nil, bundle: nil)
-        view.addSubview(emptyView)
+        
     }
     
     required public init(coder aDecoder: NSCoder) {
@@ -70,16 +81,19 @@ class HomeViewController: BaseCollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollectionView(view: view, newLayout: HomeItemsFlowLayout())
-        collectionView.delegate = self
         collectionView.register(SubscribedPodcastCell.self)
-        collectionView.dataSource = self
         collectionView.setupBackground(frame: view.bounds)
         guard let background = collectionView.backgroundView else { return }
         CALayer.createGradientLayer(with: [UIColor.white.cgColor, UIColor.darkGray.cgColor], layer: background.layer, bounds: collectionView.bounds)
         rightButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(changeMode))
         rightButtonItem.tintColor = .white
-        fetchedResultsController.delegate = self
+        navigationItem.setRightBarButton(rightButtonItem, animated: false)
         reloadData()
+        homeDataSource = CollectionViewDataSource(collectionView: collectionView, identifier: SubscribedPodcastCell.reuseIdentifier, fetchedResultsController: fetchedResultsController, delegate: self)
+        collectionView.dataSource = homeDataSource
+        homeDataSource.reloadData()
+        collectionView.delegate = self
+        view.bringSubview(toFront: collectionView)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -87,6 +101,7 @@ class HomeViewController: BaseCollectionViewController {
         reloadData()
         tabBarController?.tabBar.isHidden = false
         navigationController?.navigationBar.topItem?.title = "Subscribed Podcasts"
+        homeDataSource.reloadData()
     }
 }
 
@@ -112,7 +127,6 @@ extension HomeViewController: UIScrollViewDelegate, CollectionViewProtocol {
 
 extension HomeViewController: UICollectionViewDelegate {
     
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath)
         switch mode {
@@ -132,43 +146,41 @@ extension HomeViewController: UICollectionViewDelegate {
             let okayAction: UIAlertAction =  UIAlertAction(title: "Okay", style: .destructive) { action in
                 self.save(for: indexPath)
             }
-            
             actionSheetController.addAction(cancelAction)
             actionSheetController.addAction(okayAction)
             self.present(actionSheetController, animated: true, completion: nil)
-            
-            if let count = fetchedResultsController.fetchedObjects?.count {
-                if count == 0 {
-                    mode = .subscription
-                    rightButtonItem.title = "Edit"
-                }
+            if homeDataSource.itemCount == 0 {
+                mode = .subscription
+                rightButtonItem.title = "Edit"
             }
         }
     }
     
     func save(for indexPath: IndexPath) {
-        let feed = self.fetchedResultsController.object(at: indexPath).feedUrl
-        managedContext.delete(self.fetchedResultsController.object(at: indexPath))
-        var subscriptions = UserDefaults.loadSubscriptions()
-        guard let feedUrl = feed else { return }
-        
-        if let index = subscriptions.index(of: feedUrl) {
-            subscriptions.remove(at: index)
-            UserDefaults.saveSubscriptions(subscriptions: subscriptions)
-        }
-        
-        reloadData()
-        
-        do {
-            try managedContext.save()
-        } catch let error {
-            self.showError(errorString: " \(error.localizedDescription)")
-            print("Unable to Perform Fetch Request \(error), \(error.localizedDescription)")
+        persistentContainer.performBackgroundTask { _ in
+            let feed = self.fetchedResultsController.object(at: indexPath).feedUrl
+            self.managedContext.delete(self.fetchedResultsController.object(at: indexPath))
+            var subscriptions = UserDefaults.loadSubscriptions()
+            guard let feedUrl = feed else { return }
+            
+            if let index = subscriptions.index(of: feedUrl) {
+                subscriptions.remove(at: index)
+                UserDefaults.saveSubscriptions(subscriptions: subscriptions)
+            }
+            
+            self.reloadData()
+            
+            do {
+                try self.managedContext.save()
+            } catch let error {
+                self.showError(errorString: " \(error.localizedDescription)")
+                print("Unable to Perform Fetch Request \(error), \(error.localizedDescription)")
+            }
         }
     }
 }
 
-extension HomeViewController: NSFetchedResultsControllerDelegate {
+extension HomeViewController {
     
     func reloadData() {
         do {
@@ -194,29 +206,15 @@ extension HomeViewController: NSFetchedResultsControllerDelegate {
     }
 }
 
-extension HomeViewController: UICollectionViewDataSource {
+extension HomeViewController: CollectionViewDataSourceDelegate {
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if let itemNumber = fetchedResultsController.sections?[section].numberOfObjects {
-            if itemNumber > 0 {
-                viewShown = .collection
-                navigationItem.setRightBarButton(rightButtonItem, animated: false)
-            } else if itemNumber == 0 {
-                viewShown = .empty
-                mode = .subscription
-                rightButtonItem.title = "Edit"
-                navigationItem.rightBarButtonItem = nil
-            }
-        }
-        return fetchedResultsController.sections?[section].numberOfObjects ?? 0
-    }
+    typealias Object = Subscription
+    typealias Cell = SubscribedPodcastCell
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as SubscribedPodcastCell
-        let item = fetchedResultsController.object(at: indexPath)
-        if let imageData = item.artworkImage,
+    func configure(_ cell: SubscribedPodcastCell, for object: Subscription) {
+        if let imageData = object.artworkImage,
             let image = UIImage(data: imageData as Data),
-            let title = item.podcastTitle {
+            let title =  object.podcastTitle {
             let model = SubscribedPodcastCellViewModel(trackName: title, albumImageURL: image)
             switch mode {
             case .edit:
@@ -226,10 +224,5 @@ extension HomeViewController: UICollectionViewDataSource {
                 cell.configureCell(with: model, withTime: 0, mode: .done)
             }
         }
-        return cell
-    }
-    
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-        print("Change")
     }
 }

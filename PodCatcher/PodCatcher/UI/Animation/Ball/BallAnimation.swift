@@ -6,7 +6,8 @@ protocol AnimatableView {
     func animate(from view: UIView, with offset: CGFloat?, completion: ((Bool) -> Void)?)
 }
 
-class SpinAnimation: AnimatableView {
+struct SpinAnimation: AnimatableView {
+    
     fileprivate let AnimationDuration: Double = 0.2
     fileprivate let AnimationOffset: CGFloat = -40
     
