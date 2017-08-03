@@ -9,13 +9,3 @@ protocol PlayerViewControllerDelegate: class {
     func navigateBack(tapped: Bool)
     func addItemToPlaylist(item: CasterSearchResult, index: Int)
 }
-
-protocol PlayerViewDelegate: class {
-    func playButton(tapped: Bool)
-    func pauseButton(tapped: Bool)
-    func playPause(tapped: Bool)
-    func skipButton(tapped: Bool)
-    func backButton(tapped: Bool)
-    func moreButton(tapped: Bool)
-    func navigateBack(tapped: Bool)
-}

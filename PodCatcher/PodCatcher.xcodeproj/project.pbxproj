@@ -24,6 +24,8 @@
 		A71798301F253B45007AD5EF /* Subscription+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A717982E1F253B45007AD5EF /* Subscription+CoreDataProperties.swift */; };
 		A7184E031F201968002516AE /* NetworkConnectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7184E021F201968002516AE /* NetworkConnectionView.swift */; };
 		A7196B2D1F1AE56000FCED5D /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7196B2C1F1AE56000FCED5D /* NetworkService.swift */; };
+		A719A5341F33E1E300BDC6C9 /* PlayerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A719A5331F33E1E300BDC6C9 /* PlayerViewDelegate.swift */; };
+		A719A5361F33E21400BDC6C9 /* StartViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A719A5351F33E21400BDC6C9 /* StartViewDelegate.swift */; };
 		A71ADF9D1F0E26C900941A43 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71ADF9B1F0E26C900941A43 /* SearchViewController.swift */; };
 		A71ADFA21F0E26F500941A43 /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71ADFA11F0E26F500941A43 /* SearchResultCell.swift */; };
 		A71ADFA61F0E270A00941A43 /* SearchResultListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71ADFA41F0E270A00941A43 /* SearchResultListViewController.swift */; };
@@ -189,6 +191,8 @@
 		A717982E1F253B45007AD5EF /* Subscription+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Subscription+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		A7184E021F201968002516AE /* NetworkConnectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkConnectionView.swift; sourceTree = "<group>"; };
 		A7196B2C1F1AE56000FCED5D /* NetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		A719A5331F33E1E300BDC6C9 /* PlayerViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewDelegate.swift; sourceTree = "<group>"; };
+		A719A5351F33E21400BDC6C9 /* StartViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewDelegate.swift; sourceTree = "<group>"; };
 		A71ADF9B1F0E26C900941A43 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchViewController.swift; path = Search/Search/Controllers/SearchViewController.swift; sourceTree = "<group>"; };
 		A71ADFA11F0E26F500941A43 /* SearchResultCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchResultCell.swift; path = Search/Search/Views/SearchResultCell.swift; sourceTree = "<group>"; };
 		A71ADFA41F0E270A00941A43 /* SearchResultListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchResultListViewController.swift; path = Search/SearchResult/Controllers/SearchResultListViewController.swift; sourceTree = "<group>"; };
@@ -399,6 +403,7 @@
 				A73D74361EE68865004571A5 /* Controllers */,
 				A73D74351EE6885E004571A5 /* Views */,
 				A77041321F291ACD00346FC7 /* PlayerViewControllerDelegate.swift */,
+				A719A5331F33E1E300BDC6C9 /* PlayerViewDelegate.swift */,
 				A770415B1F29378C00346FC7 /* PlayerViewModel.swift */,
 			);
 			path = Player;
@@ -808,6 +813,7 @@
 				A7B1C05B1F0AC90E00A42E7D /* StartViewController.swift */,
 				A7B1C05F1F0AC93800A42E7D /* StartView.swift */,
 				A7B1C0611F0AC94500A42E7D /* StartViewControllerDelegate.swift */,
+				A719A5351F33E21400BDC6C9 /* StartViewDelegate.swift */,
 			);
 			path = Start;
 			sourceTree = "<group>";
@@ -1198,11 +1204,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A719A5341F33E1E300BDC6C9 /* PlayerViewDelegate.swift in Sources */,
 				A71DC1B51F29C9270025133A /* HomeTopBarController.swift in Sources */,
 				A7184E031F201968002516AE /* NetworkConnectionView.swift in Sources */,
 				A7780EFD1F173F1900737DA8 /* BrowseViewController.swift in Sources */,
 				A77EDF7A1EE5FF93001A24E5 /* UIViewController+Extension.swift in Sources */,
 				A770414C1F2933DD00346FC7 /* LoadingView.swift in Sources */,
+				A719A5361F33E21400BDC6C9 /* StartViewDelegate.swift in Sources */,
 				A71514A11F05281100F123CD /* UISearchController+Extension.swift in Sources */,
 				A71B26F21EE5D24700613CF4 /* AppDelegate.swift in Sources */,
 				A7DF81EE1F2DFE0800ADB86B /* TopViewDelegate.swift in Sources */,
