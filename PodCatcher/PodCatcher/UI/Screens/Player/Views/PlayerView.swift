@@ -72,7 +72,6 @@ final class PlayerView: UIView {
         return album
     }()
     
-    
     var albumImageView: UIImageView = {
         let albumImage = UIImageView()
         albumImage.layer.setCellShadow(contentView: albumImage)
@@ -130,11 +129,6 @@ final class PlayerView: UIView {
         return playButton
     }()
     
-    private var pauseButton: UIButton = {
-        var pauseButton = UIButton()
-        return pauseButton
-    }()
-    
     private var skipButton: UIButton = {
         var skipButton = UIButton()
         skipButton.setImage(#imageLiteral(resourceName: "skip-icon"), for: .normal)
@@ -151,19 +145,6 @@ final class PlayerView: UIView {
         var moreButton = UIButton()
         moreButton.setImage(#imageLiteral(resourceName: "more-button-white"), for: .normal)
         return moreButton
-    }()
-    
-    private var volumeControlsView: UIView = {
-        let volume = UIView()
-        return volume
-    }()
-    
-    private var volumeSlider: UISlider = {
-        let slider = UISlider()
-        slider.thumbTintColor = .white
-        slider.tintColor = .white
-        slider.isUserInteractionEnabled = true
-        return slider
     }()
     
     // MARK: - Configuration Methods
@@ -221,7 +202,6 @@ final class PlayerView: UIView {
     func setButtonImages(image: UIImage) {
         DispatchQueue.main.async {
             self.playButton.setImage(image, for: .normal)
-            self.pauseButton.setImage(image, for: .normal)
         }
     }
     
@@ -273,17 +253,13 @@ final class PlayerView: UIView {
         controlsView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
     }
     
-    private func setup(trackButton: UIButton) {
-        controlsView.addSubview(trackButton)
-        trackButton.translatesAutoresizingMaskIntoConstraints = false
-        trackButton.heightAnchor.constraint(equalTo: controlsView.heightAnchor, multiplier: 0.44).isActive = true
-        trackButton.widthAnchor.constraint(equalTo: controlsView.widthAnchor, multiplier: 0.25).isActive = true
-        trackButton.bottomAnchor.constraint(equalTo: controlsView.centerYAnchor, constant: UIScreen.main.bounds.height * 0.025).isActive = true
-        trackButton.centerXAnchor.constraint(equalTo: controlsView.centerXAnchor).isActive = true
-    }
-    
     private func setup(playButton: UIButton) {
-        setup(trackButton: playButton)
+        controlsView.addSubview(playButton)
+        playButton.translatesAutoresizingMaskIntoConstraints = false
+        playButton.heightAnchor.constraint(equalTo: controlsView.heightAnchor, multiplier: 0.44).isActive = true
+        playButton.widthAnchor.constraint(equalTo: controlsView.widthAnchor, multiplier: 0.25).isActive = true
+        playButton.bottomAnchor.constraint(equalTo: controlsView.centerYAnchor, constant: UIScreen.main.bounds.height * 0.025).isActive = true
+        playButton.centerXAnchor.constraint(equalTo: controlsView.centerXAnchor).isActive = true
     }
     
     private func skipButtonsSharedLayout(controlsView: UIView, button: UIButton) {
@@ -366,7 +342,6 @@ final class PlayerView: UIView {
     
     private func addSelectors() {
         playButton.addTarget(self, action: #selector(playButtonTapped), for: .touchUpInside)
-        pauseButton.addTarget(self, action: #selector(pauseButtonTapped), for: .touchUpInside)
         skipButton.addTarget(self, action: #selector(skipButtonTapped), for: .touchUpInside)
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         playtimeSlider.addTarget(self, action: #selector(sliderValueChanged), for: .valueChanged)
@@ -383,10 +358,6 @@ final class PlayerView: UIView {
     
     @objc private func playButtonTapped() {
         delegate?.playPause(tapped: true)
-    }
-    
-    @objc private func pauseButtonTapped() {
-        delegate?.pauseButton(tapped: true)
     }
     
     @objc private func skipButtonTapped() {
@@ -406,10 +377,6 @@ final class PlayerView: UIView {
     @objc private func navigateBack() {
         delegate?.navigateBack(tapped: true)
     }
-    
-//    func update(progressBarValue: Float) {
-//        playtimeSlider.value = progressBarValue
-//    }
     
     func disableButtons() {
         playButton.isEnabled = false
