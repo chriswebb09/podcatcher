@@ -29,12 +29,7 @@ final class BrowseTabCoordinator: NavigationCoordinator {
     func setupBrowse() {
         let browseViewController = navigationController.viewControllers[0] as! BrowseViewController
         getTopItems { newItems in
-            let concurrentQueue = DispatchQueue(label: "concurrent",
-                                                qos: .background,
-                                                attributes: .concurrent,
-                                                autoreleaseFrequency: .inherit,
-                                                target: nil)
-            
+            let concurrentQueue = DispatchQueue(label: "concurrent", qos: .background, attributes: .concurrent, autoreleaseFrequency: .inherit, target: nil)
             concurrentQueue.async { [weak self] in
                 guard let strongSelf = self else { return }
                 getCasters(newItems: newItems)
@@ -68,11 +63,7 @@ final class BrowseTabCoordinator: NavigationCoordinator {
     }
     
     func getTopItems(completion: @escaping ([TopItem]) -> Void) {
-        let concurrentQueue = DispatchQueue(label: "concurrent",
-                                            qos: .background,
-                                            attributes: .concurrent,
-                                            autoreleaseFrequency: .inherit,
-                                            target: nil)
+        let concurrentQueue = DispatchQueue(label: "concurrent", qos: .background, attributes: .concurrent, autoreleaseFrequency: .inherit, target: nil)
         concurrentQueue.async { [weak self] in
             guard let strongSelf = self else { return }
             strongSelf.store.pullFeedTopPodcasts { data, error in
@@ -86,12 +77,7 @@ final class BrowseTabCoordinator: NavigationCoordinator {
     
     func getCaster(completion: @escaping ([CasterSearchResult]) -> Void) {
         getTopItems { newItems in
-            let concurrentQueue = DispatchQueue(label: "concurrent",
-                                                qos: .background,
-                                                attributes: .concurrent,
-                                                autoreleaseFrequency: .inherit,
-                                                target: nil)
-            
+            let concurrentQueue = DispatchQueue(label: "concurrent", qos: .background, attributes: .concurrent, autoreleaseFrequency: .inherit, target: nil)
             concurrentQueue.async { [weak self] in
                 guard let strongSelf = self else { return }
                 var results = [CasterSearchResult]()
@@ -126,11 +112,7 @@ extension BrowseTabCoordinator: BrowseViewControllerDelegate {
         let browseViewController = navigationController.viewControllers[0] as! BrowseViewController
         guard let feedUrlString = resultsList.item.feedUrl else { return }
         let store = SearchResultsDataStore()
-        let concurrent = DispatchQueue(label: "concurrentBackground",
-                                       qos: .background,
-                                       attributes: .concurrent,
-                                       autoreleaseFrequency: .inherit,
-                                       target: nil)
+        let concurrent = DispatchQueue(label: "concurrentBackground", qos: .background, attributes: .concurrent, autoreleaseFrequency: .inherit, target: nil)
         concurrent.async { [weak self] in
             guard let strongSelf = self else { return }
             store.pullFeed(for: feedUrlString) { response, arg  in
@@ -160,11 +142,7 @@ extension BrowseTabCoordinator: PodcastListViewControllerDelegate {
         var playerPodcast = podcast
         playerPodcast.episodes = episodes
         playerPodcast.index = index
-        let concurrent = DispatchQueue(label: "concurrentBackground",
-                                       qos: .background,
-                                       attributes: .concurrent,
-                                       autoreleaseFrequency: .inherit,
-                                       target: nil)
+        let concurrent = DispatchQueue(label: "concurrentBackground", qos: .background, attributes: .concurrent, autoreleaseFrequency: .inherit, target: nil)
         concurrent.async { [weak self] in
             guard let strongSelf = self else { return }
             let playerViewController = PlayerViewController(index: index, caster: playerPodcast, image: nil)
@@ -209,7 +187,7 @@ extension BrowseTabCoordinator: PlayerViewControllerDelegate {
     func skipButton(tapped: String) {
         print(tapped)
     }
-
+    
     func pauseButton(tapped: String) {
         print(tapped)
     }
