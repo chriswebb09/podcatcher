@@ -51,7 +51,6 @@
 		A71C93A41F2AD3C8009F3EC9 /* HomeItemsFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71C93A31F2AD3C8009F3EC9 /* HomeItemsFlowLayout.swift */; };
 		A71C93A61F2AD3ED009F3EC9 /* HomeViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71C93A51F2AD3ED009F3EC9 /* HomeViewControllerDelegate.swift */; };
 		A71D83DB1F0AC781009D0720 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71D83D91F0AC781009D0720 /* SettingsViewController.swift */; };
-		A71DC1B51F29C9270025133A /* HomeTopBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71DC1B41F29C9270025133A /* HomeTopBarController.swift */; };
 		A723B4151F0EB4F000EA6B27 /* PlaylistsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A723B4131F0EB4F000EA6B27 /* PlaylistsViewController.swift */; };
 		A723B41C1F0EB54300EA6B27 /* PlaylistCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A723B4191F0EB54300EA6B27 /* PlaylistCell.swift */; };
 		A723B4271F0EB75D00EA6B27 /* PlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A723B4261F0EB75D00EA6B27 /* PlaylistViewController.swift */; };
@@ -226,7 +225,6 @@
 		A71C93A31F2AD3C8009F3EC9 /* HomeItemsFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HomeItemsFlowLayout.swift; path = Home/Models/HomeItemsFlowLayout.swift; sourceTree = "<group>"; };
 		A71C93A51F2AD3ED009F3EC9 /* HomeViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HomeViewControllerDelegate.swift; path = Home/Controllers/HomeViewControllerDelegate.swift; sourceTree = "<group>"; };
 		A71D83D91F0AC781009D0720 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsViewController.swift; path = PodCatcher/UI/Screens/Settings/SettingsViewController.swift; sourceTree = SOURCE_ROOT; };
-		A71DC1B41F29C9270025133A /* HomeTopBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HomeTopBarController.swift; path = Home/Controllers/HomeTopBarController.swift; sourceTree = "<group>"; };
 		A71DD3701EEF2CE9002BB10A /* FirebaseCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseCore.framework; path = Pods/FirebaseCore/Frameworks/FirebaseCore.framework; sourceTree = "<group>"; };
 		A71DD3711EEF2CE9002BB10A /* FirebaseCoreDiagnostics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseCoreDiagnostics.framework; path = Pods/FirebaseCore/Frameworks/FirebaseCoreDiagnostics.framework; sourceTree = "<group>"; };
 		A71DD3721EEF2CE9002BB10A /* FirebaseNanoPB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseNanoPB.framework; path = Pods/FirebaseCore/Frameworks/FirebaseNanoPB.framework; sourceTree = "<group>"; };
@@ -586,7 +584,6 @@
 				A7780F3C1F17792C00737DA8 /* SubscribedPodcastCell.swift */,
 				A71149601F33EE2E003A4854 /* SubscriptionCellState .swift */,
 				A76F0D541F17B57500444025 /* SubscribedPodcastCellViewModel.swift */,
-				A71DC1B41F29C9270025133A /* HomeTopBarController.swift */,
 				A71C93A31F2AD3C8009F3EC9 /* HomeItemsFlowLayout.swift */,
 				A71C93A51F2AD3ED009F3EC9 /* HomeViewControllerDelegate.swift */,
 			);
@@ -1222,7 +1219,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A719A5341F33E1E300BDC6C9 /* PlayerViewDelegate.swift in Sources */,
-				A71DC1B51F29C9270025133A /* HomeTopBarController.swift in Sources */,
 				A7184E031F201968002516AE /* NetworkConnectionView.swift in Sources */,
 				A7780EFD1F173F1900737DA8 /* BrowseViewController.swift in Sources */,
 				A77EDF7A1EE5FF93001A24E5 /* UIViewController+Extension.swift in Sources */,

@@ -124,34 +124,21 @@ extension HomeViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath)
+        let item = fetchedResultsController.object(at: indexPath)
         switch mode {
         case .subscription:
             guard let cell = cell else { return }
             SpinAnimation.animate(from: cell, with: 2, completion: nil)
-            let item = fetchedResultsController.object(at: indexPath)
             var caster = CasterSearchResult()
             caster.feedUrl = item.feedUrl
             guard let imageData = item.artworkImage, let image = UIImage(data: imageData as Data) else { return }
             delegate?.didSelect(at: indexPath.row, with: item, image: image)
         case .edit:
-            let actionSheetController: UIAlertController = UIAlertController(title: "Are you sure?", message: "Pressing okay will remove this podcast from your subscription list.", preferredStyle: .alert)
-            let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel) { action in
-                actionSheetController.dismiss(animated: false, completion: nil)
-            }
-            let okayAction: UIAlertAction =  UIAlertAction(title: "Okay", style: .destructive) { action in
-                self.save(for: indexPath)
-            }
-            actionSheetController.addAction(cancelAction)
-            actionSheetController.addAction(okayAction)
-            self.present(actionSheetController, animated: true, completion: nil)
-            if homeDataSource.itemCount == 0 {
-                mode = .subscription
-                rightButtonItem.title = "Edit"
-            }
+            update(indexPath: indexPath, item: item)
         }
     }
     
-    func save(for indexPath: IndexPath) {
+    func remove(for indexPath: IndexPath) {
         persistentContainer.performBackgroundTask { _ in
             let feed = self.fetchedResultsController.object(at: indexPath).feedUrl
             self.managedContext.delete(self.fetchedResultsController.object(at: indexPath))
@@ -167,6 +154,24 @@ extension HomeViewController: UICollectionViewDelegate {
             } catch let error {
                 self.showError(errorString: " \(error.localizedDescription)")
             }
+        }
+    }
+    
+    func update(indexPath: IndexPath, item: Subscription) {
+        let message = "Pressing okay will remove \(item.podcastTitle!) from your subscription list."
+        let actionSheetController: UIAlertController = UIAlertController(title: "Are you sure?", message: message, preferredStyle: .alert)
+        let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel) { action in
+            actionSheetController.dismiss(animated: false, completion: nil)
+        }
+        let okayAction: UIAlertAction =  UIAlertAction(title: "Okay", style: .destructive) { action in
+            self.remove(for: indexPath)
+        }
+        actionSheetController.addAction(cancelAction)
+        actionSheetController.addAction(okayAction)
+        self.present(actionSheetController, animated: true, completion: nil)
+        if homeDataSource.itemCount == 0 {
+            mode = .subscription
+            rightButtonItem.title = "Edit"
         }
     }
 }

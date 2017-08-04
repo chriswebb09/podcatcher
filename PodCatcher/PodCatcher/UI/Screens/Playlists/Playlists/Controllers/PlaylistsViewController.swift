@@ -1,14 +1,6 @@
 import UIKit
 import CoreData
 
-enum PlaylistsInteractionMode {
-    case add, edit
-}
-
-enum PlaylistsReference {
-    case addPodcast, checkList
-}
-
 final class PlaylistsViewController: BaseTableViewController {
     
     weak var delegate: PlaylistsViewControllerDelegate?
@@ -82,18 +74,7 @@ extension PlaylistsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch mode {
         case .edit:
-            DispatchQueue.main.async {
-                let actionSheetController: UIAlertController = UIAlertController(title: "Are you sure?", message: "Pressing okay will delete this playlist.", preferredStyle: .alert)
-                let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel) { action in
-                    actionSheetController.dismiss(animated: false, completion: nil)
-                }
-                let okayAction: UIAlertAction =  UIAlertAction(title: "Okay", style: .destructive) { action in
-                    self.editFor(indexPath: indexPath)
-                }
-                actionSheetController.addAction(cancelAction)
-                actionSheetController.addAction(okayAction)
-                self.present(actionSheetController, animated: true, completion: nil)
-            }
+            editMode(indexPath: indexPath)
         case .add:
             addFor(indexPath: indexPath)
         }
@@ -123,7 +104,24 @@ extension PlaylistsViewController: UITableViewDelegate {
         navigationController?.pushViewController(playlist, animated: false)
     }
     
-    func editFor(indexPath: IndexPath) {
+    
+    func editMode(indexPath: IndexPath) {
+        guard let title = fetchedResultsController.object(at: indexPath).playlistName else { return }
+        DispatchQueue.main.async {
+            let actionSheetController: UIAlertController = UIAlertController(title: "Are you sure?", message: "Pressing okay will delete \(title).", preferredStyle: .alert)
+            let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel) { action in
+                actionSheetController.dismiss(animated: false, completion: nil)
+            }
+            let okayAction: UIAlertAction =  UIAlertAction(title: "Okay", style: .destructive) { action in
+                self.removeFor(indexPath: indexPath)
+            }
+            actionSheetController.addAction(cancelAction)
+            actionSheetController.addAction(okayAction)
+            self.present(actionSheetController, animated: true, completion: nil)
+        }
+    }
+    
+    func removeFor(indexPath: IndexPath) {
         persistentContainer.performBackgroundTask { _ in
             self.managedContext.delete(self.fetchedResultsController.object(at: indexPath))
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "PodcastPlaylistItem")

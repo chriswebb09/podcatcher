@@ -33,7 +33,7 @@ final class PlaylistCell: UITableViewCell, Reusable {
     var titleLabel: UILabel = {
         let title = UILabel()
         title.textColor = .black
-        title.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.thin)
+        title.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.semibold)
         title.textAlignment = .center
         title.numberOfLines = 0
         return title
