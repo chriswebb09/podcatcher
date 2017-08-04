@@ -114,7 +114,7 @@ final class PlayerViewController: BaseViewController {
             self.timeObserverToken = nil
         }
         didPlayToEndTimeToken = nil
-        player.playPause()
+        player.player.pause()
     }
     
     func done() {
@@ -288,9 +288,7 @@ extension PlayerViewController: BottomMenuViewable {
         bottomMenu.setMenu(size)
         bottomMenu.setMenu(origin)
         bottomMenu.setupMenu()
-        bottomMenu.setMenu(color: .white,
-                           borderColor: .darkGray,
-                           textColor: .darkGray)
+        bottomMenu.setMenu(color: .white, borderColor: .darkGray, textColor: .darkGray)
         showPopMenu(playerView)
     }
 }
@@ -299,10 +297,6 @@ extension PlayerViewController: AudioFilePlayerDelegate {
     
     func trackFinishedPlaying() {
         print("Finished")
-    }
-    
-    func updateProgress(progress: Double) {
-        
     }
 }
 

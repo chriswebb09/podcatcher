@@ -9,8 +9,6 @@ class HomeViewController: BaseCollectionViewController {
     var mode: HomeInteractionMode = .subscription
     weak var delegate: HomeViewControllerDelegate?
     
-    var items = [Subscription]()
-    
     var managedContext: NSManagedObjectContext! {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return nil }
         let context = appDelegate.persistentContainer.viewContext
@@ -25,12 +23,7 @@ class HomeViewController: BaseCollectionViewController {
         return controller
     }()
     
-    var homeDataSource: CollectionViewDataSource<HomeViewController>! {
-        didSet {
-            self.contentState = homeDataSource.contentState
-        }
-    }
-    
+    var homeDataSource: CollectionViewDataSource<HomeViewController>!
     var contentState: ContentState = .empty
     
     let persistentContainer = NSPersistentContainer(name: "PodCatcher")
@@ -52,7 +45,10 @@ class HomeViewController: BaseCollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupCollectionView(view: view, newLayout: HomeItemsFlowLayout())
+        let newLayout = HomeItemsFlowLayout()
+        newLayout.setup()
+        collectionView.collectionViewLayout = newLayout
+        collectionView.frame = UIScreen.main.bounds
         collectionView.register(SubscribedPodcastCell.self)
         collectionView.setupBackground(frame: view.bounds)
         guard let background = collectionView.backgroundView else { return }
@@ -70,17 +66,18 @@ class HomeViewController: BaseCollectionViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        reloadData()
-        tabBarController?.tabBar.isHidden = false
         navigationController?.navigationBar.topItem?.title = "Subscribed Podcasts"
         homeDataSource.reloadData()
-        if self.homeDataSource.itemCount == 0 {
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+        }
+        if homeDataSource.itemCount == 0 {
             DispatchQueue.main.async {
                 self.mode = .subscription
                 self.rightButtonItem.title = "Edit"
                 self.navigationItem.rightBarButtonItem = nil
             }
-        } else if self.homeDataSource.itemCount > 0 {
+        } else if homeDataSource.itemCount > 0 {
             DispatchQueue.main.async {
                 self.navigationItem.setRightBarButton(self.rightButtonItem, animated: false)
             }
@@ -89,17 +86,6 @@ class HomeViewController: BaseCollectionViewController {
 }
 
 extension HomeViewController: UIScrollViewDelegate, CollectionViewProtocol {
-    
-    func setup(with newLayout: HomeItemsFlowLayout) {
-        newLayout.setup()
-        collectionView.collectionViewLayout = newLayout
-        collectionView.frame = UIScreen.main.bounds
-    }
-    
-    func setupCollectionView(view: UIView, newLayout: HomeItemsFlowLayout) {
-        setup(with: newLayout)
-        collectionView.frame = UIScreen.main.bounds
-    }
     
     @objc func changeMode() {
         mode = mode == .edit ? .subscription : .edit
@@ -114,7 +100,7 @@ extension HomeViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath)
-        let item = fetchedResultsController.object(at: indexPath)
+        let item = homeDataSource.fetchedResultsController.object(at: indexPath)
         switch mode {
         case .subscription:
             guard let cell = cell else { return }
@@ -132,35 +118,34 @@ extension HomeViewController: UICollectionViewDelegate {
         persistentContainer.performBackgroundTask { _ in
             do {
                 try self.homeDataSource.fetchedResultsController.performFetch()
-            } catch let error {
-                self.showError(errorString: "\(error.localizedDescription)")
-            }
-            let feed = self.homeDataSource.fetchedResultsController.object(at: indexPath).feedUrl
-            self.managedContext.delete(self.fetchedResultsController.object(at: indexPath))
-            var subscriptions = UserDefaults.loadSubscriptions()
-            guard let feedUrl = feed else { return }
-            if let index = subscriptions.index(of: feedUrl) {
-                subscriptions.remove(at: index)
-                UserDefaults.saveSubscriptions(subscriptions: subscriptions)
-            }
-            do {
-                try self.managedContext.save()
-                self.homeDataSource.reloadData()
-                if self.homeDataSource.itemCount == 0 {
-                    DispatchQueue.main.async {
-                        self.mode = .subscription
-                        self.rightButtonItem.title = "Edit"
-                        self.navigationItem.rightBarButtonItem = nil
+                let feed = self.homeDataSource.fetchedResultsController.object(at: indexPath).feedUrl
+                self.managedContext.delete(self.homeDataSource.fetchedResultsController.object(at: indexPath))
+                var subscriptions = UserDefaults.loadSubscriptions()
+                guard let feedUrl = feed else { return }
+                if let index = subscriptions.index(of: feedUrl) {
+                    subscriptions.remove(at: index)
+                    UserDefaults.saveSubscriptions(subscriptions: subscriptions)
+                }
+                do {
+                    try self.managedContext.save()
+                    self.homeDataSource.reloadData()
+                    if self.homeDataSource.itemCount == 0 {
+                        DispatchQueue.main.async {
+                            self.mode = .subscription
+                            self.rightButtonItem.title = "Edit"
+                            self.navigationItem.rightBarButtonItem = nil
+                        }
                     }
                 }
             } catch let error {
-                self.showError(errorString: " \(error.localizedDescription)")
+                self.showError(errorString: "\(error.localizedDescription)")
             }
         }
     }
     
     func update(indexPath: IndexPath, item: Subscription) {
-        let message = "Pressing okay will remove \(item.podcastArtist!) from your subscription list."
+        guard let podcastTitle = item.podcastTitle else { return }
+        let message = "Pressing okay will remove: \n \(podcastTitle) \n from your subscription list."
         let actionSheetController: UIAlertController = UIAlertController(title: "Are you sure?", message: message, preferredStyle: .alert)
         let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel) { action in
             actionSheetController.dismiss(animated: false, completion: nil)
@@ -171,34 +156,6 @@ extension HomeViewController: UICollectionViewDelegate {
         actionSheetController.addAction(cancelAction)
         actionSheetController.addAction(okayAction)
         self.present(actionSheetController, animated: true, completion: nil)
-    }
-}
-
-extension HomeViewController {
-    
-    func reloadData() {
-        do {
-            try fetchedResultsController.performFetch()
-            DispatchQueue.main.async {
-                self.collectionView.reloadData()
-            }
-        } catch let error {
-            showError(errorString: "\(error.localizedDescription)")
-        }
-    }
-    
-    func setupCoordinator() {
-        persistentContainer.loadPersistentStores { persistentStoreDescription, error in
-            if let error = error {
-                self.showError(errorString: "\(error.localizedDescription)")
-            } else {
-                do {
-                    try self.fetchedResultsController.performFetch()
-                } catch let error {
-                    self.showError(errorString: "\(error.localizedDescription)")
-                }
-            }
-        }
     }
 }
 

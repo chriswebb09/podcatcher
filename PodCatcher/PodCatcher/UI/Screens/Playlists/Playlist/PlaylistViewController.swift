@@ -15,6 +15,7 @@ class PlaylistViewController: BaseCollectionViewController {
     var caster = CasterSearchResult()
     var items = [PodcastPlaylistItem]()
     var bottomMenu = BottomMenu()
+    var playlistDataSource: CollectionViewDataSource<PlaylistViewController>!
     var fetchedResultsController: NSFetchedResultsController<PodcastPlaylistItem>!
     let persistentContainer = NSPersistentContainer(name: "PodCatcher")
     var playlistTitle: String!
@@ -42,12 +43,12 @@ class PlaylistViewController: BaseCollectionViewController {
         view.addSubview(background)
         emptyView.alpha = 0
         edgesForExtendedLayout = []
-        
         collectionView.delegate = self
-        collectionView.dataSource = self
+        // collectionView.dataSource = self
         view.sendSubview(toBack: background)
         collectionView.register(PodcastPlaylistCell.self)
         setupCoordinator()
+        collectionView.dataSource = playlistDataSource
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -191,7 +192,6 @@ extension PlaylistViewController: UICollectionViewDelegate {
         let artImage = UIImage(data: artData)
         topView.podcastImageView.image = artImage
         if let index = selectedSongIndex {
-            
             let playerIndexPath = IndexPath(item: index, section: 0)
             let cell = collectionView.cellForItem(at: playerIndexPath) as! PodcastPlaylistCell
             if indexPath.row != index {
@@ -205,28 +205,6 @@ extension PlaylistViewController: UICollectionViewDelegate {
         let cell = collectionView.cellForItem(at: indexPath) as! PodcastPlaylistCell
         cell.switchAlpha(hidden: false)
         selectedSongIndex = indexPath.row
-    }
-}
-
-// MARK: - UICollectionViewDataSource
-
-extension PlaylistViewController: UICollectionViewDataSource {
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return fetchedResultsController.sections?[section].numberOfObjects ?? 0
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as PodcastPlaylistCell
-        let item = fetchedResultsController.object(at: indexPath)
-        DispatchQueue.main.async {
-            if let title = item.episodeTitle, let artist = item.artistName {
-                let modelName = "\(title)  -  \(artist)"
-                let model = PodcastCellViewModel(podcastTitle: modelName)
-                cell.configureCell(model: model)
-            }
-        }
-        return cell
     }
 }
 
@@ -278,5 +256,19 @@ extension PlaylistViewController: AudioFilePlayerDelegate {
     
     func updateProgress(progress: Double) {
         print(progress)
+    }
+}
+
+extension PlaylistViewController: CollectionViewDataSourceDelegate {
+    typealias Object = PodcastPlaylistItem
+    
+    typealias Cell = PodcastPlaylistCell
+    
+    func configure(_ cell: PodcastPlaylistCell, for object: PodcastPlaylistItem) {
+        if let title = object.episodeTitle, let artist = object.artistName {
+            let modelName = "\(title)  -  \(artist)"
+            let model = PodcastCellViewModel(podcastTitle: modelName)
+            cell.configureCell(model: model)
+        }
     }
 }

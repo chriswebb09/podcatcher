@@ -29,7 +29,7 @@ final class PlaylistsViewController: BaseTableViewController {
     
     var background = UIView()
     var addItemToPlaylist: PodcastPlaylistItem?
-    var homeDataSource: TableViewDataSource<PlaylistsViewController>!
+    var playlistsDataSource: TableViewDataSource<PlaylistsViewController>!
     let persistentContainer = NSPersistentContainer(name: "PodCatcher")
     
     override func viewDidLoad() {
@@ -49,13 +49,13 @@ final class PlaylistsViewController: BaseTableViewController {
         rightButtonItem.tintColor = Colors.brightHighlight
         navigationItem.setRightBarButton(rightButtonItem, animated: false)
         navigationItem.setLeftBarButton(leftButtonItem, animated: false)
-        homeDataSource = TableViewDataSource(tableView: tableView, identifier: "PlaylistCell", fetchedResultsController: fetchedResultsController, delegate: self)
-        homeDataSource.reloadData()
-        tableView.dataSource = homeDataSource
-        homeDataSource.setIcon(icon: #imageLiteral(resourceName: "podcast-icon").withRenderingMode(.alwaysTemplate))
-        homeDataSource.setText(text: "Create Playlists For Your Favorite Podcasts")
+        playlistsDataSource = TableViewDataSource(tableView: tableView, identifier: "PlaylistCell", fetchedResultsController: fetchedResultsController, delegate: self)
+        playlistsDataSource.reloadData()
+        tableView.dataSource = playlistsDataSource
+        playlistsDataSource.setIcon(icon: #imageLiteral(resourceName: "podcast-icon").withRenderingMode(.alwaysTemplate))
+        playlistsDataSource.setText(text: "Create Playlists For Your Favorite Podcasts")
         
-        if homeDataSource.itemCount == 0 {
+        if playlistsDataSource.itemCount == 0 {
             navigationItem.leftBarButtonItem = nil
         }
     }
@@ -98,7 +98,7 @@ extension PlaylistsViewController: UITableViewDelegate {
     
     func add(text: String) {
         reference = .checkList
-        DispatchQueue.main.async { self.homeDataSource.reloadData() }
+        DispatchQueue.main.async { self.playlistsDataSource.reloadData() }
         delegate?.didAssignPlaylist(with: text)
     }
     
@@ -139,7 +139,7 @@ extension PlaylistsViewController: UITableViewDelegate {
             } catch let error as NSError {
                 self.showError(errorString: "\(error.localizedDescription)")
             }
-            self.homeDataSource.reloadData()
+            self.playlistsDataSource.reloadData()
             do {
                 try self.managedContext.save()
             } catch let error {
@@ -150,7 +150,7 @@ extension PlaylistsViewController: UITableViewDelegate {
                     self.mode = .add
                     self.leftButtonItem.title = "Edit"
                 }
-                if self.homeDataSource.itemCount == 0 {
+                if self.playlistsDataSource.itemCount == 0 {
                     DispatchQueue.main.async {
                         self.navigationItem.leftBarButtonItem = nil
                     }
@@ -164,8 +164,8 @@ extension PlaylistsViewController: EntryPopoverDelegate {
     
     func userDidEnterPlaylistName(name: String) {
         playlistDataStack.save(name: name, uid: "none")
-        homeDataSource.reloadData()
-        if homeDataSource.itemCount > 0 {
+        playlistsDataSource.reloadData()
+        if playlistsDataSource.itemCount > 0 {
             navigationItem.leftBarButtonItem = leftButtonItem
         }
     }
@@ -181,7 +181,7 @@ extension PlaylistsViewController: EntryPopoverDelegate {
     @objc func hidePop() {
         entryPop.hidePopView(viewController: self)
         tableView.reloadData()
-        homeDataSource.reloadData()
+        playlistsDataSource.reloadData()
     }
 }
 

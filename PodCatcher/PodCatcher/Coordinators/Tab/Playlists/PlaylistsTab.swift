@@ -1,10 +1,6 @@
 import UIKit
 import CoreData
 
-protocol PlaylistTabDelegate: CoordinatorDelegate {
-    func updatePodcast(with playlistId: String)
-}
-
 final class PlaylistsTabCoordinator: NavigationCoordinator {
     
     weak var delegate: CoordinatorDelegate?

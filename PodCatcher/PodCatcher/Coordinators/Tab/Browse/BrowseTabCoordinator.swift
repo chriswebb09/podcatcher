@@ -78,6 +78,7 @@ final class BrowseTabCoordinator: NavigationCoordinator {
     func getCaster(completion: @escaping ([CasterSearchResult]) -> Void) {
         getTopItems { newItems in
             let concurrentQueue = DispatchQueue(label: "concurrent", qos: .background, attributes: .concurrent, autoreleaseFrequency: .inherit, target: nil)
+
             concurrentQueue.async { [weak self] in
                 guard let strongSelf = self else { return }
                 var results = [CasterSearchResult]()

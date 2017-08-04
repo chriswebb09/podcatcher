@@ -100,6 +100,7 @@
 		A77EDF671EE5FC38001A24E5 /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EDF661EE5FC38001A24E5 /* UILabel+Extension.swift */; };
 		A77EDF721EE5FDA9001A24E5 /* UICollectionView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EDF711EE5FDA9001A24E5 /* UICollectionView+Extension.swift */; };
 		A77EDF7A1EE5FF93001A24E5 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EDF791EE5FF93001A24E5 /* UIViewController+Extension.swift */; };
+		A7893BF91F340BC1000E14AC /* PlaylistTabDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7893BF81F340BC1000E14AC /* PlaylistTabDelegate.swift */; };
 		A7894FA21EE69E2B000CC190 /* TestMainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7894FA11EE69E2B000CC190 /* TestMainCoordinator.swift */; };
 		A78CF16A1F33A2B200E97961 /* TableViewDataSourceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78CF1691F33A2B200E97961 /* TableViewDataSourceDelegate.swift */; };
 		A7A54B491F33E2FA00BF4325 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A54B471F33E2FA00BF4325 /* SplashViewController.swift */; };
@@ -278,6 +279,7 @@
 		A77EDF661EE5FC38001A24E5 /* UILabel+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
 		A77EDF711EE5FDA9001A24E5 /* UICollectionView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extension.swift"; sourceTree = "<group>"; };
 		A77EDF791EE5FF93001A24E5 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
+		A7893BF81F340BC1000E14AC /* PlaylistTabDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlaylistTabDelegate.swift; path = Playlists/PlaylistTabDelegate.swift; sourceTree = "<group>"; };
 		A7894FA11EE69E2B000CC190 /* TestMainCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestMainCoordinator.swift; sourceTree = "<group>"; };
 		A78CF1691F33A2B200E97961 /* TableViewDataSourceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TableViewDataSourceDelegate.swift; path = PodCatcher/ApplicationServices/Data/TableViewDataSourceDelegate.swift; sourceTree = SOURCE_ROOT; };
 		A7A54B471F33E2FA00BF4325 /* SplashViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
@@ -776,6 +778,7 @@
 			isa = PBXGroup;
 			children = (
 				A767522E1F0BF6FC007F1100 /* PlaylistsTab.swift */,
+				A7893BF81F340BC1000E14AC /* PlaylistTabDelegate.swift */,
 			);
 			name = PlaylistsTab;
 			sourceTree = "<group>";
@@ -1318,6 +1321,7 @@
 				A7252A8E1EFF2A240034EA93 /* ViewType.swift in Sources */,
 				A71C93A41F2AD3C8009F3EC9 /* HomeItemsFlowLayout.swift in Sources */,
 				A723B41C1F0EB54300EA6B27 /* PlaylistCell.swift in Sources */,
+				A7893BF91F340BC1000E14AC /* PlaylistTabDelegate.swift in Sources */,
 				A7780F0C1F17477500737DA8 /* BrowseTabCoordinator.swift in Sources */,
 				A7DF81EA1F2DFD1C00ADB86B /* NSLayoutAnchor+Extension.swift in Sources */,
 				A77041421F29325A00346FC7 /* ConfirmView.swift in Sources */,
