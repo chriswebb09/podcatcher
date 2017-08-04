@@ -269,8 +269,8 @@ extension PlaylistViewController: AudioFilePlayerDelegate {
 }
 
 extension PlaylistViewController: CollectionViewDataSourceDelegate {
+  
     typealias Object = PodcastPlaylistItem
-    
     typealias Cell = PodcastPlaylistCell
     
     func configure(_ cell: PodcastPlaylistCell, for object: PodcastPlaylistItem) {
