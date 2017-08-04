@@ -13,8 +13,8 @@ class ApplicationStyling {
         tabbar.barTintColor = .clear
         UINavigationBar.appearance().titleTextAttributes = [
             NSAttributedStringKey.font: titleFontAttribute,
-            NSAttributedStringKey.foregroundColor: UIColor.white,
-            NSAttributedStringKey.backgroundColor: UIColor.black
+            NSAttributedStringKey.foregroundColor: UIColor.white
+            //NSAttributedStringKey.backgroundColor: UIColor.black
         ]
     }
 }

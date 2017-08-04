@@ -1,5 +1,14 @@
-import UIKit
+//
+//  PodcastPlaylistItem+CoreDataProperties.swift
+//  
+//
+//  Created by Christopher Webb-Orenstein on 8/4/17.
+//
+//
+
+import Foundation
 import CoreData
+
 
 extension PodcastPlaylistItem {
 
@@ -7,7 +16,9 @@ extension PodcastPlaylistItem {
         return NSFetchRequest<PodcastPlaylistItem>(entityName: "PodcastPlaylistItem")
     }
 
+    @NSManaged public var artistFeedUrl: String?
     @NSManaged public var artistId: String?
+    @NSManaged public var artistName: String?
     @NSManaged public var artwork: NSData?
     @NSManaged public var artworkUrl: String?
     @NSManaged public var audioUrl: String?
@@ -17,24 +28,6 @@ extension PodcastPlaylistItem {
     @NSManaged public var episodeTitle: String?
     @NSManaged public var playlistId: String?
     @NSManaged public var stringDate: String?
-    @NSManaged public var artistName: String?
-    @NSManaged public var artistFeedUrl: String?
+    @NSManaged public var playlist: PodcastPlaylist?
 
-}
-
-
-extension PodcastPlaylistItem {
-    @discardableResult
-    static func addItem(item: CasterSearchResult, for index: Int) -> PodcastPlaylistItem? {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return nil }
-        let managedContext = appDelegate.coreData.managedContext
-        let newItem = PodcastPlaylistItem(context: managedContext)
-        newItem.audioUrl = item.episodes[index].audioUrlString
-        newItem.artworkUrl = item.podcastArtUrlString
-        newItem.artistId = item.id
-        newItem.episodeTitle = item.episodes[index].title
-        newItem.episodeDescription = item.episodes[index].description
-        newItem.stringDate = item.episodes[index].date
-        return newItem
-    }
 }

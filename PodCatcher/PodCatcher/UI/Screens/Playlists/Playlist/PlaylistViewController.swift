@@ -21,14 +21,13 @@ class PlaylistViewController: BaseCollectionViewController {
     var caster = CasterSearchResult()
     var items = [PodcastPlaylistItem]()
     var bottomMenu = BottomMenu()
-    var playlistDataSource: CollectionViewDataSource<PlaylistViewController>!
-    var fetchedResultsController: NSFetchedResultsController<PodcastPlaylistItem>!
-    let persistentContainer = NSPersistentContainer(name: "PodCatcher")
+  
     var playlistTitle: String!
     let entryPop = EntryPopover()
     var topView = ListTopView()
     var feedUrl: String!
-    
+    var playlistEmptyView: UIView = PlaylistEmptyView()
+    var backgroundView = UIView()
     init(index: Int, player: AudioFilePlayer) {
         self.playlistId = ""
         self.playlistTitle = ""
@@ -42,7 +41,6 @@ class PlaylistViewController: BaseCollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        reloadData()
         topView.delegate = self
         configureTopView()
         background.frame = view.frame
@@ -52,15 +50,11 @@ class PlaylistViewController: BaseCollectionViewController {
         collectionView.delegate = self
         view.sendSubview(toBack: background)
         collectionView.register(PodcastPlaylistCell.self)
-        setupCoordinator()
-        playlistDataSource = CollectionViewDataSource(collectionView: collectionView, identifier: PodcastPlaylistCell.reuseIdentifier, fetchedResultsController: fetchedResultsController, delegate: self)
-        collectionView.dataSource = playlistDataSource
-        playlistDataSource.emptyView = PlaylistEmptyView()
-        DispatchQueue.main.async {
-            let playlistsEmptyView = self.playlistDataSource.emptyView as! PlaylistEmptyView
-            playlistsEmptyView.setLabel(text: "Add Podcast Episodes To Playlist")
-            playlistsEmptyView.setIcon(icon: #imageLiteral(resourceName: "podcast-icon"))
-        }
+        collectionView.dataSource = self
+        emptyView.frame = UIScreen.main.bounds
+        backgroundView.frame = UIScreen.main.bounds
+        collectionView.backgroundView = emptyView
+        backgroundView.backgroundColor = .white
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -116,23 +110,6 @@ class PlaylistViewController: BaseCollectionViewController {
     }
 }
 
-extension PlaylistViewController: NSFetchedResultsControllerDelegate {
-    
-    func setupCoordinator() {
-        persistentContainer.loadPersistentStores { persistentStoreDescription, error in
-            if let error = error {
-                print("Unable to Load Persistent Store - \(error), \(error.localizedDescription)")
-            } else {
-                do {
-                    try self.fetchedResultsController.performFetch()
-                } catch let fetchError {
-                    print("Unable to Perform Fetch Request - \(fetchError), \(fetchError.localizedDescription)")
-                }
-            }
-        }
-    }
-}
-
 // MARK: - PodcastCollectionViewProtocol
 
 extension PlaylistViewController {
@@ -156,23 +133,6 @@ extension PlaylistViewController {
         view.bringSubview(toFront: topView)
         setupView()
     }
-}
-
-extension PlaylistViewController {
-    
-    func reloadData() {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-        let fetchRequest:NSFetchRequest<PodcastPlaylistItem> = PodcastPlaylistItem.fetchRequest()
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "playlistId", ascending: true)]
-        fetchRequest.predicate = NSPredicate(format: "playlistId == %@", playlistId)
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: appDelegate.persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: nil)
-        do {
-            try fetchedResultsController.performFetch()
-            collectionView.reloadData()
-        } catch let error {
-            print(error)
-        }
-    }
     
     func setupView() {
         guard let tabBar = self.tabBarController?.tabBar else { return }
@@ -183,6 +143,29 @@ extension PlaylistViewController {
     }
 }
 
+
+extension PlaylistViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if episodes.count > 0 {
+            backgroundView.alpha = 1
+            collectionView.backgroundView = backgroundView
+        } else if episodes.count <= 1 {
+            DispatchQueue.main.async {
+                collectionView.backgroundView = self.emptyView
+                self.backgroundView.alpha = 0
+            }
+        }
+        return episodes.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as PodcastPlaylistCell
+        let modelName = "\(episodes[indexPath.row].title)  -  \(episodes[indexPath.row].date)"
+        let model = PodcastCellViewModel(podcastTitle: modelName)
+        cell.configureCell(model: model)
+        return cell
+    }
+}
 // MARK: - UIScrollViewDelegate
 
 extension PlaylistViewController: UIScrollViewDelegate {
@@ -216,46 +199,7 @@ extension PlaylistViewController: UIScrollViewDelegate {
 extension PlaylistViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        if let index = selectedIndex {
-            let item = fetchedResultsController.object(at: index)
-            DispatchQueue.main.async {
-                guard let artData = item.artwork as? Data else { return }
-                let artImage = UIImage(data: artData)
-                self.topView.podcastImageView.image = artImage
-            }
-            if indexPath == index {
-                player.playPause()
-            } else {
-                selectedIndex = indexPath
-                let item = self.fetchedResultsController.object(at: indexPath)
-                DispatchQueue.main.async {
-                    guard let artData = item.artwork as? Data else { return }
-                    let artImage = UIImage(data: artData)
-                    self.topView.podcastImageView.image = artImage
-                }
-                if let urlString = item.audioUrl,
-                    let url = URL(string: urlString) {
-                    self.player.asset = AVURLAsset(url: url)
-                    self.player.playPause()
-                }
-                
-            }
-        } else {
-            selectedIndex = indexPath
-            DispatchQueue.main.async {
-                let item = self.fetchedResultsController.object(at: indexPath)
-                guard let artData = item.artwork as? Data else { return }
-                let artImage = UIImage(data: artData)
-                self.topView.podcastImageView.image = artImage
-                
-                if let urlString = item.audioUrl,
-                    let url = URL(string: urlString) {
-                    self.player.asset = AVURLAsset(url: url)
-                    self.player.playPause()
-                }
-            }
-        }
+
     }
 }
 
@@ -294,16 +238,4 @@ extension PlaylistViewController: TopViewDelegate {
         print("hidePopMenu")
     }
 }
-extension PlaylistViewController: CollectionViewDataSourceDelegate {
-    
-    typealias Object = PodcastPlaylistItem
-    typealias Cell = PodcastPlaylistCell
-    
-    func configure(_ cell: PodcastPlaylistCell, for object: PodcastPlaylistItem) {
-        if let title = object.episodeTitle, let artist = object.artistName {
-            let modelName = "\(title)  -  \(artist)"
-            let model = PodcastCellViewModel(podcastTitle: modelName)
-            cell.configureCell(model: model)
-        }
-    }
-}
+

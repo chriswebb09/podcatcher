@@ -6,7 +6,7 @@ final class SplashView: UIView {
     
     weak var delegate: SplashViewDelegate?
     
-    var animationDuration: Double = 0.5
+    var animationDuration: Double = 0.8
     
     // MARK: - UI Properties
     

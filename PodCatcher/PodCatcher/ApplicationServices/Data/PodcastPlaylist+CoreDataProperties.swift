@@ -1,3 +1,11 @@
+//
+//  PodcastPlaylist+CoreDataProperties.swift
+//  
+//
+//  Created by Christopher Webb-Orenstein on 8/4/17.
+//
+//
+
 import Foundation
 import CoreData
 
@@ -15,5 +23,24 @@ extension PodcastPlaylist {
     @NSManaged public var playlistId: String?
     @NSManaged public var playlistName: String?
     @NSManaged public var timeSpentListening: Double
+    @NSManaged public var uid: String?
+    @NSManaged public var podcast: NSSet?
+
+}
+
+// MARK: Generated accessors for podcast
+extension PodcastPlaylist {
+
+    @objc(addPodcastObject:)
+    @NSManaged public func addToPodcast(_ value: PodcastPlaylistItem)
+
+    @objc(removePodcastObject:)
+    @NSManaged public func removeFromPodcast(_ value: PodcastPlaylistItem)
+
+    @objc(addPodcast:)
+    @NSManaged public func addToPodcast(_ values: NSSet)
+
+    @objc(removePodcast:)
+    @NSManaged public func removeFromPodcast(_ values: NSSet)
 
 }

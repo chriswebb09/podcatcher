@@ -13,11 +13,14 @@ class CollectionViewDataSource<Delegate: CollectionViewDataSourceDelegate>: NSOb
     // MARK: Private
     
     var emptyView: UIView = EmptyView()
+    var backgroundView = UIView()
+    
+  
     fileprivate let collectionView: UICollectionView
     let fetchedResultsController: NSFetchedResultsController<Object>
     fileprivate weak var delegate: Delegate!
     fileprivate let cellIdentifier: String
-    var backgroundView = UIView()
+    
     var contentState: ContentState = .empty
     
     var itemCount: Int {

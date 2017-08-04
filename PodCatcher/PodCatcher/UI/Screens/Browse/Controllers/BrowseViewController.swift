@@ -6,8 +6,18 @@ final class BrowseViewController: BaseCollectionViewController {
     weak var delegate: BrowseViewControllerDelegate?
     
     var currentPlaylistId: String = ""
-    var topItems = [CasterSearchResult]()
+    
+    var topItems = [CasterSearchResult]() {
+        didSet {
+            topItems = dataSource.items
+            if topItems.count > 0, let artUrl = topItems[0].podcastArtUrlString, let url = URL(string: artUrl) {
+                topView.podcastImageView.downloadImage(url: url)
+            }
+        }
+    }
+    
     var topView = BrowseTopView()
+    
     var tap: UITapGestureRecognizer!
     let loadingPop = LoadingPopover()
     let reachability = Reachability()!
@@ -55,7 +65,7 @@ final class BrowseViewController: BaseCollectionViewController {
         collectionView.register(TopPodcastCell.self)
         collectionView.backgroundColor = .darkGray
         tap = UITapGestureRecognizer(target: self, action: #selector(selectAt))
-        topItems = dataSource.items
+       
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }
             strongSelf.view.bringSubview(toFront: strongSelf.collectionView)
@@ -114,7 +124,9 @@ extension BrowseViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.isUserInteractionEnabled = false
-        delegate?.didSelect(at: indexPath.row, with: dataSource.items[indexPath.row])
+        DispatchQueue.main.async {
+            self.delegate?.didSelect(at: indexPath.row, with: self.dataSource.items[indexPath.row])
+        }
     }
 }
 

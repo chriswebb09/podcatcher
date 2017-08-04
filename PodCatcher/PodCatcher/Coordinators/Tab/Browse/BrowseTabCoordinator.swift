@@ -1,5 +1,5 @@
-
 import UIKit
+import CoreData
 
 final class BrowseTabCoordinator: NavigationCoordinator {
     
@@ -8,6 +8,13 @@ final class BrowseTabCoordinator: NavigationCoordinator {
     var dataSource: BaseMediaControllerDataSource!
     var store = SearchResultsDataStore()
     var fetcher = SearchResultsFetcher()
+    
+    var managedContext: NSManagedObjectContext! {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return nil }
+        let context = appDelegate.persistentContainer.viewContext
+        return context
+    }
+    var playlistItem: PodcastPlaylistItem!
     var childViewControllers: [UIViewController] = []
     var navigationController: UINavigationController
     
@@ -38,25 +45,11 @@ final class BrowseTabCoordinator: NavigationCoordinator {
         
         func getCasters(newItems: [TopItem]) {
             var results = [CasterSearchResult]()
-            for item in newItems {
-                fetcher.setLookup(term: item.id)
-                fetcher.searchForTracksFromLookup { result, arg  in
-                    guard let resultItem = result else { return }
-                    resultItem.forEach { resultingData in
-                        guard let resultingData = resultingData else { return }
-                        if let caster = CasterSearchResult(json: resultingData) {
-                            results.append(caster)
-                            DispatchQueue.main.async {
-                                browseViewController.dataSource.items.append(caster)
-                                browseViewController.collectionView.reloadData()
-                            }
-                        }
-                    }
-                    if browseViewController.dataSource.items.count > 0 {
-                        guard let urlString = browseViewController.dataSource.items[0].podcastArtUrlString else { return }
-                        guard let imageUrl = URL(string: urlString) else { return }
-                        browseViewController.topView.podcastImageView.downloadImage(url: imageUrl)
-                    }
+            getCaster { items in
+                if browseViewController.dataSource.items.count > 0 {
+                    guard let urlString = browseViewController.dataSource.items[0].podcastArtUrlString else { return }
+                    guard let imageUrl = URL(string: urlString) else { return }
+                    browseViewController.topView.podcastImageView.downloadImage(url: imageUrl)
                 }
             }
         }
@@ -76,30 +69,33 @@ final class BrowseTabCoordinator: NavigationCoordinator {
     }
     
     func getCaster(completion: @escaping ([CasterSearchResult]) -> Void) {
+        let browseViewController = navigationController.viewControllers[0] as! BrowseViewController
         getTopItems { newItems in
-            let concurrentQueue = DispatchQueue(label: "concurrent", qos: .background, attributes: .concurrent, autoreleaseFrequency: .inherit, target: nil)
-
-            concurrentQueue.async { [weak self] in
-                guard let strongSelf = self else { return }
-                var results = [CasterSearchResult]()
-                
-                for item in newItems {
-                    strongSelf.fetcher.setLookup(term: item.id)
-                    strongSelf.fetcher.searchForTracksFromLookup { result, arg  in
-                        guard let resultItem = result else { return }
-                        resultItem.forEach { resultingData in
-                            guard let resultingData = resultingData else { return }
-                            if let caster = CasterSearchResult(json: resultingData) {
-                                results.append(caster)
+            var results = [CasterSearchResult]()
+            for item in newItems {
+                self.fetcher.setLookup(term: item.id)
+                self.fetcher.searchForTracksFromLookup { result, arg  in
+                    guard let resultItem = result else { return }
+                    resultItem.forEach { resultingData in
+                        guard let resultingData = resultingData else { return }
+                        if let caster = CasterSearchResult(json: resultingData) {
+                            results.append(caster)
+                            DispatchQueue.main.async {
+                                browseViewController.dataSource.items.append(caster)
+                                browseViewController.collectionView.reloadData()
+                                if let artUrl = results[0].podcastArtUrlString, let url = URL(string: artUrl) {
+                                    browseViewController.topView.podcastImageView.downloadImage(url: url)
+                                }
                             }
                         }
                     }
                 }
-                DispatchQueue.main.async {
-                    completion(results)
-                }
+            }
+            DispatchQueue.main.async {
+                completion(results)
             }
         }
+        
     }
 }
 
@@ -171,7 +167,7 @@ extension BrowseTabCoordinator: PlayerViewControllerDelegate {
     }
     
     func addItemToPlaylist(item: CasterSearchResult, index: Int) {
-        PodcastPlaylistItem.addItem(item: item, for: index)
+        //PodcastPlaylistItem.addItem(item: item, for: index)
         let controller = navigationController.viewControllers.last
         controller?.tabBarController?.selectedIndex = 1
         guard let tab =  controller?.tabBarController else { return }
@@ -180,10 +176,30 @@ extension BrowseTabCoordinator: PlayerViewControllerDelegate {
         playlists.reference = .addPodcast
         playlists.index = index
         playlists.item = item
+        
         controller?.tabBarController?.tabBar.alpha = 1
         navigationController.navigationBar.alpha = 1
-        delegate?.podcastItem(toAdd: item, with: index)
+
+        playlists.podcastDelegate = self
+        let podcastItem = PodcastPlaylistItem(context: managedContext)
+        podcastItem.audioUrl = item.episodes[index].audioUrlSting
+        podcastItem.artistFeedUrl = item.feedUrl
+        podcastItem.date = NSDate()
+        podcastItem.duration = 0
+        podcastItem.artistName = item.podcastArtist
+        podcastItem.stringDate = String(describing: NSDate())
+        podcastItem.artworkUrl = item.podcastArtUrlString
+        podcastItem.episodeTitle = item.episodes[index].title
+        podcastItem.episodeDescription = item.episodes[index].description
+        if let urlString = item.podcastArtUrlString, let url = URL(string: urlString) {
+            UIImage.downloadImage(url: url) { image in
+                let podcastArtImageData = UIImageJPEGRepresentation(image, 1)
+                podcastItem.artwork = podcastArtImageData as? NSData
+            }
+        }
+        self.playlistItem = podcastItem
     }
+    
     
     func skipButton(tapped: String) {
         print(tapped)
@@ -197,4 +213,24 @@ extension BrowseTabCoordinator: PlayerViewControllerDelegate {
         navigationController.setNavigationBarHidden(false, animated: false)
         navigationController.viewControllers.last?.tabBarController?.tabBar.alpha = 1
     }
+}
+
+extension BrowseTabCoordinator: PodcastDelegate {
+    
+    func didAssignPlaylist(playlist: PodcastPlaylist) {
+        playlist.addToPodcast(playlistItem)
+        playlistItem.playlist = playlist
+        do {
+            if let context = playlistItem.managedObjectContext {
+                try! context.save()
+            }
+        } catch let error {
+            print(error)
+        }
+    }
+    
+    func didDeletePlaylist() {
+        
+    }
+    
 }

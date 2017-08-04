@@ -1,6 +1,11 @@
 import UIKit
 import CoreData
 
+protocol PodcastDelegate {
+    func didAssignPlaylist(playlist: PodcastPlaylist)
+    func didDeletePlaylist()
+}
+
 struct FeedCoreDataStack {
     
     var feeds: [NSManagedObject] = []

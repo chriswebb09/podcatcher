@@ -45,7 +45,7 @@ extension SplashViewController: SplashViewDelegate {
     }
     
     func animate() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
             if let strongSelf = self {
                 strongSelf.delegate?.splashAnimation(finished: true)
             }

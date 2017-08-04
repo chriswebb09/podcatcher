@@ -89,7 +89,7 @@ extension SearchTabCoordinator: PlayerViewControllerDelegate {
     }
     
     func addItemToPlaylist(item: CasterSearchResult, index: Int) {
-        PodcastPlaylistItem.addItem(item: item, for: index)
+       // PodcastPlaylistItem.addItem(item: item, for: index)
         let controller = navigationController.viewControllers.last as! PlayerViewController
         navigationController.setNavigationBarHidden(false, animated: false)
         controller.tabBarController?.selectedIndex = 1

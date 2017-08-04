@@ -111,7 +111,7 @@ struct PlayerViewConstants {
     static let thumbsUpLeftOffset: CGFloat = 0.06
     static let artistInfoWidthMultiplier: CGFloat = 0.18
     static let artistInfoHeightMultiplier: CGFloat = 1
-    static let artistInfoRightOffset: CGFloat = -0.05
+    static let artistInfoRightOffset: CGFloat = -0.02
     static let thumbsDownLeftOffset: CGFloat = 0.18
     static let controlsViewHeightMultiplier: CGFloat = 0.299
     static let thumbsHeightMultplier: CGFloat = 0.45

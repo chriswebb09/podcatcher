@@ -3,6 +3,8 @@ import CoreData
 
 final class PlaylistsViewController: BaseTableViewController {
     
+    var podcastDelegate: PodcastDelegate?
+    
     weak var delegate: PlaylistsViewControllerDelegate?
     var mediaDataSource: BaseMediaControllerDataSource!
     var reference: PlaylistsReference = .checkList
@@ -18,6 +20,8 @@ final class PlaylistsViewController: BaseTableViewController {
         let context = appDelegate.persistentContainer.viewContext
         return context
     }
+    
+
     
     lazy var fetchedResultsController:NSFetchedResultsController<PodcastPlaylist> = {
         let fetchRequest:NSFetchRequest<PodcastPlaylist> = PodcastPlaylist.fetchRequest()
@@ -89,8 +93,10 @@ extension PlaylistsViewController: UITableViewDelegate {
         guard let text = fetchedResultsController.object(at: indexPath).playlistId else { return }
         switch reference {
         case .addPodcast:
-            print("addPodcast")
             add(text: text)
+            if let podcastDelegate = podcastDelegate {
+                podcastDelegate.didAssignPlaylist(playlist: fetchedResultsController.object(at: indexPath))
+            }
         case .checkList:
             print("checklist")
             add(text: text, from: indexPath)
@@ -105,6 +111,8 @@ extension PlaylistsViewController: UITableViewDelegate {
     
     func add(text: String, from indexPath: IndexPath) {
         let title = fetchedResultsController.object(at: indexPath)
+        let casts = fetchedResultsController.object(at: indexPath)
+        let podcasts = casts.podcast
         let playlist = PlaylistViewController(index: 0, player: AudioFilePlayer())
         playlist.playlistId = text
         delegate?.playlistSelected(for: title)
@@ -191,6 +199,15 @@ extension PlaylistsViewController: TableViewDataSourceDelegate {
     typealias Object = PodcastPlaylist
     
     func configure(_ cell: PlaylistCell, for object: PodcastPlaylist) {
+        dump(object)
+        print(object.podcast)
+        for (i, n) in (object.podcast?.enumerated())! {
+            print(i)
+            let item = n as! PodcastPlaylistItem
+            print(item.artistName)
+            print(item.description)
+        }
+        print(object.podcast?.count)
         var cellMode: PlaylistCellMode = .select
         switch mode {
         case .add:
@@ -201,7 +218,12 @@ extension PlaylistsViewController: TableViewDataSourceDelegate {
         if let artWorkImageData = object.artwork as? Data, let artworkImage = UIImage(data: artWorkImageData) {
             cell.configure(image: artworkImage, title: object.playlistName!, mode: cellMode)
         } else {
-            cell.configure(image: #imageLiteral(resourceName: "light-placehoder-2"), title: object.playlistName!, mode: cellMode)
+            if let name = object.playlistName {
+                cell.configure(image: #imageLiteral(resourceName: "light-placehoder-2"), title: name, mode: cellMode)
+            } else {
+                cell.configure(image: #imageLiteral(resourceName: "light-placehoder-2"), title: "temp", mode: cellMode)
+            }
+            
         }
     }
 }

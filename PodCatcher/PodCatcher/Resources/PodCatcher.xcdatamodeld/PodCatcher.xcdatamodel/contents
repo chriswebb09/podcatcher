@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="12141" systemVersion="16G29" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13209.6" systemVersion="16G29" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="CasterItems" representedClassName="CasterItems" syncable="YES">
         <attribute name="audioFile" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="audioUrl" optional="YES" attributeType="String" syncable="YES"/>
@@ -27,6 +27,7 @@
         <attribute name="playlistName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="timeSpentListening" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="uid" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="podcast" optional="YES" toMany="YES" minCount="1" maxCount="2" deletionRule="Nullify" ordered="YES" destinationEntity="PodcastPlaylistItem" inverseName="playlist" inverseEntity="PodcastPlaylistItem" syncable="YES"/>
     </entity>
     <entity name="PodcastPlaylistItem" representedClassName="PodcastPlaylistItem" syncable="YES">
         <attribute name="artistFeedUrl" optional="YES" attributeType="String" syncable="YES"/>
@@ -41,6 +42,7 @@
         <attribute name="episodeTitle" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="playlistId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="stringDate" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="playlist" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PodcastPlaylist" inverseName="podcast" inverseEntity="PodcastPlaylist" syncable="YES"/>
     </entity>
     <entity name="Subscription" representedClassName="Subscription" syncable="YES">
         <attribute name="artworkImage" optional="YES" attributeType="Binary" syncable="YES"/>
@@ -66,8 +68,8 @@
     <elements>
         <element name="CasterItems" positionX="3130" positionY="113" width="128" height="180"/>
         <element name="PodCaster" positionX="2808" positionY="177" width="128" height="120"/>
-        <element name="PodcastPlaylist" positionX="2628" positionY="192" width="128" height="165"/>
-        <element name="PodcastPlaylistItem" positionX="2383" positionY="216" width="128" height="225"/>
+        <element name="PodcastPlaylist" positionX="2437" positionY="36" width="128" height="178"/>
+        <element name="PodcastPlaylistItem" positionX="2619" positionY="-18" width="128" height="238"/>
         <element name="Subscription" positionX="2592" positionY="252" width="128" height="180"/>
         <element name="TopPodcast" positionX="3006" positionY="261" width="128" height="165"/>
     </elements>
