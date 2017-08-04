@@ -25,40 +25,17 @@ class HomeViewController: BaseCollectionViewController {
         return controller
     }()
     
-    var itemCount: Int {
-        return self.homeDataSource.itemCount
-    }
-    
     var homeDataSource: CollectionViewDataSource<HomeViewController>! {
         didSet {
             self.contentState = homeDataSource.contentState
         }
     }
     
-    var contentState: ContentState = .empty {
-        didSet {
-            switch self.contentState {
-            case .empty:
-                self.view.sendSubview(toBack: collectionView)
-                self.view.bringSubview(toFront: emptyView)
-            case .collection:
-                self.view.sendSubview(toBack: emptyView)
-                self.view.bringSubview(toFront: collectionView)
-            }
-        }
-    }
+    var contentState: ContentState = .empty
     
     let persistentContainer = NSPersistentContainer(name: "PodCatcher")
     
     // MARK: - UI Properties
-    
-    lazy var animator: UIViewPropertyAnimator = {
-        let cubicParameters = UICubicTimingParameters(controlPoint1: CGPoint(x: 0, y: 0.5), controlPoint2: CGPoint(x: 1.0, y: 0.5))
-        let animator = UIViewPropertyAnimator(duration: 1.0, timingParameters: cubicParameters)
-        animator.isInterruptible = true
-        return animator
-    }()
-    
     
     init(dataSource: BaseMediaControllerDataSource) {
         super.init(nibName: nil, bundle: nil)
@@ -83,8 +60,8 @@ class HomeViewController: BaseCollectionViewController {
         rightButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(changeMode))
         rightButtonItem.tintColor = .white
         navigationItem.setRightBarButton(rightButtonItem, animated: false)
-        reloadData()
         homeDataSource = CollectionViewDataSource(collectionView: collectionView, identifier: SubscribedPodcastCell.reuseIdentifier, fetchedResultsController: fetchedResultsController, delegate: self)
+        fetchedResultsController.delegate = homeDataSource
         homeDataSource.reloadData()
         collectionView.dataSource = homeDataSource
         collectionView.delegate = self
@@ -97,6 +74,17 @@ class HomeViewController: BaseCollectionViewController {
         tabBarController?.tabBar.isHidden = false
         navigationController?.navigationBar.topItem?.title = "Subscribed Podcasts"
         homeDataSource.reloadData()
+        if self.homeDataSource.itemCount == 0 {
+            DispatchQueue.main.async {
+                self.mode = .subscription
+                self.rightButtonItem.title = "Edit"
+                self.navigationItem.rightBarButtonItem = nil
+            }
+        } else if self.homeDataSource.itemCount > 0 {
+            DispatchQueue.main.async {
+                self.navigationItem.setRightBarButton(self.rightButtonItem, animated: false)
+            }
+        }
     }
 }
 
@@ -116,7 +104,9 @@ extension HomeViewController: UIScrollViewDelegate, CollectionViewProtocol {
     @objc func changeMode() {
         mode = mode == .edit ? .subscription : .edit
         rightButtonItem.title = mode == .edit ? "Done" : "Edit"
-        collectionView.reloadData()
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+        }
     }
 }
 
@@ -140,7 +130,12 @@ extension HomeViewController: UICollectionViewDelegate {
     
     func remove(for indexPath: IndexPath) {
         persistentContainer.performBackgroundTask { _ in
-            let feed = self.fetchedResultsController.object(at: indexPath).feedUrl
+            do {
+                try self.homeDataSource.fetchedResultsController.performFetch()
+            } catch let error {
+                self.showError(errorString: "\(error.localizedDescription)")
+            }
+            let feed = self.homeDataSource.fetchedResultsController.object(at: indexPath).feedUrl
             self.managedContext.delete(self.fetchedResultsController.object(at: indexPath))
             var subscriptions = UserDefaults.loadSubscriptions()
             guard let feedUrl = feed else { return }
@@ -148,9 +143,16 @@ extension HomeViewController: UICollectionViewDelegate {
                 subscriptions.remove(at: index)
                 UserDefaults.saveSubscriptions(subscriptions: subscriptions)
             }
-            self.homeDataSource.reloadData()
             do {
                 try self.managedContext.save()
+                self.homeDataSource.reloadData()
+                if self.homeDataSource.itemCount == 0 {
+                    DispatchQueue.main.async {
+                        self.mode = .subscription
+                        self.rightButtonItem.title = "Edit"
+                        self.navigationItem.rightBarButtonItem = nil
+                    }
+                }
             } catch let error {
                 self.showError(errorString: " \(error.localizedDescription)")
             }
@@ -158,7 +160,7 @@ extension HomeViewController: UICollectionViewDelegate {
     }
     
     func update(indexPath: IndexPath, item: Subscription) {
-        let message = "Pressing okay will remove \(item.podcastTitle!) from your subscription list."
+        let message = "Pressing okay will remove \(item.podcastArtist!) from your subscription list."
         let actionSheetController: UIAlertController = UIAlertController(title: "Are you sure?", message: message, preferredStyle: .alert)
         let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel) { action in
             actionSheetController.dismiss(animated: false, completion: nil)
@@ -169,10 +171,6 @@ extension HomeViewController: UICollectionViewDelegate {
         actionSheetController.addAction(cancelAction)
         actionSheetController.addAction(okayAction)
         self.present(actionSheetController, animated: true, completion: nil)
-        if homeDataSource.itemCount == 0 {
-            mode = .subscription
-            rightButtonItem.title = "Edit"
-        }
     }
 }
 

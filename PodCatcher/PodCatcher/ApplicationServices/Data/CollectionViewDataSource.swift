@@ -12,14 +12,17 @@ class CollectionViewDataSource<Delegate: CollectionViewDataSourceDelegate>: NSOb
     
     // MARK: Private
     
-    fileprivate let emptyView = EmptyView()
+    let emptyView = EmptyView()
     fileprivate let collectionView: UICollectionView
-    fileprivate let fetchedResultsController: NSFetchedResultsController<Object>
+    let fetchedResultsController: NSFetchedResultsController<Object>
     fileprivate weak var delegate: Delegate!
     fileprivate let cellIdentifier: String
     fileprivate let backgroundView = UIView()
     var contentState: ContentState = .empty
-    var itemCount: Int = 0
+    
+    var itemCount: Int {
+        return fetchedResultsController.sections?[0].numberOfObjects ?? 0
+    }
     
     required init(collectionView: UICollectionView, identifier: String, fetchedResultsController: NSFetchedResultsController<Object>, delegate: Delegate) {
         self.collectionView = collectionView
@@ -46,20 +49,7 @@ class CollectionViewDataSource<Delegate: CollectionViewDataSourceDelegate>: NSOb
     func objectAtIndexPath(_ indexPath: IndexPath) -> Object {
         return fetchedResultsController.object(at: indexPath)
     }
-    
-    func reconfigureFetchRequest(_ configure: (NSFetchRequest<Object>) -> ()) {
-        NSFetchedResultsController<NSFetchRequestResult>.deleteCache(withName: fetchedResultsController.cacheName)
-        configure(fetchedResultsController.fetchRequest)
-        do {
-            try fetchedResultsController.performFetch()
-        } catch {
-            fatalError("fetch request failed")
-        }
-        DispatchQueue.main.async {
-            self.collectionView.reloadData()
-        }
-    }
-    
+
     func reloadData() {
         do {
             try fetchedResultsController.performFetch()
@@ -72,7 +62,6 @@ class CollectionViewDataSource<Delegate: CollectionViewDataSourceDelegate>: NSOb
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard let section = fetchedResultsController.sections?[section] else { contentState = .empty; return 0 }
-        itemCount = section.numberOfObjects
         if itemCount > 0 {
             collectionView.backgroundView = backgroundView
         } else {

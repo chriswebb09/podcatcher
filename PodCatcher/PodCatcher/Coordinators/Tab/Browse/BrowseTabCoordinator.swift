@@ -40,22 +40,19 @@ final class BrowseTabCoordinator: NavigationCoordinator {
                 var results = [CasterSearchResult]()
                 
                 for item in newItems {
-                    
                     strongSelf.fetcher.setLookup(term: item.id)
                     strongSelf.fetcher.searchForTracksFromLookup { result, arg  in
                         guard let resultItem = result else { return }
-                        
                         resultItem.forEach { resultingData in
                             guard let resultingData = resultingData else { return }
-                            
                             if let caster = CasterSearchResult(json: resultingData) {
                                 results.append(caster)
                                 DispatchQueue.main.async {
+                                    browseViewController.dataSource.items.append(caster)
                                     browseViewController.collectionView.reloadData()
                                 }
                             }
                         }
-                        browseViewController.dataSource.items = results
                         if browseViewController.dataSource.items.count > 0 {
                             guard let urlString = browseViewController.dataSource.items[0].podcastArtUrlString else { return }
                             guard let imageUrl = URL(string: urlString) else { return }
@@ -191,18 +188,6 @@ extension BrowseTabCoordinator: PlayerViewControllerDelegate {
     func pauseButton(tapped: String) {
         print(tapped)
     }
-    
-    //    func skipButton(tapped: Bool) {
-    //        print("SkipButton tapped \(tapped)")
-    //    }
-    //    
-    //    func pauseButton(tapped: Bool) {
-    //        print("PauseButton tapped \(tapped)")
-    //    }
-    //    
-    //    func playButton(tapped: Bool) {
-    //        print("PlayButton tapped \(tapped)")
-    //    }
     
     func navigateBack(tapped: Bool) {
         navigationController.setNavigationBarHidden(false, animated: false)

@@ -12,6 +12,8 @@ class TableViewDataSource<Delegate: TableViewDataSourceDelegate>: NSObject, UITa
     fileprivate let fetchedResultsController: NSFetchedResultsController<Object>
     fileprivate weak var delegate: Delegate!
     fileprivate let cellIdentifier: String
+    fileprivate let emptyView = EmptyView()
+    fileprivate let backgroundView = UIView()
     
     required init(tableView: UITableView, identifier: String, fetchedResultsController: NSFetchedResultsController<Object>, delegate: Delegate) {
         self.tableView = tableView
@@ -26,6 +28,11 @@ class TableViewDataSource<Delegate: TableViewDataSourceDelegate>: NSObject, UITa
         tableView.dataSource = self
         tableView.reloadData()
     }
+    
+    var itemCount: Int {
+        return fetchedResultsController.sections?[0].numberOfObjects ?? 0
+    }
+    
     
     var selectedObject: Object? {
         guard let indexPath = tableView.indexPathForSelectedRow else { return nil }
@@ -57,6 +64,12 @@ class TableViewDataSource<Delegate: TableViewDataSourceDelegate>: NSObject, UITa
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let section = fetchedResultsController.sections?[section] else { return 0 }
+        let itemCount = section.numberOfObjects
+        if itemCount > 0 {
+            tableView.backgroundView = backgroundView
+        } else {
+            tableView.backgroundView = emptyView
+        }
         return section.numberOfObjects
     }
     
@@ -97,6 +110,14 @@ class TableViewDataSource<Delegate: TableViewDataSourceDelegate>: NSObject, UITa
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
+    }
+    
+    func setIcon(icon: UIImage) {
+        emptyView.setIcon(icon: icon)
+    }
+    
+    func setText(text: String) {
+        emptyView.setLabel(text: text)
     }
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {

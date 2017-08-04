@@ -42,7 +42,15 @@ final class EmptyView: UIView {
         musicIcon.heightAnchor.constraint(equalTo: heightAnchor, multiplier: EmptyViewConstants.iconHeightMultiplier).isActive = true
         musicIcon.widthAnchor.constraint(equalTo: widthAnchor, multiplier: EmptyViewConstants.iconWidthMutliplier).isActive = true
         musicIcon.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        musicIcon.centerYAnchor.constraint(equalTo: centerYAnchor, constant: UIScreen.main.bounds.height * -0.15).isActive = true
+        musicIcon.centerYAnchor.constraint(equalTo: centerYAnchor, constant: UIScreen.main.bounds.height * -0.1).isActive = true
+    }
+    
+    func setIcon(icon: UIImage) {
+        musicIcon.image = icon
+    }
+    
+    func setLabel(text: String) {
+        infoLabel.text = text
     }
     
     private func setup(infoLabel: UILabel) {
@@ -51,6 +59,6 @@ final class EmptyView: UIView {
         infoLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: EmptyViewConstants.iconWidthMutliplier).isActive = true
         infoLabel.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
         infoLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        infoLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        infoLabel.centerYAnchor.constraint(equalTo: centerYAnchor, constant: UIScreen.main.bounds.height * 0.06).isActive = true
     }
 }

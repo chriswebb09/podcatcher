@@ -41,7 +41,7 @@ final class SearchViewController: BaseTableViewController {
         tableView.delegate = self
         guard let tabbar = self.tabBarController?.tabBar else { return }
         searchBar.frame = CGRect(x: UIScreen.main.bounds.minX, y: 0, width: UIScreen.main.bounds.width, height: 44)
-        let height = (view.frame.height - tabbar.frame.height) - 110
+        let height = (view.frame.height - tabbar.frame.height)
         tableView.frame = CGRect(x: UIScreen.main.bounds.minX, y: searchBar.frame.maxY, width: UIScreen.main.bounds.width, height: height)
         searchControllerConfigure()
         searchController.defaultConfiguration()

@@ -52,6 +52,12 @@ final class PlaylistsViewController: BaseTableViewController {
         homeDataSource = TableViewDataSource(tableView: tableView, identifier: "PlaylistCell", fetchedResultsController: fetchedResultsController, delegate: self)
         homeDataSource.reloadData()
         tableView.dataSource = homeDataSource
+        homeDataSource.setIcon(icon: #imageLiteral(resourceName: "podcast-icon").withRenderingMode(.alwaysTemplate))
+        homeDataSource.setText(text: "Create Playlists For Your Favorite Podcasts")
+        
+        if homeDataSource.itemCount == 0 {
+            navigationItem.leftBarButtonItem = nil
+        }
     }
     
     @objc func edit() {
@@ -104,7 +110,6 @@ extension PlaylistsViewController: UITableViewDelegate {
         navigationController?.pushViewController(playlist, animated: false)
     }
     
-    
     func editMode(indexPath: IndexPath) {
         guard let title = fetchedResultsController.object(at: indexPath).playlistName else { return }
         DispatchQueue.main.async {
@@ -145,6 +150,11 @@ extension PlaylistsViewController: UITableViewDelegate {
                     self.mode = .add
                     self.leftButtonItem.title = "Edit"
                 }
+                if self.homeDataSource.itemCount == 0 {
+                    DispatchQueue.main.async {
+                        self.navigationItem.leftBarButtonItem = nil
+                    }
+                }
             }
         }
     }
@@ -155,6 +165,9 @@ extension PlaylistsViewController: EntryPopoverDelegate {
     func userDidEnterPlaylistName(name: String) {
         playlistDataStack.save(name: name, uid: "none")
         homeDataSource.reloadData()
+        if homeDataSource.itemCount > 0 {
+            navigationItem.leftBarButtonItem = leftButtonItem
+        }
     }
     
     @objc func addPlaylist() {
