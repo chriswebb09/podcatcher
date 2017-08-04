@@ -49,15 +49,12 @@ class PlaylistViewController: BaseCollectionViewController {
         setupCoordinator()
         playlistDataSource = CollectionViewDataSource(collectionView: collectionView, identifier: PodcastPlaylistCell.reuseIdentifier, fetchedResultsController: fetchedResultsController, delegate: self)
         collectionView.dataSource = playlistDataSource
-        
         playlistDataSource.emptyView = PlaylistEmptyView()
-        
         DispatchQueue.main.async {
             let playlistsEmptyView = self.playlistDataSource.emptyView as! PlaylistEmptyView
             playlistsEmptyView.setLabel(text: "Add Podcast Episodes To Playlist")
             playlistsEmptyView.setIcon(icon: #imageLiteral(resourceName: "podcast-icon"))
         }
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -252,24 +249,8 @@ extension PlaylistViewController: TopViewDelegate {
         print("hidePopMenu")
     }
 }
-
-extension PlaylistViewController: AudioFilePlayerDelegate {
-    
-    func trackFinishedPlaying() {
-        print("finished")
-    }
-    
-    func trackDurationCalculated(stringTime: String, timeValue: Float64) {
-        print(stringTime)
-    }
-    
-    func updateProgress(progress: Double) {
-        print(progress)
-    }
-}
-
 extension PlaylistViewController: CollectionViewDataSourceDelegate {
-  
+    
     typealias Object = PodcastPlaylistItem
     typealias Cell = PodcastPlaylistCell
     

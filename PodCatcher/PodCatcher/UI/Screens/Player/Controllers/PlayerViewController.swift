@@ -10,30 +10,25 @@ final class PlayerViewController: BaseViewController {
     weak var delegate: PlayerViewControllerDelegate?
     
     // MARK: - UI Properties
-    
+    var index: Int
+    let downloadingIndicator = DownloaderIndicatorView()
+    var playerViewModel: PlayerViewModel!
+    var network: NetworkService = NetworkService()
     var playerView = PlayerView()
     var loadingPop: LoadingPopover = LoadingPopover()
     var bottomMenu = BottomMenu()
     var episodes: [Episodes]!
     var caster: CasterSearchResult
     var menuActive: MenuActive = .none
-    
-    public var didPlayToEnd: (() -> ())?
+    var didPlayToEnd: (() -> ())?
     
     private var didPlayToEndTimeToken: NotificationToken?
-    
-    var durationText = ""
     
     @objc var player: AudioFilePlayer {
         didSet {
             playerViewModel.state = player.state
         }
     }
-    
-    var index: Int
-    let downloadingIndicator = DownloaderIndicatorView()
-    var playerViewModel: PlayerViewModel!
-    var network: NetworkService = NetworkService()
     
     init(index: Int, caster: CasterSearchResult, image: UIImage?) {
         self.player = AudioFilePlayer()
@@ -185,7 +180,6 @@ final class PlayerViewController: BaseViewController {
                     guard let duration = strongSelf.player.player.currentItem?.duration else { return }
                     let durationSeconds = CMTimeGetSeconds(duration)
                     strongSelf.playerView.currentPlayTimeLabel.text = String.constructTimeString(time: Double(currentSeconds))
-                    strongSelf.durationText = String.constructTimeString(time: durationSeconds)
                     strongSelf.playerView.totalPlayTimeLabel.text = String.constructTimeString(time: durationSeconds)
                 }
             }
