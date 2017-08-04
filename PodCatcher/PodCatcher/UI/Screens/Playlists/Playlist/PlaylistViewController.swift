@@ -49,6 +49,15 @@ class PlaylistViewController: BaseCollectionViewController {
         setupCoordinator()
         playlistDataSource = CollectionViewDataSource(collectionView: collectionView, identifier: PodcastPlaylistCell.reuseIdentifier, fetchedResultsController: fetchedResultsController, delegate: self)
         collectionView.dataSource = playlistDataSource
+        
+        playlistDataSource.emptyView = PlaylistEmptyView()
+        
+        DispatchQueue.main.async {
+            let playlistsEmptyView = self.playlistDataSource.emptyView as! PlaylistEmptyView
+            playlistsEmptyView.setLabel(text: "Add Podcast Episodes To Playlist")
+            playlistsEmptyView.setIcon(icon: #imageLiteral(resourceName: "podcast-icon"))
+        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -149,7 +158,7 @@ extension PlaylistViewController {
         guard let tabBar = self.tabBarController?.tabBar else { return }
         guard let navHeight = navigationController?.navigationBar.frame.height else { return }
         let viewHeight = (view.bounds.height - navHeight) - 55
-        collectionView.frame = CGRect(x: topView.bounds.minX, y: topView.frame.maxY + (tabBar.frame.height + 10), width: view.bounds.width, height: viewHeight - (topView.frame.height - tabBar.frame.height))
+        collectionView.frame = CGRect(x: topView.bounds.minX, y: topView.frame.maxY + (tabBar.frame.height + 6), width: view.bounds.width, height: viewHeight - (topView.frame.height - tabBar.frame.height))
         collectionView.backgroundColor = .clear
     }
 }
@@ -176,7 +185,7 @@ extension PlaylistViewController: UIScrollViewDelegate {
                 self.topView.alpha = 1
                 self.topView.layoutSubviews()
                 self.view.addSubview(self.topView)
-                self.collectionView.frame = CGRect(x: self.topView.bounds.minX, y: self.topView.frame.maxY, width: self.view.bounds.width, height: viewHeight - (self.topView.frame.height - tabBar.frame.height))
+                self.collectionView.frame = CGRect(x: self.topView.bounds.minX, y: self.topView.frame.maxY - 5, width: self.view.bounds.width, height: viewHeight - (self.topView.frame.height - tabBar.frame.height))
             }
         }
     }

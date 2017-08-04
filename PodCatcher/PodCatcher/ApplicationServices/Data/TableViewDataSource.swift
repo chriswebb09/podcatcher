@@ -12,7 +12,7 @@ class TableViewDataSource<Delegate: TableViewDataSourceDelegate>: NSObject, UITa
     fileprivate let fetchedResultsController: NSFetchedResultsController<Object>
     fileprivate weak var delegate: Delegate!
     fileprivate let cellIdentifier: String
-    fileprivate let emptyView = EmptyView()
+    var emptyView = EmptyView()
     fileprivate let backgroundView = UIView()
     
     required init(tableView: UITableView, identifier: String, fetchedResultsController: NSFetchedResultsController<Object>, delegate: Delegate) {

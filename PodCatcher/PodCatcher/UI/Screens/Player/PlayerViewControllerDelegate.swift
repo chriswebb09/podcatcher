@@ -1,8 +1,8 @@
 import UIKit
 
 protocol PlayerViewControllerDelegate: class {
-    func playButton(tapped: String)
-    func pauseButton(tapped: String)
+    //func playButton(tapped: String)
+   // func pauseButton(tapped: String)
     func skipButton(tapped: String)
     func playPaused(tapped: Bool)
     func backButton(tapped: String)

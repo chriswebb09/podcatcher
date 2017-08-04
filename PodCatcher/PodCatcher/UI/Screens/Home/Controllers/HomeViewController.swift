@@ -61,6 +61,7 @@ class HomeViewController: BaseCollectionViewController {
         homeDataSource.reloadData()
         collectionView.dataSource = homeDataSource
         collectionView.delegate = self
+        homeDataSource.backgroundView.backgroundColor = .lightGray
         view.bringSubview(toFront: collectionView)
     }
     

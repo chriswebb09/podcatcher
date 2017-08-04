@@ -1,6 +1,6 @@
 import UIKit
 
-final class EmptyView: UIView {
+class EmptyView: UIView {
     
     private var infoLabel: UILabel = {
         var label = UILabel.setupInfoLabel(infoText: "Subscribe To Your Favorite Podcasts!")
@@ -62,3 +62,68 @@ final class EmptyView: UIView {
         infoLabel.centerYAnchor.constraint(equalTo: centerYAnchor, constant: UIScreen.main.bounds.height * 0.06).isActive = true
     }
 }
+
+
+final class PlaylistEmptyView: UIView {
+    
+    private var infoLabel: UILabel = {
+        var label = UILabel.setupInfoLabel(infoText: "")
+        label.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.medium)
+        label.textColor = Colors.brightHighlight
+        label.alpha = 1
+        return label
+    }()
+    
+    private var backgroundImageView: UIImageView = {
+        var imageView = UIImageView()
+        imageView.image = #imageLiteral(resourceName: "whitebackground")
+        imageView.alpha = 0.8
+        return imageView
+    }()
+    
+    private var musicIcon: UIImageView = {
+        var musicIcon = UIImageView()
+        musicIcon.image = nil
+        musicIcon.alpha = 1
+        return musicIcon
+    }()
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        backgroundColor = UIColor(red:0.32, green:0.13, blue:0.70, alpha:1.0)
+        setup(musicIcon: musicIcon)
+        setup(infoLabel: infoLabel)
+        addSubview(backgroundImageView)
+    }
+    
+    func configure() {
+        layoutSubviews()
+    }
+    
+    private func setup(musicIcon: UIView) {
+        addSubview(musicIcon)
+        musicIcon.translatesAutoresizingMaskIntoConstraints = false
+        musicIcon.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.32).isActive = true
+        musicIcon.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.29).isActive = true
+        musicIcon.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        musicIcon.centerYAnchor.constraint(equalTo: centerYAnchor, constant: UIScreen.main.bounds.height * -0.06).isActive = true
+    }
+    
+    func setIcon(icon: UIImage) {
+        musicIcon.image = icon
+    }
+    
+    func setLabel(text: String) {
+        infoLabel.text = text
+    }
+    
+    private func setup(infoLabel: UILabel) {
+        addSubview(infoLabel)
+        infoLabel.translatesAutoresizingMaskIntoConstraints = false
+        infoLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.3).isActive = true
+        infoLabel.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
+        infoLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        infoLabel.centerYAnchor.constraint(equalTo: centerYAnchor, constant: UIScreen.main.bounds.height * 0.06).isActive = true
+    }
+}
+

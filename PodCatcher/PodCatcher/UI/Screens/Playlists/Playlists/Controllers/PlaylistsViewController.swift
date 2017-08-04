@@ -54,7 +54,6 @@ final class PlaylistsViewController: BaseTableViewController {
         tableView.dataSource = playlistsDataSource
         playlistsDataSource.setIcon(icon: #imageLiteral(resourceName: "podcast-icon").withRenderingMode(.alwaysTemplate))
         playlistsDataSource.setText(text: "Create Playlists For Your Favorite Podcasts")
-        
         if playlistsDataSource.itemCount == 0 {
             navigationItem.leftBarButtonItem = nil
         }

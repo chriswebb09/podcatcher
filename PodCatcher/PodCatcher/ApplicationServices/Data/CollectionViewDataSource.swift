@@ -12,12 +12,12 @@ class CollectionViewDataSource<Delegate: CollectionViewDataSourceDelegate>: NSOb
     
     // MARK: Private
     
-    let emptyView = EmptyView()
+    var emptyView: UIView = EmptyView()
     fileprivate let collectionView: UICollectionView
     let fetchedResultsController: NSFetchedResultsController<Object>
     fileprivate weak var delegate: Delegate!
     fileprivate let cellIdentifier: String
-    fileprivate let backgroundView = UIView()
+    var backgroundView = UIView()
     var contentState: ContentState = .empty
     
     var itemCount: Int {
@@ -37,8 +37,7 @@ class CollectionViewDataSource<Delegate: CollectionViewDataSourceDelegate>: NSOb
         emptyView.frame = UIScreen.main.bounds
         backgroundView.frame = UIScreen.main.bounds
         collectionView.backgroundView = emptyView
-        backgroundView.backgroundColor = .lightGray
-        
+        backgroundView.backgroundColor = .white
     }
     
     var selectedObject: Object? {
@@ -49,7 +48,7 @@ class CollectionViewDataSource<Delegate: CollectionViewDataSourceDelegate>: NSOb
     func objectAtIndexPath(_ indexPath: IndexPath) -> Object {
         return fetchedResultsController.object(at: indexPath)
     }
-
+    
     func reloadData() {
         do {
             try fetchedResultsController.performFetch()
@@ -61,11 +60,18 @@ class CollectionViewDataSource<Delegate: CollectionViewDataSourceDelegate>: NSOb
     // MARK: UITableViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let section = fetchedResultsController.sections?[section] else { contentState = .empty; return 0 }
+        guard let section = fetchedResultsController.sections?[section] else {
+            contentState = .empty;
+            return 0
+        }
         if itemCount > 0 {
+            backgroundView.alpha = 1
             collectionView.backgroundView = backgroundView
-        } else {
-            collectionView.backgroundView = emptyView
+        } else if itemCount <= 1 {
+            DispatchQueue.main.async {
+                collectionView.backgroundView = self.emptyView
+                self.backgroundView.alpha = 0
+            }
         }
         return section.numberOfObjects
     }
