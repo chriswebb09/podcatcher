@@ -47,7 +47,6 @@ final class PlayerViewController: BaseViewController {
             let url = URL(string: urlString) {
             player.asset = AVURLAsset(url: url)
         }
-        self.player.delegate = self
         view.addView(view: playerView, type: .full)
     }
     
@@ -106,7 +105,6 @@ final class PlayerViewController: BaseViewController {
         removeObserver(self, forKeyPath: #keyPath(PlayerViewController.player.player.currentItem.duration), context: &playerViewControllerKVOContext)
         removeObserver(self, forKeyPath: #keyPath(PlayerViewController.player.player.rate), context: &playerViewControllerKVOContext)
         removeObserver(self, forKeyPath: #keyPath(PlayerViewController.player.player.currentItem.status), context: &playerViewControllerKVOContext)
-        
         if let timeObserverToken = timeObserverToken {
             player.player.removeTimeObserver(timeObserverToken)
             self.timeObserverToken = nil
@@ -122,8 +120,7 @@ final class PlayerViewController: BaseViewController {
     private func setupPlayerPeriodicTimeObserver() {
         guard timeObserverToken == nil else { return }
         let time = CMTimeMake(1, 1)
-        timeObserverToken = player.player.addPeriodicTimeObserver(forInterval: time, queue: DispatchQueue.main) {
-            [weak self] time in
+        timeObserverToken = player.player.addPeriodicTimeObserver(forInterval: time, queue: DispatchQueue.main) { [weak self] time in
             guard let strongSelf = self else { return }
             strongSelf.playerView.playtimeSlider.value = Float(CMTimeGetSeconds(time))
             } as AnyObject?
@@ -197,8 +194,8 @@ final class PlayerViewController: BaseViewController {
     
     override class func keyPathsForValuesAffectingValue(forKey key: String) -> Set<String> {
         let affectedKeyPathsMappingByKey: [String: Set<String>] = [
-            "duration":     [#keyPath(PlayerViewController.player.player.currentItem.duration)],
-            "rate":         [#keyPath(PlayerViewController.player.player.rate)]
+            "duration": [#keyPath(PlayerViewController.player.player.currentItem.duration)],
+            "rate": [#keyPath(PlayerViewController.player.player.rate)]
         ]
         return affectedKeyPathsMappingByKey[key] ?? super.keyPathsForValuesAffectingValue(forKey: key)
     }
@@ -259,7 +256,6 @@ extension PlayerViewController: PlayerViewDelegate {
             self.showLoadingView(loadingPop: self.loadingPop)
         }
         if let urlString = caster.episodes[index].audioUrlString, let url = URL(string: urlString) {
-            player.delegate = self
             player.asset = AVURLAsset(url: url)
         }
         updatePlayerViewModel()
@@ -281,13 +277,6 @@ extension PlayerViewController: BottomMenuViewable {
         bottomMenu.setupMenu()
         bottomMenu.setMenu(color: .white, borderColor: .darkGray, textColor: .darkGray)
         showPopMenu(playerView)
-    }
-}
-
-extension PlayerViewController: AudioFilePlayerDelegate {
-    
-    func trackFinishedPlaying() {
-        print("Finished")
     }
 }
 
