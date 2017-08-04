@@ -44,10 +44,10 @@ class PlaylistViewController: BaseCollectionViewController {
         emptyView.alpha = 0
         edgesForExtendedLayout = []
         collectionView.delegate = self
-        // collectionView.dataSource = self
         view.sendSubview(toBack: background)
         collectionView.register(PodcastPlaylistCell.self)
         setupCoordinator()
+        playlistDataSource = CollectionViewDataSource(collectionView: collectionView, identifier: PodcastPlaylistCell.reuseIdentifier, fetchedResultsController: fetchedResultsController, delegate: self)
         collectionView.dataSource = playlistDataSource
     }
     

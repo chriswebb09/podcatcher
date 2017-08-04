@@ -90,8 +90,10 @@ extension PlaylistsViewController: UITableViewDelegate {
         guard let text = fetchedResultsController.object(at: indexPath).playlistId else { return }
         switch reference {
         case .addPodcast:
+            print("addPodcast")
             add(text: text)
         case .checkList:
+            print("checklist")
             add(text: text, from: indexPath)
         }
     }
@@ -103,11 +105,10 @@ extension PlaylistsViewController: UITableViewDelegate {
     }
     
     func add(text: String, from indexPath: IndexPath) {
-        guard let title = fetchedResultsController.object(at: indexPath).playlistName else { return }
+        let title = fetchedResultsController.object(at: indexPath)
         let playlist = PlaylistViewController(index: 0, player: AudioFilePlayer())
         playlist.playlistId = text
-        playlist.playlistTitle = title
-        navigationController?.pushViewController(playlist, animated: false)
+        delegate?.playlistSelected(for: title)
     }
     
     func editMode(indexPath: IndexPath) {
