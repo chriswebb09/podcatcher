@@ -1,17 +1,23 @@
 import UIKit
 import CoreData
+import AVFoundation
+
+private var playlistViewControllerKVOContext = 1
 
 class PlaylistViewController: BaseCollectionViewController {
     
+    @objc var player: AudioFilePlayer
+    
     var item: CasterSearchResult!
     var state: PodcasterControlState = .toCollection
-    var player: AudioFilePlayer
+    var selectedIndex: IndexPath!
     var dataSource: BaseMediaControllerDataSource!
     weak var delegate: PlaylistViewControllerDelegate?
     var playlistId: String
     var selectedSongIndex: Int!
     var episodes = [Episodes]()
     var mode: PlaylistMode = .list
+    var playButtonImage: UIImage!
     var caster = CasterSearchResult()
     var items = [PodcastPlaylistItem]()
     var bottomMenu = BottomMenu()
@@ -26,7 +32,7 @@ class PlaylistViewController: BaseCollectionViewController {
     init(index: Int, player: AudioFilePlayer) {
         self.playlistId = ""
         self.playlistTitle = ""
-        self.player = player
+        self.player = AudioFilePlayer()
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -61,11 +67,28 @@ class PlaylistViewController: BaseCollectionViewController {
         super.viewWillAppear(false)
         collectionView.alpha = 1
         navigationController?.navigationBar.topItem?.title = playlistTitle
+        addObserver(self, forKeyPath: #keyPath(PlaylistViewController.player.player.rate), options: [.new, .initial], context: &playlistViewControllerKVOContext)
+        addObserver(self, forKeyPath: #keyPath(PlaylistViewController.player.player.currentItem.status), options: [.new, .initial], context: &playlistViewControllerKVOContext)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(false)
         collectionView.alpha = 0
+        removeObserver(self, forKeyPath: #keyPath(PlaylistViewController.player.player.rate), context: &playlistViewControllerKVOContext)
+        removeObserver(self, forKeyPath: #keyPath(PlaylistViewController.player.player.currentItem.status), context: &playlistViewControllerKVOContext)
+    }
+    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if keyPath == #keyPath(PlayerViewController.player.player.rate) {
+            let newRate = (change?[NSKeyValueChangeKey.newKey] as! NSNumber).doubleValue
+            let buttonImageName = newRate == 1.0 ? #imageLiteral(resourceName: "pause-round") : #imageLiteral(resourceName: "play")
+            if let index = selectedIndex {
+                let cell = collectionView.cellForItem(at: index) as! PodcastPlaylistCell
+                DispatchQueue.main.async {
+                    cell.playButton.setImage(buttonImageName, for: .normal)
+                }
+            }
+        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -193,24 +216,46 @@ extension PlaylistViewController: UIScrollViewDelegate {
 extension PlaylistViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let item = fetchedResultsController.object(at: indexPath)
-        guard let artData = item.artwork as? Data else { return }
-        let artImage = UIImage(data: artData)
-        topView.podcastImageView.image = artImage
-        if let index = selectedSongIndex {
-            let playerIndexPath = IndexPath(item: index, section: 0)
-            let cell = collectionView.cellForItem(at: playerIndexPath) as! PodcastPlaylistCell
-            if indexPath.row != index {
-                cell.switchAlpha(hidden: true)
+        
+        if let index = selectedIndex {
+            let item = fetchedResultsController.object(at: index)
+            DispatchQueue.main.async {
+                guard let artData = item.artwork as? Data else { return }
+                let artImage = UIImage(data: artData)
+                self.topView.podcastImageView.image = artImage
+            }
+            if indexPath == index {
                 player.playPause()
-            } else if indexPath.row == index {
-                let cell = collectionView.cellForItem(at: indexPath) as! PodcastPlaylistCell
-                cell.switchAlpha(hidden: true)
+            } else {
+                selectedIndex = indexPath
+                let item = self.fetchedResultsController.object(at: indexPath)
+                DispatchQueue.main.async {
+                    guard let artData = item.artwork as? Data else { return }
+                    let artImage = UIImage(data: artData)
+                    self.topView.podcastImageView.image = artImage
+                }
+                if let urlString = item.audioUrl,
+                    let url = URL(string: urlString) {
+                    self.player.asset = AVURLAsset(url: url)
+                    self.player.playPause()
+                }
+                
+            }
+        } else {
+            selectedIndex = indexPath
+            DispatchQueue.main.async {
+                let item = self.fetchedResultsController.object(at: indexPath)
+                guard let artData = item.artwork as? Data else { return }
+                let artImage = UIImage(data: artData)
+                self.topView.podcastImageView.image = artImage
+                
+                if let urlString = item.audioUrl,
+                    let url = URL(string: urlString) {
+                    self.player.asset = AVURLAsset(url: url)
+                    self.player.playPause()
+                }
             }
         }
-        let cell = collectionView.cellForItem(at: indexPath) as! PodcastPlaylistCell
-        cell.switchAlpha(hidden: false)
-        selectedSongIndex = indexPath.row
     }
 }
 
