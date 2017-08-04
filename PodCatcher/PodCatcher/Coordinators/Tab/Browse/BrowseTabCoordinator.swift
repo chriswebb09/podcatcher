@@ -37,27 +37,30 @@ final class BrowseTabCoordinator: NavigationCoordinator {
             
             concurrentQueue.async { [weak self] in
                 guard let strongSelf = self else { return }
-                var results = [CasterSearchResult]()
-                
-                for item in newItems {
-                    strongSelf.fetcher.setLookup(term: item.id)
-                    strongSelf.fetcher.searchForTracksFromLookup { result, arg  in
-                        guard let resultItem = result else { return }
-                        resultItem.forEach { resultingData in
-                            guard let resultingData = resultingData else { return }
-                            if let caster = CasterSearchResult(json: resultingData) {
-                                results.append(caster)
-                                DispatchQueue.main.async {
-                                    browseViewController.dataSource.items.append(caster)
-                                    browseViewController.collectionView.reloadData()
-                                }
+                getCasters(newItems: newItems)
+            }
+        }
+        
+        func getCasters(newItems: [TopItem]) {
+            var results = [CasterSearchResult]()
+            for item in newItems {
+                fetcher.setLookup(term: item.id)
+                fetcher.searchForTracksFromLookup { result, arg  in
+                    guard let resultItem = result else { return }
+                    resultItem.forEach { resultingData in
+                        guard let resultingData = resultingData else { return }
+                        if let caster = CasterSearchResult(json: resultingData) {
+                            results.append(caster)
+                            DispatchQueue.main.async {
+                                browseViewController.dataSource.items.append(caster)
+                                browseViewController.collectionView.reloadData()
                             }
                         }
-                        if browseViewController.dataSource.items.count > 0 {
-                            guard let urlString = browseViewController.dataSource.items[0].podcastArtUrlString else { return }
-                            guard let imageUrl = URL(string: urlString) else { return }
-                            browseViewController.topView.podcastImageView.downloadImage(url: imageUrl)
-                        }
+                    }
+                    if browseViewController.dataSource.items.count > 0 {
+                        guard let urlString = browseViewController.dataSource.items[0].podcastArtUrlString else { return }
+                        guard let imageUrl = URL(string: urlString) else { return }
+                        browseViewController.topView.podcastImageView.downloadImage(url: imageUrl)
                     }
                 }
             }
@@ -76,6 +79,37 @@ final class BrowseTabCoordinator: NavigationCoordinator {
                 guard let data = data else { return }
                 DispatchQueue.main.async {
                     completion(data)
+                }
+            }
+        }
+    }
+    
+    func getCaster(completion: @escaping ([CasterSearchResult]) -> Void) {
+        getTopItems { newItems in
+            let concurrentQueue = DispatchQueue(label: "concurrent",
+                                                qos: .background,
+                                                attributes: .concurrent,
+                                                autoreleaseFrequency: .inherit,
+                                                target: nil)
+            
+            concurrentQueue.async { [weak self] in
+                guard let strongSelf = self else { return }
+                var results = [CasterSearchResult]()
+                
+                for item in newItems {
+                    strongSelf.fetcher.setLookup(term: item.id)
+                    strongSelf.fetcher.searchForTracksFromLookup { result, arg  in
+                        guard let resultItem = result else { return }
+                        resultItem.forEach { resultingData in
+                            guard let resultingData = resultingData else { return }
+                            if let caster = CasterSearchResult(json: resultingData) {
+                                results.append(caster)
+                            }
+                        }
+                    }
+                }
+                DispatchQueue.main.async {
+                    completion(results)
                 }
             }
         }
@@ -117,9 +151,7 @@ extension BrowseTabCoordinator: PodcastListViewControllerDelegate {
     func didSelect(at index: Int, podcast: CasterSearchResult) {
         var playerPodcast = podcast
         playerPodcast.index = index
-        let playerViewController = PlayerViewController(index: index,
-                                                        caster: playerPodcast,
-                                                        image: nil)
+        let playerViewController = PlayerViewController(index: index, caster: playerPodcast, image: nil)
         playerViewController.delegate = self
         navigationController.pushViewController(playerViewController, animated: false)
     }
@@ -135,11 +167,8 @@ extension BrowseTabCoordinator: PodcastListViewControllerDelegate {
                                        target: nil)
         concurrent.async { [weak self] in
             guard let strongSelf = self else { return }
-            let playerViewController = PlayerViewController(index: index,
-                                                            caster: playerPodcast,
-                                                            image: nil)
+            let playerViewController = PlayerViewController(index: index, caster: playerPodcast, image: nil)
             playerViewController.delegate = strongSelf
-            
             DispatchQueue.main.async {
                 strongSelf.navigationController.navigationBar.isTranslucent = true
                 strongSelf.navigationController.navigationBar.alpha = 0
@@ -180,11 +209,7 @@ extension BrowseTabCoordinator: PlayerViewControllerDelegate {
     func skipButton(tapped: String) {
         print(tapped)
     }
-    
-    func playButton(tapped: Bool) {
-        print(tapped)
-    }
-    
+
     func pauseButton(tapped: String) {
         print(tapped)
     }
