@@ -8,12 +8,13 @@ final class BrowseTabCoordinator: NavigationCoordinator {
     var dataSource: BaseMediaControllerDataSource!
     var store = SearchResultsDataStore()
     var fetcher = SearchResultsFetcher()
-    
+    let globalDefault = DispatchQueue.global()
     var managedContext: NSManagedObjectContext! {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return nil }
         let context = appDelegate.persistentContainer.viewContext
         return context
     }
+    
     var playlistItem: PodcastPlaylistItem!
     var childViewControllers: [UIViewController] = []
     var navigationController: UINavigationController
@@ -67,28 +68,39 @@ final class BrowseTabCoordinator: NavigationCoordinator {
         let browseViewController = navigationController.viewControllers[0] as! BrowseViewController
         getTopItems { newItems in
             var results = [CasterSearchResult]()
-            for item in newItems {
-                self.fetcher.setLookup(term: item.id)
-                self.fetcher.searchForTracksFromLookup { result, arg  in
-                    guard let resultItem = result else { return }
-                    resultItem.forEach { resultingData in
-                        guard let resultingData = resultingData else { return }
-                        if let caster = CasterSearchResult(json: resultingData) {
-                            results.append(caster)
-                            DispatchQueue.main.async {
-                                browseViewController.dataSource.items.append(caster)
-                                browseViewController.collectionView.reloadData()
-                                if let artUrl = results[0].podcastArtUrlString, let url = URL(string: artUrl) {
-                                    browseViewController.topView.podcastImageView.downloadImage(url: url)
+            
+            let topPodcastGroup = DispatchGroup()
+            
+            for i in 0..<newItems.count {
+                self.globalDefault.async(group: topPodcastGroup) {
+                    self.fetcher.setLookup(term: newItems[i].id)
+                    self.fetcher.searchForTracksFromLookup { result, arg  in
+                        guard let resultItem = result else { return }
+                        resultItem.forEach { resultingData in
+                            guard let resultingData = resultingData else { return }
+                            if let caster = CasterSearchResult(json: resultingData) {
+                                results.append(caster)
+                                DispatchQueue.main.async {
+                                    browseViewController.dataSource.items.append(caster)
+                                    browseViewController.collectionView.reloadData()
+                                    if let artUrl = results[0].podcastArtUrlString, let url = URL(string: artUrl) {
+                                        browseViewController.topView.podcastImageView.downloadImage(url: url)
+                                    }
                                 }
                             }
                         }
                     }
                 }
             }
-            DispatchQueue.main.async {
-                completion(results)
+            print("Waiting for completion...")
+            topPodcastGroup.notify(queue: self.globalDefault) {
+                print("Notify received, done waiting.")
+                DispatchQueue.main.async {
+                    completion(results)
+                }
             }
+            topPodcastGroup.wait()
+            print("Done waiting.")
         }
     }
 }
