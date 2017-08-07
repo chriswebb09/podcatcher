@@ -76,7 +76,6 @@ extension UIImage {
         task.resume()
     }
     
-    
     static func downloadImage(url: URL, completionHandler: @escaping (UIImage) -> Void) {
         if let cachedImage = WebDataCache.imageCache.object(forKey: url.absoluteString as NSString) {
             completionHandler(cachedImage)
@@ -94,7 +93,6 @@ extension UIImage {
             }
             }.resume()
     }
-    
     
     static func rotate(image: UIImage, withRotation radians: CGFloat) -> UIImage? {
         
@@ -114,21 +112,16 @@ extension UIImage {
         
         var drawRect = CGRect.zero
         drawRect.size = image.size
-        
         let originX = (maxSize - image.size.width) * 0.5
         let originY = (maxSize - image.size.height) * 0.5
-        
         let drawOrigin = CGPoint(x: originX, y: originY)
-        
         drawRect.origin = drawOrigin
-        
         var transform = CGAffineTransform.identity
         let transformer = maxSize * 0.5
         transform = transform.translatedBy(x: transformer, y: transformer)
         transform = transform.rotated(by: radians)
         let translater = maxSize * -0.5
         transform = transform.translatedBy(x: translater, y: translater)
-        
         context.concatenate(transform)
         context.draw(cgImage, in: drawRect)
         guard let rotatedImage = context.makeImage() else { return nil }

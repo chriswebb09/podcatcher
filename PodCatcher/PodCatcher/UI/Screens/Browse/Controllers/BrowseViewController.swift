@@ -56,6 +56,7 @@ final class BrowseViewController: BaseCollectionViewController {
         let topFrameWidth = UIScreen.main.bounds.width
         let topFrame = CGRect(x: 0, y: 0, width: topFrameWidth, height: topFrameHeight + 40)
         topView.frame = topFrame
+        loadingPop.configureLoadingOpacity(alpha: 0.2)
         view.addSubview(topView)
         view.backgroundColor = .clear
         topView.backgroundColor = .clear
@@ -64,11 +65,11 @@ final class BrowseViewController: BaseCollectionViewController {
         network.frame = view.frame
         collectionView.register(TopPodcastCell.self)
         collectionView.backgroundColor = .darkGray
+        collectionView.prefetchDataSource = dataSource
         tap = UITapGestureRecognizer(target: self, action: #selector(selectAt))
-       
+        collectionView.register(SectionHeaderView.self, forSupplementaryViewOfKind: "UICollectionReusableView", withReuseIdentifier: "SectionHeader")
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }
-            strongSelf.view.bringSubview(toFront: strongSelf.collectionView)
             strongSelf.collectionView.reloadData()
         }
     }
@@ -91,13 +92,9 @@ final class BrowseViewController: BaseCollectionViewController {
                 strongSelf.collectionView.reloadData()
             }
         }
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        DispatchQueue.main.async { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
             guard let strongSelf = self else { return }
-            UIView.animate(withDuration: 0.6) {
+            UIView.animate(withDuration: 0.5) {
                 strongSelf.hideLoadingView(loadingPop: strongSelf.loadingPop)
             }
         }
@@ -113,13 +110,9 @@ extension BrowseViewController: UICollectionViewDelegate {
     
     func setup(view: UIView, newLayout: BrowseItemsFlowLayout) {
         newLayout.setup()
-        setupHome(with: newLayout)
+        collectionView.collectionViewLayout = newLayout
         collectionView.frame = CGRect(x: 0, y: view.bounds.midY + 40, width: UIScreen.main.bounds.width, height: (UIScreen.main.bounds.height / 2) - 40)
         collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-    }
-    
-    func setupHome(with newLayout: BrowseItemsFlowLayout) {
-        collectionView.collectionViewLayout = newLayout
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -134,7 +127,7 @@ extension BrowseViewController: UIScrollViewDelegate {
     
     @objc func reachabilityChanged(note: Notification) {
         if reachability.isReachable {
-            print("browse is reachabile")
+            print("browse is reachable")
         } else {
             DispatchQueue.main.async {
                 self.view.addSubview(self.network)

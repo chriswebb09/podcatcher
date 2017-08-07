@@ -40,35 +40,7 @@ extension MainCoordinator: CoordinatorDelegate {
     }
     
     func updatePodcast(with playlistId: String) {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-        let managedContext = appDelegate.coreData.managedContext
-        let newItem = PodcastPlaylistItem(context: managedContext)
-        guard let audio = itemToSave.episodes[itemIndex].audioUrlString,
-            let id = itemToSave.id,
-            let artUrl = itemToSave.podcastArtUrlString,
-            let feed = itemToSave.feedUrl
-            else { return }
-        newItem.audioUrl = audio
-        newItem.artworkUrl = artUrl
-        newItem.artistId = id
-        newItem.episodeTitle = itemToSave.episodes[itemIndex].title
-        newItem.episodeDescription = itemToSave.episodes[itemIndex].description
-        newItem.stringDate = String(describing:itemToSave.episodes[itemIndex].date)
-        newItem.playlistId = playlistId
-        newItem.artistName = itemToSave.podcastArtist
-        newItem.artistFeedUrl = feed
-        if let urlString = itemToSave.podcastArtUrlString, let url = URL(string: urlString) {
-            UIImage.downloadImage(url: url) { image in
-                let podcastArtImageData = UIImageJPEGRepresentation(image, 1)
-                newItem.artwork = podcastArtImageData as? NSData
-            }
-        }
-        do {
-            try managedContext.save()
-        } catch {
-            print(error.localizedDescription)
-            fatalError("Failure to save context: \(error)")
-        }
+
     }
     
     func transitionCoordinator(type: CoordinatorType, dataSource: BaseMediaControllerDataSource?) {

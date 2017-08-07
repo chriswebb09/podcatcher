@@ -21,8 +21,6 @@ final class PlaylistsViewController: BaseTableViewController {
         return context
     }
     
-
-    
     lazy var fetchedResultsController:NSFetchedResultsController<PodcastPlaylist> = {
         let fetchRequest:NSFetchRequest<PodcastPlaylist> = PodcastPlaylist.fetchRequest()
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "playlistId", ascending: true)]
@@ -61,6 +59,11 @@ final class PlaylistsViewController: BaseTableViewController {
         if playlistsDataSource.itemCount == 0 {
             navigationItem.leftBarButtonItem = nil
         }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        mode = .add
     }
     
     @objc func edit() {
@@ -144,14 +147,14 @@ extension PlaylistsViewController: UITableViewDelegate {
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
-            } catch let error as NSError {
-                self.showError(errorString: "\(error.localizedDescription)")
+            } catch let error {
+                print(error.localizedDescription)
             }
             self.playlistsDataSource.reloadData()
             do {
                 try self.managedContext.save()
             } catch let error {
-                self.showError(errorString: "\(error.localizedDescription)")
+                print(error.localizedDescription)
             }
             if let count = self.fetchedResultsController.fetchedObjects?.count {
                 if count == 0 {
@@ -199,15 +202,6 @@ extension PlaylistsViewController: TableViewDataSourceDelegate {
     typealias Object = PodcastPlaylist
     
     func configure(_ cell: PlaylistCell, for object: PodcastPlaylist) {
-        dump(object)
-        print(object.podcast)
-        for (i, n) in (object.podcast?.enumerated())! {
-            print(i)
-            let item = n as! PodcastPlaylistItem
-            print(item.artistName)
-            print(item.description)
-        }
-        print(object.podcast?.count)
         var cellMode: PlaylistCellMode = .select
         switch mode {
         case .add:
@@ -223,7 +217,6 @@ extension PlaylistsViewController: TableViewDataSourceDelegate {
             } else {
                 cell.configure(image: #imageLiteral(resourceName: "light-placehoder-2"), title: "temp", mode: cellMode)
             }
-            
         }
     }
 }

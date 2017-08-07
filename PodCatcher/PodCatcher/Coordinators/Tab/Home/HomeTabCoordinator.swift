@@ -144,10 +144,10 @@ extension HomeTabCoordinator: PodcastListViewControllerDelegate {
 }
 
 extension HomeTabCoordinator: PlayerViewControllerDelegate {
+    
     func playPaused(tapped: Bool) {
         
     }
-    
     
     func backButton(tapped: String) {
         print(tapped)
@@ -156,7 +156,6 @@ extension HomeTabCoordinator: PlayerViewControllerDelegate {
     func playButton(tapped: String) {
         print(tapped)
     }
-    
     
     func addItemToPlaylist(item: CasterSearchResult, index: Int) {
         //PodcastPlaylistItem.addItem(item: item, for: index)

@@ -18,12 +18,17 @@ final class LoadingPopover: BasePopoverAlert {
         super.showPopView(viewController: viewController)
         popView.frame = CGRect(x: UIScreen.main.bounds.midX,
                                y: UIScreen.main.bounds.midY,
-                               width: UIScreen.main.bounds.width / 2,
-                               height: UIScreen.main.bounds.height / 4)
+                               width: UIScreen.main.bounds.width / 3,
+                               height: UIScreen.main.bounds.height / 5.5)
         popView.center = CGPoint(x: UIScreen.main.bounds.midX, y: UIScreen.main.bounds.midY)
+        popView.containerView.center = CGPoint(x: UIScreen.main.bounds.midX, y: UIScreen.main.bounds.midY)
+        popView.containerView.frame = viewController.view.frame
         popView.clipsToBounds = true
         viewController.view.addSubview(popView)
         viewController.view.bringSubview(toFront: popView)
+        containerView.backgroundColor = .black
+        containerView.alpha = 0.4
+        containerView.frame = UIScreen.main.bounds
     }
     
     override func hidePopView(viewController: UIViewController) {
@@ -39,8 +44,9 @@ final class LoadingPopover: BasePopoverAlert {
         popView.backgroundColor = .clear
     }
     
-    func configureLoadingOpacity() {
-        containerView.backgroundColor = .clear
+    func configureLoadingOpacity(alpha: CGFloat) {
+        containerView.alpha = alpha
+        //containerView.backgroundColor = .black
     }
     
     func show(controller: UIViewController) {

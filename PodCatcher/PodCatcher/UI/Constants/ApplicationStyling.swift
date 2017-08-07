@@ -14,7 +14,6 @@ class ApplicationStyling {
         UINavigationBar.appearance().titleTextAttributes = [
             NSAttributedStringKey.font: titleFontAttribute,
             NSAttributedStringKey.foregroundColor: UIColor.white
-            //NSAttributedStringKey.backgroundColor: UIColor.black
         ]
     }
 }

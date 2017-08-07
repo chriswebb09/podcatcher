@@ -21,7 +21,7 @@ class PlaylistViewController: BaseCollectionViewController {
     var caster = CasterSearchResult()
     var items = [PodcastPlaylistItem]()
     var bottomMenu = BottomMenu()
-  
+    
     var playlistTitle: String!
     let entryPop = EntryPopover()
     var topView = ListTopView()
@@ -199,7 +199,7 @@ extension PlaylistViewController: UIScrollViewDelegate {
 extension PlaylistViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-
+        
     }
 }
 
@@ -238,4 +238,3 @@ extension PlaylistViewController: TopViewDelegate {
         print("hidePopMenu")
     }
 }
-

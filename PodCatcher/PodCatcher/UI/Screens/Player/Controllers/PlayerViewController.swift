@@ -200,6 +200,12 @@ final class PlayerViewController: BaseViewController {
 
 extension PlayerViewController: PlayerViewDelegate {
     
+    func seekTime(value: Double) {
+        let time = CMTime(seconds: value, preferredTimescale: CMTimeScale(NSEC_PER_SEC))
+        player.player.seek(to: time)
+    }
+    
+    
     func playPause(tapped: Bool) {
         player.playPause()
         delegate?.playPaused(tapped: true)

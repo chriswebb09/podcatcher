@@ -18,7 +18,6 @@ extension CALayer {
         shadowOpacity = 0.7
     }
     
-    
     func setImageShadow(contentView: UIView) {
         let shadowOffsetWidth: CGFloat = contentView.bounds.height * CALayerConstants.shadowWidthMultiplier
         let shadowOffsetHeight: CGFloat = contentView.bounds.width * CALayerConstants.shadowHeightMultiplier
@@ -48,7 +47,6 @@ extension CALayer {
         gradientLayer.colors = colors 
         layer.addSublayer(gradientLayer)
     }
-    
     
     static func buildGradientLayer(with colors: [CGColor], layer: CALayer, bounds: CGRect) -> CAGradientLayer {
         let gradientLayer = CAGradientLayer()

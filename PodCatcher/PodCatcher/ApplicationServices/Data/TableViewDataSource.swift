@@ -17,7 +17,7 @@ class TableViewDataSource<Delegate: TableViewDataSourceDelegate>: NSObject, UITa
     
     required init(tableView: UITableView, identifier: String, fetchedResultsController: NSFetchedResultsController<Object>, delegate: Delegate) {
         self.tableView = tableView
-        self.cellIdentifier = identifier
+        cellIdentifier = identifier
         self.fetchedResultsController = fetchedResultsController
         self.delegate = delegate
         

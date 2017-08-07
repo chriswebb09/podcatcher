@@ -1,9 +1,5 @@
 import UIKit
 
-enum PodcasterControlState {
-    case toPlayer, toCollection
-}
-
 class SearchResultListViewController: BaseCollectionViewController {
     
     var item: CasterSearchResult!

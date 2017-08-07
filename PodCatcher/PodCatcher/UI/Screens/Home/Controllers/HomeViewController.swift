@@ -139,7 +139,7 @@ extension HomeViewController: UICollectionViewDelegate {
                     }
                 }
             } catch let error {
-                self.showError(errorString: "\(error.localizedDescription)")
+                print(error.localizedDescription)
             }
         }
     }

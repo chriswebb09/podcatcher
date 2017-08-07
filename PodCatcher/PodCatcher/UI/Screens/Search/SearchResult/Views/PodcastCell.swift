@@ -1,9 +1,5 @@
 import UIKit
 
-struct PodcastCellViewModel {
-    var podcastTitle: String
-}
-
 final class PodcastCell: UICollectionViewCell {
     
     // MARK: - UI Properties

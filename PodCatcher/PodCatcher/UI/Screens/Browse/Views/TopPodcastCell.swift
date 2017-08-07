@@ -41,6 +41,7 @@ final internal class TopPodcastCell: UICollectionViewCell {
     
     func configureCell(with imageUrl: URL, title: String) {
         trackNameLabel.text = title
+        albumArtView.image = #imageLiteral(resourceName: "placeholder")
         albumArtView.downloadImage(url: imageUrl)
         layer.borderWidth = 1
         contentView.layer.cornerRadius = 3
@@ -103,5 +104,25 @@ final internal class TopPodcastCell: UICollectionViewCell {
         super.prepareForReuse()
         albumArtView.image = nil
         trackNameLabel.text = ""
+    }
+    
+    private func displayCellContent(_ model: TopPodcastCellViewModel?) {
+        self.viewModel = model
+        if let viewModel = viewModel {
+            albumArtView.image = viewModel.podcastImage
+            trackNameLabel.text = viewModel.trackName
+        }
+    }
+    
+    func updateAppearanceFor(_ model: TopPodcastCellViewModel?, animated: Bool = true) {
+        DispatchQueue.main.async {
+            if animated {
+                UIView.animate(withDuration: 0.5) {
+                    self.displayCellContent(model)
+                }
+            } else {
+                self.displayCellContent(model)
+            }
+        }
     }
 }

@@ -42,6 +42,20 @@ final class SubscribedPodcastCell: UICollectionViewCell {
         return delete
     }()
     
+    convenience init() {
+        self.init(frame: CGRect.zero)
+        cellState = .done
+        overlayView.alpha = 0
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     private func setShadow() {
         layer.setCellShadow(contentView: contentView)
         let path =  UIBezierPath(roundedRect: bounds, cornerRadius: contentView.layer.cornerRadius)
@@ -49,28 +63,34 @@ final class SubscribedPodcastCell: UICollectionViewCell {
     }
     
     func configureCell(with model: SubscribedPodcastCellViewModel, withTime: Double, mode: SubscriptionCellState) {
-        alpha = 0
         self.viewModel  = model
         self.albumArtView.image = model.albumImageUrl
         self.layoutSubviews()
-        UIView.animate(withDuration: withTime) {
-            self.alpha = 1
-        }
         cellState = mode
+        if cellState == .done {
+            print("done")
+        }
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         viewConfigurations()
-        overlayView.frame = contentView.frame
-        overlayView.alpha = 0
-        contentView.addSubview(overlayView)
-        setup(deleteImageView: deleteImageView)
     }
     
     private func viewConfigurations() {
         setShadow()
         setup(albumArtView: albumArtView)
+        overlayView.frame = contentView.frame
+        contentView.addSubview(overlayView)
+        setup(deleteImageView: deleteImageView)
+        switch cellState {
+        case .edit:
+            overlayView.alpha = 0.6
+            deleteImageView.alpha = 1
+        case .done:
+            overlayView.alpha = 0
+        }
+        bringSubview(toFront: deleteImageView)
     }
     
     private func setup(albumArtView: UIImageView) {

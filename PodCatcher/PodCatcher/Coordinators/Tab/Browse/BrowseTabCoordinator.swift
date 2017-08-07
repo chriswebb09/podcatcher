@@ -39,17 +39,12 @@ final class BrowseTabCoordinator: NavigationCoordinator {
             let concurrentQueue = DispatchQueue(label: "concurrent", qos: .background, attributes: .concurrent, autoreleaseFrequency: .inherit, target: nil)
             concurrentQueue.async { [weak self] in
                 guard let strongSelf = self else { return }
-                getCasters(newItems: newItems)
-            }
-        }
-        
-        func getCasters(newItems: [TopItem]) {
-            var results = [CasterSearchResult]()
-            getCaster { items in
-                if browseViewController.dataSource.items.count > 0 {
-                    guard let urlString = browseViewController.dataSource.items[0].podcastArtUrlString else { return }
-                    guard let imageUrl = URL(string: urlString) else { return }
-                    browseViewController.topView.podcastImageView.downloadImage(url: imageUrl)
+                strongSelf.getCaster { items in
+                    if browseViewController.dataSource.items.count > 0 {
+                        guard let urlString = browseViewController.dataSource.items[0].podcastArtUrlString else { return }
+                        guard let imageUrl = URL(string: urlString) else { return }
+                        browseViewController.topView.podcastImageView.downloadImage(url: imageUrl)
+                    }
                 }
             }
         }
@@ -95,7 +90,6 @@ final class BrowseTabCoordinator: NavigationCoordinator {
                 completion(results)
             }
         }
-        
     }
 }
 
@@ -139,12 +133,10 @@ extension BrowseTabCoordinator: PodcastListViewControllerDelegate {
         var playerPodcast = podcast
         playerPodcast.episodes = episodes
         playerPodcast.index = index
-        let concurrent = DispatchQueue(label: "concurrentBackground", qos: .background, attributes: .concurrent, autoreleaseFrequency: .inherit, target: nil)
-        concurrent.async { [weak self] in
-            guard let strongSelf = self else { return }
-            let playerViewController = PlayerViewController(index: index, caster: playerPodcast, image: nil)
-            playerViewController.delegate = strongSelf
-            DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
+            if let strongSelf = self {
+                let playerViewController = PlayerViewController(index: index, caster: playerPodcast, image: nil)
+                playerViewController.delegate = strongSelf
                 strongSelf.navigationController.navigationBar.isTranslucent = true
                 strongSelf.navigationController.navigationBar.alpha = 0
                 strongSelf.navigationController.pushViewController(playerViewController, animated: false)
@@ -167,7 +159,6 @@ extension BrowseTabCoordinator: PlayerViewControllerDelegate {
     }
     
     func addItemToPlaylist(item: CasterSearchResult, index: Int) {
-        //PodcastPlaylistItem.addItem(item: item, for: index)
         let controller = navigationController.viewControllers.last
         controller?.tabBarController?.selectedIndex = 1
         guard let tab =  controller?.tabBarController else { return }
@@ -179,7 +170,7 @@ extension BrowseTabCoordinator: PlayerViewControllerDelegate {
         
         controller?.tabBarController?.tabBar.alpha = 1
         navigationController.navigationBar.alpha = 1
-
+        
         playlists.podcastDelegate = self
         let podcastItem = PodcastPlaylistItem(context: managedContext)
         podcastItem.audioUrl = item.episodes[index].audioUrlSting
@@ -224,13 +215,10 @@ extension BrowseTabCoordinator: PodcastDelegate {
             if let context = playlistItem.managedObjectContext {
                 try! context.save()
             }
-        } catch let error {
-            print(error)
         }
     }
     
     func didDeletePlaylist() {
         
     }
-    
 }

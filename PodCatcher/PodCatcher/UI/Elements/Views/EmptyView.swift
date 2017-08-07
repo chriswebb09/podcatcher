@@ -4,7 +4,7 @@ class EmptyView: UIView {
     
     private var infoLabel: UILabel = {
         var label = UILabel.setupInfoLabel(infoText: "Subscribe To Your Favorite Podcasts!")
-        label.font = UIFont.systemFont(ofSize: 18, weight: UIFont.Weight.medium)
+        label.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.medium)
         label.textColor = Colors.brightHighlight
         label.alpha = 1
         return label
@@ -68,7 +68,7 @@ final class PlaylistEmptyView: UIView {
     
     private var infoLabel: UILabel = {
         var label = UILabel.setupInfoLabel(infoText: "")
-        label.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.medium)
+        label.font = UIFont.systemFont(ofSize: 15, weight: UIFont.Weight.medium)
         label.textColor = Colors.brightHighlight
         label.alpha = 1
         return label
@@ -103,8 +103,8 @@ final class PlaylistEmptyView: UIView {
     private func setup(musicIcon: UIView) {
         addSubview(musicIcon)
         musicIcon.translatesAutoresizingMaskIntoConstraints = false
-        musicIcon.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.32).isActive = true
-        musicIcon.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.29).isActive = true
+        musicIcon.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.36).isActive = true
+        musicIcon.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.28).isActive = true
         musicIcon.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         musicIcon.centerYAnchor.constraint(equalTo: centerYAnchor, constant: UIScreen.main.bounds.height * -0.06).isActive = true
     }
@@ -126,4 +126,3 @@ final class PlaylistEmptyView: UIView {
         infoLabel.centerYAnchor.constraint(equalTo: centerYAnchor, constant: UIScreen.main.bounds.height * 0.06).isActive = true
     }
 }
-

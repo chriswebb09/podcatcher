@@ -40,7 +40,6 @@ final class ListTopView: UIView {
         preferencesView.delegate = self
     }
     
-    
     func setup(podcastImageView: UIImageView) {
         addSubview(podcastImageView)
         podcastImageView.translatesAutoresizingMaskIntoConstraints = false
