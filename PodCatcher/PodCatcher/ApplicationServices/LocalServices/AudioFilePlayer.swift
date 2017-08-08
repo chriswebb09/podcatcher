@@ -1,11 +1,6 @@
 import Foundation
 import AVFoundation
 
-public struct NotificationDescriptor<A> {
-    let name: Notification.Name
-    let convert: (Notification) -> A
-}
-
 public extension AVPlayerItem {
     static let didPlayToEndTime = NotificationDescriptor<()>(name: .AVPlayerItemDidPlayToEndTime) { _ in () }
 }
@@ -14,8 +9,7 @@ enum PlayerState {
     case playing, paused, stopped
 }
 
-@objcMembers
-final class AudioFilePlayer: NSObject {
+@objc final class AudioFilePlayer: NSObject {
     // MARK: Properties
     
     static let assetKeysRequiredToPlay = [

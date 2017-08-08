@@ -6,13 +6,14 @@ class SearchResultCell: UITableViewCell, Reusable {
     
     var albumArtView: UIImageView = {
         var album = UIImageView()
+        album.layer.cornerRadius = 5
         return album
     }()
     
     var titleLabel: UILabel = {
         let title = UILabel()
         title.textColor = .black
-        title.font = UIFont.systemFont(ofSize: 13, weight: UIFont.Weight.medium)
+        title.font = UIFont.systemFont(ofSize: 13, weight: UIFontWeightMedium)
         title.textAlignment = .center
         title.numberOfLines = 0
         return title
@@ -31,13 +32,14 @@ class SearchResultCell: UITableViewCell, Reusable {
         setupSeparator()
         selectionStyle = .none
         albumArtView.layer.setCellShadow(contentView: self)
-        DispatchQueue.main.async {
-            self.albumArtView.layer.cornerRadius = 6
-        }
+       
     }
     
     func setupSeparator() {
         setup(separatorView: separatorView)
+        DispatchQueue.main.async {
+            self.albumArtView.layer.cornerRadius = 6
+        }
     }
     
     func setupShadow() {

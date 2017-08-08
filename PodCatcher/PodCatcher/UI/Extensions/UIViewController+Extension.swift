@@ -4,9 +4,9 @@ extension UIViewController {
     
     func setupDefaultUI() {
         navigationController?.navigationBar.barTintColor = .white
-        let cancelButtonAttributes: NSDictionary = [NSAttributedStringKey.foregroundColor: Colors.brightHighlight]
-        UIBarButtonItem.appearance(whenContainedInInstancesOf:[UISearchBar.self]).setTitleTextAttributes(cancelButtonAttributes as? [NSAttributedStringKey : Any], for: .normal)
-        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).attributedPlaceholder = NSAttributedString(string: "Search for Podcasts...", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
+        let cancelButtonAttributes: NSDictionary = [NSForegroundColorAttributeName: Colors.brightHighlight]
+        UIBarButtonItem.appearance(whenContainedInInstancesOf:[UISearchBar.self]).setTitleTextAttributes(cancelButtonAttributes as? [String : Any], for: .normal)
+        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).attributedPlaceholder = NSAttributedString(string: "Search for Podcasts...", attributes: [NSForegroundColorAttributeName: UIColor.white])
         UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).tintColor = .white
     }
     

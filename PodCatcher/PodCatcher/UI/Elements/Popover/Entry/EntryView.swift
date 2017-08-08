@@ -29,7 +29,7 @@ final class EntryView: UIView {
         entryField.layer.cornerRadius = DetailViewConstants.largeCornerRadius
         entryField.layer.borderWidth = DetailViewConstants.borderWidth
         entryField.placeholder = "Create a new playlist!"
-        entryField.font = UIFont.systemFont(ofSize: 20, weight: UIFont.Weight.thin)
+        entryField.font = UIFont.systemFont(ofSize: 20, weight: UIFontWeightThin)
         return entryField
     }()
     
@@ -38,7 +38,7 @@ final class EntryView: UIView {
         titleLabel.backgroundColor = Colors.brightHighlight
         titleLabel.textColor = .white
         titleLabel.textAlignment = .center
-        titleLabel.font =  UIFont.systemFont(ofSize: 20, weight: UIFont.Weight.regular)
+        titleLabel.font =  UIFont.systemFont(ofSize: 20, weight: UIFontWeightRegular)
         return titleLabel
     }()
     
@@ -59,7 +59,7 @@ final class EntryView: UIView {
         button.layer.borderColor = Colors.brightHighlight.cgColor
         button.layer.borderWidth = EntryViewConstants.borderWidth
         if let popTitle = button.titleLabel {
-            popTitle.font =  UIFont.systemFont(ofSize: 20, weight: UIFont.Weight.regular)
+            popTitle.font =  UIFont.systemFont(ofSize: 20, weight: UIFontWeightRegular)
         }
         return button
     }()

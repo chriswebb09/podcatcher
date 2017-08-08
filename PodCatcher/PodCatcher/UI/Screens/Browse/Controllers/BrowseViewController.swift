@@ -92,7 +92,7 @@ final class BrowseViewController: BaseCollectionViewController {
                 strongSelf.collectionView.reloadData()
             }
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
             guard let strongSelf = self else { return }
             UIView.animate(withDuration: 0.5) {
                 strongSelf.hideLoadingView(loadingPop: strongSelf.loadingPop)

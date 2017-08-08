@@ -63,6 +63,7 @@ final class DownloaderIndicatorView: UIView {
     
     func hideActivityIndicator(viewController: UIViewController) {
         viewController.view.sendSubview(toBack: containerView)
+        viewController.view.sendSubview(toBack: loadingView)
         activityIndicator.stopAnimating()
     }
 }

@@ -4,7 +4,7 @@ class EmptyView: UIView {
     
     private var infoLabel: UILabel = {
         var label = UILabel.setupInfoLabel(infoText: "Subscribe To Your Favorite Podcasts!")
-        label.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.medium)
+        label.font = UIFont.systemFont(ofSize: 16, weight: UIFontWeightMedium)
         label.textColor = Colors.brightHighlight
         label.alpha = 1
         return label
@@ -68,7 +68,7 @@ final class PlaylistEmptyView: UIView {
     
     private var infoLabel: UILabel = {
         var label = UILabel.setupInfoLabel(infoText: "")
-        label.font = UIFont.systemFont(ofSize: 15, weight: UIFont.Weight.medium)
+        label.font = UIFont.systemFont(ofSize: 15, weight: UIFontWeightMedium)
         label.textColor = Colors.brightHighlight
         label.alpha = 1
         return label

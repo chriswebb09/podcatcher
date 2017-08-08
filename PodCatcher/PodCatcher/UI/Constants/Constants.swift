@@ -170,7 +170,7 @@ public struct Tabbar {
 }
 
 struct PodcastListConstants {
-    static let navFont: [String: Any] = [NSAttributedStringKey.foregroundColor.rawValue: UIColor.white, NSAttributedStringKey.font.rawValue: UIFont(name: "HelveticaNeue-Thin", size: 16) as Any]
+    static let navFont: [String: Any] = [NSForegroundColorAttributeName: UIColor.white, NSFontAttributeName: UIFont(name: "HelveticaNeue-Thin", size: 16) as Any]
     static let edgeInset = UIEdgeInsets(top:0, left: 0, bottom: 0, right: 0)
     static let size = CGSize(width: 50, height: 50)
     static let lineSpace: CGFloat = 0

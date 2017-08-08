@@ -4,7 +4,7 @@ final class NetworkConnectionView: UIView {
     
     private var infoLabel: UILabel = {
         var label = UILabel.setupInfoLabel(infoText: "Connect To Network".uppercased())
-        label.font = UIFont.systemFont(ofSize: 18, weight: UIFont.Weight.medium)
+        label.font = UIFont.systemFont(ofSize: 18, weight: UIFontWeightMedium)
         label.textColor = Colors.brightHighlight
         label.alpha = 1
         return label

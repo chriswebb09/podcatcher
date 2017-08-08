@@ -42,7 +42,7 @@ final class SearchViewController: BaseTableViewController {
         searchBar.frame = CGRect(x: UIScreen.main.bounds.minX, y: 0, width: UIScreen.main.bounds.width, height: 42)
         let height = (view.frame.height - tabbar.frame.height)
         guard let navHeight = navigationController?.navigationBar.frame.height else { return }
-        tableView.frame = CGRect(x: UIScreen.main.bounds.minX, y: navHeight + 20, width: UIScreen.main.bounds.width, height: height - 18)
+        tableView.frame = CGRect(x: UIScreen.main.bounds.minX, y: navHeight, width: UIScreen.main.bounds.width, height: height)
         searchControllerConfigure()
         searchController.defaultConfiguration()
         view.addSubview(searchBar)
@@ -78,7 +78,7 @@ final class SearchViewController: BaseTableViewController {
             let glassIconView = textFieldInsideSearchBar.leftView as? UIImageView {
             textFieldInsideSearchBar.backgroundColor = Colors.brightHighlight
             textFieldInsideSearchBar.clearButtonMode = .never
-            textFieldInsideSearchBar.attributedPlaceholder = NSAttributedString(string: textFieldInsideSearchBar.placeholder != nil ? textFieldInsideSearchBar.placeholder! : "", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
+            textFieldInsideSearchBar.attributedPlaceholder = NSAttributedString(string: textFieldInsideSearchBar.placeholder != nil ? textFieldInsideSearchBar.placeholder! : "", attributes: [NSForegroundColorAttributeName: UIColor.white])
             glassIconView.image = glassIconView.image?.withRenderingMode(.alwaysTemplate)
             glassIconView.tintColor = .white
         }
@@ -202,6 +202,6 @@ extension SearchViewController: UIScrollViewDelegate {
         guard let tabbar = tabBarController?.tabBar else { return }
         let height = (view.frame.height - tabbar.frame.height)
         guard let navHeight = navigationController?.navigationBar.frame.height else { return }
-        tableView.frame = CGRect(x: UIScreen.main.bounds.minX, y: navHeight + 18, width: UIScreen.main.bounds.width, height: height - 18)
+        tableView.frame = CGRect(x: UIScreen.main.bounds.minX, y: navHeight, width: UIScreen.main.bounds.width, height: height)
     }
 }

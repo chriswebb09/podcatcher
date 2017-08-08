@@ -324,6 +324,7 @@ extension PlayerViewController: NetworkServiceDelegate {
                 guard let strongSelf = self else { return }
                 UIView.animate(withDuration: 0.5) {
                     strongSelf.downloadingIndicator.hideActivityIndicator(viewController: strongSelf)
+                    strongSelf.view.sendSubview(toBack: strongSelf.downloadingIndicator)
                 }
             }
         }

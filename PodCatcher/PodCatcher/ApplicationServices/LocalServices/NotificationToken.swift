@@ -1,5 +1,10 @@
 import Foundation
 
+public struct NotificationDescriptor<A> {
+    let name: Notification.Name
+    let convert: (Notification) -> A
+}
+
 public class NotificationToken {
     let token: NSObjectProtocol
     let center: NotificationCenter

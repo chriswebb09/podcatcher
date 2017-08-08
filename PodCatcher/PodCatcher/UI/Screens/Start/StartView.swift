@@ -33,7 +33,7 @@ final class StartView: UIView {
     private func setupElements() {
         setup(logoView: logoView)
         setup(guestUserButton: guestUserButton)
-        guestUserButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.medium)
+        guestUserButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: UIFontWeightMedium)
         guestUserButton.alpha = 0.8
     }
     

@@ -4,7 +4,7 @@ final class NoSearchResultsView: UIView {
     
     private var infoLabel: UILabel = {
         var label = UILabel.setupInfoLabel(infoText: "Could not locate any podcasts with that name.")
-        label.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.medium)
+        label.font = UIFont.systemFont(ofSize: 16, weight: UIFontWeightMedium)
         label.textColor = Colors.brightHighlight
         label.alpha = 1
         return label

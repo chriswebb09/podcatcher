@@ -95,7 +95,7 @@ class CollectionViewDataSource<Delegate: CollectionViewDataSourceDelegate>: NSOb
         case .insert:
             guard let indexPath = newIndexPath else { return }
             collectionView.performBatchUpdates({
-                collectionView.insertItems(at: [indexPath])
+                self.collectionView.insertItems(at: [indexPath])
             }, completion: nil)
         case .update:
             guard let indexPath = indexPath else { return }
@@ -106,13 +106,13 @@ class CollectionViewDataSource<Delegate: CollectionViewDataSourceDelegate>: NSOb
             guard let indexPath = indexPath else { return }
             guard let newIndexPath = newIndexPath else { return }
             collectionView.performBatchUpdates({
-                collectionView.deleteItems(at: [indexPath])
-                collectionView.insertItems(at: [newIndexPath])
+                self.collectionView.deleteItems(at: [indexPath])
+                self.collectionView.insertItems(at: [newIndexPath])
             })
         case .delete:
             guard let indexPath = indexPath else { return }
             collectionView.performBatchUpdates({
-                collectionView.deleteItems(at: [indexPath])
+                self.collectionView.deleteItems(at: [indexPath])
             })
         }
         DispatchQueue.main.async {

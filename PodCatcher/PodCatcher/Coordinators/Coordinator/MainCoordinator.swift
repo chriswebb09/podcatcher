@@ -40,7 +40,7 @@ extension MainCoordinator: CoordinatorDelegate {
     }
     
     func updatePodcast(with playlistId: String) {
-
+        
     }
     
     func transitionCoordinator(type: CoordinatorType, dataSource: BaseMediaControllerDataSource?) {

@@ -31,6 +31,7 @@ extension SearchControllerDataSource: UITableViewDataSource {
                 cell.layoutSubviews()
             }
         }
+        cell.albumArtView.layer.cornerRadius = 5
         return cell
     }
 }
