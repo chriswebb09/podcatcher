@@ -98,6 +98,7 @@ final class BrowseViewController: BaseCollectionViewController {
                 strongSelf.hideLoadingView(loadingPop: strongSelf.loadingPop)
             }
         }
+        print("INTERNET IS REACHABLE \(Reachable.isInternetAvailable())")
     }
 }
 

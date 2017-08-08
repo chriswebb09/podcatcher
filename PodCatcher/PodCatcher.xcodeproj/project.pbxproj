@@ -116,6 +116,8 @@
 		A78A4F821F37882800B7ACA8 /* TopPodcastLoadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78A4F811F37882800B7ACA8 /* TopPodcastLoadOperation.swift */; };
 		A78A4F841F37AB5500B7ACA8 /* SectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78A4F831F37AB5500B7ACA8 /* SectionHeaderView.swift */; };
 		A78CF16A1F33A2B200E97961 /* TableViewDataSourceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78CF1691F33A2B200E97961 /* TableViewDataSourceDelegate.swift */; };
+		A793E27A1F3A1C930083CA59 /* PlaylistCellMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A793E2791F3A1C930083CA59 /* PlaylistCellMode.swift */; };
+		A79636BD1F397B1E001B93C7 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = A79636BC1F397B1E001B93C7 /* Reachability.swift */; };
 		A7A54B491F33E2FA00BF4325 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A54B471F33E2FA00BF4325 /* SplashViewController.swift */; };
 		A7A54B4A1F33E2FA00BF4325 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A54B481F33E2FA00BF4325 /* SplashView.swift */; };
 		A7A54B4C1F33E41100BF4325 /* EntryPopoverDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A54B4B1F33E41100BF4325 /* EntryPopoverDelegate.swift */; };
@@ -305,6 +307,8 @@
 		A78A4F811F37882800B7ACA8 /* TopPodcastLoadOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TopPodcastLoadOperation.swift; path = Browse/TopPodcastLoadOperation.swift; sourceTree = "<group>"; };
 		A78A4F831F37AB5500B7ACA8 /* SectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SectionHeaderView.swift; path = Browse/Views/SectionHeaderView.swift; sourceTree = "<group>"; };
 		A78CF1691F33A2B200E97961 /* TableViewDataSourceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TableViewDataSourceDelegate.swift; path = PodCatcher/ApplicationServices/Data/TableViewDataSourceDelegate.swift; sourceTree = SOURCE_ROOT; };
+		A793E2791F3A1C930083CA59 /* PlaylistCellMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlaylistCellMode.swift; path = Playlists/Playlists/Datasource/PlaylistCellMode.swift; sourceTree = "<group>"; };
+		A79636BC1F397B1E001B93C7 /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		A7A54B471F33E2FA00BF4325 /* SplashViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		A7A54B481F33E2FA00BF4325 /* SplashView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		A7A54B4B1F33E41100BF4325 /* EntryPopoverDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EntryPopoverDelegate.swift; path = Entry/EntryPopoverDelegate.swift; sourceTree = "<group>"; };
@@ -641,6 +645,7 @@
 				A723B4131F0EB4F000EA6B27 /* PlaylistsViewController.swift */,
 				A723B4191F0EB54300EA6B27 /* PlaylistCell.swift */,
 				A7DF81F11F2E005500ADB86B /* PlaylistsViewControllerDelegate.swift */,
+				A793E2791F3A1C930083CA59 /* PlaylistCellMode.swift */,
 			);
 			name = Playlists;
 			sourceTree = "<group>";
@@ -930,6 +935,7 @@
 				A7196B2C1F1AE56000FCED5D /* NetworkService.swift */,
 				A71C93711F2ABAAA009F3EC9 /* NetworkServiceDelegate.swift */,
 				A770415D1F29382C00346FC7 /* RSSFeedAPIClient.swift */,
+				A79636BC1F397B1E001B93C7 /* Reachability.swift */,
 			);
 			path = NetworkServices;
 			sourceTree = "<group>";
@@ -1327,6 +1333,7 @@
 				A77041411F29325A00346FC7 /* AlertView.swift in Sources */,
 				A7EBA0A51EE6740300FAAC9C /* String+Extension.swift in Sources */,
 				A77EDF721EE5FDA9001A24E5 /* UICollectionView+Extension.swift in Sources */,
+				A793E27A1F3A1C930083CA59 /* PlaylistCellMode.swift in Sources */,
 				A7B1C0601F0AC93800A42E7D /* StartView.swift in Sources */,
 				A71149611F33EE2E003A4854 /* SubscriptionCellState .swift in Sources */,
 				A71B27291EE5D31300613CF4 /* Coordinator.swift in Sources */,
@@ -1349,6 +1356,7 @@
 				A7BD12CE1EFF78AB0040FAE5 /* iTunesAPIClient.swift in Sources */,
 				A71C93A21F2AC5C0009F3EC9 /* BrowseViewControllerDelegate.swift in Sources */,
 				A77041351F292FC000346FC7 /* TabControllerCoordinator.swift in Sources */,
+				A79636BD1F397B1E001B93C7 /* Reachability.swift in Sources */,
 				A7A762911F13EE3C00D2C4FF /* SearchResultsDataStore.swift in Sources */,
 				A77041431F29325A00346FC7 /* DownloadView.swift in Sources */,
 				A77041601F29399A00346FC7 /* UISlider+Extension.swift in Sources */,

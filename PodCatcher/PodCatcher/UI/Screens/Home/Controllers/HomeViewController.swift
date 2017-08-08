@@ -26,7 +26,10 @@ class HomeViewController: BaseCollectionViewController {
     var homeDataSource: CollectionViewDataSource<HomeViewController>!
     var contentState: ContentState = .empty
     
-    let persistentContainer = NSPersistentContainer(name: "PodCatcher")
+    var persistentContainer: NSPersistentContainer = {
+        let  persistentContainer = NSPersistentContainer(name: "PodCatcher")
+        return persistentContainer
+    }()
     
     // MARK: - UI Properties
     
@@ -116,31 +119,29 @@ extension HomeViewController: UICollectionViewDelegate {
     }
     
     func remove(for indexPath: IndexPath) {
-        persistentContainer.performBackgroundTask { _ in
+        do {
+            try self.homeDataSource.fetchedResultsController.performFetch()
+            let feed = self.homeDataSource.fetchedResultsController.object(at: indexPath).feedUrl
+            self.managedContext.delete(self.homeDataSource.fetchedResultsController.object(at: indexPath))
+            var subscriptions = UserDefaults.loadSubscriptions()
+            guard let feedUrl = feed else { return }
+            if let index = subscriptions.index(of: feedUrl) {
+                subscriptions.remove(at: index)
+                UserDefaults.saveSubscriptions(subscriptions: subscriptions)
+            }
             do {
-                try self.homeDataSource.fetchedResultsController.performFetch()
-                let feed = self.homeDataSource.fetchedResultsController.object(at: indexPath).feedUrl
-                self.managedContext.delete(self.homeDataSource.fetchedResultsController.object(at: indexPath))
-                var subscriptions = UserDefaults.loadSubscriptions()
-                guard let feedUrl = feed else { return }
-                if let index = subscriptions.index(of: feedUrl) {
-                    subscriptions.remove(at: index)
-                    UserDefaults.saveSubscriptions(subscriptions: subscriptions)
-                }
-                do {
-                    try self.managedContext.save()
-                    self.homeDataSource.reloadData()
-                    if self.homeDataSource.itemCount == 0 {
-                        DispatchQueue.main.async {
-                            self.mode = .subscription
-                            self.rightButtonItem.title = "Edit"
-                            self.navigationItem.rightBarButtonItem = nil
-                        }
+                try self.managedContext.save()
+                self.homeDataSource.reloadData()
+                if self.homeDataSource.itemCount == 0 {
+                    DispatchQueue.main.async {
+                        self.mode = .subscription
+                        self.rightButtonItem.title = "Edit"
+                        self.navigationItem.rightBarButtonItem = nil
                     }
                 }
-            } catch let error {
-                print(error.localizedDescription)
             }
+        } catch let error {
+            presentAlert(message: error.localizedDescription)
         }
     }
     

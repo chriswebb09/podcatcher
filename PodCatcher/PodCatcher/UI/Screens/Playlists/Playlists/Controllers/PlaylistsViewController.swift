@@ -116,7 +116,7 @@ extension PlaylistsViewController: UITableViewDelegate {
         let title = fetchedResultsController.object(at: indexPath)
         let casts = fetchedResultsController.object(at: indexPath)
         let podcasts = casts.podcast
-        let playlist = PlaylistViewController(index: 0, player: AudioFilePlayer())
+        let playlist = PlaylistViewController(index: 0, player: AudioFilePlayer(), playlist: casts)
         playlist.playlistId = text
         delegate?.playlistSelected(for: title)
     }

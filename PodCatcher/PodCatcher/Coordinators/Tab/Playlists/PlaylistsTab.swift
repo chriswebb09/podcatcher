@@ -43,16 +43,17 @@ final class PlaylistsTabCoordinator: NavigationCoordinator {
 extension PlaylistsTabCoordinator: PlaylistsViewControllerDelegate {
     
     func playlistSelected(for caster: PodcastPlaylist) {
-        let playlist = PlaylistViewController(index: 0, player: AudioFilePlayer())
+        let playlist = PlaylistViewController(index: 0, player: AudioFilePlayer(), playlist: caster)
         playlist.playlistId = caster.playlistId!
         playlist.playlistTitle = caster.playlistName!
-        for (i, n) in (caster.podcast?.enumerated())! {
-            let item = n as! PodcastPlaylistItem
-            let episode = Episodes(mediaUrlString: item.audioUrl!, audioUrlSting: item.audioUrl!, title: item.episodeTitle!, date: item.stringDate!, description: item.description, duration: item.duration, audioUrlString: item.audioUrl!, stringDuration: "")
-            playlist.episodes.append(episode)
-            print(n as! PodcastPlaylistItem)
-            playlist.collectionView.reloadData()
-        }
+       // playlist.playlist = caster
+//        for (i, n) in (caster.podcast?.enumerated())! {
+//            let item = n as! PodcastPlaylistItem
+//            let episode = Episodes(mediaUrlString: item.audioUrl!, audioUrlSting: item.audioUrl!, title: item.episodeTitle!, date: item.stringDate!, description: item.description, duration: item.duration, audioUrlString: item.audioUrl!, stringDuration: "")
+//            playlist.episodes.append(episode)
+//            print(n as! PodcastPlaylistItem)
+//            playlist.collectionView.reloadData()
+//        }
         navigationController.pushViewController(playlist, animated: false)
     }
     

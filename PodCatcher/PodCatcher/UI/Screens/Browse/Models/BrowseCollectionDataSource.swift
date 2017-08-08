@@ -11,7 +11,6 @@ final class BrowseCollectionDataSource: BaseMediaControllerDataSource {
     let loadingQueue = OperationQueue()
     fileprivate var sections: [String] = []
     var loadingOperations = [IndexPath : TopPodcastLoadOperation]()
-    
     override var count: Int {
         return items.count
     }
@@ -42,6 +41,10 @@ final class BrowseCollectionDataSource: BaseMediaControllerDataSource {
 }
 
 extension BrowseCollectionDataSource:  UICollectionViewDataSource {
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+       return 1
+    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return count

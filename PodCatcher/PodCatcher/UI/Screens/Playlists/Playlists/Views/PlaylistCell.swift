@@ -1,9 +1,5 @@
 import UIKit
 
-enum PlaylistCellMode {
-    case select, delete
-}
-
 final class PlaylistCell: UITableViewCell, Reusable {
     
     static let reuseIdentifier = "PlaylistCell"

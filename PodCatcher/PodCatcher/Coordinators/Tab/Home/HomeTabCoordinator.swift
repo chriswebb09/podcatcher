@@ -64,13 +64,11 @@ extension HomeTabCoordinator: HomeViewControllerDelegate {
         caster.feedUrl = subscription.feedUrl
         caster.podcastArtist = subscription.podcastArtist
         resultsList.item = caster
-        
         let concurrent = DispatchQueue(label: "concurrentBackground",
                                        qos: .background,
                                        attributes: .concurrent,
                                        autoreleaseFrequency: .inherit,
                                        target: nil)
-        
         concurrent.async { [weak self] in
             if let strongSelf = self {
                 store.pullFeed(for: feedUrlString) { response, arg  in
@@ -102,9 +100,7 @@ extension HomeTabCoordinator: PodcastListViewControllerDelegate {
                                        target: nil)
         concurrent.async { [weak self] in
             if let strongSelf = self {
-                let playerViewController = PlayerViewController(index: index,
-                                                                caster: playerPodcast,
-                                                                image: image)
+                let playerViewController = PlayerViewController(index: index, caster: playerPodcast, image: image)
                 playerViewController.delegate = strongSelf
                 DispatchQueue.main.async {
                     strongSelf.navigationController.navigationBar.isTranslucent = true
@@ -129,9 +125,7 @@ extension HomeTabCoordinator: PodcastListViewControllerDelegate {
         
         concurrent.async { [weak self] in
             if let strongSelf = self {
-                let playerViewController = PlayerViewController(index: index,
-                                                                caster: playerPodcast,
-                                                                image: nil)
+                let playerViewController = PlayerViewController(index: index, caster: playerPodcast, image: nil)
                 playerViewController.delegate = strongSelf
                 DispatchQueue.main.async {
                     strongSelf.navigationController.navigationBar.isTranslucent = true

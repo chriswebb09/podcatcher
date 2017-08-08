@@ -59,6 +59,7 @@ final class ConfirmationIndicatorView: UIView {
         activityIndicatorSetup()
         addSubviews(viewController: viewController)
         viewController.view.bringSubview(toFront: loadingView)
+        viewController.view.bringSubview(toFront: containerView)
     }
     
     func hideActivityIndicator(viewController: UIViewController) {

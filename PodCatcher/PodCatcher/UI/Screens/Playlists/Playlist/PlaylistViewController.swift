@@ -9,29 +9,33 @@ class PlaylistViewController: BaseCollectionViewController {
     @objc var player: AudioFilePlayer
     
     var item: CasterSearchResult!
+    var items: [PodcastPlaylistItem] = []
     var state: PodcasterControlState = .toCollection
     var selectedIndex: IndexPath!
     var dataSource: BaseMediaControllerDataSource!
     weak var delegate: PlaylistViewControllerDelegate?
     var playlistId: String
+    let loadingPop = LoadingPopover()
     var selectedSongIndex: Int!
     var episodes = [Episodes]()
     var mode: PlaylistMode = .list
     var playButtonImage: UIImage!
     var caster = CasterSearchResult()
-    var items = [PodcastPlaylistItem]()
+    var playlistItems = [PodcastPlaylistItem]()
     var bottomMenu = BottomMenu()
-    
     var playlistTitle: String!
     let entryPop = EntryPopover()
     var topView = ListTopView()
     var feedUrl: String!
     var playlistEmptyView: UIView = PlaylistEmptyView()
     var backgroundView = UIView()
-    init(index: Int, player: AudioFilePlayer) {
+    let playlist: PodcastPlaylist!
+    
+    init(index: Int, player: AudioFilePlayer, playlist: PodcastPlaylist) {
         self.playlistId = ""
         self.playlistTitle = ""
         self.player = AudioFilePlayer()
+        self.playlist = playlist
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -55,6 +59,12 @@ class PlaylistViewController: BaseCollectionViewController {
         backgroundView.frame = UIScreen.main.bounds
         collectionView.backgroundView = emptyView
         backgroundView.backgroundColor = .white
+        for (index, podItem) in (playlist.podcast?.enumerated())! {
+            let item = podItem as! PodcastPlaylistItem
+            let episode = Episodes(mediaUrlString: item.audioUrl!, audioUrlSting: item.audioUrl!, title: item.episodeTitle!, date: item.stringDate!, description: item.description, duration: item.duration, audioUrlString: item.audioUrl!, stringDuration: "")
+            episodes.append(episode)
+            playlistItems.append(item)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -75,11 +85,37 @@ class PlaylistViewController: BaseCollectionViewController {
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == #keyPath(PlayerViewController.player.player.rate) {
             let newRate = (change?[NSKeyValueChangeKey.newKey] as! NSNumber).doubleValue
+            DispatchQueue.main.async {
+                self.hideLoadingView(loadingPop: self.loadingPop)
+            }
             let buttonImageName = newRate == 1.0 ? #imageLiteral(resourceName: "pause-round") : #imageLiteral(resourceName: "play")
             if let index = selectedIndex {
                 let cell = collectionView.cellForItem(at: index) as! PodcastPlaylistCell
                 DispatchQueue.main.async {
                     cell.playButton.setImage(buttonImageName, for: .normal)
+                }
+            }
+        } else if keyPath == #keyPath(PlayerViewController.player.player.currentItem.status) {
+            let newStatus: AVPlayerItemStatus
+            if let newStatusAsNumber = change?[NSKeyValueChangeKey.newKey] as? NSNumber {
+                guard let status =  AVPlayerItemStatus(rawValue: newStatusAsNumber.intValue) else { return }
+                newStatus = status
+                print("NEW ITEM \(newStatus.rawValue)")
+            } else {
+                newStatus = .unknown
+            }
+            if newStatus == .failed {
+                showError(errorString: "Error")
+            } else if newStatus == .readyToPlay {
+                DispatchQueue.main.async { [weak self] in
+                    let buttonImageName = newStatus ==  AVPlayerItemStatus.readyToPlay ? #imageLiteral(resourceName: "pause-round") : #imageLiteral(resourceName: "play")
+                    if let index = self?.selectedIndex {
+                        guard let strongSelf = self else { return }
+                        let cell = strongSelf.collectionView.cellForItem(at: strongSelf.selectedIndex) as! PodcastPlaylistCell
+                        DispatchQueue.main.async {
+                            cell.playButton.setImage(buttonImageName, for: .normal)
+                        }
+                    }
                 }
             }
         }
@@ -160,7 +196,7 @@ extension PlaylistViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as PodcastPlaylistCell
-        let modelName = "\(episodes[indexPath.row].title)  -  \(episodes[indexPath.row].date)"
+        let modelName = "\(playlistItems[indexPath.row].artistName!)  -  \(playlistItems[indexPath.row].episodeTitle!)"
         let model = PodcastCellViewModel(podcastTitle: modelName)
         cell.configureCell(model: model)
         return cell
@@ -199,7 +235,36 @@ extension PlaylistViewController: UIScrollViewDelegate {
 extension PlaylistViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        if let selectedIndex = selectedIndex {
+            if indexPath == selectedIndex {
+                player.playPause()
+            } else if indexPath != selectedIndex {
+                let previousIndex = selectedIndex
+                player.playPause()
+                let pod = playlistItems[indexPath.row]
+                topView.podcastImageView.image = UIImage(data: pod.artwork as! Data)
+                let audioUrl = pod.audioUrl
+                if let url = URL(string: audioUrl!) {
+                    player.asset = AVURLAsset(url: url)
+                }
+                self.selectedIndex = indexPath
+                player.playPause()
+                let previousCell = self.collectionView.cellForItem(at: previousIndex) as! PodcastPlaylistCell
+                DispatchQueue.main.async {
+                    previousCell.playButton.setImage(#imageLiteral(resourceName: "play"), for: .normal)
+                }
+                showLoadingView(loadingPop: loadingPop)
+            }
+        } else {
+            self.selectedIndex = indexPath
+            let pod = playlistItems[indexPath.row]
+            topView.podcastImageView.image = UIImage(data: pod.artwork as! Data)
+            let audioUrl = pod.audioUrl
+            if let url = URL(string: audioUrl!) {
+                player.asset = AVURLAsset(url: url)
+            }
+            player.playPause()
+        }
     }
 }
 

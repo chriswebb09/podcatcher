@@ -225,8 +225,10 @@ extension BrowseTabCoordinator: PodcastDelegate {
         playlistItem.playlist = playlist
         do {
             if let context = playlistItem.managedObjectContext {
-                try! context.save()
+                try context.save()
             }
+        } catch let error {
+            print(error.localizedDescription)
         }
     }
     
