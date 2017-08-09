@@ -35,7 +35,6 @@ final class PlaylistsTabCoordinator: NavigationCoordinator {
     func setup() {
         let playlistsViewController = navigationController.viewControllers[0] as! PlaylistsViewController
         playlistsViewController.delegate = self
-        playlistsViewController.podcastDelegate = self
         playlistsViewController.mediaDataSource = dataSource
     }
 }
@@ -57,16 +56,5 @@ extension PlaylistsTabCoordinator: PlaylistsViewControllerDelegate {
         let controller = navigationController.viewControllers.last as! PlaylistsViewController
         navigationController.setNavigationBarHidden(false, animated: false)
         controller.tabBarController?.selectedIndex = 2
-    }
-}
-
-extension PlaylistsTabCoordinator: PodcastDelegate {
-    
-    func didAssignPlaylist(playlist: PodcastPlaylist) {
-        print(playlist.objectID)
-    }
-    
-    func didDeletePlaylist() {
-        
     }
 }

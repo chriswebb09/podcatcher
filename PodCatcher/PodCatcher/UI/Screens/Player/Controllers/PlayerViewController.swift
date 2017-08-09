@@ -208,7 +208,6 @@ extension PlayerViewController: PlayerViewDelegate {
     
     func playPause(tapped: Bool) {
         player.playPause()
-        delegate?.playPaused(tapped: true)
         guard let artUrl = caster.podcastArtUrlString else { return }
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }

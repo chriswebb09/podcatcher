@@ -84,10 +84,7 @@ extension SearchTabCoordinator: PodcastListViewControllerDelegate {
 }
 
 extension SearchTabCoordinator: PlayerViewControllerDelegate {
-    func playPaused(tapped: Bool) {
-        
-    }
-    
+
     func addItemToPlaylist(item: CasterSearchResult, index: Int) {
         let controller = navigationController.viewControllers.last as! PlayerViewController
         navigationController.setNavigationBarHidden(false, animated: false)
@@ -102,22 +99,6 @@ extension SearchTabCoordinator: PlayerViewControllerDelegate {
         controller.view.bringSubview(toFront: controller.playerView)
         controller.tabBarController?.tabBar.alpha = 1
         delegate?.podcastItem(toAdd: item, with: index)
-    }
-    
-    func skipButton(tapped: String) {
-        print(tapped)
-    }
-    
-    func backButton(tapped: String) {
-        print(tapped)
-    }
-    
-    func pauseButton(tapped: String) {
-        print(tapped)
-    }
-    
-    func playButton(tapped: String) {
-        print(tapped)
     }
     
     func navigateBack(tapped: Bool) {

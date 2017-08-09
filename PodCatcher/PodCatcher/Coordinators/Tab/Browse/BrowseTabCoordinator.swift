@@ -159,18 +159,7 @@ extension BrowseTabCoordinator: PodcastListViewControllerDelegate {
 
 
 extension BrowseTabCoordinator: PlayerViewControllerDelegate {
-    func playPaused(tapped: Bool) {
-        
-    }
-    
-    func backButton(tapped: String) {
-        print(tapped)
-    }
-    
-    func playButton(tapped: String) {
-        print(tapped)
-    }
-    
+
     func addItemToPlaylist(item: CasterSearchResult, index: Int) {
         let controller = navigationController.viewControllers.last
         guard let tab =  controller?.tabBarController else { return }
@@ -181,43 +170,12 @@ extension BrowseTabCoordinator: PlayerViewControllerDelegate {
         playlists.item = item
         controller?.tabBarController?.tabBar.alpha = 1
         navigationController.navigationBar.alpha = 1
-        playlists.podcastDelegate = self
         playlists.casterItemToSave = item
         controller?.tabBarController?.selectedIndex = 1
-    }
-    
-    
-    func skipButton(tapped: String) {
-        print(tapped)
-    }
-    
-    func pauseButton(tapped: String) {
-        print(tapped)
     }
     
     func navigateBack(tapped: Bool) {
         navigationController.setNavigationBarHidden(false, animated: false)
         navigationController.viewControllers.last?.tabBarController?.tabBar.alpha = 1
-    }
-}
-
-extension BrowseTabCoordinator: PodcastDelegate {
-    
-    func didAssignPlaylist(playlist: PodcastPlaylist) {
-        var managedContext: NSManagedObjectContext! {
-            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return nil }
-            let context = appDelegate.persistentContainer.viewContext
-            return context
-        }
-        do {
-            playlistItem.playlist = playlist
-            try managedContext.save()
-        } catch let error {
-            print(error.localizedDescription)
-        }
-    }
-    
-    func didDeletePlaylist() {
-        
     }
 }

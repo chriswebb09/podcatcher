@@ -139,20 +139,7 @@ extension HomeTabCoordinator: PodcastListViewControllerDelegate {
 
 extension HomeTabCoordinator: PlayerViewControllerDelegate {
     
-    func playPaused(tapped: Bool) {
-        
-    }
-    
-    func backButton(tapped: String) {
-        print(tapped)
-    }
-    
-    func playButton(tapped: String) {
-        print(tapped)
-    }
-    
     func addItemToPlaylist(item: CasterSearchResult, index: Int) {
-        //PodcastPlaylistItem.addItem(item: item, for: index)
         let controller = navigationController.viewControllers.last
         controller?.tabBarController?.selectedIndex = 1
         guard let tab =  controller?.tabBarController else { return }
@@ -165,19 +152,7 @@ extension HomeTabCoordinator: PlayerViewControllerDelegate {
         navigationController.navigationBar.alpha = 1
         delegate?.podcastItem(toAdd: item, with: index)
     }
-    
-    func skipButton(tapped: String) {
-        print(tapped)
-    }
-    
-    func pauseButton(tapped: String) {
-        print(tapped)
-    }
-    
-    func playButton(tapped: Bool) {
-        print(tapped)
-    }
-    
+
     func navigateBack(tapped: Bool) {
         navigationController.setNavigationBarHidden(false, animated: false)
         navigationController.viewControllers.last?.tabBarController?.tabBar.alpha = 1
