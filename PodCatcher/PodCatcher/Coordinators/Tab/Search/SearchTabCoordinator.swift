@@ -98,7 +98,7 @@ extension SearchTabCoordinator: PlayerViewControllerDelegate {
         controller.playerView.alpha = 1
         controller.view.bringSubview(toFront: controller.playerView)
         controller.tabBarController?.tabBar.alpha = 1
-        delegate?.podcastItem(toAdd: item, with: index)
+       // delegate?.podcastItem(toAdd: item, with: index)
     }
     
     func navigateBack(tapped: Bool) {

@@ -150,7 +150,7 @@ extension HomeTabCoordinator: PlayerViewControllerDelegate {
         playlists.item = item
         controller?.tabBarController?.tabBar.alpha = 1
         navigationController.navigationBar.alpha = 1
-        delegate?.podcastItem(toAdd: item, with: index)
+     //   delegate?.podcastItem(toAdd: item, with: index)
     }
 
     func navigateBack(tapped: Bool) {
