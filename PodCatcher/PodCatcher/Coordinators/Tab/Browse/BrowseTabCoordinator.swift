@@ -157,6 +157,7 @@ extension BrowseTabCoordinator: PodcastListViewControllerDelegate {
     }
 }
 
+
 extension BrowseTabCoordinator: PlayerViewControllerDelegate {
     func playPaused(tapped: Bool) {
         
@@ -172,35 +173,17 @@ extension BrowseTabCoordinator: PlayerViewControllerDelegate {
     
     func addItemToPlaylist(item: CasterSearchResult, index: Int) {
         let controller = navigationController.viewControllers.last
-        controller?.tabBarController?.selectedIndex = 1
         guard let tab =  controller?.tabBarController else { return }
         let nav = tab.viewControllers?[1] as! UINavigationController
         let playlists = nav.viewControllers[0] as! PlaylistsViewController
         playlists.reference = .addPodcast
         playlists.index = index
         playlists.item = item
-        
         controller?.tabBarController?.tabBar.alpha = 1
         navigationController.navigationBar.alpha = 1
-        
         playlists.podcastDelegate = self
-        let podcastItem = PodcastPlaylistItem(context: managedContext)
-        podcastItem.audioUrl = item.episodes[index].audioUrlSting
-        podcastItem.artistFeedUrl = item.feedUrl
-        podcastItem.date = NSDate()
-        podcastItem.duration = 0
-        podcastItem.artistName = item.podcastArtist
-        podcastItem.stringDate = String(describing: NSDate())
-        podcastItem.artworkUrl = item.podcastArtUrlString
-        podcastItem.episodeTitle = item.episodes[index].title
-        podcastItem.episodeDescription = item.episodes[index].description
-        if let urlString = item.podcastArtUrlString, let url = URL(string: urlString) {
-            UIImage.downloadImage(url: url) { image in
-                let podcastArtImageData = UIImageJPEGRepresentation(image, 1)
-                podcastItem.artwork = podcastArtImageData as? NSData
-            }
-        }
-        self.playlistItem = podcastItem
+        playlists.casterItemToSave = item
+        controller?.tabBarController?.selectedIndex = 1
     }
     
     
@@ -221,12 +204,14 @@ extension BrowseTabCoordinator: PlayerViewControllerDelegate {
 extension BrowseTabCoordinator: PodcastDelegate {
     
     func didAssignPlaylist(playlist: PodcastPlaylist) {
-        playlist.addToPodcast(playlistItem)
-        playlistItem.playlist = playlist
+        var managedContext: NSManagedObjectContext! {
+            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return nil }
+            let context = appDelegate.persistentContainer.viewContext
+            return context
+        }
         do {
-            if let context = playlistItem.managedObjectContext {
-                try context.save()
-            }
+            playlistItem.playlist = playlist
+            try managedContext.save()
         } catch let error {
             print(error.localizedDescription)
         }

@@ -1,6 +1,11 @@
 import UIKit
 
-final class LoadingPopover: BasePopoverAlert {
+protocol PopableView {
+    func showPopView(viewController: UIViewController)
+    func hidePopView(viewController: UIViewController)
+}
+
+final class LoadingPopover: BasePopoverAlert, PopableView {
     
     var animating: Bool {
         guard let ball = self.popView.ball else { return false }

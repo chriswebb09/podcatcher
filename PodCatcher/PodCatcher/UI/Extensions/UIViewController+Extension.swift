@@ -24,9 +24,6 @@ extension UIViewController {
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }
-}
-
-extension UIViewController {
     
     func showLoadingView(loadingPop: LoadingPopover) {
         loadingPop.show(controller: self)
@@ -46,9 +43,11 @@ extension UIViewController {
             self.present(actionSheetController, animated: false)
         }
     }
-}
 
-public extension UIViewController {
+    func dismiss() {
+        view.endEditing(true)
+        dismiss(animated: true, completion: nil)
+    }
     
     func presentAlert(message: String) {
         DispatchQueue.main.async {

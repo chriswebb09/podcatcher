@@ -3,15 +3,17 @@ import CoreData
 
 final class PlaylistsViewController: BaseTableViewController {
     
-    var podcastDelegate: PodcastDelegate?
+    weak var podcastDelegate: PodcastDelegate?
     
     weak var delegate: PlaylistsViewControllerDelegate?
     var mediaDataSource: BaseMediaControllerDataSource!
+    var itemToSave: PodcastPlaylistItem!
     var reference: PlaylistsReference = .checkList
     var playlistDataStack = PlaylistsCoreData()
     var currentPlaylistID: String = ""
     var entryPop: EntryPopover = EntryPopover()
     var mode: PlaylistsInteractionMode = .add
+    var casterItemToSave: CasterSearchResult!
     var index: Int!
     var item: CasterSearchResult!
     
@@ -96,15 +98,39 @@ extension PlaylistsViewController: UITableViewDelegate {
         guard let text = fetchedResultsController.object(at: indexPath).playlistId else { return }
         switch reference {
         case .addPodcast:
-            add(text: text)
-            if let podcastDelegate = podcastDelegate {
-                podcastDelegate.didAssignPlaylist(playlist: fetchedResultsController.object(at: indexPath))
+            let podcastItem = PodcastPlaylistItem(context: fetchedResultsController.managedObjectContext)
+            podcastItem.audioUrl = item.episodes[index].audioUrlSting
+            podcastItem.artistFeedUrl = item.feedUrl
+            podcastItem.date = NSDate()
+            podcastItem.duration = 0
+            podcastItem.artistName = item.podcastArtist
+            podcastItem.stringDate = String(describing: NSDate())
+            podcastItem.artworkUrl = item.podcastArtUrlString
+            podcastItem.episodeTitle = item.episodes[index].title
+            podcastItem.episodeDescription = item.episodes[index].description
+            if let urlString = item.podcastArtUrlString, let url = URL(string: urlString) {
+                UIImage.downloadImage(url: url) { image in
+                    let podcastArtImageData = UIImageJPEGRepresentation(image, 1)
+                    podcastItem.artwork = podcastArtImageData as? NSData
+                }
+            }
+            
+            let playlist = fetchedResultsController.object(at: indexPath)
+            podcastItem.playlist = playlist
+            do {
+                if let context = playlist.managedObjectContext {
+                    try! context.save()
+                }
+            } catch let error {
+                print(error.localizedDescription)
             }
         case .checkList:
             print("checklist")
-            add(text: text, from: indexPath)
+            addNewPlaylist(text: text, from: indexPath)
         }
+        reference = .checkList
     }
+    
     
     func add(text: String) {
         reference = .checkList
@@ -112,7 +138,14 @@ extension PlaylistsViewController: UITableViewDelegate {
         delegate?.didAssignPlaylist(with: text)
     }
     
-    func add(text: String, from indexPath: IndexPath) {
+    func addToPlaylist(with name: String) {
+        reference = .checkList
+        DispatchQueue.main.async {
+            self.playlistsDataSource.reloadData()
+        }
+    }
+    
+    func addNewPlaylist(text: String, from indexPath: IndexPath) {
         let title = fetchedResultsController.object(at: indexPath)
         let casts = fetchedResultsController.object(at: indexPath)
         let podcasts = casts.podcast
@@ -151,6 +184,7 @@ extension PlaylistsViewController: UITableViewDelegate {
                 print(error.localizedDescription)
             }
             self.playlistsDataSource.reloadData()
+            
             do {
                 try self.managedContext.save()
             } catch let error {
@@ -209,7 +243,8 @@ extension PlaylistsViewController: TableViewDataSourceDelegate {
         case .edit:
             cellMode = .delete
         }
-        if let artWorkImageData = object.artwork as? Data, let artworkImage = UIImage(data: artWorkImageData) {
+        
+        if let artWorkImageData = object.artwork, let artworkImage = UIImage(data: Data.init(referencing: artWorkImageData)) {
             cell.configure(image: artworkImage, title: object.playlistName!, mode: cellMode)
         } else {
             if let name = object.playlistName {

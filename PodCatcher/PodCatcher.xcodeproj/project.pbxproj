@@ -480,6 +480,7 @@
 		A716B8051F0B360B0060D492 /* SearchTab */ = {
 			isa = PBXGroup;
 			children = (
+				A71B26FD1EE5D24700613CF4 /* LaunchScreen.storyboard */,
 				A716B8031F0B357C0060D492 /* SearchTabCoordinator.swift */,
 			);
 			name = SearchTab;
@@ -764,7 +765,6 @@
 			children = (
 				A71B26FB1EE5D24700613CF4 /* Assets.xcassets */,
 				A71B27001EE5D24700613CF4 /* Info.plist */,
-				A71B26FD1EE5D24700613CF4 /* LaunchScreen.storyboard */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1441,7 +1441,7 @@
 				A71B26FE1EE5D24700613CF4 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
-			path = .;
+			path = ../../Resources/.;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

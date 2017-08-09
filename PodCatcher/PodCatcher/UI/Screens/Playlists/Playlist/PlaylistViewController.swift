@@ -59,11 +59,16 @@ class PlaylistViewController: BaseCollectionViewController {
         backgroundView.frame = UIScreen.main.bounds
         collectionView.backgroundView = emptyView
         backgroundView.backgroundColor = .white
-        for (index, podItem) in (playlist.podcast?.enumerated())! {
+        guard let podcast = playlist.podcast else { return }
+        for (_, podItem) in podcast.enumerated() {
             let item = podItem as! PodcastPlaylistItem
-            let episode = Episodes(mediaUrlString: item.audioUrl!, audioUrlSting: item.audioUrl!, title: item.episodeTitle!, date: item.stringDate!, description: item.description, duration: item.duration, audioUrlString: item.audioUrl!, stringDuration: "")
-            episodes.append(episode)
-            playlistItems.append(item)
+            if let audio = item.audioUrl, let title = item.episodeTitle, let date = item.stringDate {
+                let duration = item.duration
+                let description = item.description
+                let episode = Episodes(mediaUrlString: audio, audioUrlSting: audio, title: title, date: date, description: description, duration: duration, audioUrlString: audio, stringDuration: "")
+                episodes.append(episode)
+                playlistItems.append(item)
+            }
         }
     }
     
@@ -111,7 +116,7 @@ class PlaylistViewController: BaseCollectionViewController {
                     let buttonImageName = newStatus ==  AVPlayerItemStatus.readyToPlay ? #imageLiteral(resourceName: "pause-round") : #imageLiteral(resourceName: "play")
                     if let index = self?.selectedIndex {
                         guard let strongSelf = self else { return }
-                        let cell = strongSelf.collectionView.cellForItem(at: strongSelf.selectedIndex) as! PodcastPlaylistCell
+                        let cell = strongSelf.collectionView.cellForItem(at: index) as! PodcastPlaylistCell
                         DispatchQueue.main.async {
                             cell.playButton.setImage(buttonImageName, for: .normal)
                         }
@@ -242,7 +247,9 @@ extension PlaylistViewController: UICollectionViewDelegate {
                 let previousIndex = selectedIndex
                 player.playPause()
                 let pod = playlistItems[indexPath.row]
-                topView.podcastImageView.image = UIImage(data: pod.artwork as! Data)
+                if let artWorkImageData = pod.artwork, let artworkImage = UIImage(data: Data.init(referencing: artWorkImageData)) {
+                    topView.podcastImageView.image = artworkImage
+                }
                 let audioUrl = pod.audioUrl
                 if let url = URL(string: audioUrl!) {
                     player.asset = AVURLAsset(url: url)
@@ -258,7 +265,10 @@ extension PlaylistViewController: UICollectionViewDelegate {
         } else {
             self.selectedIndex = indexPath
             let pod = playlistItems[indexPath.row]
-            topView.podcastImageView.image = UIImage(data: pod.artwork as! Data)
+            
+            if let artWorkImageData = pod.artwork, let artworkImage = UIImage(data: Data.init(referencing: artWorkImageData)) {
+                topView.podcastImageView.image = artworkImage
+            }
             let audioUrl = pod.audioUrl
             if let url = URL(string: audioUrl!) {
                 player.asset = AVURLAsset(url: url)

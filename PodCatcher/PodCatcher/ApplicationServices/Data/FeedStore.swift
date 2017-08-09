@@ -1,7 +1,7 @@
 import UIKit
 import CoreData
 
-protocol PodcastDelegate {
+protocol PodcastDelegate: class {
     func didAssignPlaylist(playlist: PodcastPlaylist)
     func didDeletePlaylist()
 }

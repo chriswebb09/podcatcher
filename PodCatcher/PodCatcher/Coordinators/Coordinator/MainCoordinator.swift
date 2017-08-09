@@ -34,6 +34,16 @@ class MainCoordinator: ApplicationCoordinator {
 
 extension MainCoordinator: CoordinatorDelegate {
     
+    func addItemToPlaylist(podcastPlaylist: PodcastPlaylist) {
+        do {
+            try managedContext.save()
+        } catch {
+            print(error.localizedDescription)
+            //fatalError("Failure to save context: \(error)")
+        }
+    }
+
+    
     func podcastItem(toAdd: CasterSearchResult, with index: Int) {
         itemToSave = toAdd
         itemIndex = index

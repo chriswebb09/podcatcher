@@ -284,6 +284,7 @@ extension PlayerViewController: MenuDelegate {
     
     func optionOne(tapped: Bool) {
         hideLoadingView(loadingPop: loadingPop)
+        print(caster)
         delegate?.addItemToPlaylist(item: caster , index: index)
     }
     

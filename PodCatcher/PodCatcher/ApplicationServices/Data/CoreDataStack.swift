@@ -16,6 +16,7 @@ class CoreDataStack {
     }()
     
     lazy var managedContext: NSManagedObjectContext = {
+         self.storeContainer.viewContext.automaticallyMergesChangesFromParent = true
         return self.storeContainer.viewContext
     }()
     
@@ -23,7 +24,7 @@ class CoreDataStack {
         self.modelName = modelName
     }
     
-    func saveContext () {
+    func saveContext() {
         guard managedContext.hasChanges else { return }
         do {
             try managedContext.save()

@@ -6,7 +6,7 @@ final class BrowseViewController: BaseCollectionViewController {
     weak var delegate: BrowseViewControllerDelegate?
     
     var currentPlaylistId: String = ""
-    
+    var reach: Reachable?
     var topItems = [CasterSearchResult]() {
         didSet {
             topItems = dataSource.items
@@ -52,6 +52,8 @@ final class BrowseViewController: BaseCollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.addSubview(self.network)
+        self.view.sendSubview(toBack: self.network)
         let topFrameHeight = UIScreen.main.bounds.height / 2
         let topFrameWidth = UIScreen.main.bounds.width
         let topFrame = CGRect(x: 0, y: 0, width: topFrameWidth, height: topFrameHeight + 40)
@@ -72,6 +74,14 @@ final class BrowseViewController: BaseCollectionViewController {
             guard let strongSelf = self else { return }
             strongSelf.collectionView.reloadData()
         }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(reachabilityDidChange(_:)), name: NSNotification.Name(rawValue: "ReachabilityDidChangeNotificationName"), object: nil)
+        reach?.start()
+    }
+    
+    
+    func reachabilityDidChange(_ notification: Notification) {
+        print("Reachability changed")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -96,6 +106,11 @@ final class BrowseViewController: BaseCollectionViewController {
             guard let strongSelf = self else { return }
             UIView.animate(withDuration: 0.5) {
                 strongSelf.hideLoadingView(loadingPop: strongSelf.loadingPop)
+            }
+        }
+        if Reachable.isInternetAvailable() {
+            DispatchQueue.main.async {
+                self.view.sendSubview(toBack: self.network)
             }
         }
         print("INTERNET IS REACHABLE \(Reachable.isInternetAvailable())")
@@ -131,7 +146,7 @@ extension BrowseViewController: UIScrollViewDelegate {
             print("browse is reachable")
         } else {
             DispatchQueue.main.async {
-                self.view.addSubview(self.network)
+                
                 self.view.bringSubview(toFront: self.network)
             }
         }
