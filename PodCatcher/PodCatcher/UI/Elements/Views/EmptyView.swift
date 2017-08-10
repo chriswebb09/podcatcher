@@ -8,20 +8,25 @@ protocol StateView {
 }
 
 class InformationView: UIView, StateView {
+    
     var stateData: String {
         didSet {
-            informationLabel.text = stateData
+            DispatchQueue.main.async {
+                self.setLabel(text: self.stateData)
+            }
         }
     }
     
     var stateImage: UIImage {
         didSet {
-            iconView.image = stateImage
+            DispatchQueue.main.async {
+                self.setIcon(icon: self.stateImage)
+            }
         }
     }
     
     var informationLabel: UILabel = {
-        var label = UILabel.setupInfoLabel(infoText: "Subscribe To Your Favorite Podcasts!")
+        let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 16, weight: UIFontWeightMedium)
         label.textColor = Colors.brightHighlight
         label.alpha = 1

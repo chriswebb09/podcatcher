@@ -39,11 +39,12 @@ final class BrowseTabCoordinator: NavigationCoordinator {
         self.getCaster { items, error in
             if let error = error {
                 DispatchQueue.main.async {
-                   // let tabBarController = self.navigationController.tabBarController
-                   // tabBarController?.showError(errorString: error.localizedDescription)
                     let informationView = InformationView(data: "Error connection to server", icon: #imageLiteral(resourceName: "sad-face"))
+                    informationView.setIcon(icon: #imageLiteral(resourceName: "sad-face"))
+                    informationView.setLabel(text: "Error connection to server")
                     informationView.frame = UIScreen.main.bounds
                     browseViewController.view = informationView
+                    browseViewController.view.layoutSubviews()
                 }
             } else {
                 if browseViewController.dataSource.items.count > 0 {

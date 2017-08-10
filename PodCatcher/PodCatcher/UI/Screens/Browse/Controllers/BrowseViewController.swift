@@ -21,7 +21,7 @@ final class BrowseViewController: BaseCollectionViewController {
     var tap: UITapGestureRecognizer!
     let loadingPop = LoadingPopover()
     let reachability = Reachability()!
-    var network = NetworkConnectionView()
+    var network = InformationView(data: "CONNECT TO NETORK", icon: #imageLiteral(resourceName: "network-icon"))
     
     var dataSource: BrowseCollectionDataSource! {
         didSet {
@@ -52,8 +52,11 @@ final class BrowseViewController: BaseCollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.emptyView = InformationView(data: "No Data", icon: #imageLiteral(resourceName: "mic-icon"))
+        emptyView.layoutSubviews()
         self.view.addSubview(self.network)
         self.view.sendSubview(toBack: self.network)
+        network.layoutSubviews()
         let topFrameHeight = UIScreen.main.bounds.height / 2
         let topFrameWidth = UIScreen.main.bounds.width
         let topFrame = CGRect(x: 0, y: 0, width: topFrameWidth, height: topFrameHeight + 40)

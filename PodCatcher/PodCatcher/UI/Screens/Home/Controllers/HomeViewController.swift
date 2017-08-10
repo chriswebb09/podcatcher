@@ -50,6 +50,8 @@ class HomeViewController: BaseCollectionViewController {
         super.viewDidLoad()
         let newLayout = HomeItemsFlowLayout()
         newLayout.setup()
+        self.emptyView = InformationView(data: "Subscribe to your favorite podcasts!", icon:  #imageLiteral(resourceName: "mic-icon"))
+        emptyView.layoutSubviews()
         collectionView.collectionViewLayout = newLayout
         collectionView.frame = UIScreen.main.bounds
         collectionView.register(SubscribedPodcastCell.self)
