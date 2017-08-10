@@ -74,8 +74,8 @@ class InformationView: UIView, StateView {
     private func setup(icon: UIView) {
         addSubview(icon)
         icon.translatesAutoresizingMaskIntoConstraints = false
-        icon.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.2).isActive = true
-        icon.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.36).isActive = true
+        icon.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.22).isActive = true
+        icon.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.38).isActive = true
         icon.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         icon.centerYAnchor.constraint(equalTo: centerYAnchor, constant: UIScreen.main.bounds.height * -0.1).isActive = true
     }
