@@ -50,7 +50,15 @@ class HomeViewController: BaseCollectionViewController {
         super.viewDidLoad()
         let newLayout = HomeItemsFlowLayout()
         newLayout.setup()
-        self.emptyView = InformationView(data: "Subscribe to your favorite podcasts!", icon:  #imageLiteral(resourceName: "mic-icon"))
+        //informationView.frame = UIScreen.main.bounds
+       // browseViewController.view = informationView
+        //browseViewController.view.layoutSubviews()
+        emptyView = InformationView(data: "Subscribe to your favorite podcasts!", icon:  #imageLiteral(resourceName: "mic-icon"))
+        emptyView.setLabel(text: "Subscribe to your favorite podcasts!")
+        emptyView.setIcon(icon: #imageLiteral(resourceName: "mic-icon"))
+        emptyView.frame = view.frame
+        
+        
         emptyView.layoutSubviews()
         collectionView.collectionViewLayout = newLayout
         collectionView.frame = UIScreen.main.bounds

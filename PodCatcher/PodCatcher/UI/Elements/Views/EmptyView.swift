@@ -30,6 +30,7 @@ class InformationView: UIView, StateView {
         label.font = UIFont.systemFont(ofSize: 16, weight: UIFontWeightMedium)
         label.textColor = Colors.brightHighlight
         label.alpha = 1
+        label.textAlignment = .center
         return label
     }()
     
@@ -93,7 +94,7 @@ class InformationView: UIView, StateView {
     private func setup(infoLabel: UILabel) {
         addSubview(infoLabel)
         infoLabel.translatesAutoresizingMaskIntoConstraints = false
-        infoLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: EmptyViewConstants.iconWidthMutliplier).isActive = true
+        infoLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.3).isActive = true
         infoLabel.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
         infoLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         infoLabel.centerYAnchor.constraint(equalTo: centerYAnchor, constant: UIScreen.main.bounds.height * 0.06).isActive = true

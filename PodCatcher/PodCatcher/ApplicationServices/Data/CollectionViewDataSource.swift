@@ -12,10 +12,10 @@ class CollectionViewDataSource<Delegate: CollectionViewDataSourceDelegate>: NSOb
     
     // MARK: Private
     
-    var emptyView: UIView = InformationView(data: "Add Items", icon: #imageLiteral(resourceName: "podcast-icon"))
+    var emptyView = InformationView(data: "Subscribe To Your Favorite Podcasts!", icon: #imageLiteral(resourceName: "mic-icon").withRenderingMode(.alwaysTemplate))
     var backgroundView = UIView()
     
-  
+    
     fileprivate let collectionView: UICollectionView
     let fetchedResultsController: NSFetchedResultsController<Object>
     fileprivate weak var delegate: Delegate!
@@ -67,14 +67,16 @@ class CollectionViewDataSource<Delegate: CollectionViewDataSourceDelegate>: NSOb
             contentState = .empty;
             return 0
         }
+        
         if itemCount > 0 {
-            backgroundView.alpha = 1
             collectionView.backgroundView = backgroundView
-        } else if itemCount <= 1 {
-            DispatchQueue.main.async {
-                collectionView.backgroundView = self.emptyView
-                self.backgroundView.alpha = 0
-            }
+            collectionView.backgroundView?.layoutSubviews()
+        } else {
+            emptyView = InformationView(data: "Subscribe to your favorite podcasts!", icon:  #imageLiteral(resourceName: "mic-icon"))
+            emptyView.setLabel(text: "Subscribe to your favorite podcasts!")
+            emptyView.setIcon(icon: #imageLiteral(resourceName: "mic-icon"))
+            emptyView.frame = collectionView.frame
+            collectionView.backgroundView = emptyView
         }
         return section.numberOfObjects
     }

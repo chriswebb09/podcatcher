@@ -33,7 +33,6 @@ class TableViewDataSource<Delegate: TableViewDataSourceDelegate>: NSObject, UITa
         return fetchedResultsController.sections?[0].numberOfObjects ?? 0
     }
     
-    
     var selectedObject: Object? {
         guard let indexPath = tableView.indexPathForSelectedRow else { return nil }
         return objectAtIndexPath(indexPath)
