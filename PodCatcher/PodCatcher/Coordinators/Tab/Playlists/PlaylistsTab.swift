@@ -50,7 +50,7 @@ extension PlaylistsTabCoordinator: PlaylistsViewControllerDelegate {
     }
     
     func didAssignPlaylist(with id: String) {
-      //  delegate?.updatePodcast(with: id)
+        delegate?.updatePodcast(with: id)
         let item = PodcastPlaylistItem(context: managedContext)
         item.playlistId = id
         let controller = navigationController.viewControllers.last as! PlaylistsViewController
