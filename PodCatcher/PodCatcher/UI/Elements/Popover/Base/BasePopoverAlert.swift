@@ -1,6 +1,13 @@
 import UIKit
 
-class BasePopoverAlert: UIView {
+protocol PopAlert {
+    var containerView: UIView  { get }
+    func showPopView(viewController: UIViewController)
+    func hidePopView(viewController: UIViewController)
+    func configureContainer()
+}
+
+class BasePopoverAlert: UIView, PopAlert {
     
     let containerView: UIView = {
         let containerView = UIView()

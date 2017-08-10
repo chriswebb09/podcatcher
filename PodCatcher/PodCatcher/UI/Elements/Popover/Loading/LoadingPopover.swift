@@ -1,11 +1,6 @@
 import UIKit
 
-protocol PopableView {
-    func showPopView(viewController: UIViewController)
-    func hidePopView(viewController: UIViewController)
-}
-
-final class LoadingPopover: BasePopoverAlert, PopableView {
+final class LoadingPopover: BasePopoverAlert {
     
     var animating: Bool {
         guard let ball = self.popView.ball else { return false }
@@ -51,7 +46,6 @@ final class LoadingPopover: BasePopoverAlert, PopableView {
     
     func configureLoadingOpacity(alpha: CGFloat) {
         containerView.alpha = alpha
-        //containerView.backgroundColor = .black
     }
     
     func show(controller: UIViewController) {

@@ -1,5 +1,10 @@
 import UIKit
 
+protocol PopView {
+    var headBanner: UIView { get }
+    var alertLabel: UILabel { get }
+}
+
 class BasePopView: UIView {
     
     // View with title ect.
