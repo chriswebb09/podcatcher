@@ -49,6 +49,7 @@ class PlaylistViewController: BaseCollectionViewController {
         configureTopView()
         background.frame = view.frame
         view.addSubview(background)
+        emptyView = InformationView(data: "Add Podcasts", icon: #imageLiteral(resourceName: "list"))
         emptyView.alpha = 0
         edgesForExtendedLayout = []
         collectionView.delegate = self
