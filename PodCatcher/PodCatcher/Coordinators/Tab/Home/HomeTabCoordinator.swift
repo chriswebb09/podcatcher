@@ -28,24 +28,6 @@ final class HomeTabCoordinator: NavigationCoordinator {
 
 extension HomeTabCoordinator: HomeViewControllerDelegate {
     
-    func didSelect(at index: Int, with cast: PodcastSearchResult, image: UIImage) {
-        let resultsList = SearchResultListViewController(index: index)
-        resultsList.delegate = self
-        resultsList.dataSource = dataSource
-        resultsList.item = cast as! CasterSearchResult
-        guard let feedUrlString = resultsList.item.feedUrl else { return }
-        let store = SearchResultsDataStore()
-        
-        store.pullFeed(for: feedUrlString) { response, arg  in
-            guard let episodes = response else { return }
-            DispatchQueue.main.async {
-                resultsList.episodes = episodes
-                resultsList.collectionView.reloadData()
-                self.navigationController.pushViewController(resultsList, animated: false)
-            }
-        }
-    }
-    
     func didSelect(at index: Int, with subscription: Subscription, image: UIImage) {
         
         let resultsList = SearchResultListViewController(index: index)
@@ -86,31 +68,7 @@ extension HomeTabCoordinator: HomeViewControllerDelegate {
 }
 
 extension HomeTabCoordinator: PodcastListViewControllerDelegate {
-    
-    func didSelect(at index: Int, podcast: CasterSearchResult, image: UIImage) {
-        
-        var playerPodcast = podcast
-        playerPodcast.episodes =  podcast.episodes
-        playerPodcast.index = index
-        
-        let concurrent = DispatchQueue(label: "concurrentBackground",
-                                       qos: .background,
-                                       attributes: .concurrent,
-                                       autoreleaseFrequency: .inherit,
-                                       target: nil)
-        concurrent.async { [weak self] in
-            if let strongSelf = self {
-                let playerViewController = PlayerViewController(index: index, caster: playerPodcast, image: image)
-                playerViewController.delegate = strongSelf
-                DispatchQueue.main.async {
-                    strongSelf.navigationController.navigationBar.isTranslucent = true
-                    strongSelf.navigationController.navigationBar.alpha = 0
-                    strongSelf.navigationController.pushViewController(playerViewController, animated: false)
-                }
-            }
-        }
-    }
-    
+
     func didSelectPodcastAt(at index: Int, podcast: CasterSearchResult, with episodes: [Episodes]) {
         
         var playerPodcast = podcast

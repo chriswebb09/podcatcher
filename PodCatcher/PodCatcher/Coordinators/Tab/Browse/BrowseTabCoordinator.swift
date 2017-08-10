@@ -147,14 +147,6 @@ extension BrowseTabCoordinator: BrowseViewControllerDelegate {
 
 extension BrowseTabCoordinator: PodcastListViewControllerDelegate {
     
-    func didSelect(at index: Int, podcast: CasterSearchResult) {
-        var playerPodcast = podcast
-        playerPodcast.index = index
-        let playerViewController = PlayerViewController(index: index, caster: playerPodcast, image: nil)
-        playerViewController.delegate = self
-        navigationController.pushViewController(playerViewController, animated: false)
-    }
-    
     func didSelectPodcastAt(at index: Int, podcast: CasterSearchResult, with episodes: [Episodes]) {
         var playerPodcast = podcast
         playerPodcast.episodes = episodes

@@ -42,7 +42,6 @@ final class PlaylistsTabCoordinator: NavigationCoordinator {
 extension PlaylistsTabCoordinator: PlaylistsViewControllerDelegate {
     
     func playlistSelected(for caster: PodcastPlaylist) {
-
         let playlist = PlaylistViewController(index: 0, player: AudioFilePlayer(), playlist: caster)
         playlist.playlistId = caster.playlistId!
         playlist.playlistTitle = caster.playlistName!
