@@ -27,10 +27,12 @@ class InformationView: UIView, StateView {
     
     var informationLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 16, weight: UIFontWeightMedium)
+        label.font = UIFont.systemFont(ofSize: 12, weight: UIFontWeightMedium)
         label.textColor = Colors.brightHighlight
         label.alpha = 1
+        label.numberOfLines = 0
         label.textAlignment = .center
+        label.text = label.text?.uppercased()
         return label
     }()
     
@@ -60,7 +62,7 @@ class InformationView: UIView, StateView {
     override func layoutSubviews() {
         super.layoutSubviews()
         backgroundColor = UIColor(red:0.32, green:0.13, blue:0.70, alpha:1.0)
-        setup(musicIcon: iconView)
+        setup(icon: iconView)
         setup(infoLabel: informationLabel)
         addSubview(backgroundImageView)
     }
@@ -69,13 +71,13 @@ class InformationView: UIView, StateView {
         layoutSubviews()
     }
     
-    private func setup(musicIcon: UIView) {
-        addSubview(musicIcon)
-        musicIcon.translatesAutoresizingMaskIntoConstraints = false
-        musicIcon.heightAnchor.constraint(equalTo: heightAnchor, multiplier: EmptyViewConstants.iconHeightMultiplier).isActive = true
-        musicIcon.widthAnchor.constraint(equalTo: widthAnchor, multiplier: EmptyViewConstants.iconWidthMutliplier).isActive = true
-        musicIcon.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        musicIcon.centerYAnchor.constraint(equalTo: centerYAnchor, constant: UIScreen.main.bounds.height * -0.1).isActive = true
+    private func setup(icon: UIView) {
+        addSubview(icon)
+        icon.translatesAutoresizingMaskIntoConstraints = false
+        icon.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.2).isActive = true
+        icon.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.36).isActive = true
+        icon.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        icon.centerYAnchor.constraint(equalTo: centerYAnchor, constant: UIScreen.main.bounds.height * -0.1).isActive = true
     }
     
     func setIcon(icon: UIImage) {
@@ -86,17 +88,20 @@ class InformationView: UIView, StateView {
     
     func setLabel(text: String) {
         informationLabel.text = text
-        informationLabel.font = UIFont.systemFont(ofSize: 16, weight: UIFontWeightMedium)
+        informationLabel.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightMedium)
         informationLabel.textColor = Colors.brightHighlight
         informationLabel.alpha = 1
+        informationLabel.numberOfLines = 0
+        informationLabel.textAlignment = .center
+        //informationLabel.text =  informationLabel.text?.uppercased()
     }
     
     private func setup(infoLabel: UILabel) {
         addSubview(infoLabel)
         infoLabel.translatesAutoresizingMaskIntoConstraints = false
         infoLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.3).isActive = true
-        infoLabel.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
+        infoLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.98).isActive = true
         infoLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        infoLabel.centerYAnchor.constraint(equalTo: centerYAnchor, constant: UIScreen.main.bounds.height * 0.06).isActive = true
+        infoLabel.centerYAnchor.constraint(equalTo: centerYAnchor, constant: UIScreen.main.bounds.height * 0.1).isActive = true
     }
 }
