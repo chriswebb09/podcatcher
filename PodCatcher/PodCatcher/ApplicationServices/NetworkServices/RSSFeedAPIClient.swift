@@ -46,7 +46,13 @@ extension RSSFeedAPIClient: XMLParserDelegate {
     
     static func getTopPodcasts(completion: @escaping ([[String: String]]?, Error?) -> Void) {
         guard let url = URL(string: "https://rss.itunes.apple.com/api/v1/us/podcasts/top-podcasts/25/explicit/xml") else { return }
-        URLSession(configuration: .ephemeral).dataTask(with: URLRequest(url: url)) { data, response, error in
+        
+        let urlconfig = URLSessionConfiguration.ephemeral
+        urlconfig.timeoutIntervalForRequest = 8
+        urlconfig.timeoutIntervalForResource = 8
+        let session = URLSession(configuration: urlconfig, delegate: nil, delegateQueue: nil)
+        let request = URLRequest(url: url,  cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 8)
+        session.dataTask(with: request) { data, response, error in
             if let error = error {
                 DispatchQueue.main.async {
                     completion(nil, error)

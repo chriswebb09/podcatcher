@@ -223,14 +223,13 @@ extension PlayerViewController: PlayerViewDelegate {
         guard index > 0 else { playerView.enableButtons(); return }
         index -= 1
         updateTrack()
-        delegate?.backButton(tapped: caster.episodes[index].audioUrlString!)
+       
     }
     
     func skipButton(tapped: Bool) {
         guard index < caster.episodes.count - 1 else { playerView.enableButtons(); return }
         index += 1
         updateTrack()
-        delegate?.skipButton(tapped: caster.episodes[index].audioUrlString!)
     }
     
     func setModel(model: PlayerViewModel?) {

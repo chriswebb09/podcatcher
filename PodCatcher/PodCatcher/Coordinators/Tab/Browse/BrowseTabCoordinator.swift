@@ -36,41 +36,54 @@ final class BrowseTabCoordinator: NavigationCoordinator {
     
     func setupBrowse() {
         let browseViewController = navigationController.viewControllers[0] as! BrowseViewController
-        getTopItems { newItems in
-            let concurrentQueue = DispatchQueue(label: "concurrent", qos: .background, attributes: .concurrent, autoreleaseFrequency: .inherit, target: nil)
-            concurrentQueue.async { [weak self] in
-                guard let strongSelf = self else { return }
-                strongSelf.getCaster { items in
-                    if browseViewController.dataSource.items.count > 0 {
-                        guard let urlString = browseViewController.dataSource.items[0].podcastArtUrlString else { return }
-                        guard let imageUrl = URL(string: urlString) else { return }
-                        browseViewController.topView.podcastImageView.downloadImage(url: imageUrl)
-                    }
+        self.getCaster { items, error in
+            if let error = error {
+                DispatchQueue.main.async {
+                   // let tabBarController = self.navigationController.tabBarController
+                   // tabBarController?.showError(errorString: error.localizedDescription)
+                    let informationView = InformationView(data: "Error connection to server", icon: #imageLiteral(resourceName: "sad-face"))
+                    informationView.frame = UIScreen.main.bounds
+                    browseViewController.view = informationView
+                }
+            } else {
+                if browseViewController.dataSource.items.count > 0 {
+                    guard let urlString = browseViewController.dataSource.items[0].podcastArtUrlString else { return }
+                    guard let imageUrl = URL(string: urlString) else { return }
+                    browseViewController.topView.podcastImageView.downloadImage(url: imageUrl)
                 }
             }
         }
     }
     
-    func getTopItems(completion: @escaping ([TopItem]) -> Void) {
+    func getTopItems(completion: @escaping ([TopItem]?, Error?) -> Void) {
         let concurrentQueue = DispatchQueue(label: "concurrent", qos: .background, attributes: .concurrent, autoreleaseFrequency: .inherit, target: nil)
         concurrentQueue.async { [weak self] in
             guard let strongSelf = self else { return }
             strongSelf.store.pullFeedTopPodcasts { data, error in
+                if let error = error {
+                    DispatchQueue.main.async {
+                        completion(nil, error)
+                    }
+                }
                 guard let data = data else { return }
                 DispatchQueue.main.async {
-                    completion(data)
+                    completion(data, nil)
                 }
             }
         }
     }
     
-    func getCaster(completion: @escaping ([CasterSearchResult]) -> Void) {
+    func getCaster(completion: @escaping ([CasterSearchResult]?, Error?) -> Void) {
         let browseViewController = navigationController.viewControllers[0] as! BrowseViewController
-        getTopItems { newItems in
+        getTopItems { newItems, error in
+            if let error = error {
+                DispatchQueue.main.async {
+                    completion(nil, error)
+                }
+            }
             var results = [CasterSearchResult]()
-            
             let topPodcastGroup = DispatchGroup()
-            
+            guard let newItems = newItems else { return }
             for i in 0..<newItems.count {
                 self.globalDefault.async(group: topPodcastGroup) {
                     self.fetcher.setLookup(term: newItems[i].id)
@@ -96,7 +109,7 @@ final class BrowseTabCoordinator: NavigationCoordinator {
             topPodcastGroup.notify(queue: self.globalDefault) {
                 print("Notify received, done waiting.")
                 DispatchQueue.main.async {
-                    completion(results)
+                    completion(results, nil)
                 }
             }
             topPodcastGroup.wait()
@@ -159,7 +172,7 @@ extension BrowseTabCoordinator: PodcastListViewControllerDelegate {
 
 
 extension BrowseTabCoordinator: PlayerViewControllerDelegate {
-
+    
     func addItemToPlaylist(item: CasterSearchResult, index: Int) {
         let controller = navigationController.viewControllers.last
         guard let tab =  controller?.tabBarController else { return }

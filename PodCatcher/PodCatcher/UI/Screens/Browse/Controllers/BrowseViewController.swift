@@ -102,9 +102,9 @@ final class BrowseViewController: BaseCollectionViewController {
                 strongSelf.collectionView.reloadData()
             }
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) { [weak self] in
             guard let strongSelf = self else { return }
-            UIView.animate(withDuration: 0.5) {
+            UIView.animate(withDuration: 0.2) {
                 strongSelf.hideLoadingView(loadingPop: strongSelf.loadingPop)
             }
         }
@@ -146,7 +146,6 @@ extension BrowseViewController: UIScrollViewDelegate {
             print("browse is reachable")
         } else {
             DispatchQueue.main.async {
-                
                 self.view.bringSubview(toFront: self.network)
             }
         }

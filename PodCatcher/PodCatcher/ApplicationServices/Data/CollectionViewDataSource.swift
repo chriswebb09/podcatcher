@@ -12,7 +12,7 @@ class CollectionViewDataSource<Delegate: CollectionViewDataSourceDelegate>: NSOb
     
     // MARK: Private
     
-    var emptyView: UIView = EmptyView()
+    var emptyView: UIView = InformationView(data: "Add Items", icon: #imageLiteral(resourceName: "podcast-icon"))
     var backgroundView = UIView()
     
   

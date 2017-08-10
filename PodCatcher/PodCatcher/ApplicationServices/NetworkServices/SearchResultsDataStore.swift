@@ -5,8 +5,9 @@ struct SearchResultsDataStore {
     func pullFeed(for podCast: String, competion: @escaping (([Episodes]?, Error?) -> Void)) {
         var episodes = [Episodes]()
         RSSFeedAPIClient.requestFeed(for: podCast) { rssData, error in
+            print(error)
+            print(rssData)
             if let error = error {
-                print(error.localizedDescription)
                 DispatchQueue.main.async {
                     competion(nil, error)
                 }
@@ -51,6 +52,8 @@ struct SearchResultsDataStore {
 extension SearchResultsDataStore: ItemCreator {
     func pullFeedTopPodcasts(competion: @escaping (([TopItem]?, Error?) -> Void)) {
         RSSFeedAPIClient.getTopPodcasts { rssData, error in
+            print(rssData)
+            print(error)
             if let error = error {
                 print(error.localizedDescription)
                 DispatchQueue.main.async {

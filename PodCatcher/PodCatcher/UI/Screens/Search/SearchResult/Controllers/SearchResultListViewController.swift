@@ -38,6 +38,7 @@ class SearchResultListViewController: BaseCollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.emptyView = InformationView(data: "No Data.", icon: #imageLiteral(resourceName: "mic-icon"))
         setup(dataSource: self, delegate: self)
         configureTopView()
         background.frame = view.frame

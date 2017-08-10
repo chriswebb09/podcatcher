@@ -33,8 +33,10 @@ final class SearchViewController: BaseTableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.emptyView = InformationView(data: "No Results", icon: #imageLiteral(resourceName: "podcast"))
         tableView.dataSource = dataSource
         viewShown = dataSource.viewShown
+        view.frame = UIScreen.main.bounds
         tableView.backgroundColor = UIColor(red:0.94, green:0.95, blue:0.96, alpha:1.0)
         tableView.register(SearchResultCell.self, forCellReuseIdentifier: SearchResultCell.reuseIdentifier)
         tableView.delegate = self
@@ -47,6 +49,7 @@ final class SearchViewController: BaseTableViewController {
         searchController.defaultConfiguration()
         view.addSubview(searchBar)
         tableView.separatorStyle = .none
+        tableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 5, right: 0)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -152,7 +155,7 @@ extension SearchViewController: UISearchBarDelegate {
 extension SearchViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UIScreen.main.bounds.height / 6
+        return UIScreen.main.bounds.height / 7.5
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

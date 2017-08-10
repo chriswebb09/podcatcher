@@ -25,13 +25,24 @@ extension UIImageView {
             self.image = cachedImage
             return
         }
-        URLSession(configuration: .ephemeral).dataTask(with: URLRequest(url: url)) { data, response, error in
+        let urlconfig = URLSessionConfiguration.ephemeral
+        urlconfig.timeoutIntervalForRequest = 8
+        urlconfig.timeoutIntervalForResource = 8
+        let session = URLSession(configuration: urlconfig, delegate: nil, delegateQueue: nil)
+        let request = URLRequest(url: url,  cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 8)
+        session.dataTask(with: request) { data, response, error in
             if error != nil {
                 print(error?.localizedDescription ?? "Unknown error")
+                return
             }
-            DispatchQueue.main.async {
-                if let data = data, let image = UIImage(data: data) {
-                    WebDataCache.imageCache.setObject(image, forKey: url.absoluteString as NSString)
+            if let data = data, let image = UIImage(data: data) {
+                self.image = nil
+                WebDataCache.imageCache.setObject(image, forKey: NSString(string:url.absoluteString))
+                if let error = error {
+                    print(error)
+                    return
+                }
+                DispatchQueue.main.async {
                     self.image = image
                 }
             }}.resume()
