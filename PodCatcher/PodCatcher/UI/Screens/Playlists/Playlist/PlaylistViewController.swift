@@ -27,7 +27,7 @@ class PlaylistViewController: BaseCollectionViewController {
     let entryPop = EntryPopover()
     var topView = ListTopView()
     var feedUrl: String!
-    var playlistEmptyView: UIView = PlaylistEmptyView()
+    var playlistEmptyView: UIView = InformationView(data: "Create playlists with your favorite episodes", icon: #imageLiteral(resourceName: "podcast-icon-1"))
     var backgroundView = UIView()
     let playlist: PodcastPlaylist!
     

@@ -36,11 +36,14 @@ extension UIImageView {
                 return
             }
             if let data = data, let image = UIImage(data: data) {
-                self.image = nil
                 WebDataCache.imageCache.setObject(image, forKey: NSString(string:url.absoluteString))
                 if let error = error {
                     print(error)
                     return
+                }
+                if var currentImage = self.image {
+                    self.image = nil
+                    print(currentImage)
                 }
                 DispatchQueue.main.async {
                     self.image = image
