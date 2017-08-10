@@ -88,12 +88,11 @@ class InformationView: UIView, StateView {
     
     func setLabel(text: String) {
         informationLabel.text = text
-        informationLabel.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightMedium)
+        informationLabel.font = UIFont.systemFont(ofSize: 16, weight: UIFontWeightMedium)
         informationLabel.textColor = Colors.brightHighlight
         informationLabel.alpha = 1
         informationLabel.numberOfLines = 0
         informationLabel.textAlignment = .center
-        //informationLabel.text =  informationLabel.text?.uppercased()
     }
     
     private func setup(infoLabel: UILabel) {

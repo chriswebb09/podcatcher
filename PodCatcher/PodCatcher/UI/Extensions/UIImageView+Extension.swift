@@ -41,7 +41,7 @@ extension UIImageView {
                     print(error)
                     return
                 }
-                if var currentImage = self.image {
+                if let currentImage = self.image {
                     self.image = nil
                     print(currentImage)
                 }

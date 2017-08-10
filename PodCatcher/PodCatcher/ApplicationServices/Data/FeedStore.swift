@@ -15,11 +15,11 @@ struct FeedCoreDataStack {
         let managedContext = appDelegate.coreData.managedContext
         let entity = NSEntityDescription.entity(forEntityName: "Subscription", in: managedContext)!
         let subscription = NSManagedObject(entity: entity, insertInto: managedContext)
-        if let podcastArtImageData = UIImageJPEGRepresentation(image, 1) as? NSData {
+        if let imageData = UIImageJPEGRepresentation(image, 1) {
             subscription.setValue(feedUrl, forKeyPath: "feedUrl")
             subscription.setValue(podcastTitle, forKeyPath: "podcastTitle")
             subscription.setValue(artistName, forKeyPath: "podcastArtist")
-            subscription.setValue(podcastArtImageData, forKey: "artworkImage")
+            subscription.setValue(NSData.init(data: imageData), forKey: "artworkImage")
             subscription.setValue(episodeCount, forKey: "episodeCount")
             subscription.setValue(lastUpdate, forKey: "lastUpdate")
             subscription.setValue(uid, forKey: "uid")

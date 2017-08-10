@@ -37,14 +37,15 @@ final class BrowseTabCoordinator: NavigationCoordinator {
     func setupBrowse() {
         let browseViewController = navigationController.viewControllers[0] as! BrowseViewController
         self.getCaster { items, error in
-            if let error = error {
+            if error != nil {
                 DispatchQueue.main.async {
-                    let informationView = InformationView(data: "Error connection to server", icon: #imageLiteral(resourceName: "sad-face"))
+                    let informationView = InformationView(data: "", icon: #imageLiteral(resourceName: "sad-face"))
                     informationView.setIcon(icon: #imageLiteral(resourceName: "sad-face"))
-                    informationView.setLabel(text: "Error connection to server")
+                    informationView.setLabel(text: "Oops! Unable to connect to iTunes server.")
                     informationView.frame = UIScreen.main.bounds
                     browseViewController.view = informationView
                     browseViewController.view.layoutSubviews()
+                    browseViewController.hideLoadingView(loadingPop: browseViewController.loadingPop)
                 }
             } else {
                 if browseViewController.dataSource.items.count > 0 {
@@ -79,6 +80,7 @@ final class BrowseTabCoordinator: NavigationCoordinator {
         getTopItems { newItems, error in
             if let error = error {
                 DispatchQueue.main.async {
+                    
                     completion(nil, error)
                 }
             }
@@ -110,6 +112,7 @@ final class BrowseTabCoordinator: NavigationCoordinator {
             topPodcastGroup.notify(queue: self.globalDefault) {
                 print("Notify received, done waiting.")
                 DispatchQueue.main.async {
+                    browseViewController.hideLoadingView(loadingPop: browseViewController.loadingPop)
                     completion(results, nil)
                 }
             }

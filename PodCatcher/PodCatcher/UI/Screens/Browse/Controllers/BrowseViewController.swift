@@ -105,12 +105,12 @@ final class BrowseViewController: BaseCollectionViewController {
                 strongSelf.collectionView.reloadData()
             }
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) { [weak self] in
-            guard let strongSelf = self else { return }
-            UIView.animate(withDuration: 0.2) {
-                strongSelf.hideLoadingView(loadingPop: strongSelf.loadingPop)
-            }
-        }
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) { [weak self] in
+//            guard let strongSelf = self else { return }
+//            UIView.animate(withDuration: 0.2) {
+//                strongSelf.hideLoadingView(loadingPop: strongSelf.loadingPop)
+//            }
+//        }
         if Reachable.isInternetAvailable() {
             DispatchQueue.main.async {
                 self.view.sendSubview(toBack: self.network)

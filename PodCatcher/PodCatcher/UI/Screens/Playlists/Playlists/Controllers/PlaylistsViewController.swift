@@ -111,18 +111,17 @@ extension PlaylistsViewController: UITableViewDelegate {
             if let urlString = item.podcastArtUrlString, let url = URL(string: urlString) {
                 UIImage.downloadImage(url: url) { image in
                     let podcastArtImageData = UIImageJPEGRepresentation(image, 1)
-                    podcastItem.artwork = podcastArtImageData as? NSData
+                    if let podcastArtImageData = podcastArtImageData {
+                        podcastItem.artwork = NSData.init(data: podcastArtImageData)
+                    }
                 }
             }
-            
             let playlist = fetchedResultsController.object(at: indexPath)
             podcastItem.playlist = playlist
             do {
                 if let context = playlist.managedObjectContext {
                     try! context.save()
                 }
-            } catch let error {
-                print(error.localizedDescription)
             }
         case .checkList:
             print("checklist")
@@ -146,12 +145,10 @@ extension PlaylistsViewController: UITableViewDelegate {
     }
     
     func addNewPlaylist(text: String, from indexPath: IndexPath) {
-        let title = fetchedResultsController.object(at: indexPath)
         let casts = fetchedResultsController.object(at: indexPath)
-        let podcasts = casts.podcast
         let playlist = PlaylistViewController(index: 0, player: AudioFilePlayer(), playlist: casts)
         playlist.playlistId = text
-        delegate?.playlistSelected(for: title)
+        delegate?.playlistSelected(for: casts)
     }
     
     func editMode(indexPath: IndexPath) {
