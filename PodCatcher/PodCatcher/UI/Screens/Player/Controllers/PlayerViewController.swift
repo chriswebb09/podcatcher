@@ -223,7 +223,7 @@ extension PlayerViewController: PlayerViewDelegate {
         guard index > 0 else { playerView.enableButtons(); return }
         index -= 1
         updateTrack()
-       
+        
     }
     
     func skipButton(tapped: Bool) {

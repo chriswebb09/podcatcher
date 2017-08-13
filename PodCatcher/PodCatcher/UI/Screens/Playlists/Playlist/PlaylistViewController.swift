@@ -61,6 +61,7 @@ class PlaylistViewController: BaseCollectionViewController, ErrorPresenting, Loa
         collectionView.backgroundView = emptyView
         backgroundView.backgroundColor = .white
         guard let podcast = playlist.podcast else { return }
+        
         for (_, podItem) in podcast.enumerated() {
             let item = podItem as! PodcastPlaylistItem
             if let audio = item.audioUrl, let title = item.episodeTitle, let date = item.stringDate {

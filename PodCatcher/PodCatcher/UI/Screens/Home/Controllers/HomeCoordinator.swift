@@ -1,8 +1,6 @@
 import UIKit
 
-protocol HomeCoordinator: ControllerCoordinator {
-    
-}
+protocol HomeCoordinator: ControllerCoordinator { }
 
 extension HomeCoordinator {
     func viewDidLoad(_ viewController: UIViewController) {
@@ -13,8 +11,6 @@ extension HomeCoordinator {
         homeVC.emptyView.setLabel(text: "Subscribe to your favorite podcasts!")
         homeVC.emptyView.setIcon(icon: #imageLiteral(resourceName: "mic-icon"))
         homeVC.emptyView.frame = homeVC.view.frame
-        
-        
         homeVC.emptyView.layoutSubviews()
         homeVC.collectionView.collectionViewLayout = newLayout
         homeVC.collectionView.frame = UIScreen.main.bounds
@@ -22,7 +18,7 @@ extension HomeCoordinator {
         homeVC.collectionView.setupBackground(frame: homeVC.view.bounds)
         guard let background = homeVC.collectionView.backgroundView else { return }
         CALayer.createGradientLayer(with: [UIColor.white.cgColor, UIColor.darkGray.cgColor], layer: background.layer, bounds: homeVC.collectionView.bounds)
-        homeVC.rightButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(HomeViewController.changeMode))
+   
         homeVC.rightButtonItem.tintColor = .white
         homeVC.navigationItem.setRightBarButton(homeVC.rightButtonItem, animated: false)
         homeVC.homeDataSource = CollectionViewDataSource(collectionView: homeVC.collectionView, identifier: SubscribedPodcastCell.reuseIdentifier, fetchedResultsController: homeVC.fetchedResultsController, delegate: homeVC)

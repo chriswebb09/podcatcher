@@ -59,15 +59,6 @@ extension BrowseCollectionDataSource:  UICollectionViewDataSource {
         }
         return cell
     }
-    
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let sectionHeaderView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "SectionHeader", for: indexPath) as! SectionHeaderView
-        if let title = titleForSectionAtIndexPath(indexPath) {
-            sectionHeaderView.title = title
-            sectionHeaderView.icon = UIImage(named: title)
-        }
-        return sectionHeaderView
-    }
 }
 
 extension BrowseCollectionDataSource: UICollectionViewDataSourcePrefetching {

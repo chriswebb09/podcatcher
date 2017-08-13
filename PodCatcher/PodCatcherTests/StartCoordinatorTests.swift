@@ -33,20 +33,4 @@ class StartCoordinatorTests: XCTestCase {
         XCTAssertEqual(navigationController.viewControllers.count, 2)
         XCTAssertNotNil(navigationController.viewControllers[1] as! StartViewController)
     }
-    
-    func testGoToLogin() {
-        startCoordinator.start()
-        XCTAssertEqual(navigationController.viewControllers.count, 1)
-        startCoordinator.splashAnimation(finished: true)
-        XCTAssertEqual(navigationController.viewControllers.count, 2)
-        XCTAssertNotNil(navigationController.viewControllers[1] as! StartViewController)
-    }
-    
-    func testGoToCreateAccount() {
-        startCoordinator.start()
-        XCTAssertEqual(navigationController.viewControllers.count, 1)
-        startCoordinator.splashAnimation(finished: true)
-        XCTAssertEqual(navigationController.viewControllers.count, 2)
-        XCTAssertNotNil(navigationController.viewControllers[1] as! StartViewController)
-    }
 }

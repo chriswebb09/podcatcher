@@ -3,7 +3,8 @@ import ReachabilitySwift
 import CoreData
 
 class MainCoordinator: ApplicationCoordinator {
-    
+   
+    var childCoordinators: [Coordinator] = []
     var window: UIWindow
     var appCoordinator: Coordinator
     var dataSource: BaseMediaControllerDataSource!
@@ -97,6 +98,7 @@ extension MainCoordinator: CoordinatorDelegate {
         playlistsViewController.coordinator = playlistsCoord
         playlistsCoord.delegate = self
         playlistsCoord.setup()
+        addChildCoordinator(playlistsCoord)
     }
     
     func setupBrowseTab() {
@@ -108,6 +110,7 @@ extension MainCoordinator: CoordinatorDelegate {
         browseCoord.delegate = self
         browseCoord.start()
         browseCoord.setupBrowse()
+        addChildCoordinator(browseCoord)
     }
     
     func setupSearchTab() {
@@ -116,6 +119,7 @@ extension MainCoordinator: CoordinatorDelegate {
         tabbBarCoordinator.setupSearchCoordinator(navigationController: searchTab, dataSource: dataSource)
         let searchCoord = tabbBarCoordinator.childCoordinators[3] as! SearchTabCoordinator
         searchCoord.delegate = self
+        addChildCoordinator(searchCoord)
     }
     
     func setupSettingsTab() {
@@ -126,5 +130,6 @@ extension MainCoordinator: CoordinatorDelegate {
         tabbBarCoordinator.delegate = self
         let settingsCoord = tabbBarCoordinator.childCoordinators[4] as! SettingsTabCoordinator
         settingsCoord.delegate = self
+        addChildCoordinator(settingsCoord)
     }
 }

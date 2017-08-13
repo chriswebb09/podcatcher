@@ -53,6 +53,7 @@ final class BrowseViewController: BaseCollectionViewController, LoadingPresentin
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tap = UITapGestureRecognizer(target: self, action: #selector(BrowseViewController.selectAt))
         coordinator?.viewDidLoad(self)
     }
     
@@ -68,7 +69,7 @@ final class BrowseViewController: BaseCollectionViewController, LoadingPresentin
         } catch {
             print("could not start reachability notifier")
         }
-        // topView.addGestureRecognizer(tap)
+        topView.addGestureRecognizer(tap)
         UIView.animate(withDuration: 0.15) {
             self.view.alpha = 1
             self.navigationController?.setNavigationBarHidden(true, animated: false)

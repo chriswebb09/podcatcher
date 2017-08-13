@@ -33,21 +33,4 @@ class TestMainCoordinator: XCTestCase {
         XCTAssertNotNil(startCoord?.childViewControllers[0] as? SplashViewController)
         XCTAssertNoThrow(startCoord?.childViewControllers[0] as? SplashViewController)
     }
-    
-    func testGoToLogin() {
-        mainCoordinator.start()
-        let startCoord = mainCoordinator.appCoordinator as? StartCoordinator
-        startCoord?.skipSplash()
-        XCTAssertNotNil(startCoord?.childViewControllers[1] as? StartViewController)
-        XCTAssertNoThrow(startCoord?.childViewControllers[1] as? StartViewController)
-        XCTAssertEqual(mainCoordinator?.appCoordinator.type, .app)
-    }
-    
-    func testGoToCreateAccount() {
-        mainCoordinator.start()
-        let startCoord = mainCoordinator.appCoordinator as? StartCoordinator
-        startCoord?.skipSplash()
-        XCTAssertNotNil(startCoord?.childViewControllers[1] as? StartViewController)
-        XCTAssertNoThrow(startCoord?.childViewControllers[1] as? StartViewController)
-    }
 }

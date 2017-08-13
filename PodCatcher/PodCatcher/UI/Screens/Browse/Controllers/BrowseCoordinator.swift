@@ -5,40 +5,37 @@ protocol ControllerCoordinator: class {
     func viewDidLoad(_ viewController: UIViewController)
 }
 
-protocol BrowseCoordinator: class {
-    func viewDidLoad(_ viewController: BrowseViewController)
-}
-
+protocol BrowseCoordinator: ControllerCoordinator { }
 extension BrowseCoordinator {
-    func viewDidLoad(_ viewController: BrowseViewController) {
-        viewController.emptyView = InformationView(data: "No Data", icon: #imageLiteral(resourceName: "mic-icon"))
-        viewController.emptyView.layoutSubviews()
-        viewController.view.addSubview(viewController.network)
-        viewController.view.sendSubview(toBack: viewController.network)
-        viewController.network.layoutSubviews()
+    func viewDidLoad(_ viewController: UIViewController) {
+        let browseVC = viewController as! BrowseViewController
+        browseVC.emptyView = InformationView(data: "No Data", icon: #imageLiteral(resourceName: "mic-icon"))
+        browseVC.emptyView.layoutSubviews()
+        browseVC.view.addSubview(browseVC.network)
+        browseVC.view.sendSubview(toBack: browseVC.network)
+        browseVC.network.layoutSubviews()
         let topFrameHeight = UIScreen.main.bounds.height / 2
         let topFrameWidth = UIScreen.main.bounds.width
         let topFrame = CGRect(x: 0, y: 0, width: topFrameWidth, height: topFrameHeight + 40)
-        viewController.topView.frame = topFrame
-        viewController.loadingPop.configureLoadingOpacity(alpha: 0.2)
-        viewController.view.addSubview(viewController.topView)
-        viewController.view.backgroundColor = .clear
-        viewController.topView.backgroundColor = .clear
-        viewController.view.addSubview(viewController.collectionView)
-        collectionViewConfiguration(view: viewController.view, collectionView: viewController.collectionView)
-        viewController.collectionView.delegate = viewController
-        viewController.collectionView.dataSource = viewController.dataSource
-        viewController.network.frame = viewController.view.frame
-        viewController.collectionView.register(TopPodcastCell.self)
-        viewController.collectionView.backgroundColor = .darkGray
-        viewController.collectionView.prefetchDataSource = viewController.dataSource
-        viewController.tap = UITapGestureRecognizer(target: self, action: #selector(BrowseViewController.selectAt))
-        viewController.collectionView.register(SectionHeaderView.self, forSupplementaryViewOfKind: "UICollectionReusableView", withReuseIdentifier: "SectionHeader")
+        browseVC.topView.frame = topFrame
+        browseVC.loadingPop.configureLoadingOpacity(alpha: 0.2)
+        browseVC.view.addSubview(browseVC.topView)
+        browseVC.view.backgroundColor = .clear
+        browseVC.topView.backgroundColor = .clear
+        browseVC.view.addSubview(browseVC.collectionView)
+        collectionViewConfiguration(view: browseVC.view, collectionView: browseVC.collectionView)
+        browseVC.collectionView.delegate = browseVC
+        browseVC.collectionView.dataSource = browseVC.dataSource
+        browseVC.network.frame = viewController.view.frame
+        browseVC.collectionView.register(TopPodcastCell.self)
+        browseVC.collectionView.backgroundColor = .darkGray
+        browseVC.collectionView.prefetchDataSource = browseVC.dataSource
+        //
         DispatchQueue.main.async {
-            viewController.collectionView.reloadData()
+            browseVC.collectionView.reloadData()
         }
         NotificationCenter.default.addObserver(self, selector: #selector(BrowseViewController.reachabilityDidChange(_:)), name: NSNotification.Name(rawValue: "ReachabilityDidChangeNotificationName"), object: nil)
-        viewController.reach?.start()
+        browseVC.reach?.start()
     }
     
     func collectionViewConfiguration(view: UIView, collectionView: UICollectionView) {
