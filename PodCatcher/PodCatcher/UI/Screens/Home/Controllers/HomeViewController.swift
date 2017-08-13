@@ -4,7 +4,7 @@ import CoreData
 class HomeViewController: BaseCollectionViewController {
     
     // MARK: - Properties
-    
+    var coordinator: HomeCoordinator?
     let userID: String = "none"
     var mode: HomeInteractionMode = .subscription
     weak var delegate: HomeViewControllerDelegate?
@@ -48,34 +48,7 @@ class HomeViewController: BaseCollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let newLayout = HomeItemsFlowLayout()
-        newLayout.setup()
-        //informationView.frame = UIScreen.main.bounds
-       // browseViewController.view = informationView
-        //browseViewController.view.layoutSubviews()
-        emptyView = InformationView(data: "Subscribe to your favorite podcasts!", icon:  #imageLiteral(resourceName: "mic-icon"))
-        emptyView.setLabel(text: "Subscribe to your favorite podcasts!")
-        emptyView.setIcon(icon: #imageLiteral(resourceName: "mic-icon"))
-        emptyView.frame = view.frame
-        
-        
-        emptyView.layoutSubviews()
-        collectionView.collectionViewLayout = newLayout
-        collectionView.frame = UIScreen.main.bounds
-        collectionView.register(SubscribedPodcastCell.self)
-        collectionView.setupBackground(frame: view.bounds)
-        guard let background = collectionView.backgroundView else { return }
-        CALayer.createGradientLayer(with: [UIColor.white.cgColor, UIColor.darkGray.cgColor], layer: background.layer, bounds: collectionView.bounds)
-        rightButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(changeMode))
-        rightButtonItem.tintColor = .white
-        navigationItem.setRightBarButton(rightButtonItem, animated: false)
-        homeDataSource = CollectionViewDataSource(collectionView: collectionView, identifier: SubscribedPodcastCell.reuseIdentifier, fetchedResultsController: fetchedResultsController, delegate: self)
-        fetchedResultsController.delegate = homeDataSource
-        homeDataSource.reloadData()
-        collectionView.dataSource = homeDataSource
-        collectionView.delegate = self
-        homeDataSource.backgroundView.backgroundColor = .lightGray
-        view.bringSubview(toFront: collectionView)
+        coordinator?.viewDidLoad(self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -110,7 +83,7 @@ extension HomeViewController: UIScrollViewDelegate, CollectionViewProtocol {
     }
 }
 
-extension HomeViewController: UICollectionViewDelegate {
+extension HomeViewController: UICollectionViewDelegate, ErrorPresenting {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath)
@@ -151,7 +124,7 @@ extension HomeViewController: UICollectionViewDelegate {
                 }
             }
         } catch let error {
-            presentAlert(message: error.localizedDescription)
+            presentError(title: "Error", message: error.localizedDescription)
         }
     }
     

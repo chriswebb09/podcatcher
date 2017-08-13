@@ -85,6 +85,7 @@ extension MainCoordinator: CoordinatorDelegate {
         let homeTab = UINavigationController(rootViewController: homeViewController)
         tabbBarCoordinator.setupHomeCoordinator(navigationController: homeTab, dataSource: dataSource)
         let homeCoord = tabbBarCoordinator.childCoordinators[0] as! HomeTabCoordinator
+        homeViewController.coordinator = homeCoord
         homeCoord.delegate = self
     }
     
@@ -93,6 +94,7 @@ extension MainCoordinator: CoordinatorDelegate {
         let playlistsTab = UINavigationController(rootViewController: playlistsViewController)
         tabbBarCoordinator.setupPlaylistsCoordinator(navigationController: playlistsTab, dataSource: dataSource)
         let playlistsCoord = tabbBarCoordinator.childCoordinators[1] as! PlaylistsTabCoordinator
+        playlistsViewController.coordinator = playlistsCoord
         playlistsCoord.delegate = self
         playlistsCoord.setup()
     }
@@ -102,6 +104,7 @@ extension MainCoordinator: CoordinatorDelegate {
         let browseTab = UINavigationController(rootViewController: browseViewController)
         tabbBarCoordinator.setupBrowseCoordinator(navigationController: browseTab, dataSource: dataSource)
         let browseCoord = tabbBarCoordinator.childCoordinators[2] as! BrowseTabCoordinator
+        browseViewController.coordinator = browseCoord
         browseCoord.delegate = self
         browseCoord.start()
         browseCoord.setupBrowse()

@@ -1,6 +1,6 @@
 import UIKit
 
-final class HomeTabCoordinator: NavigationCoordinator {
+final class HomeTabCoordinator: NavigationCoordinator, HomeCoordinator {
     
     weak var delegate: CoordinatorDelegate?
     var type: CoordinatorType = .tabbar
@@ -68,7 +68,7 @@ extension HomeTabCoordinator: HomeViewControllerDelegate {
 }
 
 extension HomeTabCoordinator: PodcastListViewControllerDelegate {
-
+    
     func didSelectPodcastAt(at index: Int, podcast: CasterSearchResult, with episodes: [Episodes]) {
         
         var playerPodcast = podcast
@@ -110,7 +110,7 @@ extension HomeTabCoordinator: PlayerViewControllerDelegate {
         navigationController.navigationBar.alpha = 1
         delegate?.podcastItem(toAdd: item, with: index)
     }
-
+    
     func navigateBack(tapped: Bool) {
         navigationController.setNavigationBarHidden(false, animated: false)
         navigationController.viewControllers.last?.tabBarController?.tabBar.alpha = 1

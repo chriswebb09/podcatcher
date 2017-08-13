@@ -1,6 +1,6 @@
 import UIKit
 
-final class StartViewController: UIViewController {
+final class StartViewController: UIViewController, LoadingPresenting {
     
     var loadingPop = LoadingPopover()
     var startView: StartView = StartView()

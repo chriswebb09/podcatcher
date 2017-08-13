@@ -1,12 +1,13 @@
 import UIKit
 import ReachabilitySwift
 
-final class BrowseViewController: BaseCollectionViewController {
+final class BrowseViewController: BaseCollectionViewController, LoadingPresenting {
     
     weak var delegate: BrowseViewControllerDelegate?
-    
+    var coordinator: BrowseCoordinator?
     var currentPlaylistId: String = ""
     var reach: Reachable?
+    
     var topItems = [CasterSearchResult]() {
         didSet {
             topItems = dataSource.items
@@ -52,36 +53,8 @@ final class BrowseViewController: BaseCollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        emptyView = InformationView(data: "No Data", icon: #imageLiteral(resourceName: "mic-icon"))
-        emptyView.layoutSubviews()
-        view.addSubview(self.network)
-        view.sendSubview(toBack: self.network)
-        network.layoutSubviews()
-        let topFrameHeight = UIScreen.main.bounds.height / 2
-        let topFrameWidth = UIScreen.main.bounds.width
-        let topFrame = CGRect(x: 0, y: 0, width: topFrameWidth, height: topFrameHeight + 40)
-        topView.frame = topFrame
-        loadingPop.configureLoadingOpacity(alpha: 0.2)
-        view.addSubview(topView)
-        view.backgroundColor = .clear
-        topView.backgroundColor = .clear
-        view.addSubview(collectionView)
-        collectionViewConfiguration()
-        network.frame = view.frame
-        collectionView.register(TopPodcastCell.self)
-        collectionView.backgroundColor = .darkGray
-        collectionView.prefetchDataSource = dataSource
-        tap = UITapGestureRecognizer(target: self, action: #selector(selectAt))
-        collectionView.register(SectionHeaderView.self, forSupplementaryViewOfKind: "UICollectionReusableView", withReuseIdentifier: "SectionHeader")
-        DispatchQueue.main.async { [weak self] in
-            guard let strongSelf = self else { return }
-            strongSelf.collectionView.reloadData()
-        }
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(reachabilityDidChange(_:)), name: NSNotification.Name(rawValue: "ReachabilityDidChangeNotificationName"), object: nil)
-        reach?.start()
+        coordinator?.viewDidLoad(self)
     }
-    
     
     func reachabilityDidChange(_ notification: Notification) {
         print("Reachability changed")
@@ -95,7 +68,7 @@ final class BrowseViewController: BaseCollectionViewController {
         } catch {
             print("could not start reachability notifier")
         }
-        topView.addGestureRecognizer(tap)
+        // topView.addGestureRecognizer(tap)
         UIView.animate(withDuration: 0.15) {
             self.view.alpha = 1
             self.navigationController?.setNavigationBarHidden(true, animated: false)
@@ -121,13 +94,6 @@ extension BrowseViewController: UICollectionViewDelegate {
         topView.removeGestureRecognizer(tap)
     }
     
-    func setup(view: UIView, newLayout: BrowseItemsFlowLayout) {
-        newLayout.setup()
-        collectionView.collectionViewLayout = newLayout
-        collectionView.frame = CGRect(x: 0, y: view.bounds.midY + 40, width: UIScreen.main.bounds.width, height: (UIScreen.main.bounds.height / 2) - 40)
-        collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-    }
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.isUserInteractionEnabled = false
         DispatchQueue.main.async {
@@ -146,15 +112,5 @@ extension BrowseViewController: UIScrollViewDelegate {
                 self.view.bringSubview(toFront: self.network)
             }
         }
-    }
-    
-    func collectionViewConfiguration() {
-        setup(view: view, newLayout: BrowseItemsFlowLayout())
-        collectionView.delegate = self
-        collectionView.dataSource = dataSource
-        collectionView.isPagingEnabled = true
-        collectionView.isScrollEnabled = true
-        collectionView.decelerationRate = UIScrollViewDecelerationRateFast
-        collectionView.backgroundColor = .clear
     }
 }

@@ -4,7 +4,7 @@ import CoreData
 final class PlaylistsViewController: BaseTableViewController {
     
     weak var podcastDelegate: PodcastDelegate?
-    
+    var coordinator: PlaylistsCoordinator?
     weak var delegate: PlaylistsViewControllerDelegate?
     var mediaDataSource: BaseMediaControllerDataSource!
     var itemToSave: PodcastPlaylistItem!
@@ -38,29 +38,10 @@ final class PlaylistsViewController: BaseTableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Playlists"
-        entryPop.delegate = self
-        background.frame = UIScreen.main.bounds
-        view.addSubview(background)
-        view.sendSubview(toBack: background)
-        
-        tableView.backgroundColor = .clear
-        CALayer.createGradientLayer(with: [UIColor.white.cgColor, UIColor.lightGray.cgColor], layer: background.layer, bounds: tableView.bounds)
-        tableView.register(PlaylistCell.self, forCellReuseIdentifier: PlaylistCell.reuseIdentifier)
-        tableView.delegate = self
-        rightButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "plus-red").withRenderingMode(.alwaysTemplate), style: .plain, target: self, action: #selector(addPlaylist))
-        leftButtonItem  = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(edit))
-        rightButtonItem.tintColor = Colors.brightHighlight
-        navigationItem.setRightBarButton(rightButtonItem, animated: false)
-        navigationItem.setLeftBarButton(leftButtonItem, animated: false)
         playlistsDataSource = TableViewDataSource(tableView: tableView, identifier: "PlaylistCell", fetchedResultsController: fetchedResultsController, delegate: self)
-        playlistsDataSource.reloadData()
-        tableView.dataSource = playlistsDataSource
-        playlistsDataSource.setIcon(icon: #imageLiteral(resourceName: "podcast-icon").withRenderingMode(.alwaysTemplate))
-        playlistsDataSource.setText(text: "Create Playlists For Your Favorite Podcasts")
-        if playlistsDataSource.itemCount == 0 {
-            navigationItem.leftBarButtonItem = nil
-        }
+        leftButtonItem  = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(edit))
+        rightButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "plus-red").withRenderingMode(.alwaysTemplate), style: .plain, target: self, action: #selector(addPlaylist))
+        coordinator?.viewDidLoad(self)
     }
     
     override func viewDidDisappear(_ animated: Bool) {

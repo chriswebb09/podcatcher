@@ -5,7 +5,7 @@ import AVFoundation
 
 private var playerViewControllerKVOContext = 0
 
-final class PlayerViewController: BaseViewController {
+final class PlayerViewController: BaseViewController, ErrorPresenting, LoadingPresenting {
     
     weak var delegate: PlayerViewControllerDelegate?
     
@@ -171,7 +171,7 @@ final class PlayerViewController: BaseViewController {
                 }
             }
             if newStatus == .failed {
-                showError(errorString: "Error")
+                presentError(title: "Error", message: "Error")
             } else if newStatus == .readyToPlay {
                 DispatchQueue.main.async { [weak self] in
                     guard let strongSelf = self else { return }

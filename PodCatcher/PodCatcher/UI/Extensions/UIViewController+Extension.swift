@@ -1,5 +1,34 @@
 import UIKit
 
+protocol ErrorPresenting {
+    func presentError(title: String, message: String)
+}
+
+extension ErrorPresenting where Self: UIViewController {
+    func presentError(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let dismissAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(dismissAction)
+        present(alertController, animated: true)
+    }
+}
+
+protocol LoadingPresenting {
+    func showLoadingView(loadingPop: LoadingPopover)
+    func hideLoadingView(loadingPop: LoadingPopover)
+}
+
+extension LoadingPresenting where Self: UIViewController {
+    
+    func showLoadingView(loadingPop: LoadingPopover) {
+        loadingPop.show(controller: self)
+    }
+    
+    func hideLoadingView(loadingPop: LoadingPopover) {
+        loadingPop.hidePopView(viewController: self)
+    }
+}
+
 extension UIViewController {
     
     func setupDefaultUI() {
@@ -25,36 +54,8 @@ extension UIViewController {
         view.endEditing(true)
     }
     
-    func showLoadingView(loadingPop: LoadingPopover) {
-        loadingPop.show(controller: self)
-    }
-    
-    func hideLoadingView(loadingPop: LoadingPopover) {
-        loadingPop.hidePopView(viewController: self)
-    }
-    
-    func showError(errorString: String) {
-        DispatchQueue.main.async {
-            let actionSheetController: UIAlertController = UIAlertController(title: "Error", message: errorString, preferredStyle: .alert)
-            let okayAction: UIAlertAction =  UIAlertAction(title: "Okay", style: .cancel) { action in
-                actionSheetController.dismiss(animated: false, completion: nil)
-            }
-            actionSheetController.addAction(okayAction)
-            self.present(actionSheetController, animated: false)
-        }
-    }
-
     func dismiss() {
         view.endEditing(true)
         dismiss(animated: true, completion: nil)
-    }
-    
-    func presentAlert(message: String) {
-        DispatchQueue.main.async {
-            let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-            let closeButton = UIAlertAction(title: "Close", style: .default, handler: nil)
-            alert.addAction(closeButton)
-            self.present(alert, animated: true, completion: nil)
-        }
     }
 }

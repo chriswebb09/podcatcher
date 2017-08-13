@@ -1,5 +1,18 @@
 import UIKit
 
+extension Array where Element:Equatable {
+    mutating func removeDuplicates() {
+        var result = [Element]()
+        for (key, value) in self.enumerated() {
+            if result.contains(value) {
+                self.remove(at: key)
+            } else {
+                result.append(value)
+            }
+        }
+    }
+}
+
 extension UIView {
     
     func addView(view: UIView, type: ViewType) {

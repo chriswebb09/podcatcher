@@ -4,7 +4,7 @@ import AVFoundation
 
 private var playlistViewControllerKVOContext = 1
 
-class PlaylistViewController: BaseCollectionViewController {
+class PlaylistViewController: BaseCollectionViewController, ErrorPresenting, LoadingPresenting {
     
     @objc var player: AudioFilePlayer
     
@@ -111,7 +111,7 @@ class PlaylistViewController: BaseCollectionViewController {
                 newStatus = .unknown
             }
             if newStatus == .failed {
-                showError(errorString: "Error")
+                presentError(title: "Error", message: "Error")
             } else if newStatus == .readyToPlay {
                 DispatchQueue.main.async { [weak self] in
                     let buttonImageName = newStatus ==  AVPlayerItemStatus.readyToPlay ? #imageLiteral(resourceName: "pause-round") : #imageLiteral(resourceName: "play")
@@ -314,3 +314,5 @@ extension PlaylistViewController: TopViewDelegate {
         print("hidePopMenu")
     }
 }
+
+

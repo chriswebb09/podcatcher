@@ -1,8 +1,8 @@
 import UIKit
 import CoreData
 
-final class BrowseTabCoordinator: NavigationCoordinator {
-    
+final class BrowseTabCoordinator: NavigationCoordinator, BrowseCoordinator {
+
     weak var delegate: CoordinatorDelegate?
     var type: CoordinatorType = .tabbar
     var dataSource: BaseMediaControllerDataSource!
