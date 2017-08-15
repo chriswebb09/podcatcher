@@ -13,7 +13,7 @@ class SearchResultCell: UITableViewCell, Reusable {
     var titleLabel: UILabel = {
         let title = UILabel()
         title.textColor = .black
-        title.font = UIFont.systemFont(ofSize: 11, weight: UIFontWeightRegular)
+        title.font = UIFont.systemFont(ofSize: 12, weight: UIFontWeightRegular)
         title.textAlignment = .center
         title.numberOfLines = 0
         return title
@@ -30,9 +30,7 @@ class SearchResultCell: UITableViewCell, Reusable {
         setup(titleLabel: titleLabel)
         setup(albumArtView: albumArtView)
         setupSeparator()
-        selectionStyle = .none
-        //  albumArtView.layer.setCellShadow(contentView: self)
-        
+        selectionStyle = .none        
     }
     
     func setupSeparator() {
@@ -46,10 +44,8 @@ class SearchResultCell: UITableViewCell, Reusable {
             containerLayer.shadowOffset = CGSize(width: 1, height: 1)
             containerLayer.shadowOpacity = 0.6
             self.albumArtView.layer.masksToBounds = true
-            
             containerLayer.addSublayer(self.albumArtView.layer)
             self.layer.addSublayer(containerLayer)
-            
         }
     }
     
@@ -86,6 +82,6 @@ class SearchResultCell: UITableViewCell, Reusable {
         albumArtView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: contentView.bounds.width * 0.02).isActive = true
         albumArtView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
         albumArtView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.84).isActive = true
-        albumArtView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.22).isActive = true
+        albumArtView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.28).isActive = true
     }
 }

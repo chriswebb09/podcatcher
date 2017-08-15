@@ -26,9 +26,12 @@ extension SearchControllerDataSource: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as SearchResultCell
         if items.count > 0 {
             if let title = items[indexPath.row].podcastTitle, let urlString = items[indexPath.row].podcastArtUrlString, let url = URL(string: urlString)  {
-                cell.titleLabel.text = title
-                cell.albumArtView.downloadImage(url: url)
-                cell.layoutSubviews()
+                DispatchQueue.main.async {
+                    cell.titleLabel.text = title
+                    cell.albumArtView.downloadImage(url: url)
+                    cell.layoutSubviews()
+                }
+              
             }
         }
         cell.albumArtView.layer.cornerRadius = 5

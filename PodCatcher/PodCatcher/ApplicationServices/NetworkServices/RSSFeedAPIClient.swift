@@ -3,7 +3,7 @@ import UIKit
 class RSSFeedAPIClient: NSObject {
     
     static func processNPR(urlString: String, data: Data, completion: @escaping ([[String: String]]?) -> Void) {
-        let nprParse = ["344098539", "510298", "510200", "510318", "510208", "510282", "500005", "510307", "510322", "510308", "510310", "510019", "510313", "510289", "381444908", "510299"]
+        let nprParse = ["344098539", "510298", "510200", "510318", "510208", "510282", "500005", "510307", "510322", "510308", "510310", "510019", "510313", "510289", "381444908", "510299", "510324"]
         for npr in nprParse {
             if urlString.hasSuffix(npr) {
                 let rssParser = NPRParser()

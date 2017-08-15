@@ -18,7 +18,6 @@ final class BrowseViewController: BaseCollectionViewController, LoadingPresentin
     }
     
     var topView = BrowseTopView()
-    
     var tap: UITapGestureRecognizer!
     let loadingPop = LoadingPopover()
     let reachability = Reachability()!
@@ -53,8 +52,52 @@ final class BrowseViewController: BaseCollectionViewController, LoadingPresentin
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tap = UITapGestureRecognizer(target: self, action: #selector(BrowseViewController.selectAt))
-        coordinator?.viewDidLoad(self)
+        self.emptyView = InformationView(data: "No Data", icon: #imageLiteral(resourceName: "mic-icon"))
+        emptyView.layoutSubviews()
+        self.view.addSubview(self.network)
+        self.view.sendSubview(toBack: self.network)
+        network.layoutSubviews()
+        let topFrameHeight = UIScreen.main.bounds.height / 2
+        let topFrameWidth = UIScreen.main.bounds.width
+        let topFrame = CGRect(x: 0, y: 0, width: topFrameWidth, height: topFrameHeight + 40)
+        topView.frame = topFrame
+        loadingPop.configureLoadingOpacity(alpha: 0.2)
+        view.addSubview(topView)
+        view.backgroundColor = .clear
+        topView.backgroundColor = .clear
+        view.addSubview(collectionView)
+        collectionViewConfiguration()
+        network.frame = view.frame
+        collectionView.register(TopPodcastCell.self)
+        collectionView.backgroundColor = .darkGray
+        collectionView.prefetchDataSource = dataSource
+        tap = UITapGestureRecognizer(target: self, action: #selector(selectAt))
+
+        DispatchQueue.main.async { [weak self] in
+            guard let strongSelf = self else { return }
+            strongSelf.collectionView.reloadData()
+        }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(reachabilityDidChange(_:)), name: NSNotification.Name(rawValue: "ReachabilityDidChangeNotificationName"), object: nil)
+        reach?.start()
+    }
+    
+    
+    func setup(view: UIView, newLayout: BrowseItemsFlowLayout) {
+        newLayout.setup()
+        collectionView.collectionViewLayout = newLayout
+        collectionView.frame = CGRect(x: 0, y: view.bounds.midY + 40, width: UIScreen.main.bounds.width, height: (UIScreen.main.bounds.height / 2) - 40)
+        collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+    }
+    
+    func collectionViewConfiguration() {
+        setup(view: view, newLayout: BrowseItemsFlowLayout())
+        collectionView.delegate = self
+        collectionView.dataSource = dataSource
+        collectionView.isPagingEnabled = true
+        collectionView.isScrollEnabled = true
+        collectionView.decelerationRate = UIScrollViewDecelerationRateFast
+        collectionView.backgroundColor = .clear
     }
     
     func reachabilityDidChange(_ notification: Notification) {

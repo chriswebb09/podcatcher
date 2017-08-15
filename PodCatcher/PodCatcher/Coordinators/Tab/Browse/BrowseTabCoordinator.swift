@@ -2,7 +2,7 @@ import UIKit
 import CoreData
 
 final class BrowseTabCoordinator: NavigationCoordinator, BrowseCoordinator {
-
+    
     weak var delegate: CoordinatorDelegate?
     var type: CoordinatorType = .tabbar
     var dataSource: BaseMediaControllerDataSource!
@@ -36,7 +36,7 @@ final class BrowseTabCoordinator: NavigationCoordinator, BrowseCoordinator {
     
     func setupBrowse() {
         let browseViewController = navigationController.viewControllers[0] as! BrowseViewController
-        self.getCaster { items, error in
+        self.getCasterWorkaround { items, error in
             if error != nil {
                 DispatchQueue.main.async {
                     let informationView = InformationView(data: "", icon: #imageLiteral(resourceName: "sad-face"))
@@ -75,12 +75,53 @@ final class BrowseTabCoordinator: NavigationCoordinator, BrowseCoordinator {
         }
     }
     
+    func getCasterWorkaround(completion: @escaping ([CasterSearchResult]?, Error?) -> Void) {
+        let browseViewController = navigationController.viewControllers[0] as! BrowseViewController
+
+        var results = [CasterSearchResult]()
+        let topPodcastGroup = DispatchGroup()
+        var ids: [String] = ["201671138", "1268047665", "1264843400", "1212558767", "1200361736", "1150510297"]
+        for i in 0..<ids.count {
+            self.globalDefault.async(group: topPodcastGroup) {
+                self.fetcher.setLookup(term: ids[i])
+                self.fetcher.searchForTracksFromLookup { result, arg  in
+                    guard let resultItem = result else { return }
+                    resultItem.forEach { resultingData in
+                        guard let resultingData = resultingData else { return }
+                        if let caster = CasterSearchResult(json: resultingData) {
+                            results.append(caster)
+                            DispatchQueue.main.async {
+                                browseViewController.dataSource.items.append(caster)
+                                browseViewController.collectionView.reloadData()
+                                if let artUrl = results[0].podcastArtUrlString, let url = URL(string: artUrl) {
+                                    browseViewController.topView.podcastImageView.downloadImage(url: url)
+                                    dump(browseViewController)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            //}
+        }
+        print("Waiting for completion...")
+        topPodcastGroup.notify(queue: self.globalDefault) {
+            print("Notify received, done waiting.")
+            DispatchQueue.main.async {
+                browseViewController.hideLoadingView(loadingPop: browseViewController.loadingPop)
+                completion(results, nil)
+            }
+        }
+        topPodcastGroup.wait()
+        print("Done waiting.")
+        
+    }
+    
     func getCaster(completion: @escaping ([CasterSearchResult]?, Error?) -> Void) {
         let browseViewController = navigationController.viewControllers[0] as! BrowseViewController
         getTopItems { newItems, error in
             if let error = error {
                 DispatchQueue.main.async {
-                    
                     completion(nil, error)
                 }
             }

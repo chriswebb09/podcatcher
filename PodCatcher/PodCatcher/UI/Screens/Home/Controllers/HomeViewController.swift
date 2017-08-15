@@ -4,9 +4,11 @@ import CoreData
 class HomeViewController: BaseCollectionViewController {
     
     // MARK: - Properties
+    
     var coordinator: HomeCoordinator?
     let userID: String = "none"
     var mode: HomeInteractionMode = .subscription
+    
     weak var delegate: HomeViewControllerDelegate?
     
     var managedContext: NSManagedObjectContext! {

@@ -108,7 +108,6 @@ extension MainCoordinator: CoordinatorDelegate {
         let browseCoord = tabbBarCoordinator.childCoordinators[2] as! BrowseTabCoordinator
         browseViewController.coordinator = browseCoord
         browseCoord.delegate = self
-        browseCoord.start()
         browseCoord.setupBrowse()
         addChildCoordinator(browseCoord)
     }

@@ -12,6 +12,16 @@ class WebDataCache {
 
 extension UIImageView {
     
+
+    func performUIUpdate(using closure: @escaping () -> Void) {
+        // If we are already on the main thread, execute the closure directly
+        if Thread.isMainThread {
+            closure()
+        } else {
+            DispatchQueue.main.async(execute: closure)
+        }
+    }
+    
     func addBlurEffect() {
         let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
@@ -35,18 +45,11 @@ extension UIImageView {
                 print(error?.localizedDescription ?? "Unknown error")
                 return
             }
+            self.image = nil
             if let data = data, let image = UIImage(data: data) {
                 WebDataCache.imageCache.setObject(image, forKey: NSString(string:url.absoluteString))
-                if let error = error {
-                    print(error)
-                    return
-                }
-                if let currentImage = self.image {
-                    self.image = nil
-                    print(currentImage)
-                }
-                DispatchQueue.main.async {
-                    self.image = image
+                self.performUIUpdate {
+                    self.image = UIImage(data: data)
                 }
             }}.resume()
     }

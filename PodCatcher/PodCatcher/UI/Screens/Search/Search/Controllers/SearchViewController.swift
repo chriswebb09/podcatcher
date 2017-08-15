@@ -1,6 +1,39 @@
 import UIKit
 import ReachabilitySwift
 
+internal class Observable<Value>: NSObject {
+    internal var observer: ((Value) -> Void)?
+}
+
+internal class KVObservable<Value>: Observable<Value> {
+    private let keyPath: String
+    private weak var object: AnyObject?
+    private var observingContext = NSUUID().uuidString
+    
+    internal init(keyPath: String, object: AnyObject) {
+        self.keyPath = keyPath
+        self.object = object
+        super.init()
+        
+        object.addObserver(self, forKeyPath: keyPath, options: [.new], context: &observingContext)
+    }
+    
+    deinit {
+        object?.removeObserver(self, forKeyPath: keyPath, context: &observingContext)
+    }
+    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        guard
+            context == &observingContext,
+            let newValue = change?[NSKeyValueChangeKey.newKey] as? Value
+            else {
+                return
+        }
+        
+        observer?(newValue)
+    }
+}
+
 final class SearchViewController: BaseTableViewController {
     
     weak var delegate: SearchViewControllerDelegate?
@@ -16,9 +49,9 @@ final class SearchViewController: BaseTableViewController {
             guard let viewShown = viewShown else { return }
             switch viewShown {
             case .empty:
-                changeView(forView: emptyView, withView: tableView)
+                print("empty")
             case .collection:
-                changeView(forView: tableView, withView: emptyView)
+                print("collection")
             }
         }
     }
@@ -33,15 +66,14 @@ final class SearchViewController: BaseTableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.emptyView = InformationView(data: "No Results", icon: #imageLiteral(resourceName: "podcast"))
+       
         tableView.dataSource = dataSource
         viewShown = dataSource.viewShown
-        view.frame = UIScreen.main.bounds
         tableView.backgroundColor = UIColor(red:0.94, green:0.95, blue:0.96, alpha:1.0)
         tableView.register(SearchResultCell.self, forCellReuseIdentifier: SearchResultCell.reuseIdentifier)
         tableView.delegate = self
         guard let tabbar = self.tabBarController?.tabBar else { return }
-        searchBar.frame = CGRect(x: UIScreen.main.bounds.minX, y: 0, width: UIScreen.main.bounds.width, height: 42)
+        searchBar.frame = CGRect(x: UIScreen.main.bounds.minX, y: (navigationController?.navigationBar.frame.maxY)!, width: UIScreen.main.bounds.width, height: 42)
         let height = (view.frame.height - tabbar.frame.height)
         guard let navHeight = navigationController?.navigationBar.frame.height else { return }
         tableView.frame = CGRect(x: UIScreen.main.bounds.minX, y: navHeight, width: UIScreen.main.bounds.width, height: height)
@@ -49,7 +81,7 @@ final class SearchViewController: BaseTableViewController {
         searchController.defaultConfiguration()
         view.addSubview(searchBar)
         tableView.separatorStyle = .none
-        tableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 5, right: 0)
+        self.searchController.hidesNavigationBarDuringPresentation = false
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -85,6 +117,8 @@ final class SearchViewController: BaseTableViewController {
             glassIconView.image = glassIconView.image?.withRenderingMode(.alwaysTemplate)
             glassIconView.tintColor = .white
         }
+        navigationController?.setNavigationBarHidden(false, animated: false)
+        searchController.navigationController?.setNavigationBarHidden(false, animated: false)
     }
 }
 
@@ -155,7 +189,7 @@ extension SearchViewController: UISearchBarDelegate {
 extension SearchViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UIScreen.main.bounds.height / 8
+        return UIScreen.main.bounds.height / 6
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -196,15 +230,15 @@ extension SearchViewController: UITableViewDelegate {
 }
 extension SearchViewController: UIScrollViewDelegate {
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        view.endEditing(true)
-        searchBar.resignFirstResponder()
-    }
-    
-    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-        guard let tabbar = tabBarController?.tabBar else { return }
-        let height = (view.frame.height - tabbar.frame.height)
-        guard let navHeight = navigationController?.navigationBar.frame.height else { return }
-        tableView.frame = CGRect(x: UIScreen.main.bounds.minX, y: navHeight, width: UIScreen.main.bounds.width, height: height)
-    }
+//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        view.endEditing(true)
+//        searchBar.resignFirstResponder()
+//    }
+//
+//    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+//        guard let tabbar = tabBarController?.tabBar else { return }
+//        let height = (view.frame.height - tabbar.frame.height)
+//        guard let navHeight = navigationController?.navigationBar.frame.height else { return }
+//        tableView.frame = CGRect(x: UIScreen.main.bounds.minX, y: navHeight, width: UIScreen.main.bounds.width, height: height)
+//    }
 }
