@@ -80,7 +80,7 @@ final class BrowseTabCoordinator: NavigationCoordinator, BrowseCoordinator {
 
         var results = [CasterSearchResult]()
         let topPodcastGroup = DispatchGroup()
-        var ids: [String] = ["201671138", "1268047665", "1264843400", "1212558767", "1200361736", "1150510297"]
+        var ids: [String] = ["201671138", "1268047665", "1264843400", "1212558767", "1200361736", "1150510297", "1097193327", "1250180134", "523121474", "1074507850", "173001861", "1028908750"]
         for i in 0..<ids.count {
             self.globalDefault.async(group: topPodcastGroup) {
                 self.fetcher.setLookup(term: ids[i])

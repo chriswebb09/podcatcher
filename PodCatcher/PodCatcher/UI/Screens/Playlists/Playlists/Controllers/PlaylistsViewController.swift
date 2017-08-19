@@ -48,7 +48,6 @@ final class PlaylistsViewController: BaseTableViewController {
         super.viewDidDisappear(animated)
         mode = .add
     }
-    
     @objc func edit() {
         mode = mode == .edit ? .add : .edit
         if navigationItem.leftBarButtonItem != nil {
@@ -214,21 +213,28 @@ extension PlaylistsViewController: TableViewDataSourceDelegate {
     typealias Object = PodcastPlaylist
     
     func configure(_ cell: PlaylistCell, for object: PodcastPlaylist) {
-        var cellMode: PlaylistCellMode = .select
-        switch mode {
-        case .add:
-            cellMode = .select
-        case .edit:
-            cellMode = .delete
-        }
         
-        if let artWorkImageData = object.artwork, let artworkImage = UIImage(data: Data.init(referencing: artWorkImageData)) {
-            cell.configure(image: artworkImage, title: object.playlistName!, mode: cellMode)
+        var cellMode: PlaylistCellMode = .select
+        
+        cellMode = mode == .add ? .select : .delete
+        
+        if var podcast = object.podcast as? Set<PodcastPlaylistItem>, podcast.count > 0 {
+            for (i, n) in podcast.enumerated() {
+    
+                if i == 0 {
+                    if let data = n.artwork, let artworkImage = UIImage(data: Data.init(referencing: data)) {
+                        if var count = object.podcast?.count {
+                            cell.configure(image: artworkImage, title: object.playlistName!, subtitle: "Episodes: \(count)", mode: cellMode)
+                        }
+                    }
+                }
+            }
+            
         } else {
-            if let name = object.playlistName {
-                cell.configure(image: #imageLiteral(resourceName: "light-placehoder-2"), title: name, mode: cellMode)
+            if let name = object.playlistName, var count = object.podcast?.count {
+                cell.configure(image: #imageLiteral(resourceName: "light-placehoder-2"), title: name, subtitle: "Episodes: \(count)", mode: cellMode)
             } else {
-                cell.configure(image: #imageLiteral(resourceName: "light-placehoder-2"), title: "temp", mode: cellMode)
+                cell.configure(image: #imageLiteral(resourceName: "light-placehoder-2"), title: "temp", subtitle: "Episodes: Unknown", mode: cellMode)
             }
         }
     }

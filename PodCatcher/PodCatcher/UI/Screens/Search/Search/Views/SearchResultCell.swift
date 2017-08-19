@@ -13,7 +13,7 @@ class SearchResultCell: UITableViewCell, Reusable {
     var titleLabel: UILabel = {
         let title = UILabel()
         title.textColor = .black
-        title.font = UIFont.systemFont(ofSize: 12, weight: UIFontWeightRegular)
+        title.font = UIFont.systemFont(ofSize: 12, weight: UIFontWeightSemibold)
         title.textAlignment = .center
         title.numberOfLines = 0
         return title
@@ -37,12 +37,11 @@ class SearchResultCell: UITableViewCell, Reusable {
         setup(separatorView: separatorView)
         DispatchQueue.main.async {
             self.albumArtView.layer.cornerRadius = 4
-            self.albumArtView.layer.borderWidth = 1
             let containerLayer = CALayer()
             containerLayer.shadowColor = UIColor.darkText.cgColor
-            containerLayer.shadowRadius = 2
-            containerLayer.shadowOffset = CGSize(width: 1, height: 1)
-            containerLayer.shadowOpacity = 0.6
+            containerLayer.shadowRadius = 1
+            containerLayer.shadowOffset = CGSize(width: 0, height: 0)
+            containerLayer.shadowOpacity = 0.7
             self.albumArtView.layer.masksToBounds = true
             containerLayer.addSublayer(self.albumArtView.layer)
             self.layer.addSublayer(containerLayer)
@@ -52,7 +51,7 @@ class SearchResultCell: UITableViewCell, Reusable {
     func setupShadow() {
         let shadowOffset = CGSize(width:-0.45, height: 0.2)
         let shadowRadius: CGFloat = 1.0
-        let shadowOpacity: Float = 0.4
+        let shadowOpacity: Float = 0.3
         contentView.layer.shadowRadius = shadowRadius
         contentView.layer.shadowOffset = shadowOffset
         contentView.layer.shadowOpacity = shadowOpacity
@@ -62,8 +61,8 @@ class SearchResultCell: UITableViewCell, Reusable {
         contentView.addSubview(separatorView)
         separatorView.translatesAutoresizingMaskIntoConstraints = false
         separatorView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.01).isActive = true
-        separatorView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.72).isActive = true
-        separatorView.rightAnchor.constraint(equalTo: rightAnchor, constant: contentView.bounds.width * -0.02).isActive = true
+        separatorView.widthAnchor.constraint(equalTo: contentView.widthAnchor).isActive = true
+        separatorView.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
         separatorView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
     }
     
@@ -81,7 +80,7 @@ class SearchResultCell: UITableViewCell, Reusable {
         albumArtView.translatesAutoresizingMaskIntoConstraints = false
         albumArtView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: contentView.bounds.width * 0.02).isActive = true
         albumArtView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
-        albumArtView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.84).isActive = true
-        albumArtView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.28).isActive = true
+        albumArtView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.88).isActive = true
+        albumArtView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.29).isActive = true
     }
 }

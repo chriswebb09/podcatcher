@@ -31,18 +31,18 @@ struct SpinAnimation: AnimatableView {
             view.layer.add(rotation, forKey: "rotateStar")
         })
         
-        let jumpAnimation = UIViewPropertyAnimator(duration: 0.1, curve: .linear, animations: {
+        let jumpAnimation = UIViewPropertyAnimator(duration: 0.2, curve: .linear, animations: {
             view.transform = CGAffineTransform.identity
         })
         
-        let growAnimation = UIViewPropertyAnimator(duration: 0.1, curve: .linear, animations: {
-            view.transform = CGAffineTransform(scaleX: 1.06, y: 1.06)
+        let growAnimation = UIViewPropertyAnimator(duration: 0.2, curve: .linear, animations: {
+            view.transform = CGAffineTransform(scaleX: -0.5, y: -0.5)
         })
         
         let shrinkAnimation = UIViewPropertyAnimator(duration: 0.5, curve: .linear, animations: {
             view.transform = CGAffineTransform(scaleX: 1, y: 1)
         })
-        UIView.animate(withDuration: 0.5) {
+        UIView.animate(withDuration: 0.75) {
             spinAnimation.startAnimation()
             jumpAnimation.startAnimation()
             growAnimation.startAnimation()

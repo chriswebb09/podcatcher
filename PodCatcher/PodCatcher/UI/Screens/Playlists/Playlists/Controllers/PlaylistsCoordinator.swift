@@ -25,5 +25,6 @@ extension PlaylistsCoordinator {
         if playlistsVC.playlistsDataSource.itemCount == 0 {
             playlistsVC.navigationItem.leftBarButtonItem = nil
         }
+        
     }
 }

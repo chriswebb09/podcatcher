@@ -166,9 +166,17 @@ extension PlaylistViewController {
     
     func configureTopView() {
         topView.frame = PodcastListConstants.topFrame
-        if let item = item, let urlString = item.podcastArtUrlString, let url = URL(string: urlString) {
-            topView.podcastImageView.downloadImage(url: url)
-        } else {
+        guard let podcast = playlist.podcast else { return }
+        for (_, podItem) in podcast.enumerated() {
+            let item = podItem as! PodcastPlaylistItem
+            if let topImageArtworkData = item.artwork, let artworkImage = UIImage(data: Data.init(referencing: topImageArtworkData)) {
+                topView.podcastImageView.image = artworkImage
+            } else {
+                topView.podcastImageView.image = #imageLiteral(resourceName: "light-placehoder-2")
+            }
+        }
+      
+        if topView.podcastImageView.image == nil {
             topView.podcastImageView.image = #imageLiteral(resourceName: "light-placehoder-2")
         }
         topView.layoutSubviews()
@@ -315,5 +323,3 @@ extension PlaylistViewController: TopViewDelegate {
         print("hidePopMenu")
     }
 }
-
-

@@ -1,39 +1,6 @@
 import UIKit
 import ReachabilitySwift
 
-internal class Observable<Value>: NSObject {
-    internal var observer: ((Value) -> Void)?
-}
-
-internal class KVObservable<Value>: Observable<Value> {
-    private let keyPath: String
-    private weak var object: AnyObject?
-    private var observingContext = NSUUID().uuidString
-    
-    internal init(keyPath: String, object: AnyObject) {
-        self.keyPath = keyPath
-        self.object = object
-        super.init()
-        
-        object.addObserver(self, forKeyPath: keyPath, options: [.new], context: &observingContext)
-    }
-    
-    deinit {
-        object?.removeObserver(self, forKeyPath: keyPath, context: &observingContext)
-    }
-    
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        guard
-            context == &observingContext,
-            let newValue = change?[NSKeyValueChangeKey.newKey] as? Value
-            else {
-                return
-        }
-        
-        observer?(newValue)
-    }
-}
-
 final class SearchViewController: BaseTableViewController {
     
     weak var delegate: SearchViewControllerDelegate?
@@ -66,7 +33,7 @@ final class SearchViewController: BaseTableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+        
         tableView.dataSource = dataSource
         viewShown = dataSource.viewShown
         tableView.backgroundColor = UIColor(red:0.94, green:0.95, blue:0.96, alpha:1.0)
@@ -76,7 +43,7 @@ final class SearchViewController: BaseTableViewController {
         searchBar.frame = CGRect(x: UIScreen.main.bounds.minX, y: (navigationController?.navigationBar.frame.maxY)!, width: UIScreen.main.bounds.width, height: 42)
         let height = (view.frame.height - tabbar.frame.height)
         guard let navHeight = navigationController?.navigationBar.frame.height else { return }
-        tableView.frame = CGRect(x: UIScreen.main.bounds.minX, y: navHeight, width: UIScreen.main.bounds.width, height: height)
+        tableView.frame = CGRect(x: UIScreen.main.bounds.minX, y: navHeight + 5, width: UIScreen.main.bounds.width, height: height)
         searchControllerConfigure()
         searchController.defaultConfiguration()
         view.addSubview(searchBar)
@@ -230,15 +197,15 @@ extension SearchViewController: UITableViewDelegate {
 }
 extension SearchViewController: UIScrollViewDelegate {
     
-//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        view.endEditing(true)
-//        searchBar.resignFirstResponder()
-//    }
-//
-//    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-//        guard let tabbar = tabBarController?.tabBar else { return }
-//        let height = (view.frame.height - tabbar.frame.height)
-//        guard let navHeight = navigationController?.navigationBar.frame.height else { return }
-//        tableView.frame = CGRect(x: UIScreen.main.bounds.minX, y: navHeight, width: UIScreen.main.bounds.width, height: height)
-//    }
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        view.endEditing(true)
+        searchBar.resignFirstResponder()
+    }
+    
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        guard let tabbar = tabBarController?.tabBar else { return }
+        let height = (view.frame.height - tabbar.frame.height)
+        guard let navHeight = navigationController?.navigationBar.frame.height else { return }
+        tableView.frame = CGRect(x: UIScreen.main.bounds.minX, y: navHeight + 5, width: UIScreen.main.bounds.width, height: height)
+    }
 }

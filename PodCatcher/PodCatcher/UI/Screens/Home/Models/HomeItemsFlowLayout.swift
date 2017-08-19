@@ -4,9 +4,10 @@ class HomeItemsFlowLayout: UICollectionViewFlowLayout {
     
     func setup() {
         scrollDirection = .vertical
-        itemSize = CGSize(width: UIScreen.main.bounds.width / 3.4, height: UIScreen.main.bounds.height / 7)
-        sectionInset = UIEdgeInsets(top: 5, left: 10, bottom: 0, right: 10)
-        minimumLineSpacing = 15
+        itemSize = CGSize(width: UIScreen.main.bounds.width / 4, height: UIScreen.main.bounds.height / 8)
+        sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        minimumInteritemSpacing = 0
+        minimumLineSpacing = 0
     }
     
     var appearingIndexPath: IndexPath?
@@ -30,7 +31,7 @@ class HomeItemsFlowLayout: UICollectionViewFlowLayout {
                 let cellAttributes = attributes.copy() as! UICollectionViewLayoutAttributes
                 if attributes.representedElementKind == nil {
                     let frame = cellAttributes.frame
-                    cellAttributes.frame = frame.insetBy(dx: 2.0, dy: 3.0)
+                   // cellAttributes.frame = frame.insetBy(dx: 2.0, dy: 3.0)
                 }
                 cache.append(cellAttributes)
             }

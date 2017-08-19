@@ -1,10 +1,6 @@
 import UIKit
 import ReachabilitySwift
 
-protocol ControllerCoordinator: class {
-    func viewDidLoad(_ viewController: UIViewController)
-}
-
 protocol BrowseCoordinator: ControllerCoordinator { }
 
 extension BrowseCoordinator {

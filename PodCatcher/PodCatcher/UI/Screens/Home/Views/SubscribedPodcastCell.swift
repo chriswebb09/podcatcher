@@ -15,8 +15,8 @@ final class SubscribedPodcastCell: UICollectionViewCell {
         didSet {
             switch cellState {
             case .edit:
-                overlayView.alpha = 0.6
-                deleteImageView.alpha = 1
+                overlayView.alpha = 0.5
+                deleteImageView.alpha = 0.8
             case .done:
                 overlayView.alpha = 0
             }
@@ -75,6 +75,7 @@ final class SubscribedPodcastCell: UICollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         viewConfigurations()
+        
     }
     
     private func viewConfigurations() {
@@ -109,9 +110,9 @@ final class SubscribedPodcastCell: UICollectionViewCell {
     func setup(deleteImageView: UIImageView) {
         overlayView.addSubview(deleteImageView)
         deleteImageView.translatesAutoresizingMaskIntoConstraints = false
-        deleteImageView.topAnchor.constraint(equalTo: overlayView.topAnchor).isActive = true
-        deleteImageView.leftAnchor.constraint(equalTo: overlayView.leftAnchor).isActive = true
-        deleteImageView.heightAnchor.constraint(equalTo: overlayView.heightAnchor, multiplier: 0.2).isActive = true
+        deleteImageView.topAnchor.constraint(equalTo: overlayView.topAnchor, constant: overlayView.frame.height * 0.02).isActive = true
+        deleteImageView.leftAnchor.constraint(equalTo: overlayView.leftAnchor, constant: overlayView.frame.width * 0.02).isActive = true
+        deleteImageView.heightAnchor.constraint(equalTo: overlayView.heightAnchor, multiplier: 0.18).isActive = true
         deleteImageView.widthAnchor.constraint(equalTo: overlayView.widthAnchor, multiplier: 0.18).isActive = true
     }
 }

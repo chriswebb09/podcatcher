@@ -1,9 +1,6 @@
 import Foundation
 import AVFoundation
 
-public extension AVPlayerItem {
-    static let didPlayToEndTime = NotificationDescriptor<()>(name: .AVPlayerItemDidPlayToEndTime) { _ in () }
-}
 
 enum PlayerState {
     case playing, paused, stopped

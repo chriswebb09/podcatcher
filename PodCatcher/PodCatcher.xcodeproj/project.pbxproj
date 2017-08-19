@@ -66,11 +66,11 @@
 		A723B4271F0EB75D00EA6B27 /* PlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A723B4261F0EB75D00EA6B27 /* PlaylistViewController.swift */; };
 		A7240A4B1F243AEF003FC525 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7240A4A1F243AEF003FC525 /* Constants.swift */; };
 		A7252A8E1EFF2A240034EA93 /* ViewType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7252A8D1EFF2A240034EA93 /* ViewType.swift */; };
-		A726B1001F2E682C003E7E11 /* NotificationToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = A726B0FF1F2E682C003E7E11 /* NotificationToken.swift */; };
 		A72E4D471F33D28200E3D1F8 /* CollectionViewDataSourceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72E4D461F33D28200E3D1F8 /* CollectionViewDataSourceDelegate.swift */; };
 		A73172811F00466C006A6A24 /* LocalStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73172801F00466C006A6A24 /* LocalStorageManager.swift */; };
 		A731728B1F004964006A6A24 /* Download.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73172881F004963006A6A24 /* Download.swift */; };
 		A73D74091EE684C4004571A5 /* LoadingPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73D74081EE684C4004571A5 /* LoadingPopover.swift */; };
+		A73DE54E1F46835600A3BA40 /* ControllerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73DE54D1F46835600A3BA40 /* ControllerCoordinator.swift */; };
 		A7673EF71F40E883002DC81B /* PlaylistsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7673EF61F40E883002DC81B /* PlaylistsCoordinator.swift */; };
 		A7673EFB1F40EB10002DC81B /* ProtocolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7673EFA1F40EB10002DC81B /* ProtocolTests.swift */; };
 		A767522F1F0BF6FC007F1100 /* PlaylistsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = A767522E1F0BF6FC007F1100 /* PlaylistsTab.swift */; };
@@ -253,11 +253,11 @@
 		A723B4261F0EB75D00EA6B27 /* PlaylistViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlaylistViewController.swift; path = Playlists/Playlist/PlaylistViewController.swift; sourceTree = "<group>"; };
 		A7240A4A1F243AEF003FC525 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		A7252A8D1EFF2A240034EA93 /* ViewType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewType.swift; path = States/ViewType.swift; sourceTree = "<group>"; };
-		A726B0FF1F2E682C003E7E11 /* NotificationToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationToken.swift; sourceTree = "<group>"; };
 		A72E4D461F33D28200E3D1F8 /* CollectionViewDataSourceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CollectionViewDataSourceDelegate.swift; path = PodCatcher/ApplicationServices/Data/CollectionViewDataSourceDelegate.swift; sourceTree = SOURCE_ROOT; };
 		A73172801F00466C006A6A24 /* LocalStorageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalStorageManager.swift; sourceTree = "<group>"; };
 		A73172881F004963006A6A24 /* Download.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Download.swift; path = Download/Download.swift; sourceTree = "<group>"; };
 		A73D74081EE684C4004571A5 /* LoadingPopover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingPopover.swift; sourceTree = "<group>"; };
+		A73DE54D1F46835600A3BA40 /* ControllerCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControllerCoordinator.swift; sourceTree = "<group>"; };
 		A7673EF61F40E883002DC81B /* PlaylistsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlaylistsCoordinator.swift; path = Playlists/Playlists/Controllers/PlaylistsCoordinator.swift; sourceTree = "<group>"; };
 		A7673EFA1F40EB10002DC81B /* ProtocolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtocolTests.swift; sourceTree = "<group>"; };
 		A767522E1F0BF6FC007F1100 /* PlaylistsTab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlaylistsTab.swift; path = Playlists/PlaylistsTab.swift; sourceTree = "<group>"; };
@@ -436,6 +436,7 @@
 			children = (
 				A7B840C81EECD7160049BB78 /* MainCoordinator.swift */,
 				A71B27281EE5D31300613CF4 /* Coordinator.swift */,
+				A73DE54D1F46835600A3BA40 /* ControllerCoordinator.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -825,7 +826,6 @@
 				A73172801F00466C006A6A24 /* LocalStorageManager.swift */,
 				A76FA18B1F028BEF006A6127 /* RSSDataParser.swift */,
 				A7C0824C1F2C126400FB1B8B /* AudioFilePlayerDelegate.swift */,
-				A726B0FF1F2E682C003E7E11 /* NotificationToken.swift */,
 			);
 			path = LocalServices;
 			sourceTree = "<group>";
@@ -1345,6 +1345,7 @@
 				A7EBA0CA1EE6836400FAAC9C /* NSError+Extension.swift in Sources */,
 				A77041581F29362200346FC7 /* PlaylistsCoreDataStack.swift in Sources */,
 				A7BD12CE1EFF78AB0040FAE5 /* iTunesAPIClient.swift in Sources */,
+				A73DE54E1F46835600A3BA40 /* ControllerCoordinator.swift in Sources */,
 				A71C93A21F2AC5C0009F3EC9 /* BrowseViewControllerDelegate.swift in Sources */,
 				A77041351F292FC000346FC7 /* TabControllerCoordinator.swift in Sources */,
 				A79636BD1F397B1E001B93C7 /* Reachability.swift in Sources */,
@@ -1363,7 +1364,6 @@
 				A7DF81EA1F2DFD1C00ADB86B /* NSLayoutAnchor+Extension.swift in Sources */,
 				A77041421F29325A00346FC7 /* ConfirmView.swift in Sources */,
 				A71ADFB11F0E285700941A43 /* SearchControllerDataSource.swift in Sources */,
-				A726B1001F2E682C003E7E11 /* NotificationToken.swift in Sources */,
 				A7673EF71F40E883002DC81B /* PlaylistsCoordinator.swift in Sources */,
 				A770415A1F29368300346FC7 /* CoreDataStack.swift in Sources */,
 				A710CA871F346279009153AC /* PodcastPlaylistItem+CoreDataClass.swift in Sources */,

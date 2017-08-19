@@ -59,7 +59,7 @@ final class BrowseViewController: BaseCollectionViewController, LoadingPresentin
         network.layoutSubviews()
         let topFrameHeight = UIScreen.main.bounds.height / 2
         let topFrameWidth = UIScreen.main.bounds.width
-        let topFrame = CGRect(x: 0, y: 0, width: topFrameWidth, height: topFrameHeight + 40)
+        let topFrame = CGRect(x: 0, y: 0, width: topFrameWidth, height: topFrameHeight + 100)
         topView.frame = topFrame
         loadingPop.configureLoadingOpacity(alpha: 0.2)
         view.addSubview(topView)
@@ -72,7 +72,7 @@ final class BrowseViewController: BaseCollectionViewController, LoadingPresentin
         collectionView.backgroundColor = .darkGray
         collectionView.prefetchDataSource = dataSource
         tap = UITapGestureRecognizer(target: self, action: #selector(selectAt))
-
+        
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }
             strongSelf.collectionView.reloadData()
@@ -86,7 +86,7 @@ final class BrowseViewController: BaseCollectionViewController, LoadingPresentin
     func setup(view: UIView, newLayout: BrowseItemsFlowLayout) {
         newLayout.setup()
         collectionView.collectionViewLayout = newLayout
-        collectionView.frame = CGRect(x: 0, y: view.bounds.midY + 40, width: UIScreen.main.bounds.width, height: (UIScreen.main.bounds.height / 2) - 40)
+        collectionView.frame = CGRect(x: 0, y: view.bounds.midY + 100, width: UIScreen.main.bounds.width, height: (UIScreen.main.bounds.height / 2) - 100)
         collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
     

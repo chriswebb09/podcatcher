@@ -13,7 +13,7 @@ final class PlaylistCell: UITableViewCell, Reusable {
                 deleteImageView.image = image
                 deleteImageView.tintColor = .darkGray
             case .delete:
-                deleteImageView.alpha = 1
+                deleteImageView.alpha = 0.6
                 let image = #imageLiteral(resourceName: "circle-x").withRenderingMode(.alwaysTemplate)
                 deleteImageView.image = image
                 deleteImageView.tintColor = .red
@@ -24,6 +24,12 @@ final class PlaylistCell: UITableViewCell, Reusable {
     var albumArtView: UIImageView = {
         var album = UIImageView()
         return album
+    }()
+    
+    var separatorView: UIView = {
+        let separatorView = UIView()
+        separatorView.backgroundColor = .clear
+        return separatorView
     }()
     
     var titleLabel: UILabel = {
@@ -51,20 +57,32 @@ final class PlaylistCell: UITableViewCell, Reusable {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        contentView.layer.borderWidth = 1
+        //contentView.layer.borderWidth = 1
         setup(titleLabel: titleLabel)
         setup(numberOfItemsLabel: numberOfItemsLabel)
         setup(albumArtView: albumArtView)
         setup(deleteImageView: deleteImageView)
         selectionStyle = .none
         albumArtView.layer.setCellShadow(contentView: self)
+        setupSeparator()
     }
     
-    func configure(image: UIImage, title: String, mode: PlaylistCellMode) {
+    private func setShadow() {
+        layer.setCellShadow(contentView: contentView)
+        let path =  UIBezierPath(roundedRect: bounds, cornerRadius: contentView.layer.cornerRadius)
+        layer.shadowPath = path.cgPath
+    }
+    
+    func configure(image: UIImage, title: String, subtitle: String?, mode: PlaylistCellMode) {
+        setShadow()
         self.mode = mode
         self.albumArtView.image = image
         self.titleLabel.text = title.uppercased()
-        self.numberOfItemsLabel.text = "Podcasts"
+        if let subtitle = subtitle {
+            self.numberOfItemsLabel.text = subtitle
+        } else {
+            self.numberOfItemsLabel.text = "Podcasts"
+        }
     }
     
     func setupShadow() {
@@ -108,7 +126,31 @@ final class PlaylistCell: UITableViewCell, Reusable {
         deleteImageView.translatesAutoresizingMaskIntoConstraints = false
         deleteImageView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: contentView.bounds.width * -0.04).isActive = true
         deleteImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
-        deleteImageView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.24).isActive = true
+        deleteImageView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.26).isActive = true
         deleteImageView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.08).isActive = true
+    }
+    
+    func setupSeparator() {
+        setup(separatorView: separatorView)
+        DispatchQueue.main.async {
+            self.albumArtView.layer.cornerRadius = 4
+            self.albumArtView.layer.borderWidth = 1
+            let containerLayer = CALayer()
+            containerLayer.shadowColor = UIColor.darkText.cgColor
+            containerLayer.shadowRadius = 2
+            containerLayer.shadowOffset = CGSize(width: 1, height: 1)
+            containerLayer.shadowOpacity = 0.6
+            self.albumArtView.layer.masksToBounds = true
+            containerLayer.addSublayer(self.albumArtView.layer)
+            self.layer.addSublayer(containerLayer)
+        }
+    }
+    
+    func setup(separatorView: UIView) {
+        contentView.addSubview(separatorView)
+        separatorView.translatesAutoresizingMaskIntoConstraints = false
+        separatorView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.01).isActive = true
+        separatorView.widthAnchor.constraint(equalTo: contentView.widthAnchor).isActive = true
+        separatorView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
     }
 }

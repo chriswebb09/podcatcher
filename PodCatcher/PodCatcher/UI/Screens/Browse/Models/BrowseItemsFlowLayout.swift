@@ -4,9 +4,9 @@ final class BrowseItemsFlowLayout: UICollectionViewFlowLayout {
     
     func setup() {
         scrollDirection = .horizontal
-        itemSize = CGSize(width: UIScreen.main.bounds.width / 2, height: UIScreen.main.bounds.height / 2.8)
-        sectionInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 15)
-        minimumLineSpacing = 30
+        itemSize = CGSize(width: UIScreen.main.bounds.width / 2, height: UIScreen.main.bounds.height / 3.2)
+        sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        minimumLineSpacing = 0
     }
     
     var appearingIndexPath: IndexPath?
@@ -29,7 +29,7 @@ final class BrowseItemsFlowLayout: UICollectionViewFlowLayout {
                 let cellAttributes = attributes.copy() as! UICollectionViewLayoutAttributes
                 if attributes.representedElementKind == nil {
                     let frame = cellAttributes.frame
-                    cellAttributes.frame = frame.insetBy(dx: 2.0, dy: 3.0)
+                    //cellAttributes.frame = frame.insetBy(dx: 2.0, dy: 3.0)
                 }
                 cache.append(cellAttributes)
             }

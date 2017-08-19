@@ -152,7 +152,7 @@ extension SearchResultListViewController {
         guard let tabBar = self.tabBarController?.tabBar else { return }
         guard let navHeight = navigationController?.navigationBar.frame.height else { return }
         let viewHeight = (view.bounds.height - navHeight) - 90
-        collectionView.frame = CGRect(x: topView.bounds.minX, y: topView.frame.maxY + (tabBar.frame.height + 10), width: view.bounds.width, height: viewHeight - (topView.frame.height - tabBar.frame.height))
+        collectionView.frame = CGRect(x: topView.bounds.minX, y: topView.frame.maxY + (tabBar.frame.height + 10), width: view.bounds.width, height: viewHeight - (topView.frame.height - 90))
         collectionView.backgroundColor = .clear
         guard let casters = dataSource.casters else { return }
         if casters.count > 0 {
@@ -185,7 +185,7 @@ extension SearchResultListViewController: UIScrollViewDelegate {
                 self.topView.alpha = 1
                 self.topView.layoutSubviews()
                 self.view.addSubview(self.topView)
-                self.collectionView.frame = CGRect(x: self.topView.bounds.minX, y: self.topView.frame.maxY, width: self.view.bounds.width, height: viewHeight - (self.topView.frame.height - tabBar.frame.height))
+                self.collectionView.frame = CGRect(x: self.topView.bounds.minX, y: self.topView.frame.maxY, width: self.view.bounds.width, height: viewHeight - (self.topView.frame.height - 80))
             }
         }
     }

@@ -22,7 +22,7 @@ final class PlayerViewController: BaseViewController, ErrorPresenting, LoadingPr
     var menuActive: MenuActive = .none
     var didPlayToEnd: (() -> ())?
     
-    private var didPlayToEndTimeToken: NotificationToken?
+    // private var didPlayToEndTimeToken: NotificationToken?
     
     @objc var player: AudioFilePlayer {
         didSet {
@@ -85,11 +85,7 @@ final class PlayerViewController: BaseViewController, ErrorPresenting, LoadingPr
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         didPlayToEnd = done
-        if let playerItem = player.player.currentItem {
-            didPlayToEndTimeToken = NotificationCenter.default.addObserver(descriptor: AVPlayerItem.didPlayToEndTime, object: playerItem) { [unowned self] _ in
-                self.didPlayToEnd?()
-            }
-        }
+        
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -104,7 +100,7 @@ final class PlayerViewController: BaseViewController, ErrorPresenting, LoadingPr
             player.player.removeTimeObserver(timeObserverToken)
             self.timeObserverToken = nil
         }
-        didPlayToEndTimeToken = nil
+        
         player.player.pause()
     }
     

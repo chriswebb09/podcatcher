@@ -17,15 +17,25 @@ final internal class TopPodcastCell: UICollectionViewCell {
     
     private var titleView: UIView = {
         var titleView = UIView()
-        titleView.backgroundColor = UIColor(red:0.84, green:0.85, blue:0.86, alpha:1.0)
-        titleView.layer.cornerRadius = 3
+        titleView.backgroundColor = .clear
         return titleView
     }()
     
+    
+    private var titleBackgroundView: UIView = {
+        var titleView = UIView()
+        titleView.backgroundColor = .black
+        titleView.alpha = 0.6
+        //titleView.layer.cornerRadius = 3
+        return titleView
+    }()
+    
+    
     var trackNameLabel: UILabel = {
         var trackName = UILabel()
-        trackName.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightRegular)
+        trackName.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightSemibold)
         trackName.textAlignment = .center
+        trackName.textColor = .white
         trackName.numberOfLines = 0
         return trackName
     }()
@@ -43,19 +53,19 @@ final internal class TopPodcastCell: UICollectionViewCell {
         trackNameLabel.text = title
         albumArtView.image = #imageLiteral(resourceName: "placeholder")
         albumArtView.downloadImage(url: imageUrl)
-        layer.borderWidth = 1
-        contentView.layer.cornerRadius = 3
-        layer.borderColor = UIColor.lightText.cgColor
-        contentView.backgroundColor = Colors.lightCharcoal
+        //layer.borderWidth = 1
+      //  contentView.layer.cornerRadius = 3
+       // layer.borderColor = UIColor.lightText.cgColor
+      //  contentView.backgroundColor = Colors.lightCharcoal
         albumArtView.layer.setCellShadow(contentView: self)
     }
     
     func configureCell(with model: TopPodcastCellViewModel, withTime: Double) {
         viewModel = model
-        layer.borderWidth = 1
-        contentView.layer.cornerRadius = 3
-        layer.borderColor = UIColor.lightText.cgColor
-        contentView.backgroundColor = Colors.lightCharcoal
+       // layer.borderWidth = 1
+       // contentView.layer.cornerRadius = 3
+       // layer.borderColor = UIColor.lightText.cgColor
+        //contentView.backgroundColor = Colors.lightCharcoal
     }
     
     override func layoutSubviews() {
@@ -69,26 +79,36 @@ final internal class TopPodcastCell: UICollectionViewCell {
         setShadow()
         setup(albumArtView: albumArtView)
         setup(titleView: titleView)
+        setup(titleBackgroundView: titleBackgroundView)
         setup(trackNameLabel: trackNameLabel)
-        layer.cornerRadius = 4
+        //layer.cornerRadius = 4
     }
     
     private func setup(albumArtView: UIImageView) {
         contentView.addSubview(albumArtView)
         albumArtView.translatesAutoresizingMaskIntoConstraints = false
-        albumArtView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: contentView.frame.height * -0.11).isActive =  true
+        albumArtView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive =  true
         albumArtView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-        albumArtView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.6).isActive = true
-        albumArtView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.8).isActive = true
+        albumArtView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.8).isActive = true
+        albumArtView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.9).isActive = true
     }
     
     private func setup(titleView: UIView) {
-        contentView.addSubview(titleView)
+        albumArtView.addSubview(titleView)
         titleView.translatesAutoresizingMaskIntoConstraints = false
-        titleView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.2).isActive = true
-        titleView.widthAnchor.constraint(equalTo: contentView.widthAnchor).isActive = true
-        titleView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
-        titleView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+        titleView.heightAnchor.constraint(equalTo: albumArtView.heightAnchor, multiplier: 0.3).isActive = true
+        titleView.widthAnchor.constraint(equalTo: albumArtView.widthAnchor).isActive = true
+        titleView.bottomAnchor.constraint(equalTo: albumArtView.bottomAnchor).isActive = true
+        titleView.centerXAnchor.constraint(equalTo: albumArtView.centerXAnchor).isActive = true
+    }
+    
+    private func setup(titleBackgroundView: UIView) {
+        titleView.addSubview(titleBackgroundView)
+        titleBackgroundView.translatesAutoresizingMaskIntoConstraints = false
+        titleBackgroundView.heightAnchor.constraint(equalTo: titleView.heightAnchor).isActive = true
+        titleBackgroundView.widthAnchor.constraint(equalTo: titleView.widthAnchor).isActive = true
+        titleBackgroundView.bottomAnchor.constraint(equalTo: titleView.bottomAnchor).isActive = true
+        titleBackgroundView.centerXAnchor.constraint(equalTo: titleView.centerXAnchor).isActive = true
     }
     
     private func setup(trackNameLabel: UILabel) {
