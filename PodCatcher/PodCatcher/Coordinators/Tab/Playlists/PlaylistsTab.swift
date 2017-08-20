@@ -2,6 +2,7 @@ import UIKit
 import CoreData
 
 final class PlaylistsTabCoordinator: NavigationCoordinator, PlaylistsCoordinator {
+    
     func editTapped(tapped: Bool) {
         let playlistsViewController = navigationController.viewControllers[0] as! PlaylistsViewController
         
@@ -14,15 +15,6 @@ final class PlaylistsTabCoordinator: NavigationCoordinator, PlaylistsCoordinator
         DispatchQueue.main.async {
             playlistsViewController.tableView.reloadData()
         }
-        //        @objc func edit() {
-        //            mode = mode == .edit ? .add : .edit
-        //            if navigationItem.leftBarButtonItem != nil {
-        //                leftButtonItem.title = mode == .edit ? "Done" : "Edit"
-        //            }
-        //            DispatchQueue.main.async {
-        //                self.tableView.reloadData()
-        //            }
-        //        }
     }
     
     

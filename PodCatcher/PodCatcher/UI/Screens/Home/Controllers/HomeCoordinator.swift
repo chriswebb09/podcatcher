@@ -16,10 +16,6 @@ extension HomeCoordinator {
         homeVC.collectionView.frame = UIScreen.main.bounds
         homeVC.collectionView.register(SubscribedPodcastCell.self)
         homeVC.collectionView.setupBackground(frame: homeVC.view.bounds)
-        guard let background = homeVC.collectionView.backgroundView else { return }
-//        CALayer.createGradientLayer(with: [UIColor.white.cgColor, UIColor.lightGray.cgColor], layer: background.layer, bounds: homeVC.collectionView.bounds)
-//   
-        homeVC.rightButtonItem.tintColor = .white
         homeVC.navigationItem.setRightBarButton(homeVC.rightButtonItem, animated: false)
         homeVC.homeDataSource = CollectionViewDataSource(collectionView: homeVC.collectionView, identifier: SubscribedPodcastCell.reuseIdentifier, fetchedResultsController: homeVC.fetchedResultsController, delegate: homeVC)
         homeVC.fetchedResultsController.delegate = homeVC.homeDataSource

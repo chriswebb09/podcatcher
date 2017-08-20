@@ -42,13 +42,13 @@ final class SearchViewController: BaseTableViewController {
         guard let tabbar = self.tabBarController?.tabBar else { return }
         searchBar.frame = CGRect(x: UIScreen.main.bounds.minX, y: (navigationController?.navigationBar.frame.maxY)!, width: UIScreen.main.bounds.width, height: 42)
         let height = (view.frame.height - tabbar.frame.height)
-        guard let navHeight = navigationController?.navigationBar.frame.height else { return }
-        tableView.frame = CGRect(x: UIScreen.main.bounds.minX, y: navHeight + 5, width: UIScreen.main.bounds.width, height: height)
+        guard let navBar = navigationController?.navigationBar else { return }
+        tableView.frame = CGRect(x: UIScreen.main.bounds.minX, y: navBar.frame.maxY, width: UIScreen.main.bounds.width, height: height)
         searchControllerConfigure()
         searchController.defaultConfiguration()
         view.addSubview(searchBar)
         tableView.separatorStyle = .none
-        self.searchController.hidesNavigationBarDuringPresentation = false
+        searchController.hidesNavigationBarDuringPresentation = false
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -202,10 +202,10 @@ extension SearchViewController: UIScrollViewDelegate {
         searchBar.resignFirstResponder()
     }
     
-    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-        guard let tabbar = tabBarController?.tabBar else { return }
-        let height = (view.frame.height - tabbar.frame.height)
-        guard let navHeight = navigationController?.navigationBar.frame.height else { return }
-        tableView.frame = CGRect(x: UIScreen.main.bounds.minX, y: navHeight + 5, width: UIScreen.main.bounds.width, height: height)
-    }
+//    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+//        guard let tabbar = tabBarController?.tabBar else { return }
+//        let height = (view.frame.height - tabbar.frame.height)
+//        guard let navHeight = navigationController?.navigationBar.frame.height else { return }
+//        tableView.frame = CGRect(x: UIScreen.main.bounds.minX, y: navHeight + 5, width: UIScreen.main.bounds.width, height: height)
+//    }
 }

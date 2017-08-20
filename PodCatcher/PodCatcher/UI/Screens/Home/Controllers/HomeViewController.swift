@@ -58,9 +58,6 @@ class HomeViewController: BaseCollectionViewController {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.topItem?.title = "Subscribed Podcasts"
         homeDataSource.reloadData()
-        DispatchQueue.main.async {
-            self.collectionView.reloadData()
-        }
         if homeDataSource.itemCount == 0 {
             DispatchQueue.main.async {
                 self.mode = .subscription

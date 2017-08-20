@@ -12,7 +12,7 @@ class WebDataCache {
 
 extension UIImageView {
     
-
+    
     func performUIUpdate(using closure: @escaping () -> Void) {
         // If we are already on the main thread, execute the closure directly
         if Thread.isMainThread {
@@ -45,7 +45,9 @@ extension UIImageView {
                 print(error?.localizedDescription ?? "Unknown error")
                 return
             }
-            self.image = nil
+            self.performUIUpdate {
+                self.image = nil
+            }
             if let data = data, let image = UIImage(data: data) {
                 WebDataCache.imageCache.setObject(image, forKey: NSString(string:url.absoluteString))
                 self.performUIUpdate {
@@ -77,8 +79,11 @@ extension UIImage {
     
     static func downloadImageFromUrl(_ url: String, completionHandler: @escaping (UIImage?) -> Void) {
         guard let url = URL(string: url) else {
-            completionHandler(nil)
-            return
+            DispatchQueue.main.async {
+                completionHandler(nil)
+               
+            }
+             return
         }
         let task: URLSessionDataTask = URLSession.shared.dataTask(with: url, completionHandler: { data, response, error in
             guard let httpURLResponse = response as? HTTPURLResponse , httpURLResponse.statusCode == 200,

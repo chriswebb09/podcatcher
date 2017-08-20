@@ -26,7 +26,6 @@ final internal class TopPodcastCell: UICollectionViewCell {
         var titleView = UIView()
         titleView.backgroundColor = .black
         titleView.alpha = 0.6
-        //titleView.layer.cornerRadius = 3
         return titleView
     }()
     
@@ -53,19 +52,11 @@ final internal class TopPodcastCell: UICollectionViewCell {
         trackNameLabel.text = title
         albumArtView.image = #imageLiteral(resourceName: "placeholder")
         albumArtView.downloadImage(url: imageUrl)
-        //layer.borderWidth = 1
-      //  contentView.layer.cornerRadius = 3
-       // layer.borderColor = UIColor.lightText.cgColor
-      //  contentView.backgroundColor = Colors.lightCharcoal
         albumArtView.layer.setCellShadow(contentView: self)
     }
     
     func configureCell(with model: TopPodcastCellViewModel, withTime: Double) {
         viewModel = model
-       // layer.borderWidth = 1
-       // contentView.layer.cornerRadius = 3
-       // layer.borderColor = UIColor.lightText.cgColor
-        //contentView.backgroundColor = Colors.lightCharcoal
     }
     
     override func layoutSubviews() {
@@ -81,7 +72,6 @@ final internal class TopPodcastCell: UICollectionViewCell {
         setup(titleView: titleView)
         setup(titleBackgroundView: titleBackgroundView)
         setup(trackNameLabel: trackNameLabel)
-        //layer.cornerRadius = 4
     }
     
     private func setup(albumArtView: UIImageView) {

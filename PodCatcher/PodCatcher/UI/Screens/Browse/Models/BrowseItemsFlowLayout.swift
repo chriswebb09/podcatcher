@@ -27,10 +27,6 @@ final class BrowseItemsFlowLayout: UICollectionViewFlowLayout {
         if let layoutAttributes = super.layoutAttributesForElements(in: rect) {
             for attributes in layoutAttributes {
                 let cellAttributes = attributes.copy() as! UICollectionViewLayoutAttributes
-                if attributes.representedElementKind == nil {
-                    let frame = cellAttributes.frame
-                    //cellAttributes.frame = frame.insetBy(dx: 2.0, dy: 3.0)
-                }
                 cache.append(cellAttributes)
             }
         }

@@ -15,6 +15,7 @@ final class PlaylistsViewController: BaseTableViewController {
     var mode: PlaylistsInteractionMode = .add
     var casterItemToSave: CasterSearchResult!
     var index: Int!
+    
     var item: CasterSearchResult!
     
     var managedContext: NSManagedObjectContext! {
@@ -98,9 +99,16 @@ extension PlaylistsViewController: UITableViewDelegate {
             }
             let playlist = fetchedResultsController.object(at: indexPath)
             podcastItem.playlist = playlist
-            do {
-                if let context = playlist.managedObjectContext {
-                    try! context.save()
+            playlist.addToPodcast(podcastItem)
+            if let context = podcastItem.managedObjectContext {
+                context.performAndWait() {
+                    do {
+                        //if let context = playlist.managedObjectContext {
+                        try context.save()
+                        //}
+                    } catch let error {
+                        print(error.localizedDescription)
+                    }
                 }
             }
         case .checkList:
@@ -218,12 +226,11 @@ extension PlaylistsViewController: TableViewDataSourceDelegate {
         
         cellMode = mode == .add ? .select : .delete
         
-        if var podcast = object.podcast as? Set<PodcastPlaylistItem>, podcast.count > 0 {
+        if let podcast = object.podcast as? Set<PodcastPlaylistItem>, podcast.count > 0 {
             for (i, n) in podcast.enumerated() {
-    
                 if i == 0 {
                     if let data = n.artwork, let artworkImage = UIImage(data: Data.init(referencing: data)) {
-                        if var count = object.podcast?.count {
+                        if let count = object.podcast?.count {
                             cell.configure(image: artworkImage, title: object.playlistName!, subtitle: "Episodes: \(count)", mode: cellMode)
                         }
                     }
@@ -231,7 +238,7 @@ extension PlaylistsViewController: TableViewDataSourceDelegate {
             }
             
         } else {
-            if let name = object.playlistName, var count = object.podcast?.count {
+            if let name = object.playlistName, let count = object.podcast?.count {
                 cell.configure(image: #imageLiteral(resourceName: "light-placehoder-2"), title: name, subtitle: "Episodes: \(count)", mode: cellMode)
             } else {
                 cell.configure(image: #imageLiteral(resourceName: "light-placehoder-2"), title: "temp", subtitle: "Episodes: Unknown", mode: cellMode)

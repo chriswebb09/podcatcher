@@ -116,3 +116,61 @@ extension HomeTabCoordinator: PlayerViewControllerDelegate {
         navigationController.viewControllers.last?.tabBarController?.tabBar.alpha = 1
     }
 }
+
+import UIKit
+
+class ForwardAnimator : NSObject, UIViewControllerAnimatedTransitioning {
+    
+    let duration = 1.0
+    var presenting = true
+    var originFrame = CGRect.zero
+    let animationTime: TimeInterval = 0.5
+    var identity = CATransform3DIdentity
+    
+    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
+        print("FORWARD")
+        return 1
+    }
+    
+    func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+        let fromViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from)!
+        let toViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to)!
+        let finalFrameForVC = transitionContext.finalFrame(for: toViewController)
+        let containerView = transitionContext.containerView
+        let bounds = UIScreen.main.bounds
+        toViewController.view.frame = finalFrameForVC.offsetBy(dx: 0, dy: bounds.size.height)
+        containerView.addSubview(toViewController.view)
+        
+        UIView.animate(withDuration: transitionDuration(using: transitionContext), delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.0, options: .curveLinear, animations: {
+            fromViewController.view.alpha = 0.5
+            toViewController.view.frame = finalFrameForVC
+        }, completion: {
+            finished in
+            transitionContext.completeTransition(true)
+            fromViewController.view.alpha = 1.0
+        })
+        //  let containerView = transitionContext.containerView
+        //        let toView = transitionContext.view(forKey: .to)!
+        //        let fromView = presenting ? toView : transitionContext.view(forKey: .from)!
+        //        let initialFrame = presenting ? originFrame : fromView.frame
+        //        let finalFrame = presenting ? fromView.frame : originFrame
+        //        let xScaleFactor = presenting ? initialFrame.width / finalFrame.width : finalFrame.width / initialFrame.width
+        //        let yScaleFactor = presenting ? initialFrame.height / finalFrame.height : finalFrame.height / initialFrame.height
+        //        let scaleTransform = CGAffineTransform(scaleX: xScaleFactor, y: yScaleFactor)
+        //        if presenting {
+        //            fromView.alpha = 0
+        //            fromView.transform = scaleTransform
+        //            fromView.center = CGPoint(x: initialFrame.midX, y: initialFrame.midY)
+        //            fromView.clipsToBounds = true
+        //        }
+        //        containerView.addSubview(toView)
+        //        containerView.bringSubview(toFront: fromView)
+        //        UIView.animate(withDuration: duration, delay:0.0, usingSpringWithDamping: 0.84, initialSpringVelocity: 0.0, animations: {
+        //            fromView.transform = self.presenting ? CGAffineTransform.identity : scaleTransform
+        //            fromView.center = CGPoint(x: finalFrame.center.x, y: finalFrame.center.y)
+        //            fromView.alpha = CGFloat(max(0.2, 1.0))
+        //        }, completion:{ finished in
+        //          //  transitionContext.completeTransition(true)
+        //        })
+    }
+}

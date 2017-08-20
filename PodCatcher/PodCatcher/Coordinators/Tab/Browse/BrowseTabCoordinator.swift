@@ -77,7 +77,6 @@ final class BrowseTabCoordinator: NavigationCoordinator, BrowseCoordinator {
     
     func getCasterWorkaround(completion: @escaping ([CasterSearchResult]?, Error?) -> Void) {
         let browseViewController = navigationController.viewControllers[0] as! BrowseViewController
-
         var results = [CasterSearchResult]()
         let topPodcastGroup = DispatchGroup()
         var ids: [String] = ["201671138", "1268047665", "1264843400", "1212558767", "1200361736", "1150510297", "1097193327", "1250180134", "523121474", "1074507850", "173001861", "1028908750"]
@@ -102,7 +101,6 @@ final class BrowseTabCoordinator: NavigationCoordinator, BrowseCoordinator {
                     }
                 }
             }
-            //}
         }
         print("Waiting for completion...")
         topPodcastGroup.notify(queue: self.globalDefault) {
@@ -114,7 +112,6 @@ final class BrowseTabCoordinator: NavigationCoordinator, BrowseCoordinator {
         }
         topPodcastGroup.wait()
         print("Done waiting.")
-        
     }
     
     func getCaster(completion: @escaping ([CasterSearchResult]?, Error?) -> Void) {
@@ -129,9 +126,10 @@ final class BrowseTabCoordinator: NavigationCoordinator, BrowseCoordinator {
             let topPodcastGroup = DispatchGroup()
             guard let newItems = newItems else { return }
             for i in 0..<newItems.count {
-                self.globalDefault.async(group: topPodcastGroup) {
-                    self.fetcher.setLookup(term: newItems[i].id)
-                    self.fetcher.searchForTracksFromLookup { result, arg  in
+                self.globalDefault.async(group: topPodcastGroup) { [ weak self] in
+                    guard let strongSelf = self else { return }
+                    strongSelf.fetcher.setLookup(term: newItems[i].id)
+                    strongSelf.fetcher.searchForTracksFromLookup { result, arg  in
                         guard let resultItem = result else { return }
                         resultItem.forEach { resultingData in
                             guard let resultingData = resultingData else { return }
@@ -172,18 +170,17 @@ extension BrowseTabCoordinator: BrowseViewControllerDelegate {
         resultsList.item = caster as! CasterSearchResult
         let browseViewController = navigationController.viewControllers[0] as! BrowseViewController
         guard let feedUrlString = resultsList.item.feedUrl else { return }
+        browseViewController.showLoadingView(loadingPop: browseViewController.loadingPop)
         let store = SearchResultsDataStore()
         let concurrent = DispatchQueue(label: "concurrentBackground", qos: .background, attributes: .concurrent, autoreleaseFrequency: .inherit, target: nil)
-        concurrent.async { [weak self] in
-            guard let strongSelf = self else { return }
-            store.pullFeed(for: feedUrlString) { response, arg  in
-                guard let episodes = response else { return }
-                resultsList.episodes = episodes
-                DispatchQueue.main.async {
-                    resultsList.collectionView.reloadData()
-                    strongSelf.navigationController.pushViewController(resultsList, animated: false)
-                    browseViewController.collectionView.isUserInteractionEnabled = true
-                }
+        store.pullFeed(for: feedUrlString) { response, arg  in
+            guard let episodes = response else { return }
+            resultsList.episodes = episodes
+            DispatchQueue.main.async { [weak self] in
+                guard let strongSelf = self else { return }
+                browseViewController.hideLoadingView(loadingPop: browseViewController.loadingPop)
+                strongSelf.navigationController.pushViewController(resultsList, animated: false)
+                browseViewController.collectionView.isUserInteractionEnabled = true
             }
         }
     }
@@ -196,13 +193,12 @@ extension BrowseTabCoordinator: PodcastListViewControllerDelegate {
         playerPodcast.episodes = episodes
         playerPodcast.index = index
         DispatchQueue.main.async { [weak self] in
-            if let strongSelf = self {
-                let playerViewController = PlayerViewController(index: index, caster: playerPodcast, image: nil)
-                playerViewController.delegate = strongSelf
-                strongSelf.navigationController.navigationBar.isTranslucent = true
-                strongSelf.navigationController.navigationBar.alpha = 0
-                strongSelf.navigationController.pushViewController(playerViewController, animated: false)
-            }
+            guard let strongSelf = self else { return }
+            let playerViewController = PlayerViewController(index: index, caster: playerPodcast, image: nil)
+            playerViewController.delegate = strongSelf
+            strongSelf.navigationController.navigationBar.isTranslucent = true
+            strongSelf.navigationController.navigationBar.alpha = 0
+            strongSelf.navigationController.pushViewController(playerViewController, animated: false)
         }
     }
 }
