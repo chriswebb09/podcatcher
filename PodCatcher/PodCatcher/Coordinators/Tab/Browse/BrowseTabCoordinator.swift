@@ -94,7 +94,7 @@ final class BrowseTabCoordinator: NavigationCoordinator, BrowseCoordinator {
                                 browseViewController.collectionView.reloadData()
                                 if let artUrl = results[0].podcastArtUrlString, let url = URL(string: artUrl) {
                                     browseViewController.topView.podcastImageView.downloadImage(url: url)
-                                    dump(browseViewController)
+                                 //  dump(browseViewController)
                                 }
                             }
                         }

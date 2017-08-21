@@ -125,13 +125,14 @@ final internal class TopPodcastCell: UICollectionViewCell {
     }
     
     func updateAppearanceFor(_ model: TopPodcastCellViewModel?, animated: Bool = true) {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
+            guard let strongSelf = self else { return }
             if animated {
                 UIView.animate(withDuration: 0.5) {
-                    self.displayCellContent(model)
+                    strongSelf.displayCellContent(model)
                 }
             } else {
-                self.displayCellContent(model)
+                strongSelf.displayCellContent(model)
             }
         }
     }

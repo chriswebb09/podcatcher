@@ -49,6 +49,17 @@ final class PlaylistsViewController: BaseTableViewController {
         super.viewDidDisappear(animated)
         mode = .add
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.topItem?.title = "Playlists".uppercased()
+        navigationController?.navigationBar.topItem?.titleView?.alpha = 1
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        navigationController?.navigationBar.topItem?.titleView?.alpha = 0
+    }
+    
     @objc func edit() {
         mode = mode == .edit ? .add : .edit
         if navigationItem.leftBarButtonItem != nil {
@@ -103,9 +114,7 @@ extension PlaylistsViewController: UITableViewDelegate {
             if let context = podcastItem.managedObjectContext {
                 context.performAndWait() {
                     do {
-                        //if let context = playlist.managedObjectContext {
                         try context.save()
-                        //}
                     } catch let error {
                         print(error.localizedDescription)
                     }
@@ -157,7 +166,12 @@ extension PlaylistsViewController: UITableViewDelegate {
     
     func removeFor(indexPath: IndexPath) {
         persistentContainer.performBackgroundTask { _ in
-            self.managedContext.delete(self.fetchedResultsController.object(at: indexPath))
+            let item = self.fetchedResultsController.object(at: indexPath)
+            for (_, podcast) in (item.podcast?.enumerated())! {
+                let pod = podcast as! PodcastPlaylistItem
+                LocalStorageManager.deleteSavedItem(itemUrlString: pod.audioUrl!)
+            }
+            self.managedContext.delete(item)
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "PodcastPlaylistItem")
             let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
             do {

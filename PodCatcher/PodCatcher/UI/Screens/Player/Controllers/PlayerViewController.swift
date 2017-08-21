@@ -11,6 +11,7 @@ final class PlayerViewController: BaseViewController, ErrorPresenting, LoadingPr
     weak var delegate: PlayerViewControllerDelegate?
     
     // MARK: - UI Properties
+    
     var index: Int
     let downloadingIndicator = DownloaderIndicatorView()
     var playerViewModel: PlayerViewModel!
@@ -25,8 +26,7 @@ final class PlayerViewController: BaseViewController, ErrorPresenting, LoadingPr
     var reach: Reachable?
     let reachability = Reachability()!
     var contentLoaded: Bool = true
-    // private var didPlayToEndTimeToken: NotificationToken?
-    
+  
     @objc var player: AudioFilePlayer? {
         didSet {
             guard let player = player else { return }
@@ -44,7 +44,14 @@ final class PlayerViewController: BaseViewController, ErrorPresenting, LoadingPr
         network.delegate = self
         if let urlString = caster.episodes[index].audioUrlString,
             let url = URL(string: urlString) {
-            player?.asset = AVURLAsset(url: url)
+            if LocalStorageManager.localFileExists(for: caster.episodes[index].audioUrlString!) {
+                print("file is downloaded")
+                let newUrl = LocalStorageManager.localFilePath(for: url)
+                 player?.asset = AVURLAsset(url: newUrl)
+            } else {
+                player?.asset = AVURLAsset(url: url)
+            }
+            
         }
         view.addView(view: playerView, type: .full)
     }
@@ -173,13 +180,10 @@ final class PlayerViewController: BaseViewController, ErrorPresenting, LoadingPr
             
             DispatchQueue.main.async { [weak self] in
                 guard let strongSelf = self else { return }
-                guard let loadingPop = self?.loadingPop,
-                    let playerView = self?.playerView
-                    else { return }
-                playerView.playtimeSlider.maximumValue = Float(newDurationSeconds)
-                playerView.playtimeSlider.value = 0
-                strongSelf.view.bringSubview(toFront: playerView)
-                strongSelf.hideLoadingView(loadingPop: loadingPop)
+                strongSelf.playerView.playtimeSlider.maximumValue = Float(newDurationSeconds)
+                strongSelf.playerView.playtimeSlider.value = 0
+                strongSelf.view.bringSubview(toFront: strongSelf.playerView)
+                strongSelf.hideLoadingView(loadingPop: strongSelf.loadingPop)
                 strongSelf.contentLoaded = true
                 strongSelf.playerView.enableButtons()
                 let currentTime = strongSelf.player?.player.currentTime()
@@ -288,7 +292,8 @@ extension PlayerViewController: PlayerViewDelegate {
         guard let artUrl = caster.podcastArtUrlString else { return }
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }
-            strongSelf.playerViewModel = PlayerViewModel(imageUrl: URL(string: artUrl), title: strongSelf.caster.episodes[strongSelf.index].title)
+            strongSelf.playerViewModel = PlayerViewModel(imageUrl: URL(string: artUrl),
+                                                         title: strongSelf.caster.episodes[strongSelf.index].title)
             guard let model = strongSelf.playerViewModel else { return }
             strongSelf.setModel(model: model)
             strongSelf.title = strongSelf.caster.episodes[strongSelf.index].title
@@ -331,6 +336,11 @@ extension PlayerViewController: MenuDelegate {
         hideLoadingView(loadingPop: loadingPop)
         print(caster)
         delegate?.addItemToPlaylist(item: caster , index: index)
+        if let urlString = caster.episodes[index].audioUrlString, !LocalStorageManager.localFileExists(for: urlString) {
+            downloadingIndicator.showActivityIndicator(viewController: self)
+            let download = Download(url: urlString)
+            network.startDownload(download)
+        }
     }
     
     func optionTwo(tapped: Bool) {

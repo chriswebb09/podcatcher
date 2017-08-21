@@ -1,6 +1,6 @@
 import UIKit
 
-class SearchResultListViewController: BaseCollectionViewController {
+final class SearchResultListViewController: BaseCollectionViewController {
     
     var item: CasterSearchResult!
     var state: PodcasterControlState = .toCollection
@@ -170,7 +170,7 @@ extension SearchResultListViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offset = scrollView.contentOffset
         let updatedTopViewFrame = CGRect(x: 0, y: 0, width: PodcastListConstants.topFrameWidth, height: PodcastListConstants.topFrameHeight / 1.2)
-        if offset.y > PodcastListConstants.minimumOffset && episodes.count > 10 {
+        if offset.y > PodcastListConstants.minimumOffset && episodes.count > 11 {
             UIView.animate(withDuration: 0.5) {
                 self.topView.removeFromSuperview()
                 self.topView.alpha = 0
@@ -178,7 +178,6 @@ extension SearchResultListViewController: UIScrollViewDelegate {
             }
         } else {
             UIView.animate(withDuration: 0.15) {
-                guard let tabBar = self.tabBarController?.tabBar else { return }
                 guard let navHeight = self.navigationController?.navigationBar.frame.height else { return }
                 let viewHeight = (self.view.bounds.height - navHeight) - 20
                 self.topView.frame = updatedTopViewFrame

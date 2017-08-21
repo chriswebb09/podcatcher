@@ -39,11 +39,12 @@ final class SearchViewController: BaseTableViewController {
         tableView.backgroundColor = UIColor(red:0.94, green:0.95, blue:0.96, alpha:1.0)
         tableView.register(SearchResultCell.self, forCellReuseIdentifier: SearchResultCell.reuseIdentifier)
         tableView.delegate = self
-        guard let tabbar = self.tabBarController?.tabBar else { return }
-        searchBar.frame = CGRect(x: UIScreen.main.bounds.minX, y: (navigationController?.navigationBar.frame.maxY)!, width: UIScreen.main.bounds.width, height: 42)
-        let height = (view.frame.height - tabbar.frame.height)
         guard let navBar = navigationController?.navigationBar else { return }
-        tableView.frame = CGRect(x: UIScreen.main.bounds.minX, y: navBar.frame.maxY, width: UIScreen.main.bounds.width, height: height)
+        guard let tabbar = self.tabBarController?.tabBar else { return }
+        searchBar.frame = CGRect(x: UIScreen.main.bounds.minX, y: navBar.frame.maxY, width: UIScreen.main.bounds.width, height: 42)
+        let height = (view.frame.height - tabbar.frame.height)
+        
+        tableView.frame = CGRect(x: UIScreen.main.bounds.minX, y: searchBar.frame.maxY - (tabbar.frame.height + 5), width: UIScreen.main.bounds.width, height: height)
         searchControllerConfigure()
         searchController.defaultConfiguration()
         view.addSubview(searchBar)
@@ -198,14 +199,16 @@ extension SearchViewController: UITableViewDelegate {
 extension SearchViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        view.endEditing(true)
-        searchBar.resignFirstResponder()
+        if scrollView.contentOffset.y > 75 ||  scrollView.contentOffset.y < -75 {
+            view.endEditing(true)
+            searchBar.resignFirstResponder()
+        }
     }
     
-//    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-//        guard let tabbar = tabBarController?.tabBar else { return }
-//        let height = (view.frame.height - tabbar.frame.height)
-//        guard let navHeight = navigationController?.navigationBar.frame.height else { return }
-//        tableView.frame = CGRect(x: UIScreen.main.bounds.minX, y: navHeight + 5, width: UIScreen.main.bounds.width, height: height)
-//    }
+    //    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+    //        guard let tabbar = tabBarController?.tabBar else { return }
+    //        let height = (view.frame.height - tabbar.frame.height)
+    //        guard let navHeight = navigationController?.navigationBar.frame.height else { return }
+    //        tableView.frame = CGRect(x: UIScreen.main.bounds.minX, y: navHeight + 5, width: UIScreen.main.bounds.width, height: height)
+    //    }
 }

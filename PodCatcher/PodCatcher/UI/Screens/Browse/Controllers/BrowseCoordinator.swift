@@ -6,7 +6,7 @@ protocol BrowseCoordinator: ControllerCoordinator { }
 extension BrowseCoordinator {
     
     func viewDidLoad(_ viewController: UIViewController) {
-
+        
     }
     
     func collectionViewConfiguration(view: UIView, collectionView: UICollectionView) {

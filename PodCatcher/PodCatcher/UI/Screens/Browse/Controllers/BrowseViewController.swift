@@ -140,9 +140,7 @@ extension BrowseViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.isUserInteractionEnabled = false
-        
-        self.delegate?.didSelect(at: indexPath.row, with: self.dataSource.items[indexPath.row])
-        
+        delegate?.didSelect(at: indexPath.row, with: self.dataSource.items[indexPath.row])
     }
 }
 

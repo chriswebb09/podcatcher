@@ -71,6 +71,7 @@ extension NetworkService: URLSessionDownloadDelegate {
         try? fileManager.removeItem(at: destinationURL)
         do {
             try fileManager.copyItem(at: location, to: destinationURL)
+            print(destinationURL.absoluteString)
             delegate?.download(location: destinationURL.absoluteString)
         } catch let error {
             print("Could not copy file to disk: \(error.localizedDescription)")

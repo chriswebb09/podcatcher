@@ -2,6 +2,10 @@ import UIKit
 import CoreData
 import AVFoundation
 
+enum PlaylistItemMode {
+    case delete, play
+}
+
 private var playlistViewControllerKVOContext = 1
 
 class PlaylistViewController: BaseCollectionViewController, ErrorPresenting, LoadingPresenting {
@@ -26,6 +30,7 @@ class PlaylistViewController: BaseCollectionViewController, ErrorPresenting, Loa
     var playlistTitle: String!
     let entryPop = EntryPopover()
     var topView = ListTopView()
+    var itemMode: PlaylistItemMode = .play
     var feedUrl: String!
     var playlistEmptyView: UIView = InformationView(data: "Create playlists with your favorite episodes", icon: #imageLiteral(resourceName: "podcast-icon-1"))
     var backgroundView = UIView()
@@ -79,6 +84,8 @@ class PlaylistViewController: BaseCollectionViewController, ErrorPresenting, Loa
                 playlistItems.append(item)
             }
         }
+        navigationController?.navigationBar.backItem?.title = ""
+        navigationController?.viewControllers[(navigationController?.viewControllers.count)! - 1].title = "Playlists".uppercased()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -87,6 +94,7 @@ class PlaylistViewController: BaseCollectionViewController, ErrorPresenting, Loa
         navigationController?.navigationBar.topItem?.title = playlistTitle
         addObserver(self, forKeyPath: #keyPath(PlaylistViewController.player.player.rate), options: [.new, .initial], context: &playlistViewControllerKVOContext)
         addObserver(self, forKeyPath: #keyPath(PlaylistViewController.player.player.currentItem.status), options: [.new, .initial], context: &playlistViewControllerKVOContext)
+        navigationItem.title = navigationItem.title?.uppercased()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -265,51 +273,66 @@ extension PlaylistViewController: UIScrollViewDelegate {
 extension PlaylistViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        DispatchQueue.main.async { [weak self] in
-            guard let strongSelf = self else { return }
-            strongSelf.showLoadingView(loadingPop: strongSelf.loadingPop)
-        }
-        if let selectedIndex = selectedIndex {
-            if indexPath == selectedIndex {
-                player.playPause()
-                DispatchQueue.main.async { [weak self] in
-                    guard let strongSelf = self else { return }
-                    strongSelf.hideLoadingView(loadingPop: strongSelf.loadingPop)
+        switch itemMode {
+        case .play:
+            DispatchQueue.main.async { [weak self] in
+                guard let strongSelf = self else { return }
+                strongSelf.showLoadingView(loadingPop: strongSelf.loadingPop)
+            }
+            if let selectedIndex = selectedIndex {
+                if indexPath == selectedIndex {
+                    player.playPause()
+                    DispatchQueue.main.async { [weak self] in
+                        guard let strongSelf = self else { return }
+                        strongSelf.hideLoadingView(loadingPop: strongSelf.loadingPop)
+                    }
+                } else if indexPath != selectedIndex {
+                    var previousIndex: IndexPath? = selectedIndex
+                    player.playPause()
+                    let pod = playlistItems[indexPath.row]
+                    if let artWorkImageData = pod.artwork,
+                        let artworkImage = UIImage(data: Data.init(referencing: artWorkImageData)),
+                        let audioUrl = pod.audioUrl, let url = URL(string: audioUrl) {
+                        topView.podcastImageView.image = artworkImage
+                        if LocalStorageManager.localFileExists(for: url.absoluteString) {
+                            print("file is downloaded")
+                            let newUrl = LocalStorageManager.localFilePath(for: url)
+                            player.asset = AVURLAsset(url: newUrl)
+                        } else {
+                            player.asset = AVURLAsset(url: url)
+                        }
+                        DispatchQueue.main.async { [weak self] in
+                            guard let strongSelf = self else { return }
+                            if let previousIndex = previousIndex,
+                                let previousCell = strongSelf.collectionView.cellForItem(at: previousIndex) as? PodcastPlaylistCell {
+                                previousCell.playButton.setImage(#imageLiteral(resourceName: "play"), for: .normal)
+                            }
+                        }
+                    }
+                    previousIndex = nil
+                    self.selectedIndex = indexPath
+                    player.playPause()
                 }
-            } else if indexPath != selectedIndex {
-                var previousIndex: IndexPath? = selectedIndex
-                player.playPause()
+            } else {
                 let pod = playlistItems[indexPath.row]
+                let audioUrl = pod.audioUrl
                 if let artWorkImageData = pod.artwork,
-                    let artworkImage = UIImage(data: Data.init(referencing: artWorkImageData)) {
+                    let artworkImage = UIImage(data: Data.init(referencing: artWorkImageData)),
+                    let url = URL(string: audioUrl!) {
+                    if LocalStorageManager.localFileExists(for: url.absoluteString) {
+                        print("file is downloaded")
+                        let newUrl = LocalStorageManager.localFilePath(for: url)
+                        player.asset = AVURLAsset(url: newUrl)
+                    } else {
+                        player.asset = AVURLAsset(url: url)
+                    }
                     topView.podcastImageView.image = artworkImage
                 }
-                
-                if let audioUrl = pod.audioUrl, let url = URL(string: audioUrl) {
-                    player.asset = AVURLAsset(url: url)
-                }
-                DispatchQueue.main.async { [weak self] in
-                    guard let strongSelf = self else { return }
-                    if let previousIndex = previousIndex,
-                        let previousCell = strongSelf.collectionView.cellForItem(at: previousIndex) as? PodcastPlaylistCell {
-                        previousCell.playButton.setImage(#imageLiteral(resourceName: "play"), for: .normal)
-                    }
-                }
-                previousIndex = nil
                 self.selectedIndex = indexPath
                 player.playPause()
             }
-        } else {
-            let pod = playlistItems[indexPath.row]
-            let audioUrl = pod.audioUrl
-            if let artWorkImageData = pod.artwork,
-                let artworkImage = UIImage(data: Data.init(referencing: artWorkImageData)),
-                let url = URL(string: audioUrl!) {
-                player.asset = AVURLAsset(url: url)
-                topView.podcastImageView.image = artworkImage
-            }
-            self.selectedIndex = indexPath
-            player.playPause()
+        case .delete:
+            print("delete")
         }
     }
 }

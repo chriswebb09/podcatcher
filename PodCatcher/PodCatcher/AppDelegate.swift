@@ -21,7 +21,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 try? FileManager.default.removeItem(atPath: item)
             }
         #endif
-
+        
+       print(LocalStorageManager.localFilePathForUrl("podcasts"))
+        
         window = UIWindow(frame: UIScreen.main.bounds)
 
         if let window = window {

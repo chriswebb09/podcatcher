@@ -6,6 +6,9 @@ extension UserDefaults {
         let key = "hasLaunchedBefore"
         let launchedBefore = UserDefaults.standard.bool(forKey: key)
         if launchedBefore == false {
+            if LocalStorageManager.makePodcastsDirectory() {
+                print("Directory setup")
+            }
             UserDefaults.standard.set(true, forKey: key)
             return false
         }
