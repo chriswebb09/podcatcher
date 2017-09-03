@@ -29,7 +29,6 @@ class SimpleAnimationController: NSObject, UIViewControllerAnimatedTransitioning
             toViewController.view.transform = smallTransform
             let transform = CGAffineTransform(scaleX: 1, y: 1)
             transform.concatenating(CGAffineTransform(rotationAngle: CGFloat(Double.pi)))
-            //   toViewController.view.frame = fromFrame!
             fromViewController?.view.alpha = 0
             containerView.addSubview(toViewController.view)
             let duration = self.transitionDuration(using: transitionContext)

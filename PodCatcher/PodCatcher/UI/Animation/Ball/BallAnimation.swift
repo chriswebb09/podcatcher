@@ -238,7 +238,7 @@ final class AudioEqualizer {
         let x = layer.bounds.size.width - xOffset
         let y = yOffset * EqualizerConstants.yMultiplier
         
-        // I harded these because I was lookin for the best combination
+        // I hard coded these because I was looking for the best combination
         
         // MARK TODO: - Change hard coded to multiples
         
