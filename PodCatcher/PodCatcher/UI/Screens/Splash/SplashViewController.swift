@@ -32,7 +32,6 @@ final class SplashViewController: BaseViewController {
 extension SplashViewController: SplashViewDelegate {
     
     func animation(_ isComplete: Bool) {
-        print(isComplete)
         animate()
     }
     

@@ -31,7 +31,7 @@ class HomeItemsFlowLayout: UICollectionViewFlowLayout {
                 let cellAttributes = attributes.copy() as! UICollectionViewLayoutAttributes
                 if attributes.representedElementKind == nil {
                     let frame = cellAttributes.frame
-                   // cellAttributes.frame = frame.insetBy(dx: 2.0, dy: 3.0)
+                    // cellAttributes.frame = frame.insetBy(dx: 2.0, dy: 3.0)
                 }
                 cache.append(cellAttributes)
             }

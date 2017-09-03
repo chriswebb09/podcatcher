@@ -52,8 +52,6 @@ final class PlaylistsTabCoordinator: NavigationCoordinator, PlaylistsCoordinator
         playlistsViewController.delegate = self
         playlistsViewController.mediaDataSource = dataSource
     }
-    
-    
 }
 
 extension PlaylistsTabCoordinator: PlaylistsViewControllerDelegate {

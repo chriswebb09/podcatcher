@@ -34,30 +34,21 @@ final class LocalStorageManager {
     }
     
     static func makePodcastsDirectory() -> Bool {
-        guard let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return false }
-        do {
-            try FileManager.default.createDirectory(at: url.appendingPathComponent("podcasts"), withIntermediateDirectories: false, attributes: nil)
-            return true
-        } catch let error as NSError {
-            print(error.description)
-            if error.code == 17 {
-                return true
-            } else {
-                return false
-            }
-        }
-    }
-    
-    fileprivate static func createDir(dirName: String) {
-        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        let dataPath = documentsDirectory.appendingPathComponent(dirName)
+        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let dataPath = documentsDirectory.appendingPathComponent("podcasts")
         
         do {
-            try FileManager.default.createDirectory(atPath: dataPath.absoluteString, withIntermediateDirectories: false, attributes: nil)
+            try FileManager.default.createDirectory(atPath: dataPath.path, withIntermediateDirectories: true, attributes: nil)
+            return true
         } catch let error as NSError {
+            fatalError()
             print("Error creating directory: \(error.localizedDescription)")
+            return false
         }
+
     }
+    
+
     
     static func deleteSavedItem(itemUrlString: String) {
         let fileManager = FileManager.default
@@ -70,6 +61,37 @@ final class LocalStorageManager {
             
         }
     }
+//
+//    static func exists() -> String {
+//        let fileManager = FileManager.default
+//        var isDir : ObjCBool = false
+//        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+//        let dataPath = documentsDirectory.appendingPathComponent("podcasts")
+//
+//        FileManager.default.fileExists(atPath: dataPath.absoluteString, isDirectory: &isDir) {
+//            if isDir.boolValue {
+//                return url.absoluteString
+//                // file exists and is a directory
+//            } else {
+//                return url.absoluteString
+//                // file exists and is not a directory
+//            }
+//        }
+//    }
+//        // if fileManager.fileExists(atPath:url.appendingPathComponent("podcasts").absoluteString, isDirectory:&isDir) {
+        //        fileManager.fileExists(atPath: dataPath.absoluteString) {
+        //            if isDir.boolValue {
+        //                return url.absoluteString
+        //                // file exists and is a directory
+        //            } else {
+        //                return url.absoluteString
+        //                // file exists and is not a directory
+        //            }
+        //        } else {
+        //            return "Error"
+        //            // file does not exist
+        //        }
+    
 }
 
 
@@ -79,8 +101,8 @@ extension FileManager.SearchPathDirectory {
         do {
             try FileManager.default.createDirectory(at: url.appendingPathComponent(named), withIntermediateDirectories: false, attributes: nil)
             return true
-        } catch let error as NSError {
-            print(error.description)
+        } catch let error {
+            print(error.localizedDescription)
             return false
         }
     }

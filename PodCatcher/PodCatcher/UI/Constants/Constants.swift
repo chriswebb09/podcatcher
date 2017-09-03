@@ -1,5 +1,16 @@
 import UIKit
 
+struct StartViewConstants {
+    static let gradientColors = [UIColor(red:0.94, green:0.31, blue:0.81, alpha:1.0).cgColor,
+                                 UIColor(red:0.32, green:0.13, blue:0.70, alpha:1.0).cgColor]
+    static let logoCenterOffset = UIScreen.main.bounds.height * -0.15
+    static let logoWidthMultiplier: CGFloat = 0.72
+    static let logoHeightMultiplier: CGFloat = 0.1
+    static let buttonTopOffset: CGFloat = UIScreen.main.bounds.height * 0.12
+    static let buttonFont = UIFont.systemFont(ofSize: 16, weight: UIFontWeightMedium)
+    static let buttonAlpha: CGFloat = 0.8
+}
+
 struct CALayerConstants {
     static let shadowWidthMultiplier: CGFloat = 0.000001
     static let shadowHeightMultiplier: CGFloat = 0.00001

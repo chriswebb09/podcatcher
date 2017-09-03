@@ -1,6 +1,10 @@
 import UIKit
 
-final class TabBarCoordinator: TabControllerCoordinator {
+final class TabBarCoordinator: TabControllerCoordinator, RootViewCoordinator {
+    
+    var rootViewController: UIViewController {
+        return tabBarController
+    }
     
     weak var delegate: CoordinatorDelegate?
     
@@ -18,9 +22,6 @@ final class TabBarCoordinator: TabControllerCoordinator {
         self.init(tabBarController: tabBarController)
         self.window = window
     }
-}
-
-extension TabBarCoordinator: Coordinator {
     
     func setupHomeCoordinator(navigationController: UINavigationController, dataSource: BaseMediaControllerDataSource) {
         let tabCoordinator = HomeTabCoordinator(navigationController: navigationController)
@@ -59,7 +60,8 @@ extension TabBarCoordinator: Coordinator {
     
     func start() {
         setup()
-        window.rootViewController = tabBarController
+        window.rootViewController = rootViewController
+        window.makeKeyAndVisible()
     }
     
     func setup() {

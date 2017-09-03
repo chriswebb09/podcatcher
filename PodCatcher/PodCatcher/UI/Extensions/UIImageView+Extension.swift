@@ -81,9 +81,9 @@ extension UIImage {
         guard let url = URL(string: url) else {
             DispatchQueue.main.async {
                 completionHandler(nil)
-               
+                
             }
-             return
+            return
         }
         let task: URLSessionDataTask = URLSession.shared.dataTask(with: url, completionHandler: { data, response, error in
             guard let httpURLResponse = response as? HTTPURLResponse , httpURLResponse.statusCode == 200,

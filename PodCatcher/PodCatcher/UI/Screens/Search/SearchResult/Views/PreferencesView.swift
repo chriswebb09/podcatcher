@@ -8,7 +8,7 @@ final class PreferencesView: UIView {
     
     var moreMenuButton: UIButton = {
         var moreMenuButton = UIButton()
-        moreMenuButton.setImage(#imageLiteral(resourceName: "more-button-white"), for: .normal)
+        moreMenuButton.alpha = 0.6
         return moreMenuButton
     }()
     
@@ -29,8 +29,9 @@ final class PreferencesView: UIView {
         addSubview(moreButton)
         moreButton.translatesAutoresizingMaskIntoConstraints = false
         moreButton.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        moreButton.heightAnchor.constraint(equalTo: heightAnchor).isActive = true
-        moreButton.rightAnchor.constraint(equalTo: rightAnchor, constant: UIScreen.main.bounds.width * -0.1).isActive = true
+        moreButton.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.8).isActive = true
+        moreButton.rightAnchor.constraint(equalTo: rightAnchor, constant: UIScreen.main.bounds.width * -0.04).isActive = true
+        moreMenuButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.22).isActive = true
     }
     
     @objc func moreButton(tapped: Bool) {

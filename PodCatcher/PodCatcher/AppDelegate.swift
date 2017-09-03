@@ -12,9 +12,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         ApplicationStyling.setupUI()
-    
+        
         coreData = CoreDataStack(modelName: "PodCatcher")
-
+        
         #if CLEAR_CACHES
             let cachesFolderItems = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true)
             for item in cachesFolderItems {
@@ -22,23 +22,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         #endif
         
-       print(LocalStorageManager.localFilePathForUrl("podcasts"))
-        
         window = UIWindow(frame: UIScreen.main.bounds)
-
+        
+        var url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        url.appendPathComponent("podcasts")
+        
+        do {
+            try FileManager.default.createDirectory(atPath: url.path, withIntermediateDirectories: true, attributes: nil)
+        } catch let error as NSError {
+            print("Error creating directory: \(error.localizedDescription)")
+        }
+        
         if let window = window {
-            if UserDefaults.loadDefaultOnFirstLaunch() {
-                print("not first launch")
-                let startCoordinator = StartCoordinator(navigationController: UINavigationController(), window: window)
-                mainCoordinator = MainCoordinator(window: window, coordinator: startCoordinator)
-                mainCoordinator.start()
-                mainCoordinator.setupTabCoordinator(dataSource: BaseMediaControllerDataSource())
-            } else {
-                print("first launch")
-                let startCoordinator = StartCoordinator(navigationController: UINavigationController(), window: window)
-                mainCoordinator = MainCoordinator(window: window, coordinator: startCoordinator)
-                mainCoordinator.start()
-            }
+            let startCoordinator = StartCoordinator(navigationController: UINavigationController(), window: window)
+            mainCoordinator = MainCoordinator(window: window, coordinator: startCoordinator)
+            mainCoordinator.start()
         }
         return true
     }

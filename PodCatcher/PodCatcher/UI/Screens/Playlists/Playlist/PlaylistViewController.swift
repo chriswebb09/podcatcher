@@ -10,7 +10,7 @@ private var playlistViewControllerKVOContext = 1
 
 class PlaylistViewController: BaseCollectionViewController, ErrorPresenting, LoadingPresenting {
     
-    @objc var player: AudioFilePlayer
+    @objc var player: AudioFilePlayer?
     
     var item: CasterSearchResult!
     var items: [PodcastPlaylistItem] = []
@@ -84,17 +84,13 @@ class PlaylistViewController: BaseCollectionViewController, ErrorPresenting, Loa
                 playlistItems.append(item)
             }
         }
-        navigationController?.navigationBar.backItem?.title = ""
-        navigationController?.viewControllers[(navigationController?.viewControllers.count)! - 1].title = "Playlists".uppercased()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(false)
         collectionView.alpha = 1
-        navigationController?.navigationBar.topItem?.title = playlistTitle
         addObserver(self, forKeyPath: #keyPath(PlaylistViewController.player.player.rate), options: [.new, .initial], context: &playlistViewControllerKVOContext)
         addObserver(self, forKeyPath: #keyPath(PlaylistViewController.player.player.currentItem.status), options: [.new, .initial], context: &playlistViewControllerKVOContext)
-        navigationItem.title = navigationItem.title?.uppercased()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -102,6 +98,7 @@ class PlaylistViewController: BaseCollectionViewController, ErrorPresenting, Loa
         collectionView.alpha = 0
         removeObserver(self, forKeyPath: #keyPath(PlaylistViewController.player.player.rate), context: &playlistViewControllerKVOContext)
         removeObserver(self, forKeyPath: #keyPath(PlaylistViewController.player.player.currentItem.status), context: &playlistViewControllerKVOContext)
+        self.player = nil
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
@@ -281,14 +278,14 @@ extension PlaylistViewController: UICollectionViewDelegate {
             }
             if let selectedIndex = selectedIndex {
                 if indexPath == selectedIndex {
-                    player.playPause()
+                    player?.playPause()
                     DispatchQueue.main.async { [weak self] in
                         guard let strongSelf = self else { return }
                         strongSelf.hideLoadingView(loadingPop: strongSelf.loadingPop)
                     }
                 } else if indexPath != selectedIndex {
                     var previousIndex: IndexPath? = selectedIndex
-                    player.playPause()
+                    player?.playPause()
                     let pod = playlistItems[indexPath.row]
                     if let artWorkImageData = pod.artwork,
                         let artworkImage = UIImage(data: Data.init(referencing: artWorkImageData)),
@@ -297,9 +294,10 @@ extension PlaylistViewController: UICollectionViewDelegate {
                         if LocalStorageManager.localFileExists(for: url.absoluteString) {
                             print("file is downloaded")
                             let newUrl = LocalStorageManager.localFilePath(for: url)
-                            player.asset = AVURLAsset(url: newUrl)
+                            player?.asset = AVURLAsset(url: newUrl)
                         } else {
-                            player.asset = AVURLAsset(url: url)
+                            print("streaming")
+                            player?.asset = AVURLAsset(url: url)
                         }
                         DispatchQueue.main.async { [weak self] in
                             guard let strongSelf = self else { return }
@@ -311,7 +309,6 @@ extension PlaylistViewController: UICollectionViewDelegate {
                     }
                     previousIndex = nil
                     self.selectedIndex = indexPath
-                    player.playPause()
                 }
             } else {
                 let pod = playlistItems[indexPath.row]
@@ -322,14 +319,15 @@ extension PlaylistViewController: UICollectionViewDelegate {
                     if LocalStorageManager.localFileExists(for: url.absoluteString) {
                         print("file is downloaded")
                         let newUrl = LocalStorageManager.localFilePath(for: url)
-                        player.asset = AVURLAsset(url: newUrl)
+                        player?.asset = AVURLAsset(url: newUrl)
                     } else {
-                        player.asset = AVURLAsset(url: url)
+                        print("streaming")
+                        player?.asset = AVURLAsset(url: url)
                     }
                     topView.podcastImageView.image = artworkImage
                 }
                 self.selectedIndex = indexPath
-                player.playPause()
+                player?.playPause()
             }
         case .delete:
             print("delete")

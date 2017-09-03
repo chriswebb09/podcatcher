@@ -5,20 +5,16 @@ class HomeViewController: BaseCollectionViewController {
     
     // MARK: - Properties
     
-    var coordinator: HomeCoordinator?
+    weak var coordinator: HomeCoordinator?
     let userID: String = "none"
     var mode: HomeInteractionMode = .subscription
-    
+    var loadingPop = LoadingPopover()
     weak var delegate: HomeViewControllerDelegate?
     
-    var managedContext: NSManagedObjectContext! {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return nil }
-        let context = appDelegate.persistentContainer.viewContext
-        return context
-    }
+    var managedContext: NSManagedObjectContext!
     
     lazy var fetchedResultsController:NSFetchedResultsController<Subscription> = {
-        let fetchRequest:NSFetchRequest<Subscription> = Subscription.fetchRequest()
+        let fetchRequest: NSFetchRequest<Subscription> = Subscription.fetchRequest()
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "feedUrl", ascending: true)]
         var controller = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.managedContext, sectionNameKeyPath: nil, cacheName: nil)
         try! controller.performFetch()
@@ -26,7 +22,7 @@ class HomeViewController: BaseCollectionViewController {
     }()
     
     var homeDataSource: CollectionViewDataSource<HomeViewController>!
-    var contentState: ContentState = .empty
+    
     
     var persistentContainer: NSPersistentContainer = {
         let  persistentContainer = NSPersistentContainer(name: "PodCatcher")
@@ -57,11 +53,6 @@ class HomeViewController: BaseCollectionViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.topItem?.title = "Subscribed Podcasts"
-        homeDataSource.reloadData()
-        DispatchQueue.main.async { [weak self] in
-            guard let strongSelf = self else { return }
-            strongSelf.collectionView.reloadData()
-        }
         if homeDataSource.itemCount == 0 {
             DispatchQueue.main.async {
                 self.mode = .subscription
@@ -73,6 +64,57 @@ class HomeViewController: BaseCollectionViewController {
                 self.navigationItem.setRightBarButton(self.rightButtonItem, animated: false)
             }
         }
+        
+        let managedObjectContext = fetchedResultsController.managedObjectContext
+        // Add Observer
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(managedObjectContextObjectsDidChange), name: NSNotification.Name.NSManagedObjectContextObjectsDidChange, object: managedObjectContext)
+        notificationCenter.addObserver(self, selector: #selector(managedObjectContextWillSave), name: NSNotification.Name.NSManagedObjectContextWillSave, object: managedObjectContext)
+        notificationCenter.addObserver(self, selector: #selector(managedObjectContextDidSave), name: NSNotification.Name.NSManagedObjectContextDidSave, object: managedObjectContext)
+        
+    }
+    
+    func managedObjectContextObjectsDidChange(notification: NSNotification) {
+        guard let userInfo = notification.userInfo else { return }
+        
+        if let inserts = userInfo[NSInsertedObjectsKey] as? Set<NSManagedObject>, inserts.count > 0 {
+            print("inserts")
+        }
+        
+        if let updates = userInfo[NSUpdatedObjectsKey] as? Set<NSManagedObject>, updates.count > 0 {
+            print("updates")
+        }
+        
+        if let deletes = userInfo[NSDeletedObjectsKey] as? Set<NSManagedObject>, deletes.count > 0 {
+            print("deletes")
+        }
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        collectionView.collectionViewLayout.invalidateLayout()
+    }
+    
+    var thumbnailZoomTransitionAnimator: ThumbnailZoomTransitionAnimator?
+    var transitionThumbnail: UIImageView?
+    
+    func navigationController(navigationController: UINavigationController, animationControllerForOperation operation: UINavigationControllerOperation, fromViewController fromVC: UIViewController, toViewController toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        if operation == .push {
+            guard let transitionThumbnail = transitionThumbnail, let transitionThumbnailSuperview = transitionThumbnail.superview else { return nil }
+            thumbnailZoomTransitionAnimator = ThumbnailZoomTransitionAnimator()
+            thumbnailZoomTransitionAnimator?.thumbnailFrame = transitionThumbnailSuperview.convert(transitionThumbnail.frame, to: nil)
+        }
+        thumbnailZoomTransitionAnimator?.operation = operation
+        return thumbnailZoomTransitionAnimator
+    }
+    
+    
+    func managedObjectContextWillSave(notification: NSNotification) {
+        print(notification.name)
+    }
+    
+    func  managedObjectContextDidSave(notification: NSNotification) {
+        print(notification.name)
     }
 }
 
@@ -87,19 +129,19 @@ extension HomeViewController: UIScrollViewDelegate, CollectionViewProtocol {
     }
 }
 
-extension HomeViewController: UICollectionViewDelegate, ErrorPresenting {
+extension HomeViewController: UICollectionViewDelegate, ErrorPresenting, LoadingPresenting {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath)
         let item = homeDataSource.fetchedResultsController.object(at: indexPath)
         switch mode {
         case .subscription:
-            guard let cell = cell else { return }
+            let cell = cell as! SubscribedPodcastCell
             SpinAnimation.animate(from: cell, with: 2, completion: nil)
             var caster = CasterSearchResult()
             caster.feedUrl = item.feedUrl
             guard let imageData = item.artworkImage, let image = UIImage(data: imageData as Data) else { return }
-            delegate?.didSelect(at: indexPath.row, with: item, image: image)
+            delegate?.didSelect(at: indexPath.row, with: item, image: image, imageView: cell.albumArtView)
         case .edit:
             update(indexPath: indexPath, item: item)
         }

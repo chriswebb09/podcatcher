@@ -33,15 +33,15 @@ final class LoadingPopover: BasePopoverAlert {
     
     override func hidePopView(viewController: UIViewController) {
         super.hidePopView(viewController: viewController)
-        guard let ball = popView.ball else { return }
         viewController.view.sendSubview(toBack: popView)
-        popView.stopAnimating(ball: ball)
+        popView.stopAnimating()
         popView.removeFromSuperview()
     }
     
-    func setupPop(popView: LoadingView) {
+    func setupPop() {
         popView.configureView()
-        popView.backgroundColor = .clear
+        popView.backgroundColor = .white
+        popView.alpha = 0.8
     }
     
     func configureLoadingOpacity(alpha: CGFloat) {
@@ -49,7 +49,7 @@ final class LoadingPopover: BasePopoverAlert {
     }
     
     func show(controller: UIViewController) {
-        setupPop(popView: popView)
+        setupPop()
         showPopView(viewController: controller)
         popView.isHidden = false
     }
@@ -57,6 +57,7 @@ final class LoadingPopover: BasePopoverAlert {
     func hideLoadingView(controller: UIViewController) {
         popView.removeFromSuperview()
         removeFromSuperview()
+        popView.ball?.removeFromSuperview()
         hidePopView(viewController: controller)
         controller.view.sendSubview(toBack: self)
     }

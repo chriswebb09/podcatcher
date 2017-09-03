@@ -15,6 +15,7 @@ final class SearchResultListViewController: BaseCollectionViewController {
     var topView = ListTopView()
     var feedUrl: String!
     var bottomMenu = BottomMenu()
+    let subscription = UserDefaults.loadSubscriptions()
     
     var viewShown: ShowView {
         didSet {
@@ -47,53 +48,66 @@ final class SearchResultListViewController: BaseCollectionViewController {
         edgesForExtendedLayout = []
         view.sendSubview(toBack: background)
         collectionView.register(PodcastResultCell.self)
+        
+        DispatchQueue.main.async { [weak self] in
+            guard let strongSelf = self else { return }
+            guard let navBar = strongSelf.navigationController?.navigationBar else { return }
+            strongSelf.navigationItem.titleView?.frame.center = CGPoint(x: navBar.center.x - 50, y: navBar.center.y)
+            navBar.topItem?.titleView?.frame.center = CGPoint(x: navBar.center.x - 50, y: navBar.center.y)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(false)
-        collectionView.alpha = 1
         let backImage = #imageLiteral(resourceName: "back").withRenderingMode(.alwaysTemplate)
         navigationController?.navigationBar.backIndicatorImage = backImage
         navigationController?.navigationBar.backIndicatorTransitionMaskImage = backImage
-        navigationController?.setNavigationBarHidden(false, animated: false)
-        navigationController?.navigationBar.alpha = 1
+        
+        DispatchQueue.main.async { [weak self] in
+            guard let strongSelf = self else { return }
+            let backButton = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.plain, target: self, action: nil)
+            strongSelf.navigationItem.backBarButtonItem = backButton
+            if let item = self?.item, let title = item.podcastTitle {
+                self?.navigationItem.title = title
+            }
+        }
+        
         if let item = item, let title = item.podcastTitle {
             navigationController?.navigationBar.topItem?.title = title
             navigationController?.navigationBar.backItem?.title = ""
         }
-        let subscription = UserDefaults.loadSubscriptions()
+        
         if let item = item, let feedUrl = item.feedUrl, !subscription.contains(feedUrl) {
-            rightButtonItem = UIBarButtonItem(title: "Add",
-                                              style: .plain,
-                                              target: self,
-                                              action: #selector(subscribeToFeed))
-            navigationItem.setRightBarButton(rightButtonItem, animated: false)
-            rightButtonItem.tintColor = .white
+            let button = UIButton(type: .system)
+            button.setTitle("Subscribe", for: .normal)
+            button.addTarget(self, action: #selector(subscribeToFeed), for: .touchUpInside)
+            button.layer.borderWidth = 1
+            button.layer.cornerRadius = 4
+            button.layer.borderColor = UIColor.white.cgColor
+            button.titleEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
+            topView.preferencesView.moreMenuButton = button
+            button.tintColor = .white
+            button.backgroundColor = .darkGray
+            button.alpha = 0.6
         }
-        topView.preferencesView.moreMenuButton.isHidden = true
-        navigationController?.navigationBar.backItem?.title = ""
+        
+        UIView.animate(withDuration: 0.002, animations: { [weak self] in
+            guard let strongSelf = self else { return }
+            strongSelf.navigationController?.navigationBar.alpha = 1
+        })
+        collectionView.alpha = 1
+        navigationController?.setNavigationBarHidden(false, animated: false)
+        navigationController?.navigationBar.alpha = 1
+      
+        
     }
     
     func saveFeed() {
-        var feedStore = FeedCoreDataStack()
-        guard let title = item.podcastTitle else { return }
         guard let image = topView.podcastImageView.image else { return }
-        guard let feedUrl = item.feedUrl else { return }
-        guard let artist = item.podcastArtist else { return }
-        guard let artUrl = item.podcastArtUrlString else { return }
-        feedStore.save(feedUrl: feedUrl,
-                       podcastTitle: title,
-                       episodeCount: episodes.count,
-                       lastUpdate: NSDate(),
-                       image: image,
-                       uid: "none",
-                       artworkUrlString: artUrl,
-                       artistName: artist)
-        var subscriptions = UserDefaults.loadSubscriptions()
-        subscriptions.append(feedUrl)
-        UserDefaults.saveSubscriptions(subscriptions: subscriptions)
-        navigationItem.rightBarButtonItem = nil
+        delegate?.saveFeed(item: item, podcastImage: image , episodesCount: episodes.count)
+        topView.preferencesView.moreMenuButton.isHidden = true
     }
+    
     
     @objc func subscribeToFeed() {
         saveFeed()
@@ -131,6 +145,12 @@ final class SearchResultListViewController: BaseCollectionViewController {
 extension SearchResultListViewController {
     
     func configureTopView() {
+        DispatchQueue.main.async { [weak self] in
+            guard let strongSelf = self else { return }
+            strongSelf.navigationController?.navigationBar.backItem?.title = ""
+            strongSelf.navigationController?.navigationItem.backBarButtonItem?.title = ""
+            strongSelf.navigationItem.backBarButtonItem?.title = ""
+        }
         topView.frame = PodcastListConstants.topFrame
         if let item = item, let urlString = item.podcastArtUrlString, let url = URL(string: urlString) {
             topView.podcastImageView.downloadImage(url: url)
@@ -142,6 +162,12 @@ extension SearchResultListViewController {
     }
     
     func setup(dataSource: UICollectionViewDataSource, delegate: UICollectionViewDelegate) {
+        DispatchQueue.main.async { [weak self] in
+            guard let strongSelf = self else { return }
+            strongSelf.navigationController?.navigationBar.backItem?.title = ""
+            strongSelf.navigationController?.navigationItem.backBarButtonItem?.title = ""
+            strongSelf.navigationItem.backBarButtonItem?.title = ""
+        }
         collectionView.dataSource = dataSource
         collectionView.delegate = delegate
         collectionView.register(PodcastCell.self)
@@ -196,9 +222,7 @@ extension SearchResultListViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         state = .toPlayer
-        if let item = item {
-            delegate?.didSelectPodcastAt(at: indexPath.row, podcast: item, with: episodes)
-        }
+        delegate?.didSelectPodcastAt(at: indexPath.row, podcast: item, with: episodes)
     }
 }
 

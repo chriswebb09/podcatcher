@@ -1,12 +1,12 @@
-import UIKit
-import CoreMedia
-import CoreData
-import AVFoundation
-import ReachabilitySwift
-
-private var playerViewControllerKVOContext = 0
-
-final class PlayerViewController: BaseViewController, ErrorPresenting, LoadingPresenting {
+ import UIKit
+ import CoreMedia
+ import CoreData
+ import AVFoundation
+ import ReachabilitySwift
+ 
+ private var playerViewControllerKVOContext = 0
+ 
+ final class PlayerViewController: BaseViewController, ErrorPresenting, LoadingPresenting {
     
     weak var delegate: PlayerViewControllerDelegate?
     
@@ -26,11 +26,11 @@ final class PlayerViewController: BaseViewController, ErrorPresenting, LoadingPr
     var reach: Reachable?
     let reachability = Reachability()!
     var contentLoaded: Bool = true
-  
+    
     @objc var player: AudioFilePlayer? {
         didSet {
             guard let player = player else { return }
-            playerViewModel.state = player.state
+            playerViewModel.state = player.state!
         }
     }
     
@@ -46,9 +46,12 @@ final class PlayerViewController: BaseViewController, ErrorPresenting, LoadingPr
             let url = URL(string: urlString) {
             if LocalStorageManager.localFileExists(for: caster.episodes[index].audioUrlString!) {
                 print("file is downloaded")
+                print(LocalStorageManager.localFileExists(for: caster.episodes[index].audioUrlString!))
                 let newUrl = LocalStorageManager.localFilePath(for: url)
-                 player?.asset = AVURLAsset(url: newUrl)
+                player?.asset = AVURLAsset(url: newUrl)
             } else {
+                print("streaming file")
+                print(LocalStorageManager.localFileExists(for: caster.episodes[index].audioUrlString!))
                 player?.asset = AVURLAsset(url: url)
             }
             
@@ -73,8 +76,8 @@ final class PlayerViewController: BaseViewController, ErrorPresenting, LoadingPr
         addObserver(self, forKeyPath: #keyPath(PlayerViewController.player.player.currentItem.duration), options: [.new, .initial], context: &playerViewControllerKVOContext)
         addObserver(self, forKeyPath: #keyPath(PlayerViewController.player.player.rate), options: [.new, .initial], context: &playerViewControllerKVOContext)
         addObserver(self, forKeyPath: #keyPath(PlayerViewController.player.player.currentItem.status), options: [.new, .initial], context: &playerViewControllerKVOContext)
-        
-        CALayer.createGradientLayer(with: [UIColor(red:0.94, green:0.31, blue:0.81, alpha:1.0).cgColor, UIColor(red:0.32, green:0.13, blue:0.70, alpha:1.0).cgColor], layer: playerView.backgroundView.layer, bounds: UIScreen.main.bounds)
+      //  [UIColor(red:0.94, green:0.31, blue:0.81, alpha:1.0).cgColor, UIColor(red:0.32, green:0.13, blue:0.70, alpha:1.0).cgColor]
+        CALayer.createGradientLayer(with: StartViewConstants.gradientColors, layer: playerView.backgroundView.layer, bounds: UIScreen.main.bounds)
         guard let artUrl = caster.podcastArtUrlString else { return }
         
         playerViewModel = PlayerViewModel(imageUrl: URL(string: artUrl), title: episodes[index].title)
@@ -85,10 +88,10 @@ final class PlayerViewController: BaseViewController, ErrorPresenting, LoadingPr
         tabBarController?.tabBar.alpha = 0
         let interval = CMTimeMake(1, 1)
         
-        timeObserverToken = player?.player.addPeriodicTimeObserver(forInterval: interval, queue: DispatchQueue.main) { [weak self] time in
+        timeObserverToken = player?.player?.addPeriodicTimeObserver(forInterval: interval, queue: DispatchQueue.main) { [weak self] time in
             let timeElapsed = Float(CMTimeGetSeconds(time))
-            DispatchQueue.main.async {
-                if let strongSelf = self {
+            if let strongSelf = self {
+                DispatchQueue.main.async {
                     strongSelf.playerView.playtimeSlider.value = Float(timeElapsed)
                     strongSelf.playerView.currentPlayTimeLabel.text = String.constructTimeString(time: Double(timeElapsed))
                     let timeLeft = Double(Float((strongSelf.player?.duration)!) - timeElapsed)
@@ -119,16 +122,23 @@ final class PlayerViewController: BaseViewController, ErrorPresenting, LoadingPr
         removeObserver(self, forKeyPath: #keyPath(PlayerViewController.player.player.currentItem.duration), context: &playerViewControllerKVOContext)
         removeObserver(self, forKeyPath: #keyPath(PlayerViewController.player.player.rate), context: &playerViewControllerKVOContext)
         removeObserver(self, forKeyPath: #keyPath(PlayerViewController.player.player.currentItem.status), context: &playerViewControllerKVOContext)
-        if let timeObserverToken = timeObserverToken {
-            player?.player.removeTimeObserver(timeObserverToken)
-        }
+        player?.player?.removeTimeObserver(timeObserverToken)
         self.timeObserverToken = nil
+        if let timeObserverToken = timeObserverToken {
+            player?.player?.removeTimeObserver(timeObserverToken)
+        }
+        reach?.stop()
+        reachability.stopNotifier()
         NotificationCenter.default.removeObserver(self, name: ReachabilityChangedNotification, object: reachability)
-        //removeObserver(self, selector: #selector(reachabilityChanged), name: ReachabilityChangedNotification, object: reachability)
-        player?.player.pause()
-        dump(self.timeObserverToken)
+        
+        player?.player?.pause()
+        self.player?.asset = nil
+        self.player?.currentTime = nil
+        self.player?.delegate = nil
+        self.player?.playerItem = nil
+        self.player?.state = nil 
+        self.player?.player = nil
         self.player = nil
-        dump(player)
     }
     
     func done() {
@@ -154,15 +164,15 @@ final class PlayerViewController: BaseViewController, ErrorPresenting, LoadingPr
     private func setupPlayerPeriodicTimeObserver() {
         guard timeObserverToken == nil else { return }
         let time = CMTimeMake(1, 1)
-        timeObserverToken = player?.player.addPeriodicTimeObserver(forInterval: time, queue: DispatchQueue.main) { [weak self] time in
+        timeObserverToken = player?.player?.addPeriodicTimeObserver(forInterval: time, queue: DispatchQueue.main) { [weak self] time in
             guard let strongSelf = self else { return }
             strongSelf.playerView.playtimeSlider.value = Float(CMTimeGetSeconds(time))
             } as AnyObject?
     }
     
     private func cleanUpPlayerPeriodicTimeObserver() {
-        if let timeObserverToken = timeObserverToken {
-            player?.player.removeTimeObserver(timeObserverToken)
+        if let timeObserverToken = timeObserverToken { 
+            player?.player?.removeTimeObserver(timeObserverToken)
             self.timeObserverToken = nil
         }
     }
@@ -186,7 +196,7 @@ final class PlayerViewController: BaseViewController, ErrorPresenting, LoadingPr
                 strongSelf.hideLoadingView(loadingPop: strongSelf.loadingPop)
                 strongSelf.contentLoaded = true
                 strongSelf.playerView.enableButtons()
-                let currentTime = strongSelf.player?.player.currentTime()
+                let currentTime = strongSelf.player?.player?.currentTime()
                 let currentSeconds = CMTimeGetSeconds(currentTime!)
                 strongSelf.playerView.currentPlayTimeLabel.text = String.constructTimeString(time: Double(currentSeconds))
             }
@@ -207,7 +217,6 @@ final class PlayerViewController: BaseViewController, ErrorPresenting, LoadingPr
                 DispatchQueue.main.async { [weak self] in
                     guard let strongSelf = self else { return }
                     strongSelf.contentLoaded = false
-                    strongSelf.showLoadingView(loadingPop: strongSelf.loadingPop)
                 }
             }
             if newStatus == .failed {
@@ -215,9 +224,9 @@ final class PlayerViewController: BaseViewController, ErrorPresenting, LoadingPr
             } else if newStatus == .readyToPlay {
                 DispatchQueue.main.async { [weak self] in
                     guard let strongSelf = self else { return }
-                    guard let currentTime = self?.player?.player.currentTime() else { return }
+                    guard let currentTime = self?.player?.player?.currentTime() else { return }
                     let currentSeconds = CMTimeGetSeconds(currentTime)
-                    guard let duration = strongSelf.player?.player.currentItem?.duration else { return }
+                    guard let duration = strongSelf.player?.player?.currentItem?.duration else { return }
                     let durationSeconds = CMTimeGetSeconds(duration)
                     strongSelf.playerView.currentPlayTimeLabel.text = String.constructTimeString(time: Double(currentSeconds))
                     strongSelf.playerView.totalPlayTimeLabel.text = String.constructTimeString(time: durationSeconds)
@@ -233,16 +242,16 @@ final class PlayerViewController: BaseViewController, ErrorPresenting, LoadingPr
         ]
         return affectedKeyPathsMappingByKey[key] ?? super.keyPathsForValuesAffectingValue(forKey: key)
     }
-}
-
-
-// MARK: - PlayerViewDelegate
-
-extension PlayerViewController: PlayerViewDelegate {
+ }
+ 
+ 
+ // MARK: - PlayerViewDelegate
+ 
+ extension PlayerViewController: PlayerViewDelegate {
     
     func seekTime(value: Double) {
         let time = CMTime(seconds: value, preferredTimescale: CMTimeScale(NSEC_PER_SEC))
-        player?.player.seek(to: time)
+        player?.player?.seek(to: time)
     }
     
     
@@ -251,7 +260,7 @@ extension PlayerViewController: PlayerViewDelegate {
             DispatchQueue.main.async { [weak self] in
                 guard let strongSelf = self else { return }
                 strongSelf.presentError(title: "Connect To Network", message: "You must be connected to the internet to stream context.")
-                if strongSelf.player?.player.currentItem?.status != .readyToPlay {
+                if strongSelf.player?.player?.currentItem?.status != .readyToPlay {
                     let buttonImageName = #imageLiteral(resourceName: "play-icon")
                     strongSelf.playerView.setButtonImages(image: buttonImageName)
                 }
@@ -302,17 +311,18 @@ extension PlayerViewController: PlayerViewDelegate {
     
     func updateTrack() {
         DispatchQueue.main.async { [weak self] in
-            guard let strongSelf = self else { return }
-            strongSelf.showLoadingView(loadingPop: strongSelf.loadingPop)
+            if let pop = self?.loadingPop {
+                self?.showLoadingView(loadingPop: pop)
+            }
         }
         if let urlString = caster.episodes[index].audioUrlString, let url = URL(string: urlString) {
             player?.asset = AVURLAsset(url: url)
         }
         updatePlayerViewModel()
     }
-}
-
-extension PlayerViewController: BottomMenuViewable {
+ }
+ 
+ extension PlayerViewController: BottomMenuViewable {
     
     func moreButton(tapped: Bool) {
         let height = view.bounds.height * 0.5
@@ -328,9 +338,9 @@ extension PlayerViewController: BottomMenuViewable {
         bottomMenu.setMenu(color: .white, borderColor: .darkGray, textColor: .darkGray)
         showPopMenu(playerView)
     }
-}
-
-extension PlayerViewController: MenuDelegate {
+ }
+ 
+ extension PlayerViewController: MenuDelegate {
     
     func optionOne(tapped: Bool) {
         hideLoadingView(loadingPop: loadingPop)
@@ -362,13 +372,11 @@ extension PlayerViewController: MenuDelegate {
     }
     
     func navigateBack(tapped: Bool) {
-        hideLoadingView(loadingPop: loadingPop)
         delegate?.navigateBack(tapped: tapped)
-        navigationController?.popViewController(animated: false)
     }
-}
-
-extension PlayerViewController: NetworkServiceDelegate {
+ }
+ 
+ extension PlayerViewController: NetworkServiceDelegate {
     
     func download(location set: String) {
         print(set)
@@ -386,4 +394,4 @@ extension PlayerViewController: NetworkServiceDelegate {
         }
         print(String(format: "%.1f%%", updated * 100))
     }
-}
+ }

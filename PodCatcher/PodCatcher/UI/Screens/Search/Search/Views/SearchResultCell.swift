@@ -1,6 +1,6 @@
 import UIKit
 
-class SearchResultCell: UITableViewCell, Reusable {
+final class SearchResultCell: UITableViewCell, Reusable {
     
     static let reuseIdentifier = "SearchResultCell"
     
@@ -27,24 +27,37 @@ class SearchResultCell: UITableViewCell, Reusable {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        
         setup(titleLabel: titleLabel)
         setup(albumArtView: albumArtView)
         setupSeparator()
         selectionStyle = .none        
     }
     
+    func configureCell(with imageUrl: URL, title: String) {
+        albumArtView.alpha = 0
+        titleLabel.text = title
+        albumArtView.image = #imageLiteral(resourceName: "placeholder")
+        albumArtView.downloadImage(url: imageUrl)
+        UIView.animate(withDuration: 0.02, animations: {
+            self.albumArtView.alpha = 1
+        })
+        //albumArtView.layer.setCellShadow(contentView: self)
+    }
+    
     func setupSeparator() {
         setup(separatorView: separatorView)
-        DispatchQueue.main.async {
-            self.albumArtView.layer.cornerRadius = 4
+        DispatchQueue.main.async { [weak self] in
+            guard let strongSelf = self else { return }
+            strongSelf.albumArtView.layer.cornerRadius = 4
             let containerLayer = CALayer()
             containerLayer.shadowColor = UIColor.darkText.cgColor
             containerLayer.shadowRadius = 1
             containerLayer.shadowOffset = CGSize(width: 0, height: 0)
             containerLayer.shadowOpacity = 0.7
-            self.albumArtView.layer.masksToBounds = true
-            containerLayer.addSublayer(self.albumArtView.layer)
-            self.layer.addSublayer(containerLayer)
+            strongSelf.albumArtView.layer.masksToBounds = true
+            containerLayer.addSublayer(strongSelf.albumArtView.layer)
+            strongSelf.layer.addSublayer(containerLayer)
         }
     }
     
@@ -82,5 +95,10 @@ class SearchResultCell: UITableViewCell, Reusable {
         albumArtView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
         albumArtView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.88).isActive = true
         albumArtView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.29).isActive = true
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        albumArtView.image = nil
     }
 }

@@ -1,6 +1,6 @@
 import Foundation
 
-class TopPodcastLoadOperation: Operation {
+final class TopPodcastLoadOperation: Operation {
     var topItem: CasterSearchResult?
     var loadingCompleteHandler: ((CasterSearchResult) -> ())?
     
@@ -15,8 +15,9 @@ class TopPodcastLoadOperation: Operation {
         self.topItem = _topItem
         
         if let loadingCompleteHandler = loadingCompleteHandler {
-            DispatchQueue.main.async {
-                loadingCompleteHandler(self._topItem)
+            DispatchQueue.main.async { [weak self] in
+                guard let strongSelf = self else { return }
+                loadingCompleteHandler(strongSelf._topItem)
             }
         }
     }

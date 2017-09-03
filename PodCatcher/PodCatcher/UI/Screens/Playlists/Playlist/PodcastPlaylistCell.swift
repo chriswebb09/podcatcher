@@ -31,7 +31,7 @@ final class PodcastPlaylistCell: UICollectionViewCell {
     var pauseButton: UIButton = {
         var pause = UIButton()
         pause.setImage(#imageLiteral(resourceName: "pause-round"), for: .normal)
-         pause.alpha = 0.6
+        pause.alpha = 0.6
         pause.tintColor = .black
         return pause
     }()

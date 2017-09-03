@@ -23,7 +23,7 @@ final class SubscribedPodcastCell: UICollectionViewCell {
         }
     }
     
-    fileprivate var albumArtView: UIImageView = {
+   var albumArtView: UIImageView = {
         var album = UIImageView()
         return album
     }()

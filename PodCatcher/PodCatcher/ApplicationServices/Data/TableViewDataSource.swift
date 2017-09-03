@@ -54,6 +54,10 @@ class TableViewDataSource<Delegate: TableViewDataSourceDelegate>: NSObject, UITa
     func reloadData() {
         do {
             try fetchedResultsController.performFetch()
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                self.tableView.reloadRows(at: self.tableView.indexPathsForVisibleRows!, with: UITableViewRowAnimation.fade)
+            }
         } catch let error {
             print(error)
         }

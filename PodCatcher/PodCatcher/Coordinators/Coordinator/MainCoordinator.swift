@@ -3,9 +3,10 @@ import ReachabilitySwift
 import CoreData
 
 class MainCoordinator: ApplicationCoordinator {
-   
+    
     var childCoordinators: [Coordinator] = []
     var window: UIWindow
+    let feedStore = FeedCoreDataStack()
     var appCoordinator: Coordinator
     var dataSource: BaseMediaControllerDataSource!
     var tabbBarCoordinator:  TabBarCoordinator!
@@ -29,7 +30,12 @@ class MainCoordinator: ApplicationCoordinator {
     }
     
     func start() {
-        appCoordinator.start()
+        if UserDefaults.loadDefaultOnFirstLaunch() {
+            appCoordinator.start()
+            setupTabCoordinator(dataSource: BaseMediaControllerDataSource())
+        } else {
+            transitionCoordinator(type: .app, dataSource: BaseMediaControllerDataSource())
+        }
     }
 }
 
@@ -40,10 +46,9 @@ extension MainCoordinator: CoordinatorDelegate {
             try managedContext.save()
         } catch {
             print(error.localizedDescription)
-            //fatalError("Failure to save context: \(error)")
         }
     }
-
+    
     
     func podcastItem(toAdd: CasterSearchResult, with index: Int) {
         itemToSave = toAdd
@@ -78,7 +83,8 @@ extension MainCoordinator: CoordinatorDelegate {
         setupSearchTab()
         setupSettingsTab()
         appCoordinator = tabbBarCoordinator
-        start()
+        appCoordinator.start()
+        //        start()
     }
     
     func setupHomeTab() {
@@ -88,6 +94,7 @@ extension MainCoordinator: CoordinatorDelegate {
         let homeCoord = tabbBarCoordinator.childCoordinators[0] as! HomeTabCoordinator
         homeViewController.coordinator = homeCoord
         homeCoord.delegate = self
+        homeCoord.feedStore = feedStore
     }
     
     func setupPlaylistsTab() {
@@ -99,6 +106,7 @@ extension MainCoordinator: CoordinatorDelegate {
         playlistsCoord.delegate = self
         playlistsCoord.setup()
         addChildCoordinator(playlistsCoord)
+        
     }
     
     func setupBrowseTab() {
@@ -110,6 +118,8 @@ extension MainCoordinator: CoordinatorDelegate {
         browseCoord.delegate = self
         browseCoord.setupBrowse()
         addChildCoordinator(browseCoord)
+        browseCoord.viewDidLoad(browseViewController)
+        browseCoord.feedStore = feedStore
     }
     
     func setupSearchTab() {
@@ -119,6 +129,7 @@ extension MainCoordinator: CoordinatorDelegate {
         let searchCoord = tabbBarCoordinator.childCoordinators[3] as! SearchTabCoordinator
         searchCoord.delegate = self
         addChildCoordinator(searchCoord)
+        searchCoord.feedStore = feedStore
     }
     
     func setupSettingsTab() {

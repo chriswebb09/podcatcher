@@ -14,38 +14,42 @@ enum PlayerState {
         "hasProtectedContent"
     ]
     
-    let player = AVPlayer()
+    var player: AVPlayer? = AVPlayer()
     
-    var currentTime: Double {
+    var currentTime: Double? {
         get {
+            guard let player = player else { return 0 }
             return CMTimeGetSeconds(player.currentTime())
         }
         set {
+            guard let newValue = newValue else { return }
             let newTime = CMTimeMakeWithSeconds(newValue, 1)
+            guard let player = player else { return }
             player.seek(to: newTime, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero)
         }
     }
     
-    let timeRemainingFormatter: DateComponentsFormatter = {
-        let formatter = DateComponentsFormatter()
-        formatter.zeroFormattingBehavior = .pad
-        formatter.allowedUnits = [.minute, .second]
-        return formatter
-    }()
+//    let timeRemainingFormatter: DateComponentsFormatter = {
+//        let formatter = DateComponentsFormatter()
+//        formatter.zeroFormattingBehavior = .pad
+//        formatter.allowedUnits = [.minute, .second]
+//        return formatter
+//    }()
     
     
     var duration: Double {
-        guard let currentItem = player.currentItem else { return 0.0 }
+        guard let currentItem = player?.currentItem else { return 0.0 }
         return CMTimeGetSeconds(currentItem.duration)
     }
     
     var rate: Float {
         get {
+            guard let player = player else { return 0 }
             return player.rate
         }
         
         set {
-            player.rate = newValue
+            player?.rate = newValue
         }
     }
     
@@ -58,11 +62,11 @@ enum PlayerState {
     
     weak var delegate: AudioFilePlayerDelegate?
     
-    var state: PlayerState = .stopped
+    var state: PlayerState? = .stopped
     
     var playerItem: AVPlayerItem? = nil {
         didSet {
-            player.replaceCurrentItem(with: self.playerItem)
+            player?.replaceCurrentItem(with: self.playerItem)
         }
     }
     
@@ -72,48 +76,48 @@ enum PlayerState {
     }
     
     func playPause() {
-        if player.rate != 1.0 {
+        if player?.rate != 1.0 {
             state = .playing
             if currentTime == duration {
                 currentTime = 0.0
             }
             
-            player.playImmediately(atRate: 1)
+            player?.playImmediately(atRate: 1)
         } else {
             state = .paused
-            player.pause()
+            player?.pause()
         }
     }
     
     func play() {
-        if player.rate != 1.0 {
+        if player?.rate != 1.0 {
             if currentTime == duration {
                 // At end, so got back to begining.
                 currentTime = 0.0
             }
             
-            player.playImmediately(atRate: 1)
+            player?.playImmediately(atRate: 1)
         }
         else {
             // Playing, so pause.
-            player.pause()
+            player?.pause()
         }
         state = .playing
     }
     
     func pause() {
-        if player.rate != 1.0 {
+        if player?.rate != 1.0 {
             // Not playing forward, so play.
             if currentTime == duration {
                 // At end, so got back to begining.
                 currentTime = 0.0
             }
             
-            player.play()
+            player?.play()
         }
         else {
             
-            player.pause()
+            player?.pause()
         }
         state = .paused
     }
@@ -123,12 +127,13 @@ extension AudioFilePlayer: AVAssetResourceLoaderDelegate {
     
     // MARK: - Asset Loading
     
-    func asynchronouslyLoadURLAsset(_ newAsset: AVURLAsset) {
+    func asynchronouslyLoadURLAsset(_ newAsset: AVURLAsset?) {
         
-        
-        newAsset.loadValuesAsynchronously(forKeys: AudioFilePlayer.assetKeysRequiredToPlay) {
+        guard let newAsset = newAsset else { return }
+        newAsset.loadValuesAsynchronously(forKeys: AudioFilePlayer.assetKeysRequiredToPlay) { [weak self] in
             DispatchQueue.main.async {
-                guard newAsset == self.asset else { return }
+                guard let strongSelf = self else { return }
+                guard newAsset == strongSelf.asset else { return }
                 for key in AudioFilePlayer.assetKeysRequiredToPlay {
                     var error: NSError?
                     
@@ -144,15 +149,8 @@ extension AudioFilePlayer: AVAssetResourceLoaderDelegate {
                     print(message)
                     return
                 }
-                self.playerItem = AVPlayerItem(asset: newAsset)
+                strongSelf.playerItem = AVPlayerItem(asset: newAsset)
             }
         }
-    }
-    
-    func playerItemDidReachEnd(notification: NSNotification) {
-        player.seek(to: kCMTimeZero)
-        player.pause()
-        state = .stopped
-        delegate?.trackFinishedPlaying()
     }
 }

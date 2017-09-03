@@ -85,6 +85,7 @@ final class EntryView: UIView {
         titleLabel.text = "New Playlist"
         layoutSubviews()
         setupConstraints()
+        entryField.delegate = self
     }
     
     private func setup(entryField: UITextField) {
@@ -118,5 +119,13 @@ final class EntryView: UIView {
         setup(entryField: entryField)
         setup(titleLabel: titleLabel)
         setup(doneButton: doneButton)
+    }
+}
+
+extension EntryView: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        endEditing(true)
+        return false
     }
 }

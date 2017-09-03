@@ -84,7 +84,7 @@ final class iTunesAPIClient {
     }
 }
 
-struct SearchResultsFetcher {
+struct SearchResultsIteractor {
     
     var searchTerm: String? = ""
     var lookup: String? = ""

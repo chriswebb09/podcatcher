@@ -1,5 +1,11 @@
 import UIKit
 
+struct SettingCellConstants {
+    static let widthMultiplier: CGFloat = 0.6
+    static let titleFont = UIFont.systemFont(ofSize: 16, weight: UIFontWeightLight)
+    static let borderWidth: CGFloat = 1
+}
+
 final class SettingCell: UITableViewCell, Reusable {
     
     weak var delegate: SettingCellDelegate?
@@ -9,7 +15,7 @@ final class SettingCell: UITableViewCell, Reusable {
     var titleLabel: UILabel = {
         let title = UILabel()
         title.textColor = .black
-        title.font = UIFont.systemFont(ofSize: 16, weight: UIFontWeightLight)
+        title.font = SettingCellConstants.titleFont
         title.textAlignment = .center
         title.numberOfLines = 0
         return title
@@ -19,7 +25,7 @@ final class SettingCell: UITableViewCell, Reusable {
         super.layoutSubviews()
         let tap = UITapGestureRecognizer(target: self, action: #selector(onTap))
         addGestureRecognizer(tap)
-        contentView.layer.borderWidth = 1
+        contentView.layer.borderWidth = SettingCellConstants.borderWidth
         setup(titleLabel: titleLabel)
         selectionStyle = .none
     }
@@ -35,6 +41,6 @@ final class SettingCell: UITableViewCell, Reusable {
         titleLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         titleLabel.centerYAnchor.constraint(equalTo:  contentView.centerYAnchor).isActive = true
         titleLabel.heightAnchor.constraint(equalTo: contentView.heightAnchor).isActive = true
-        titleLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.6).isActive = true
+        titleLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: SettingCellConstants.widthMultiplier).isActive = true
     }
 }

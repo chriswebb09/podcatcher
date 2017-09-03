@@ -13,7 +13,7 @@ final class PlaylistsViewController: BaseTableViewController {
     var currentPlaylistID: String = ""
     var entryPop: EntryPopover = EntryPopover()
     var mode: PlaylistsInteractionMode = .add
-    var casterItemToSave: CasterSearchResult!
+    var casterItzemToSave: CasterSearchResult!
     var index: Int!
     
     var item: CasterSearchResult!
@@ -21,6 +21,7 @@ final class PlaylistsViewController: BaseTableViewController {
     var managedContext: NSManagedObjectContext! {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return nil }
         let context = appDelegate.persistentContainer.viewContext
+        context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
         return context
     }
     
@@ -48,16 +49,6 @@ final class PlaylistsViewController: BaseTableViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         mode = .add
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.navigationBar.topItem?.title = "Playlists".uppercased()
-        navigationController?.navigationBar.topItem?.titleView?.alpha = 1
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        navigationController?.navigationBar.topItem?.titleView?.alpha = 0
     }
     
     @objc func edit() {
@@ -165,42 +156,33 @@ extension PlaylistsViewController: UITableViewDelegate {
     }
     
     func removeFor(indexPath: IndexPath) {
-        persistentContainer.performBackgroundTask { _ in
-            let item = self.fetchedResultsController.object(at: indexPath)
-            for (_, podcast) in (item.podcast?.enumerated())! {
-                let pod = podcast as! PodcastPlaylistItem
-                LocalStorageManager.deleteSavedItem(itemUrlString: pod.audioUrl!)
-            }
-            self.managedContext.delete(item)
-            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "PodcastPlaylistItem")
-            let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-            do {
-                try self.managedContext.execute(deleteRequest)
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
-            } catch let error {
-                print(error.localizedDescription)
-            }
+        
+        let item = self.fetchedResultsController.object(at: indexPath)
+        
+        guard let podcast = item.podcast else { return }
+        for (_, podcast) in (podcast.enumerated()) {
+            let pod = podcast as! PodcastPlaylistItem
+            LocalStorageManager.deleteSavedItem(itemUrlString: pod.audioUrl!)
+        }
+        self.managedContext.delete(item)
+        do {
+            try self.managedContext.save()
             self.playlistsDataSource.reloadData()
-            
-            do {
-                try self.managedContext.save()
-            } catch let error {
-                print(error.localizedDescription)
+        } catch let error {
+            print(error.localizedDescription)
+        }
+        if let count = self.fetchedResultsController.fetchedObjects?.count {
+            if count == 0 {
+                self.mode = .add
+                self.leftButtonItem.title = "Edit"
             }
-            if let count = self.fetchedResultsController.fetchedObjects?.count {
-                if count == 0 {
-                    self.mode = .add
-                    self.leftButtonItem.title = "Edit"
-                }
-                if self.playlistsDataSource.itemCount == 0 {
-                    DispatchQueue.main.async {
-                        self.navigationItem.leftBarButtonItem = nil
-                    }
+            if self.playlistsDataSource.itemCount == 0 {
+                DispatchQueue.main.async {
+                    self.navigationItem.leftBarButtonItem = nil
                 }
             }
         }
+        
     }
 }
 
@@ -250,7 +232,6 @@ extension PlaylistsViewController: TableViewDataSourceDelegate {
                     }
                 }
             }
-            
         } else {
             if let name = object.playlistName, let count = object.podcast?.count {
                 cell.configure(image: #imageLiteral(resourceName: "light-placehoder-2"), title: name, subtitle: "Episodes: \(count)", mode: cellMode)

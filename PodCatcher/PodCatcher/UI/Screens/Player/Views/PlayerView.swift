@@ -43,7 +43,8 @@ final class PlayerView: UIView {
         artist.numberOfLines = 0
         artist.textAlignment = .center
         artist.sizeToFit()
-        artist.font = UIFont.systemFont(ofSize: 16, weight: UIFontWeightSemibold)
+        artist.font = UIFont(name: "AvenirNext-Medium", size: 18)!
+            //UIFont.systemFont(ofSize: 16, weight: UIFontWeightSemibold)
         return artist
     }()
     
@@ -58,7 +59,8 @@ final class PlayerView: UIView {
         title.numberOfLines = 0
         title.textAlignment = .center
         title.sizeToFit()
-        title.font = UIFont.systemFont(ofSize: 16, weight: UIFontWeightLight)
+        title.font = UIFont(name: "Avenir-Book", size: 16)!
+            //UIFont.systemFont(ofSize: 16, weight: UIFontWeightLight)
         return title
     }()
     

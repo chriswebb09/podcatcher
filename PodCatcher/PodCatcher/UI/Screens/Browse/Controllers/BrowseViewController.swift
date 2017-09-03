@@ -4,7 +4,7 @@ import ReachabilitySwift
 final class BrowseViewController: BaseCollectionViewController, LoadingPresenting {
     
     weak var delegate: BrowseViewControllerDelegate?
-    var coordinator: BrowseCoordinator?
+    weak var coordinator: BrowseCoordinator?
     var currentPlaylistId: String = ""
     var reach: Reachable?
     
@@ -52,27 +52,8 @@ final class BrowseViewController: BaseCollectionViewController, LoadingPresentin
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.emptyView = InformationView(data: "No Data", icon: #imageLiteral(resourceName: "mic-icon"))
-        emptyView.layoutSubviews()
-        self.view.addSubview(self.network)
-        self.view.sendSubview(toBack: self.network)
-        network.layoutSubviews()
-        let topFrameHeight = UIScreen.main.bounds.height / 2
-        let topFrameWidth = UIScreen.main.bounds.width
-        let topFrame = CGRect(x: 0, y: 0, width: topFrameWidth, height: topFrameHeight + 100)
-        topView.frame = topFrame
-        loadingPop.configureLoadingOpacity(alpha: 0.2)
-        view.addSubview(topView)
-        view.backgroundColor = .clear
-        topView.backgroundColor = .clear
-        view.addSubview(collectionView)
-        collectionViewConfiguration()
-        network.frame = view.frame
-        collectionView.register(TopPodcastCell.self)
-        collectionView.backgroundColor = .darkGray
-        collectionView.prefetchDataSource = dataSource
+        coordinator?.viewDidLoad(self)
         tap = UITapGestureRecognizer(target: self, action: #selector(selectAt))
-        
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }
             strongSelf.collectionView.reloadData()
@@ -90,15 +71,6 @@ final class BrowseViewController: BaseCollectionViewController, LoadingPresentin
         collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
     
-    func collectionViewConfiguration() {
-        setup(view: view, newLayout: BrowseItemsFlowLayout())
-        collectionView.delegate = self
-        collectionView.dataSource = dataSource
-        collectionView.isPagingEnabled = true
-        collectionView.isScrollEnabled = true
-        collectionView.decelerationRate = UIScrollViewDecelerationRateFast
-        collectionView.backgroundColor = .clear
-    }
     
     func reachabilityDidChange(_ notification: Notification) {
         print("Reachability changed")
@@ -134,13 +106,13 @@ final class BrowseViewController: BaseCollectionViewController, LoadingPresentin
 extension BrowseViewController: UICollectionViewDelegate {
     
     @objc func selectAt() {
-        delegate?.didSelect(at: 0, with: dataSource.items[0])
+        coordinator?.didSelect(at: 0, with: dataSource.items[0])
         topView.removeGestureRecognizer(tap)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.isUserInteractionEnabled = false
-        delegate?.didSelect(at: indexPath.row, with: self.dataSource.items[indexPath.row])
+        coordinator?.didSelect(at: indexPath.row, with: self.dataSource.items[indexPath.row])
     }
 }
 

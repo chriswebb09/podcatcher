@@ -4,8 +4,13 @@ final class SearchTabCoordinator: NavigationCoordinator {
     
     weak var delegate: CoordinatorDelegate?
     var type: CoordinatorType = .tabbar
+    var feedStore = FeedCoreDataStack()
     var dataSource: BaseMediaControllerDataSource!
-    
+    let concurrent = DispatchQueue(label: "concurrentBackground",
+                                   qos: .background,
+                                   attributes: .concurrent,
+                                   autoreleaseFrequency: .inherit,
+                                   target: nil)
     var childViewControllers: [UIViewController] = []
     var navigationController: UINavigationController
     
@@ -34,22 +39,22 @@ extension SearchTabCoordinator: SearchViewControllerDelegate {
     func didSelect(at index: Int, with caster: PodcastSearchResult) {
         let searchViewController = navigationController.viewControllers[0] as! SearchViewController
         let resultsList = SearchResultListViewController(index: index)
+        DispatchQueue.main.async {
+            searchViewController.showLoadingView(loadingPop: searchViewController.loadingPop)
+        }
         resultsList.delegate = self
         resultsList.dataSource = dataSource
         resultsList.item = caster as! CasterSearchResult
         guard let feedUrlString = resultsList.item.feedUrl else { return }
         let store = SearchResultsDataStore()
-        let concurrent = DispatchQueue(label: "concurrentBackground",
-                                       qos: .background,
-                                       attributes: .concurrent,
-                                       autoreleaseFrequency: .inherit,
-                                       target: nil)
         concurrent.async { [weak self] in
             guard let strongSelf = self else { return }
             store.pullFeed(for: feedUrlString) { response, arg  in
+                
                 guard let episodes = response else { print("no"); return }
                 resultsList.episodes = episodes
                 DispatchQueue.main.async {
+                    searchViewController.hideLoadingView(loadingPop: searchViewController.loadingPop)
                     resultsList.collectionView.reloadData()
                     strongSelf.navigationController.pushViewController(resultsList, animated: false)
                     searchViewController.tableView.isUserInteractionEnabled = true
@@ -60,22 +65,38 @@ extension SearchTabCoordinator: SearchViewControllerDelegate {
 }
 
 extension SearchTabCoordinator: PodcastListViewControllerDelegate {
+    func saveFeed(item: CasterSearchResult, podcastImage: UIImage, episodesCount: Int) {
+        
+        guard let title = item.podcastTitle else { return }
+        let image = podcastImage
+        guard let feedUrl = item.feedUrl else { return }
+        guard let artist = item.podcastArtist else { return }
+        guard let artUrl = item.podcastArtUrlString else { return }
+        feedStore.save(feedUrl: feedUrl,
+                       podcastTitle: title,
+                       episodeCount: episodesCount,
+                       lastUpdate: NSDate(),
+                       image: image,
+                       uid: "none",
+                       artworkUrlString: artUrl,
+                       artistName: artist)
+        var subscriptions = UserDefaults.loadSubscriptions()
+        subscriptions.append(feedUrl)
+        UserDefaults.saveSubscriptions(subscriptions: subscriptions)
+    }
+    
     
     func didSelectPodcastAt(at index: Int, podcast: CasterSearchResult, with episodes: [Episodes]) {
-        let concurrent = DispatchQueue(label: "concurrentBackground",
-                                       qos: .background,
-                                       attributes: .concurrent,
-                                       autoreleaseFrequency: .inherit,
-                                       target: nil)
+        
         concurrent.async { [weak self] in
             guard let strongSelf = self else { return }
             var playerPodcast = podcast
             playerPodcast.episodes = episodes
-            let playerViewController = PlayerViewController(index: index,
-                                                            caster: playerPodcast,
-                                                            image: nil)
-            playerViewController.delegate = strongSelf
             DispatchQueue.main.async {
+                let playerViewController = PlayerViewController(index: index,
+                                                                caster: playerPodcast,
+                                                                image: nil)
+                playerViewController.delegate = strongSelf
                 strongSelf.navigationController.setNavigationBarHidden(true, animated: false)
                 strongSelf.navigationController.pushViewController(playerViewController, animated: false)
             }
@@ -84,7 +105,7 @@ extension SearchTabCoordinator: PodcastListViewControllerDelegate {
 }
 
 extension SearchTabCoordinator: PlayerViewControllerDelegate {
-
+    
     func addItemToPlaylist(item: CasterSearchResult, index: Int) {
         let controller = navigationController.viewControllers.last as! PlayerViewController
         navigationController.setNavigationBarHidden(false, animated: false)
@@ -102,6 +123,7 @@ extension SearchTabCoordinator: PlayerViewControllerDelegate {
     }
     
     func navigateBack(tapped: Bool) {
+        navigationController.popViewController(animated: false)
         navigationController.setNavigationBarHidden(false, animated: false)
         navigationController.viewControllers.last?.tabBarController?.tabBar.alpha = 1
     }

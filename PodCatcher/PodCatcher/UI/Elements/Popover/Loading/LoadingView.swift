@@ -24,12 +24,12 @@ final class LoadingView: UIView {
         containerView.alpha = alpha
     }
     
-    func startAnimating(ball: BallIndicatorView) {
-        ball.startAnimating()
+    func startAnimating() {
+        ball?.startAnimating()
     }
     
-    func stopAnimating(ball: BallIndicatorView) {
-        ball.stopAnimating()
+    func stopAnimating() {
+        ball?.stopAnimating()
     }
     
     private func setupConstraints() {

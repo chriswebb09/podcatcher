@@ -23,8 +23,7 @@ extension HomeCoordinator {
         homeVC.collectionView.dataSource = homeVC.homeDataSource
         homeVC.collectionView.delegate = homeVC
         homeVC.view.bringSubview(toFront: homeVC.collectionView)
-        homeVC.collectionView.backgroundColor = .lightText
-        homeVC.background.backgroundColor = .lightText
+        homeVC.collectionView.backgroundColor = .lightGray
+        homeVC.background.backgroundColor = .lightGray
     }
 }
-

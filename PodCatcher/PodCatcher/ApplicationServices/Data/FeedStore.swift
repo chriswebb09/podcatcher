@@ -10,6 +10,12 @@ struct FeedCoreDataStack {
     
     var feeds: [NSManagedObject] = []
     
+    let managedContext: NSManagedObjectContext! = {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return nil }
+        return appDelegate.coreData.managedContext
+    }()
+    
+    
     mutating func save(feedUrl: String, podcastTitle: String, episodeCount: Int, lastUpdate: NSDate, image: UIImage, uid: String, artworkUrlString: String, artistName: String) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         let managedContext = appDelegate.coreData.managedContext
@@ -34,8 +40,7 @@ struct FeedCoreDataStack {
     }
     
     mutating func fetchFromCore() {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-        let managedContext = appDelegate.coreData.managedContext
+      
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Subscription")
         do {
             feeds = try managedContext.fetch(fetchRequest)

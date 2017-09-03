@@ -1,9 +1,6 @@
 import CoreData
 import UIKit
 
-enum ContentState {
-    case empty, collection
-}
 
 class CollectionViewDataSource<Delegate: CollectionViewDataSourceDelegate>: NSObject, UICollectionViewDataSource, NSFetchedResultsControllerDelegate {
     
@@ -13,15 +10,13 @@ class CollectionViewDataSource<Delegate: CollectionViewDataSourceDelegate>: NSOb
     // MARK: Private
     
     var emptyView = InformationView(data: "Subscribe To Your Favorite Podcasts!", icon: #imageLiteral(resourceName: "mic-icon").withRenderingMode(.alwaysTemplate))
-    var backgroundView = UIView()
     
+    var backgroundView = UIView()
     
     fileprivate let collectionView: UICollectionView
     let fetchedResultsController: NSFetchedResultsController<Object>
     fileprivate weak var delegate: Delegate!
     fileprivate let cellIdentifier: String
-    
-    var contentState: ContentState = .empty
     
     var itemCount: Int {
         return fetchedResultsController.sections?[0].numberOfObjects ?? 0
@@ -34,7 +29,11 @@ class CollectionViewDataSource<Delegate: CollectionViewDataSourceDelegate>: NSOb
         self.delegate = delegate
         super.init()
         fetchedResultsController.delegate = self
-        try! fetchedResultsController.performFetch()
+        do {
+            try fetchedResultsController.performFetch()
+        } catch let error {
+            print(error.localizedDescription)
+        }
         collectionView.dataSource = self
         collectionView.reloadData()
         emptyView.frame = UIScreen.main.bounds
@@ -43,31 +42,18 @@ class CollectionViewDataSource<Delegate: CollectionViewDataSourceDelegate>: NSOb
         backgroundView.backgroundColor = .white
     }
     
-    var selectedObject: Object? {
-        guard let indexPath = collectionView.indexPathsForSelectedItems?[0] else { return nil }
-        return objectAtIndexPath(indexPath)
-    }
-    
-    func objectAtIndexPath(_ indexPath: IndexPath) -> Object {
-        return fetchedResultsController.object(at: indexPath)
-    }
-    
     func reloadData() {
         do {
             try fetchedResultsController.performFetch()
         } catch let error {
-            print(error)
+            print(error.localizedDescription)
         }
     }
     
     // MARK: UITableViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let section = fetchedResultsController.sections?[section] else {
-            contentState = .empty;
-            return 0
-        }
-        
+        guard let section = fetchedResultsController.sections?[section] else { return 0 }
         if itemCount > 0 {
             collectionView.backgroundView = backgroundView
             collectionView.backgroundView?.layoutSubviews()
@@ -98,10 +84,10 @@ class CollectionViewDataSource<Delegate: CollectionViewDataSourceDelegate>: NSOb
             guard let indexPath = newIndexPath else { return }
             collectionView.performBatchUpdates({
                 self.collectionView.insertItems(at: [indexPath])
-            }, completion: nil)
+            })
         case .update:
             guard let indexPath = indexPath else { return }
-            let object = objectAtIndexPath(indexPath)
+            let object = fetchedResultsController.object(at: indexPath)
             guard let cell = collectionView.cellForItem(at: indexPath) as? Cell else { break }
             delegate.configure(cell, for: object)
         case .move:

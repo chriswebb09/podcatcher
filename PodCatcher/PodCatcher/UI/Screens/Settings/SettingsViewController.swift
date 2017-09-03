@@ -1,15 +1,22 @@
 import UIKit
 
+struct SettingsViewControllerConstants {
+    static let rowHeight: CGFloat = 100
+}
+
+
 final class SettingsViewController: BaseTableViewController {
     
     weak var delegate: SettingsViewControllerDelegate?
+   
     var dataSource: BaseMediaControllerDataSource!
+    
     var options = ["Log Out"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Settings"
-        tableView.rowHeight = 100
+        tableView.rowHeight = SettingsViewControllerConstants.rowHeight
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(SettingCell.self)
@@ -19,7 +26,7 @@ final class SettingsViewController: BaseTableViewController {
 extension SettingsViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 200
+        return SettingsViewControllerConstants.rowHeight
     }
 }
 
