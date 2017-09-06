@@ -40,6 +40,10 @@ final class PlaylistsViewController: BaseTableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        initialize()
+    }
+    
+    func initialize() {
         playlistsDataSource = TableViewDataSource(tableView: tableView, identifier: "PlaylistCell", fetchedResultsController: fetchedResultsController, delegate: self)
         leftButtonItem  = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(edit))
         rightButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "plus-red").withRenderingMode(.alwaysTemplate), style: .plain, target: self, action: #selector(addPlaylist))

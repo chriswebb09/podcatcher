@@ -63,7 +63,6 @@ final class BrowseViewController: BaseCollectionViewController, LoadingPresentin
         reach?.start()
     }
     
-    
     func setup(view: UIView, newLayout: BrowseItemsFlowLayout) {
         newLayout.setup()
         collectionView.collectionViewLayout = newLayout

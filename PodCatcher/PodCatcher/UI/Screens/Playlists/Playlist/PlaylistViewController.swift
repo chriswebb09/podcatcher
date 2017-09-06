@@ -86,6 +86,10 @@ class PlaylistViewController: BaseCollectionViewController, ErrorPresenting, Loa
         }
     }
     
+    override func initialize() {
+        super.initialize()
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(false)
         collectionView.alpha = 1

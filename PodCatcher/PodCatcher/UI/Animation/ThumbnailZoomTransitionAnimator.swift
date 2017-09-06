@@ -63,7 +63,7 @@ class ThumbnailZoomTransitionAnimator: NSObject, UIViewControllerAnimatedTransit
         containerView.addSubview(toView)
         containerView.bringSubview(toFront: podDetailView)
         
-        UIView.animate(withDuration: duration, delay: 0.0, usingSpringWithDamping: 1, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
+        UIView.animate(withDuration: duration, delay: 0.0, usingSpringWithDamping: 3, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
 
             podDetailView.alpha = presenting ? 1 : 0
             podsFeedView.alpha = presenting ? 0 : 1

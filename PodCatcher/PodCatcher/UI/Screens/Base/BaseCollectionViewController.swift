@@ -19,6 +19,10 @@ class BaseCollectionViewController: BaseViewController {
         collectionView.frame = CGRect(x: view.bounds.minX, y: view.frame.minY, width: view.frame.width, height: view.frame.height - frame.height)
     }
     
+    func initialize() {
+ 
+    }
+    
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         collectionView.collectionViewLayout.invalidateLayout()

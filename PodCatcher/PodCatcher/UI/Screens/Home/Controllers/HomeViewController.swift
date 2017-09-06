@@ -46,6 +46,11 @@ class HomeViewController: BaseCollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        initialize()
+    }
+    
+    override func initialize() {
+        super.initialize()
         rightButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(changeMode))
         coordinator?.viewDidLoad(self)
     }

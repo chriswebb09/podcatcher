@@ -21,8 +21,7 @@ final class LoadingPopover: BasePopoverAlert {
                                width: UIScreen.main.bounds.width / 3,
                                height: UIScreen.main.bounds.height / 5.5)
         popView.center = CGPoint(x: UIScreen.main.bounds.midX, y: UIScreen.main.bounds.midY)
-        popView.containerView.center = CGPoint(x: UIScreen.main.bounds.midX, y: UIScreen.main.bounds.midY)
-        popView.containerView.frame = viewController.view.frame
+        //popView.containerView.frame = viewController.view.frame
         popView.clipsToBounds = true
         viewController.view.addSubview(popView)
         viewController.view.bringSubview(toFront: popView)

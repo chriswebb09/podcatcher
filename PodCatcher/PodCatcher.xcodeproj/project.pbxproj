@@ -62,6 +62,12 @@
 		A71C93A41F2AD3C8009F3EC9 /* HomeItemsFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71C93A31F2AD3C8009F3EC9 /* HomeItemsFlowLayout.swift */; };
 		A71C93A61F2AD3ED009F3EC9 /* HomeViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71C93A51F2AD3ED009F3EC9 /* HomeViewControllerDelegate.swift */; };
 		A71D83DB1F0AC781009D0720 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71D83D91F0AC781009D0720 /* SettingsViewController.swift */; };
+		A71FDFA11F5CA6B600189C52 /* BallIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71FDFA01F5CA6B600189C52 /* BallIndicatorView.swift */; };
+		A71FDFA31F5CA6D500189C52 /* IndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71FDFA21F5CA6D500189C52 /* IndicatorView.swift */; };
+		A71FDFA51F5CA70A00189C52 /* AnimationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71FDFA41F5CA70A00189C52 /* AnimationDelegate.swift */; };
+		A71FDFA71F5CA72800189C52 /* BigAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71FDFA61F5CA72800189C52 /* BigAnimation.swift */; };
+		A71FDFA91F5CA74700189C52 /* SpinAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71FDFA81F5CA74700189C52 /* SpinAnimation.swift */; };
+		A71FDFAB1F5CA76A00189C52 /* AnimatableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71FDFAA1F5CA76A00189C52 /* AnimatableView.swift */; };
 		A723B4151F0EB4F000EA6B27 /* PlaylistsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A723B4131F0EB4F000EA6B27 /* PlaylistsViewController.swift */; };
 		A723B41C1F0EB54300EA6B27 /* PlaylistCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A723B4191F0EB54300EA6B27 /* PlaylistCell.swift */; };
 		A723B4271F0EB75D00EA6B27 /* PlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A723B4261F0EB75D00EA6B27 /* PlaylistViewController.swift */; };
@@ -251,6 +257,12 @@
 		A71C93A31F2AD3C8009F3EC9 /* HomeItemsFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HomeItemsFlowLayout.swift; path = Home/Models/HomeItemsFlowLayout.swift; sourceTree = "<group>"; };
 		A71C93A51F2AD3ED009F3EC9 /* HomeViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HomeViewControllerDelegate.swift; path = Home/Controllers/HomeViewControllerDelegate.swift; sourceTree = "<group>"; };
 		A71D83D91F0AC781009D0720 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsViewController.swift; path = PodCatcher/UI/Screens/Settings/SettingsViewController.swift; sourceTree = SOURCE_ROOT; };
+		A71FDFA01F5CA6B600189C52 /* BallIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BallIndicatorView.swift; sourceTree = "<group>"; };
+		A71FDFA21F5CA6D500189C52 /* IndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndicatorView.swift; sourceTree = "<group>"; };
+		A71FDFA41F5CA70A00189C52 /* AnimationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationDelegate.swift; sourceTree = "<group>"; };
+		A71FDFA61F5CA72800189C52 /* BigAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigAnimation.swift; sourceTree = "<group>"; };
+		A71FDFA81F5CA74700189C52 /* SpinAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinAnimation.swift; sourceTree = "<group>"; };
+		A71FDFAA1F5CA76A00189C52 /* AnimatableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatableView.swift; sourceTree = "<group>"; };
 		A723B4131F0EB4F000EA6B27 /* PlaylistsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlaylistsViewController.swift; path = Playlists/Playlists/Controllers/PlaylistsViewController.swift; sourceTree = "<group>"; };
 		A723B4191F0EB54300EA6B27 /* PlaylistCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlaylistCell.swift; path = Playlists/Playlists/Views/PlaylistCell.swift; sourceTree = "<group>"; };
 		A723B4261F0EB75D00EA6B27 /* PlaylistViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlaylistViewController.swift; path = Playlists/Playlist/PlaylistViewController.swift; sourceTree = "<group>"; };
@@ -693,6 +705,12 @@
 			isa = PBXGroup;
 			children = (
 				A7EBA0CB1EE683C900FAAC9C /* BallAnimation.swift */,
+				A71FDFA01F5CA6B600189C52 /* BallIndicatorView.swift */,
+				A71FDFA21F5CA6D500189C52 /* IndicatorView.swift */,
+				A71FDFA41F5CA70A00189C52 /* AnimationDelegate.swift */,
+				A71FDFA61F5CA72800189C52 /* BigAnimation.swift */,
+				A71FDFA81F5CA74700189C52 /* SpinAnimation.swift */,
+				A71FDFAA1F5CA76A00189C52 /* AnimatableView.swift */,
 			);
 			path = Ball;
 			sourceTree = "<group>";
@@ -1311,6 +1329,7 @@
 				A719C76C1F5B77D50086213E /* SimpleAnimator.swift in Sources */,
 				A7780F001F173FAA00737DA8 /* BrowseTopView.swift in Sources */,
 				A7E45F7F1F0238450063AC0F /* Episode.swift in Sources */,
+				A71FDFA11F5CA6B600189C52 /* BallIndicatorView.swift in Sources */,
 				A7E2B2361F396BBB00611F53 /* PlaylistMode.swift in Sources */,
 				A7780F081F1740BF00737DA8 /* TopPodcastCell.swift in Sources */,
 				A7780F3D1F17792C00737DA8 /* SubscribedPodcastCell.swift in Sources */,
@@ -1322,7 +1341,9 @@
 				A767F3A71F2FA71C008AF9BA /* TransitionController.swift in Sources */,
 				A7A7627D1F131A8A00D2C4FF /* ReloadableCollection.swift in Sources */,
 				A7172BE91F2DA0F400B8C392 /* UIEdgeInset+Extension.swift in Sources */,
+				A71FDFA71F5CA72800189C52 /* BigAnimation.swift in Sources */,
 				A7EBA0A51EE6740300FAAC9C /* String+Extension.swift in Sources */,
+				A71FDFA91F5CA74700189C52 /* SpinAnimation.swift in Sources */,
 				A77EDF721EE5FDA9001A24E5 /* UICollectionView+Extension.swift in Sources */,
 				A793E27A1F3A1C930083CA59 /* PlaylistCellMode.swift in Sources */,
 				A7B1C0601F0AC93800A42E7D /* StartView.swift in Sources */,
@@ -1330,6 +1351,7 @@
 				A71B27291EE5D31300613CF4 /* Coordinator.swift in Sources */,
 				A7FBA4921F33A46600590F2E /* CollectionViewDataSource.swift in Sources */,
 				A7172BE71F2DA0CA00B8C392 /* CGRect+Extension.swift in Sources */,
+				A71FDFAB1F5CA76A00189C52 /* AnimatableView.swift in Sources */,
 				A717592E1F381D9300651EAF /* PodcastCellViewModel .swift in Sources */,
 				A7B1C05D1F0AC90E00A42E7D /* StartViewController.swift in Sources */,
 				A7B8C3991EF6E18E001AFFA1 /* BaseViewController.swift in Sources */,
@@ -1345,6 +1367,7 @@
 				A77041581F29362200346FC7 /* PlaylistsCoreDataStack.swift in Sources */,
 				A7BD12CE1EFF78AB0040FAE5 /* iTunesAPIClient.swift in Sources */,
 				A73DE54E1F46835600A3BA40 /* ControllerCoordinator.swift in Sources */,
+				A71FDFA51F5CA70A00189C52 /* AnimationDelegate.swift in Sources */,
 				A71C93A21F2AC5C0009F3EC9 /* BrowseViewControllerDelegate.swift in Sources */,
 				A77041351F292FC000346FC7 /* TabControllerCoordinator.swift in Sources */,
 				A79636BD1F397B1E001B93C7 /* Reachability.swift in Sources */,
@@ -1383,6 +1406,7 @@
 				A71759301F381DC500651EAF /* PreferencesViewDelegate.swift in Sources */,
 				A7150EBD1EE62E0300E3553F /* PlayerViewController.swift in Sources */,
 				A731728B1F004964006A6A24 /* Download.swift in Sources */,
+				A71FDFA31F5CA6D500189C52 /* IndicatorView.swift in Sources */,
 				A717982F1F253B45007AD5EF /* Subscription+CoreDataClass.swift in Sources */,
 				A77041331F291ACD00346FC7 /* PlayerViewControllerDelegate.swift in Sources */,
 				A77041481F29332600346FC7 /* MenuOptionView.swift in Sources */,

@@ -13,6 +13,7 @@ final class HomeTabCoordinator: NSObject, NavigationCoordinator, HomeCoordinator
     var interactor = SearchResultsIteractor()
     var childViewControllers: [UIViewController] = []
     var navigationController: UINavigationController
+    
     let concurrent = DispatchQueue(label: "concurrentBackground",
                                    qos: .background,
                                    attributes: .concurrent,
@@ -84,7 +85,6 @@ extension HomeTabCoordinator: HomeViewControllerDelegate {
         }
     }
     
-    
     func didSelect(at index: Int, with subscription: Subscription, image: UIImage) {
         let store = SearchResultsDataStore()
         var caster = CasterSearchResult()
@@ -94,33 +94,27 @@ extension HomeTabCoordinator: HomeViewControllerDelegate {
         caster.podcastTitle = subscription.podcastTitle
         caster.feedUrl = subscription.feedUrl
         caster.podcastArtist = subscription.podcastArtist
-        
-        concurrent.async { [weak self] in
-            if let strongSelf = self {
-                store.pullFeed(for: feedUrlString) { response, arg  in
-                    guard let episodes = response else { return }
-                    DispatchQueue.main.async {
-                        let resultsList = SearchResultListViewController(index: index)
-                        resultsList.item = caster
-                        resultsList.item.episodes = episodes
-                        resultsList.episodes = episodes
-                        resultsList.delegate = strongSelf
-                        resultsList.dataSource = strongSelf.dataSource
-                        resultsList.collectionView.reloadData()
-                        let homeViewController = strongSelf.navigationController.viewControllers[0] as! HomeViewController
-                        homeViewController.hideLoadingView(loadingPop: homeViewController.loadingPop)
-                        strongSelf.navigationController.delegate = self
-                        self?.transitionThumbnail?.image = image
-                        var thumbnailZoomTransitionAnimator: ThumbnailZoomTransitionAnimator?
-                        strongSelf.navigationController.pushViewController(resultsList, animated: true)
-                        
-                        resultsList.collectionView.reloadData()
-                        strongSelf.navigationController.navigationBar.backItem?.title = ""
-                        strongSelf.navigationController.navigationItem.backBarButtonItem?.title = ""
-                        resultsList.navigationItem.backBarButtonItem?.title = ""
-                        
-                    }
-                }
+        store.pullFeed(for: feedUrlString) { response, arg  in
+            guard let episodes = response else { return }
+            DispatchQueue.main.async {
+                let resultsList = SearchResultListViewController(index: index)
+                resultsList.item = caster
+                resultsList.item.episodes = episodes
+                resultsList.episodes = episodes
+                resultsList.delegate = self
+                resultsList.dataSource = self.dataSource
+                resultsList.collectionView.reloadData()
+                let homeViewController = self.navigationController.viewControllers[0] as! HomeViewController
+                homeViewController.hideLoadingView(loadingPop: homeViewController.loadingPop)
+                self.navigationController.delegate = self
+                self.transitionThumbnail?.image = image
+                var thumbnailZoomTransitionAnimator: ThumbnailZoomTransitionAnimator?
+                self.navigationController.pushViewController(resultsList, animated: true)
+                
+                resultsList.collectionView.reloadData()
+                self.navigationController.navigationBar.backItem?.title = ""
+                self.navigationController.navigationItem.backBarButtonItem?.title = ""
+                resultsList.navigationItem.backBarButtonItem?.title = ""
             }
         }
     }
@@ -163,7 +157,6 @@ extension HomeTabCoordinator: PodcastListViewControllerDelegate {
                     strongSelf.navigationController.navigationBar.isTranslucent = true
                     strongSelf.navigationController.navigationBar.alpha = 0
                     strongSelf.navigationController.delegate = self
-                    
                     strongSelf.navigationController.pushViewController(playerViewController, animated: false)
                 }
             }

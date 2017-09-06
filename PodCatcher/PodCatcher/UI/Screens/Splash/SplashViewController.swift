@@ -17,9 +17,13 @@ final class SplashViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        initialize()
+    }
+    
+    func initialize() {
         splashView.delegate = self
         view.backgroundColor = .white
-        navigationController?.navigationBar.isHidden = true 
+        navigationController?.navigationBar.isHidden = true
         view.addView(view: splashView, type: .full)
         splashView.zoomAnimation {
             print("animation")

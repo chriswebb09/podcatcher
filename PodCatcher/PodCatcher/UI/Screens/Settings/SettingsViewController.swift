@@ -15,6 +15,10 @@ final class SettingsViewController: BaseTableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        initialize()
+    }
+    
+    func initialize() {
         title = "Settings"
         tableView.rowHeight = SettingsViewControllerConstants.rowHeight
         tableView.dataSource = self

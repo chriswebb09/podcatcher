@@ -56,6 +56,10 @@ final class SearchResultListViewController: BaseCollectionViewController {
             navBar.topItem?.titleView?.frame.center = CGPoint(x: navBar.center.x - 50, y: navBar.center.y)
         }
     }
+
+    override func initialize() {
+        super.initialize()
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(false)
@@ -98,7 +102,7 @@ final class SearchResultListViewController: BaseCollectionViewController {
         collectionView.alpha = 1
         navigationController?.setNavigationBarHidden(false, animated: false)
         navigationController?.navigationBar.alpha = 1
-      
+        
         
     }
     

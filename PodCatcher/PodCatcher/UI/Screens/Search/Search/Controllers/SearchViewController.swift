@@ -38,7 +38,6 @@ final class SearchViewController: BaseTableViewController, LoadingPresenting {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         tableView.dataSource = dataSource
         tableView.prefetchDataSource = dataSource
         viewShown = dataSource.viewShown

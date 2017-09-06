@@ -17,7 +17,11 @@ final class StartViewController: UIViewController, LoadingPresenting {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.navigationBar.isHidden = true 
+        initialize()
+    }
+    
+    func initialize() {
+        navigationController?.navigationBar.isHidden = true
         startView.tag = 0
         view.addView(view: startView, type: .full)
         startView.delegate = self

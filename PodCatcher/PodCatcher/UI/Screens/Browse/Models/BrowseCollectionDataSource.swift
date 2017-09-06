@@ -5,17 +5,21 @@ final class BrowseCollectionDataSource: BaseMediaControllerDataSource {
     var dataType: DataType = .network
     
     var topItemImage: UIImage!
-    var items = [CasterSearchResult]()
+    var items: [CasterSearchResult] = []
     var topViewItemIndex: Int = 0
-    var reserveItems = [CasterSearchResult]()
+    
+    var reserveItems: [CasterSearchResult] = []
     let loadingQueue = OperationQueue()
+    
     fileprivate var sections: [String] = []
-    var loadingOperations = [IndexPath : TopPodcastLoadOperation]()
+    
+    var loadingOperations: [IndexPath : TopPodcastLoadOperation] = [:]
+    
     override var count: Int {
         return items.count
     }
     
-    var cellModels = [TopPodcastCellViewModel]()
+    var cellModels: [TopPodcastCellViewModel] = []
     
     var categories: [String] = []
     
