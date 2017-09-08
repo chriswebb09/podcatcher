@@ -50,7 +50,6 @@ final class PlaylistsTabCoordinator: NavigationCoordinator, PlaylistsCoordinator
     func setup() {
         let playlistsViewController = navigationController.viewControllers[0] as! PlaylistsViewController
         playlistsViewController.delegate = self
-        playlistsViewController.mediaDataSource = dataSource
     }
 }
 

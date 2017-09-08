@@ -32,7 +32,7 @@ final internal class TopPodcastCell: UICollectionViewCell {
     
     var trackNameLabel: UILabel = {
         var trackName = UILabel()
-        trackName.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightSemibold)
+        trackName.font = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.semibold)
         trackName.textAlignment = .center
         trackName.textColor = .white
         trackName.numberOfLines = 0
@@ -62,6 +62,18 @@ final internal class TopPodcastCell: UICollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         viewConfigurations()
+        DispatchQueue.main.async { [weak self] in
+            guard let strongSelf = self else { return }
+            strongSelf.albumArtView.layer.cornerRadius = 4
+            let containerLayer = CALayer()
+            containerLayer.shadowColor = UIColor.darkText.cgColor
+            containerLayer.shadowRadius = 1
+            containerLayer.shadowOffset = CGSize(width: 0, height: 0)
+            containerLayer.shadowOpacity = 0.5
+            strongSelf.albumArtView.layer.masksToBounds = true
+            containerLayer.addSublayer(strongSelf.albumArtView.layer)
+            strongSelf.layer.addSublayer(containerLayer)
+        }
     }
     
     // MARK: View setup methods

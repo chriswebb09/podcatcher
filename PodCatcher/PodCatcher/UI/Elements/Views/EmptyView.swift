@@ -27,7 +27,7 @@ class InformationView: UIView, StateView {
     
     var informationLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 12, weight: UIFontWeightMedium)
+        label.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.medium)
         label.textColor = Colors.brightHighlight
         label.alpha = 1
         label.numberOfLines = 0
@@ -88,7 +88,7 @@ class InformationView: UIView, StateView {
     
     func setLabel(text: String) {
         informationLabel.text = text
-        informationLabel.font = UIFont.systemFont(ofSize: 16, weight: UIFontWeightMedium)
+        informationLabel.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.medium)
         informationLabel.textColor = Colors.brightHighlight
         informationLabel.alpha = 1
         informationLabel.numberOfLines = 0

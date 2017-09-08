@@ -112,7 +112,7 @@ final class SubscribedPodcastCell: UICollectionViewCell {
         deleteImageView.translatesAutoresizingMaskIntoConstraints = false
         deleteImageView.topAnchor.constraint(equalTo: overlayView.topAnchor, constant: overlayView.frame.height * 0.02).isActive = true
         deleteImageView.leftAnchor.constraint(equalTo: overlayView.leftAnchor, constant: overlayView.frame.width * 0.02).isActive = true
-        deleteImageView.heightAnchor.constraint(equalTo: overlayView.heightAnchor, multiplier: 0.18).isActive = true
+        deleteImageView.heightAnchor.constraint(equalTo: overlayView.heightAnchor, multiplier: 0.21).isActive = true
         deleteImageView.widthAnchor.constraint(equalTo: overlayView.widthAnchor, multiplier: 0.18).isActive = true
     }
 }

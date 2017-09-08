@@ -14,7 +14,7 @@ enum PlayerState {
         "hasProtectedContent"
     ]
     
-    var player: AVPlayer? = AVPlayer()
+    @objc var player: AVPlayer? = AVPlayer()
     
     var currentTime: Double? {
         get {
@@ -28,14 +28,6 @@ enum PlayerState {
             player.seek(to: newTime, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero)
         }
     }
-    
-//    let timeRemainingFormatter: DateComponentsFormatter = {
-//        let formatter = DateComponentsFormatter()
-//        formatter.zeroFormattingBehavior = .pad
-//        formatter.allowedUnits = [.minute, .second]
-//        return formatter
-//    }()
-    
     
     var duration: Double {
         guard let currentItem = player?.currentItem else { return 0.0 }
@@ -130,23 +122,27 @@ extension AudioFilePlayer: AVAssetResourceLoaderDelegate {
     func asynchronouslyLoadURLAsset(_ newAsset: AVURLAsset?) {
         
         guard let newAsset = newAsset else { return }
+        
+        print("Loading async")
+        
         newAsset.loadValuesAsynchronously(forKeys: AudioFilePlayer.assetKeysRequiredToPlay) { [weak self] in
+           guard let strongSelf = self else { return }
             DispatchQueue.main.async {
-                guard let strongSelf = self else { return }
+      
                 guard newAsset == strongSelf.asset else { return }
                 for key in AudioFilePlayer.assetKeysRequiredToPlay {
                     var error: NSError?
-                    
+                    print(key.description)
                     if newAsset.statusOfValue(forKey: key, error: &error) == .failed {
                         let stringFormat = NSLocalizedString("error.asset_key_%@_failed.description", comment: "Can't use this AVAsset because one of it's keys failed to load")
                         let message = String.localizedStringWithFormat(stringFormat, key)
-                        print(message)
+                        print("async load error: \(message)")
                         return
                     }
                 }
                 if !newAsset.isPlayable || newAsset.hasProtectedContent {
                     let message = NSLocalizedString("error.asset_not_playable.description", comment: "Can't use this AVAsset because it isn't playable or has protected content")
-                    print(message)
+                    print("async load error: \(message)")
                     return
                 }
                 strongSelf.playerItem = AVPlayerItem(asset: newAsset)

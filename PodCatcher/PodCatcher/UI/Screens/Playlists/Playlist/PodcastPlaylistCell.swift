@@ -16,7 +16,7 @@ final class PodcastPlaylistCell: UICollectionViewCell {
         podcastTitleLabel.numberOfLines = 0
         podcastTitleLabel.textAlignment = .left
         podcastTitleLabel.textColor = .darkGray
-        podcastTitleLabel.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightThin)
+        podcastTitleLabel.font = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.thin)
         return podcastTitleLabel
     }()
     
@@ -79,9 +79,9 @@ final class PodcastPlaylistCell: UICollectionViewCell {
     func buttonConstraint(button: UIButton) {
         contentView.addSubview(button)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.09).isActive = true
-        button.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.44).isActive = true
-        button.centerXAnchor.constraint(equalTo: centerXAnchor, constant: contentView.bounds.width * 0.38).isActive = true
+        button.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.095).isActive = true
+        button.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.49).isActive = true
+        button.centerXAnchor.constraint(equalTo: centerXAnchor, constant: contentView.bounds.width * 0.42).isActive = true
         button.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
     }
 }

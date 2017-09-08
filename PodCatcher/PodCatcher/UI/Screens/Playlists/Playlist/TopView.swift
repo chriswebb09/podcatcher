@@ -29,6 +29,7 @@ final class TopView: UIView {
         setupConstraints()
         backgroundColor = .white
         layer.setCellShadow(contentView: self)
+        podcastImageView.layer.setCellShadow(contentView: podcastImageView)
     }
     
     func setupConstraints() {
@@ -36,6 +37,7 @@ final class TopView: UIView {
         setup(titleLabel: podcastTitleLabel)
         setup(preferencesView: preferencesView)
         preferencesView.layoutSubviews()
+        podcastImageView.layer.setCellShadow(contentView: podcastImageView)
     }
     
     func setup(podcastImageView: UIImageView) {

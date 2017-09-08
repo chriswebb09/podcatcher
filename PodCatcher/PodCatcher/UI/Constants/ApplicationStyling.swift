@@ -16,11 +16,11 @@ class ApplicationStyling {
         tabbar.tintColor = Colors.brightHighlight
         
         let customFont = UIFont(name: "Avenir-Medium", size: 18.0)!
-        UIBarButtonItem.appearance().setTitleTextAttributes([NSFontAttributeName: customFont], for: .normal)
+        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedStringKey.font: customFont], for: .normal)
         
         UINavigationBar.appearance().titleTextAttributes = [
-            NSFontAttributeName: titleFontAttribute,
-            NSForegroundColorAttributeName: UIColor.white
+            NSAttributedStringKey.font: titleFontAttribute,
+            NSAttributedStringKey.foregroundColor: UIColor.white
         ]
         
        // UIBarButtonItem.appearance().setTitlePositionAdjustment(UIOffset.init(horizontal: 10, vertical: 0), for: UIBarMetrics.default)

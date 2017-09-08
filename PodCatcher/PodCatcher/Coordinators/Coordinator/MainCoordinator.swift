@@ -49,7 +49,6 @@ extension MainCoordinator: CoordinatorDelegate {
         }
     }
     
-    
     func podcastItem(toAdd: CasterSearchResult, with index: Int) {
         itemToSave = toAdd
         itemIndex = index
@@ -84,11 +83,10 @@ extension MainCoordinator: CoordinatorDelegate {
         setupSettingsTab()
         appCoordinator = tabbBarCoordinator
         appCoordinator.start()
-        //        start()
     }
     
     func setupHomeTab() {
-        let homeViewController = HomeViewController(dataSource: dataSource)
+        let homeViewController = HomeViewController()
         let homeTab = UINavigationController(rootViewController: homeViewController)
         tabbBarCoordinator.setupHomeCoordinator(navigationController: homeTab, dataSource: dataSource)
         let homeCoord = tabbBarCoordinator.childCoordinators[0] as! HomeTabCoordinator
@@ -106,7 +104,6 @@ extension MainCoordinator: CoordinatorDelegate {
         playlistsCoord.delegate = self
         playlistsCoord.setup()
         addChildCoordinator(playlistsCoord)
-        
     }
     
     func setupBrowseTab() {

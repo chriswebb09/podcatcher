@@ -114,7 +114,7 @@ final class PlayerView: UIView {
         currentPlayTime.textAlignment = .left
         currentPlayTime.textColor = .white
         currentPlayTime.text = "0:00"
-        currentPlayTime.font = UIFont.systemFont(ofSize: 12, weight: UIFontWeightThin)
+        currentPlayTime.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.thin)
         return currentPlayTime
     }()
     
@@ -178,7 +178,7 @@ final class PlayerView: UIView {
         navBar.addSubview(navigationButton)
         self.totalPlayTimeLabel.textAlignment = .right
         self.totalPlayTimeLabel.textColor = .white
-        self.totalPlayTimeLabel.font = UIFont.systemFont(ofSize: 12, weight: UIFontWeightThin)
+        self.totalPlayTimeLabel.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.thin)
         navigationButton.translatesAutoresizingMaskIntoConstraints = false
         navigationButton.leftAnchor.constraint(equalTo: navBar.leftAnchor, constant: UIScreen.main.bounds.width * 0.01).isActive = true
         navigationButton.centerYAnchor.constraint(equalTo: navBar.centerYAnchor).isActive = true

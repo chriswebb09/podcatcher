@@ -53,14 +53,14 @@ final class BrowseViewController: BaseCollectionViewController, LoadingPresentin
     override func viewDidLoad() {
         super.viewDidLoad()
         coordinator?.viewDidLoad(self)
-        tap = UITapGestureRecognizer(target: self, action: #selector(selectAt))
-        DispatchQueue.main.async { [weak self] in
-            guard let strongSelf = self else { return }
-            strongSelf.collectionView.reloadData()
-        }
-        
         NotificationCenter.default.addObserver(self, selector: #selector(reachabilityDidChange(_:)), name: NSNotification.Name(rawValue: "ReachabilityDidChangeNotificationName"), object: nil)
         reach?.start()
+        DispatchQueue.main.async {
+            self.topView.podcastImageView.layer.cornerRadius = 4
+            self.topView.podcastImageView.layer.masksToBounds = true
+            self.topView.layer.setCellShadow(contentView: self.topView)
+            self.topView.podcastImageView.layer.setCellShadow(contentView: self.topView.podcastImageView)
+        }
     }
     
     func setup(view: UIView, newLayout: BrowseItemsFlowLayout) {
@@ -71,34 +71,30 @@ final class BrowseViewController: BaseCollectionViewController, LoadingPresentin
     }
     
     
-    func reachabilityDidChange(_ notification: Notification) {
+    @objc func reachabilityDidChange(_ notification: Notification) {
         print("Reachability changed")
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        tap = UITapGestureRecognizer(target: self, action: #selector(selectAt))
+        topView.addGestureRecognizer(tap)
         NotificationCenter.default.addObserver(self, selector: #selector(reachabilityChanged), name: ReachabilityChangedNotification, object: reachability)
         do {
             try reachability.startNotifier()
         } catch {
             print("could not start reachability notifier")
         }
-        topView.addGestureRecognizer(tap)
         UIView.animate(withDuration: 0.15) {
             self.view.alpha = 1
             self.navigationController?.setNavigationBarHidden(true, animated: false)
         }
+        
         DispatchQueue.main.async { [weak self] in
             if let strongSelf = self {
                 strongSelf.collectionView.reloadData()
             }
         }
-        if Reachable.isInternetAvailable() {
-            DispatchQueue.main.async {
-                self.view.sendSubview(toBack: self.network)
-            }
-        }
-        print("INTERNET IS REACHABLE \(Reachable.isInternetAvailable())")
     }
 }
 
@@ -118,8 +114,10 @@ extension BrowseViewController: UICollectionViewDelegate {
 extension BrowseViewController: UIScrollViewDelegate {
     
     @objc func reachabilityChanged(note: Notification) {
-        if reachability.isReachable {
-            print("browse is reachable")
+        if Reachable.isInternetAvailable() {
+            DispatchQueue.main.async {
+                self.view.sendSubview(toBack: self.network)
+            }
         } else {
             DispatchQueue.main.async {
                 self.view.bringSubview(toFront: self.network)

@@ -84,10 +84,12 @@ class PlaylistViewController: BaseCollectionViewController, ErrorPresenting, Loa
                 playlistItems.append(item)
             }
         }
-    }
-    
-    override func initialize() {
-        super.initialize()
+        DispatchQueue.main.async {
+            self.topView.podcastImageView.layer.cornerRadius = 4
+            self.topView.podcastImageView.layer.masksToBounds = true
+            self.topView.layer.setCellShadow(contentView: self.topView)
+            self.topView.podcastImageView.layer.setCellShadow(contentView: self.topView.podcastImageView)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -95,6 +97,7 @@ class PlaylistViewController: BaseCollectionViewController, ErrorPresenting, Loa
         collectionView.alpha = 1
         addObserver(self, forKeyPath: #keyPath(PlaylistViewController.player.player.rate), options: [.new, .initial], context: &playlistViewControllerKVOContext)
         addObserver(self, forKeyPath: #keyPath(PlaylistViewController.player.player.currentItem.status), options: [.new, .initial], context: &playlistViewControllerKVOContext)
+        self.topView.podcastImageView.layer.setCellShadow(contentView: self.topView.podcastImageView)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -348,7 +351,7 @@ extension PlaylistViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 4
+        return 2
     }
 }
 

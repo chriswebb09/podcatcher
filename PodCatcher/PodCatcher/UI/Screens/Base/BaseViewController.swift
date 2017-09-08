@@ -8,7 +8,6 @@ class BaseViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-     //   emptyView = EmptyView(frame: UIScreen.main.bounds)
         hideKeyboardWhenTappedAround()
         edgesForExtendedLayout = []
     }

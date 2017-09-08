@@ -33,11 +33,13 @@ final class HomeTabCoordinator: NSObject, NavigationCoordinator, HomeCoordinator
     func start() {
         let homeViewController = navigationController.viewControllers[0] as! HomeViewController
         homeViewController.managedContext = feedStore.managedContext
-        var controller: NSFetchedResultsController<Subscription> = {
+        let controller: NSFetchedResultsController<Subscription> = {
             let fetchRequest: NSFetchRequest<Subscription> = Subscription.fetchRequest()
             fetchRequest.sortDescriptors = [NSSortDescriptor(key: "feedUrl", ascending: true)]
-            var controller = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: feedStore.managedContext, sectionNameKeyPath: nil, cacheName: nil)
-            try! controller.performFetch()
+            let controller = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: feedStore.managedContext, sectionNameKeyPath: nil, cacheName: nil)
+            do {
+                try? controller.performFetch()
+            }
             return controller
         }()
         homeViewController.fetchedResultsController = controller
@@ -66,13 +68,13 @@ extension HomeTabCoordinator: HomeViewControllerDelegate {
                 store.pullFeed(for: feedUrlString) { response, arg  in
                     guard let episodes = response else { return }
                     let resultsList = SearchResultListViewController(index: index)
-                    
+                    resultsList.item = caster
+                    resultsList.item.episodes = episodes
+                    resultsList.episodes = episodes
+                    resultsList.delegate = strongSelf
+                    resultsList.dataSource = strongSelf.dataSource
                     DispatchQueue.main.async {
-                        resultsList.item = caster
-                        resultsList.item.episodes = episodes
-                        resultsList.episodes = episodes
-                        resultsList.delegate = strongSelf
-                        resultsList.dataSource = strongSelf.dataSource
+                        
                         resultsList.collectionView.reloadData()
                         
                         homeViewController.hideLoadingView(loadingPop: homeViewController.loadingPop)
@@ -96,25 +98,23 @@ extension HomeTabCoordinator: HomeViewControllerDelegate {
         caster.podcastArtist = subscription.podcastArtist
         store.pullFeed(for: feedUrlString) { response, arg  in
             guard let episodes = response else { return }
+            let resultsList = SearchResultListViewController(index: index)
+            resultsList.item = caster
+            resultsList.item.episodes = episodes
+            resultsList.episodes = episodes
+            resultsList.delegate = self
+            resultsList.dataSource = self.dataSource
             DispatchQueue.main.async {
-                let resultsList = SearchResultListViewController(index: index)
-                resultsList.item = caster
-                resultsList.item.episodes = episodes
-                resultsList.episodes = episodes
-                resultsList.delegate = self
-                resultsList.dataSource = self.dataSource
+                
                 resultsList.collectionView.reloadData()
                 let homeViewController = self.navigationController.viewControllers[0] as! HomeViewController
                 homeViewController.hideLoadingView(loadingPop: homeViewController.loadingPop)
                 self.navigationController.delegate = self
                 self.transitionThumbnail?.image = image
-                var thumbnailZoomTransitionAnimator: ThumbnailZoomTransitionAnimator?
+                
                 self.navigationController.pushViewController(resultsList, animated: true)
                 
                 resultsList.collectionView.reloadData()
-                self.navigationController.navigationBar.backItem?.title = ""
-                self.navigationController.navigationItem.backBarButtonItem?.title = ""
-                resultsList.navigationItem.backBarButtonItem?.title = ""
             }
         }
     }
@@ -148,21 +148,17 @@ extension HomeTabCoordinator: PodcastListViewControllerDelegate {
         var playerPodcast = podcast
         playerPodcast.episodes = episodes
         playerPodcast.index = index
-        
-        concurrent.async { [weak self] in
-            if let strongSelf = self {
-                let playerViewController = PlayerViewController(index: index, caster: playerPodcast, image: nil)
-                playerViewController.delegate = strongSelf
-                DispatchQueue.main.async {
-                    strongSelf.navigationController.navigationBar.isTranslucent = true
-                    strongSelf.navigationController.navigationBar.alpha = 0
-                    strongSelf.navigationController.delegate = self
-                    strongSelf.navigationController.pushViewController(playerViewController, animated: false)
-                }
-            }
+        let playerViewController = PlayerViewController(index: index, caster: playerPodcast, image: nil)
+        playerViewController.delegate = self
+        navigationController.navigationBar.isTranslucent = true
+        navigationController.navigationBar.alpha = 0
+        navigationController.delegate = self
+        DispatchQueue.main.async {
+            self.navigationController.pushViewController(playerViewController, animated: false)
         }
     }
 }
+
 
 extension HomeTabCoordinator: PlayerViewControllerDelegate {
     

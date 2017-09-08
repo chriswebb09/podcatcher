@@ -37,7 +37,7 @@ class PopoverTests: XCTestCase {
     }
     
     func showLoadingView(loadingPop: LoadingPopover, viewController: UIViewController) {
-        loadingPop.setupPop(popView: loadingPop.popView)
+       // loadingPop.setupPop(popView: loadingPop.popView)
         loadingPop.showPopView(viewController: viewController)
         XCTAssertFalse(loadingPop.popView.isHidden)
     }

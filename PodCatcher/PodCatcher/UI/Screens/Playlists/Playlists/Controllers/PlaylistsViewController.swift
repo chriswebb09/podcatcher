@@ -4,18 +4,15 @@ import CoreData
 final class PlaylistsViewController: BaseTableViewController {
     
     weak var podcastDelegate: PodcastDelegate?
-    var coordinator: PlaylistsCoordinator?
     weak var delegate: PlaylistsViewControllerDelegate?
-    var mediaDataSource: BaseMediaControllerDataSource!
+    
+    var coordinator: PlaylistsCoordinator?
     var itemToSave: PodcastPlaylistItem!
     var reference: PlaylistsReference = .checkList
-    var playlistDataStack = PlaylistsCoreData()
-    var currentPlaylistID: String = ""
     var entryPop: EntryPopover = EntryPopover()
     var mode: PlaylistsInteractionMode = .add
-    var casterItzemToSave: CasterSearchResult!
+    var casterItemToSave: CasterSearchResult!
     var index: Int!
-    
     var item: CasterSearchResult!
     
     var managedContext: NSManagedObjectContext! {
@@ -29,7 +26,9 @@ final class PlaylistsViewController: BaseTableViewController {
         let fetchRequest:NSFetchRequest<PodcastPlaylist> = PodcastPlaylist.fetchRequest()
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "playlistId", ascending: true)]
         var controller = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.managedContext, sectionNameKeyPath: nil, cacheName: nil)
-        try! controller.performFetch()
+        do {
+            try? controller.performFetch()
+        }
         return controller
     }()
     
@@ -161,21 +160,26 @@ extension PlaylistsViewController: UITableViewDelegate {
     
     func removeFor(indexPath: IndexPath) {
         
-        let item = self.fetchedResultsController.object(at: indexPath)
+        let item = fetchedResultsController.object(at: indexPath)
         
         guard let podcast = item.podcast else { return }
+        
         for (_, podcast) in (podcast.enumerated()) {
-            let pod = podcast as! PodcastPlaylistItem
-            LocalStorageManager.deleteSavedItem(itemUrlString: pod.audioUrl!)
+            if let pod = podcast as? PodcastPlaylistItem, let audioUrl = pod.audioUrl {
+                LocalStorageManager.deleteSavedItem(itemUrlString: audioUrl)
+            }
         }
-        self.managedContext.delete(item)
+        
+        managedContext.delete(item)
+        
         do {
-            try self.managedContext.save()
-            self.playlistsDataSource.reloadData()
+            try managedContext.save()
+            playlistsDataSource.reloadData()
         } catch let error {
             print(error.localizedDescription)
         }
-        if let count = self.fetchedResultsController.fetchedObjects?.count {
+        
+        if let count = fetchedResultsController.fetchedObjects?.count {
             if count == 0 {
                 self.mode = .add
                 self.leftButtonItem.title = "Edit"
@@ -186,15 +190,18 @@ extension PlaylistsViewController: UITableViewDelegate {
                 }
             }
         }
-        
     }
 }
 
 extension PlaylistsViewController: EntryPopoverDelegate {
     
     func userDidEnterPlaylistName(name: String) {
+        var playlistDataStack = PlaylistsCoreData()
+        
         playlistDataStack.save(name: name, uid: "none")
+        
         playlistsDataSource.reloadData()
+        
         if playlistsDataSource.itemCount > 0 {
             navigationItem.leftBarButtonItem = leftButtonItem
         }
@@ -227,16 +234,17 @@ extension PlaylistsViewController: TableViewDataSourceDelegate {
         cellMode = mode == .add ? .select : .delete
         
         if let podcast = object.podcast as? Set<PodcastPlaylistItem>, podcast.count > 0 {
-            for (i, n) in podcast.enumerated() {
-                if i == 0 {
-                    if let data = n.artwork, let artworkImage = UIImage(data: Data.init(referencing: data)) {
-                        if let count = object.podcast?.count {
-                            cell.configure(image: artworkImage, title: object.playlistName!, subtitle: "Episodes: \(count)", mode: cellMode)
-                        }
+            
+            for (index, pod) in podcast.enumerated() {
+                if index == 0 {
+                    if let data = pod.artwork, let artworkImage = UIImage(data: Data.init(referencing: data)), let title = object.playlistName {
+                        cell.configure(image: artworkImage, title: title, subtitle: "Episodes: \(podcast.count)", mode: cellMode)
                     }
                 }
             }
+            
         } else {
+            
             if let name = object.playlistName, let count = object.podcast?.count {
                 cell.configure(image: #imageLiteral(resourceName: "light-placehoder-2"), title: name, subtitle: "Episodes: \(count)", mode: cellMode)
             } else {

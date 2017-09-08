@@ -35,7 +35,7 @@ final class PlaylistCell: UITableViewCell, Reusable {
     var titleLabel: UILabel = {
         let title = UILabel()
         title.textColor = .black
-        title.font = UIFont.systemFont(ofSize: 16, weight: UIFontWeightSemibold)
+        title.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.semibold)
         title.textAlignment = .center
         title.numberOfLines = 0
         return title
@@ -49,7 +49,7 @@ final class PlaylistCell: UITableViewCell, Reusable {
     var numberOfItemsLabel: UILabel = {
         let numberOfItems = UILabel()
         numberOfItems.textColor = .black
-        numberOfItems.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightThin)
+        numberOfItems.font = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.thin)
         numberOfItems.textAlignment = .center
         numberOfItems.numberOfLines = 0
         return numberOfItems
@@ -57,7 +57,6 @@ final class PlaylistCell: UITableViewCell, Reusable {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        //contentView.layer.borderWidth = 1
         setup(titleLabel: titleLabel)
         setup(numberOfItemsLabel: numberOfItemsLabel)
         setup(albumArtView: albumArtView)

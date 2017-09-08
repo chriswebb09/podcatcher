@@ -19,7 +19,6 @@ final class SearchViewController: BaseTableViewController, LoadingPresenting {
             switch viewShown {
             case .empty:
                 infoLabel.text = "Search for podcasts"
-                print("empty")
             case .collection:
                 print("collection")
             }
@@ -38,6 +37,11 @@ final class SearchViewController: BaseTableViewController, LoadingPresenting {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setup()
+    }
+    
+    
+    func setup() {
         tableView.dataSource = dataSource
         tableView.prefetchDataSource = dataSource
         viewShown = dataSource.viewShown
@@ -54,7 +58,7 @@ final class SearchViewController: BaseTableViewController, LoadingPresenting {
         view.addSubview(searchBar)
         tableView.separatorStyle = .none
         searchController.hidesNavigationBarDuringPresentation = false
-        var background = UIView()
+        let background = UIView()
         background.frame = view.frame
         tableView.backgroundView = background
         background.addSubview(infoLabel)
@@ -92,7 +96,7 @@ final class SearchViewController: BaseTableViewController, LoadingPresenting {
             let glassIconView = textFieldInsideSearchBar.leftView as? UIImageView {
             textFieldInsideSearchBar.backgroundColor = Colors.brightHighlight
             textFieldInsideSearchBar.clearButtonMode = .never
-            textFieldInsideSearchBar.attributedPlaceholder = NSAttributedString(string: textFieldInsideSearchBar.placeholder != nil ? textFieldInsideSearchBar.placeholder! : "", attributes: [NSForegroundColorAttributeName: UIColor.white])
+            textFieldInsideSearchBar.attributedPlaceholder = NSAttributedString(string: textFieldInsideSearchBar.placeholder != nil ? textFieldInsideSearchBar.placeholder! : "", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
             glassIconView.image = glassIconView.image?.withRenderingMode(.alwaysTemplate)
             glassIconView.tintColor = .white
         }
@@ -215,6 +219,7 @@ extension SearchViewController: UITableViewDelegate {
     }
     
 }
+
 extension SearchViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

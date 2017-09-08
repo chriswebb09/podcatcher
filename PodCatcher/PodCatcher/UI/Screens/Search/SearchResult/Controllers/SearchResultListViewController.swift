@@ -13,8 +13,10 @@ final class SearchResultListViewController: BaseCollectionViewController {
     var menuActive: MenuActive = .none
     let entryPop = EntryPopover()
     var topView = ListTopView()
+    
     var feedUrl: String!
     var bottomMenu = BottomMenu()
+    
     let subscription = UserDefaults.loadSubscriptions()
     
     var viewShown: ShowView {
@@ -56,10 +58,6 @@ final class SearchResultListViewController: BaseCollectionViewController {
             navBar.topItem?.titleView?.frame.center = CGPoint(x: navBar.center.x - 50, y: navBar.center.y)
         }
     }
-
-    override func initialize() {
-        super.initialize()
-    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(false)
@@ -86,24 +84,34 @@ final class SearchResultListViewController: BaseCollectionViewController {
             button.setTitle("Subscribe", for: .normal)
             button.addTarget(self, action: #selector(subscribeToFeed), for: .touchUpInside)
             button.layer.borderWidth = 1
-            button.layer.cornerRadius = 4
+            button.layer.cornerRadius = 10
             button.layer.borderColor = UIColor.white.cgColor
             button.titleEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
             topView.preferencesView.moreMenuButton = button
             button.tintColor = .white
             button.backgroundColor = .darkGray
-            button.alpha = 0.6
+            button.alpha = 0.8
         }
         
-        UIView.animate(withDuration: 0.002, animations: { [weak self] in
+        DispatchQueue.main.async {
+            self.topView.podcastImageView.layer.cornerRadius = 4
+            self.topView.podcastImageView.layer.masksToBounds = true
+            self.topView.layer.setCellShadow(contentView: self.topView)
+            self.topView.podcastImageView.layer.setCellShadow(contentView: self.topView.podcastImageView)
+        }
+        
+        UIView.animate(withDuration: 0.002) { [weak self] in
             guard let strongSelf = self else { return }
             strongSelf.navigationController?.navigationBar.alpha = 1
-        })
+        }
         collectionView.alpha = 1
         navigationController?.setNavigationBarHidden(false, animated: false)
         navigationController?.navigationBar.alpha = 1
         
-        
+        let newLayout = SearchItemsFlowLayout()
+        newLayout.setup()
+        self.collectionView.collectionViewLayout.invalidateLayout()
+        self.collectionView.collectionViewLayout = newLayout
     }
     
     func saveFeed() {
@@ -119,11 +127,13 @@ final class SearchResultListViewController: BaseCollectionViewController {
             guard let strongSelf = self else { return }
             UIView.animate(withDuration: 0.2) {
                 strongSelf.searchResults.showActivityIndicator(viewController: strongSelf)
+                self?.topView.preferencesView.moreMenuButton.isHidden = true
             }
             UIView.animate(withDuration: 1, animations: {
                 strongSelf.searchResults.loadingView.alpha = 0
             }, completion: { finished in
                 strongSelf.searchResults.hideActivityIndicator(viewController: strongSelf)
+                self?.topView.preferencesView.moreMenuButton.isHidden = true
             })
         }
     }
@@ -199,23 +209,43 @@ extension SearchResultListViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offset = scrollView.contentOffset
+        guard let navHeight = self.navigationController?.navigationBar.frame.height else { return }
+        let viewHeight = (self.view.bounds.height - navHeight) - 20
         let updatedTopViewFrame = CGRect(x: 0, y: 0, width: PodcastListConstants.topFrameWidth, height: PodcastListConstants.topFrameHeight / 1.2)
+        let collectionFrame = CGRect(x: self.topView.bounds.minX, y: self.topView.frame.maxY, width: self.view.bounds.width, height: viewHeight - (self.topView.frame.height - 80))
         if offset.y > PodcastListConstants.minimumOffset && episodes.count > 11 {
             UIView.animate(withDuration: 0.5) {
                 self.topView.removeFromSuperview()
                 self.topView.alpha = 0
                 self.collectionView.frame = self.view.bounds
+                DispatchQueue.main.async {
+                    self.collectionView.layoutIfNeeded()
+                }
             }
         } else {
             UIView.animate(withDuration: 0.15) {
                 guard let navHeight = self.navigationController?.navigationBar.frame.height else { return }
-                let viewHeight = (self.view.bounds.height - navHeight) - 20
                 self.topView.frame = updatedTopViewFrame
                 self.topView.alpha = 1
                 self.topView.layoutSubviews()
                 self.view.addSubview(self.topView)
-                self.collectionView.frame = CGRect(x: self.topView.bounds.minX, y: self.topView.frame.maxY, width: self.view.bounds.width, height: viewHeight - (self.topView.frame.height - 80))
+                self.collectionView.frame = collectionFrame
+                
             }
+        }
+    }
+    
+    func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
+        DispatchQueue.main.async {
+            self.collectionView.reloadItems(at: self.collectionView.indexPathsForVisibleItems)
+            self.collectionView.layoutIfNeeded()
+        }
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        DispatchQueue.main.async {
+            self.collectionView.reloadItems(at: self.collectionView.indexPathsForVisibleItems)
+            self.collectionView.layoutIfNeeded()
         }
     }
 }
@@ -250,19 +280,12 @@ extension SearchResultListViewController: UICollectionViewDataSource {
     }
 }
 
-// MARK: - UICollectionViewDelegateFlowLayout
-
-extension SearchResultListViewController: UICollectionViewDelegateFlowLayout {
+final class SearchItemsFlowLayout: UICollectionViewFlowLayout {
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: UIScreen.main.bounds.width / 1.01, height: UIScreen.main.bounds.height / 10)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 4
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: 0, bottom: 30, right: 0)
+    func setup() {
+        scrollDirection = .vertical
+        itemSize = CGSize(width: UIScreen.main.bounds.width / 1.01, height: UIScreen.main.bounds.height / 10)
+        sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 30, right: 0)
+        minimumLineSpacing = 2
     }
 }

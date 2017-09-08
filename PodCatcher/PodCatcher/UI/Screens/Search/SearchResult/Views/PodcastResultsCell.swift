@@ -16,7 +16,7 @@ final class PodcastResultCell: UICollectionViewCell {
         podcastTitleLabel.numberOfLines = 0
         podcastTitleLabel.textAlignment = .left
         podcastTitleLabel.textColor = .darkGray
-        podcastTitleLabel.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightRegular)
+        podcastTitleLabel.font = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.regular)
         return podcastTitleLabel
     }()
     
@@ -25,7 +25,7 @@ final class PodcastResultCell: UICollectionViewCell {
         playTimeLabel.sizeToFit()
         playTimeLabel.textAlignment = .right
         playTimeLabel.textColor = .black
-        playTimeLabel.font = UIFont.systemFont(ofSize: 12, weight: UIFontWeightSemibold)
+        playTimeLabel.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.semibold)
         return playTimeLabel
     }()
     

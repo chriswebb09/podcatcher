@@ -4,10 +4,10 @@ class HomeItemsFlowLayout: UICollectionViewFlowLayout {
     
     func setup() {
         scrollDirection = .vertical
-        itemSize = CGSize(width: UIScreen.main.bounds.width / 4, height: UIScreen.main.bounds.height / 8)
-        sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        minimumInteritemSpacing = 0
-        minimumLineSpacing = 0
+        itemSize = CGSize(width: UIScreen.main.bounds.width / 3.2, height: UIScreen.main.bounds.height / 7)
+        sectionInset = UIEdgeInsets(top: 5, left: 6, bottom: 0, right: 6)
+        minimumInteritemSpacing = 0.5
+        minimumLineSpacing = 6
     }
     
     var appearingIndexPath: IndexPath?
@@ -24,15 +24,20 @@ class HomeItemsFlowLayout: UICollectionViewFlowLayout {
         return attributes
     }
     
+    override func prepare() {
+        scrollDirection = .vertical
+        itemSize = CGSize(width: UIScreen.main.bounds.width / 3.2, height: UIScreen.main.bounds.height / 7)
+        sectionInset = UIEdgeInsets(top: 5, left: 6, bottom: 0, right: 6)
+        minimumInteritemSpacing = 0.5
+        minimumLineSpacing = 6
+        super.prepare()
+    }
+    
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         var cache = [UICollectionViewLayoutAttributes]()
         if let layoutAttributes = super.layoutAttributesForElements(in: rect) {
             for attributes in layoutAttributes {
                 let cellAttributes = attributes.copy() as! UICollectionViewLayoutAttributes
-                if attributes.representedElementKind == nil {
-                    let frame = cellAttributes.frame
-                    // cellAttributes.frame = frame.insetBy(dx: 2.0, dy: 3.0)
-                }
                 cache.append(cellAttributes)
             }
         }

@@ -95,7 +95,10 @@ final class BrowseTabCoordinator: NavigationCoordinator, BrowseCoordinator {
                 guard let strongSelf = self else { return }
                 strongSelf.interactor.setLookup(term: ids[i])
                 strongSelf.interactor.searchForTracksFromLookup { result, arg  in
-                    print(arg?.localizedDescription)
+                    if let error = arg {
+                        print(error.localizedDescription)
+                        completion(nil, error)
+                    }
                     guard let resultItem = result else { return }
                     resultItem.forEach { resultingData in
                         guard let resultingData = resultingData else { return }
@@ -251,7 +254,7 @@ extension BrowseTabCoordinator: PlayerViewControllerDelegate {
         playlists.item = item
         controller?.tabBarController?.tabBar.alpha = 1
         navigationController.navigationBar.alpha = 1
-        playlists.casterItzemToSave = item
+        playlists.casterItemToSave = item
         controller?.tabBarController?.selectedIndex = 1
     }
     

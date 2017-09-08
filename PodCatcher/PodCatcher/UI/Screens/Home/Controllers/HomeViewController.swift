@@ -31,7 +31,7 @@ class HomeViewController: BaseCollectionViewController {
     
     // MARK: - UI Properties
     
-    init(dataSource: BaseMediaControllerDataSource) {
+    init() {
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -40,7 +40,7 @@ class HomeViewController: BaseCollectionViewController {
     }
     
     convenience init(collectionView: UICollectionView, dataSource: BaseMediaControllerDataSource) {
-        self.init(dataSource: dataSource)
+        self.init()
         self.collectionView = collectionView
     }
     
@@ -49,11 +49,16 @@ class HomeViewController: BaseCollectionViewController {
         initialize()
     }
     
-    override func initialize() {
-        super.initialize()
+    func initialize() {
         rightButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(changeMode))
         coordinator?.viewDidLoad(self)
     }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        collectionView.collectionViewLayout.invalidateLayout()
+    }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -79,7 +84,7 @@ class HomeViewController: BaseCollectionViewController {
         
     }
     
-    func managedObjectContextObjectsDidChange(notification: NSNotification) {
+    @objc func managedObjectContextObjectsDidChange(notification: NSNotification) {
         guard let userInfo = notification.userInfo else { return }
         
         if let inserts = userInfo[NSInsertedObjectsKey] as? Set<NSManagedObject>, inserts.count > 0 {
@@ -93,11 +98,6 @@ class HomeViewController: BaseCollectionViewController {
         if let deletes = userInfo[NSDeletedObjectsKey] as? Set<NSManagedObject>, deletes.count > 0 {
             print("deletes")
         }
-    }
-    
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        collectionView.collectionViewLayout.invalidateLayout()
     }
     
     var thumbnailZoomTransitionAnimator: ThumbnailZoomTransitionAnimator?
@@ -114,11 +114,11 @@ class HomeViewController: BaseCollectionViewController {
     }
     
     
-    func managedObjectContextWillSave(notification: NSNotification) {
+    @objc func managedObjectContextWillSave(notification: NSNotification) {
         print(notification.name)
     }
     
-    func  managedObjectContextDidSave(notification: NSNotification) {
+    @objc func  managedObjectContextDidSave(notification: NSNotification) {
         print(notification.name)
     }
 }

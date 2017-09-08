@@ -6,7 +6,7 @@ final class LocalStorageManager {
         let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString
         if let url = URL(string: previewUrl) {
             let podcastDir = documentsPath.appendingPathComponent("podcasts/\(url.lastPathComponent)")
-            let fullPath = documentsPath.appendingPathComponent(url.lastPathComponent)
+           // let fullPath = documentsPath.appendingPathComponent(url.lastPathComponent)
             return URL(fileURLWithPath: podcastDir)
         }
         return nil
@@ -41,8 +41,8 @@ final class LocalStorageManager {
             try FileManager.default.createDirectory(atPath: dataPath.path, withIntermediateDirectories: true, attributes: nil)
             return true
         } catch let error as NSError {
-            fatalError()
             print("Error creating directory: \(error.localizedDescription)")
+            fatalError()
             return false
         }
 

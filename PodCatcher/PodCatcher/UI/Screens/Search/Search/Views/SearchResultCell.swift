@@ -13,7 +13,7 @@ final class SearchResultCell: UITableViewCell, Reusable {
     var titleLabel: UILabel = {
         let title = UILabel()
         title.textColor = .black
-        title.font = UIFont.systemFont(ofSize: 12, weight: UIFontWeightSemibold)
+        title.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.semibold)
         title.textAlignment = .center
         title.numberOfLines = 0
         return title

@@ -9,7 +9,7 @@ final class ListTopView: UIView {
     var podcastImageView: UIImageView! = {
         var podcastImageView = UIImageView()
         podcastImageView.layer.setCellShadow(contentView: podcastImageView)
-        podcastImageView.layer.cornerRadius = 2
+        podcastImageView.layer.cornerRadius = 6
         return podcastImageView
     }()
     
