@@ -22,7 +22,7 @@ final class HomeTabCoordinator: NSObject, NavigationCoordinator, HomeCoordinator
     
     required init(navigationController: UINavigationController) {
         self.navigationController = navigationController
-        self.childViewControllers = navigationController.viewControllers
+        childViewControllers = navigationController.viewControllers
     }
     
     convenience init(navigationController: UINavigationController, controller: UIViewController) {
@@ -33,6 +33,7 @@ final class HomeTabCoordinator: NSObject, NavigationCoordinator, HomeCoordinator
     func start() {
         let homeViewController = navigationController.viewControllers[0] as! HomeViewController
         homeViewController.managedContext = feedStore.managedContext
+        
         let controller: NSFetchedResultsController<Subscription> = {
             let fetchRequest: NSFetchRequest<Subscription> = Subscription.fetchRequest()
             fetchRequest.sortDescriptors = [NSSortDescriptor(key: "feedUrl", ascending: true)]
@@ -42,6 +43,7 @@ final class HomeTabCoordinator: NSObject, NavigationCoordinator, HomeCoordinator
             }
             return controller
         }()
+        
         homeViewController.fetchedResultsController = controller
         homeViewController.delegate = self
     }
@@ -50,29 +52,35 @@ final class HomeTabCoordinator: NSObject, NavigationCoordinator, HomeCoordinator
 extension HomeTabCoordinator: HomeViewControllerDelegate {
     
     func didSelect(at index: Int, with subscription: Subscription, image: UIImage, imageView: UIImageView) {
+        
         let store = SearchResultsDataStore()
         var caster = CasterSearchResult()
         
         guard let feedUrlString = subscription.feedUrl else { return }
+        
         caster.podcastArtUrlString = subscription.artworkImageUrl
         caster.podcastTitle = subscription.podcastTitle
         caster.feedUrl = subscription.feedUrl
         caster.podcastArtist = subscription.podcastArtist
         
         concurrent.async { [weak self] in
+            
             if let strongSelf = self {
+                
                 let homeViewController = strongSelf.navigationController.viewControllers[0] as! HomeViewController
                 
                 homeViewController.loading()
-
+                
                 store.pullFeed(for: feedUrlString) { response, arg  in
+                    
                     guard let episodes = response else { return }
+                    
                     let resultsList = SearchResultListViewController(index: index)
-
+                    
                     caster.episodes = episodes
                     resultsList.setDataItem(dataItem: caster)
                     resultsList.delegate = strongSelf
-                 
+                    
                     DispatchQueue.main.async {
                         
                         resultsList.collectionView.reloadData()
@@ -87,30 +95,34 @@ extension HomeTabCoordinator: HomeViewControllerDelegate {
     }
     
     func didSelect(at index: Int, with subscription: Subscription, image: UIImage) {
+        
         let store = SearchResultsDataStore()
         var caster = CasterSearchResult()
         
         guard let feedUrlString = subscription.feedUrl else { return }
+        
         caster.podcastArtUrlString = subscription.artworkImageUrl
         caster.podcastTitle = subscription.podcastTitle
         caster.feedUrl = subscription.feedUrl
         caster.podcastArtist = subscription.podcastArtist
+        
         store.pullFeed(for: feedUrlString) { response, arg  in
+            
             guard let episodes = response else { return }
             let resultsList = SearchResultListViewController(index: index)
-//            resultsList.item = caster
-//            resultsList.item.episodes = episodes
+            
             caster.episodes = episodes
             
             resultsList.setDataItem(dataItem: caster)
             resultsList.delegate = self
-            //resultsList.dataSource = self.dataSource
+            
             DispatchQueue.main.async {
                 
                 resultsList.collectionView.reloadData()
+                
                 let homeViewController = self.navigationController.viewControllers[0] as! HomeViewController
                 homeViewController.loading()
-               // homeViewController.hideLoadingView(loadingPop: homeViewController.loadingPop)
+                
                 self.navigationController.delegate = self
                 self.transitionThumbnail?.image = image
                 
@@ -126,11 +138,10 @@ extension HomeTabCoordinator: PodcastListViewControllerDelegate {
     
     func saveFeed(item: CasterSearchResult, podcastImage: UIImage, episodesCount: Int) {
         
-        guard let title = item.podcastTitle else { return }
         let image = podcastImage
-        guard let feedUrl = item.feedUrl else { return }
-        guard let artist = item.podcastArtist else { return }
-        guard let artUrl = item.podcastArtUrlString else { return }
+        
+        guard let title = item.podcastTitle, let feedUrl = item.feedUrl, let artist = item.podcastArtist, let artUrl = item.podcastArtUrlString else { return }
+        
         feedStore.save(feedUrl: feedUrl,
                        podcastTitle: title,
                        episodeCount: episodesCount,
@@ -139,8 +150,10 @@ extension HomeTabCoordinator: PodcastListViewControllerDelegate {
                        uid: "none",
                        artworkUrlString: artUrl,
                        artistName: artist)
+        
         var subscriptions = UserDefaults.loadSubscriptions()
         subscriptions.append(feedUrl)
+        
         UserDefaults.saveSubscriptions(subscriptions: subscriptions)
     }
     
@@ -150,11 +163,14 @@ extension HomeTabCoordinator: PodcastListViewControllerDelegate {
         var playerPodcast = podcast
         playerPodcast.episodes = episodes
         playerPodcast.index = index
+        
         let playerViewController = PlayerViewController(index: index, caster: playerPodcast, image: nil)
         playerViewController.delegate = self
+        
         navigationController.navigationBar.isTranslucent = true
         navigationController.navigationBar.alpha = 0
         navigationController.delegate = self
+        
         DispatchQueue.main.async {
             self.navigationController.pushViewController(playerViewController, animated: false)
         }
@@ -165,14 +181,18 @@ extension HomeTabCoordinator: PodcastListViewControllerDelegate {
 extension HomeTabCoordinator: PlayerViewControllerDelegate {
     
     func addItemToPlaylist(item: CasterSearchResult, index: Int) {
+        
         let controller = navigationController.viewControllers.last
         controller?.tabBarController?.selectedIndex = 1
+        
         guard let tab =  controller?.tabBarController else { return }
         let nav = tab.viewControllers?[1] as! UINavigationController
         let playlists = nav.viewControllers[0] as! PlaylistsViewController
+        
         playlists.reference = .addPodcast
         playlists.index = index
         playlists.item = item
+        
         controller?.tabBarController?.tabBar.alpha = 1
         navigationController.navigationBar.alpha = 1
         delegate?.podcastItem(toAdd: item, with: index)
