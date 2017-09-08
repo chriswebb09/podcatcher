@@ -28,6 +28,13 @@ extension UICollectionView {
         let collectionBackgroundView = UIView(frame: frame)
         backgroundView = collectionBackgroundView
     }
+    
+    func updateCollectionViewLayout() {
+        DispatchQueue.main.async {
+            self.reloadItems(at: self.indexPathsForVisibleItems)
+            self.layoutIfNeeded()
+        }
+    }
 }
 
 extension UICollectionViewFlowLayout {

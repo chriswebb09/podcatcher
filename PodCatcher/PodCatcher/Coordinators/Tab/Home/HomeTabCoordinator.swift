@@ -70,7 +70,7 @@ extension HomeTabCoordinator: HomeViewControllerDelegate {
                     let resultsList = SearchResultListViewController(index: index)
                     resultsList.item = caster
                     resultsList.item.episodes = episodes
-                    resultsList.episodes = episodes
+                    
                     resultsList.delegate = strongSelf
                     resultsList.dataSource = strongSelf.dataSource
                     DispatchQueue.main.async {
@@ -101,7 +101,6 @@ extension HomeTabCoordinator: HomeViewControllerDelegate {
             let resultsList = SearchResultListViewController(index: index)
             resultsList.item = caster
             resultsList.item.episodes = episodes
-            resultsList.episodes = episodes
             resultsList.delegate = self
             resultsList.dataSource = self.dataSource
             DispatchQueue.main.async {

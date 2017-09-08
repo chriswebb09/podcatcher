@@ -52,7 +52,7 @@ extension SearchTabCoordinator: SearchViewControllerDelegate {
             store.pullFeed(for: feedUrlString) { response, arg  in
                 
                 guard let episodes = response else { print("no"); return }
-                resultsList.episodes = episodes
+                resultsList.item.episodes = episodes
                 DispatchQueue.main.async {
                     searchViewController.hideLoadingView(loadingPop: searchViewController.loadingPop)
                     resultsList.collectionView.reloadData()

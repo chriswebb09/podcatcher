@@ -193,7 +193,7 @@ extension BrowseTabCoordinator: BrowseViewControllerDelegate {
             guard let strongSelf = self else { return }
             store.pullFeed(for: feedUrlString) {  response, arg in
                 guard let episodes = response else { return }
-                resultsList.episodes = episodes
+                resultsList.item.episodes = episodes
                 DispatchQueue.main.async {
                     browseViewController.hideLoadingView(loadingPop: browseViewController.loadingPop)
                     strongSelf.navigationController.pushViewController(resultsList, animated: false)
