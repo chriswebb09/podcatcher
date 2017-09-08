@@ -2,19 +2,16 @@ import UIKit
 
 final class SearchResultListViewController: BaseCollectionViewController {
     
-    var dataSource: BaseMediaControllerDataSource!
-    
     weak var delegate: PodcastListViewControllerDelegate?
     
-    var item: CasterSearchResult!
-    var state: PodcasterControlState = .toCollection
-    var confirmationIndicator = ConfirmationIndicatorView()
-    let entryPop = EntryPopover()
-    var topView = ListTopView()
+    private var item: CasterSearchResult!
+    private var state: PodcasterControlState = .toCollection
+    private var confirmationIndicator = ConfirmationIndicatorView()
+    private let entryPop = EntryPopover()
+    private var topView = ListTopView()
+    private let subscription = UserDefaults.loadSubscriptions()
     
-    let subscription = UserDefaults.loadSubscriptions()
-    
-    var viewShown: ShowView {
+    private var viewShown: ShowView {
         didSet {
             switch viewShown {
             case .empty:
@@ -39,7 +36,7 @@ final class SearchResultListViewController: BaseCollectionViewController {
         initialize()
     }
     
-    func initialize() {
+    private func initialize() {
         emptyView = InformationView(data: "No Data.", icon: #imageLiteral(resourceName: "mic-icon"))
         setup(dataSource: self, delegate: self)
         setupView()
@@ -54,6 +51,10 @@ final class SearchResultListViewController: BaseCollectionViewController {
         }
     }
     
+    func setDataItem(dataItem: CasterSearchResult) {
+        self.item = dataItem
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(false)
         setupNavbar()
@@ -63,20 +64,20 @@ final class SearchResultListViewController: BaseCollectionViewController {
         setupLayout()
     }
     
-    func setupNavbar() {
+    private func setupNavbar() {
         let backImage = #imageLiteral(resourceName: "back").withRenderingMode(.alwaysTemplate)
         navigationController?.navigationBar.backIndicatorImage = backImage
         navigationController?.navigationBar.backIndicatorTransitionMaskImage = backImage
     }
     
-    func setupLayout() {
+    private func setupLayout() {
         let newLayout = SearchItemsFlowLayout()
         newLayout.setup()
         self.collectionView.collectionViewLayout.invalidateLayout()
         self.collectionView.collectionViewLayout = newLayout
     }
     
-    func setupButton() {
+    private func setupButton() {
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }
             let backButton = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.plain, target: self, action: nil)
@@ -86,26 +87,26 @@ final class SearchResultListViewController: BaseCollectionViewController {
             }
         }
         
-        if let item = item, let feedUrl = item.feedUrl, !subscription.contains(feedUrl), let title = item.podcastTitle {
+        if let item = item, let feedUrl = item.feedUrl, !subscription.contains(feedUrl) {
             let button = UIButton.setupSubscribeButton()
             button.addTarget(self, action: #selector(subscribeToFeed), for: .touchUpInside)
             topView.preferencesView.moreMenuButton = button
         }
     }
     
-    func setupTopViewImage() {
+    private func setupTopViewImage() {
         DispatchQueue.main.async {
             self.topView.configureTopImage()
         }
     }
     
-    func saveFeed() {
+    private func saveFeed() {
         guard let image = topView.podcastImageView.image else { return }
         delegate?.saveFeed(item: item, podcastImage: image , episodesCount: item.episodes.count)
         topView.preferencesView.moreMenuButton.isHidden = true
     }
     
-    func showViews() {
+    private func showViews() {
         collectionView.alpha = 1
         navigationController?.setNavigationBarHidden(false, animated: false)
         navigationController?.navigationBar.alpha = 1
@@ -153,23 +154,23 @@ extension SearchResultListViewController {
         collectionView.backgroundColor = PodcastListConstants.backgroundColor
     }
     
-    func setupView() {
+    private func setupView() {
         setupTopView()
+        setupViewFraming()
+        collectionView.backgroundColor = .clear
+        
+        view.addSubview(collectionView)
+        setupBackgroundView()
+    }
+    
+    private func setupViewFraming() {
         guard let tabBar = tabBarController?.tabBar else { return }
         guard let navHeight = navigationController?.navigationBar.frame.height else { return }
         let viewHeight = (view.bounds.height - navHeight) - 90
         collectionView.frame = CGRect(x: topView.bounds.minX, y: topView.frame.maxY + (tabBar.frame.height + 10), width: view.bounds.width, height: viewHeight - (topView.frame.height - 90))
-        collectionView.backgroundColor = .clear
-        guard let casters = dataSource.casters else { return }
-        if casters.count > 0 {
-            view.addSubview(collectionView)
-        } else {
-            // Add empty view
-        }
-        setupBackgroundView()
     }
     
-    func setupTopView() {
+    private func setupTopView() {
         topView.frame = PodcastListConstants.topFrame
         if let item = item, let urlString = item.podcastArtUrlString, let url = URL(string: urlString) {
             topView.podcastImageView.downloadImage(url: url)
@@ -179,7 +180,7 @@ extension SearchResultListViewController {
         view.bringSubview(toFront: topView)
     }
     
-    func setupBackgroundView() {
+    private func setupBackgroundView() {
         background.frame = view.frame
         view.addSubview(background)
         view.sendSubview(toBack: background)
@@ -198,9 +199,8 @@ extension SearchResultListViewController: UIScrollViewDelegate {
             updateScrollingUITop()
         }
     }
-    
-    
-    func updateScrollUIFull() {
+
+    private func updateScrollUIFull() {
         UIView.animate(withDuration: 0.5) {
             self.topView.removeFromSuperview()
             self.topView.alpha = 0
@@ -211,7 +211,7 @@ extension SearchResultListViewController: UIScrollViewDelegate {
         }
     }
     
-    func updateScrollingUITop() {
+    private func updateScrollingUITop() {
         guard let navHeight = navigationController?.navigationBar.frame.height else { return }
         let viewHeight = (view.bounds.height - navHeight) - 20
         let updatedTopViewFrame = CGRect(x: 0, y: 0, width: PodcastListConstants.topFrameWidth, height: PodcastListConstants.topFrameHeight / 1.2)

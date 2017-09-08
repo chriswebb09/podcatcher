@@ -183,22 +183,23 @@ extension BrowseTabCoordinator: BrowseViewControllerDelegate {
         ApplicationStyling.setupUI()
         let resultsList = SearchResultListViewController(index: index)
         resultsList.delegate = self
-        resultsList.dataSource = dataSource
-        resultsList.item = caster as! CasterSearchResult
-        let browseViewController = navigationController.viewControllers[0] as! BrowseViewController
-        guard let feedUrlString = resultsList.item.feedUrl else { return }
-        browseViewController.showLoadingView(loadingPop: browseViewController.loadingPop)
-        let store = SearchResultsDataStore()
-        concurrent.async { [weak self] in
-            guard let strongSelf = self else { return }
-            store.pullFeed(for: feedUrlString) {  response, arg in
-                guard let episodes = response else { return }
-                resultsList.item.episodes = episodes
-                DispatchQueue.main.async {
-                    browseViewController.hideLoadingView(loadingPop: browseViewController.loadingPop)
-                    strongSelf.navigationController.pushViewController(resultsList, animated: false)
-                    browseViewController.collectionView.isUserInteractionEnabled = true
-                    
+        if var dataItem = caster as? CasterSearchResult {
+            
+            let browseViewController = navigationController.viewControllers[0] as! BrowseViewController
+            guard let feedUrlString = dataItem.feedUrl else { return }
+            browseViewController.showLoadingView(loadingPop: browseViewController.loadingPop)
+            let store = SearchResultsDataStore()
+            concurrent.async { [weak self] in
+                guard let strongSelf = self else { return }
+                store.pullFeed(for: feedUrlString) {  response, arg in
+                    guard let episodes = response else { return }
+                    dataItem.episodes = episodes
+                    resultsList.setDataItem(dataItem: dataItem)
+                    DispatchQueue.main.async {
+                        browseViewController.hideLoadingView(loadingPop: browseViewController.loadingPop)
+                        strongSelf.navigationController.pushViewController(resultsList, animated: false)
+                        browseViewController.collectionView.isUserInteractionEnabled = true
+                    }
                 }
             }
         }

@@ -43,21 +43,24 @@ extension SearchTabCoordinator: SearchViewControllerDelegate {
             searchViewController.showLoadingView(loadingPop: searchViewController.loadingPop)
         }
         resultsList.delegate = self
-        resultsList.dataSource = dataSource
-        resultsList.item = caster as! CasterSearchResult
-        guard let feedUrlString = resultsList.item.feedUrl else { return }
-        let store = SearchResultsDataStore()
-        concurrent.async { [weak self] in
-            guard let strongSelf = self else { return }
-            store.pullFeed(for: feedUrlString) { response, arg  in
-                
-                guard let episodes = response else { print("no"); return }
-                resultsList.item.episodes = episodes
-                DispatchQueue.main.async {
-                    searchViewController.hideLoadingView(loadingPop: searchViewController.loadingPop)
-                    resultsList.collectionView.reloadData()
-                    strongSelf.navigationController.pushViewController(resultsList, animated: false)
-                    searchViewController.tableView.isUserInteractionEnabled = true
+        //resultsList.dataSource = dataSource
+        if var dataItem = caster as? CasterSearchResult {
+
+            guard let feedUrlString = dataItem.feedUrl else { return }
+            let store = SearchResultsDataStore()
+            concurrent.async { [weak self] in
+                guard let strongSelf = self else { return }
+                store.pullFeed(for: feedUrlString) { response, arg  in
+                    
+                    guard let episodes = response else { print("no"); return }
+                    dataItem.episodes = episodes
+                    resultsList.setDataItem(dataItem: dataItem)
+                    DispatchQueue.main.async {
+                        searchViewController.hideLoadingView(loadingPop: searchViewController.loadingPop)
+                        resultsList.collectionView.reloadData()
+                        strongSelf.navigationController.pushViewController(resultsList, animated: false)
+                        searchViewController.tableView.isUserInteractionEnabled = true
+                    }
                 }
             }
         }

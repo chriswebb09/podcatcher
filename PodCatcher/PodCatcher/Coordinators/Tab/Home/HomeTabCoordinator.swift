@@ -68,11 +68,11 @@ extension HomeTabCoordinator: HomeViewControllerDelegate {
                 store.pullFeed(for: feedUrlString) { response, arg  in
                     guard let episodes = response else { return }
                     let resultsList = SearchResultListViewController(index: index)
-                    resultsList.item = caster
-                    resultsList.item.episodes = episodes
-                    
+
+                    caster.episodes = episodes
+                    resultsList.setDataItem(dataItem: caster)
                     resultsList.delegate = strongSelf
-                    resultsList.dataSource = strongSelf.dataSource
+                   // resultsList.dataSource = strongSelf.dataSource
                     DispatchQueue.main.async {
                         
                         resultsList.collectionView.reloadData()
@@ -99,10 +99,13 @@ extension HomeTabCoordinator: HomeViewControllerDelegate {
         store.pullFeed(for: feedUrlString) { response, arg  in
             guard let episodes = response else { return }
             let resultsList = SearchResultListViewController(index: index)
-            resultsList.item = caster
-            resultsList.item.episodes = episodes
+//            resultsList.item = caster
+//            resultsList.item.episodes = episodes
+            caster.episodes = episodes
+            
+            resultsList.setDataItem(dataItem: caster)
             resultsList.delegate = self
-            resultsList.dataSource = self.dataSource
+            //resultsList.dataSource = self.dataSource
             DispatchQueue.main.async {
                 
                 resultsList.collectionView.reloadData()
