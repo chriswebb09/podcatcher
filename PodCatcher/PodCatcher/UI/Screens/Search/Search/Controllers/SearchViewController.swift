@@ -42,26 +42,36 @@ final class SearchViewController: BaseTableViewController, LoadingPresenting {
     
     
     func setup() {
+        
         tableView.dataSource = dataSource
         tableView.prefetchDataSource = dataSource
-        viewShown = dataSource.viewShown
         tableView.backgroundColor = UIColor(red:0.94, green:0.95, blue:0.96, alpha:1.0)
         tableView.register(SearchResultCell.self, forCellReuseIdentifier: SearchResultCell.reuseIdentifier)
         tableView.delegate = self
-        guard let navBar = navigationController?.navigationBar else { return }
-        guard let tabbar = self.tabBarController?.tabBar else { return }
-        searchBar.frame = CGRect(x: UIScreen.main.bounds.minX, y: 0, width: UIScreen.main.bounds.width, height: navBar.frame.height / 2)
-        let height = (view.frame.height - tabbar.frame.height)
-        tableView.frame = CGRect(x: UIScreen.main.bounds.minX, y: navBar.frame.height + searchBar.frame.maxY, width: UIScreen.main.bounds.width, height: height)
-        searchControllerConfigure()
-        searchController.defaultConfiguration()
-        view.addSubview(searchBar)
         tableView.separatorStyle = .none
-        searchController.hidesNavigationBarDuringPresentation = false
+        
         let background = UIView()
         background.frame = view.frame
         tableView.backgroundView = background
         background.addSubview(infoLabel)
+        
+        viewShown = dataSource.viewShown
+        guard let navBar = navigationController?.navigationBar, let tabbar = self.tabBarController?.tabBar else { return }
+        
+        searchBar.frame = CGRect(x: UIScreen.main.bounds.minX, y: 0, width: UIScreen.main.bounds.width, height: navBar.frame.height / 2)
+        
+        let height = (view.frame.height - tabbar.frame.height)
+        
+        tableView.frame = CGRect(x: UIScreen.main.bounds.minX, y: navBar.frame.height + searchBar.frame.maxY, width: UIScreen.main.bounds.width, height: height)
+        searchControllerConfigure()
+        searchController.defaultConfiguration()
+        
+        view.addSubview(searchBar)
+       
+        
+        searchController.hidesNavigationBarDuringPresentation = false
+        
+      
         infoLabel.sizeToFit()
         infoLabel.center = CGPoint(x: UIScreen.main.bounds.width / 2, y: UIScreen.main.bounds.height / 3)
         infoLabel.isHidden = true
@@ -83,6 +93,7 @@ final class SearchViewController: BaseTableViewController, LoadingPresenting {
     }
     
     func searchControllerConfigure() {
+        
         searchController.delegate = self
         searchBar = searchController.searchBar
         searchController.searchResultsUpdater = self
@@ -94,9 +105,11 @@ final class SearchViewController: BaseTableViewController, LoadingPresenting {
         
         if let textFieldInsideSearchBar = searchBar.value(forKey: "searchField") as? UITextField,
             let glassIconView = textFieldInsideSearchBar.leftView as? UIImageView {
+            
             textFieldInsideSearchBar.backgroundColor = Colors.brightHighlight
             textFieldInsideSearchBar.clearButtonMode = .never
             textFieldInsideSearchBar.attributedPlaceholder = NSAttributedString(string: textFieldInsideSearchBar.placeholder != nil ? textFieldInsideSearchBar.placeholder! : "", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
+            
             glassIconView.image = glassIconView.image?.withRenderingMode(.alwaysTemplate)
             glassIconView.tintColor = .white
         }
@@ -113,8 +126,11 @@ extension SearchViewController: UISearchResultsUpdating {
     
     func updateSearchResultsForSearchController(searchController: UISearchController) {
         let searchString = searchController.searchBar.text
+        
         if searchString != nil {
+            
             if let searchString = searchString, searchString != "" {
+                
                 self.dataSource.interactor.setSearch(term: searchString)
                 NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(setSearch), object: nil)
                 self.perform(#selector(setSearch), with: nil, afterDelay: 0.025)
@@ -130,20 +146,27 @@ extension SearchViewController: UISearchControllerDelegate {
         dataSource.interactor.searchForTracks { [weak self] playlist, error in
             if let error = error {
                 DispatchQueue.main.async {
+                    
                     let actionSheetController: UIAlertController = UIAlertController(title: "Error", message: "\(error.localizedDescription)", preferredStyle: .alert)
+                    
                     let okayAction: UIAlertAction =  UIAlertAction(title: "Okay", style: .cancel) { action in
                         actionSheetController.dismiss(animated: false, completion: nil)
                     }
+                    
                     actionSheetController.addAction(okayAction)
+                    
                     self?.present(actionSheetController, animated: false)
                 }
                 self?.infoLabel.isHidden = true
                 return
             }
             guard let playlist = playlist, let strongSelf = self else { return }
+            
             strongSelf.dataSource.items = playlist
             self?.infoLabel.isHidden = true
+            
             DispatchQueue.main.async {
+                
                 strongSelf.tableView.reloadData()
                 strongSelf.tableView.reloadRows(at: strongSelf.tableView.indexPathsForVisibleRows!, with: UITableViewRowAnimation.fade)
                 
@@ -184,10 +207,14 @@ extension SearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.isUserInteractionEnabled = false
         let reachability = Reachability()!
+        
         reachability.whenReachable = { reachability in
+            
             DispatchQueue.main.async { [weak self] in
+                
                 guard let strongSelf = self else { return }
                 if strongSelf.dataSource.items.count > 0 {
+                    
                     strongSelf.searchController.isActive = false
                     strongSelf.delegate?.didSelect(at: indexPath.row, with: strongSelf.dataSource.items[indexPath.row])
                 }
@@ -196,11 +223,14 @@ extension SearchViewController: UITableViewDelegate {
         reachability.whenUnreachable = { reachability in
             DispatchQueue.main.async { [weak self] in
                 guard let strongSelf = self else { return }
+                
                 let actionSheetController: UIAlertController = UIAlertController(title: "Error", message: "The Internet connection appears to be offline.", preferredStyle: .alert)
+                
                 let okayAction: UIAlertAction =  UIAlertAction(title: "Okay", style: .cancel) { action in
                     tableView.isUserInteractionEnabled = true
                     actionSheetController.dismiss(animated: false, completion: nil)
                 }
+                
                 actionSheetController.addAction(okayAction)
                 strongSelf.present(actionSheetController, animated: false)
             }
