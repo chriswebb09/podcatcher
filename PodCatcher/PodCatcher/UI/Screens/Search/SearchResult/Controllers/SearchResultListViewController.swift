@@ -162,8 +162,7 @@ extension SearchResultListViewController {
     }
     
     private func setupViewFraming() {
-        guard let tabBar = tabBarController?.tabBar else { return }
-        guard let navHeight = navigationController?.navigationBar.frame.height else { return }
+        guard let tabBar = tabBarController?.tabBar, let navHeight = navigationController?.navigationBar.frame.height else { return }
         let viewHeight = (view.bounds.height - navHeight) - 90
         collectionView.frame = CGRect(x: topView.bounds.minX, y: topView.frame.maxY + (tabBar.frame.height + 10), width: view.bounds.width, height: viewHeight - (topView.frame.height - 90))
     }
@@ -183,6 +182,7 @@ extension SearchResultListViewController {
     
     private func setupBackgroundView() {
         background.frame = view.frame
+        
         view.addSubview(background)
         view.sendSubview(toBack: background)
     }
@@ -203,9 +203,11 @@ extension SearchResultListViewController: UIScrollViewDelegate {
     
     private func updateScrollUIFull() {
         UIView.animate(withDuration: 0.5) {
+            
             self.topView.removeFromSuperview()
             self.topView.alpha = 0
             self.collectionView.frame = self.view.bounds
+            
             DispatchQueue.main.async {
                 self.collectionView.layoutIfNeeded()
             }
@@ -213,15 +215,19 @@ extension SearchResultListViewController: UIScrollViewDelegate {
     }
     
     private func updateScrollingUITop() {
+        
         guard let navHeight = navigationController?.navigationBar.frame.height else { return }
+        
         let viewHeight = (view.bounds.height - navHeight) - 20
         let updatedTopViewFrame = CGRect(x: 0, y: 0, width: PodcastListConstants.topFrameWidth, height: PodcastListConstants.topFrameHeight / 1.2)
         let collectionFrame = CGRect(x: topView.bounds.minX, y: topView.frame.maxY, width: view.bounds.width, height: viewHeight - (topView.frame.height - 80))
         
         UIView.animate(withDuration: 0.15) {
+            
             self.topView.frame = updatedTopViewFrame
             self.topView.alpha = 1
             self.topView.layoutSubviews()
+            
             self.view.addSubview(self.topView)
             self.collectionView.frame = collectionFrame
         }
