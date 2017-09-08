@@ -41,6 +41,10 @@ final class SearchResultListViewController: BaseCollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        initialize()
+    }
+    
+    func initialize() {
         self.emptyView = InformationView(data: "No Data.", icon: #imageLiteral(resourceName: "mic-icon"))
         setup(dataSource: self, delegate: self)
         configureTopView()
@@ -61,10 +65,27 @@ final class SearchResultListViewController: BaseCollectionViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(false)
+        setupNavbar()
+        setupButton()
+        setupTopView()
+        showViews()
+        setupLayout()
+    }
+    
+    func setupNavbar() {
         let backImage = #imageLiteral(resourceName: "back").withRenderingMode(.alwaysTemplate)
         navigationController?.navigationBar.backIndicatorImage = backImage
         navigationController?.navigationBar.backIndicatorTransitionMaskImage = backImage
-        
+    }
+    
+    func setupLayout() {
+        let newLayout = SearchItemsFlowLayout()
+        newLayout.setup()
+        self.collectionView.collectionViewLayout.invalidateLayout()
+        self.collectionView.collectionViewLayout = newLayout
+    }
+    
+    func setupButton() {
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }
             let backButton = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.plain, target: self, action: nil)
@@ -78,7 +99,6 @@ final class SearchResultListViewController: BaseCollectionViewController {
             navigationController?.navigationBar.topItem?.title = title
             navigationController?.navigationBar.backItem?.title = ""
         }
-        
         if let item = item, let feedUrl = item.feedUrl, !subscription.contains(feedUrl) {
             let button = UIButton(type: .system)
             button.setTitle("Subscribe", for: .normal)
@@ -92,26 +112,15 @@ final class SearchResultListViewController: BaseCollectionViewController {
             button.backgroundColor = .darkGray
             button.alpha = 0.8
         }
-        
+    }
+    
+    func setupTopView() {
         DispatchQueue.main.async {
             self.topView.podcastImageView.layer.cornerRadius = 4
             self.topView.podcastImageView.layer.masksToBounds = true
             self.topView.layer.setCellShadow(contentView: self.topView)
             self.topView.podcastImageView.layer.setCellShadow(contentView: self.topView.podcastImageView)
         }
-        
-        UIView.animate(withDuration: 0.002) { [weak self] in
-            guard let strongSelf = self else { return }
-            strongSelf.navigationController?.navigationBar.alpha = 1
-        }
-        collectionView.alpha = 1
-        navigationController?.setNavigationBarHidden(false, animated: false)
-        navigationController?.navigationBar.alpha = 1
-        
-        let newLayout = SearchItemsFlowLayout()
-        newLayout.setup()
-        self.collectionView.collectionViewLayout.invalidateLayout()
-        self.collectionView.collectionViewLayout = newLayout
     }
     
     func saveFeed() {
@@ -120,6 +129,15 @@ final class SearchResultListViewController: BaseCollectionViewController {
         topView.preferencesView.moreMenuButton.isHidden = true
     }
     
+    func showViews() {
+        UIView.animate(withDuration: 0.002) { [weak self] in
+            guard let strongSelf = self else { return }
+            strongSelf.navigationController?.navigationBar.alpha = 1
+        }
+        collectionView.alpha = 1
+        navigationController?.setNavigationBarHidden(false, animated: false)
+        navigationController?.navigationBar.alpha = 1
+    }
     
     @objc func subscribeToFeed() {
         saveFeed()
@@ -235,18 +253,19 @@ extension SearchResultListViewController: UIScrollViewDelegate {
         }
     }
     
-    func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
+    func updateCollectionViewLayout() {
         DispatchQueue.main.async {
             self.collectionView.reloadItems(at: self.collectionView.indexPathsForVisibleItems)
             self.collectionView.layoutIfNeeded()
         }
     }
     
+    func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
+        updateCollectionViewLayout()
+    }
+    
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        DispatchQueue.main.async {
-            self.collectionView.reloadItems(at: self.collectionView.indexPathsForVisibleItems)
-            self.collectionView.layoutIfNeeded()
-        }
+        updateCollectionViewLayout()
     }
 }
 
@@ -277,15 +296,5 @@ extension SearchResultListViewController: UICollectionViewDataSource {
             }
         }
         return cell
-    }
-}
-
-final class SearchItemsFlowLayout: UICollectionViewFlowLayout {
-    
-    func setup() {
-        scrollDirection = .vertical
-        itemSize = CGSize(width: UIScreen.main.bounds.width / 1.01, height: UIScreen.main.bounds.height / 10)
-        sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 30, right: 0)
-        minimumLineSpacing = 2
     }
 }
