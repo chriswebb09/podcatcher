@@ -15,3 +15,20 @@ extension UILabel {
 }
 
 extension UICollectionViewCell: Reusable { }
+
+extension UIButton {
+    static func setupSubscribeButton() -> UIButton {
+        let button = UIButton(type: .system)
+        button.setTitle("Subscribe", for: .normal)
+       // button.addTarget(self, action: #selector(subscribeToFeed), for: .touchUpInside)
+        button.layer.borderWidth = 1
+        button.layer.cornerRadius = 10
+        button.layer.borderColor = UIColor.white.cgColor
+        button.titleEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
+      
+        button.tintColor = .white
+        button.backgroundColor = .darkGray
+        button.alpha = 0.8
+        return button
+    }
+}

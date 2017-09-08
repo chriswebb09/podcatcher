@@ -45,13 +45,17 @@ final class SearchResultListViewController: BaseCollectionViewController {
     }
     
     func initialize() {
-        self.emptyView = InformationView(data: "No Data.", icon: #imageLiteral(resourceName: "mic-icon"))
+        emptyView = InformationView(data: "No Data.", icon: #imageLiteral(resourceName: "mic-icon"))
         setup(dataSource: self, delegate: self)
+        DispatchQueue.main.async { [weak self] in
+            guard let strongSelf = self else { return }
+            strongSelf.navigationController?.navigationBar.backItem?.title = ""
+            strongSelf.navigationController?.navigationItem.backBarButtonItem?.title = ""
+            strongSelf.navigationItem.backBarButtonItem?.title = ""
+        }
         configureTopView()
         background.frame = view.frame
         view.addSubview(background)
-        emptyView.alpha = 0
-        edgesForExtendedLayout = []
         view.sendSubview(toBack: background)
         collectionView.register(PodcastResultCell.self)
         
@@ -94,32 +98,18 @@ final class SearchResultListViewController: BaseCollectionViewController {
                 self?.navigationItem.title = title
             }
         }
-        
-        if let item = item, let title = item.podcastTitle {
+
+        if let item = item, let feedUrl = item.feedUrl, !subscription.contains(feedUrl), let title = item.podcastTitle {
             navigationController?.navigationBar.topItem?.title = title
-            navigationController?.navigationBar.backItem?.title = ""
-        }
-        if let item = item, let feedUrl = item.feedUrl, !subscription.contains(feedUrl) {
-            let button = UIButton(type: .system)
-            button.setTitle("Subscribe", for: .normal)
+            let button = UIButton.setupSubscribeButton()
             button.addTarget(self, action: #selector(subscribeToFeed), for: .touchUpInside)
-            button.layer.borderWidth = 1
-            button.layer.cornerRadius = 10
-            button.layer.borderColor = UIColor.white.cgColor
-            button.titleEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
             topView.preferencesView.moreMenuButton = button
-            button.tintColor = .white
-            button.backgroundColor = .darkGray
-            button.alpha = 0.8
         }
     }
     
     func setupTopView() {
         DispatchQueue.main.async {
-            self.topView.podcastImageView.layer.cornerRadius = 4
-            self.topView.podcastImageView.layer.masksToBounds = true
-            self.topView.layer.setCellShadow(contentView: self.topView)
-            self.topView.podcastImageView.layer.setCellShadow(contentView: self.topView.podcastImageView)
+            self.topView.configureTopImage()
         }
     }
     
@@ -177,12 +167,6 @@ final class SearchResultListViewController: BaseCollectionViewController {
 extension SearchResultListViewController {
     
     func configureTopView() {
-        DispatchQueue.main.async { [weak self] in
-            guard let strongSelf = self else { return }
-            strongSelf.navigationController?.navigationBar.backItem?.title = ""
-            strongSelf.navigationController?.navigationItem.backBarButtonItem?.title = ""
-            strongSelf.navigationItem.backBarButtonItem?.title = ""
-        }
         topView.frame = PodcastListConstants.topFrame
         if let item = item, let urlString = item.podcastArtUrlString, let url = URL(string: urlString) {
             topView.podcastImageView.downloadImage(url: url)
@@ -194,12 +178,6 @@ extension SearchResultListViewController {
     }
     
     func setup(dataSource: UICollectionViewDataSource, delegate: UICollectionViewDelegate) {
-        DispatchQueue.main.async { [weak self] in
-            guard let strongSelf = self else { return }
-            strongSelf.navigationController?.navigationBar.backItem?.title = ""
-            strongSelf.navigationController?.navigationItem.backBarButtonItem?.title = ""
-            strongSelf.navigationItem.backBarButtonItem?.title = ""
-        }
         collectionView.dataSource = dataSource
         collectionView.delegate = delegate
         collectionView.register(PodcastCell.self)
@@ -248,7 +226,6 @@ extension SearchResultListViewController: UIScrollViewDelegate {
                 self.topView.layoutSubviews()
                 self.view.addSubview(self.topView)
                 self.collectionView.frame = collectionFrame
-                
             }
         }
     }

@@ -64,6 +64,13 @@ final class ListTopView: UIView {
         preferencesView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         preferencesView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: PodcastListTopViewConstants.preferencesViewHeightMultiplier).isActive = true
     }
+    
+    func configureTopImage() {
+        podcastImageView.layer.cornerRadius = 4
+        podcastImageView.layer.masksToBounds = true
+        layer.setCellShadow(contentView: self)
+        podcastImageView.layer.setCellShadow(contentView: podcastImageView)
+    }
 }
 
 // MARK: - PreferencesViewDelegate
