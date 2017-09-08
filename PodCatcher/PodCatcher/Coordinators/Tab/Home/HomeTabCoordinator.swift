@@ -3,14 +3,19 @@ import CoreData
 
 final class HomeTabCoordinator: NSObject, NavigationCoordinator, HomeCoordinator {
     
-    var thumbnailZoomTransitionAnimator: ThumbnailZoomTransitionAnimator?
-    var transitionThumbnail: UIImageView?
+    private var thumbnailZoomTransitionAnimator: ThumbnailZoomTransitionAnimator?
+    private var transitionThumbnail: UIImageView?
+    
     weak var delegate: CoordinatorDelegate?
-    var type: CoordinatorType = .tabbar
-    var dataSource: BaseMediaControllerDataSource!
-    var store = SearchResultsDataStore()
+    
+    internal var type: CoordinatorType = .tabbar
+
+    private var store = SearchResultsDataStore()
+    
     var feedStore = FeedCoreDataStack()
+    
     var interactor = SearchResultsIteractor()
+   
     var childViewControllers: [UIViewController] = []
     var navigationController: UINavigationController
     
@@ -72,7 +77,6 @@ extension HomeTabCoordinator: HomeViewControllerDelegate {
                 homeViewController.loading()
                 
                 store.pullFeed(for: feedUrlString) { response, arg  in
-                    
                     guard let episodes = response else { return }
                     
                     let resultsList = SearchResultListViewController(index: index)
@@ -96,10 +100,10 @@ extension HomeTabCoordinator: HomeViewControllerDelegate {
     
     func didSelect(at index: Int, with subscription: Subscription, image: UIImage) {
         
+         guard let feedUrlString = subscription.feedUrl else { return }
+        
         let store = SearchResultsDataStore()
         var caster = CasterSearchResult()
-        
-        guard let feedUrlString = subscription.feedUrl else { return }
         
         caster.podcastArtUrlString = subscription.artworkImageUrl
         caster.podcastTitle = subscription.podcastTitle
@@ -110,24 +114,18 @@ extension HomeTabCoordinator: HomeViewControllerDelegate {
             
             guard let episodes = response else { return }
             let resultsList = SearchResultListViewController(index: index)
-            
             caster.episodes = episodes
-            
             resultsList.setDataItem(dataItem: caster)
             resultsList.delegate = self
             
             DispatchQueue.main.async {
                 
                 resultsList.collectionView.reloadData()
-                
                 let homeViewController = self.navigationController.viewControllers[0] as! HomeViewController
                 homeViewController.loading()
-                
                 self.navigationController.delegate = self
                 self.transitionThumbnail?.image = image
-                
                 self.navigationController.pushViewController(resultsList, animated: true)
-                
                 resultsList.collectionView.reloadData()
             }
         }

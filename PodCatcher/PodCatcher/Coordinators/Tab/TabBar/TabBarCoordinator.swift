@@ -26,7 +26,7 @@ final class TabBarCoordinator: TabControllerCoordinator, RootViewCoordinator {
     func setupHomeCoordinator(navigationController: UINavigationController, dataSource: BaseMediaControllerDataSource) {
         let tabCoordinator = HomeTabCoordinator(navigationController: navigationController)
         tabCoordinator.start()
-        tabCoordinator.dataSource = dataSource
+       
         childCoordinators.append(tabCoordinator)
     }
     
