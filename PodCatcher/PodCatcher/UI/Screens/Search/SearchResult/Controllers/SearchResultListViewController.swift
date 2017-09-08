@@ -47,12 +47,12 @@ final class SearchResultListViewController: BaseCollectionViewController {
     func initialize() {
         emptyView = InformationView(data: "No Data.", icon: #imageLiteral(resourceName: "mic-icon"))
         setup(dataSource: self, delegate: self)
-        DispatchQueue.main.async { [weak self] in
-            guard let strongSelf = self else { return }
-            strongSelf.navigationController?.navigationBar.backItem?.title = ""
-            strongSelf.navigationController?.navigationItem.backBarButtonItem?.title = ""
-            strongSelf.navigationItem.backBarButtonItem?.title = ""
-        }
+        //        DispatchQueue.main.async { [weak self] in
+        //            guard let strongSelf = self else { return }
+        //            strongSelf.navigationController?.navigationBar.backItem?.title = ""
+        //            strongSelf.navigationController?.navigationItem.backBarButtonItem?.title = ""
+        //            strongSelf.navigationItem.backBarButtonItem?.title = ""
+        //        }
         configureTopView()
         background.frame = view.frame
         view.addSubview(background)
@@ -98,9 +98,8 @@ final class SearchResultListViewController: BaseCollectionViewController {
                 self?.navigationItem.title = title
             }
         }
-
+        
         if let item = item, let feedUrl = item.feedUrl, !subscription.contains(feedUrl), let title = item.podcastTitle {
-            navigationController?.navigationBar.topItem?.title = title
             let button = UIButton.setupSubscribeButton()
             button.addTarget(self, action: #selector(subscribeToFeed), for: .touchUpInside)
             topView.preferencesView.moreMenuButton = button
