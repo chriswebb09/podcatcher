@@ -11,7 +11,7 @@ final class SubscribedPodcastCell: UICollectionViewCell {
     
     // MARK: - UI Element Properties
     
-    var cellState: SubscriptionCellState = .done {
+    private var cellState: SubscriptionCellState = .done {
         didSet {
             switch cellState {
             case .edit:
@@ -23,18 +23,18 @@ final class SubscribedPodcastCell: UICollectionViewCell {
         }
     }
     
-    var albumArtView: UIImageView = {
+    private var albumArtView: UIImageView = {
         var album = UIImageView()
         return album
     }()
     
-    var overlayView: UIView = {
+   private var overlayView: UIView = {
         let overlay = UIView()
         overlay.backgroundColor = .black
         return overlay
     }()
     
-    var deleteImageView: UIImageView = {
+   private var deleteImageView: UIImageView = {
         let delete = UIImageView()
         let image = #imageLiteral(resourceName: "circle-x").withRenderingMode(.alwaysTemplate)
         delete.image = image
@@ -105,6 +105,14 @@ final class SubscribedPodcastCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         albumArtView.image = nil
+    }
+    
+    func getAlbumImageView() -> UIImageView {
+        return albumArtView
+    }
+    
+    func showOverlay() {
+        bringSubview(toFront: overlayView)
     }
     
     func setup(deleteImageView: UIImageView) {

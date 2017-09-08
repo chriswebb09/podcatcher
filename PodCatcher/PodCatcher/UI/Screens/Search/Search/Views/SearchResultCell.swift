@@ -4,13 +4,13 @@ final class SearchResultCell: UITableViewCell, Reusable {
     
     static let reuseIdentifier = "SearchResultCell"
     
-    var albumArtView: UIImageView = {
+    private var albumArtView: UIImageView = {
         var album = UIImageView()
         album.layer.cornerRadius = 5
         return album
     }()
     
-    var titleLabel: UILabel = {
+    private var titleLabel: UILabel = {
         let title = UILabel()
         title.textColor = .black
         title.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.semibold)
@@ -19,7 +19,7 @@ final class SearchResultCell: UITableViewCell, Reusable {
         return title
     }()
     
-    var separatorView: UIView = {
+    private var separatorView: UIView = {
         let separatorView = UIView()
         separatorView.backgroundColor = .lightGray
         return separatorView
@@ -45,7 +45,7 @@ final class SearchResultCell: UITableViewCell, Reusable {
         //albumArtView.layer.setCellShadow(contentView: self)
     }
     
-    func setupSeparator() {
+    private func setupSeparator() {
         setup(separatorView: separatorView)
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }
@@ -61,7 +61,7 @@ final class SearchResultCell: UITableViewCell, Reusable {
         }
     }
     
-    func setupShadow() {
+    private func setupShadow() {
         let shadowOffset = CGSize(width:-0.45, height: 0.2)
         let shadowRadius: CGFloat = 1.0
         let shadowOpacity: Float = 0.3
@@ -70,7 +70,7 @@ final class SearchResultCell: UITableViewCell, Reusable {
         contentView.layer.shadowOpacity = shadowOpacity
     }
     
-    func setup(separatorView: UIView) {
+    private func setup(separatorView: UIView) {
         contentView.addSubview(separatorView)
         separatorView.translatesAutoresizingMaskIntoConstraints = false
         separatorView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.01).isActive = true
@@ -79,7 +79,7 @@ final class SearchResultCell: UITableViewCell, Reusable {
         separatorView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
     }
     
-    func setup(titleLabel: UILabel) {
+    private func setup(titleLabel: UILabel) {
         contentView.addSubview(titleLabel)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor, constant: contentView.bounds.width * 0.16).isActive = true

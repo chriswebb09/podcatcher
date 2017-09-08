@@ -1,6 +1,7 @@
 import UIKit
 
 final class PodcastSearchResultLoadOperation: Operation {
+    
     var topItem: PodcastSearchResult?
     var loadingCompleteHandler: ((PodcastSearchResult) -> ())?
     

@@ -7,9 +7,10 @@ final class PlaylistsViewController: BaseTableViewController {
     weak var delegate: PlaylistsViewControllerDelegate?
     
     var coordinator: PlaylistsCoordinator?
-    var itemToSave: PodcastPlaylistItem!
+    
     var reference: PlaylistsReference = .checkList
-    var entryPop: EntryPopover = EntryPopover()
+    var tap: UIGestureRecognizer!
+    private var entryPop: EntryPopover = EntryPopover()
     var mode: PlaylistsInteractionMode = .add
     var casterItemToSave: CasterSearchResult!
     var index: Int!
@@ -33,7 +34,7 @@ final class PlaylistsViewController: BaseTableViewController {
     }()
     
     var background = UIView()
-    var addItemToPlaylist: PodcastPlaylistItem?
+    
     var playlistsDataSource: TableViewDataSource<PlaylistsViewController>!
     let persistentContainer = NSPersistentContainer(name: "PodCatcher")
     
@@ -43,6 +44,7 @@ final class PlaylistsViewController: BaseTableViewController {
     }
     
     func initialize() {
+        entryPop.delegate = self
         playlistsDataSource = TableViewDataSource(tableView: tableView, identifier: "PlaylistCell", fetchedResultsController: fetchedResultsController, delegate: self)
         leftButtonItem  = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(edit))
         rightButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "plus-red").withRenderingMode(.alwaysTemplate), style: .plain, target: self, action: #selector(addPlaylist))
@@ -84,7 +86,9 @@ extension PlaylistsViewController: UITableViewDelegate {
         guard let text = fetchedResultsController.object(at: indexPath).playlistId else { return }
         switch reference {
         case .addPodcast:
+            
             let podcastItem = PodcastPlaylistItem(context: fetchedResultsController.managedObjectContext)
+            
             podcastItem.audioUrl = item.episodes[index].audioUrlSting
             podcastItem.artistFeedUrl = item.feedUrl
             podcastItem.date = NSDate()
@@ -94,6 +98,7 @@ extension PlaylistsViewController: UITableViewDelegate {
             podcastItem.artworkUrl = item.podcastArtUrlString
             podcastItem.episodeTitle = item.episodes[index].title
             podcastItem.episodeDescription = item.episodes[index].description
+            
             if let urlString = item.podcastArtUrlString, let url = URL(string: urlString) {
                 UIImage.downloadImage(url: url) { image in
                     let podcastArtImageData = UIImageJPEGRepresentation(image, 1)
@@ -102,10 +107,13 @@ extension PlaylistsViewController: UITableViewDelegate {
                     }
                 }
             }
+            
             let playlist = fetchedResultsController.object(at: indexPath)
             podcastItem.playlist = playlist
             playlist.addToPodcast(podcastItem)
+            
             if let context = podcastItem.managedObjectContext {
+                
                 context.performAndWait() {
                     do {
                         try context.save()
@@ -114,8 +122,9 @@ extension PlaylistsViewController: UITableViewDelegate {
                     }
                 }
             }
+            
         case .checkList:
-            print("checklist")
+            guard text != "" else { return }
             addNewPlaylist(text: text, from: indexPath)
         }
         reference = .checkList
@@ -129,6 +138,7 @@ extension PlaylistsViewController: UITableViewDelegate {
     }
     
     func addToPlaylist(with name: String) {
+        guard name != "" else { return  }
         reference = .checkList
         DispatchQueue.main.async {
             self.playlistsDataSource.reloadData()
@@ -196,6 +206,7 @@ extension PlaylistsViewController: UITableViewDelegate {
 extension PlaylistsViewController: EntryPopoverDelegate {
     
     func userDidEnterPlaylistName(name: String) {
+        guard name != "" else { return }
         var playlistDataStack = PlaylistsCoreData()
         
         playlistDataStack.save(name: name, uid: "none")
@@ -205,6 +216,10 @@ extension PlaylistsViewController: EntryPopoverDelegate {
         if playlistsDataSource.itemCount > 0 {
             navigationItem.leftBarButtonItem = leftButtonItem
         }
+        
+
+        tableView.reloadData()
+        playlistsDataSource.reloadData()
     }
     
     @objc func addPlaylist() {
@@ -212,13 +227,16 @@ extension PlaylistsViewController: EntryPopoverDelegate {
             self.entryPop.showPopView(viewController: self)
             self.entryPop.popView.isHidden = false
         }
+        tap = UITapGestureRecognizer(target: self, action: #selector(hidePop))
+        view.addGestureRecognizer(tap)
         entryPop.popView.doneButton.addTarget(self, action: #selector(hidePop), for: .touchUpInside)
     }
     
     @objc func hidePop() {
         entryPop.hidePopView(viewController: self)
-        tableView.reloadData()
-        playlistsDataSource.reloadData()
+        
+        
+        view.removeGestureRecognizer(tap)
     }
 }
 

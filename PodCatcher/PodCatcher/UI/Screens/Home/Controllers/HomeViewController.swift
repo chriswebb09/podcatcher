@@ -6,9 +6,11 @@ class HomeViewController: BaseCollectionViewController {
     // MARK: - Properties
     
     weak var coordinator: HomeCoordinator?
-    let userID: String = "none"
+    
     var mode: HomeInteractionMode = .subscription
-    var loadingPop = LoadingPopover()
+    
+    private var loadingPop = LoadingPopover()
+    
     weak var delegate: HomeViewControllerDelegate?
     
     var managedContext: NSManagedObjectContext!
@@ -21,8 +23,7 @@ class HomeViewController: BaseCollectionViewController {
         return controller
     }()
     
-    var homeDataSource: CollectionViewDataSource<HomeViewController>!
-    
+    private var homeDataSource: CollectionViewDataSource<HomeViewController>!
     
     var persistentContainer: NSPersistentContainer = {
         let  persistentContainer = NSPersistentContainer(name: "PodCatcher")
@@ -42,6 +43,13 @@ class HomeViewController: BaseCollectionViewController {
     convenience init(collectionView: UICollectionView, dataSource: BaseMediaControllerDataSource) {
         self.init()
         self.collectionView = collectionView
+    }
+    
+    func setupDataSource() {
+        homeDataSource = CollectionViewDataSource(collectionView: collectionView, identifier: SubscribedPodcastCell.reuseIdentifier, fetchedResultsController: fetchedResultsController, delegate: self)
+        fetchedResultsController.delegate = homeDataSource
+        homeDataSource.reloadData()
+        collectionView.dataSource = homeDataSource
     }
     
     override func viewDidLoad() {
@@ -100,6 +108,18 @@ class HomeViewController: BaseCollectionViewController {
         }
     }
     
+    func loading() {
+        DispatchQueue.main.async {
+            self.showLoadingView(loadingPop: self.loadingPop)
+        }
+    }
+    
+    func finishLoading() {
+        DispatchQueue.main.async {
+            self.hideLoadingView(loadingPop: self.loadingPop)
+        }
+    }
+    
     var thumbnailZoomTransitionAnimator: ThumbnailZoomTransitionAnimator?
     var transitionThumbnail: UIImageView?
     
@@ -146,7 +166,7 @@ extension HomeViewController: UICollectionViewDelegate, ErrorPresenting, Loading
             var caster = CasterSearchResult()
             caster.feedUrl = item.feedUrl
             guard let imageData = item.artworkImage, let image = UIImage(data: imageData as Data) else { return }
-            delegate?.didSelect(at: indexPath.row, with: item, image: image, imageView: cell.albumArtView)
+            delegate?.didSelect(at: indexPath.row, with: item, image: image, imageView: cell.getAlbumImageView())
         case .edit:
             update(indexPath: indexPath, item: item)
         }
@@ -208,7 +228,7 @@ extension HomeViewController: CollectionViewDataSourceDelegate {
             switch mode {
             case .edit:
                 cell.configureCell(with: model, withTime: 0, mode: .edit)
-                cell.bringSubview(toFront: cell.overlayView)
+                cell.showOverlay()
             case  .subscription:
                 cell.configureCell(with: model, withTime: 0, mode: .done)
             }

@@ -7,7 +7,7 @@ extension PlaylistsCoordinator {
     func viewDidLoad(_ viewController: UIViewController) {
         let playlistsVC = viewController as! PlaylistsViewController
         playlistsVC.title = "Playlists"
-        playlistsVC.entryPop.delegate = playlistsVC
+//        playlistsVC.entryPop.delegate = playlistsVC
         playlistsVC.background.frame = UIScreen.main.bounds
         playlistsVC.view.addSubview(playlistsVC.background)
         playlistsVC.view.sendSubview(toBack: playlistsVC.background)

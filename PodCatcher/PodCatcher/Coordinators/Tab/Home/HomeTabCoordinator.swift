@@ -62,9 +62,9 @@ extension HomeTabCoordinator: HomeViewControllerDelegate {
         concurrent.async { [weak self] in
             if let strongSelf = self {
                 let homeViewController = strongSelf.navigationController.viewControllers[0] as! HomeViewController
-                DispatchQueue.main.async {
-                    homeViewController.showLoadingView(loadingPop: homeViewController.loadingPop)
-                }
+                
+                homeViewController.loading()
+
                 store.pullFeed(for: feedUrlString) { response, arg  in
                     guard let episodes = response else { return }
                     let resultsList = SearchResultListViewController(index: index)
@@ -72,12 +72,11 @@ extension HomeTabCoordinator: HomeViewControllerDelegate {
                     caster.episodes = episodes
                     resultsList.setDataItem(dataItem: caster)
                     resultsList.delegate = strongSelf
-                   // resultsList.dataSource = strongSelf.dataSource
+                 
                     DispatchQueue.main.async {
                         
                         resultsList.collectionView.reloadData()
-                        
-                        homeViewController.hideLoadingView(loadingPop: homeViewController.loadingPop)
+                        homeViewController.finishLoading()
                         strongSelf.navigationController.delegate = self
                         strongSelf.transitionThumbnail = imageView
                         strongSelf.navigationController.pushViewController(resultsList, animated: true)
@@ -110,7 +109,8 @@ extension HomeTabCoordinator: HomeViewControllerDelegate {
                 
                 resultsList.collectionView.reloadData()
                 let homeViewController = self.navigationController.viewControllers[0] as! HomeViewController
-                homeViewController.hideLoadingView(loadingPop: homeViewController.loadingPop)
+                homeViewController.loading()
+               // homeViewController.hideLoadingView(loadingPop: homeViewController.loadingPop)
                 self.navigationController.delegate = self
                 self.transitionThumbnail?.image = image
                 

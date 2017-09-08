@@ -17,10 +17,7 @@ extension HomeCoordinator {
         homeVC.collectionView.register(SubscribedPodcastCell.self)
         homeVC.collectionView.setupBackground(frame: homeVC.view.bounds)
         homeVC.navigationItem.setRightBarButton(homeVC.rightButtonItem, animated: false)
-        homeVC.homeDataSource = CollectionViewDataSource(collectionView: homeVC.collectionView, identifier: SubscribedPodcastCell.reuseIdentifier, fetchedResultsController: homeVC.fetchedResultsController, delegate: homeVC)
-        homeVC.fetchedResultsController.delegate = homeVC.homeDataSource
-        homeVC.homeDataSource.reloadData()
-        homeVC.collectionView.dataSource = homeVC.homeDataSource
+        homeVC.setupDataSource()
         homeVC.collectionView.delegate = homeVC
         homeVC.view.bringSubview(toFront: homeVC.collectionView)
         homeVC.collectionView.backgroundColor = .lightGray
