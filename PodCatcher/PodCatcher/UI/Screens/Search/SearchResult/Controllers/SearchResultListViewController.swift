@@ -45,8 +45,8 @@ final class SearchResultListViewController: BaseCollectionViewController {
         collectionView.register(PodcastResultCell.self)
         
         DispatchQueue.main.async { [weak self] in
-            guard let strongSelf = self else { return }
-            guard let navBar = strongSelf.navigationController?.navigationBar else { return }
+            
+            guard let strongSelf = self, let navBar = strongSelf.navigationController?.navigationBar else { return }
             strongSelf.navigationItem.titleView?.frame.center = CGPoint(x: navBar.center.x - 50, y: navBar.center.y)
             navBar.topItem?.titleView?.frame.center = CGPoint(x: navBar.center.x - 50, y: navBar.center.y)
         }
@@ -80,15 +80,18 @@ final class SearchResultListViewController: BaseCollectionViewController {
     
     private func setupButton() {
         DispatchQueue.main.async { [weak self] in
+            
             guard let strongSelf = self else { return }
             let backButton = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.plain, target: self, action: nil)
             strongSelf.navigationItem.backBarButtonItem = backButton
+            
             if let item = strongSelf.item, let title = item.podcastTitle {
                 strongSelf.navigationItem.title = title
             }
         }
         
         if let item = item, let feedUrl = item.feedUrl, !subscription.contains(feedUrl) {
+            
             let button = UIButton.setupSubscribeButton()
             button.addTarget(self, action: #selector(subscribeToFeed), for: .touchUpInside)
             topView.preferencesView.moreMenuButton = button
@@ -166,10 +169,13 @@ extension SearchResultListViewController {
     }
     
     private func setupTopView() {
+        
         topView.frame = PodcastListConstants.topFrame
+        
         if let item = item, let urlString = item.podcastArtUrlString, let url = URL(string: urlString) {
             topView.podcastImageView.downloadImage(url: url)
         }
+        
         topView.layoutSubviews()
         view.addSubview(topView)
         view.bringSubview(toFront: topView)
@@ -211,6 +217,7 @@ extension SearchResultListViewController: UIScrollViewDelegate {
         let viewHeight = (view.bounds.height - navHeight) - 20
         let updatedTopViewFrame = CGRect(x: 0, y: 0, width: PodcastListConstants.topFrameWidth, height: PodcastListConstants.topFrameHeight / 1.2)
         let collectionFrame = CGRect(x: topView.bounds.minX, y: topView.frame.maxY, width: view.bounds.width, height: viewHeight - (topView.frame.height - 80))
+        
         UIView.animate(withDuration: 0.15) {
             self.topView.frame = updatedTopViewFrame
             self.topView.alpha = 1
