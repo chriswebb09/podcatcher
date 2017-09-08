@@ -3,7 +3,7 @@ import UIKit
 final class StartViewController: UIViewController, LoadingPresenting {
     
     var loadingPop = LoadingPopover()
-    var startView: StartView = StartView()
+    private var startView: StartView = StartView()
     weak var delegate: StartViewControllerDelegate?
     
     init(startView: StartView = StartView()) {
@@ -20,7 +20,7 @@ final class StartViewController: UIViewController, LoadingPresenting {
         initialize()
     }
     
-    func initialize() {
+    private func initialize() {
         navigationController?.navigationBar.isHidden = true
         startView.tag = 0
         view.addView(view: startView, type: .full)

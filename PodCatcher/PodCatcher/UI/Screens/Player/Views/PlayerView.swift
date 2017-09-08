@@ -8,9 +8,16 @@ final class PlayerView: UIView {
     
     var model: PlayerViewModel! {
         didSet {
+            
+            dump(model)
+            
             titleLabel.text = model.title
             if let imageUrl = model.imageUrl {
                 albumImageView.downloadImage(url: imageUrl)
+            }
+            DispatchQueue.main.async {
+                self.currentPlayTimeLabel.text = self.model.currentTimeString
+                self.totalPlayTimeLabel.text = self.model.totalTimeString
             }
         }
     }
@@ -385,6 +392,15 @@ final class PlayerView: UIView {
         playButton.isEnabled = false
         skipButton.isEnabled = false
         backButton.isEnabled = false
+    }
+    
+    func setText() {
+        DispatchQueue.main.async {
+            self.currentPlayTimeLabel.text = self.model.currentTimeString
+            self.totalPlayTimeLabel.text = self.model.totalTimeString
+//            self.playtimeSlider.maximumValue = self.model.maximumValue
+//            self.playtimeSlider.value = self.model.currentValue
+        }
     }
     
     func enableButtons() {

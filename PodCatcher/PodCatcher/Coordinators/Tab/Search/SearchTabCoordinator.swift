@@ -5,7 +5,7 @@ final class SearchTabCoordinator: NavigationCoordinator {
     weak var delegate: CoordinatorDelegate?
     var type: CoordinatorType = .tabbar
     var feedStore = FeedCoreDataStack()
-    var dataSource: BaseMediaControllerDataSource!
+    //var dataSource: BaseMediaControllerDataSource!
     let concurrent = DispatchQueue(label: "concurrentBackground",
                                    qos: .background,
                                    attributes: .concurrent,
@@ -33,6 +33,7 @@ final class SearchTabCoordinator: NavigationCoordinator {
 extension SearchTabCoordinator: SearchViewControllerDelegate {
     
     func logout(tapped: Bool) {
+        let dataSource = BaseMediaControllerDataSource()
         delegate?.transitionCoordinator(type: .app, dataSource: dataSource)
     }
     
@@ -43,7 +44,6 @@ extension SearchTabCoordinator: SearchViewControllerDelegate {
             searchViewController.showLoadingView(loadingPop: searchViewController.loadingPop)
         }
         resultsList.delegate = self
-        //resultsList.dataSource = dataSource
         if var dataItem = caster as? CasterSearchResult {
 
             guard let feedUrlString = dataItem.feedUrl else { return }
@@ -119,9 +119,7 @@ extension SearchTabCoordinator: PlayerViewControllerDelegate {
         playlists.reference = .addPodcast
         playlists.index = index
         playlists.item = item
-        controller.playerView.alpha = 1
-        controller.view.bringSubview(toFront: controller.playerView)
-        controller.tabBarController?.tabBar.alpha = 1
+        controller.setupPlayerView()
         delegate?.podcastItem(toAdd: item, with: index)
     }
     

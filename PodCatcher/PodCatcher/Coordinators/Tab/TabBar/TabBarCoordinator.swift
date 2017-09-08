@@ -47,7 +47,6 @@ final class TabBarCoordinator: TabControllerCoordinator, RootViewCoordinator {
     func setupSearchCoordinator(navigationController: UINavigationController, dataSource: BaseMediaControllerDataSource) {
         let tabCoordinator = SearchTabCoordinator(navigationController: navigationController)
         tabCoordinator.start()
-        tabCoordinator.dataSource = dataSource
         addChild(coordinator: tabCoordinator)
     }
     

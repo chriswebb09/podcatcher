@@ -37,6 +37,7 @@ final class SearchResultListViewController: BaseCollectionViewController {
     }
     
     private func initialize() {
+        
         emptyView = InformationView(data: "No Data.", icon: #imageLiteral(resourceName: "mic-icon"))
         setup(dataSource: self, delegate: self)
         setupView()
@@ -52,7 +53,7 @@ final class SearchResultListViewController: BaseCollectionViewController {
     }
     
     func setDataItem(dataItem: CasterSearchResult) {
-        self.item = dataItem
+        item = dataItem
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -73,8 +74,8 @@ final class SearchResultListViewController: BaseCollectionViewController {
     private func setupLayout() {
         let newLayout = SearchItemsFlowLayout()
         newLayout.setup()
-        self.collectionView.collectionViewLayout.invalidateLayout()
-        self.collectionView.collectionViewLayout = newLayout
+        collectionView.collectionViewLayout.invalidateLayout()
+        collectionView.collectionViewLayout = newLayout
     }
     
     private func setupButton() {
@@ -128,11 +129,6 @@ final class SearchResultListViewController: BaseCollectionViewController {
         }
     }
     
-    func navigateBack() {
-        collectionView.alpha = 0
-        dismiss(animated: false, completion: nil)
-    }
-    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(false)
         switch state {
@@ -158,7 +154,6 @@ extension SearchResultListViewController {
         setupTopView()
         setupViewFraming()
         collectionView.backgroundColor = .clear
-        
         view.addSubview(collectionView)
         setupBackgroundView()
     }
@@ -199,7 +194,7 @@ extension SearchResultListViewController: UIScrollViewDelegate {
             updateScrollingUITop()
         }
     }
-
+    
     private func updateScrollUIFull() {
         UIView.animate(withDuration: 0.5) {
             self.topView.removeFromSuperview()

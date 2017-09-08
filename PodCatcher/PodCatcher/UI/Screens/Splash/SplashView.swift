@@ -26,7 +26,7 @@ final class SplashView: UIView {
         backgroundColor = .white
     }
     
-    func setup(logoImageView: UIImageView) {
+    private func setup(logoImageView: UIImageView) {
         addSubview(logoImageView)
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
         logoImageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: LogoConstants.logoImageWidth).isActive = true

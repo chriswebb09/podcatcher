@@ -12,21 +12,20 @@
     
     // MARK: - UI Properties
     
-    var index: Int
-    let downloadingIndicator = DownloaderIndicatorView()
-    var playerViewModel: PlayerViewModel!
-    var network: NetworkService = NetworkService()
-    var playerView = PlayerView()
+    private var index: Int
+    private let downloadingIndicator = DownloaderIndicatorView()
+    private var playerViewModel: PlayerViewModel!
+    private var network: NetworkService = NetworkService()
+    private var playerView = PlayerView()
+    
     var loadingPop: LoadingPopover = LoadingPopover()
     var bottomMenu = BottomMenu()
-    var episodes: [Episodes]!
+   
     var caster: CasterSearchResult
     var menuActive: MenuActive = .none
-    
-    var reach: Reachable?
+
     let reachability = Reachability()!
-    var contentLoaded: Bool = true
-    
+
     @objc var player: AudioFilePlayer? {
         didSet {
             guard let player = player, let state = player.state else { return }
@@ -35,10 +34,10 @@
     }
     
     init(index: Int, caster: CasterSearchResult, image: UIImage?) {
-        self.player = AudioFilePlayer()
+        player = AudioFilePlayer()
         self.index = index
         self.caster = caster
-        self.episodes = caster.episodes
+      
         if let image = image {
             playerView.albumImageView.image = image
         }
@@ -71,14 +70,15 @@
         setup()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        reach?.start()
-    }
-    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         done()
+    }
+    
+    func setupPlayerView() {
+        playerView.alpha = 1
+        view.bringSubview(toFront: playerView)
+        tabBarController?.tabBar.alpha = 1
     }
     
     func setup() {
@@ -88,8 +88,8 @@
         CALayer.createGradientLayer(with: StartViewConstants.gradientColors, layer: playerView.backgroundView.layer, bounds: UIScreen.main.bounds)
         guard let artUrl = caster.podcastArtUrlString else { return }
         
-        playerViewModel = PlayerViewModel(imageUrl: URL(string: artUrl), title: episodes[index].title)
-        setModel(model: playerViewModel)
+        playerViewModel = PlayerViewModel(imageUrl: URL(string: artUrl), title: caster.episodes[index].title)
+        playerView.configure(with: playerViewModel)
         playerView.delegate = self
         playerView.artistLabel.text = caster.podcastArtist
         navigationController?.setNavigationBarHidden(true, animated: false)
@@ -127,7 +127,7 @@
         if let timeObserverToken = timeObserverToken {
             player?.player?.removeTimeObserver(timeObserverToken)
         }
-        reach?.stop()
+       
         reachability.stopNotifier()
         NotificationCenter.default.removeObserver(self, name: ReachabilityChangedNotification, object: reachability)
         
@@ -147,7 +147,7 @@
                 guard let strongSelf = self else { return }
                 strongSelf.updateTrack()
             }
-            print("network is reachable")
+        
         } else if reachability.isReachable == false {
             DispatchQueue.main.async { [weak self] in
                 guard let strongSelf = self else { return }
@@ -191,7 +191,7 @@
                 strongSelf.playerView.playtimeSlider.value = 0
                 strongSelf.view.bringSubview(toFront: strongSelf.playerView)
                 strongSelf.hideLoadingView(loadingPop: strongSelf.loadingPop)
-                strongSelf.contentLoaded = true
+                
                 strongSelf.playerView.enableButtons()
                 guard let player = strongSelf.player, let audioPlayer = player.player else { return }
                 let currentSeconds = CMTimeGetSeconds(audioPlayer.currentTime())
@@ -212,20 +212,19 @@
                 newStatus = status
             } else {
                 newStatus = .unknown
-                DispatchQueue.main.async { [weak self] in
-                    guard let strongSelf = self else { return }
-                    strongSelf.contentLoaded = false
-                }
             }
             if newStatus == .failed {
                 presentError(title: "Error", message: "Error")
             } else if newStatus == .readyToPlay {
                 DispatchQueue.main.async { [weak self] in
+                    
                     guard let strongSelf = self, let player = strongSelf.player, let audioPlayer = player.player, let currentItem = audioPlayer.currentItem else { return }
+                
                     let currentSeconds = CMTimeGetSeconds(audioPlayer.currentTime())
                     let durationSeconds = CMTimeGetSeconds(currentItem.duration)
-                    strongSelf.playerView.currentPlayTimeLabel.text = String.constructTimeString(time: Double(currentSeconds))
-                    strongSelf.playerView.totalPlayTimeLabel.text = String.constructTimeString(time: durationSeconds)
+                    strongSelf.playerView.model.setTimeStrings(total: String.constructTimeString(time: durationSeconds), current: String.constructTimeString(time: Double(currentSeconds)))
+                    strongSelf.playerView.setText()
+
                 }
             }
         }
@@ -288,12 +287,6 @@
         updateTrack()
     }
     
-    func setModel(model: PlayerViewModel?) {
-        if let model = model {
-            playerView.configure(with: model)
-        }
-    }
-    
     func updatePlayerViewModel() {
         guard let artUrl = caster.podcastArtUrlString else { return }
         DispatchQueue.main.async { [weak self] in
@@ -301,7 +294,7 @@
             strongSelf.playerViewModel = PlayerViewModel(imageUrl: URL(string: artUrl),
                                                          title: strongSelf.caster.episodes[strongSelf.index].title)
             guard let model = strongSelf.playerViewModel else { return }
-            strongSelf.setModel(model: model)
+            strongSelf.playerView.configure(with: model)
             strongSelf.title = strongSelf.caster.episodes[strongSelf.index].title
         }
     }
