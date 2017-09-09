@@ -51,6 +51,19 @@ final class PlaylistsViewController: BaseTableViewController {
         coordinator?.viewDidLoad(self)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setupNavbar()
+    }
+    
+    private func setupNavbar() {
+        DispatchQueue.main.async {
+            let backImage = #imageLiteral(resourceName: "back").withRenderingMode(.alwaysTemplate)
+            self.navigationController?.navigationBar.backIndicatorImage = backImage
+            self.navigationController?.navigationBar.backIndicatorTransitionMaskImage = backImage
+        }
+    }
+    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         mode = .add

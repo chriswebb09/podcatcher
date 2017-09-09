@@ -1,21 +1,27 @@
 import UIKit
 import CoreData
 
+enum TransitionType {
+    case zoom, pop
+}
+
 final class HomeTabCoordinator: NSObject, NavigationCoordinator, HomeCoordinator {
     
-    private var thumbnailZoomTransitionAnimator: ThumbnailZoomTransitionAnimator?
+    private var thumbnailZoomTransitionAnimator: ImageTransitionAnimator?
     private var transitionThumbnail: UIImageView?
     
     weak var delegate: CoordinatorDelegate?
     
     internal var type: CoordinatorType = .tabbar
-
+    
+    internal var transitionType: TransitionType = .zoom
+    
     private var store = SearchResultsDataStore()
     
     var feedStore = FeedCoreDataStack()
     
     var interactor = SearchResultsIteractor()
-   
+    
     var childViewControllers: [UIViewController] = []
     var navigationController: UINavigationController
     
@@ -100,10 +106,12 @@ extension HomeTabCoordinator: HomeViewControllerDelegate {
     
     func didSelect(at index: Int, with subscription: Subscription, image: UIImage) {
         
-         guard let feedUrlString = subscription.feedUrl else { return }
+        guard let feedUrlString = subscription.feedUrl else { return }
         
         let store = SearchResultsDataStore()
         var caster = CasterSearchResult()
+        
+        transitionType = .zoom
         
         caster.podcastArtUrlString = subscription.artworkImageUrl
         caster.podcastTitle = subscription.podcastTitle
@@ -123,9 +131,11 @@ extension HomeTabCoordinator: HomeViewControllerDelegate {
                 resultsList.collectionView.reloadData()
                 let homeViewController = self.navigationController.viewControllers[0] as! HomeViewController
                 homeViewController.loading()
+                
                 self.navigationController.delegate = self
                 self.transitionThumbnail?.image = image
                 self.navigationController.pushViewController(resultsList, animated: true)
+                
                 resultsList.collectionView.reloadData()
             }
         }
@@ -155,12 +165,13 @@ extension HomeTabCoordinator: PodcastListViewControllerDelegate {
         UserDefaults.saveSubscriptions(subscriptions: subscriptions)
     }
     
-    
     func didSelectPodcastAt(at index: Int, podcast: CasterSearchResult, with episodes: [Episodes]) {
         
         var playerPodcast = podcast
         playerPodcast.episodes = episodes
         playerPodcast.index = index
+        
+        transitionType = .pop
         
         let playerViewController = PlayerViewController(index: index, caster: playerPodcast, image: nil)
         playerViewController.delegate = self
@@ -169,8 +180,10 @@ extension HomeTabCoordinator: PodcastListViewControllerDelegate {
         navigationController.navigationBar.alpha = 0
         navigationController.delegate = self
         
+        playerViewController.hideLoadingIndicator()
+        
         DispatchQueue.main.async {
-            self.navigationController.pushViewController(playerViewController, animated: false)
+            self.navigationController.pushViewController(playerViewController, animated: true)
         }
     }
 }
@@ -197,6 +210,7 @@ extension HomeTabCoordinator: PlayerViewControllerDelegate {
     }
     
     func navigateBack(tapped: Bool) {
+        transitionType = .zoom
         navigationController.popViewController(animated: false)
         navigationController.setNavigationBarHidden(false, animated: false)
         navigationController.viewControllers.last?.tabBarController?.tabBar.alpha = 1
@@ -206,21 +220,30 @@ extension HomeTabCoordinator: PlayerViewControllerDelegate {
 extension HomeTabCoordinator: UINavigationControllerDelegate {
     
     func navigationController(navigationController: UINavigationController, animationControllerForOperation operation: UINavigationControllerOperation, fromViewController fromVC: UIViewController, toViewController toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return ThumbnailZoomTransitionAnimator()
+        return ImageTransitionAnimator()
     }
     
     func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationControllerOperation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         
-        if operation == .push {
-            guard let transitionThumbnail = transitionThumbnail, let transitionThumbnailSuperview = transitionThumbnail.superview else { return nil }
-            thumbnailZoomTransitionAnimator = ThumbnailZoomTransitionAnimator()
-            thumbnailZoomTransitionAnimator?.thumbnailFrame = transitionThumbnailSuperview.convert(transitionThumbnail.frame, to: nil)
+        switch transitionType {
+            
+        case .pop:
+            return SimpleAnimationController()
+        case .zoom:
+            if operation == .push {
+                guard let transitionThumbnail = transitionThumbnail, let transitionThumbnailSuperview = transitionThumbnail.superview else { return nil }
+                thumbnailZoomTransitionAnimator = ImageTransitionAnimator()
+                thumbnailZoomTransitionAnimator?.thumbnailFrame = transitionThumbnailSuperview.convert( transitionThumbnail.frame, to: toVC.view)
+            }
+            
+            if operation == .pop {
+                thumbnailZoomTransitionAnimator?.duration = 0.2
+            }
+            thumbnailZoomTransitionAnimator?.operation = operation
+            
+            return thumbnailZoomTransitionAnimator
         }
         
-        if operation == .pop {
-            thumbnailZoomTransitionAnimator?.duration = 0.2
-        }
-        thumbnailZoomTransitionAnimator?.operation = operation
-        return thumbnailZoomTransitionAnimator
+      
     }
 }

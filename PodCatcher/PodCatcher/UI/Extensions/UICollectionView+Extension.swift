@@ -7,7 +7,8 @@ class TrackItemsFlowLayout: UICollectionViewFlowLayout {
         scrollDirection = .vertical
         itemSize = CGSize(width: UIScreen.main.bounds.width / 3.4, height: UIScreen.main.bounds.height / 5.4)
         sectionInset = UIEdgeInsets(top: 0, left: 12, bottom: 30, right: 12)
-        minimumLineSpacing = 20
+        minimumLineSpacing = 5
+      //  minimumLineSpacing = 20
     }
 }
 
@@ -31,7 +32,8 @@ extension UICollectionView {
     
     func updateCollectionViewLayout() {
         DispatchQueue.main.async {
-            self.reloadItems(at: self.indexPathsForVisibleItems)
+         //   self.reloadSections(IndexSet(integersIn: 0...0))
+           // self.reloadItems(at: self.indexPathsForVisibleItems)
             self.layoutIfNeeded()
         }
     }
@@ -57,6 +59,6 @@ final class SearchItemsFlowLayout: UICollectionViewFlowLayout {
         scrollDirection = .vertical
         itemSize = CGSize(width: UIScreen.main.bounds.width / 1.01, height: UIScreen.main.bounds.height / 10)
         sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 30, right: 0)
-        minimumLineSpacing = 2
+        minimumLineSpacing = 1
     }
 }

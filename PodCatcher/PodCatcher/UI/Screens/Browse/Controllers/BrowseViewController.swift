@@ -96,6 +96,8 @@ final class BrowseViewController: BaseCollectionViewController, LoadingPresentin
             }
         }
     }
+    
+    
 }
 
 extension BrowseViewController: UICollectionViewDelegate {

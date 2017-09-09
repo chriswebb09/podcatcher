@@ -26,8 +26,8 @@ struct StartViewConstants {
 }
 
 struct CALayerConstants {
-    static let shadowWidthMultiplier: CGFloat = 0.000001
-    static let shadowHeightMultiplier: CGFloat = 0.00001
+    static let shadowWidthMultiplier: CGFloat = 0.0000001
+    static let shadowHeightMultiplier: CGFloat = 0.000001
 }
 
 struct LogoConstants {

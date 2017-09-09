@@ -17,8 +17,8 @@
     private var playerViewModel: PlayerViewModel!
     private var network: NetworkService = NetworkService()
     private var playerView = PlayerView()
+    private var loadingPop: LoadingPopover = LoadingPopover()
     
-    var loadingPop: LoadingPopover = LoadingPopover()
     var bottomMenu = BottomMenu()
    
     var caster: CasterSearchResult
@@ -70,6 +70,10 @@
         setup()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        loadingPop.isHidden = false
+    }
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         done()
@@ -85,21 +89,28 @@
         addObserver(self, forKeyPath: #keyPath(PlayerViewController.player.player.currentItem.duration), options: [.new, .initial], context: &playerViewControllerKVOContext)
         addObserver(self, forKeyPath: #keyPath(PlayerViewController.player.player.rate), options: [.new, .initial], context: &playerViewControllerKVOContext)
         addObserver(self, forKeyPath: #keyPath(PlayerViewController.player.player.currentItem.status), options: [.new, .initial], context: &playerViewControllerKVOContext)
+        
         CALayer.createGradientLayer(with: StartViewConstants.gradientColors, layer: playerView.backgroundView.layer, bounds: UIScreen.main.bounds)
+        
         guard let artUrl = caster.podcastArtUrlString else { return }
         
         playerViewModel = PlayerViewModel(imageUrl: URL(string: artUrl), title: caster.episodes[index].title)
         playerView.configure(with: playerViewModel)
         playerView.delegate = self
+        
         playerView.artistLabel.text = caster.podcastArtist
         navigationController?.setNavigationBarHidden(true, animated: false)
         tabBarController?.tabBar.alpha = 0
+        
         let interval = CMTimeMake(1, 1)
         
         timeObserverToken = player?.player?.addPeriodicTimeObserver(forInterval: interval, queue: DispatchQueue.main) { [weak self] time in
+            
             let timeElapsed = Float(CMTimeGetSeconds(time))
+            
             if let strongSelf = self {
                 DispatchQueue.main.async {
+                    
                     strongSelf.playerView.playtimeSlider.value = Float(timeElapsed)
                     strongSelf.playerView.currentPlayTimeLabel.text = String.constructTimeString(time: Double(timeElapsed))
                     let timeLeft = Double(Float((strongSelf.player?.duration)!) - timeElapsed)
@@ -116,22 +127,30 @@
     }
     
     func done() {
+        
         navigationController?.popViewController(animated: false)
         hideLoadingView(loadingPop: loadingPop)
+        
         hidePopMenu(playerView)
+        
         removeObserver(self, forKeyPath: #keyPath(PlayerViewController.player.player.currentItem.duration), context: &playerViewControllerKVOContext)
         removeObserver(self, forKeyPath: #keyPath(PlayerViewController.player.player.rate), context: &playerViewControllerKVOContext)
         removeObserver(self, forKeyPath: #keyPath(PlayerViewController.player.player.currentItem.status), context: &playerViewControllerKVOContext)
+        
         player?.player?.removeTimeObserver(timeObserverToken ?? "token")
+        
         self.timeObserverToken = nil
+        
         if let timeObserverToken = timeObserverToken {
             player?.player?.removeTimeObserver(timeObserverToken)
         }
        
         reachability.stopNotifier()
+        
         NotificationCenter.default.removeObserver(self, name: ReachabilityChangedNotification, object: reachability)
         
         player?.player?.pause()
+        
         self.player?.asset = nil
         self.player?.currentTime = nil
         self.player?.delegate = nil
@@ -139,6 +158,10 @@
         self.player?.state = nil
         self.player?.player = nil
         self.player = nil
+    }
+    
+    func hideLoadingIndicator() {
+        loadingPop.isHidden = true 
     }
     
     @objc func reachabilityChanged(note: Notification) {
@@ -175,7 +198,9 @@
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == #keyPath(PlayerViewController.player.player.currentItem.duration) {
+            
             let newDuration: CMTime
+            
             if let newDurationAsValue = change?[NSKeyValueChangeKey.newKey] as? NSValue {
                 newDuration = newDurationAsValue.timeValue
             } else {
@@ -186,7 +211,9 @@
             let newDurationSeconds = hasValidDuration ? CMTimeGetSeconds(newDuration) : 0.0
             
             DispatchQueue.main.async { [weak self] in
+                
                 guard let strongSelf = self else { return }
+                
                 strongSelf.playerView.playtimeSlider.maximumValue = Float(newDurationSeconds)
                 strongSelf.playerView.playtimeSlider.value = 0
                 strongSelf.view.bringSubview(toFront: strongSelf.playerView)
@@ -198,7 +225,9 @@
                 strongSelf.playerView.currentPlayTimeLabel.text = String.constructTimeString(time: Double(currentSeconds))
             }
         } else if keyPath == #keyPath(PlayerViewController.player.player.rate) {
+            
             if let rateChange = change, let newRate = rateChange[NSKeyValueChangeKey.newKey] as? NSNumber {
+                
                 let buttonImageName = Double(truncating: newRate) == 1.0 ? #imageLiteral(resourceName: "white-bordered-pause") : #imageLiteral(resourceName: "play-icon")
                 DispatchQueue.main.async { [weak self] in
                     guard let strongSelf = self else { return }
@@ -314,12 +343,14 @@
  extension PlayerViewController: BottomMenuViewable {
     
     func moreButton(tapped: Bool) {
+        
         let height = view.bounds.height * 0.5
         let width = view.bounds.width
         let size = CGSize(width: width, height: height)
         let originX = view.bounds.width * 0.001
         let originY = view.bounds.height * 0.6
         let origin = CGPoint(x: originX, y: originY)
+        
         bottomMenu.menu.delegate = self
         bottomMenu.setMenu(size)
         bottomMenu.setMenu(origin)
@@ -334,6 +365,7 @@
     func optionOne(tapped: Bool) {
         hideLoadingView(loadingPop: loadingPop)
         delegate?.addItemToPlaylist(item: caster , index: index)
+        
         if let urlString = caster.episodes[index].audioUrlString, !LocalStorageManager.localFileExists(for: urlString) {
             downloadingIndicator.showActivityIndicator(viewController: self)
             let download = Download(url: urlString)

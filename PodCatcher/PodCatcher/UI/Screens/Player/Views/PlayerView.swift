@@ -50,7 +50,9 @@ final class PlayerView: UIView {
         artist.numberOfLines = 0
         artist.textAlignment = .center
         artist.sizeToFit()
-        artist.font = UIFont(name: "AvenirNext-Medium", size: 18)!
+        let customFont = UIFont(name: "Avenir-Medium", size: 16.0)!
+        artist.font = customFont
+            //UIFont(name: "AvenirNext-Medium", size: 18)!
             //UIFont.systemFont(ofSize: 16, weight: UIFontWeightSemibold)
         return artist
     }()
@@ -66,7 +68,8 @@ final class PlayerView: UIView {
         title.numberOfLines = 0
         title.textAlignment = .center
         title.sizeToFit()
-        title.font = UIFont(name: "Avenir-Book", size: 16)!
+        title.font = UIFont(name: "Avenir-Medium", size: 18.0)!
+            //UIFont(name: "Avenir-Book", size: 16)!
             //UIFont.systemFont(ofSize: 16, weight: UIFontWeightLight)
         return title
     }()
@@ -326,6 +329,7 @@ final class PlayerView: UIView {
         backgroundView.frame = frame
         addSubview(backgroundView)
         layoutSubviews()
+        
         setup(titleView: titleView)
         setup(navBar: navBar)
         setup(navigationButton: navigateBackButton)
@@ -343,10 +347,19 @@ final class PlayerView: UIView {
         setup(totalTimeLabel: totalPlayTimeLabel)
         setup(currentTimeLabel: currentPlayTimeLabel)
         albumImageView.layer.setCellShadow(contentView: albumImageView)
+        
         let rect = CGRect(origin: albumImageView.bounds.origin, size: CGSize(width: albumImageView.bounds.width, height: albumImageView.bounds.height - 10))
         let path =  UIBezierPath(roundedRect: rect, cornerRadius: albumImageView.layer.cornerRadius)
         layer.shadowPath = path.cgPath
         addSelectors()
+        
+        let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(backButtonTapped))
+        rightSwipe.direction = .right
+        albumView.addGestureRecognizer(rightSwipe)
+        
+        let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(skipButtonTapped))
+        leftSwipe.direction = .left
+        albumView.addGestureRecognizer(leftSwipe)
     }
     
     private func addSelectors() {
@@ -398,8 +411,6 @@ final class PlayerView: UIView {
         DispatchQueue.main.async {
             self.currentPlayTimeLabel.text = self.model.currentTimeString
             self.totalPlayTimeLabel.text = self.model.totalTimeString
-//            self.playtimeSlider.maximumValue = self.model.maximumValue
-//            self.playtimeSlider.value = self.model.currentValue
         }
     }
     

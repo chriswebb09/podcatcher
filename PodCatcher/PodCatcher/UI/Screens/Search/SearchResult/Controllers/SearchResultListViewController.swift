@@ -34,22 +34,14 @@ final class SearchResultListViewController: BaseCollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initialize()
+        setupNavbar()
     }
     
     private func initialize() {
-        
         emptyView = InformationView(data: "No Data.", icon: #imageLiteral(resourceName: "mic-icon"))
         setup(dataSource: self, delegate: self)
         setupView()
-        
         collectionView.register(PodcastResultCell.self)
-        
-        DispatchQueue.main.async { [weak self] in
-            
-            guard let strongSelf = self, let navBar = strongSelf.navigationController?.navigationBar else { return }
-            strongSelf.navigationItem.titleView?.frame.center = CGPoint(x: navBar.center.x - 50, y: navBar.center.y)
-            navBar.topItem?.titleView?.frame.center = CGPoint(x: navBar.center.x - 50, y: navBar.center.y)
-        }
     }
     
     func setDataItem(dataItem: CasterSearchResult) {
@@ -59,16 +51,18 @@ final class SearchResultListViewController: BaseCollectionViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(false)
         setupNavbar()
+        navigationController?.navigationBar.backItem?.title = ""
+        navigationItem.title = item.podcastTitle
+        setupNavbar()
         setupButton()
         setupTopViewImage()
         showViews()
         setupLayout()
     }
     
-    private func setupNavbar() {
-        let backImage = #imageLiteral(resourceName: "back").withRenderingMode(.alwaysTemplate)
-        navigationController?.navigationBar.backIndicatorImage = backImage
-        navigationController?.navigationBar.backIndicatorTransitionMaskImage = backImage
+    func getTitle() -> String {
+        guard let title = item.podcastTitle else { return "" }
+        return title
     }
     
     private func setupLayout() {
@@ -79,22 +73,19 @@ final class SearchResultListViewController: BaseCollectionViewController {
     }
     
     private func setupButton() {
-        DispatchQueue.main.async { [weak self] in
-            
-            guard let strongSelf = self else { return }
-            let backButton = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.plain, target: self, action: nil)
-            strongSelf.navigationItem.backBarButtonItem = backButton
-            
-            if let item = strongSelf.item, let title = item.podcastTitle {
-                strongSelf.navigationItem.title = title
-            }
-        }
-        
         if let item = item, let feedUrl = item.feedUrl, !subscription.contains(feedUrl) {
             
             let button = UIButton.setupSubscribeButton()
             button.addTarget(self, action: #selector(subscribeToFeed), for: .touchUpInside)
             topView.preferencesView.moreMenuButton = button
+        }
+    }
+    
+    private func setupNavbar() {
+        DispatchQueue.main.async {
+            let backImage = #imageLiteral(resourceName: "back").withRenderingMode(.alwaysTemplate)
+            self.navigationController?.navigationBar.backIndicatorImage = backImage
+            self.navigationController?.navigationBar.backIndicatorTransitionMaskImage = backImage
         }
     }
     
@@ -163,6 +154,7 @@ extension SearchResultListViewController {
     
     private func setupViewFraming() {
         guard let tabBar = tabBarController?.tabBar, let navHeight = navigationController?.navigationBar.frame.height else { return }
+        
         let viewHeight = (view.bounds.height - navHeight) - 90
         collectionView.frame = CGRect(x: topView.bounds.minX, y: topView.frame.maxY + (tabBar.frame.height + 10), width: view.bounds.width, height: viewHeight - (topView.frame.height - 90))
     }
@@ -193,6 +185,7 @@ extension SearchResultListViewController {
 extension SearchResultListViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        self.collectionView.updateCollectionViewLayout()
         let offset = scrollView.contentOffset
         if offset.y > PodcastListConstants.minimumOffset && item.episodes.count > 11 {
             updateScrollUIFull()
@@ -207,10 +200,11 @@ extension SearchResultListViewController: UIScrollViewDelegate {
             self.topView.removeFromSuperview()
             self.topView.alpha = 0
             self.collectionView.frame = self.view.bounds
+          // self.collectionView.updateCollectionViewLayout()
             
-            DispatchQueue.main.async {
-                self.collectionView.layoutIfNeeded()
-            }
+//            DispatchQueue.main.async {
+//                self.collectionView.layoutIfNeeded()
+//            }
         }
     }
     
@@ -237,7 +231,21 @@ extension SearchResultListViewController: UIScrollViewDelegate {
         collectionView.updateCollectionViewLayout()
     }
     
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        collectionView.updateCollectionViewLayout()
+    }
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        DispatchQueue.main.async {
+            self.collectionView.reloadSections(IndexSet(integersIn: 0...0))
+        }
+        
+        collectionView.updateCollectionViewLayout()
+    }
+    
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        DispatchQueue.main.async {
+            self.collectionView.reloadSections(IndexSet(integersIn: 0...0))
+        }
         collectionView.updateCollectionViewLayout()
     }
 }

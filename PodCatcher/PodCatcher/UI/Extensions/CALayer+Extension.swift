@@ -12,10 +12,10 @@ extension CALayer {
     func setCellShadow(contentView: UIView) {
         let shadowOffsetWidth: CGFloat = contentView.bounds.height * CALayerConstants.shadowWidthMultiplier
         let shadowOffsetHeight: CGFloat = contentView.bounds.width * CALayerConstants.shadowHeightMultiplier
-        shadowColor = UIColor.darkGray.cgColor
+        shadowColor = UIColor.gray.cgColor
         shadowOffset = CGSize(width: shadowOffsetWidth, height: shadowOffsetHeight)
         shadowRadius =  1
-        shadowOpacity = 0.7
+        shadowOpacity = 0.5
     }
     
     func setImageShadow(contentView: UIView) {
@@ -57,7 +57,7 @@ extension CALayer {
     
     func podcastCell(viewRadius: CGFloat) {
         shadowColor = UIColor.lightGray.cgColor
-        shadowOffset = CGSize(width: 0, height: 2.0)
+        shadowOffset = CGSize(width: 0, height: 1.0)
         shadowRadius = 3
         shadowOpacity = 0.34
         masksToBounds = false;

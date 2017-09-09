@@ -11,6 +11,7 @@ class ApplicationStyling {
         let nav = UINavigationBar.appearance()
         nav.barTintColor = .black
         nav.tintColor = .white
+        //nav.setTitleVerticalPositionAdjustment(CGFloat(7), for: UIBarMetrics.default)
         let tabbar = UITabBar.appearance()
         tabbar.barTintColor = .clear
         tabbar.tintColor = Colors.brightHighlight
@@ -23,6 +24,6 @@ class ApplicationStyling {
             NSAttributedStringKey.foregroundColor: UIColor.white
         ]
         
-       // UIBarButtonItem.appearance().setTitlePositionAdjustment(UIOffset.init(horizontal: 10, vertical: 0), for: UIBarMetrics.default)
+        UIBarButtonItem.appearance().setTitlePositionAdjustment(UIOffset.init(horizontal: 10, vertical: 0), for: UIBarMetrics.default)
     }
 }

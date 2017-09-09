@@ -55,6 +55,7 @@ class HomeViewController: BaseCollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initialize()
+        setupNavbar()
     }
     
     func initialize() {
@@ -67,6 +68,13 @@ class HomeViewController: BaseCollectionViewController {
         collectionView.collectionViewLayout.invalidateLayout()
     }
     
+    private func setupNavbar() {
+        DispatchQueue.main.async {
+            let backImage = #imageLiteral(resourceName: "back").withRenderingMode(.alwaysTemplate)
+            self.navigationController?.navigationBar.backIndicatorImage = backImage
+            self.navigationController?.navigationBar.backIndicatorTransitionMaskImage = backImage
+        }
+    }    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -119,20 +127,7 @@ class HomeViewController: BaseCollectionViewController {
             self.hideLoadingView(loadingPop: self.loadingPop)
         }
     }
-    
-    var thumbnailZoomTransitionAnimator: ThumbnailZoomTransitionAnimator?
-    var transitionThumbnail: UIImageView?
-    
-    func navigationController(navigationController: UINavigationController, animationControllerForOperation operation: UINavigationControllerOperation, fromViewController fromVC: UIViewController, toViewController toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        if operation == .push {
-            guard let transitionThumbnail = transitionThumbnail, let transitionThumbnailSuperview = transitionThumbnail.superview else { return nil }
-            thumbnailZoomTransitionAnimator = ThumbnailZoomTransitionAnimator()
-            thumbnailZoomTransitionAnimator?.thumbnailFrame = transitionThumbnailSuperview.convert(transitionThumbnail.frame, to: nil)
-        }
-        thumbnailZoomTransitionAnimator?.operation = operation
-        return thumbnailZoomTransitionAnimator
-    }
-    
+
     
     @objc func managedObjectContextWillSave(notification: NSNotification) {
         print(notification.name)
@@ -162,7 +157,7 @@ extension HomeViewController: UICollectionViewDelegate, ErrorPresenting, Loading
         switch mode {
         case .subscription:
             let cell = cell as! SubscribedPodcastCell
-            SpinAnimation.animate(from: cell, with: 2, completion: nil)
+           // SpinAnimation.animate(from: cell, with: 2, completion: nil)
             var caster = CasterSearchResult()
             caster.feedUrl = item.feedUrl
             guard let imageData = item.artworkImage, let image = UIImage(data: imageData as Data) else { return }

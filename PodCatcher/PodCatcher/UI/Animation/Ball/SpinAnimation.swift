@@ -10,7 +10,7 @@ import UIKit
 
 struct SpinAnimation: AnimatableView {
     
-    fileprivate let AnimationDuration: Double = 0.2
+    fileprivate let AnimationDuration: Double = 0.08
     fileprivate let AnimationOffset: CGFloat = -40
     
     static func animate(from view: UIView, with offset: CGFloat?, completion: ((Bool) -> Void)?) {
@@ -27,7 +27,7 @@ struct SpinAnimation: AnimatableView {
             let rotation = CABasicAnimation(keyPath: "transform.rotation")
             rotation.toValue = CGFloat(2.0 * Double.pi)
             
-            rotation.duration = self.AnimationDuration + 0.25
+            rotation.duration = self.AnimationDuration + 0.12
             rotation.repeatCount = 1.0
             rotation.timingFunction = CAMediaTimingFunction(controlPoints: 0.32, 0.80, 0.18, 1.00)
             view.layer.add(rotation, forKey: "rotateStar")
@@ -44,7 +44,7 @@ struct SpinAnimation: AnimatableView {
         let shrinkAnimation = UIViewPropertyAnimator(duration: 0.5, curve: .linear, animations: {
             view.transform = CGAffineTransform(scaleX: 1, y: 1)
         })
-        UIView.animate(withDuration: 0.75) {
+        UIView.animate(withDuration: 0.1) {
             spinAnimation.startAnimation()
             jumpAnimation.startAnimation()
             growAnimation.startAnimation()

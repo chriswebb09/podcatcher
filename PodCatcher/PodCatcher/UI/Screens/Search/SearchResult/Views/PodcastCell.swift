@@ -37,7 +37,7 @@ final class PodcastCell: UICollectionViewCell {
         isUserInteractionEnabled = true
         contentView.layer.borderColor = UIColor.clear.cgColor
         contentView.layer.masksToBounds = true
-        layer.podcastCell(viewRadius: contentView.layer.cornerRadius + 10)
+        layer.podcastCell(viewRadius: contentView.layer.cornerRadius)
         contentView.layer.setCellShadow(contentView: contentView)
     }
     

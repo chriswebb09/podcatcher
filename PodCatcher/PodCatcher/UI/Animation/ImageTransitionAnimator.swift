@@ -8,9 +8,12 @@
 
 import UIKit
 
-class ThumbnailZoomTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioning {
-    var duration: TimeInterval = 0.5
+class ImageTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioning {
+   
+    var duration: TimeInterval = 0.9
+    
     var operation: UINavigationControllerOperation = .push
+    
     var thumbnailFrame = CGRect.zero
     
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
@@ -22,14 +25,17 @@ class ThumbnailZoomTransitionAnimator: NSObject, UIViewControllerAnimatedTransit
         let presenting = operation == .push
         let containerView = transitionContext.containerView
         
-        guard let toView = transitionContext.view(forKey: UITransitionContextViewKey.to) else { return }
-        guard let fromView = transitionContext.view(forKey: UITransitionContextViewKey.from) else { return }
+        guard let toView = transitionContext.view(forKey: UITransitionContextViewKey.to), let fromView = transitionContext.view(forKey: UITransitionContextViewKey.from) else { return }
         
         let podsFeedView = presenting ? fromView : toView
         let podDetailView = presenting ? toView : fromView
+        
         var initialFrame = presenting ? thumbnailFrame : podDetailView.frame
+        let initialFrameWidth = initialFrame.width
+        
         let finalFrame = presenting ? podDetailView.frame : thumbnailFrame
         let fullFrame = fromView.frame
+        
         let initialFrameAspectRatio = initialFrame.width / initialFrame.height
         let storyDetailAspectRatio = podDetailView.frame.width / podDetailView.frame.height
         
@@ -48,9 +54,9 @@ class ThumbnailZoomTransitionAnimator: NSObject, UIViewControllerAnimatedTransit
             resizedFinalFrame.size = CGSize(width: finalFrame.width, height: finalFrame.width / storyDetailAspectRatio)
         }
         
-        let scaleFactor = resizedFinalFrame.width / initialFrame.width
-        let growScaleFactor = presenting ? scaleFactor: 1/scaleFactor
-        let shrinkScaleFactor = 1/growScaleFactor
+        let scaleFactor = resizedFinalFrame.width / initialFrameWidth
+        let growScaleFactor = presenting ? scaleFactor: 0.9 / scaleFactor
+        let shrinkScaleFactor = 0.9 / growScaleFactor
         
         if presenting {
             podDetailView.transform = CGAffineTransform(scaleX: shrinkScaleFactor, y: shrinkScaleFactor)
@@ -59,11 +65,12 @@ class ThumbnailZoomTransitionAnimator: NSObject, UIViewControllerAnimatedTransit
         }
         
         podDetailView.alpha = presenting ? 0 : 1
-        podsFeedView.alpha = presenting ? 1 : 0
+        podsFeedView.alpha = presenting ? 0.0 : 0
         containerView.addSubview(toView)
+        
         containerView.bringSubview(toFront: podDetailView)
         
-        UIView.animate(withDuration: duration, delay: 0.0, usingSpringWithDamping: 3, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
+        UIView.animate(withDuration: duration, delay: 0.0, usingSpringWithDamping: 20, initialSpringVelocity: 0, options: [.curveEaseInOut, .curveEaseOut], animations: {
 
             podDetailView.alpha = presenting ? 1 : 0
             podsFeedView.alpha = presenting ? 0 : 1
@@ -87,6 +94,7 @@ class ThumbnailZoomTransitionAnimator: NSObject, UIViewControllerAnimatedTransit
             
         }) { finished in
             transitionContext.completeTransition(finished)
+            
         }
     }
 }
