@@ -38,6 +38,7 @@ final class MenuView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         isUserInteractionEnabled = true
+       // layer.cornerRadius = 6
     }
     
     private func addSelectors() {

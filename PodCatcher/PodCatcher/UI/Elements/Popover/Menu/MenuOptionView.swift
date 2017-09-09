@@ -53,5 +53,6 @@ final class MenuOptionView: UIView {
         backgroundColor = .clear
         setup(label: optionLabel)
         setup(iconView: iconView)
+        layer.cornerRadius = 4
     }
 }

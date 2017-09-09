@@ -3,28 +3,16 @@ import CoreData
 
 final class PlaylistsTabCoordinator: NavigationCoordinator, PlaylistsCoordinator {
     
-    func editTapped(tapped: Bool) {
-        let playlistsViewController = navigationController.viewControllers[0] as! PlaylistsViewController
-        
-        playlistsViewController.mode = playlistsViewController.mode == .edit ? .add : .edit
-        
-        if playlistsViewController.leftButtonItem != nil {
-            playlistsViewController.leftButtonItem.title = playlistsViewController.mode == .edit ? "Done" : "Edit"
-        }
-        
-        DispatchQueue.main.async {
-            playlistsViewController.tableView.reloadData()
-        }
-    }
-    
-    
     weak var delegate: CoordinatorDelegate?
+    
     var type: CoordinatorType = .tabbar
+    
     var dataSource: BaseMediaControllerDataSource!
+    
     var childViewControllers: [UIViewController] = []
     var navigationController: UINavigationController
+    
     var podcastItem: PodcastPlaylistItem!
-    var testItems = [String]()
     
     var managedContext: NSManagedObjectContext! {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return nil }
@@ -50,6 +38,20 @@ final class PlaylistsTabCoordinator: NavigationCoordinator, PlaylistsCoordinator
     func setup() {
         let playlistsViewController = navigationController.viewControllers[0] as! PlaylistsViewController
         playlistsViewController.delegate = self
+    }
+    
+    func editTapped(tapped: Bool) {
+        let playlistsViewController = navigationController.viewControllers[0] as! PlaylistsViewController
+        
+        playlistsViewController.mode = playlistsViewController.mode == .edit ? .add : .edit
+        
+        if playlistsViewController.leftButtonItem != nil {
+            playlistsViewController.leftButtonItem.title = playlistsViewController.mode == .edit ? "Done" : "Edit"
+        }
+        
+        DispatchQueue.main.async {
+            playlistsViewController.tableView.reloadData()
+        }
     }
 }
 
