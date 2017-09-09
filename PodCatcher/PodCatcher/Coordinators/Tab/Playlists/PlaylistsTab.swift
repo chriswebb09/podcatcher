@@ -10,7 +10,12 @@ final class PlaylistsTabCoordinator: NavigationCoordinator, PlaylistsCoordinator
     var dataSource: BaseMediaControllerDataSource!
     
     var childViewControllers: [UIViewController] = []
-    var navigationController: UINavigationController
+    
+    var navigationController: UINavigationController {
+        didSet {
+            self.childViewControllers = navigationController.viewControllers
+        }
+    }
     
     var podcastItem: PodcastPlaylistItem!
     
@@ -22,7 +27,6 @@ final class PlaylistsTabCoordinator: NavigationCoordinator, PlaylistsCoordinator
     
     required init(navigationController: UINavigationController) {
         self.navigationController = navigationController
-        self.childViewControllers = navigationController.viewControllers
     }
     
     convenience init(navigationController: UINavigationController, controller: UIViewController) {
