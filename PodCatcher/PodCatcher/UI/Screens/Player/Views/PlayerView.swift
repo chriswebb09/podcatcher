@@ -103,14 +103,17 @@ final class PlayerView: UIView {
     
     var playtimeSlider: UISlider = {
         let slider = UISlider()
+        
         slider.thumbTintColor = .white
-        slider.maximumTrackTintColor = UIColor(red:1.00, green:0.71, blue:0.71, alpha:1.0)
-        let thumbImage = #imageLiteral(resourceName: "line-gray").scaleToSize(CGSize(width: 2.5, height: 18))
-        slider.setThumbImage(slider.handleImage(with: .white), for: .normal)
-        slider.setThumbImage(thumbImage, for: .selected)
         slider.minimumValue = 0
         slider.tintColor = .white
         slider.isUserInteractionEnabled = true
+        slider.maximumTrackTintColor = UIColor(red:1.00, green:0.71, blue:0.71, alpha:1.0)
+        
+        let thumbImage = #imageLiteral(resourceName: "line-gray").scaleToSize(CGSize(width: 2.5, height: 18))
+        slider.setThumbImage(slider.handleImage(with: .white), for: .normal)
+        slider.setThumbImage(thumbImage, for: .selected)
+        
         return slider
     }()
     
@@ -121,10 +124,12 @@ final class PlayerView: UIView {
     
     var currentPlayTimeLabel: UILabel = {
         let currentPlayTime = UILabel()
+        
         currentPlayTime.textAlignment = .left
         currentPlayTime.textColor = .white
         currentPlayTime.text = "0:00"
         currentPlayTime.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.thin)
+        
         return currentPlayTime
     }()
     
@@ -186,9 +191,10 @@ final class PlayerView: UIView {
     
     func setup(navigationButton: UIButton) {
         navBar.addSubview(navigationButton)
-        self.totalPlayTimeLabel.textAlignment = .right
-        self.totalPlayTimeLabel.textColor = .white
-        self.totalPlayTimeLabel.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.thin)
+        totalPlayTimeLabel.textAlignment = .right
+        totalPlayTimeLabel.textColor = .white
+        totalPlayTimeLabel.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.thin)
+        
         navigationButton.translatesAutoresizingMaskIntoConstraints = false
         navigationButton.leftAnchor.constraint(equalTo: navBar.leftAnchor, constant: UIScreen.main.bounds.width * 0.01).isActive = true
         navigationButton.centerYAnchor.constraint(equalTo: navBar.centerYAnchor).isActive = true
@@ -199,6 +205,7 @@ final class PlayerView: UIView {
     func setup(artistLabel: UILabel) {
         navBar.addSubview(artistLabel)
         artistLabel.translatesAutoresizingMaskIntoConstraints = false
+        
         artistLabel.centerXAnchor.constraint(equalTo: navBar.centerXAnchor).isActive = true
         artistLabel.centerYAnchor.constraint(equalTo: navBar.centerYAnchor).isActive = true
         artistLabel.heightAnchor.constraint(equalTo: navBar.heightAnchor).isActive = true
@@ -220,6 +227,7 @@ final class PlayerView: UIView {
     private func setup(titleLabel: UILabel) {
         titleView.addSubview(titleLabel)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        
         titleLabel.centerXAnchor.constraint(equalTo: titleView.centerXAnchor).isActive = true
         titleLabel.centerYAnchor.constraint(equalTo: titleView.centerYAnchor, constant: UIScreen.main.bounds.height * 0.046).isActive = true
         titleLabel.heightAnchor.constraint(equalTo: titleView.heightAnchor, multiplier: PlayerViewConstants.trackTitleLabelHeightMultiplier).isActive = true
@@ -229,6 +237,7 @@ final class PlayerView: UIView {
     private func setup(preferencesView: UIView) {
         addSubview(preferencesView)
         preferencesView.translatesAutoresizingMaskIntoConstraints = false
+        
         preferencesView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
         preferencesView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: PlayerViewConstants.preferenceHeightMultiplier).isActive = true
         preferencesView.topAnchor.constraint(equalTo: albumImageView.bottomAnchor, constant: UIScreen.main.bounds.height * 0.02).isActive = true
@@ -237,6 +246,7 @@ final class PlayerView: UIView {
     private func setup(moreButton: UIButton) {
         preferencesView.addSubview(moreButton)
         moreButton.translatesAutoresizingMaskIntoConstraints = false
+        
         moreButton.widthAnchor.constraint(equalTo: preferencesView.widthAnchor, multiplier: PlayerViewConstants.artistInfoWidthMultiplier).isActive = true
         moreButton.heightAnchor.constraint(equalTo: preferencesView.heightAnchor, multiplier: PlayerViewConstants.artistInfoHeightMultiplier).isActive = true
         moreButton.rightAnchor.constraint(equalTo: preferencesView.rightAnchor, constant: UIScreen.main.bounds.width * PlayerViewConstants.artistInfoRightOffset).isActive = true
