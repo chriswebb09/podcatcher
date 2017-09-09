@@ -102,7 +102,7 @@ extension MainCoordinator: CoordinatorDelegate {
         let playlistsCoord = tabbBarCoordinator.childCoordinators[1] as! PlaylistsTabCoordinator
         playlistsViewController.coordinator = playlistsCoord
         playlistsCoord.delegate = self
-        playlistsCoord.setup()
+        playlistsCoord.start()
         addChildCoordinator(playlistsCoord)
     }
     

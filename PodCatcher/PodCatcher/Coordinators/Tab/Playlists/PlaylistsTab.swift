@@ -34,12 +34,7 @@ final class PlaylistsTabCoordinator: NavigationCoordinator, PlaylistsCoordinator
         let playlistsViewController = navigationController.viewControllers[0] as! PlaylistsViewController
         playlistsViewController.delegate = self
     }
-    
-    func setup() {
-        let playlistsViewController = navigationController.viewControllers[0] as! PlaylistsViewController
-        playlistsViewController.delegate = self
-    }
-    
+
     func editTapped(tapped: Bool) {
         let playlistsViewController = navigationController.viewControllers[0] as! PlaylistsViewController
         
@@ -59,15 +54,20 @@ extension PlaylistsTabCoordinator: PlaylistsViewControllerDelegate {
     
     func playlistSelected(for caster: PodcastPlaylist) {
         let playlist = PlaylistViewController(index: 0, player: AudioFilePlayer(), playlist: caster)
+        
         playlist.playlistId = caster.playlistId!
         playlist.playlistTitle = caster.playlistName!
+        
         navigationController.pushViewController(playlist, animated: false)
     }
     
     func didAssignPlaylist(with id: String) {
+        
         delegate?.updatePodcast(with: id)
+        
         let item = PodcastPlaylistItem(context: managedContext)
         item.playlistId = id
+        
         let controller = navigationController.viewControllers.last as! PlaylistsViewController
         navigationController.setNavigationBarHidden(false, animated: false)
         controller.tabBarController?.selectedIndex = 2
