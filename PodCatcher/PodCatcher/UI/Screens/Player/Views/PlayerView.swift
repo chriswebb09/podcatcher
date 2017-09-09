@@ -226,7 +226,7 @@ final class PlayerView: UIView {
         titleLabel.widthAnchor.constraint(equalTo: titleView.widthAnchor, multiplier: PlayerViewConstants.trackTitleLabelWidthMultiplier).isActive = true
     }
     
-    private func setupPreferencesView(preferencesView: UIView) {
+    private func setup(preferencesView: UIView) {
         addSubview(preferencesView)
         preferencesView.translatesAutoresizingMaskIntoConstraints = false
         preferencesView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
@@ -234,7 +234,7 @@ final class PlayerView: UIView {
         preferencesView.topAnchor.constraint(equalTo: albumImageView.bottomAnchor, constant: UIScreen.main.bounds.height * 0.02).isActive = true
     }
     
-    private func setupMoreButton(moreButton: UIButton) {
+    private func setup(moreButton: UIButton) {
         preferencesView.addSubview(moreButton)
         moreButton.translatesAutoresizingMaskIntoConstraints = false
         moreButton.widthAnchor.constraint(equalTo: preferencesView.widthAnchor, multiplier: PlayerViewConstants.artistInfoWidthMultiplier).isActive = true
@@ -291,6 +291,7 @@ final class PlayerView: UIView {
     
     func setup(playtimeSliderView: UIView) {
         controlsView.addSubview(playtimeSliderView)
+        
         playtimeSliderView.translatesAutoresizingMaskIntoConstraints = false
         playtimeSliderView.centerXAnchor.constraint(equalTo: controlsView.centerXAnchor).isActive = true
         playtimeSliderView.widthAnchor.constraint(equalTo: controlsView.widthAnchor).isActive = true
@@ -300,6 +301,7 @@ final class PlayerView: UIView {
     
     private func setup(playtimeSlider: UISlider) {
         playtimeSliderView.addSubview(playtimeSlider)
+        
         playtimeSlider.translatesAutoresizingMaskIntoConstraints = false
         playtimeSlider.centerXAnchor.constraint(equalTo: controlsView.centerXAnchor).isActive = true
         playtimeSlider.centerYAnchor.constraint(equalTo: playtimeSliderView.centerYAnchor).isActive = true
@@ -309,6 +311,7 @@ final class PlayerView: UIView {
     
     private func setup(totalTimeLabel: UILabel) {
         controlsView.addSubview(totalPlayTimeLabel)
+        
         totalPlayTimeLabel.translatesAutoresizingMaskIntoConstraints = false
         totalPlayTimeLabel.widthAnchor.constraint(equalTo: controlsView.widthAnchor, multiplier: 0.14).isActive = true
         totalPlayTimeLabel.heightAnchor.constraint(equalTo: controlsView.heightAnchor, multiplier: PlayerViewConstants.backButtonHeightMultiplier).isActive = true
@@ -318,6 +321,7 @@ final class PlayerView: UIView {
     
     private func setup(currentTimeLabel: UILabel) {
         controlsView.addSubview(currentTimeLabel)
+        
         currentTimeLabel.translatesAutoresizingMaskIntoConstraints = false
         currentTimeLabel.widthAnchor.constraint(equalTo: controlsView.widthAnchor, multiplier: 0.14).isActive = true
         currentTimeLabel.heightAnchor.constraint(equalTo: controlsView.heightAnchor, multiplier: PlayerViewConstants.backButtonHeightMultiplier).isActive = true
@@ -337,8 +341,8 @@ final class PlayerView: UIView {
         setup(titleLabel: titleLabel)
         setup(albumView: albumView)
         setup(albumImageView: albumImageView)
-        setupPreferencesView(preferencesView: preferencesView)
-        setupMoreButton(moreButton: moreButton)
+        setup(preferencesView: preferencesView)
+        setup(moreButton: moreButton)
         setup(playtimeSliderView: playtimeSliderView)
         setup(playtimeSlider: playtimeSlider)
         setup(controlsView: controlsView)
@@ -346,9 +350,11 @@ final class PlayerView: UIView {
         setup(skipButton: skipButton, backButton: backButton)
         setup(totalTimeLabel: totalPlayTimeLabel)
         setup(currentTimeLabel: currentPlayTimeLabel)
+        
         albumImageView.layer.setCellShadow(contentView: albumImageView)
         
         let rect = CGRect(origin: albumImageView.bounds.origin, size: CGSize(width: albumImageView.bounds.width, height: albumImageView.bounds.height - 10))
+        
         let path =  UIBezierPath(roundedRect: rect, cornerRadius: albumImageView.layer.cornerRadius)
         layer.shadowPath = path.cgPath
         addSelectors()
@@ -366,9 +372,9 @@ final class PlayerView: UIView {
         playButton.addTarget(self, action: #selector(playButtonTapped), for: .touchUpInside)
         skipButton.addTarget(self, action: #selector(skipButtonTapped), for: .touchUpInside)
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
-        playtimeSlider.addTarget(self, action: #selector(sliderValueChanged), for: .valueChanged)
         moreButton.addTarget(self, action: #selector(moreButtonTapped), for: .touchUpInside)
         navigateBackButton.addTarget(self, action: #selector(navigateBack), for: .touchUpInside)
+        playtimeSlider.addTarget(self, action: #selector(sliderValueChanged), for: .valueChanged)
     }
     
     // MARK: - Methods
