@@ -8,9 +8,6 @@ final class PlayerView: UIView {
     
     var model: PlayerViewModel! {
         didSet {
-            
-            dump(model)
-            
             titleLabel.text = model.title
             if let imageUrl = model.imageUrl {
                 albumImageView.downloadImage(url: imageUrl)
