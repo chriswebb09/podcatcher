@@ -42,6 +42,7 @@ final class LocalStorageManager {
         } catch let error as NSError {
             print("Error creating directory: \(error.localizedDescription)")
             fatalError()
+            return false
         }
     }
     

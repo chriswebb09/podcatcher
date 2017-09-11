@@ -20,12 +20,12 @@
     private var loadingPop: LoadingPopover = LoadingPopover()
     
     var bottomMenu = BottomMenu()
-   
+    
     var caster: CasterSearchResult
     var menuActive: MenuActive = .none
-
+    
     let reachability = Reachability()!
-
+    
     @objc var player: AudioFilePlayer? {
         didSet {
             guard let player = player, let state = player.state else { return }
@@ -37,7 +37,7 @@
         player = AudioFilePlayer()
         self.index = index
         self.caster = caster
-      
+        
         if let image = image {
             playerView.albumImageView.image = image
         }
@@ -144,7 +144,7 @@
         if let timeObserverToken = timeObserverToken {
             player?.player?.removeTimeObserver(timeObserverToken)
         }
-       
+        
         reachability.stopNotifier()
         
         NotificationCenter.default.removeObserver(self, name: ReachabilityChangedNotification, object: reachability)
@@ -170,7 +170,7 @@
                 guard let strongSelf = self else { return }
                 strongSelf.updateTrack()
             }
-        
+            
         } else if reachability.isReachable == false {
             DispatchQueue.main.async { [weak self] in
                 guard let strongSelf = self else { return }
@@ -248,12 +248,12 @@
                 DispatchQueue.main.async { [weak self] in
                     
                     guard let strongSelf = self, let player = strongSelf.player, let audioPlayer = player.player, let currentItem = audioPlayer.currentItem else { return }
-                
+                    
                     let currentSeconds = CMTimeGetSeconds(audioPlayer.currentTime())
                     let durationSeconds = CMTimeGetSeconds(currentItem.duration)
                     strongSelf.playerView.model.setTimeStrings(total: String.constructTimeString(time: durationSeconds), current: String.constructTimeString(time: Double(currentSeconds)))
                     strongSelf.playerView.setText()
-
+                    
                 }
             }
         }
@@ -333,8 +333,13 @@
             guard let strongSelf = self else { return }
             strongSelf.showLoadingView(loadingPop: strongSelf.loadingPop)
         }
-        if let urlString = caster.episodes[index].audioUrlString, let url = URL(string: urlString), let player = player {
-            player.asset = AVURLAsset(url: url)
+        if let urlString = caster.episodes[index].audioUrlString, let url = URL(string: urlString) {
+            if LocalStorageManager.localFileExists(for: urlString) {
+                let newUrl = LocalStorageManager.localFilePath(for: url)
+                player?.asset = AVURLAsset(url: newUrl)
+            } else {
+                player?.asset = AVURLAsset(url: url)
+            }
         }
         updatePlayerViewModel()
     }
@@ -343,19 +348,8 @@
  extension PlayerViewController: BottomMenuViewable {
     
     func moreButton(tapped: Bool) {
-        
-        let height = view.bounds.height * 0.5
-        let width = view.bounds.width
-        let size = CGSize(width: width, height: height)
-        let originX = view.bounds.width * 0.001
-        let originY = view.bounds.height * 0.6
-        let origin = CGPoint(x: originX, y: originY)
-        
+        menuSetup()
         bottomMenu.menu.delegate = self
-        bottomMenu.setMenu(size)
-        bottomMenu.setMenu(origin)
-        bottomMenu.setupMenu()
-        bottomMenu.setMenu(color: .white, borderColor: .darkGray, textColor: .darkGray)
         showPopMenu(playerView)
     }
  }

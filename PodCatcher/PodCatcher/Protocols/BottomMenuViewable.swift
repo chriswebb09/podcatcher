@@ -17,5 +17,20 @@ extension BottomMenuViewable {
     
     func showPopMenu(_ view: UIView){
         bottomMenu.showOn(view)
-    }    
+    }
+    
+    func menuSetup() {
+        let height = UIScreen.main.bounds.height * 0.5
+        let width = UIScreen.main.bounds.width
+        let size = CGSize(width: width, height: height)
+        let originX = UIScreen.main.bounds.width * 0.001
+        let originY = UIScreen.main.bounds.height * 0.5
+        let origin = CGPoint(x: originX, y: originY)
+        
+    
+        bottomMenu.setMenu(size)
+        bottomMenu.setMenu(origin)
+        bottomMenu.setupMenu()
+        bottomMenu.setMenu(color: .white, borderColor: .darkGray, textColor: .darkGray)
+    }
 }
