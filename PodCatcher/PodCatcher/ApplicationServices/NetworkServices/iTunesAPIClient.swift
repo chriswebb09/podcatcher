@@ -6,26 +6,6 @@ enum Response {
     case success(JSON?), failed(Error)
 }
 
-public enum Result<A> {
-    case success(A)
-    case error(Error)
-}
-
-extension Result {
-    public init(_ value: A?, or error: Error) {
-        if let value = value {
-            self = .success(value)
-        } else {
-            self = .error(error)
-        }
-    }
-    
-    public var value: A? {
-        guard case .success(let v) = self else { return nil }
-        return v
-    }
-}
-
 enum URLRouter {
     
     case base, path
@@ -43,7 +23,7 @@ enum URLRouter {
 
 final class iTunesAPIClient {
     
-    static func search(for query: String, completion: @escaping (Response) -> Void) {
+    static func search(for query: String, _ completion: @escaping (Response) -> Void) {
         guard let url = build(searchTerm: query) else { return }
         URLSession(configuration: .ephemeral).dataTask(with: URLRequest(url: url)) { data, response, error in
             if let error = error {
@@ -51,7 +31,7 @@ final class iTunesAPIClient {
             } else {
                 do {
                     guard let data = data else { return }
-                    guard let responseObject = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any] else { return }
+                    guard let responseObject = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? JSON else { return }
                     DispatchQueue.main.async {
                         completion(.success(responseObject))
                     }
@@ -68,7 +48,7 @@ final class iTunesAPIClient {
             } else {
                 do {
                     guard let data = data else { return }
-                    guard let responseObject = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any] else { return }
+                    guard let responseObject = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? JSON else { return }
                     DispatchQueue.main.async {
                         completion(.success(responseObject))
                     }
@@ -97,7 +77,7 @@ struct SearchResultsIteractor {
         lookup = term
     }
     
-    func searchForTracksFromLookup(completion: @escaping (_ results: [[String: Any]?]? , _ error: Error?) -> Void) {
+    func searchForTracksFromLookup(completion: @escaping (_ results: [JSON?]? , _ error: Error?) -> Void) {
         iTunesAPIClient.search(forLookup: lookup) { response in
             switch response {
             case .success(let data):

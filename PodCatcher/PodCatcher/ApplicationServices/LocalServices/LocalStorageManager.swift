@@ -6,7 +6,6 @@ final class LocalStorageManager {
         let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString
         if let url = URL(string: previewUrl) {
             let podcastDir = documentsPath.appendingPathComponent("podcasts/\(url.lastPathComponent)")
-           // let fullPath = documentsPath.appendingPathComponent(url.lastPathComponent)
             return URL(fileURLWithPath: podcastDir)
         }
         return nil
@@ -43,12 +42,8 @@ final class LocalStorageManager {
         } catch let error as NSError {
             print("Error creating directory: \(error.localizedDescription)")
             fatalError()
-            return false
         }
-
     }
-    
-
     
     static func deleteSavedItem(itemUrlString: String) {
         let fileManager = FileManager.default
@@ -61,39 +56,7 @@ final class LocalStorageManager {
             
         }
     }
-//
-//    static func exists() -> String {
-//        let fileManager = FileManager.default
-//        var isDir : ObjCBool = false
-//        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-//        let dataPath = documentsDirectory.appendingPathComponent("podcasts")
-//
-//        FileManager.default.fileExists(atPath: dataPath.absoluteString, isDirectory: &isDir) {
-//            if isDir.boolValue {
-//                return url.absoluteString
-//                // file exists and is a directory
-//            } else {
-//                return url.absoluteString
-//                // file exists and is not a directory
-//            }
-//        }
-//    }
-//        // if fileManager.fileExists(atPath:url.appendingPathComponent("podcasts").absoluteString, isDirectory:&isDir) {
-        //        fileManager.fileExists(atPath: dataPath.absoluteString) {
-        //            if isDir.boolValue {
-        //                return url.absoluteString
-        //                // file exists and is a directory
-        //            } else {
-        //                return url.absoluteString
-        //                // file exists and is not a directory
-        //            }
-        //        } else {
-        //            return "Error"
-        //            // file does not exist
-        //        }
-    
 }
-
 
 extension FileManager.SearchPathDirectory {
     func createSubFolder(named: String, withIntermediateDirectories: Bool = false) -> Bool {
@@ -107,4 +70,3 @@ extension FileManager.SearchPathDirectory {
         }
     }
 }
-

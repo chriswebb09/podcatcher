@@ -7,6 +7,7 @@ enum PlayerState {
 }
 
 @objc final class AudioFilePlayer: NSObject {
+   
     // MARK: Properties
     
     static let assetKeysRequiredToPlay = [

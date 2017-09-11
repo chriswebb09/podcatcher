@@ -49,8 +49,6 @@ final class PlayerView: UIView {
         artist.sizeToFit()
         let customFont = UIFont(name: "Avenir-Medium", size: 16.0)!
         artist.font = customFont
-            //UIFont(name: "AvenirNext-Medium", size: 18)!
-            //UIFont.systemFont(ofSize: 16, weight: UIFontWeightSemibold)
         return artist
     }()
     
@@ -66,9 +64,13 @@ final class PlayerView: UIView {
         title.textAlignment = .center
         title.sizeToFit()
         title.font = UIFont(name: "Avenir-Medium", size: 18.0)!
-            //UIFont(name: "Avenir-Book", size: 16)!
-            //UIFont.systemFont(ofSize: 16, weight: UIFontWeightLight)
         return title
+    }()
+    
+    private var controls: UIStackView = {
+        let controlStack = UIStackView()
+        
+        return controlStack
     }()
     
     private var activityView: UIView = {
