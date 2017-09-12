@@ -4,7 +4,7 @@ final class SettingsTabCoordinator: NavigationCoordinator {
     
     weak var delegate: CoordinatorDelegate?
     var type: CoordinatorType = .tabbar
-    var dataSource: BaseMediaControllerDataSource!
+    
     
     var childViewControllers: [UIViewController] = []
     var navigationController: UINavigationController
@@ -27,6 +27,6 @@ final class SettingsTabCoordinator: NavigationCoordinator {
 
 extension SettingsTabCoordinator: SettingsViewControllerDelegate {
     func guestUserSignIn(_ tapped: Bool) {
-        delegate?.transitionCoordinator(type: .app, dataSource: dataSource)
+        delegate?.transitionCoordinator(type: .app)
     }
 }

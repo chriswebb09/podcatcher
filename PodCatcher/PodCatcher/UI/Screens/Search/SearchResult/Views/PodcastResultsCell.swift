@@ -11,7 +11,7 @@ final class PodcastResultCell: UICollectionViewCell {
         return view
     }()
     
-    var podcastTitleLabel: UILabel = {
+    private var podcastTitleLabel: UILabel = {
         var podcastTitleLabel = UILabel()
         podcastTitleLabel.numberOfLines = 0
         podcastTitleLabel.textAlignment = .left
@@ -20,7 +20,7 @@ final class PodcastResultCell: UICollectionViewCell {
         return podcastTitleLabel
     }()
     
-    var playTimeLabel: UILabel = {
+    private var playTimeLabel: UILabel = {
         var playTimeLabel = UILabel()
         playTimeLabel.sizeToFit()
         playTimeLabel.textAlignment = .right
@@ -52,7 +52,7 @@ final class PodcastResultCell: UICollectionViewCell {
         playTimeLabel.text = model.playtimeLabel
     }
     
-    func setupConstraints() {
+   private func setupConstraints() {
         self.updateConstraintsIfNeeded()
         contentView.addSubview(podcastTitleLabel)
         podcastTitleLabel.translatesAutoresizingMaskIntoConstraints = false

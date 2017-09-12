@@ -33,8 +33,7 @@ final class SearchTabCoordinator: NavigationCoordinator {
 extension SearchTabCoordinator: SearchViewControllerDelegate {
     
     func logout(tapped: Bool) {
-        let dataSource = BaseMediaControllerDataSource()
-        delegate?.transitionCoordinator(type: .app, dataSource: dataSource)
+        delegate?.transitionCoordinator(type: .app)
     }
     
     func didSelect(at index: Int, with caster: PodcastSearchResult) {

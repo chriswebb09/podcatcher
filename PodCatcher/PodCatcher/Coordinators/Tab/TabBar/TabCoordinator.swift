@@ -4,7 +4,7 @@ final class TabCoordinator: NavigationCoordinator {
     
     var type: CoordinatorType = .tabbar
     weak var delegate: CoordinatorDelegate?
-    var dataSource: BaseMediaControllerDataSource!
+    
     var navigationController: UINavigationController
     
     required init(navigationController: UINavigationController) {

@@ -6,12 +6,14 @@ final class SearchResultListViewController: BaseCollectionViewController {
     
     private var item: CasterSearchResult!
     private var state: PodcasterControlState = .toCollection
+    var navPop = false
     private var confirmationIndicator = ConfirmationIndicatorView()
     private let entryPop = EntryPopover()
-    private var topView = ListTopView()
+    var topView = ListTopView()
+    
     private let subscription = UserDefaults.loadSubscriptions()
     
-    private var viewShown: ShowView {
+    private(set) var viewShown: ShowView {
         didSet {
             switch viewShown {
             case .empty:
@@ -51,18 +53,12 @@ final class SearchResultListViewController: BaseCollectionViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(false)
         setupNavbar()
-        navigationController?.navigationBar.backItem?.title = ""
         navigationItem.title = item.podcastTitle
         setupNavbar()
         setupButton()
         setupTopViewImage()
         showViews()
         setupLayout()
-    }
-    
-    func getTitle() -> String {
-        guard let title = item.podcastTitle else { return "" }
-        return title
     }
     
     private func setupLayout() {
@@ -86,6 +82,7 @@ final class SearchResultListViewController: BaseCollectionViewController {
             let backImage = #imageLiteral(resourceName: "back").withRenderingMode(.alwaysTemplate)
             self.navigationController?.navigationBar.backIndicatorImage = backImage
             self.navigationController?.navigationBar.backIndicatorTransitionMaskImage = backImage
+            self.navigationController?.navigationBar.backItem?.title = ""
         }
     }
     
@@ -125,6 +122,7 @@ final class SearchResultListViewController: BaseCollectionViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(false)
+        navPop = false 
         switch state {
         case .toCollection:
             dismiss(animated: false, completion: nil)
@@ -153,15 +151,79 @@ extension SearchResultListViewController {
     }
     
     private func setupViewFraming() {
-        guard let tabBar = tabBarController?.tabBar, let navHeight = navigationController?.navigationBar.frame.height else { return }
         
-        let viewHeight = (view.bounds.height - navHeight) - 90
-        collectionView.frame = CGRect(x: topView.bounds.minX, y: topView.frame.maxY + (tabBar.frame.height + 10), width: view.bounds.width, height: viewHeight - (topView.frame.height - 90))
+        if UIDevice().userInterfaceIdiom == .phone {
+            switch UIScreen.main.nativeBounds.height {
+            case 480:
+                print("iPhone Classic")
+            case 960:
+                print("iPhone 4 or 4S")
+            case 1136:
+                print("iPhone 5 or 5S or 5C")
+            case 1334:
+                
+                guard let tabBar = tabBarController?.tabBar, let navHeight = navigationController?.navigationBar.frame.height else { return }
+                
+                let viewHeight = (view.bounds.height - navHeight) - tabBar.frame.height
+                collectionView.frame = CGRect(x: topView.bounds.minX, y: topView.frame.maxY + (tabBar.frame.height + 10), width: view.bounds.width, height: viewHeight - (topView.frame.height - 90))
+            case 2208:
+                
+                guard let tabBar = tabBarController?.tabBar, let navHeight = navigationController?.navigationBar.frame.height else { return }
+                
+                let viewHeight = (view.bounds.height - navHeight) - tabBar.frame.height
+                collectionView.frame = CGRect(x: topView.bounds.minX, y: topView.frame.maxY + (10), width: view.bounds.width, height: viewHeight - (topView.frame.height - 90))
+                
+                print("iPhone 6+/6S+/7+")
+            default:
+                print("unknown")
+            }
+        } else if UIDevice().userInterfaceIdiom == .pad {
+            switch UIScreen.main.nativeBounds.height {
+            case 1024:
+                print("iPad")
+            case 1366:
+                print("iPad PRO")
+            default:
+                print("unknown")
+            }
+        }
+        
     }
     
     private func setupTopView() {
+        if UIDevice().userInterfaceIdiom == .phone {
+            switch UIScreen.main.nativeBounds.height {
+            case 480:
+                print("iPhone Classic")
+            case 960:
+                print("iPhone 4 or 4S")
+            case 1136:
+                print("iPhone 5 or 5S or 5C")
+            case 1334:
+                topView.frame = PodcastListConstants.topFrame
+                
+            case 2208:
+                if navPop == true {
+                    topView.frame = PodcastListConstants.topFrame
+                } else {
+                    guard let tabBar = tabBarController?.tabBar, let navHeight = navigationController?.navigationBar.frame.height else { return }
+                    topView.frame = CGRect(x: 0, y: (tabBar.frame.height + 15), width: PodcastListConstants.topFrameWidth, height: PodcastListConstants.topFrameHeight / 1.2)
+                }
+                print("iPhone 6+/6S+/7+")
+            default:
+                print("unknown")
+            }
+        } else if UIDevice().userInterfaceIdiom == .pad {
+            switch UIScreen.main.nativeBounds.height {
+            case 1024:
+                print("iPad")
+            case 1366:
+                print("iPad PRO")
+            default:
+                print("unknown")
+            }
+        }
         
-        topView.frame = PodcastListConstants.topFrame
         
         if let item = item, let urlString = item.podcastArtUrlString, let url = URL(string: urlString) {
             topView.podcastImageView.downloadImage(url: url)
@@ -200,30 +262,61 @@ extension SearchResultListViewController: UIScrollViewDelegate {
             self.topView.removeFromSuperview()
             self.topView.alpha = 0
             self.collectionView.frame = self.view.bounds
-          // self.collectionView.updateCollectionViewLayout()
-            
-//            DispatchQueue.main.async {
-//                self.collectionView.layoutIfNeeded()
-//            }
         }
     }
     
+    
+    
     private func updateScrollingUITop() {
         
-        guard let navHeight = navigationController?.navigationBar.frame.height else { return }
         
-        let viewHeight = (view.bounds.height - navHeight) - 20
-        let updatedTopViewFrame = CGRect(x: 0, y: 0, width: PodcastListConstants.topFrameWidth, height: PodcastListConstants.topFrameHeight / 1.2)
-        let collectionFrame = CGRect(x: topView.bounds.minX, y: topView.frame.maxY, width: view.bounds.width, height: viewHeight - (topView.frame.height - 80))
-        
-        UIView.animate(withDuration: 0.15) {
-            
-            self.topView.frame = updatedTopViewFrame
-            self.topView.alpha = 1
-            self.topView.layoutSubviews()
-            
-            self.view.addSubview(self.topView)
-            self.collectionView.frame = collectionFrame
+        if UIDevice().userInterfaceIdiom == .phone {
+            switch UIScreen.main.nativeBounds.height {
+            case 480:
+                print("iPhone Classic")
+            case 960:
+                print("iPhone 4 or 4S")
+            case 1136:
+                print("iPhone 5 or 5S or 5C")
+            case 1334:
+                topView.frame = PodcastListConstants.topFrame
+                
+            case 2208:
+                
+                guard let tabBar = tabBarController?.tabBar, let navHeight = navigationController?.navigationBar.frame.height else { return }
+                let viewHeight = (view.bounds.height - navHeight) - 20
+                
+                let collectionFrame = CGRect(x: topView.bounds.minX, y: topView.frame.maxY, width: view.bounds.width, height: viewHeight - (topView.frame.height - 160))
+                
+                UIView.animate(withDuration: 0.15) {
+                    if self.navPop == true {
+                        self.topView.frame = PodcastListConstants.topFrame
+                    } else {
+                        self.topView.frame = CGRect(x: 0, y: (tabBar.frame.height + 15), width: PodcastListConstants.topFrameWidth, height: PodcastListConstants.topFrameHeight / 1.2)
+                    }
+                    self.topView.alpha = 1
+                    self.topView.layoutSubviews()
+                    
+                    self.view.addSubview(self.topView)
+                    self.collectionView.frame = collectionFrame
+                }
+                print("iPhone 6+/6S+/7+")
+            default:
+                guard let navHeight = navigationController?.navigationBar.frame.height else { return }
+                
+                let viewHeight = (view.bounds.height - navHeight) - 20
+                let updatedTopViewFrame = CGRect(x: 0, y: 0, width: PodcastListConstants.topFrameWidth, height: PodcastListConstants.topFrameHeight / 1.2)
+                let collectionFrame = CGRect(x: topView.bounds.minX, y: topView.frame.maxY, width: view.bounds.width, height: viewHeight - (topView.frame.height - 80))
+
+                UIView.animate(withDuration: 0.15) {
+                    self.topView.frame = updatedTopViewFrame
+                    self.topView.alpha = 1
+                    self.topView.layoutSubviews()
+                    
+                    self.view.addSubview(self.topView)
+                    self.collectionView.frame = collectionFrame
+                }
+            }
         }
     }
     

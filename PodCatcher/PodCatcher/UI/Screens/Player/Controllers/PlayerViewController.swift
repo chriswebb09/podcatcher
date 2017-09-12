@@ -6,7 +6,7 @@
  
  private var playerViewControllerKVOContext = 0
  
- final class PlayerViewController: BaseViewController, ErrorPresenting, LoadingPresenting {
+ final class PlayerViewController: BaseViewController {
     
     weak var delegate: PlayerViewControllerDelegate?
     
@@ -21,10 +21,11 @@
     
     var bottomMenu = BottomMenu()
     
-    var caster: CasterSearchResult
+    private(set) var caster: CasterSearchResult
+   
     var menuActive: MenuActive = .none
     
-    let reachability = Reachability()!
+    private let reachability = Reachability()!
     
     @objc var player: AudioFilePlayer? {
         didSet {
@@ -78,6 +79,9 @@
         super.viewDidDisappear(animated)
         done()
     }
+ }
+ 
+ extension PlayerViewController: LoadingPresenting, ErrorPresenting {
     
     func setupPlayerView() {
         playerView.alpha = 1
@@ -273,7 +277,7 @@
  
  extension PlayerViewController: PlayerViewDelegate {
     
-    func seekTime(value: Double) {
+    internal func seekTime(value: Double) {
         let time = CMTime(seconds: value, preferredTimescale: CMTimeScale(NSEC_PER_SEC))
         if let player = self.player, let audioPlayer = player.player {
             audioPlayer.seek(to: time)
@@ -281,7 +285,7 @@
     }
     
     
-    func playPause(tapped: Bool) {
+    internal func playPause(tapped: Bool) {
         if reachability.isReachable == false {
             DispatchQueue.main.async { [weak self] in
                 guard let strongSelf = self, let player = strongSelf.player, let audioPlayer = player.player else { return }
@@ -304,19 +308,19 @@
         }
     }
     
-    func backButton(tapped: Bool) {
+    internal func backButton(tapped: Bool) {
         guard index > 0 else { playerView.enableButtons(); return }
         index -= 1
         updateTrack()
     }
     
-    func skipButton(tapped: Bool) {
+    internal func skipButton(tapped: Bool) {
         guard index < caster.episodes.count - 1 else { playerView.enableButtons(); return }
         index += 1
         updateTrack()
     }
     
-    func updatePlayerViewModel() {
+    private func updatePlayerViewModel() {
         guard let artUrl = caster.podcastArtUrlString else { return }
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }
@@ -328,7 +332,7 @@
         }
     }
     
-    func updateTrack() {
+    private func updateTrack() {
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }
             strongSelf.showLoadingView(loadingPop: strongSelf.loadingPop)

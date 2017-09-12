@@ -5,7 +5,7 @@ enum CoordinatorType {
 }
 
 protocol CoordinatorDelegate: class {
-    func transitionCoordinator(type: CoordinatorType, dataSource: BaseMediaControllerDataSource?)
+    func transitionCoordinator(type: CoordinatorType)
     func updatePodcast(with playlistId: String)
     func podcastItem(toAdd: CasterSearchResult, with index: Int)
     func addItemToPlaylist(podcastPlaylist: PodcastPlaylist)
@@ -37,10 +37,4 @@ extension ApplicationCoordinator {
 protocol NavigationCoordinator: Coordinator {
     var navigationController: UINavigationController { get set }
 }
-
-protocol RootViewControllerProvider: class {
-    var rootViewController: UIViewController { get }
-}
-
-typealias RootViewCoordinator = Coordinator & RootViewControllerProvider
 

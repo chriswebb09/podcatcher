@@ -40,7 +40,7 @@ final class BrowseViewController: BaseCollectionViewController, LoadingPresentin
         }
     }
     
-    init(index: Int, dataSource: BaseMediaControllerDataSource) {
+    init(index: Int) {
         self.dataSource = BrowseCollectionDataSource()
         super.init(nibName: nil, bundle: nil)
         showLoadingView(loadingPop: loadingPop)

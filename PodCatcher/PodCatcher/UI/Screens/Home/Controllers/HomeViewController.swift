@@ -77,7 +77,8 @@ class HomeViewController: BaseCollectionViewController {
     }    
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        super.viewWillAppear(false)
+        view.layoutSubviews()
         navigationController?.navigationBar.topItem?.title = "Subscribed Podcasts"
         if homeDataSource.itemCount == 0 {
             DispatchQueue.main.async {
@@ -90,6 +91,7 @@ class HomeViewController: BaseCollectionViewController {
                 self.navigationItem.setRightBarButton(self.rightButtonItem, animated: false)
             }
         }
+
         
         let managedObjectContext = fetchedResultsController.managedObjectContext
         // Add Observer
@@ -116,6 +118,13 @@ class HomeViewController: BaseCollectionViewController {
         }
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        
+        // needed to clear the text in the back navigation:
+        self.navigationItem.title = " "
+    }
+    
     func loading() {
         DispatchQueue.main.async {
             self.showLoadingView(loadingPop: self.loadingPop)
@@ -127,7 +136,6 @@ class HomeViewController: BaseCollectionViewController {
             self.hideLoadingView(loadingPop: self.loadingPop)
         }
     }
-
     
     @objc func managedObjectContextWillSave(notification: NSNotification) {
         print(notification.name)
@@ -157,7 +165,6 @@ extension HomeViewController: UICollectionViewDelegate, ErrorPresenting, Loading
         switch mode {
         case .subscription:
             let cell = cell as! SubscribedPodcastCell
-           // SpinAnimation.animate(from: cell, with: 2, completion: nil)
             var caster = CasterSearchResult()
             caster.feedUrl = item.feedUrl
             guard let imageData = item.artworkImage, let image = UIImage(data: imageData as Data) else { return }

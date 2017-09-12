@@ -5,7 +5,7 @@ final class StartCoordinator: NavigationCoordinator {
     var type: CoordinatorType = .app
     weak var delegate: CoordinatorDelegate?
     var window: UIWindow!
-    var dataSource = BaseMediaControllerDataSource()
+    
     var childViewControllers: [UIViewController] = []
     
     var navigationController: UINavigationController {
@@ -63,6 +63,6 @@ extension StartCoordinator: SplashViewControllerDelegate {
 extension StartCoordinator: StartViewControllerDelegate {
     
     func continueAsGuestSelected() {
-        delegate?.transitionCoordinator(type: .tabbar, dataSource: dataSource)
+        delegate?.transitionCoordinator(type: .tabbar)
     }
 }

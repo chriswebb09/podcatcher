@@ -211,6 +211,19 @@ extension HomeTabCoordinator: PlayerViewControllerDelegate {
     
     func navigateBack(tapped: Bool) {
         transitionType = .zoom
+        navigationController.delegate = self
+        let vc = navigationController.viewControllers[navigationController.viewControllers.count - 2] as! SearchResultListViewController
+        vc.navPop = true
+        vc.topView.frame = PodcastListConstants.topFrame
+        //print("NAVPOP \(navPop)")
+//        if navPop {
+//            //guard let tabBar = tabBarController?.tabBar, let navHeight = navigationController?.navigationBar.frame.height else { return }
+//            vc.topView.frame = PodcastListConstants.topFrame
+//
+//            //CGRect(x: 0, y: (tabBar.frame.height + 15), width: PodcastListConstants.topFrameWidth, height: PodcastListConstants.topFrameHeight / 1.2)
+//
+//        }
+      //  navigationController.viewControllers.last?.viewDidLayoutSubviews()
         navigationController.popViewController(animated: false)
         navigationController.setNavigationBarHidden(false, animated: false)
         navigationController.viewControllers.last?.tabBarController?.tabBar.alpha = 1
@@ -228,22 +241,22 @@ extension HomeTabCoordinator: UINavigationControllerDelegate {
         switch transitionType {
             
         case .pop:
-            return SimpleAnimationController()
+            return nil
+                //ImageTransitionAnimator()
+                //SimpleAnimationController()
         case .zoom:
             if operation == .push {
                 guard let transitionThumbnail = transitionThumbnail, let transitionThumbnailSuperview = transitionThumbnail.superview else { return nil }
                 thumbnailZoomTransitionAnimator = ImageTransitionAnimator()
-                thumbnailZoomTransitionAnimator?.thumbnailFrame = transitionThumbnailSuperview.convert( transitionThumbnail.frame, to: toVC.view)
+                thumbnailZoomTransitionAnimator?.thumbnailFrame = transitionThumbnailSuperview.convert(transitionThumbnail.frame, to: toVC.view)
             }
             
             if operation == .pop {
                 thumbnailZoomTransitionAnimator?.duration = 0.2
             }
-            thumbnailZoomTransitionAnimator?.operation = operation
             
+            thumbnailZoomTransitionAnimator?.operation = operation
             return thumbnailZoomTransitionAnimator
         }
-        
-      
     }
 }
