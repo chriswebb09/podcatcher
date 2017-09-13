@@ -2,18 +2,16 @@
 
 > PodCatch is an iOS application for streaming and downloading podcasts.
 
-For working pods checkout branch:  fbpod
 
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
-PodCatch parses podcast RSS feeds and streams audio files from the web. Users can subscribe to playlists, download individual podcast episodes and as well create playlists with their favorites. PodCatch uses CoreData, Firebase and the Facebook API to build the user experience. 
+PodCatch parses podcast RSS feeds and streams audio files from the web. Users can subscribe to playlists, download individual podcast episodes and as well create playlists with their favorites.
 
 ![](https://github.com/chriswebb09/podcatcher/blob/master/Resource/demo.gif)
 
 ## Features
 
 - [x] Core Data
-- [x] Firebase
 - [x] Streaming
 
 

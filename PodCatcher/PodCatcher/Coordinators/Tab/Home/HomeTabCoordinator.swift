@@ -22,7 +22,7 @@ final class HomeTabCoordinator: NSObject, NavigationCoordinator, HomeCoordinator
     
     var interactor = SearchResultsIteractor()
     
-    var childViewControllers: [UIViewController] = []
+    private var childViewControllers: [UIViewController] = []
     var navigationController: UINavigationController
     
     let concurrent = DispatchQueue(label: "concurrentBackground",
@@ -215,15 +215,7 @@ extension HomeTabCoordinator: PlayerViewControllerDelegate {
         let vc = navigationController.viewControllers[navigationController.viewControllers.count - 2] as! SearchResultListViewController
         vc.navPop = true
         vc.topView.frame = PodcastListConstants.topFrame
-        //print("NAVPOP \(navPop)")
-//        if navPop {
-//            //guard let tabBar = tabBarController?.tabBar, let navHeight = navigationController?.navigationBar.frame.height else { return }
-//            vc.topView.frame = PodcastListConstants.topFrame
-//
-//            //CGRect(x: 0, y: (tabBar.frame.height + 15), width: PodcastListConstants.topFrameWidth, height: PodcastListConstants.topFrameHeight / 1.2)
-//
-//        }
-      //  navigationController.viewControllers.last?.viewDidLayoutSubviews()
+        
         navigationController.popViewController(animated: false)
         navigationController.setNavigationBarHidden(false, animated: false)
         navigationController.viewControllers.last?.tabBarController?.tabBar.alpha = 1
@@ -242,8 +234,8 @@ extension HomeTabCoordinator: UINavigationControllerDelegate {
             
         case .pop:
             return nil
-                //ImageTransitionAnimator()
-                //SimpleAnimationController()
+            //ImageTransitionAnimator()
+        //SimpleAnimationController()
         case .zoom:
             if operation == .push {
                 guard let transitionThumbnail = transitionThumbnail, let transitionThumbnailSuperview = transitionThumbnail.superview else { return nil }
@@ -252,6 +244,10 @@ extension HomeTabCoordinator: UINavigationControllerDelegate {
             }
             
             if operation == .pop {
+                guard let navHeight = fromVC.navigationController?.navigationBar.frame.height else { return nil }
+                guard let tabHeight = fromVC.tabBarController?.tabBar.frame.height else { return nil }
+                toVC.view.frame = CGRect(x: fromVC.view.frame.minX, y: fromVC.view.frame.maxY + (navHeight + tabHeight), width: fromVC.view.frame.width, height: UIScreen.main.bounds.height)
+                toVC.viewDidLoad()
                 thumbnailZoomTransitionAnimator?.duration = 0.2
             }
             

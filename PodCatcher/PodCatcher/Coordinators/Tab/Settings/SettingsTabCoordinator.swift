@@ -6,8 +6,8 @@ final class SettingsTabCoordinator: NavigationCoordinator {
     var type: CoordinatorType = .tabbar
     
     
-    var childViewControllers: [UIViewController] = []
-    var navigationController: UINavigationController
+    private var childViewControllers: [UIViewController] = []
+    internal var navigationController: UINavigationController
     
     required init(navigationController: UINavigationController) {
         self.navigationController = navigationController

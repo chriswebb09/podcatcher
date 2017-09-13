@@ -56,6 +56,9 @@ class HomeViewController: BaseCollectionViewController {
         super.viewDidLoad()
         initialize()
         setupNavbar()
+        extendedLayoutIncludesOpaqueBars = true
+        edgesForExtendedLayout = [.all]
+        print("HERE")
     }
     
     func initialize() {
@@ -80,6 +83,7 @@ class HomeViewController: BaseCollectionViewController {
         super.viewWillAppear(false)
         view.layoutSubviews()
         navigationController?.navigationBar.topItem?.title = "Subscribed Podcasts"
+        edgesForExtendedLayout = []
         if homeDataSource.itemCount == 0 {
             DispatchQueue.main.async {
                 self.mode = .subscription

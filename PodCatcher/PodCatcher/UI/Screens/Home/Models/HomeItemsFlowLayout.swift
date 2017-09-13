@@ -5,7 +5,7 @@ class HomeItemsFlowLayout: UICollectionViewFlowLayout {
     func setup() {
         scrollDirection = .vertical
         itemSize = CGSize(width: UIScreen.main.bounds.width / 3.2, height: UIScreen.main.bounds.height / 6.6)
-        sectionInset = UIEdgeInsets(top: 5, left: 6, bottom: 0, right: 6)
+        sectionInset = UIEdgeInsets(top: 10, left: 6, bottom: 0, right: 6)
         minimumInteritemSpacing = 0.46
         minimumLineSpacing = 6
     }

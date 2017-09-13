@@ -171,7 +171,7 @@ extension SearchResultListViewController {
                 guard let tabBar = tabBarController?.tabBar, let navHeight = navigationController?.navigationBar.frame.height else { return }
                 
                 let viewHeight = (view.bounds.height - navHeight) - tabBar.frame.height
-                collectionView.frame = CGRect(x: topView.bounds.minX, y: topView.frame.maxY + (10), width: view.bounds.width, height: viewHeight - (topView.frame.height - 90))
+                collectionView.frame = CGRect(x: topView.bounds.minX, y: topView.frame.maxY + (50), width: view.bounds.width, height: viewHeight - (topView.frame.height - 90))
                 
                 print("iPhone 6+/6S+/7+")
             default:

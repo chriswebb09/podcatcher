@@ -1,8 +1,8 @@
 import UIKit
 import CoreData
 
-final class BrowseTabCoordinator: NavigationCoordinator, BrowseCoordinator {
-    
+final class BrowseTabCoordinator: NSObject, NavigationCoordinator, BrowseCoordinator {
+
     weak var delegate: CoordinatorDelegate?
     var type: CoordinatorType = .tabbar
     var feedStore = FeedCoreDataStack()
@@ -10,6 +10,10 @@ final class BrowseTabCoordinator: NavigationCoordinator, BrowseCoordinator {
     var store = SearchResultsDataStore()
     var interactor = SearchResultsIteractor()
     let globalDefault = DispatchQueue.global()
+    
+    private var thumbnailZoomTransitionAnimator: ImageTransitionAnimator?
+    private var transitionThumbnail: UIImageView?
+    
     var managedContext: NSManagedObjectContext! {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return nil }
         let context = appDelegate.persistentContainer.viewContext
@@ -89,7 +93,7 @@ final class BrowseTabCoordinator: NavigationCoordinator, BrowseCoordinator {
         let browseViewController = navigationController.viewControllers[0] as! BrowseViewController
         var results = [CasterSearchResult]()
         let topPodcastGroup = DispatchGroup()
-        var ids: [String] = ["201671138", "1268047665", "1264843400", "1212558767", "1200361736", "1150510297", "1097193327", "1250180134", "523121474", "1074507850", "173001861", "1028908750"]
+        var ids: [String] = ["201671138", "1268047665", "1264843400", "1212558767", "1200361736", "1150510297", "1097193327", "1250180134", "523121474", "1119389968", "1222114325", "1074507850", "173001861", "1028908750", "1279361017"]
         for i in 0..<ids.count {
             self.globalDefault.async(group: topPodcastGroup) { [weak self] in
                 guard let strongSelf = self else { return }
@@ -179,7 +183,7 @@ final class BrowseTabCoordinator: NavigationCoordinator, BrowseCoordinator {
 
 extension BrowseTabCoordinator: BrowseViewControllerDelegate {
     
-    func didSelect(at index: Int, with caster: PodcastSearchResult) {
+    func didSelect(at index: Int, with caster: PodcastSearchResult, with imageView: UIImageView) {
         ApplicationStyling.setupUI()
         let resultsList = SearchResultListViewController(index: index)
         resultsList.delegate = self
@@ -189,6 +193,8 @@ extension BrowseTabCoordinator: BrowseViewControllerDelegate {
             guard let feedUrlString = dataItem.feedUrl else { return }
             browseViewController.showLoadingView(loadingPop: browseViewController.loadingPop)
             let store = SearchResultsDataStore()
+            self.navigationController.delegate = self
+            self.transitionThumbnail?.image = imageView.image
             concurrent.async { [weak self] in
                 guard let strongSelf = self else { return }
                 store.pullFeed(for: feedUrlString) {  response, arg in
@@ -197,7 +203,8 @@ extension BrowseTabCoordinator: BrowseViewControllerDelegate {
                     resultsList.setDataItem(dataItem: dataItem)
                     DispatchQueue.main.async {
                         browseViewController.hideLoadingView(loadingPop: browseViewController.loadingPop)
-                        strongSelf.navigationController.pushViewController(resultsList, animated: false)
+                        resultsList.navPop = true
+                        strongSelf.navigationController.pushViewController(resultsList, animated: true)
                         browseViewController.collectionView.isUserInteractionEnabled = true
                     }
                 }
@@ -260,8 +267,37 @@ extension BrowseTabCoordinator: PlayerViewControllerDelegate {
     }
     
     func navigateBack(tapped: Bool) {
+        let vc = navigationController.viewControllers[navigationController.viewControllers.count - 2] as! SearchResultListViewController
+        vc.navPop = true
+        vc.topView.frame = PodcastListConstants.topFrame
+        vc.view.bringSubview(toFront: vc.topView)
         navigationController.popViewController(animated: false)
         navigationController.setNavigationBarHidden(false, animated: false)
         navigationController.viewControllers.last?.tabBarController?.tabBar.alpha = 1
+    }
+}
+
+extension BrowseTabCoordinator: UINavigationControllerDelegate {
+    
+    func navigationController(navigationController: UINavigationController, animationControllerForOperation operation: UINavigationControllerOperation, fromViewController fromVC: UIViewController, toViewController toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return ImageTransitionAnimator()
+    }
+    
+    func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationControllerOperation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        if operation == .push {
+            guard let transitionThumbnail = transitionThumbnail, let transitionThumbnailSuperview = transitionThumbnail.superview else { return nil }
+            thumbnailZoomTransitionAnimator = ImageTransitionAnimator()
+            thumbnailZoomTransitionAnimator?.thumbnailFrame = transitionThumbnailSuperview.convert(transitionThumbnail.frame, to: toVC.view)
+        }
+        
+        if operation == .pop {
+            thumbnailZoomTransitionAnimator?.duration = 0.2
+//            guard let navHeight = fromVC.navigationController?.navigationBar.frame.height else { return nil }
+//            toVC.view.frame = CGRect(x: fromVC.view.frame.minX, y: fromVC.view.frame.maxY + navHeight, width: fromVC.view.frame.width, height: fromVC.view.frame.height)
+//            toVC.viewDidLoad()
+        }
+        
+        thumbnailZoomTransitionAnimator?.operation = operation
+        return thumbnailZoomTransitionAnimator
     }
 }

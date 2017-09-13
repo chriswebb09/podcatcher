@@ -11,6 +11,7 @@ import UIKit
 class BigAnimation: AnimatableView {
     
     func animate(from view: UIView, with offset: CGFloat?, completion: ((Bool) -> Void)?) {
+        
     }
     
     private func setupSlowAnimation(animation: CABasicAnimation) {

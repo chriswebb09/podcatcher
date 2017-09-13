@@ -10,6 +10,8 @@ final class ListTopView: UIView {
         var podcastImageView = UIImageView()
         podcastImageView.layer.setCellShadow(contentView: podcastImageView)
         podcastImageView.layer.cornerRadius = 6
+        podcastImageView.layer.borderWidth = 1
+        podcastImageView.layer.borderColor = UIColor.darkGray.cgColor
         return podcastImageView
     }()
     

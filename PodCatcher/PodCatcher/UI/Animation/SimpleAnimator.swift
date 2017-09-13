@@ -21,15 +21,14 @@ class SimpleAnimationController: NSObject, UIViewControllerAnimatedTransitioning
      
         let background = UIView(frame: UIScreen.main.bounds)
         CALayer.createGradientLayer(with: StartViewConstants.gradientColors, layer: background.layer, bounds: UIScreen.main.bounds)
-       // containerView.addSubview(background)
-//        fromViewController?.view.addSubview(background)
+
         let fromFrame = fromViewController?.view.frame
         UIView.animate(withDuration: 0.25, animations: {
             let transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
             transform.concatenating(CGAffineTransform(rotationAngle: CGFloat(Double.pi)))
             toViewController.view.frame = UIScreen.main.bounds
             fromViewController?.view.transform = transform
-             //containerView.addSubview(background)
+
         }, completion: { finished in
              containerView.addSubview(background)
             
@@ -38,7 +37,7 @@ class SimpleAnimationController: NSObject, UIViewControllerAnimatedTransitioning
             let transform = CGAffineTransform(scaleX: 1, y: 1)
             
             transform.concatenating(CGAffineTransform(rotationAngle: CGFloat(Double.pi)))
-            // containerView.addSubview(background)
+ 
             fromViewController?.view.alpha = 0
             containerView.addSubview(toViewController.view)
             let duration = self.transitionDuration(using: transitionContext)

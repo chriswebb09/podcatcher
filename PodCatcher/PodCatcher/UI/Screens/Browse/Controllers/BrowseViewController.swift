@@ -96,20 +96,19 @@ final class BrowseViewController: BaseCollectionViewController, LoadingPresentin
             }
         }
     }
-    
-    
 }
 
 extension BrowseViewController: UICollectionViewDelegate {
     
     @objc func selectAt() {
-        coordinator?.didSelect(at: 0, with: dataSource.items[0])
+        coordinator?.didSelect(at: 0, with: dataSource.items[0], with: topView.podcastImageView)
         topView.removeGestureRecognizer(tap)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.isUserInteractionEnabled = false
-        coordinator?.didSelect(at: indexPath.row, with: self.dataSource.items[indexPath.row])
+        let cell = collectionView.cellForItem(at: indexPath) as! TopPodcastCell
+        coordinator?.didSelect(at: indexPath.row, with: self.dataSource.items[indexPath.row], with: cell.albumArtView)
     }
 }
 

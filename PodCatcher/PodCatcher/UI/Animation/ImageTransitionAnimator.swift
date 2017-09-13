@@ -85,9 +85,9 @@ class ImageTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioning {
             } else {
                 
                 podsFeedView.transform = CGAffineTransform.identity
+                
                 podsFeedView.center = CGPoint(x: finalFrame.midX, y: finalFrame.midY)
                 podsFeedView.frame = fullFrame
-                
             }
             
             podDetailView.center = CGPoint(x: finalFrame.midX, y: finalFrame.midY)
