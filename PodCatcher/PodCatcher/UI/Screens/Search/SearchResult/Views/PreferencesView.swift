@@ -12,11 +12,9 @@ final class PreferencesView: UIView {
         return moreMenuButton
     }()
     
-    
     var infoButton: UIButton = {
         var infoButton = UIButton()
         let infoImage = #imageLiteral(resourceName: "info-icon").withRenderingMode(.alwaysTemplate)
-        
         infoButton.setImage(infoImage, for: .normal)
         infoButton.imageView?.tintColor = .white
         return infoButton
@@ -50,16 +48,16 @@ final class PreferencesView: UIView {
         moreButton.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         moreButton.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.8).isActive = true
         moreButton.rightAnchor.constraint(equalTo: rightAnchor, constant: UIScreen.main.bounds.width * -0.04).isActive = true
-        moreMenuButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.22).isActive = true
+        moreMenuButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.2).isActive = true
     }
     
     func setup(infoButton: UIButton) {
         addSubview(infoButton)
         infoButton.translatesAutoresizingMaskIntoConstraints = false
         infoButton.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        infoButton.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.55).isActive = true
+        infoButton.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.6).isActive = true
         infoButton.leftAnchor.constraint(equalTo: leftAnchor, constant: UIScreen.main.bounds.width * 0.04).isActive = true
-        infoButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.06).isActive = true
+        infoButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.057).isActive = true
     }
     
     func setup(placeholder: UIView) {

@@ -79,7 +79,7 @@ final class ListTopView: UIView {
         preferencesView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
         preferencesView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         if #available(iOS 11, *) {
-            preferencesView.heightAnchor.constraint(equalTo: heightAnchor,  multiplier: 0.14).isActive = true
+            preferencesView.heightAnchor.constraint(equalTo: heightAnchor,  multiplier: 0.13).isActive = true
         } else {
             preferencesView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: PodcastListTopViewConstants.preferencesViewHeightMultiplier).isActive = true
         }

@@ -52,7 +52,28 @@ final class BackingViewController: UIViewController {
             self.view.add(self.sliderControl)
             let titles = ["Subscribed", "Downloaded", "Tags"]
             self.sliderControl.translatesAutoresizingMaskIntoConstraints = false
-            self.sliderControl.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 0).isActive = true
+            if UIDevice().userInterfaceIdiom == .phone {
+                switch UIScreen.main.nativeBounds.height {
+                case 480:
+                    print("iPhone Classic")
+                case 960:
+                    self.sliderControl.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 0).isActive = true
+                    print("iPhone 4 or 4S")
+                case 1136:
+                    self.sliderControl.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 0).isActive = true
+                    print("1136")
+                case 1334:
+                    self.sliderControl.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 0).isActive = true
+                    print("1334")
+                case 2208:
+                    self.sliderControl.topAnchor.constraint(equalTo: self.view.topAnchor, constant: -8).isActive = true
+                    print("2208")
+                default:
+                    self.sliderControl.topAnchor.constraint(equalTo: self.view.topAnchor, constant: -8).isActive = true
+                    print("default")
+                }
+            }
+            
             self.sliderControl.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1).isActive = true
             self.sliderControl.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.07).isActive = true
             self.sliderControl.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: 0).isActive = true

@@ -27,13 +27,11 @@ final class TabBarController: UITabBarController {
     func setup(with controllers: [UINavigationController]) {
         setTabTitles(controllers: controllers)
     }
-    
- //   #imageLiteral(resourceName: "search").withRenderingMode(.alwaysTemplate)
-  //  #imageLiteral(resourceName: "home").withRenderingMode(.a
+
     func setTabTitles(controllers: [UINavigationController]) {
-        let home = #imageLiteral(resourceName: "house-gray").withRenderingMode(.alwaysTemplate)
-        let normalImage = #imageLiteral(resourceName: "lightGrayPodcasts").withRenderingMode(.alwaysTemplate)
-        let normalImageTwo = #imageLiteral(resourceName: "heart-gray").withRenderingMode(.alwaysTemplate)
+        let home = #imageLiteral(resourceName: "home").withRenderingMode(.alwaysTemplate)
+        let normalImage = #imageLiteral(resourceName: "podcasts-icon-black").withRenderingMode(.alwaysTemplate)
+        let normalImageTwo = #imageLiteral(resourceName: "heart-icon-black").withRenderingMode(.alwaysTemplate)
         let normalImageThree = #imageLiteral(resourceName: "search-gray").withRenderingMode(.alwaysTemplate)
         let normalImageFour = #imageLiteral(resourceName: "settings-dark-gray").withRenderingMode(.alwaysTemplate)
         

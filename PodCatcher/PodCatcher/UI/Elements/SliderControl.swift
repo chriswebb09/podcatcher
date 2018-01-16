@@ -15,8 +15,8 @@ class SliderControl: UIControl {
     var offsetter: CGFloat = 0
     
     private struct Constants {
-        static let height: CGFloat = 30
-        static let topBottomMargin: CGFloat = 5
+        static let height: CGFloat = 40
+        static let topBottomMargin: CGFloat = 10
         static let leadingTrailingMargin: CGFloat = 0
     }
     
@@ -83,6 +83,8 @@ class SliderControl: UIControl {
         addSubview(containerView)
         containerView.addSubview(backgroundView)
         containerView.addSubview(selectedContainerView)
+        //containerView.layer.borderWidth = 1
+        //containerView.layer.borderColor = UIColor.gray.cgColor
         containerView.addSubview(sliderView)
         
         selectedContainerView.layer.mask = sliderView.sliderMaskView.layer
@@ -119,13 +121,13 @@ class SliderControl: UIControl {
             case 1136:
                 print("1136")
                 containerView.frame = CGRect(x: Constants.leadingTrailingMargin,
-                                             y:0,
+                                             y: Constants.height / 10,
                                              width: bounds.width - Constants.leadingTrailingMargin * 3,
                                              height: Constants.height)
             case 1334:
                 print("1334")
                 containerView.frame = CGRect(x: Constants.leadingTrailingMargin,
-                                             y: Constants.height / 7,
+                                             y: Constants.height / 40,
                                              width: bounds.width - Constants.leadingTrailingMargin * 3,
                                              height: Constants.height)
                 
@@ -148,9 +150,11 @@ class SliderControl: UIControl {
         backgroundView.frame = frame
         
         selectedContainerView.frame = frame
-        sliderView.frame = CGRect(x: 2, y: 0, width: segmentWidth, height: backgroundView.frame.height)
+        sliderView.frame = CGRect(x: 2, y: 3, width: segmentWidth, height: backgroundView.frame.height - 6)
         
-        let cornerRadius = backgroundView.frame.height / 2
+        let cornerRadius = backgroundView.frame.height / 2.2
+            //CGFloat(10)
+            //backgroundView.frame.height / 2
         
         sliderView.cornerRadius = cornerRadius
         

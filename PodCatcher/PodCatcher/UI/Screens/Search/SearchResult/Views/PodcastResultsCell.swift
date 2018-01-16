@@ -13,7 +13,8 @@ final class PodcastResultCell: UICollectionViewCell {
     
     private var moreButton: UIButton = {
         let moreButton = UIButton()
-        moreButton.setImage(#imageLiteral(resourceName: "more-button-circle"), for: .normal)
+        moreButton.setImage(#imageLiteral(resourceName: "more-button-circle").withRenderingMode(.alwaysTemplate), for: .normal)
+        moreButton.tintColor = .darkGray
         return moreButton
     }()
     
@@ -30,8 +31,8 @@ final class PodcastResultCell: UICollectionViewCell {
         var playTimeLabel = UILabel()
         playTimeLabel.sizeToFit()
         playTimeLabel.textAlignment = .left
-        playTimeLabel.textColor = .black
-        playTimeLabel.font = UIFont(name: "AvenirNext-DemiBold", size: 12)
+        playTimeLabel.textColor = .darkGray
+        playTimeLabel.font = UIFont(name: "AvenirNext-Regular", size: 12)
         return playTimeLabel
     }()
     
@@ -81,8 +82,8 @@ final class PodcastResultCell: UICollectionViewCell {
         contentView.add(moreButton)
         moreButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            moreButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.08),
-            moreButton.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.4),
+            moreButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.076),
+            moreButton.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.39),
             moreButton.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: PodcastCellConstants.playtimeLabelRightOffset),
             moreButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
             ])

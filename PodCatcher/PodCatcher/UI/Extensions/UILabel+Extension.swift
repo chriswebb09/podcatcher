@@ -42,11 +42,8 @@ extension UIButton {
         self.init(type: .custom)
         setTitle(title, for: .normal)
         backgroundColor = UIColor(red:0.47, green:0.78, blue:1.00, alpha:1.0)
-            //UIColor(red:0.35, green:0.69, blue:0.93, alpha:1.0)
-            ///UIColor.lightGray
-        contentEdgeInsets = .init(top: 5, left: 10, bottom: 5, right: 10)
+        contentEdgeInsets = .init(top: 5, left: 5, bottom: 5, right: 5)
         layer.borderColor = UIColor.lightGray.cgColor
-            //UIColor.darkGray.cgColor
         layer.borderWidth = 1
         layer.cornerRadius = intrinsicContentSize.height / 2
         layer.setShadow(for: UIColor(red:0.47, green:0.78, blue:1.00, alpha:1.0))

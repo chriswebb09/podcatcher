@@ -30,7 +30,7 @@ final class DownloadedCell: UITableViewCell, Reusable {
     var moreButton: UIButton = {
         var more = UIButton()
         more.setImage(#imageLiteral(resourceName: "more-icon"), for: .normal)
-        more.tintColor = .black
+        more.tintColor = .darkGray
         return more
     }()
     

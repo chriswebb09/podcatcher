@@ -7,7 +7,33 @@
 //
 
 import UIKit
-//UIOffset(horizontal: 10, vertical: 10)
+
+func justifiedFlowLayout(containerSize: CGSize, spacing: UIOffset, sizes: [CGSize]) -> [CGRect] {
+    var lines: [[CGSize]] = [[]]
+    for element in sizes {
+        let lastline = lines.last!
+        let projectedWidth = lastline.width(spacing: spacing.horizontal) + element.width + spacing.horizontal
+        if projectedWidth > containerSize.width && !lastline.isEmpty {
+            lines.append([])
+        }
+        lines[lines.endIndex-1].append(element)
+    }
+    var result: [CGRect] = []
+    var current: CGPoint = .zero
+    for line in lines {
+        let width = line.width(spacing: 0)
+        let actualSpacing = (containerSize.width - width) / CGFloat(line.count - 1)
+        for element in line {
+            result.append(CGRect(origin: current, size: element).integral)
+            current.x += element.width + actualSpacing
+        }
+        
+        current.y += line.height + spacing.vertical
+        current.x = 0
+    }
+    return result
+}
+    
 func flowLayout(containerSize: CGSize, spacing: UIOffset = UIOffset(horizontal: 8, vertical: 8), sizes: [CGSize]) -> [CGRect] {
     var current = CGPoint.zero
     var lineHeight = 0 as CGFloat
@@ -28,12 +54,14 @@ func flowLayout(containerSize: CGSize, spacing: UIOffset = UIOffset(horizontal: 
     return result
 }
 
+
 final class ButtonsView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
         let sizes = subviews.map { $0.intrinsicContentSize }
-        let frames = flowLayout(containerSize: bounds.size, sizes: sizes)
+        let spacing = UIOffset(horizontal: 10, vertical: 10)
+        let frames = justifiedFlowLayout(containerSize: bounds.size, spacing: spacing, sizes: sizes)
         for (idx, frame) in frames.enumerated() {
             subviews[idx].frame = frame
         }

@@ -183,11 +183,24 @@ extension HomeViewController: UICollectionViewDelegate, ErrorPresenting, Loading
             caster.feedUrl = item.feedUrl
             guard let imageData = item.artworkImage, let image = UIImage(data: imageData as Data) else { return }
             let imageView = cell.getAlbumImageView()
+            UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 5, options: [],
+                           animations: {
+                            cell.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+                            
+            }, completion: { finished in
+                UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 5, options: .curveEaseInOut,
+                               animations: {
+                                cell.transform = CGAffineTransform(scaleX: 1, y: 1)
+                                
+                }, completion: nil)
+            })
             delegate?.didSelect(at: indexPath.row, with: item, image: image, imageView: imageView)
         case .edit:
             update(indexPath: indexPath, item: item)
         }
     }
+    
+    
     
     func remove(for indexPath: IndexPath) {
         do {
