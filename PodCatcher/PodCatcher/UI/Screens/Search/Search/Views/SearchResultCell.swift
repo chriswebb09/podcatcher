@@ -13,7 +13,7 @@ final class SearchResultCell: UITableViewCell, Reusable {
     private var titleLabel: UILabel = {
         let title = UILabel()
         title.textColor = .black
-        title.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.semibold)
+        title.font = UIFont(name: "AvenirNext-Regular", size: 12)
         title.textAlignment = .center
         title.numberOfLines = 0
         return title
@@ -31,7 +31,8 @@ final class SearchResultCell: UITableViewCell, Reusable {
         setup(titleLabel: titleLabel)
         setup(albumArtView: albumArtView)
         setupSeparator()
-        selectionStyle = .none        
+        selectionStyle = .none
+       // selectionStyle = .gray
     }
     
     func configureCell(with imageUrl: URL, title: String) {
@@ -42,7 +43,6 @@ final class SearchResultCell: UITableViewCell, Reusable {
         UIView.animate(withDuration: 0.02, animations: {
             self.albumArtView.alpha = 1
         })
-        //albumArtView.layer.setCellShadow(contentView: self)
     }
     
     private func setupSeparator() {
@@ -73,28 +73,34 @@ final class SearchResultCell: UITableViewCell, Reusable {
     private func setup(separatorView: UIView) {
         contentView.addSubview(separatorView)
         separatorView.translatesAutoresizingMaskIntoConstraints = false
-        separatorView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.01).isActive = true
-        separatorView.widthAnchor.constraint(equalTo: contentView.widthAnchor).isActive = true
-        separatorView.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-        separatorView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            separatorView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.01),
+            separatorView.widthAnchor.constraint(equalTo: contentView.widthAnchor),
+            separatorView.rightAnchor.constraint(equalTo: rightAnchor),
+            separatorView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            ])
     }
     
     private func setup(titleLabel: UILabel) {
         contentView.addSubview(titleLabel)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor, constant: contentView.bounds.width * 0.16).isActive = true
-        titleLabel.centerYAnchor.constraint(equalTo:  contentView.centerYAnchor).isActive = true
-        titleLabel.heightAnchor.constraint(equalTo: contentView.heightAnchor).isActive = true
-        titleLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.58).isActive = true
+        NSLayoutConstraint.activate([
+            titleLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor, constant: contentView.bounds.width * 0.16),
+            titleLabel.centerYAnchor.constraint(equalTo:  contentView.centerYAnchor),
+            titleLabel.heightAnchor.constraint(equalTo: contentView.heightAnchor),
+            titleLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.64)
+            ])
     }
     
     private func setup(albumArtView: UIImageView) {
         contentView.addSubview(albumArtView)
         albumArtView.translatesAutoresizingMaskIntoConstraints = false
-        albumArtView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: contentView.bounds.width * 0.02).isActive = true
-        albumArtView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
-        albumArtView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.88).isActive = true
-        albumArtView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.29).isActive = true
+        NSLayoutConstraint.activate([
+            albumArtView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: contentView.bounds.width * 0.02),
+            albumArtView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            albumArtView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.88),
+            albumArtView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.29)
+            ])
     }
     
     override func prepareForReuse() {

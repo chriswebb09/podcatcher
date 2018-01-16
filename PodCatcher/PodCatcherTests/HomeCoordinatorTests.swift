@@ -7,7 +7,6 @@ class HomeCoordinatorTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        homeCoordinator = HomeTabCoordinator(navigationController: UINavigationController(rootViewController: HomeViewController(dataSource: BaseMediaControllerDataSource())))
     }
     
     override func tearDown() {

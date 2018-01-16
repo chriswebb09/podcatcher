@@ -1,5 +1,14 @@
+//
+//  TopPodcast+CoreDataProperties.swift
+//  
+//
+//  Created by Christopher Webb-Orenstein on 1/11/18.
+//
+//
+
 import Foundation
 import CoreData
+
 
 extension TopPodcast {
 
@@ -12,8 +21,9 @@ extension TopPodcast {
     @NSManaged public var numberOfEpisodes: Int32
     @NSManaged public var podcastArt: NSData?
     @NSManaged public var podcastArtist: String?
+    @NSManaged public var podcastArtUrl: String?
     @NSManaged public var podcastFeedUrlString: String?
     @NSManaged public var podcastTitle: String?
-    @NSManaged public var podcastArtUrl: String?
+    @NSManaged public var tags: [NSString]?
 
 }

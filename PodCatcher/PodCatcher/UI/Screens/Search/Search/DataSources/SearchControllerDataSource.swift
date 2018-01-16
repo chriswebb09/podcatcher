@@ -1,36 +1,17 @@
 import UIKit
 
-final class PodcastSearchResultLoadOperation: Operation {
-    
-    var topItem: PodcastSearchResult?
-    var loadingCompleteHandler: ((PodcastSearchResult) -> ())?
-    
-    private let _topItem: PodcastSearchResult
-    
-    init(_ topItem: PodcastSearchResult) {
-        _topItem = topItem
-    }
-    
-    override func main() {
-        if isCancelled { return }
-        self.topItem = _topItem
-        
-        if let loadingCompleteHandler = loadingCompleteHandler {
-            DispatchQueue.main.async { [weak self] in
-                guard let strongSelf = self else { return }
-                loadingCompleteHandler(strongSelf._topItem)
-            }
-        }
-    }
-}
-
 final class SearchControllerDataSource: NSObject {
     
     var interactor =  SearchResultsIteractor()
+    
     var items = [PodcastSearchResult]()
+    
     let loadingQueue = OperationQueue()
+    
     fileprivate var sections: [String] = []
+    
     var loadingOperations = [IndexPath : PodcastSearchResultLoadOperation]()
+    
     var viewShown: ShowView {
         if items.count > 0 {
             return .collection

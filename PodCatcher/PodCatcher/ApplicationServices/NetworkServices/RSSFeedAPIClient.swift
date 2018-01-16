@@ -8,8 +8,9 @@ class RSSFeedAPIClient: NSObject {
             if urlString.hasSuffix(npr) {
                 let rssParser = NPRParser()
                 rssParser.recordKey = "item"
-                rssParser.dictionaryKeys = ["itunes:new-feed-url", "itunes:summary", " itunes:author", "tunes:subtitle", "pubDate", "enclosure", "itunes:duration", "title", "audio/mp3", "audio/mpeg", "itunes:keywords", "itunes:image", "category", "itunes:author", "itunes:summary", "description", "enclosure"]
+                rssParser.dictionaryKeys = ["itunes:new-feed-url", "itunes:summary", "itunes:category",  " itunes:author", "tunes:subtitle", "pubDate", "enclosure", "itunes:duration", "title", "audio/mp3", "audio/mpeg", "itunes:keywords", "itunes:image", "category", "itunes:author", "itunes:summary", "itunes:category", "description", "enclosure"]
                 rssParser.parseResponse(data) { parsedRSS in
+                 //   print(parsedRSS)
                     DispatchQueue.main.async {
                         completion(parsedRSS)
                     }
@@ -34,6 +35,7 @@ class RSSFeedAPIClient: NSObject {
                 } else {
                     let rssParser = RSSParser()
                     rssParser.parseResponse(data) { parsedRSS in
+                      //  print(parsedRSS)
                         DispatchQueue.main.async {
                             completion(parsedRSS, nil)
                         }

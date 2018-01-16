@@ -2,6 +2,22 @@ import UIKit
 
 final class PodcastPlaylistCell: UICollectionViewCell {
     
+    enum CellState {
+        case playing
+        case paused
+    }
+    
+    var currentState: CellState = .paused {
+        didSet {
+            switch currentState {
+            case .paused:
+                playButton.setImage(#imageLiteral(resourceName: "play"), for: .normal)
+            case .playing:
+                playButton.setImage(#imageLiteral(resourceName: "pause-round"), for: .normal)
+            }
+        }
+    }
+    
     // MARK: - UI Properties
     
     var colorBackgroundView: UIView = {
@@ -28,14 +44,6 @@ final class PodcastPlaylistCell: UICollectionViewCell {
         return play
     }()
     
-    var pauseButton: UIButton = {
-        var pause = UIButton()
-        pause.setImage(#imageLiteral(resourceName: "pause-round"), for: .normal)
-        pause.alpha = 0.6
-        pause.tintColor = .black
-        return pause
-    }()
-    
     // MARK: - Configuration Methods
     
     override func layoutSubviews() {
@@ -44,7 +52,6 @@ final class PodcastPlaylistCell: UICollectionViewCell {
         isUserInteractionEnabled = true
         contentView.layer.borderColor = UIColor.clear.cgColor
         contentView.layer.masksToBounds = true
-        pauseButton.isHidden = true
         layer.podcastCell(viewRadius: contentView.layer.cornerRadius + 10)
         contentView.layer.setCellShadow(contentView: contentView)
     }
@@ -53,18 +60,12 @@ final class PodcastPlaylistCell: UICollectionViewCell {
         backgroundColor = .lightGray
         layoutSubviews()
         setupConstraints()
-        buttonConstraint(button: pauseButton)
         buttonConstraint(button: playButton)
         layoutIfNeeded()
         colorBackgroundView.frame = contentView.frame
         contentView.addSubview(colorBackgroundView)
         contentView.sendSubview(toBack: colorBackgroundView)
         podcastTitleLabel.text = model.podcastTitle
-    }
-    
-    func switchAlpha(hidden: Bool) {
-        pauseButton.isHidden = hidden
-        playButton.isHidden = !hidden
     }
     
     func setupConstraints() {
@@ -79,9 +80,21 @@ final class PodcastPlaylistCell: UICollectionViewCell {
     func buttonConstraint(button: UIButton) {
         contentView.addSubview(button)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.095).isActive = true
-        button.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.49).isActive = true
-        button.centerXAnchor.constraint(equalTo: centerXAnchor, constant: contentView.bounds.width * 0.42).isActive = true
-        button.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
+        if #available(iOS 11, *) {
+            NSLayoutConstraint.activate([
+                button.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.08),
+                button.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.4),
+                button.centerXAnchor.constraint(equalTo: centerXAnchor, constant: contentView.bounds.width * 0.40)
+                ])
+        } else {
+            NSLayoutConstraint.activate([
+                button.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.095),
+                button.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.49),
+                button.centerXAnchor.constraint(equalTo: centerXAnchor, constant: contentView.bounds.width * 0.42)
+                ])
+        }
+        NSLayoutConstraint.activate([
+            button.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+            ])
     }
 }

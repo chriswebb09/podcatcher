@@ -28,13 +28,13 @@ final class SubscribedPodcastCell: UICollectionViewCell {
         return album
     }()
     
-   private var overlayView: UIView = {
+    private var overlayView: UIView = {
         let overlay = UIView()
         overlay.backgroundColor = .black
         return overlay
     }()
     
-   private var deleteImageView: UIImageView = {
+    private var deleteImageView: UIImageView = {
         let delete = UIImageView()
         let image = #imageLiteral(resourceName: "circle-x").withRenderingMode(.alwaysTemplate)
         delete.image = image
@@ -67,6 +67,7 @@ final class SubscribedPodcastCell: UICollectionViewCell {
         self.albumArtView.image = model.albumImageUrl
         self.layoutSubviews()
         cellState = mode
+        dump(cellState)
         if cellState == .done {
             print("done")
         }
@@ -97,9 +98,11 @@ final class SubscribedPodcastCell: UICollectionViewCell {
     private func setup(albumArtView: UIImageView) {
         contentView.addSubview(albumArtView)
         albumArtView.translatesAutoresizingMaskIntoConstraints = false
-        albumArtView.heightAnchor.constraint(equalTo: heightAnchor).isActive = true
-        albumArtView.widthAnchor.constraint(equalTo: contentView.widthAnchor).isActive = true
-        albumArtView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            albumArtView.heightAnchor.constraint(equalTo: heightAnchor),
+            albumArtView.widthAnchor.constraint(equalTo: contentView.widthAnchor),
+            albumArtView.topAnchor.constraint(equalTo: contentView.topAnchor)
+            ])
     }
     
     override func prepareForReuse() {
@@ -118,9 +121,11 @@ final class SubscribedPodcastCell: UICollectionViewCell {
     func setup(deleteImageView: UIImageView) {
         overlayView.addSubview(deleteImageView)
         deleteImageView.translatesAutoresizingMaskIntoConstraints = false
-        deleteImageView.topAnchor.constraint(equalTo: overlayView.topAnchor, constant: overlayView.frame.height * 0.02).isActive = true
-        deleteImageView.leftAnchor.constraint(equalTo: overlayView.leftAnchor, constant: overlayView.frame.width * 0.02).isActive = true
-        deleteImageView.heightAnchor.constraint(equalTo: overlayView.heightAnchor, multiplier: 0.21).isActive = true
-        deleteImageView.widthAnchor.constraint(equalTo: overlayView.widthAnchor, multiplier: 0.18).isActive = true
+        NSLayoutConstraint.activate([
+            deleteImageView.topAnchor.constraint(equalTo: overlayView.topAnchor, constant: overlayView.frame.height * 0.02),
+            deleteImageView.leftAnchor.constraint(equalTo: overlayView.leftAnchor, constant: overlayView.frame.width * 0.02),
+            deleteImageView.heightAnchor.constraint(equalTo: overlayView.heightAnchor, multiplier: 0.21),
+            deleteImageView.widthAnchor.constraint(equalTo: overlayView.widthAnchor, multiplier: 0.18)
+            ])
     }
 }

@@ -40,7 +40,7 @@ struct FeedCoreDataStack {
     }
     
     mutating func fetchFromCore() {
-      
+        
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Subscription")
         do {
             feeds = try managedContext.fetch(fetchRequest)

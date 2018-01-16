@@ -4,7 +4,9 @@ import ReachabilitySwift
 final class BrowseViewController: BaseCollectionViewController, LoadingPresenting {
     
     weak var delegate: BrowseViewControllerDelegate?
+    
     weak var coordinator: BrowseCoordinator?
+    
     var currentPlaylistId: String = ""
     var reach: Reachable?
     
@@ -78,7 +80,7 @@ final class BrowseViewController: BaseCollectionViewController, LoadingPresentin
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tap = UITapGestureRecognizer(target: self, action: #selector(selectAt))
-        topView.addGestureRecognizer(tap)
+        topView.podcastImageView.addGestureRecognizer(tap)
         NotificationCenter.default.addObserver(self, selector: #selector(reachabilityChanged), name: ReachabilityChangedNotification, object: reachability)
         do {
             try reachability.startNotifier()
@@ -89,8 +91,9 @@ final class BrowseViewController: BaseCollectionViewController, LoadingPresentin
             self.view.alpha = 1
             self.navigationController?.setNavigationBarHidden(true, animated: false)
         }
-        
+
         DispatchQueue.main.async { [weak self] in
+            
             if let strongSelf = self {
                 strongSelf.collectionView.reloadData()
             }

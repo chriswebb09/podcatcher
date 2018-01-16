@@ -48,18 +48,22 @@ final class StartView: UIView {
         addSubview(logoView)
         logoView.translatesAutoresizingMaskIntoConstraints = false
         logoView.translatesAutoresizingMaskIntoConstraints = false
-        logoView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        logoView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: StartViewConstants.logoCenterOffset).isActive = true
-        logoView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: StartViewConstants.logoWidthMultiplier).isActive = true
-        logoView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: StartViewConstants.logoHeightMultiplier).isActive = true
+        NSLayoutConstraint.activate([
+            logoView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            logoView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: StartViewConstants.logoCenterOffset),
+            logoView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: StartViewConstants.logoWidthMultiplier),
+            logoView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: StartViewConstants.logoHeightMultiplier)
+            ])
     }
     
     private func sharedLayout(view: UIView) {
         addSubview(view)
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        view.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
-        view.heightAnchor.constraint(equalTo: heightAnchor, multiplier:  StartViewConstants.logoHeightMultiplier).isActive = true
+        NSLayoutConstraint.activate([
+            view.centerXAnchor.constraint(equalTo: centerXAnchor),
+            view.widthAnchor.constraint(equalTo: widthAnchor),
+            view.heightAnchor.constraint(equalTo: heightAnchor, multiplier:  StartViewConstants.logoHeightMultiplier)
+            ])
     }
     
     private func setup(guestUserButton: UIButton) {

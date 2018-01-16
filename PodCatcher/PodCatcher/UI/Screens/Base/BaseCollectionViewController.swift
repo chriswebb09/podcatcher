@@ -3,7 +3,7 @@ import UIKit
 class BaseCollectionViewController: BaseViewController {
     
     lazy var collectionView : UICollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
-    
+   
     var background = UIView()
     
     override func viewDidLoad() {

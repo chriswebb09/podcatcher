@@ -1,3 +1,11 @@
+//
+//  PodcastPlaylistItem+CoreDataProperties.swift
+//  
+//
+//  Created by Christopher Webb-Orenstein on 1/11/18.
+//
+//
+
 import Foundation
 import CoreData
 
@@ -20,6 +28,7 @@ extension PodcastPlaylistItem {
     @NSManaged public var episodeTitle: String?
     @NSManaged public var playlistId: String?
     @NSManaged public var stringDate: String?
+    @NSManaged public var tags: [NSString]?
     @NSManaged public var playlist: PodcastPlaylist?
 
 }

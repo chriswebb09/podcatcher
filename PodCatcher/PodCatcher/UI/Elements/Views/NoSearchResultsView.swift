@@ -5,7 +5,8 @@ final class NoSearchResultsView: UIView {
     private var infoLabel: UILabel = {
         var label = UILabel.setupInfoLabel(infoText: "Could not locate any podcasts with that name.")
         label.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.medium)
-        label.textColor = Colors.brightHighlight
+        label.textColor = Style.Color.Highlight.brightHighlight
+            //Colors.brightHighlight
         label.alpha = 1
         return label
     }()
@@ -25,25 +26,25 @@ final class NoSearchResultsView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        backgroundColor = UIColor(red:0.32, green:0.13, blue:0.70, alpha:1.0)
+        //backgroundColor = UIColor(red:0.32, green:0.13, blue:0.70, alpha:1.0)
         setup(icon: podcastIcon)
         setup(infoLabel: infoLabel)
         addSubview(backgroundImageView)
-        addBlurEffect()
+       // addBlurEffect()
     }
     
     func configure() {
         layoutSubviews()
     }
     
-    func addBlurEffect() {
-        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
-        let blurEffectView = UIVisualEffectView(effect: blurEffect)
-        blurEffectView.frame = bounds
-        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        backgroundImageView.addSubview(blurEffectView)
-    }
-    
+//    func addBlurEffect() {
+//        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
+//        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+//        blurEffectView.frame = bounds
+//        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+//        backgroundImageView.addSubview(blurEffectView)
+//    }
+//
     private func setup(icon: UIView) {
         addSubview(icon)
         icon.translatesAutoresizingMaskIntoConstraints = false

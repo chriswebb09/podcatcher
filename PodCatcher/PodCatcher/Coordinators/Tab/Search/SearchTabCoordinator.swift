@@ -5,6 +5,7 @@ final class SearchTabCoordinator: NavigationCoordinator {
     weak var delegate: CoordinatorDelegate?
     var type: CoordinatorType = .tabbar
     var feedStore = FeedCoreDataStack()
+    var podcastsData =  PodcastCoreData()
     //var dataSource: BaseMediaControllerDataSource!
     let concurrent = DispatchQueue(label: "concurrentBackground",
                                    qos: .background,
@@ -88,7 +89,7 @@ extension SearchTabCoordinator: PodcastListViewControllerDelegate {
     }
     
     
-    func didSelectPodcastAt(at index: Int, podcast: CasterSearchResult, with episodes: [Episodes]) {
+    func didSelectPodcastAt(at index: Int, podcast: CasterSearchResult, with episodes: [Episode]) {
         
         concurrent.async { [weak self] in
             guard let strongSelf = self else { return }
@@ -107,6 +108,12 @@ extension SearchTabCoordinator: PodcastListViewControllerDelegate {
 }
 
 extension SearchTabCoordinator: PlayerViewControllerDelegate {
+    func saveItemCoreData(item: CasterSearchResult, index: Int, image: UIImage) {
+        var imageData = UIImagePNGRepresentation(image)
+        podcastsData.save(title: item.episodes[index].title, audioUrl: item.episodes[index].audioUrlSting, podcasterName: item.podcastArtist!, podcastId: item.artistId, episodeId: item.episodes[index].podcastTitle, podcastImage: imageData as! NSData)
+        //  PodcastCoreData
+    }
+    
     
     func addItemToPlaylist(item: CasterSearchResult, index: Int) {
         let controller = navigationController.viewControllers.last as! PlayerViewController

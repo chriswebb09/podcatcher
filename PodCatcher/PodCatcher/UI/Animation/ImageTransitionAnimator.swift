@@ -10,7 +10,7 @@ import UIKit
 
 class ImageTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioning {
    
-    var duration: TimeInterval = 0.9
+    var duration: TimeInterval = 0.25
     
     var operation: UINavigationControllerOperation = .push
     
@@ -70,7 +70,7 @@ class ImageTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         
         containerView.bringSubview(toFront: podDetailView)
         
-        UIView.animate(withDuration: duration, delay: 0.0, usingSpringWithDamping: 20, initialSpringVelocity: 0, options: [.curveEaseInOut, .curveEaseOut], animations: {
+        UIView.animate(withDuration: duration, delay: 0.0, usingSpringWithDamping: 80, initialSpringVelocity: 10, options: [.curveEaseInOut], animations: {
 
             podDetailView.alpha = presenting ? 1 : 0
             podsFeedView.alpha = presenting ? 0 : 1

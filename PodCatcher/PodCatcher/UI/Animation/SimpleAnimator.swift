@@ -9,6 +9,7 @@
 import UIKit
 
 class SimpleAnimationController: NSObject, UIViewControllerAnimatedTransitioning {
+    
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return 0.25
     }
@@ -17,12 +18,12 @@ class SimpleAnimationController: NSObject, UIViewControllerAnimatedTransitioning
         let toViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to)!
         let fromViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from)
         
-        var containerView = transitionContext.containerView
+        let containerView = transitionContext.containerView
      
         let background = UIView(frame: UIScreen.main.bounds)
         CALayer.createGradientLayer(with: StartViewConstants.gradientColors, layer: background.layer, bounds: UIScreen.main.bounds)
 
-        let fromFrame = fromViewController?.view.frame
+        _ = fromViewController?.view.frame
         UIView.animate(withDuration: 0.25, animations: {
             let transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
             transform.concatenating(CGAffineTransform(rotationAngle: CGFloat(Double.pi)))

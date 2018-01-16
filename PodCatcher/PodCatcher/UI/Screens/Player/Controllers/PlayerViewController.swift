@@ -22,7 +22,7 @@
     var bottomMenu = BottomMenu()
     
     private(set) var caster: CasterSearchResult
-   
+    
     var menuActive: MenuActive = .none
     
     private let reachability = Reachability()!
@@ -372,10 +372,12 @@
     }
     
     func optionTwo(tapped: Bool) {
+    
         if let urlString = caster.episodes[index].audioUrlString, !LocalStorageManager.localFileExists(for: urlString) {
             downloadingIndicator.showActivityIndicator(viewController: self)
             let download = Download(url: urlString)
             network.startDownload(download)
+            delegate?.saveItemCoreData(item: caster, index: index, image: playerView.albumImageView.image!)
         }
         hidePopMenu(playerView)
     }

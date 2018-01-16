@@ -63,4 +63,15 @@ extension CALayer {
         masksToBounds = false;
         shadowPath = UIBezierPath(roundedRect:self.bounds, cornerRadius: viewRadius).cgPath
     }
+    
+    func setShadow(for color: UIColor) {
+        shadowColor = color.cgColor
+        shadowRadius = 1
+        shadowOpacity = 0.7
+        shadowOffset = CGSize(width: 0, height: 1)
+    }
+    
+    func removeShadow() {
+        shadowOpacity = 0
+    }
 }

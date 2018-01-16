@@ -25,7 +25,8 @@ final class EntryView: UIView {
     
     var entryField: TextFieldExtension = {
         var entryField = TextFieldExtension()
-        entryField.layer.borderColor = Colors.brightHighlight.cgColor
+        entryField.layer.borderColor = Style.Color.Highlight.brightHighlight.cgColor
+            //Colors.brightHighlight.cgColor
         entryField.layer.cornerRadius = DetailViewConstants.largeCornerRadius
         entryField.layer.borderWidth = DetailViewConstants.borderWidth
         entryField.placeholder = "Create a new playlist!"
@@ -35,7 +36,8 @@ final class EntryView: UIView {
     
     private var titleLabel: UILabel = {
         var titleLabel = UILabel()
-        titleLabel.backgroundColor = Colors.brightHighlight
+        titleLabel.backgroundColor = Style.Color.Highlight.brightHighlight
+            //Colors.brightHighlight
         titleLabel.textColor = .white
         titleLabel.textAlignment = .center
         titleLabel.font =  UIFont.systemFont(ofSize: 20, weight: UIFont.Weight.regular)
@@ -54,9 +56,9 @@ final class EntryView: UIView {
         var button = UIButton()
         button.tintColor = .white
         button.setTitleColor(.white, for: .normal)
-        button.setTitleColor(Colors.brightHighlight, for: .normal)
+        button.setTitleColor(Style.Color.Highlight.brightHighlight, for: .normal)
         button.setTitle("Done", for: .normal)
-        button.layer.borderColor = Colors.brightHighlight.cgColor
+        button.layer.borderColor = Style.Color.Highlight.brightHighlight.cgColor
         button.layer.borderWidth = EntryViewConstants.borderWidth
         if let popTitle = button.titleLabel {
             popTitle.font =  UIFont.systemFont(ofSize: 20, weight: UIFont.Weight.regular)
@@ -70,7 +72,7 @@ final class EntryView: UIView {
         backgroundColor = UIColor.white
         configureShadow(for: layer)
         layer.borderWidth = EntryViewConstants.borderWidth
-        layer.borderColor = Colors.brightHighlight.cgColor
+        layer.borderColor = Style.Color.Highlight.brightHighlight.cgColor
     }
     
     private func configureShadow(for layer: CALayer) {

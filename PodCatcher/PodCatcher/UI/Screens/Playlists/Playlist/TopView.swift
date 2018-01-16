@@ -43,25 +43,41 @@ final class TopView: UIView {
     func setup(podcastImageView: UIImageView) {
         addSubview(podcastImageView)
         podcastImageView.translatesAutoresizingMaskIntoConstraints = false
-        podcastImageView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: PodcastListTopViewConstants.podcastImageViewCenterYOffset).isActive = true
-        podcastImageView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        podcastImageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: PodcastListTopViewConstants.podcastImageViewHeightMultiplier).isActive = true
-        podcastImageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: PodcastListTopViewConstants.podcastImageViewWidthMultiplier).isActive = true
+         if #available(iOS 11, *) {
+            NSLayoutConstraint.activate([
+                podcastImageView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 0),
+                podcastImageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.74),
+                podcastImageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.88)
+                ])
+         } else {
+            NSLayoutConstraint.activate([
+                podcastImageView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: PodcastListTopViewConstants.podcastImageViewCenterYOffset),
+                podcastImageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: PodcastListTopViewConstants.podcastImageViewHeightMultiplier),
+                podcastImageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: PodcastListTopViewConstants.podcastImageViewWidthMultiplier)
+                ])
+        }
+         NSLayoutConstraint.activate([
+           podcastImageView.centerXAnchor.constraint(equalTo: centerXAnchor)
+        ])
     }
-    
+    //static let podcastImageViewHeightMultiplier: CGFloat = 0.87
     func setup(titleLabel: UILabel) {
         addSubview(titleLabel)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.topAnchor.constraint(equalTo: podcastImageView.bottomAnchor, constant: PodcastListTopViewConstants.titleLabelTopOffset).isActive = true
-        titleLabel.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
-        titleLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: PodcastListTopViewConstants.titleLabelHeightMultiplier).isActive = true
+        NSLayoutConstraint.activate([
+            titleLabel.topAnchor.constraint(equalTo: podcastImageView.bottomAnchor, constant: PodcastListTopViewConstants.titleLabelTopOffset),
+            titleLabel.widthAnchor.constraint(equalTo: widthAnchor),
+            titleLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: PodcastListTopViewConstants.titleLabelHeightMultiplier)
+            ])
     }
     
     func setup(preferencesView: UIView) {
         addSubview(preferencesView)
         preferencesView.translatesAutoresizingMaskIntoConstraints = false
-        preferencesView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
-        preferencesView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-        preferencesView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: PodcastListTopViewConstants.preferencesViewHeightMultiplier).isActive = true
+        NSLayoutConstraint.activate([
+            preferencesView.widthAnchor.constraint(equalTo: widthAnchor),
+            preferencesView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            preferencesView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: PodcastListTopViewConstants.preferencesViewHeightMultiplier)
+            ])
     }
 }

@@ -33,7 +33,7 @@ extension BrowseCoordinator {
         browseVC.collectionView.backgroundColor = .clear
         browseVC.network.frame = browseVC.view.frame
         browseVC.collectionView.register(TopPodcastCell.self)
-        browseVC.collectionView.backgroundColor = .darkGray
+        browseVC.collectionView.backgroundColor = .white
         browseVC.collectionView.prefetchDataSource = browseVC.dataSource
     }
 }

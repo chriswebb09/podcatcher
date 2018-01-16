@@ -2,8 +2,8 @@ import UIKit
 
 struct SearchResultsDataStore {
     
-    func pullFeed(for podCast: String, competion: @escaping (([Episodes]?, Error?) -> Void)) {
-        var episodes = [Episodes]()
+    func pullFeed(for podCast: String, competion: @escaping (([Episode]?, Error?) -> Void)) {
+        var episodes = [Episode]()
         RSSFeedAPIClient.requestFeed(for: podCast) { rssData, error in
             if let error = error {
                 DispatchQueue.main.async {
@@ -12,16 +12,20 @@ struct SearchResultsDataStore {
             }
             guard let rssData = rssData else { return }
             for data in rssData {
+                
                 guard let title = data["title"] else { continue }
                 guard let audioUrl = data["audio"] else { continue }
-                var episode = Episodes(mediaUrlString: audioUrl,
+                var episode = Episode(mediaUrlString: audioUrl,
                                        audioUrlSting: audioUrl,
                                        title: title,
+                                       podcastTitle: "",
                                        date: "",
                                        description: "",
                                        duration: 000,
                                        audioUrlString: audioUrl,
-                                       stringDuration: "")
+                                       stringDuration: "",
+                                       tags: [])
+                
                 if var duration = data["itunes:duration"] {
                     duration = duration.replacingOccurrences(of: "00:",
                                                              with: "",
@@ -35,8 +39,59 @@ struct SearchResultsDataStore {
                 if let description = data["itunes:summary"] {
                     episode.description = description
                 }
+                if let collectionName = data["collectionName"] {
+                    //episode
+                    episode.podcastTitle = collectionName
+                    print("collection name")
+                    //print(collectionName)
+                }
+                
+                if let artistName = data["artistName"] {
+                    print("artistName")
+                   // /print(artistName)
+                }
+                
+                if let primaryGenre = data["primaryGenreName"] {
+                    print("PRIMARY GENRE")
+                   // print(primaryGenre)
+                }
+                
+                if let artistViewUrl = data["artistViewUrl"] {
+                    print("itunes url")
+                    //print(artistViewUrl)
+                }
+                
+                if let country = data["country"] {
+                    print("country")
+                  //  print(country)
+                }
+                
                 if let date = data["pubDate"] {
                     episode.date = date
+                }
+                
+                if let releaseDate = data["releaseDate"] {
+                    print("RELEASE DATE")
+                    //print(releaseDate)
+                }
+                
+                if let keywords = data["itunes:keywords"] {
+                    let tags = keywords.components(separatedBy: ",")
+                    for tag in tags {
+                        let trimmedTag = tag.trimmingCharacters(in: .whitespacesAndNewlines)
+                        if !episode.tags.contains(trimmedTag) {
+                            episode.tags.append(trimmedTag)
+                        }
+                    }
+                }
+                
+                if let genres = data["genres"] as? [String] {
+                    for genre in genres {
+                        let trimmedGenre = genre.trimmingCharacters(in: .whitespacesAndNewlines)
+                        if !episode.tags.contains(trimmedGenre) {
+                            episode.tags.append(trimmedGenre)
+                        }
+                    }
                 }
                 episodes.append(episode)
             }

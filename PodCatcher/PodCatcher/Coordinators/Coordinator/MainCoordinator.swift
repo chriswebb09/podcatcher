@@ -85,9 +85,14 @@ extension MainCoordinator: CoordinatorDelegate {
     }
     
     func setupHomeTab() {
+        let backingVC = BackingViewController()
         let homeViewController = HomeViewController()
-        let homeTab = UINavigationController(rootViewController: homeViewController)
-        tabbBarCoordinator.setupHomeCoordinator(navigationController: homeTab)
+        backingVC.homeViewController = homeViewController
+        let backingTab = UINavigationController(rootViewController: backingVC)
+        tabbBarCoordinator.setupHomeCoordinator(navigationController: backingTab)
+    
+//        let homeTab = UINavigationController(rootViewController: homeViewController)
+//        tabbBarCoordinator.setupHomeCoordinator(navigationController: homeTab)
         let homeCoord = tabbBarCoordinator.childCoordinators[0] as! HomeTabCoordinator
         homeViewController.coordinator = homeCoord
         homeCoord.delegate = self

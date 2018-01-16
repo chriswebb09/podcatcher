@@ -11,21 +11,27 @@ final class PodcastResultCell: UICollectionViewCell {
         return view
     }()
     
+    private var moreButton: UIButton = {
+        let moreButton = UIButton()
+        moreButton.setImage(#imageLiteral(resourceName: "more-button-circle"), for: .normal)
+        return moreButton
+    }()
+    
     private var podcastTitleLabel: UILabel = {
         var podcastTitleLabel = UILabel()
         podcastTitleLabel.numberOfLines = 0
         podcastTitleLabel.textAlignment = .left
         podcastTitleLabel.textColor = .darkGray
-        podcastTitleLabel.font = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.regular)
+        podcastTitleLabel.font = UIFont(name: "AvenirNext-Regular", size: 14)
         return podcastTitleLabel
     }()
     
     private var playTimeLabel: UILabel = {
         var playTimeLabel = UILabel()
         playTimeLabel.sizeToFit()
-        playTimeLabel.textAlignment = .right
+        playTimeLabel.textAlignment = .left
         playTimeLabel.textColor = .black
-        playTimeLabel.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.semibold)
+        playTimeLabel.font = UIFont(name: "AvenirNext-DemiBold", size: 12)
         return playTimeLabel
     }()
     
@@ -52,17 +58,33 @@ final class PodcastResultCell: UICollectionViewCell {
         playTimeLabel.text = model.playtimeLabel
     }
     
-   private func setupConstraints() {
+    private func setupConstraints() {
         self.updateConstraintsIfNeeded()
+        
         contentView.addSubview(podcastTitleLabel)
         podcastTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        podcastTitleLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: PodcastCellConstants.podcastTitleLabelWidthMultiplier).isActive = true
-        podcastTitleLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: PodcastCellConstants.podcastTitleLabelLeftOffset).isActive = true
-        podcastTitleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            podcastTitleLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: PodcastCellConstants.podcastTitleLabelWidthMultiplier),
+            podcastTitleLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: PodcastCellConstants.podcastTitleLabelLeftOffset + 5),
+            podcastTitleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: contentView.frame.height * 0.2)
+            ])
+        
         contentView.addSubview(playTimeLabel)
         playTimeLabel.translatesAutoresizingMaskIntoConstraints = false
-        playTimeLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: PodcastCellConstants.playtimeLabelWidthMultiplier).isActive = true
-        playTimeLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: PodcastCellConstants.playtimeLabelRightOffset).isActive = true
-        playTimeLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
+        
+        NSLayoutConstraint.activate([
+            playTimeLabel.topAnchor.constraint(equalTo: podcastTitleLabel.bottomAnchor, constant: contentView.frame.height * 0.16),
+            playTimeLabel.leftAnchor.constraint(equalTo: podcastTitleLabel.leftAnchor),
+            playTimeLabel.widthAnchor.constraint(equalTo: podcastTitleLabel.widthAnchor)
+            ])
+        
+        contentView.add(moreButton)
+        moreButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            moreButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.08),
+            moreButton.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.4),
+            moreButton.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: PodcastCellConstants.playtimeLabelRightOffset),
+            moreButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+            ])
     }
 }

@@ -23,8 +23,8 @@ final class EntryPopover: BasePopoverAlert {
         popView.frame = CGRect(x: DetailPopoverConstants.popViewFrameX,
                                y: DetailPopoverConstants.popViewFrameY,
                                width: DetailPopoverConstants.popViewFrameWidth,
-                               height: EntryPopoverConstants.popViewFrameHeight)
-        popView.center = CGPoint(x: UIScreen.main.bounds.midX, y: DetailPopoverConstants.popViewFrameCenterY)
+                               height: EntryPopoverConstants.popViewFrameHeight / 1.2)
+        popView.center = CGPoint(x: UIScreen.main.bounds.midX, y: DetailPopoverConstants.popViewFrameCenterY - 50)
         popView.clipsToBounds = true
         viewController.view.addSubview(popView)
         viewController.view.bringSubview(toFront: popView)
@@ -35,7 +35,8 @@ final class EntryPopover: BasePopoverAlert {
         guard let listname = popView.entryField.text else { return }
         state = .hidden
         delegate?.userDidEnterPlaylistName(name: listname)
-        popView.entryField.text = "" 
+        popView.entryField.text = ""
+        popView.entryField.endEditing(true)
         super.hidePopView(viewController: viewController)
         popView.isHidden = true
         viewController.view.sendSubview(toBack: popView)

@@ -5,6 +5,8 @@ final class BrowseTopView: UIView {
     weak var delegate: TopViewDelegate?
     
     // MARK: - UI Properties
+    let sliderBarView = UIView()
+    var sliderControl = SliderControl()
     
     var podcastImageView: UIImageView! = {
         var podcastImageView = UIImageView()
@@ -32,11 +34,9 @@ final class BrowseTopView: UIView {
         background.frame = frame
         addSubview(background)
         sendSubview(toBack: background)
-        CALayer.createGradientLayer(with: [UIColor.white.cgColor, UIColor.lightGray.cgColor],
-                                    layer: background.layer,
-                                    bounds: bounds)
         setupConstraints()
         layer.setCellShadow(contentView: self)
+        layoutIfNeeded()
     }
     
     func setupConstraints() {
@@ -48,17 +48,32 @@ final class BrowseTopView: UIView {
     func setup(podcastImageView: UIImageView) {
         addSubview(podcastImageView)
         podcastImageView.translatesAutoresizingMaskIntoConstraints = false
-        podcastImageView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: BrowseListTopViewConstants.podcastImageViewCenterYOffset).isActive = true
-        podcastImageView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        podcastImageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: BrowseListTopViewConstants.podcastImageViewHeightMultiplier).isActive = true
-        podcastImageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: BrowseListTopViewConstants.podcastImageViewWidthMultiplier).isActive = true
+        if #available(iOS 11, *) {
+            NSLayoutConstraint.activate([
+                podcastImageView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: UIScreen.main.bounds.height * -0.006),
+                podcastImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
+                podcastImageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.7),
+                podcastImageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: BrowseListTopViewConstants.podcastImageViewWidthMultiplier)
+                ])
+        } else {
+            NSLayoutConstraint.activate([
+                podcastImageView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: BrowseListTopViewConstants.podcastImageViewCenterYOffset),
+                podcastImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
+                podcastImageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: BrowseListTopViewConstants.podcastImageViewHeightMultiplier),
+                podcastImageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: BrowseListTopViewConstants.podcastImageViewWidthMultiplier)
+                ])
+            podcastImageView.layoutIfNeeded()
+            layoutIfNeeded()
+        }
     }
     
     func setup(titleLabel: UILabel) {
         addSubview(titleLabel)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.topAnchor.constraint(equalTo: podcastImageView.bottomAnchor, constant: PodcastListTopViewConstants.titleLabelTopOffset).isActive = true
-        titleLabel.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
-        titleLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: PodcastListTopViewConstants.titleLabelHeightMultiplier).isActive = true
+        NSLayoutConstraint.activate([
+            titleLabel.topAnchor.constraint(equalTo: podcastImageView.bottomAnchor, constant: PodcastListTopViewConstants.titleLabelTopOffset),
+            titleLabel.widthAnchor.constraint(equalTo: widthAnchor),
+            titleLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: PodcastListTopViewConstants.titleLabelHeightMultiplier)
+            ])
     }
 }

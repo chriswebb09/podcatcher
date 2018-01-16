@@ -1,7 +1,6 @@
 import CoreData
 import UIKit
 
-
 class CollectionViewDataSource<Delegate: CollectionViewDataSourceDelegate>: NSObject, UICollectionViewDataSource, NSFetchedResultsControllerDelegate {
     
     typealias Object = Delegate.Object
@@ -14,9 +13,12 @@ class CollectionViewDataSource<Delegate: CollectionViewDataSourceDelegate>: NSOb
     var backgroundView = UIView()
     
     fileprivate let collectionView: UICollectionView
+    
     let fetchedResultsController: NSFetchedResultsController<Object>
+    
     fileprivate weak var delegate: Delegate!
     fileprivate let cellIdentifier: String
+    
     
     var itemCount: Int {
         return fetchedResultsController.sections?[0].numberOfObjects ?? 0
@@ -37,7 +39,7 @@ class CollectionViewDataSource<Delegate: CollectionViewDataSourceDelegate>: NSOb
         collectionView.dataSource = self
         collectionView.reloadData()
         emptyView.frame = UIScreen.main.bounds
-        backgroundView.frame = UIScreen.main.bounds
+        backgroundView.frame = collectionView.frame
         collectionView.backgroundView = emptyView
         backgroundView.backgroundColor = .white
     }
@@ -64,7 +66,9 @@ class CollectionViewDataSource<Delegate: CollectionViewDataSourceDelegate>: NSOb
             emptyView.frame = collectionView.frame
             collectionView.backgroundView = emptyView
         }
-        return section.numberOfObjects
+        print("Number of objects")
+        print(section.numberOfObjects)
+        return itemCount
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

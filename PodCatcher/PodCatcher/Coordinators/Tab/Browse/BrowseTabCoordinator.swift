@@ -2,7 +2,7 @@ import UIKit
 import CoreData
 
 final class BrowseTabCoordinator: NSObject, NavigationCoordinator, BrowseCoordinator {
-
+    
     weak var delegate: CoordinatorDelegate?
     var type: CoordinatorType = .tabbar
     var feedStore = FeedCoreDataStack()
@@ -10,7 +10,7 @@ final class BrowseTabCoordinator: NSObject, NavigationCoordinator, BrowseCoordin
     var store = SearchResultsDataStore()
     var interactor = SearchResultsIteractor()
     let globalDefault = DispatchQueue.global()
-    
+    var podcastsData =  PodcastCoreData()
     private var thumbnailZoomTransitionAnimator: ImageTransitionAnimator?
     private var transitionThumbnail: UIImageView?
     
@@ -235,7 +235,7 @@ extension BrowseTabCoordinator: PodcastListViewControllerDelegate {
         UserDefaults.saveSubscriptions(subscriptions: subscriptions)
     }
     
-    func didSelectPodcastAt(at index: Int, podcast: CasterSearchResult, with episodes: [Episodes]) {
+    func didSelectPodcastAt(at index: Int, podcast: CasterSearchResult, with episodes: [Episode]) {
         var playerPodcast = podcast
         playerPodcast.episodes = episodes
         playerPodcast.index = index
@@ -251,6 +251,13 @@ extension BrowseTabCoordinator: PodcastListViewControllerDelegate {
 }
 
 extension BrowseTabCoordinator: PlayerViewControllerDelegate {
+    
+    func saveItemCoreData(item: CasterSearchResult, index: Int, image: UIImage) {
+        var imageData = UIImagePNGRepresentation(image)
+        guard let artist = item.podcastArtist else { return }
+        podcastsData.save(title: item.episodes[index].title, audioUrl: item.episodes[index].audioUrlSting, podcasterName: artist, podcastId: item.podcastTitle!, episodeId: item.episodes[index].podcastTitle, podcastImage: imageData as! NSData)
+      //  PodcastCoreData
+    }
     
     func addItemToPlaylist(item: CasterSearchResult, index: Int) {
         let controller = navigationController.viewControllers.last
@@ -292,9 +299,9 @@ extension BrowseTabCoordinator: UINavigationControllerDelegate {
         
         if operation == .pop {
             thumbnailZoomTransitionAnimator?.duration = 0.2
-//            guard let navHeight = fromVC.navigationController?.navigationBar.frame.height else { return nil }
-//            toVC.view.frame = CGRect(x: fromVC.view.frame.minX, y: fromVC.view.frame.maxY + navHeight, width: fromVC.view.frame.width, height: fromVC.view.frame.height)
-//            toVC.viewDidLoad()
+            //            guard let navHeight = fromVC.navigationController?.navigationBar.frame.height else { return nil }
+            //            toVC.view.frame = CGRect(x: fromVC.view.frame.minX, y: fromVC.view.frame.maxY + navHeight, width: fromVC.view.frame.width, height: fromVC.view.frame.height)
+            //            toVC.viewDidLoad()
         }
         
         thumbnailZoomTransitionAnimator?.operation = operation

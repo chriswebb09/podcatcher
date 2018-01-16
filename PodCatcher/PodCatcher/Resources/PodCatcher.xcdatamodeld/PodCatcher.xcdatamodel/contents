@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13221.4" systemVersion="16G29" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13772" systemVersion="17C205" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="CasterItems" representedClassName="CasterItems" syncable="YES">
         <attribute name="audioFile" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="audioUrl" optional="YES" attributeType="String" syncable="YES"/>
@@ -10,6 +10,14 @@
         <attribute name="playTime" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="podcaster" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PodCaster" inverseName="podCasterItems" inverseEntity="PodCaster" syncable="YES"/>
+    </entity>
+    <entity name="Podcast" representedClassName="Podcast" syncable="YES">
+        <attribute name="audioUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="episodeId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="episodeTitle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="podcasterId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="podcasterName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="podcastImage" optional="YES" attributeType="Binary" syncable="YES"/>
     </entity>
     <entity name="PodCaster" representedClassName="PodCaster" syncable="YES">
         <attribute name="feedUrl" optional="YES" attributeType="String" syncable="YES"/>
@@ -42,6 +50,7 @@
         <attribute name="episodeTitle" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="playlistId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="stringDate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tags" optional="YES" attributeType="Transformable" syncable="YES"/>
         <relationship name="playlist" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PodcastPlaylist" inverseName="podcast" inverseEntity="PodcastPlaylist" syncable="YES"/>
     </entity>
     <entity name="Subscription" representedClassName="Subscription" syncable="YES">
@@ -64,13 +73,15 @@
         <attribute name="podcastArtUrl" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="podcastFeedUrlString" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="podcastTitle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tags" optional="YES" attributeType="Transformable" syncable="YES"/>
     </entity>
     <elements>
         <element name="CasterItems" positionX="3130" positionY="113" width="128" height="180"/>
         <element name="PodCaster" positionX="2808" positionY="177" width="128" height="120"/>
         <element name="PodcastPlaylist" positionX="2437" positionY="36" width="128" height="180"/>
-        <element name="PodcastPlaylistItem" positionX="2619" positionY="-18" width="128" height="238"/>
+        <element name="PodcastPlaylistItem" positionX="2619" positionY="-18" width="128" height="255"/>
         <element name="Subscription" positionX="2592" positionY="252" width="128" height="180"/>
-        <element name="TopPodcast" positionX="3006" positionY="261" width="128" height="165"/>
+        <element name="TopPodcast" positionX="3006" positionY="261" width="128" height="180"/>
+        <element name="Podcast" positionX="2646" positionY="135" width="128" height="135"/>
     </elements>
 </model>

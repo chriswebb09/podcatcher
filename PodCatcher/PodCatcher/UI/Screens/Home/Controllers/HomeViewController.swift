@@ -12,23 +12,13 @@ class HomeViewController: BaseCollectionViewController {
     private var loadingPop = LoadingPopover()
     
     weak var delegate: HomeViewControllerDelegate?
+    var managedContext: NSManagedObjectContext! 
     
-    var managedContext: NSManagedObjectContext!
+    var fetchedResultsController:NSFetchedResultsController<Subscription>!
     
-    lazy var fetchedResultsController:NSFetchedResultsController<Subscription> = {
-        let fetchRequest: NSFetchRequest<Subscription> = Subscription.fetchRequest()
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "feedUrl", ascending: true)]
-        var controller = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.managedContext, sectionNameKeyPath: nil, cacheName: nil)
-        try! controller.performFetch()
-        return controller
-    }()
+    var homeDataSource: CollectionViewDataSource<HomeViewController>!
     
-    private var homeDataSource: CollectionViewDataSource<HomeViewController>!
-    
-    var persistentContainer: NSPersistentContainer = {
-        let  persistentContainer = NSPersistentContainer(name: "PodCatcher")
-        return persistentContainer
-    }()
+    var persistentContainer: NSPersistentContainer!
     
     // MARK: - UI Properties
     
@@ -45,20 +35,14 @@ class HomeViewController: BaseCollectionViewController {
         self.collectionView = collectionView
     }
     
-    func setupDataSource() {
-        homeDataSource = CollectionViewDataSource(collectionView: collectionView, identifier: SubscribedPodcastCell.reuseIdentifier, fetchedResultsController: fetchedResultsController, delegate: self)
-        fetchedResultsController.delegate = homeDataSource
-        homeDataSource.reloadData()
-        collectionView.dataSource = homeDataSource
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         initialize()
         setupNavbar()
         extendedLayoutIncludesOpaqueBars = true
-        edgesForExtendedLayout = [.all]
-        print("HERE")
+        edgesForExtendedLayout = []
+        view.backgroundColor = .white
+        collectionView.collectionViewLayout.invalidateLayout()
     }
     
     func initialize() {
@@ -72,18 +56,27 @@ class HomeViewController: BaseCollectionViewController {
     }
     
     private func setupNavbar() {
+        
         DispatchQueue.main.async {
             let backImage = #imageLiteral(resourceName: "back").withRenderingMode(.alwaysTemplate)
             self.navigationController?.navigationBar.backIndicatorImage = backImage
             self.navigationController?.navigationBar.backIndicatorTransitionMaskImage = backImage
         }
-    }    
+    }
+    
+    private func setupAutoresizingMasks() {
+        view.autoresizingMask = []
+        collectionView.autoresizingMask = []
+    }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(false)
         view.layoutSubviews()
+        setupAutoresizingMasks()
         navigationController?.navigationBar.topItem?.title = "Subscribed Podcasts"
         edgesForExtendedLayout = []
+        
         if homeDataSource.itemCount == 0 {
             DispatchQueue.main.async {
                 self.mode = .subscription
@@ -95,15 +88,25 @@ class HomeViewController: BaseCollectionViewController {
                 self.navigationItem.setRightBarButton(self.rightButtonItem, animated: false)
             }
         }
-
         
         let managedObjectContext = fetchedResultsController.managedObjectContext
+        
         // Add Observer
+        
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(managedObjectContextObjectsDidChange), name: NSNotification.Name.NSManagedObjectContextObjectsDidChange, object: managedObjectContext)
         notificationCenter.addObserver(self, selector: #selector(managedObjectContextWillSave), name: NSNotification.Name.NSManagedObjectContextWillSave, object: managedObjectContext)
         notificationCenter.addObserver(self, selector: #selector(managedObjectContextDidSave), name: NSNotification.Name.NSManagedObjectContextDidSave, object: managedObjectContext)
         
+        DispatchQueue.main.async {
+            self.collectionView.translatesAutoresizingMaskIntoConstraints = false
+            self.collectionView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 0).isActive = true
+            self.collectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0).isActive = true
+            self.collectionView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1).isActive = true
+            self.collectionView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: 0).isActive = true
+            self.collectionView.register(SubscribedPodcastCell.self)
+            self.collectionView.layoutIfNeeded()
+        }
     }
     
     @objc func managedObjectContextObjectsDidChange(notification: NSNotification) {
@@ -129,6 +132,12 @@ class HomeViewController: BaseCollectionViewController {
         self.navigationItem.title = " "
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        
+    }
+    
     func loading() {
         DispatchQueue.main.async {
             self.showLoadingView(loadingPop: self.loadingPop)
@@ -145,7 +154,7 @@ class HomeViewController: BaseCollectionViewController {
         print(notification.name)
     }
     
-    @objc func  managedObjectContextDidSave(notification: NSNotification) {
+    @objc func managedObjectContextDidSave(notification: NSNotification) {
         print(notification.name)
     }
 }
@@ -165,6 +174,7 @@ extension HomeViewController: UICollectionViewDelegate, ErrorPresenting, Loading
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath)
+        
         let item = homeDataSource.fetchedResultsController.object(at: indexPath)
         switch mode {
         case .subscription:
@@ -172,7 +182,8 @@ extension HomeViewController: UICollectionViewDelegate, ErrorPresenting, Loading
             var caster = CasterSearchResult()
             caster.feedUrl = item.feedUrl
             guard let imageData = item.artworkImage, let image = UIImage(data: imageData as Data) else { return }
-            delegate?.didSelect(at: indexPath.row, with: item, image: image, imageView: cell.getAlbumImageView())
+            let imageView = cell.getAlbumImageView()
+            delegate?.didSelect(at: indexPath.row, with: item, image: image, imageView: imageView)
         case .edit:
             update(indexPath: indexPath, item: item)
         }
@@ -217,7 +228,7 @@ extension HomeViewController: UICollectionViewDelegate, ErrorPresenting, Loading
         }
         actionSheetController.addAction(cancelAction)
         actionSheetController.addAction(okayAction)
-        self.present(actionSheetController, animated: true, completion: nil)
+        present(actionSheetController, animated: true, completion: nil)
     }
 }
 
@@ -233,9 +244,11 @@ extension HomeViewController: CollectionViewDataSourceDelegate {
             let model = SubscribedPodcastCellViewModel(trackName: title, albumImageURL: image)
             switch mode {
             case .edit:
+                cell.alpha = 1
                 cell.configureCell(with: model, withTime: 0, mode: .edit)
                 cell.showOverlay()
-            case  .subscription:
+            case .subscription:
+                cell.alpha = 1
                 cell.configureCell(with: model, withTime: 0, mode: .done)
             }
         }

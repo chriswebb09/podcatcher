@@ -17,10 +17,9 @@ extension HomeCoordinator {
         homeVC.collectionView.register(SubscribedPodcastCell.self)
         homeVC.collectionView.setupBackground(frame: homeVC.view.bounds)
         homeVC.navigationItem.setRightBarButton(homeVC.rightButtonItem, animated: false)
-        homeVC.setupDataSource()
         homeVC.collectionView.delegate = homeVC
         homeVC.view.bringSubview(toFront: homeVC.collectionView)
-        homeVC.collectionView.backgroundColor = .lightGray
-        homeVC.background.backgroundColor = .lightGray
+        homeVC.collectionView.backgroundColor = .white
+        homeVC.background.backgroundColor = .white
     }
 }

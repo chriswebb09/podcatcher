@@ -41,6 +41,7 @@ final class PlaylistsViewController: BaseTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initialize()
+        edgesForExtendedLayout = []
     }
     
     func initialize() {
@@ -83,7 +84,7 @@ final class PlaylistsViewController: BaseTableViewController {
 extension PlaylistsViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UIScreen.main.bounds.height / 6
+        return UIScreen.main.bounds.height / 6.8
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -100,17 +101,34 @@ extension PlaylistsViewController: UITableViewDelegate {
         switch reference {
         case .addPodcast:
             
+            let cell = tableView.cellForRow(at: indexPath) as! PlaylistCell
+            
+            
             let podcastItem = PodcastPlaylistItem(context: fetchedResultsController.managedObjectContext)
             
             podcastItem.audioUrl = item.episodes[index].audioUrlSting
             podcastItem.artistFeedUrl = item.feedUrl
-            podcastItem.date = NSDate()
-            podcastItem.duration = 0
+            
+            let isoDate = item.episodes[index].date
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+            if let date = dateFormatter.date(from:isoDate) {
+                let calendar = Calendar.current
+                let components = calendar.dateComponents([.year, .month, .day, .hour], from: date)
+                let finalDate = calendar.date(from:components)! as NSDate
+                podcastItem.date = finalDate
+            }
+            
+            podcastItem.artistId = item.artistId
+            podcastItem.playlistId = cell.titleLabel.text!
+            podcastItem.duration = item.episodes[index].duration
             podcastItem.artistName = item.podcastArtist
-            podcastItem.stringDate = String(describing: NSDate())
+            podcastItem.stringDate = item.episodes[index].date
             podcastItem.artworkUrl = item.podcastArtUrlString
             podcastItem.episodeTitle = item.episodes[index].title
             podcastItem.episodeDescription = item.episodes[index].description
+            podcastItem.tags = item.nsTags()
             
             if let urlString = item.podcastArtUrlString, let url = URL(string: urlString) {
                 UIImage.downloadImage(url: url) { image in
@@ -221,16 +239,11 @@ extension PlaylistsViewController: EntryPopoverDelegate {
     func userDidEnterPlaylistName(name: String) {
         guard name != "" else { return }
         var playlistDataStack = PlaylistsCoreData()
-        
         playlistDataStack.save(name: name, uid: "none")
-        
         playlistsDataSource.reloadData()
-        
         if playlistsDataSource.itemCount > 0 {
             navigationItem.leftBarButtonItem = leftButtonItem
         }
-        
-
         tableView.reloadData()
         playlistsDataSource.reloadData()
     }
@@ -247,9 +260,8 @@ extension PlaylistsViewController: EntryPopoverDelegate {
     
     @objc func hidePop() {
         entryPop.hidePopView(viewController: self)
-        
-        
         view.removeGestureRecognizer(tap)
+        view.endEditing(true)
     }
 }
 

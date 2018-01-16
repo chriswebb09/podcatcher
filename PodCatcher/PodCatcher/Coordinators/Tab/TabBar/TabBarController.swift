@@ -8,12 +8,13 @@ final class TabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        //view.backgroundColor = .white
     }
     
     override func viewDidLayoutSubviews() {
         super.viewWillLayoutSubviews()
         setupTabBar()
+        
     }
     
     // General dimensions and look of tabbar
@@ -27,12 +28,14 @@ final class TabBarController: UITabBarController {
         setTabTitles(controllers: controllers)
     }
     
+ //   #imageLiteral(resourceName: "search").withRenderingMode(.alwaysTemplate)
+  //  #imageLiteral(resourceName: "home").withRenderingMode(.a
     func setTabTitles(controllers: [UINavigationController]) {
-        let home = #imageLiteral(resourceName: "home")
-        let normalImage = #imageLiteral(resourceName: "lightGrayPodcasts")
-        let normalImageTwo = #imageLiteral(resourceName: "heart-gray")
-        let normalImageThree = #imageLiteral(resourceName: "search")
-        let normalImageFour = #imageLiteral(resourceName: "settings-dark-gray")
+        let home = #imageLiteral(resourceName: "house-gray").withRenderingMode(.alwaysTemplate)
+        let normalImage = #imageLiteral(resourceName: "lightGrayPodcasts").withRenderingMode(.alwaysTemplate)
+        let normalImageTwo = #imageLiteral(resourceName: "heart-gray").withRenderingMode(.alwaysTemplate)
+        let normalImageThree = #imageLiteral(resourceName: "search-gray").withRenderingMode(.alwaysTemplate)
+        let normalImageFour = #imageLiteral(resourceName: "settings-dark-gray").withRenderingMode(.alwaysTemplate)
         
         viewControllers = controllers
         
@@ -50,6 +53,16 @@ final class TabBarController: UITabBarController {
         
         selectedIndex = 0
         first = true
+        
+        if let items = self.tabBar.items {
+            for item in items {
+                if let image = item.image {
+                    item.image = image.withRenderingMode(.alwaysOriginal)
+                    item.selectedImage = item.selectedImage?.withRenderingMode(.alwaysTemplate)
+                        //UIImage(named: "(Imagename)-a")?.withRenderingMode(.alwaysOriginal)
+                }
+            }
+        }
     }
     
     private func setupTab(settingsViewController: UIViewController) -> UINavigationController {

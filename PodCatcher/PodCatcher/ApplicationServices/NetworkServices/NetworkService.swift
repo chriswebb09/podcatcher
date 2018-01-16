@@ -1,5 +1,19 @@
 import UIKit
 
+struct DownloadState {
+    enum State {
+        case pausedByUser
+        case waitingForConnection
+        case inProgress
+        case cancelled
+        case finished
+    }
+    
+    let url: URL
+    var state: State = .pausedByUser
+    var progress: Double = 0
+}
+
 final class NetworkService: NSObject {
     
     weak var delegate: NetworkServiceDelegate?
@@ -48,6 +62,7 @@ extension NetworkService: URLSessionDelegate {
             delegate?.download(progress: progress)
             if progress == 1 {
                 activeDownloads[downloadUrl] = nil
+               // session.invalidateAndCancel()
             }
         }
     }
@@ -57,6 +72,7 @@ extension NetworkService: URLSessionDelegate {
             print(error.localizedDescription)
         } else {
             print("The task finished transferring data successfully")
+            session.invalidateAndCancel()
         }
     }
 }

@@ -11,3 +11,4 @@ import UIKit
 protocol ControllerCoordinator: class {
     func viewDidLoad(_ viewController: UIViewController)
 }
+

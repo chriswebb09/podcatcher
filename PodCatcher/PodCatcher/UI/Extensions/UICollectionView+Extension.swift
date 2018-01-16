@@ -8,7 +8,6 @@ class TrackItemsFlowLayout: UICollectionViewFlowLayout {
         itemSize = CGSize(width: UIScreen.main.bounds.width / 3.4, height: UIScreen.main.bounds.height / 5.4)
         sectionInset = UIEdgeInsets(top: 0, left: 12, bottom: 30, right: 12)
         minimumLineSpacing = 5
-      //  minimumLineSpacing = 20
     }
 }
 
@@ -62,3 +61,21 @@ final class SearchItemsFlowLayout: UICollectionViewFlowLayout {
         minimumLineSpacing = 1
     }
 }
+
+/// :nodoc:
+public extension UICollectionView {
+    
+    /// Register `UICollectionViewCell` from given nib in collectionView.
+    /// Cell will be registered with the name of it's class as identifier.
+    public func registerNib<T: UICollectionViewCell>(_:T.Type) {
+        let nib = UINib(nibName: String(describing: T.self), bundle: nil)
+        register(nib, forCellWithReuseIdentifier: String(describing: T.self))
+    }
+    
+    /// Dequeue cell of given class from tableView.
+    public func dequeue<T: UICollectionViewCell>(_: T.Type, indexPath: IndexPath) -> T {
+        return dequeueReusableCell(withReuseIdentifier: String(describing: T.self), for: indexPath) as! T
+    }
+    
+}
+

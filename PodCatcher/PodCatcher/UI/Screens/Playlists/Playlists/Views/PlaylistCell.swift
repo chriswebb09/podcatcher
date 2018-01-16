@@ -13,10 +13,10 @@ final class PlaylistCell: UITableViewCell, Reusable {
                 deleteImageView.image = image
                 deleteImageView.tintColor = .darkGray
             case .delete:
-                deleteImageView.alpha = 0.6
+                deleteImageView.alpha = 0.8
                 let image = #imageLiteral(resourceName: "circle-x").withRenderingMode(.alwaysTemplate)
                 deleteImageView.image = image
-                deleteImageView.tintColor = .red
+                deleteImageView.tintColor = UIColor(red:1.00, green:0.41, blue:0.41, alpha:1.0)
             }
         }
     }
@@ -35,7 +35,7 @@ final class PlaylistCell: UITableViewCell, Reusable {
     var titleLabel: UILabel = {
         let title = UILabel()
         title.textColor = .black
-        title.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.semibold)
+        title.font = UIFont(name: "AvenirNext-Regular", size: 16)
         title.textAlignment = .center
         title.numberOfLines = 0
         return title
@@ -49,7 +49,7 @@ final class PlaylistCell: UITableViewCell, Reusable {
     var numberOfItemsLabel: UILabel = {
         let numberOfItems = UILabel()
         numberOfItems.textColor = .black
-        numberOfItems.font = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.thin)
+        numberOfItems.font = UIFont(name: "AvenirNext-UltraLight", size: 16)
         numberOfItems.textAlignment = .center
         numberOfItems.numberOfLines = 0
         return numberOfItems
@@ -85,27 +85,40 @@ final class PlaylistCell: UITableViewCell, Reusable {
     }
     
     func setupShadow() {
-        let shadowOffset = CGSize(width:-0.45, height: 0.2)
-        let shadowRadius: CGFloat = 1.0
-        let shadowOpacity: Float = 0.4
-        contentView.layer.shadowRadius = shadowRadius
-        contentView.layer.shadowOffset = shadowOffset
-        contentView.layer.shadowOpacity = shadowOpacity
+        DispatchQueue.main.async {
+            let shadowOffset = CGSize(width:-0.45, height: 0.2)
+            let shadowRadius: CGFloat = 1.0
+            let shadowOpacity: Float = 0.4
+            self.contentView.layer.shadowRadius = shadowRadius
+            self.contentView.layer.shadowOffset = shadowOffset
+            self.contentView.layer.shadowOpacity = shadowOpacity
+        }
     }
     
     func setup(titleLabel: UILabel) {
         contentView.addSubview(titleLabel)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor, constant: contentView.bounds.width * 0.13).isActive = true
+        if #available(iOS 11, *) {
+            titleLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+        } else {
+            titleLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor, constant: contentView.bounds.width * 0.13).isActive = true
+        }
+        
         titleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: contentView.bounds.height * -0.1).isActive = true
         titleLabel.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.25).isActive = true
-        titleLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.7).isActive = true
+        titleLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.8).isActive = true
     }
     
     func setup(numberOfItemsLabel: UILabel) {
         contentView.addSubview(numberOfItemsLabel)
         numberOfItemsLabel.translatesAutoresizingMaskIntoConstraints = false
-        numberOfItemsLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor, constant: contentView.bounds.width * 0.13).isActive = true
+        if #available(iOS 11, *) {
+            numberOfItemsLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+        } else {
+            numberOfItemsLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor, constant: contentView.bounds.width * 0.13).isActive = true
+        }
+        
+        
         numberOfItemsLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: contentView.bounds.height * 0.008).isActive = true
         numberOfItemsLabel.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.25).isActive = true
         numberOfItemsLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.7).isActive = true
@@ -114,26 +127,40 @@ final class PlaylistCell: UITableViewCell, Reusable {
     private func setup(albumArtView: UIImageView) {
         contentView.addSubview(albumArtView)
         albumArtView.translatesAutoresizingMaskIntoConstraints = false
-        albumArtView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: contentView.bounds.width * 0.02).isActive = true
-        albumArtView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
-        albumArtView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.9).isActive = true
-        albumArtView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.3).isActive = true
+        if #available(iOS 11, *) {
+            albumArtView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: contentView.bounds.width * 0.04).isActive = true
+            albumArtView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
+            albumArtView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.7).isActive = true
+            albumArtView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.2).isActive = true
+        } else {
+            albumArtView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: contentView.bounds.width * 0.04).isActive = true
+            albumArtView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
+            albumArtView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.7).isActive = true
+            albumArtView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.28).isActive = true
+        }
     }
     
     func setup(deleteImageView: UIImageView) {
         contentView.addSubview(deleteImageView)
         deleteImageView.translatesAutoresizingMaskIntoConstraints = false
-        deleteImageView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: contentView.bounds.width * -0.04).isActive = true
+        if #available(iOS 11, *) {
+            deleteImageView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.06).isActive = true
+            deleteImageView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.22).isActive = true
+            deleteImageView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: contentView.bounds.width * -0.05).isActive = true
+        } else {
+            deleteImageView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.08).isActive = true
+            deleteImageView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.26).isActive = true
+            deleteImageView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: contentView.bounds.width * -0.04).isActive = true
+        }
+        
         deleteImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
-        deleteImageView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.26).isActive = true
-        deleteImageView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.08).isActive = true
     }
     
     func setupSeparator() {
         setup(separatorView: separatorView)
         DispatchQueue.main.async {
             self.albumArtView.layer.cornerRadius = 4
-            self.albumArtView.layer.borderWidth = 1
+            self.albumArtView.layer.borderWidth = 0.5
             let containerLayer = CALayer()
             containerLayer.shadowColor = UIColor.darkText.cgColor
             containerLayer.shadowRadius = 2
@@ -148,8 +175,10 @@ final class PlaylistCell: UITableViewCell, Reusable {
     func setup(separatorView: UIView) {
         contentView.addSubview(separatorView)
         separatorView.translatesAutoresizingMaskIntoConstraints = false
-        separatorView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.01).isActive = true
-        separatorView.widthAnchor.constraint(equalTo: contentView.widthAnchor).isActive = true
-        separatorView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            separatorView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.01),
+            separatorView.widthAnchor.constraint(equalTo: contentView.widthAnchor),
+            separatorView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            ])
     }
 }

@@ -1,31 +1,30 @@
 import UIKit
 
-protocol ErrorPresenting {
-    func presentError(title: String, message: String)
-}
-
-extension ErrorPresenting where Self: UIViewController {
-    func presentError(title: String, message: String) {
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let dismissAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-        alertController.addAction(dismissAction)
-        present(alertController, animated: true)
+extension UIView {
+    
+    func constrain(to containerView: UIView) {
+        self.translatesAutoresizingMaskIntoConstraints = false
+        containerView.add(self)
+        self.topAnchor.constraint(equalTo: containerView.topAnchor).isActive = true
+        self.bottomAnchor.constraint(equalTo: containerView.bottomAnchor).isActive = true
+        self.leadingAnchor.constraint(equalTo: containerView.leadingAnchor).isActive = true
+        self.trailingAnchor.constraint(equalTo: containerView.trailingAnchor).isActive = true
     }
 }
 
-protocol LoadingPresenting {
-    func showLoadingView(loadingPop: LoadingPopover)
-    func hideLoadingView(loadingPop: LoadingPopover)
-}
 
-extension LoadingPresenting where Self: UIViewController {
-    
-    func showLoadingView(loadingPop: LoadingPopover) {
-        loadingPop.show(controller: self)
+extension UIViewController {
+
+    func embedChild(controller: UIViewController, in container: UIView) {
+        self.addChildViewController(controller)
+        controller.view.constrain(to: container)
+        controller.didMove(toParentViewController: self)
     }
-    
-    func hideLoadingView(loadingPop: LoadingPopover) {
-        loadingPop.hidePopView(viewController: self)
+
+    func removeChild(controller: UIViewController) {
+        controller.willMove(toParentViewController: nil)
+        controller.view.removeFromSuperview()
+        controller.removeFromParentViewController()
     }
 }
 
@@ -33,7 +32,7 @@ extension UIViewController {
     
     func setupDefaultUI() {
         navigationController?.navigationBar.barTintColor = .white
-        let cancelButtonAttributes: NSDictionary = [NSAttributedStringKey.foregroundColor: Colors.brightHighlight]
+        let cancelButtonAttributes: NSDictionary = [NSAttributedStringKey.foregroundColor: Style.Color.Highlight.brightHighlight]
         UIBarButtonItem.appearance(whenContainedInInstancesOf:[UISearchBar.self]).setTitleTextAttributes(cancelButtonAttributes as? [NSAttributedStringKey: Any], for: .normal)
         UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).attributedPlaceholder = NSAttributedString(string: "Search for Podcasts...", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
         UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).tintColor = .white

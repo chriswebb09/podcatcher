@@ -6,10 +6,21 @@ final class SearchResultListViewController: BaseCollectionViewController {
     
     private var item: CasterSearchResult!
     private var state: PodcasterControlState = .toCollection
+    
     var navPop = false
+    
     private var confirmationIndicator = ConfirmationIndicatorView()
     private let entryPop = EntryPopover()
+    
     var topView = ListTopView()
+    var dataSource: SearchResultDatasource! = SearchResultDatasource()
+    
+    var topViewHeightConstraint: NSLayoutConstraint!
+    var topViewWidthConstraint: NSLayoutConstraint!
+    var topViewYConstraint: NSLayoutConstraint!
+    var topViewXConstraint: NSLayoutConstraint!
+    var topViewTopConstraint: NSLayoutConstraint!
+    var topViewBottomConstraint: NSLayoutConstraint!
     
     private let subscription = UserDefaults.loadSubscriptions()
     
@@ -35,19 +46,24 @@ final class SearchResultListViewController: BaseCollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        collectionView.register(PodcastResultCell.self)
+        //  dataSource =
+        view.backgroundColor = .white
         initialize()
         setupNavbar()
+        collectionView.layoutIfNeeded()
     }
     
     private func initialize() {
         emptyView = InformationView(data: "No Data.", icon: #imageLiteral(resourceName: "mic-icon"))
-        setup(dataSource: self, delegate: self)
+        setup(dataSource: dataSource, delegate: self)
         setupView()
         collectionView.register(PodcastResultCell.self)
     }
     
     func setDataItem(dataItem: CasterSearchResult) {
         item = dataItem
+        dataSource.setItem(item: item)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -59,6 +75,7 @@ final class SearchResultListViewController: BaseCollectionViewController {
         setupTopViewImage()
         showViews()
         setupLayout()
+        topView.layoutIfNeeded()
     }
     
     private func setupLayout() {
@@ -69,11 +86,13 @@ final class SearchResultListViewController: BaseCollectionViewController {
     }
     
     private func setupButton() {
-        if let item = item, let feedUrl = item.feedUrl, !subscription.contains(feedUrl) {
-            
-            let button = UIButton.setupSubscribeButton()
-            button.addTarget(self, action: #selector(subscribeToFeed), for: .touchUpInside)
-            topView.preferencesView.moreMenuButton = button
+        DispatchQueue.main.async {
+            if let item = self.item, let feedUrl = item.feedUrl, !self.subscription.contains(feedUrl) {
+                let button = UIButton.setupSubscribeButton()
+                button.addTarget(self, action: #selector(self.subscribeToFeed), for: .touchUpInside)
+                self.topView.preferencesView.moreMenuButton = button
+                self.topView.layoutSubviews()
+            }
         }
     }
     
@@ -150,173 +169,66 @@ extension SearchResultListViewController {
         setupBackgroundView()
     }
     
-    private func setupViewFraming() {
-        
-        if UIDevice().userInterfaceIdiom == .phone {
-            switch UIScreen.main.nativeBounds.height {
-            case 480:
-                print("iPhone Classic")
-            case 960:
-                print("iPhone 4 or 4S")
-            case 1136:
-                print("iPhone 5 or 5S or 5C")
-            case 1334:
-                
-                guard let tabBar = tabBarController?.tabBar, let navHeight = navigationController?.navigationBar.frame.height else { return }
-                
-                let viewHeight = (view.bounds.height - navHeight) - tabBar.frame.height
-                collectionView.frame = CGRect(x: topView.bounds.minX, y: topView.frame.maxY + (tabBar.frame.height + 10), width: view.bounds.width, height: viewHeight - (topView.frame.height - 90))
-            case 2208:
-                
-                guard let tabBar = tabBarController?.tabBar, let navHeight = navigationController?.navigationBar.frame.height else { return }
-                
-                let viewHeight = (view.bounds.height - navHeight) - tabBar.frame.height
-                collectionView.frame = CGRect(x: topView.bounds.minX, y: topView.frame.maxY + (50), width: view.bounds.width, height: viewHeight - (topView.frame.height - 90))
-                
-                print("iPhone 6+/6S+/7+")
-            default:
-                print("unknown")
-            }
-        } else if UIDevice().userInterfaceIdiom == .pad {
-            switch UIScreen.main.nativeBounds.height {
-            case 1024:
-                print("iPad")
-            case 1366:
-                print("iPad PRO")
-            default:
-                print("unknown")
-            }
-        }
-        
-    }
-    
-    private func setupTopView() {
-        if UIDevice().userInterfaceIdiom == .phone {
-            switch UIScreen.main.nativeBounds.height {
-            case 480:
-                print("iPhone Classic")
-            case 960:
-                print("iPhone 4 or 4S")
-            case 1136:
-                print("iPhone 5 or 5S or 5C")
-            case 1334:
-                topView.frame = PodcastListConstants.topFrame
-                
-            case 2208:
-                if navPop == true {
-                    topView.frame = PodcastListConstants.topFrame
-                } else {
-                    guard let tabBar = tabBarController?.tabBar, let navHeight = navigationController?.navigationBar.frame.height else { return }
-                    topView.frame = CGRect(x: 0, y: (tabBar.frame.height + 15), width: PodcastListConstants.topFrameWidth, height: PodcastListConstants.topFrameHeight / 1.2)
-                }
-                print("iPhone 6+/6S+/7+")
-            default:
-                print("unknown")
-            }
-        } else if UIDevice().userInterfaceIdiom == .pad {
-            switch UIScreen.main.nativeBounds.height {
-            case 1024:
-                print("iPad")
-            case 1366:
-                print("iPad PRO")
-            default:
-                print("unknown")
-            }
-        }
-        
-        
-        if let item = item, let urlString = item.podcastArtUrlString, let url = URL(string: urlString) {
-            topView.podcastImageView.downloadImage(url: url)
-        }
-        
-        topView.layoutSubviews()
-        view.addSubview(topView)
-        view.bringSubview(toFront: topView)
-    }
-    
     private func setupBackgroundView() {
         background.frame = view.frame
         
         view.addSubview(background)
         view.sendSubview(toBack: background)
     }
+    
+    func setupViewFraming() {
+        
+    }
+    
+    func setupTopView() {
+        view.addSubview(self.topView)
+        topView.translatesAutoresizingMaskIntoConstraints = false
+        if #available(iOS 11, *) {
+            topViewTopConstraint = topView.topAnchor.constraintEqualToSystemSpacingBelow(topLayoutGuide.bottomAnchor, multiplier: 0.2)
+            topViewTopConstraint.isActive = true
+        } else {
+            topViewTopConstraint = topView.topAnchor.constraint(equalTo: view.topAnchor)
+            topViewTopConstraint.isActive = true 
+        }
+        topViewHeightConstraint = topView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.45)
+        topViewHeightConstraint.isActive = true
+        
+        topViewWidthConstraint = topView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1)
+        topViewWidthConstraint.isActive = true
+        
+        topView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
+        self.collectionView.translatesAutoresizingMaskIntoConstraints = false
+        self.collectionView.topAnchor.constraint(equalTo: topView.bottomAnchor).isActive = true
+        self.collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        self.collectionView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        if let item = item, let urlString = item.podcastArtUrlString, let url = URL(string: urlString) {
+            topView.podcastImageView.downloadImage(url: url)
+        }
+        topView.layoutIfNeeded()
+        view.layoutIfNeeded()
+        topView.delegate = self
+    }
 }
-
-// MARK: - UIScrollViewDelegate
 
 extension SearchResultListViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.collectionView.updateCollectionViewLayout()
-        let offset = scrollView.contentOffset
-        if offset.y > PodcastListConstants.minimumOffset && item.episodes.count > 11 {
-            updateScrollUIFull()
-        } else {
-            updateScrollingUITop()
-        }
     }
     
     private func updateScrollUIFull() {
-        UIView.animate(withDuration: 0.5) {
-            
-            self.topView.removeFromSuperview()
+        self.topViewHeightConstraint.isActive = false
+        self.topViewWidthConstraint.isActive = false
+        UIView.animate(withDuration: 0.1) {
             self.topView.alpha = 0
-            self.collectionView.frame = self.view.bounds
         }
-    }
-    
-    
-    
-    private func updateScrollingUITop() {
-        
-        
-        if UIDevice().userInterfaceIdiom == .phone {
-            switch UIScreen.main.nativeBounds.height {
-            case 480:
-                print("iPhone Classic")
-            case 960:
-                print("iPhone 4 or 4S")
-            case 1136:
-                print("iPhone 5 or 5S or 5C")
-            case 1334:
-                topView.frame = PodcastListConstants.topFrame
-                
-            case 2208:
-                
-                guard let tabBar = tabBarController?.tabBar, let navHeight = navigationController?.navigationBar.frame.height else { return }
-                let viewHeight = (view.bounds.height - navHeight) - 20
-                
-                let collectionFrame = CGRect(x: topView.bounds.minX, y: topView.frame.maxY, width: view.bounds.width, height: viewHeight - (topView.frame.height - 160))
-                
-                UIView.animate(withDuration: 0.15) {
-                    if self.navPop == true {
-                        self.topView.frame = PodcastListConstants.topFrame
-                    } else {
-                        self.topView.frame = CGRect(x: 0, y: (tabBar.frame.height + 15), width: PodcastListConstants.topFrameWidth, height: PodcastListConstants.topFrameHeight / 1.2)
-                    }
-                    self.topView.alpha = 1
-                    self.topView.layoutSubviews()
-                    
-                    self.view.addSubview(self.topView)
-                    self.collectionView.frame = collectionFrame
-                }
-                print("iPhone 6+/6S+/7+")
-            default:
-                guard let navHeight = navigationController?.navigationBar.frame.height else { return }
-                
-                let viewHeight = (view.bounds.height - navHeight) - 20
-                let updatedTopViewFrame = CGRect(x: 0, y: 0, width: PodcastListConstants.topFrameWidth, height: PodcastListConstants.topFrameHeight / 1.2)
-                let collectionFrame = CGRect(x: topView.bounds.minX, y: topView.frame.maxY, width: view.bounds.width, height: viewHeight - (topView.frame.height - 80))
-
-                UIView.animate(withDuration: 0.15) {
-                    self.topView.frame = updatedTopViewFrame
-                    self.topView.alpha = 1
-                    self.topView.layoutSubviews()
-                    
-                    self.view.addSubview(self.topView)
-                    self.collectionView.frame = collectionFrame
-                }
-            }
+        UIView.animate(withDuration: 0.5) {
+            self.topView.removeFromSuperview()
+            self.collectionView.frame = self.view.bounds
+            self.collectionView.layoutIfNeeded()
+            self.view.layoutIfNeeded()
+            self.topView.layoutIfNeeded()
         }
     }
     
@@ -331,7 +243,6 @@ extension SearchResultListViewController: UIScrollViewDelegate {
         DispatchQueue.main.async {
             self.collectionView.reloadSections(IndexSet(integersIn: 0...0))
         }
-        
         collectionView.updateCollectionViewLayout()
     }
     
@@ -343,6 +254,20 @@ extension SearchResultListViewController: UIScrollViewDelegate {
     }
 }
 
+extension SearchResultListViewController: TopViewDelegate {
+    func popBottomMenu(popped: Bool) {
+        print("bottom")
+    }
+    
+    func entryPop(popped: Bool) {
+        print("popped")
+    }
+    
+    func infoButton(tapped: Bool) {
+        print(item.tags)
+    }
+}
+
 // MARK: - UICollectionViewDelegate
 
 extension SearchResultListViewController: UICollectionViewDelegate {
@@ -350,25 +275,5 @@ extension SearchResultListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         state = .toPlayer
         delegate?.didSelectPodcastAt(at: indexPath.row, podcast: item, with: item.episodes)
-    }
-}
-
-// MARK: - UICollectionViewDataSource
-
-extension SearchResultListViewController: UICollectionViewDataSource {
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return item.episodes.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as PodcastResultCell
-        DispatchQueue.main.async {
-            if let playTime = self.item.episodes[indexPath.row].stringDuration {
-                let model = PodcastResultCellViewModel(podcastTitle: self.item.episodes[indexPath.row].title, playtimeLabel: playTime)
-                cell.configureCell(model: model)
-            }
-        }
-        return cell
     }
 }

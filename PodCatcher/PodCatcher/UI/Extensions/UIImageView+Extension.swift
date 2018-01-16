@@ -1,6 +1,7 @@
 import UIKit
 
 class WebDataCache {
+    
     static let imageCache: NSCache<NSString, UIImage> = {
         var cache = NSCache<NSString, UIImage>()
         cache.name = "ImageCache"
@@ -11,7 +12,6 @@ class WebDataCache {
 }
 
 extension UIImageView {
-    
     
     func performUIUpdate(using closure: @escaping () -> Void) {
         // If we are already on the main thread, execute the closure directly

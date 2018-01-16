@@ -3,9 +3,13 @@ import UIKit
 final class BrowseItemsFlowLayout: UICollectionViewFlowLayout {
     
     func setup() {
+        if #available(iOS 11, *) {
+            itemSize = CGSize(width: UIScreen.main.bounds.width / 1.6, height: UIScreen.main.bounds.height / 3)
+        } else {
+            itemSize = CGSize(width: UIScreen.main.bounds.width / 2, height: UIScreen.main.bounds.height / 3.2)
+        }
         scrollDirection = .horizontal
-        itemSize = CGSize(width: UIScreen.main.bounds.width / 2, height: UIScreen.main.bounds.height / 3.2)
-        sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        sectionInset = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)
         minimumLineSpacing = 0
     }
     

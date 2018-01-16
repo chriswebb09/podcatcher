@@ -1,19 +1,24 @@
 import UIKit
 
-extension Array where Element:Equatable {
-    mutating func removeDuplicates() {
-        var result = [Element]()
-        for (key, value) in self.enumerated() {
-            if result.contains(value) {
-                self.remove(at: key)
-            } else {
-                result.append(value)
-            }
+extension UIColor {
+    static func colorFromRGB(_ red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat = 1.0) -> UIColor {
+        func amount(_ amount: CGFloat, with alpha: CGFloat) -> CGFloat {
+            return (1 - alpha) * 255 + alpha * amount
         }
+        
+        let red = amount(red, with: alpha)/255
+        let green = amount(green, with: alpha)/255
+        let blue = amount(blue, with: alpha)/255
+        return UIColor(red: red, green: green, blue: blue, alpha: 1)
     }
 }
 
+
 extension UIView {
+    
+    func add(_ subviews: UIView...) {
+        subviews.forEach(addSubview)
+    }
     
     func addView(view: UIView, type: ViewType) {
         switch type {
@@ -26,6 +31,7 @@ extension UIView {
             view.layoutSubviews()
         }
     }
+    
     
     static func findSubViewWithFirstResponder(_ view: UIView) -> UIView? {
         let subviews = view.subviews
@@ -51,24 +57,12 @@ extension UIView {
             ]
         )
     }
-    
-    func constrainEdges(to other: UILayoutGuide) {
-        topAnchor.constrainEqual(other.topAnchor)
-        bottomAnchor.constrainEqual(other.bottomAnchor)
-        leadingAnchor.constrainEqual(other.leadingAnchor)
-        trailingAnchor.constrainEqual(other.trailingAnchor)
-    }
-    
+
     func constrainEdges(toMarginOf view: UIView) {
         constrainEqual(.top, to: view, .topMargin)
         constrainEqual(.leading, to: view, .leadingMargin)
         constrainEqual(.trailing, to: view, .trailingMargin)
         constrainEqual(.bottom, to: view, .bottomMargin)
     }
-    
-    func center(inView view: UIView? = nil) {
-        guard let container = view ?? self.superview else { fatalError() }
-        centerXAnchor.constrainEqual(container.centerXAnchor)
-        centerYAnchor.constrainEqual(container.centerYAnchor)
-    }
+
 }

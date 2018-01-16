@@ -40,9 +40,7 @@ final class SearchViewController: BaseTableViewController, LoadingPresenting {
         setup()
     }
     
-    
     func setup() {
-        
         tableView.dataSource = dataSource
         tableView.prefetchDataSource = dataSource
         tableView.backgroundColor = UIColor(red:0.94, green:0.95, blue:0.96, alpha:1.0)
@@ -61,26 +59,33 @@ final class SearchViewController: BaseTableViewController, LoadingPresenting {
         searchBar.frame = CGRect(x: UIScreen.main.bounds.minX, y: 0, width: UIScreen.main.bounds.width, height: navBar.frame.height / 2)
         
         let height = (view.frame.height - tabbar.frame.height)
-        
+        if #available(iOS 11.0, *) {
+            searchBar.insetsLayoutMarginsFromSafeArea = true
+        } else {
+            // Fallback on earlier versions
+        }
         tableView.frame = CGRect(x: UIScreen.main.bounds.minX, y: navBar.frame.height + searchBar.frame.maxY, width: UIScreen.main.bounds.width, height: height)
         searchControllerConfigure()
         searchController.defaultConfiguration()
-        
         view.addSubview(searchBar)
-       
-        
+        searchBar.layoutIfNeeded()
         searchController.hidesNavigationBarDuringPresentation = false
         
-      
+        
         infoLabel.sizeToFit()
         infoLabel.center = CGPoint(x: UIScreen.main.bounds.width / 2, y: UIScreen.main.bounds.height / 3)
         infoLabel.isHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.indexPathsForSelectedRows?.forEach {
+            tableView.deselectRow(at: $0, animated: true)
+        }
         tabBarController?.tabBar.alpha = 1
         navigationController?.navigationBar.alpha = 1
     }
+    
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -99,20 +104,25 @@ final class SearchViewController: BaseTableViewController, LoadingPresenting {
         searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
         searchBar.tintColor = .black
-        
+        searchBar.barTintColor = .white
         let textFieldInsideSearchBar = searchBar.value(forKey: "searchField") as? UITextField
-        textFieldInsideSearchBar?.textColor = .white
-        
+        textFieldInsideSearchBar?.textColor = .black
+        searchBar.backgroundColor = .white
         if let textFieldInsideSearchBar = searchBar.value(forKey: "searchField") as? UITextField,
             let glassIconView = textFieldInsideSearchBar.leftView as? UIImageView {
-            
-            textFieldInsideSearchBar.backgroundColor = Colors.brightHighlight
             textFieldInsideSearchBar.clearButtonMode = .never
-            textFieldInsideSearchBar.attributedPlaceholder = NSAttributedString(string: textFieldInsideSearchBar.placeholder != nil ? textFieldInsideSearchBar.placeholder! : "", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
+            textFieldInsideSearchBar.font = UIFont(name: "AvenirNext-Regular", size: 16)
+            let attributes = [
+                NSAttributedStringKey.font : UIFont(name: "AvenirNext-Regular", size: 16)
+            ]
+            UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).title = "Cancel "
+            UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).setTitleTextAttributes(attributes, for: .normal)
+            textFieldInsideSearchBar.attributedPlaceholder = NSAttributedString(string: textFieldInsideSearchBar.placeholder != nil ? textFieldInsideSearchBar.placeholder! : " ", attributes: [NSAttributedStringKey.foregroundColor: UIColor.black])
             
             glassIconView.image = glassIconView.image?.withRenderingMode(.alwaysTemplate)
-            glassIconView.tintColor = .white
+            glassIconView.tintColor = .black
         }
+        
         navigationController?.setNavigationBarHidden(false, animated: false)
         searchController.navigationController?.setNavigationBarHidden(false, animated: false)
     }
@@ -172,6 +182,22 @@ extension SearchViewController: UISearchControllerDelegate {
                 
             }
         }
+    }
+    
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        searchBar.endEditing(true)
+    }
+    
+    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        searchBar.endEditing(true)
+    }
+    
+    func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+        searchBar.showsCancelButton = true
+    }
+    
+    func searchBarTextDidEndEditing(searchBar: UISearchBar) {
+        searchBar.showsCancelButton = false
     }
 }
 
@@ -247,7 +273,6 @@ extension SearchViewController: UITableViewDelegate {
         searchController.isActive = false
         title = "Search"
     }
-    
 }
 
 extension SearchViewController: UIScrollViewDelegate {

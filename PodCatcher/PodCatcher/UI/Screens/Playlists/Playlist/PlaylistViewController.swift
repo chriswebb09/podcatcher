@@ -2,10 +2,6 @@ import UIKit
 import CoreData
 import AVFoundation
 
-enum PlaylistItemMode {
-    case delete, play
-}
-
 private var playlistViewControllerKVOContext = 1
 
 class PlaylistViewController: BaseCollectionViewController, ErrorPresenting, LoadingPresenting {
@@ -21,7 +17,7 @@ class PlaylistViewController: BaseCollectionViewController, ErrorPresenting, Loa
     var playlistId: String
     let loadingPop = LoadingPopover()
     var selectedSongIndex: Int!
-    var episodes = [Episodes]()
+    var episodes = [Episode]()
     var mode: PlaylistMode = .list
     var playButtonImage: UIImage!
     var caster = CasterSearchResult()
@@ -62,24 +58,27 @@ class PlaylistViewController: BaseCollectionViewController, ErrorPresenting, Loa
         collectionView.register(PodcastPlaylistCell.self)
         collectionView.dataSource = self
         emptyView.frame = UIScreen.main.bounds
-        backgroundView.frame = UIScreen.main.bounds
+        
         collectionView.backgroundView = emptyView
-        backgroundView.backgroundColor = .white
+
         guard let podcast = playlist.podcast else { return }
         
         for (_, podItem) in podcast.enumerated() {
             let item = podItem as! PodcastPlaylistItem
-            if let audio = item.audioUrl, let title = item.episodeTitle, let date = item.stringDate {
+            dump(item)
+            if let audio = item.audioUrl, let title = item.episodeTitle, let podcaster = item.artistName, let date = item.stringDate {
                 let duration = item.duration
                 let description = item.description
-                let episode = Episodes(mediaUrlString: audio,
+                let episode = Episode(mediaUrlString: audio,
                                        audioUrlSting: audio,
                                        title: title,
+                                       podcastTitle: podcaster,
                                        date: date,
                                        description: description,
                                        duration: duration,
                                        audioUrlString: audio,
-                                       stringDuration: "")
+                                       stringDuration: "",
+                                       tags: [])
                 episodes.append(episode)
                 playlistItems.append(item)
             }
@@ -113,10 +112,9 @@ class PlaylistViewController: BaseCollectionViewController, ErrorPresenting, Loa
             let newRate = (change?[NSKeyValueChangeKey.newKey] as! NSNumber).doubleValue
             DispatchQueue.main.async { [weak self] in
                 guard let strongSelf = self else { return }
-                let buttonImageName = newRate == 1.0 ? #imageLiteral(resourceName: "pause-round") : #imageLiteral(resourceName: "play")
+                let cellState = newRate == 1.0 ? PodcastPlaylistCell.CellState.playing : PodcastPlaylistCell.CellState.paused
                 if let index = strongSelf.selectedIndex, let cell = strongSelf.collectionView.cellForItem(at: index) as? PodcastPlaylistCell {
-                    
-                    cell.playButton.setImage(buttonImageName, for: .normal)
+                    cell.currentState = cellState
                 }
             }
         } else if keyPath == #keyPath(PlayerViewController.player.player.currentItem.status) {
@@ -130,7 +128,6 @@ class PlaylistViewController: BaseCollectionViewController, ErrorPresenting, Loa
                         strongSelf.hideLoadingView(loadingPop: strongSelf.loadingPop)
                     }
                 }
-                print("NEW ITEM \(newStatus.rawValue)")
             } else {
                 newStatus = .unknown
             }
@@ -181,14 +178,23 @@ extension PlaylistViewController {
         collectionView.dataSource = dataSource
         collectionView.delegate = delegate
         collectionView.register(PodcastCell.self)
-        collectionView.backgroundColor = PodcastListConstants.backgroundColor
+//        let newView = UIView()
+//        newView.frame = collectionView.frame
+//        collectionView.add(newView)
+        collectionView.backgroundColor = .white
+            //PodcastListConstants.backgroundColor
     }
     
     func configureTopView() {
         topView.frame = PodcastListConstants.topFrame
         guard let podcast = playlist.podcast else { return }
-        for (_, podItem) in podcast.enumerated() {
-            
+        
+        for (index, podItem) in podcast.enumerated() {
+            if index == 0 {
+                if let item = podItem as? PodcastPlaylistItem, let id = item.playlistId {
+                    self.title = id
+                }
+            }
             if let item = podItem as? PodcastPlaylistItem, let topImageArtworkData = item.artwork,
                 let artworkImage = UIImage(data: Data.init(referencing: topImageArtworkData)) {
                 topView.podcastImageView.image = artworkImage
@@ -202,7 +208,9 @@ extension PlaylistViewController {
         topView.layoutSubviews()
         view.addSubview(topView)
         view.bringSubview(toFront: topView)
+        
         setupView()
+        dump(collectionView)
     }
     
     func setupView() {
@@ -210,12 +218,13 @@ extension PlaylistViewController {
         guard let navHeight = navigationController?.navigationBar.frame.height else { return }
         let viewHeight = (view.bounds.height - navHeight) - 55
         collectionView.frame = CGRect(x: topView.bounds.minX, y: topView.frame.maxY + (tabBar.frame.height + 6), width: view.bounds.width, height: viewHeight - (topView.frame.height - tabBar.frame.height))
-        collectionView.backgroundColor = .clear
+        collectionView.backgroundColor = .white
     }
 }
 
 
 extension PlaylistViewController: UICollectionViewDataSource {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if episodes.count > 0 {
             backgroundView.alpha = 1
@@ -347,7 +356,7 @@ extension PlaylistViewController: UICollectionViewDelegate {
 extension PlaylistViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: UIScreen.main.bounds.width / 1.01, height: UIScreen.main.bounds.height / 10)
+        return CGSize(width: UIScreen.main.bounds.width / 1.0, height: UIScreen.main.bounds.height / 11)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -356,6 +365,11 @@ extension PlaylistViewController: UICollectionViewDelegateFlowLayout {
 }
 
 extension PlaylistViewController: TopViewDelegate {
+    
+    func infoButton(tapped: Bool) {
+        print(item.tags)
+    }
+    
     
     func entryPop(popped: Bool) {
         print("popped: \(popped)")

@@ -1,10 +1,5 @@
 import UIKit
 
-struct SettingsViewControllerConstants {
-    static let rowHeight: CGFloat = 100
-}
-
-
 final class SettingsViewController: BaseTableViewController {
     
     weak var delegate: SettingsViewControllerDelegate?
@@ -16,6 +11,13 @@ final class SettingsViewController: BaseTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initialize()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.indexPathsForSelectedRows?.forEach {
+            tableView.deselectRow(at: $0, animated: true)
+        }
     }
     
     func initialize() {

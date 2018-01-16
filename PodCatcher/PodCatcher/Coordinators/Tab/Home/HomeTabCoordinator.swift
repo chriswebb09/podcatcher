@@ -1,17 +1,13 @@
 import UIKit
 import CoreData
 
-enum TransitionType {
-    case zoom, pop
-}
-
 final class HomeTabCoordinator: NSObject, NavigationCoordinator, HomeCoordinator {
     
     private var thumbnailZoomTransitionAnimator: ImageTransitionAnimator?
     private var transitionThumbnail: UIImageView?
-    
+    let  persistentContainer = NSPersistentContainer(name: "PodCatcher")
     weak var delegate: CoordinatorDelegate?
-    
+    var podcastsData =  PodcastCoreData()
     internal var type: CoordinatorType = .tabbar
     
     internal var transitionType: TransitionType = .zoom
@@ -38,13 +34,14 @@ final class HomeTabCoordinator: NSObject, NavigationCoordinator, HomeCoordinator
     
     convenience init(navigationController: UINavigationController, controller: UIViewController) {
         self.init(navigationController: navigationController)
-        navigationController.viewControllers = [controller]
+        navigationController.viewControllers.append(controller)
     }
     
     func start() {
-        let homeViewController = navigationController.viewControllers[0] as! HomeViewController
-        homeViewController.managedContext = feedStore.managedContext
-        
+        let backingVC = navigationController.viewControllers[0] as! BackingViewController
+        let homeViewController = backingVC.homeViewController
+        homeViewController?.managedContext = feedStore.managedContext
+
         let controller: NSFetchedResultsController<Subscription> = {
             let fetchRequest: NSFetchRequest<Subscription> = Subscription.fetchRequest()
             fetchRequest.sortDescriptors = [NSSortDescriptor(key: "feedUrl", ascending: true)]
@@ -54,9 +51,15 @@ final class HomeTabCoordinator: NSObject, NavigationCoordinator, HomeCoordinator
             }
             return controller
         }()
-        
-        homeViewController.fetchedResultsController = controller
-        homeViewController.delegate = self
+//
+//
+//
+        homeViewController?.fetchedResultsController = controller
+        homeViewController?.delegate = self
+        homeViewController?.persistentContainer = persistentContainer
+        homeViewController?.homeDataSource = CollectionViewDataSource(collectionView: (homeViewController?.collectionView)!, identifier: SubscribedPodcastCell.reuseIdentifier, fetchedResultsController: controller, delegate: homeViewController!)
+        controller.delegate = homeViewController?.homeDataSource
+        homeViewController?.collectionView.dataSource = homeViewController?.homeDataSource
     }
 }
 
@@ -77,10 +80,10 @@ extension HomeTabCoordinator: HomeViewControllerDelegate {
         concurrent.async { [weak self] in
             
             if let strongSelf = self {
-                
-                let homeViewController = strongSelf.navigationController.viewControllers[0] as! HomeViewController
-                
-                homeViewController.loading()
+                let backingVC = strongSelf.navigationController.viewControllers[0] as! BackingViewController
+            //    let homeViewController = strongSelf.navigationController.viewControllers[0] as! HomeViewController
+                let homeViewController = backingVC.homeViewController
+                homeViewController?.loading()
                 
                 store.pullFeed(for: feedUrlString) { response, arg  in
                     guard let episodes = response else { return }
@@ -94,7 +97,7 @@ extension HomeTabCoordinator: HomeViewControllerDelegate {
                     DispatchQueue.main.async {
                         
                         resultsList.collectionView.reloadData()
-                        homeViewController.finishLoading()
+                        homeViewController?.finishLoading()
                         strongSelf.navigationController.delegate = self
                         strongSelf.transitionThumbnail = imageView
                         strongSelf.navigationController.pushViewController(resultsList, animated: true)
@@ -165,7 +168,7 @@ extension HomeTabCoordinator: PodcastListViewControllerDelegate {
         UserDefaults.saveSubscriptions(subscriptions: subscriptions)
     }
     
-    func didSelectPodcastAt(at index: Int, podcast: CasterSearchResult, with episodes: [Episodes]) {
+    func didSelectPodcastAt(at index: Int, podcast: CasterSearchResult, with episodes: [Episode]) {
         
         var playerPodcast = podcast
         playerPodcast.episodes = episodes
@@ -190,6 +193,19 @@ extension HomeTabCoordinator: PodcastListViewControllerDelegate {
 
 
 extension HomeTabCoordinator: PlayerViewControllerDelegate {
+    func saveItemCoreData(item: CasterSearchResult, index: Int, image: UIImage) {
+        let imageData = UIImagePNGRepresentation(image)
+        guard let title = item.podcastTitle else { return }
+        if (item.artistId) != nil {
+            podcastsData.save(title: item.episodes[index].title, audioUrl: item.episodes[index].audioUrlSting, podcasterName: item.podcastArtist!, podcastId: title, episodeId: item.episodes[index].podcastTitle, podcastImage: imageData! as NSData)
+        } else {
+             podcastsData.save(title: item.episodes[index].title, audioUrl: item.episodes[index].audioUrlSting, podcasterName: item.podcastArtist!, podcastId: title, episodeId: item.episodes[index].podcastTitle, podcastImage: imageData as! NSData)
+        }
+       
+        //  PodcastCoreData
+    }
+    
+    
     
     func addItemToPlaylist(item: CasterSearchResult, index: Int) {
         
@@ -248,7 +264,7 @@ extension HomeTabCoordinator: UINavigationControllerDelegate {
                 guard let tabHeight = fromVC.tabBarController?.tabBar.frame.height else { return nil }
                 toVC.view.frame = CGRect(x: fromVC.view.frame.minX, y: fromVC.view.frame.maxY + (navHeight + tabHeight), width: fromVC.view.frame.width, height: UIScreen.main.bounds.height)
                 toVC.viewDidLoad()
-                thumbnailZoomTransitionAnimator?.duration = 0.2
+                thumbnailZoomTransitionAnimator?.duration = 0.1
             }
             
             thumbnailZoomTransitionAnimator?.operation = operation

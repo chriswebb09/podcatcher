@@ -2,7 +2,24 @@ import Foundation
 
 class RSSParser: NSObject {
     var recordKey = "item"
-    var dictionaryKeys = ["itunes:summary", " itunes:author", "tunes:subtitle", "pubDate", "enclosure", "itunes:duration", "title", "audio/mp3", "audio/mpeg", "itunes:keywords", "itunes:image", "link", "category", "itunes:author", "itunes:summary", "description", "enclosure"]
+    var dictionaryKeys = ["itunes:summary",
+                          " itunes:author",
+                          "tunes:subtitle",
+                          "itunes:category",
+                          "pubDate",
+                          "enclosure",
+                          "itunes:duration",
+                          "title",
+                          "audio/mp3",
+                          "audio/mpeg",
+                          "itunes:keywords",
+                          "itunes:image",
+                          "link",
+                          "category",
+                          "itunes:author",
+                          "itunes:summary",
+                          "description",
+                          "enclosure"]
     
     var results = [[String: String]]()
     var currentDictionary: [String: String]!
@@ -29,13 +46,13 @@ extension RSSParser: XMLParserDelegate {
             if currentDictionary == nil {
                 currentDictionary = [String : String]()
             }
-            print(item)
+        //    print(item)
             currentDictionary["audio"] = item
         } else if elementName == "enclosure", let item = attributeDict["url"], item.hasSuffix("f=510298") {
             if currentDictionary == nil {
                 currentDictionary = [String : String]()
             }
-            print(item)
+           // print(item)
             currentDictionary["audioUrlString"] = item
         } else if dictionaryKeys.contains(elementName) {
             currentValue = ""
@@ -55,9 +72,12 @@ extension RSSParser: XMLParserDelegate {
             return
         }
         if elementName == recordKey {
+          //  print(elementName)
             results.append(currentDictionary)
             currentDictionary = nil
         } else if dictionaryKeys.contains(elementName) && currentDictionary != nil {
+           // print(elementName)
+          //  print(currentValue)
             currentDictionary[elementName] = currentValue
             currentValue = nil
         }
@@ -87,6 +107,8 @@ class NPRParser: RSSParser {
     
     override func parser(_ parser: XMLParser, foundCharacters string: String) {
         currentValue? += string.trimmingCharacters(in: .whitespacesAndNewlines)
+       // print(currentValue)
+       // print("\n")
     }
     
     override func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {

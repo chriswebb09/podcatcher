@@ -16,6 +16,7 @@ extension PodcastPlaylist {
     @NSManaged public var timeSpentListening: Double
     @NSManaged public var uid: String?
     @NSManaged public var podcast: NSSet?
+    @NSManaged var tags: [String]
     
 }
 

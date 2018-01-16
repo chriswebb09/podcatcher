@@ -1,11 +1,5 @@
 import UIKit
 
-struct SettingCellConstants {
-    static let widthMultiplier: CGFloat = 0.6
-    static let titleFont = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.light)
-    static let borderWidth: CGFloat = 1
-}
-
 final class SettingCell: UITableViewCell, Reusable {
     
     weak var delegate: SettingCellDelegate?
@@ -38,9 +32,11 @@ final class SettingCell: UITableViewCell, Reusable {
     func setup(titleLabel: UILabel) {
         contentView.addSubview(titleLabel)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-        titleLabel.centerYAnchor.constraint(equalTo:  contentView.centerYAnchor).isActive = true
-        titleLabel.heightAnchor.constraint(equalTo: contentView.heightAnchor).isActive = true
-        titleLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: SettingCellConstants.widthMultiplier).isActive = true
+        NSLayoutConstraint.activate([
+            titleLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            titleLabel.centerYAnchor.constraint(equalTo:  contentView.centerYAnchor),
+            titleLabel.heightAnchor.constraint(equalTo: contentView.heightAnchor),
+            titleLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: SettingCellConstants.widthMultiplier)
+            ])
     }
 }

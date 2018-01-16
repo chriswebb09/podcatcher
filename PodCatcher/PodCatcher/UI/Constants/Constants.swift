@@ -60,25 +60,8 @@ struct HomeListTopViewConstants {
 struct Constants {
     public struct Alert {
         public struct CancelButton {
-            public static let cancelButtonWidth:CGFloat = 0.5
-            public static let cancelButtonColor: UIColor = UIColor(red:0.88, green:0.35, blue:0.35, alpha:1.0)
-        }
-    }
-    
-    enum Color {
-        case mainColor, backgroundColor, buttonColor, tableViewBackgroundColor
-        
-        var setColor: UIColor {
-            switch self {
-            case .mainColor:
-                return UIColor(red:0.41, green:0.72, blue:0.90, alpha:1.0)
-            case .backgroundColor:
-                return UIColor(red:0.21, green:0.22, blue:0.24, alpha:1.0)
-            case .buttonColor:
-                return UIColor(red:0.10, green:0.71, blue:1.00, alpha:1.0)
-            case .tableViewBackgroundColor:
-                return UIColor(red:0.92, green:0.92, blue:0.92, alpha:1.0)
-            }
+            public static let cancelButtonWidth: CGFloat = 0.5
+          //  public static let cancelButtonColor: UIColor = UIColor(red:0.88, green:0.35, blue:0.35, alpha:1.0)
         }
     }
     
@@ -200,7 +183,7 @@ struct PodcastListConstants {
     static let size = CGSize(width: 50, height: 50)
     static let lineSpace: CGFloat = 0
     static let backgroundColor = UIColor(red: 0.97, green: 0.97, blue: 0.97, alpha: 1.0)
-    static let minimumOffset: CGFloat = 500
+    static let minimumOffset: CGFloat = 800
     static let topFrameHeight = UIScreen.main.bounds.height / 2
     static let topFrameWidth = UIScreen.main.bounds.width
     static let topFrame = CGRect(x: 0, y: 0, width: PodcastListConstants.topFrameWidth, height: PodcastListConstants.topFrameHeight / 1.2)
@@ -208,7 +191,7 @@ struct PodcastListConstants {
 }
 
 struct PodcastCellConstants {
-    static let podcastTitleLabelWidthMultiplier: CGFloat = 0.76
+    static let podcastTitleLabelWidthMultiplier: CGFloat = 0.78
     static let podcastTitleLabelLeftOffset: CGFloat = UIScreen.main.bounds.width * 0.04
     static let playtimeLabelRightOffset: CGFloat = UIScreen.main.bounds.width * -0.045
     static let playtimeLabelWidthMultiplier: CGFloat = 0.2

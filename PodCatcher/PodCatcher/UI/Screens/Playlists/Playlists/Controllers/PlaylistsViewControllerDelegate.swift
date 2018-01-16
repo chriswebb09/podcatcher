@@ -5,10 +5,5 @@ protocol PlaylistsViewControllerDelegate: class {
     func playlistSelected(for caster: PodcastPlaylist)
 }
 
-enum PlaylistsInteractionMode {
-    case add, edit
-}
 
-enum PlaylistsReference {
-    case addPodcast, checkList
-}
+

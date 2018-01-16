@@ -22,6 +22,7 @@ extension String {
         return formattedTime
     }
     
+    // Formats time for string for player time track timer
     static func formatString(time: Int) -> String {
         var formattedString = ""
         if time < 10 {
@@ -32,7 +33,7 @@ extension String {
         return formattedString
     }
     
-    // String extension check that itself for valid email pattern and returns boolean
+    // String extension checks for valid id pattern and returns optional string
 
     static func extractID(from link: String) -> String? {
         let pattern = "id([0-9]+)"
