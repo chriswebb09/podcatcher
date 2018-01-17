@@ -74,6 +74,9 @@ class HomeViewController: BaseCollectionViewController {
         super.viewWillAppear(false)
         view.layoutSubviews()
         setupAutoresizingMasks()
+        //UIFont(
+        let font = UIFont(name: "AvenirNext-Regular", size: 10)!
+
         navigationController?.navigationBar.topItem?.title = "Subscribed Podcasts"
         edgesForExtendedLayout = []
         
@@ -82,6 +85,8 @@ class HomeViewController: BaseCollectionViewController {
                 self.mode = .subscription
                 self.rightButtonItem.title = "Edit"
                 self.navigationItem.rightBarButtonItem = nil
+                self.rightButtonItem.setTitleTextAttributes([NSAttributedStringKey.font: font,
+                    NSAttributedStringKey.foregroundColor: UIColor.white], for: .normal)
             }
         } else if homeDataSource.itemCount > 0 {
             DispatchQueue.main.async {

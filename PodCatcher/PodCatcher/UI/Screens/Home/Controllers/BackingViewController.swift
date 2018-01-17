@@ -89,6 +89,9 @@ final class BackingViewController: UIViewController {
             self.backingView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: 0).isActive = true
             self.backingView.layoutIfNeeded()
             self.currentEmbeddedVC = self.homeViewController
+            DispatchQueue.main.async {
+                self.navigationItem.rightBarButtonItem = self.homeViewController.rightButtonItem
+            }
         }
     }
 }
@@ -99,6 +102,9 @@ extension BackingViewController: SliderControlDelegate {
         switch segmentIndex {
         case 0:
             currentEmbeddedVC = homeViewController
+            DispatchQueue.main.async {
+                self.navigationItem.rightBarButtonItem = self.homeViewController.rightButtonItem
+            }
         case 1:
             currentEmbeddedVC = downloadedViewController
         case 2:

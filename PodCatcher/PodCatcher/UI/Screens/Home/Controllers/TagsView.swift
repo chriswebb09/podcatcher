@@ -35,7 +35,7 @@ func justifiedFlowLayout(containerSize: CGSize, spacing: UIOffset, sizes: [CGSiz
     }
     return result
 }
-    
+
 func flowLayout(containerSize: CGSize, spacing: UIOffset = UIOffset(horizontal: 8, vertical: 8), sizes: [CGSize]) -> [CGRect] {
     var current = CGPoint.zero
     var lineHeight = 0 as CGFloat
