@@ -142,6 +142,7 @@
 		A7986C6B1FFE318100C7E3D0 /* Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7986C6A1FFE318100C7E3D0 /* Controller.swift */; };
 		A7986C6D1FFE319800C7E3D0 /* NavigationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7986C6C1FFE319800C7E3D0 /* NavigationCoordinator.swift */; };
 		A7A089CE1F4BDC9000B863FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7A089CC1F4BDC9000B863FF /* LaunchScreen.storyboard */; };
+		A7A539AD200F049C00EB7621 /* SearchItemsFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A539AC200F049C00EB7621 /* SearchItemsFlowLayout.swift */; };
 		A7A54B491F33E2FA00BF4325 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A54B471F33E2FA00BF4325 /* SplashViewController.swift */; };
 		A7A54B4A1F33E2FA00BF4325 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A54B481F33E2FA00BF4325 /* SplashView.swift */; };
 		A7A54B4C1F33E41100BF4325 /* EntryPopoverDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A54B4B1F33E41100BF4325 /* EntryPopoverDelegate.swift */; };
@@ -375,6 +376,7 @@
 		A7986C6A1FFE318100C7E3D0 /* Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Controller.swift; sourceTree = "<group>"; };
 		A7986C6C1FFE319800C7E3D0 /* NavigationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationCoordinator.swift; sourceTree = "<group>"; };
 		A7A089CD1F4BDC9000B863FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		A7A539AC200F049C00EB7621 /* SearchItemsFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SearchItemsFlowLayout.swift; path = Search/SearchResult/Controllers/SearchItemsFlowLayout.swift; sourceTree = "<group>"; };
 		A7A54B471F33E2FA00BF4325 /* SplashViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		A7A54B481F33E2FA00BF4325 /* SplashView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		A7A54B4B1F33E41100BF4325 /* EntryPopoverDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EntryPopoverDelegate.swift; path = Entry/EntryPopoverDelegate.swift; sourceTree = "<group>"; };
@@ -610,6 +612,7 @@
 				A717592D1F381D9300651EAF /* PodcastCellViewModel.swift */,
 				A71759311F381E7100651EAF /* PodcastResultCellViewModel.swift */,
 				A72B5061200869F200290B3A /* SearchResultDatasource.swift */,
+				A7A539AC200F049C00EB7621 /* SearchItemsFlowLayout.swift */,
 			);
 			name = SearchResult;
 			sourceTree = "<group>";
@@ -1391,6 +1394,7 @@
 				A719A5361F33E21400BDC6C9 /* StartViewDelegate.swift in Sources */,
 				A71514A11F05281100F123CD /* UISearchController+Extension.swift in Sources */,
 				A7AB2C28200D25CC008E03DA /* Podcast+CoreDataClass.swift in Sources */,
+				A7A539AD200F049C00EB7621 /* SearchItemsFlowLayout.swift in Sources */,
 				A71B26F21EE5D24700613CF4 /* AppDelegate.swift in Sources */,
 				A7DF81EE1F2DFE0800ADB86B /* TopViewDelegate.swift in Sources */,
 				A748D01C2008061B001A8C57 /* TopPodcast+CoreDataProperties.swift in Sources */,

@@ -8,6 +8,8 @@
 
 import UIKit
 
+// https://www.objc.io/blog/2018/01/09/justified-flow-layout/
+
 func justifiedFlowLayout(containerSize: CGSize, spacing: UIOffset, sizes: [CGSize]) -> [CGRect] {
     var lines: [[CGSize]] = [[]]
     for element in sizes {

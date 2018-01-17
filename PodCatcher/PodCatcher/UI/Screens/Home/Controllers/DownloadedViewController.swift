@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 
 class DownloadedViewController: BaseTableViewController {
-
+    
     var managedContext: NSManagedObjectContext! {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return nil }
         let context = appDelegate.persistentContainer.viewContext
@@ -36,6 +36,7 @@ class DownloadedViewController: BaseTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initialize()
+        edgesForExtendedLayout = []
         tableView.register(DownloadedCell.self)
         tableView.dataSource = playlistsDataSource
         tableView.delegate = self
@@ -48,7 +49,7 @@ class DownloadedViewController: BaseTableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tableView.translatesAutoresizingMaskIntoConstraints = false
-        self.tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
+        self.tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 2).isActive = true
         self.tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0).isActive = true
         self.tableView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1).isActive = true
         self.tableView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: 0).isActive = true
@@ -84,10 +85,3 @@ extension DownloadedViewController: UITableViewDelegate {
         return UIScreen.main.bounds.height / 10
     }
 }
-
-extension DownloadedViewController: SliderControlDelegate {
-    func didSelect(_ segmentIndex: Int) {
-        print(segmentIndex)
-    }
-}
-

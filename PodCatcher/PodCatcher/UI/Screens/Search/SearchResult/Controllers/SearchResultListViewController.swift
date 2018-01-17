@@ -239,6 +239,7 @@ extension SearchResultListViewController: UIScrollViewDelegate {
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         collectionView.updateCollectionViewLayout()
     }
+    
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         DispatchQueue.main.async {
             self.collectionView.reloadSections(IndexSet(integersIn: 0...0))

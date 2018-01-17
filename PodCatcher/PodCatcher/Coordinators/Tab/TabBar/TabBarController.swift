@@ -32,8 +32,8 @@ final class TabBarController: UITabBarController {
         let home = #imageLiteral(resourceName: "home").withRenderingMode(.alwaysTemplate)
         let normalImage = #imageLiteral(resourceName: "podcasts-icon-black").withRenderingMode(.alwaysTemplate)
         let normalImageTwo = #imageLiteral(resourceName: "heart-icon-black").withRenderingMode(.alwaysTemplate)
-        let normalImageThree = #imageLiteral(resourceName: "search-gray").withRenderingMode(.alwaysTemplate)
-        let normalImageFour = #imageLiteral(resourceName: "settings-dark-gray").withRenderingMode(.alwaysTemplate)
+        let normalImageThree = #imageLiteral(resourceName: "search").withRenderingMode(.alwaysTemplate)
+        let normalImageFour = #imageLiteral(resourceName: "settings").withRenderingMode(.alwaysTemplate)
         
         viewControllers = controllers
         

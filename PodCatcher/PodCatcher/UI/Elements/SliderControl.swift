@@ -121,7 +121,7 @@ class SliderControl: UIControl {
             case 1136:
                 print("1136")
                 containerView.frame = CGRect(x: Constants.leadingTrailingMargin,
-                                             y: Constants.height / 10,
+                                             y: Constants.height / 12,
                                              width: bounds.width - Constants.leadingTrailingMargin * 3,
                                              height: Constants.height)
             case 1334:
@@ -134,7 +134,7 @@ class SliderControl: UIControl {
             case 2208:
                 print("2208")
                 containerView.frame = CGRect(x: Constants.leadingTrailingMargin,
-                                             y: Constants.height / 4,
+                                             y: Constants.height / 6,
                                              width: bounds.width - Constants.leadingTrailingMargin * 3,
                                              height: Constants.height)
             default:
