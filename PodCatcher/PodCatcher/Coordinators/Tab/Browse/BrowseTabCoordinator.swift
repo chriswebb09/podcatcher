@@ -253,9 +253,9 @@ extension BrowseTabCoordinator: PodcastListViewControllerDelegate {
 extension BrowseTabCoordinator: PlayerViewControllerDelegate {
     
     func saveItemCoreData(item: CasterSearchResult, index: Int, image: UIImage) {
-        var imageData = UIImagePNGRepresentation(image)
+        let imageData = UIImagePNGRepresentation(image)
         guard let artist = item.podcastArtist else { return }
-        podcastsData.save(title: item.episodes[index].title, audioUrl: item.episodes[index].audioUrlSting, podcasterName: artist, podcastId: item.podcastTitle!, episodeId: item.episodes[index].podcastTitle, podcastImage: imageData as! NSData)
+        podcastsData.save(title: item.episodes[index].title, audioUrl: item.episodes[index].audioUrlSting, podcasterName: artist, podcastId: item.podcastTitle!, episodeId: item.episodes[index].podcastTitle, podcastImage: imageData! as NSData)
       //  PodcastCoreData
     }
     

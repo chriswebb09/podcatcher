@@ -16,15 +16,15 @@ struct SearchResultsDataStore {
                 guard let title = data["title"] else { continue }
                 guard let audioUrl = data["audio"] else { continue }
                 var episode = Episode(mediaUrlString: audioUrl,
-                                       audioUrlSting: audioUrl,
-                                       title: title,
-                                       podcastTitle: "",
-                                       date: "",
-                                       description: "",
-                                       duration: 000,
-                                       audioUrlString: audioUrl,
-                                       stringDuration: "",
-                                       tags: [])
+                                      audioUrlSting: audioUrl,
+                                      title: title,
+                                      podcastTitle: "",
+                                      date: "",
+                                      description: "",
+                                      duration: 000,
+                                      audioUrlString: audioUrl,
+                                      stringDuration: "",
+                                      tags: [])
                 
                 if var duration = data["itunes:duration"] {
                     duration = duration.replacingOccurrences(of: "00:",
@@ -46,31 +46,31 @@ struct SearchResultsDataStore {
                     //print(collectionName)
                 }
                 
-                if let artistName = data["artistName"] {
+                if data["artistName"] != nil {
                     print("artistName")
-                   // /print(artistName)
+                    // /print(artistName)
                 }
                 
-                if let primaryGenre = data["primaryGenreName"] {
+                if data["primaryGenreName"] != nil {
                     print("PRIMARY GENRE")
-                   // print(primaryGenre)
+                    // print(primaryGenre)
                 }
                 
-                if let artistViewUrl = data["artistViewUrl"] {
+                if data["artistViewUrl"] != nil {
                     print("itunes url")
                     //print(artistViewUrl)
                 }
                 
-                if let country = data["country"] {
+                if data["country"] != nil {
                     print("country")
-                  //  print(country)
+                    //  print(country)
                 }
                 
                 if let date = data["pubDate"] {
                     episode.date = date
                 }
                 
-                if let releaseDate = data["releaseDate"] {
+                if data["releaseDate"] != nil {
                     print("RELEASE DATE")
                     //print(releaseDate)
                 }

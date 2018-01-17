@@ -199,7 +199,7 @@ extension HomeTabCoordinator: PlayerViewControllerDelegate {
         if (item.artistId) != nil {
             podcastsData.save(title: item.episodes[index].title, audioUrl: item.episodes[index].audioUrlSting, podcasterName: item.podcastArtist!, podcastId: title, episodeId: item.episodes[index].podcastTitle, podcastImage: imageData! as NSData)
         } else {
-             podcastsData.save(title: item.episodes[index].title, audioUrl: item.episodes[index].audioUrlSting, podcasterName: item.podcastArtist!, podcastId: title, episodeId: item.episodes[index].podcastTitle, podcastImage: imageData as! NSData)
+            podcastsData.save(title: item.episodes[index].title, audioUrl: item.episodes[index].audioUrlSting, podcasterName: item.podcastArtist!, podcastId: title, episodeId: item.episodes[index].podcastTitle, podcastImage: imageData! as NSData)
         }
        
         //  PodcastCoreData

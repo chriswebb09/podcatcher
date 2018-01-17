@@ -58,7 +58,7 @@ class DownloadedViewController: BaseTableViewController {
 
 extension DownloadedViewController: TableViewDataSourceDelegate {
     func configure(_ cell: DownloadedCell, for object: Podcast) {
-        if let __ = object.episodeTitle, let artdata = object.podcastImage, let title = object.episodeTitle {
+        if let _ = object.episodeTitle, let artdata = object.podcastImage, let title = object.episodeTitle {
             DispatchQueue.main.async {
                 if let image = UIImage(data: artdata as Data) {
                     cell.configureCell(with: image, title: title)

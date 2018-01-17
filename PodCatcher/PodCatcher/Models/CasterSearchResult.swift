@@ -99,7 +99,7 @@ struct CasterSearchResult: DataItem, PodcastSearchResult {
             self.itunesUrlString = artistViewUrl
         }
         
-        if let country = json["country"] as? String {
+        if (json["country"] as? String) != nil {
           //  print(country)
         }
         for tag in tags {

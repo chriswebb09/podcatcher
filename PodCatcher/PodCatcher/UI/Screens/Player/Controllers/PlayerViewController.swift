@@ -2,7 +2,7 @@
  import CoreMedia
  import CoreData
  import AVFoundation
- import ReachabilitySwift
+ import Reachability
  
  private var playerViewControllerKVOContext = 0
  
@@ -122,7 +122,7 @@
                 }
             }
         }
-        NotificationCenter.default.addObserver(self, selector: #selector(reachabilityChanged), name: ReachabilityChangedNotification, object: reachability)
+        NotificationCenter.default.addObserver(self, selector: #selector(reachabilityChanged), name: Notification.Name.reachabilityChanged, object: reachability)
         do {
             try reachability.startNotifier()
         } catch {
@@ -151,7 +151,7 @@
         
         reachability.stopNotifier()
         
-        NotificationCenter.default.removeObserver(self, name: ReachabilityChangedNotification, object: reachability)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name.reachabilityChanged, object: reachability)
         
         player?.player?.pause()
         
@@ -169,13 +169,13 @@
     }
     
     @objc func reachabilityChanged(note: Notification) {
-        if reachability.isReachable {
+        if reachability.connection != .none {
             DispatchQueue.main.async { [weak self] in
                 guard let strongSelf = self else { return }
                 strongSelf.updateTrack()
             }
             
-        } else if reachability.isReachable == false {
+        } else if reachability.connection != .none {
             DispatchQueue.main.async { [weak self] in
                 guard let strongSelf = self else { return }
                 strongSelf.hideLoadingView(loadingPop: strongSelf.loadingPop)
@@ -286,7 +286,7 @@
     
     
     internal func playPause(tapped: Bool) {
-        if reachability.isReachable == false {
+        if reachability.connection != .none {
             DispatchQueue.main.async { [weak self] in
                 guard let strongSelf = self, let player = strongSelf.player, let audioPlayer = player.player else { return }
                 strongSelf.presentError(title: "Connect To Network", message: "You must be connected to the internet to stream context.")
@@ -372,7 +372,7 @@
     }
     
     func optionTwo(tapped: Bool) {
-    
+        
         if let urlString = caster.episodes[index].audioUrlString, !LocalStorageManager.localFileExists(for: urlString) {
             downloadingIndicator.showActivityIndicator(viewController: self)
             let download = Download(url: urlString)

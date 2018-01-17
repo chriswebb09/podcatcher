@@ -1,5 +1,5 @@
 import UIKit
-import ReachabilitySwift
+import Reachability
 
 final class BrowseViewController: BaseCollectionViewController, LoadingPresenting {
     
@@ -81,7 +81,7 @@ final class BrowseViewController: BaseCollectionViewController, LoadingPresentin
         super.viewWillAppear(animated)
         tap = UITapGestureRecognizer(target: self, action: #selector(selectAt))
         topView.podcastImageView.addGestureRecognizer(tap)
-        NotificationCenter.default.addObserver(self, selector: #selector(reachabilityChanged), name: ReachabilityChangedNotification, object: reachability)
+        NotificationCenter.default.addObserver(self, selector: #selector(reachabilityChanged), name: Notification.Name.reachabilityChanged, object: reachability)
         do {
             try reachability.startNotifier()
         } catch {

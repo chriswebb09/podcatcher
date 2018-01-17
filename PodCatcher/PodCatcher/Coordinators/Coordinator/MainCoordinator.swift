@@ -1,5 +1,5 @@
 import UIKit
-import ReachabilitySwift
+import Reachability
 import CoreData
 
 class MainCoordinator: ApplicationCoordinator {

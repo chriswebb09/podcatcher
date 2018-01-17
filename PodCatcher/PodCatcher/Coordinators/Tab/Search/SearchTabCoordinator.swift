@@ -109,8 +109,8 @@ extension SearchTabCoordinator: PodcastListViewControllerDelegate {
 
 extension SearchTabCoordinator: PlayerViewControllerDelegate {
     func saveItemCoreData(item: CasterSearchResult, index: Int, image: UIImage) {
-        var imageData = UIImagePNGRepresentation(image)
-        podcastsData.save(title: item.episodes[index].title, audioUrl: item.episodes[index].audioUrlSting, podcasterName: item.podcastArtist!, podcastId: item.artistId, episodeId: item.episodes[index].podcastTitle, podcastImage: imageData as! NSData)
+        let imageData = UIImagePNGRepresentation(image)
+        podcastsData.save(title: item.episodes[index].title, audioUrl: item.episodes[index].audioUrlSting, podcasterName: item.podcastArtist!, podcastId: item.artistId, episodeId: item.episodes[index].podcastTitle, podcastImage: imageData! as NSData)
         //  PodcastCoreData
     }
     

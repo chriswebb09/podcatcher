@@ -1,5 +1,5 @@
 import UIKit
-import ReachabilitySwift
+import Reachability
 
 final class SearchViewController: BaseTableViewController, LoadingPresenting {
     

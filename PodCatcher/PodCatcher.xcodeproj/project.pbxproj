@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4C2A0CB1C917FAB693354C19 /* Pods_PodCatcher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C13D79C98B2FE9CADBCF74EF /* Pods_PodCatcher.framework */; };
+		A708E121200EE02500B9589B /* DrawWaveform.swift in Sources */ = {isa = PBXBuildFile; fileRef = A708E120200EE02500B9589B /* DrawWaveform.swift */; };
 		A710CA861F346279009153AC /* PodcastPlaylist+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A710CA811F346279009153AC /* PodcastPlaylist+CoreDataClass.swift */; };
 		A710CA881F346279009153AC /* PodcastPlaylist+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A710CA821F346279009153AC /* PodcastPlaylist+CoreDataProperties.swift */; };
 		A711495F1F33EDD2003A4854 /* SearchViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A711495E1F33EDD2003A4854 /* SearchViewControllerDelegate.swift */; };
@@ -234,6 +235,7 @@
 /* Begin PBXFileReference section */
 		7FCA31606CD8F7FEFDA48206 /* Pods_PodCatcherUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PodCatcherUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E791D925D86F63029FC2A2D /* Pods-PodCatcher.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PodCatcher.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PodCatcher/Pods-PodCatcher.debug.xcconfig"; sourceTree = "<group>"; };
+		A708E120200EE02500B9589B /* DrawWaveform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawWaveform.swift; sourceTree = "<group>"; };
 		A710CA811F346279009153AC /* PodcastPlaylist+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "PodcastPlaylist+CoreDataClass.swift"; path = "/Users/ChrisWebb/podcatcher/PodCatcher/PodCatcher/ApplicationServices/Data/PodcastPlaylist+CoreDataClass.swift"; sourceTree = "<absolute>"; };
 		A710CA821F346279009153AC /* PodcastPlaylist+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "PodcastPlaylist+CoreDataProperties.swift"; path = "/Users/ChrisWebb/podcatcher/PodCatcher/PodCatcher/ApplicationServices/Data/PodcastPlaylist+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
 		A711495E1F33EDD2003A4854 /* SearchViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SearchViewControllerDelegate.swift; path = Search/Search/SearchViewControllerDelegate.swift; sourceTree = "<group>"; };
@@ -789,6 +791,7 @@
 				A73D740F1EE6861D004571A5 /* Ball */,
 				A719C7691F5B77840086213E /* ImageTransitionAnimator.swift */,
 				A719C76B1F5B77D50086213E /* SimpleAnimator.swift */,
+				A708E120200EE02500B9589B /* DrawWaveform.swift */,
 			);
 			path = Animation;
 			sourceTree = "<group>";
@@ -1535,6 +1538,7 @@
 				A7F0615B1F0D772100946411 /* BaseTableViewController.swift in Sources */,
 				A71C939E1F2AC4C6009F3EC9 /* BrowseCollectionDataSource.swift in Sources */,
 				A7B1C0811F0AE54400A42E7D /* HomeTabCoordinator.swift in Sources */,
+				A708E121200EE02500B9589B /* DrawWaveform.swift in Sources */,
 				A77041561F2935A300346FC7 /* PodcastItemCoreDataStack.swift in Sources */,
 				A7AB2C19200CFFFD008E03DA /* DownloadedViewController.swift in Sources */,
 				A770415C1F29378C00346FC7 /* PlayerViewModel.swift in Sources */,

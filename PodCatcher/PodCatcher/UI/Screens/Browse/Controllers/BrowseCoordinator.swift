@@ -1,5 +1,5 @@
 import UIKit
-import ReachabilitySwift
+import Reachability
 
 protocol BrowseCoordinator: ControllerCoordinator {
     func didSelect(at index: Int, with cast: PodcastSearchResult, with imageView: UIImageView)
