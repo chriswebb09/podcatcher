@@ -17,7 +17,7 @@ PodCatch parses podcast RSS feeds and streams audio files from the web. Users ca
 
 <h2 align="center">App Screens</h2>
 
-<img src="https://raw.githubusercontent.com/chriswebb09/podcatcher/master/Resource/start-screen.jpg" align="left">
+<img src="https://raw.githubusercontent.com/chriswebb09/podcatcher/master/Resource/podcatch-home.png" align="left">
 
 <img src="https://raw.githubusercontent.com/chriswebb09/podcatcher/master/Resource/signup.jpg" align="right">
 
@@ -30,7 +30,7 @@ PodCatch parses podcast RSS feeds and streams audio files from the web. Users ca
 
 <img src="https://raw.githubusercontent.com/chriswebb09/podcatcher/master/Resource/browse-screen.png" align="right">
 
-<img src="https://raw.githubusercontent.com/chriswebb09/podcatcher/master/Resource/edit-home.png" align="left">
+<img src="https://raw.githubusercontent.com/chriswebb09/podcatcher/master/Resource/podcatch-home-edit.png" align="left">
 
 
 <img src="https://raw.githubusercontent.com/chriswebb09/podcatcher/master/Resource/home.png" align="right">
