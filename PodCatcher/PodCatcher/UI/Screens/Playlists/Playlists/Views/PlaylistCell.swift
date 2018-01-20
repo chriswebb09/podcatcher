@@ -4,12 +4,22 @@ final class PlaylistCell: UITableViewCell, Reusable {
     
     static let reuseIdentifier = "PlaylistCell"
     
+//    enum PlaylistCell {
+//        static let title = UIFont(name: "AvenirNext-Regular", size: 17)
+//        static let items = UIFont(name: "AvenirNext-UltraLight", size: 14)
+//    }
+//    
+//  titleLabel
+//  numberOfItems  UIFont(name: "AvenirNext-Regular", size: 17)
+//
     var mode: PlaylistCellMode = .select {
         didSet {
             switch mode {
             case .select:
                 deleteImageView.alpha = 1
-                let image = #imageLiteral(resourceName: "next").withRenderingMode(.alwaysTemplate)
+                let image = #imageLiteral(resourceName: "circle-play").withRenderingMode(.alwaysTemplate)
+                
+               // let image = #imageLiteral(resourceName: "next").withRenderingMode(.alwaysTemplate)
                 deleteImageView.image = image
                 deleteImageView.tintColor = .darkGray
             case .delete:
@@ -35,8 +45,9 @@ final class PlaylistCell: UITableViewCell, Reusable {
     var titleLabel: UILabel = {
         let title = UILabel()
         title.textColor = .black
-        title.font = UIFont(name: "AvenirNext-Regular", size: 16)
-        title.textAlignment = .center
+        title.font = Style.Font.PlaylistCell.title
+            //UIFont(name: "AvenirNext-Regular", size: 17)
+        title.textAlignment = .left
         title.numberOfLines = 0
         return title
     }()
@@ -49,8 +60,9 @@ final class PlaylistCell: UITableViewCell, Reusable {
     var numberOfItemsLabel: UILabel = {
         let numberOfItems = UILabel()
         numberOfItems.textColor = .black
-        numberOfItems.font = UIFont(name: "AvenirNext-UltraLight", size: 16)
-        numberOfItems.textAlignment = .center
+        numberOfItems.font = Style.Font.PlaylistCell.items
+            //UIFont(name: "AvenirNext-UltraLight", size: 14)
+        numberOfItems.textAlignment = .left
         numberOfItems.numberOfLines = 0
         return numberOfItems
     }()
@@ -76,7 +88,7 @@ final class PlaylistCell: UITableViewCell, Reusable {
         setShadow()
         self.mode = mode
         self.albumArtView.image = image
-        self.titleLabel.text = title.uppercased()
+        self.titleLabel.text = title
         if let subtitle = subtitle {
             self.numberOfItemsLabel.text = subtitle
         } else {
@@ -99,36 +111,36 @@ final class PlaylistCell: UITableViewCell, Reusable {
         contentView.addSubview(titleLabel)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         if #available(iOS 11, *) {
-            titleLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+            titleLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor, constant: 10).isActive = true
         } else {
             titleLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor, constant: contentView.bounds.width * 0.13).isActive = true
         }
         
         titleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: contentView.bounds.height * -0.1).isActive = true
         titleLabel.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.25).isActive = true
-        titleLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.8).isActive = true
+        titleLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.3).isActive = true
     }
     
     func setup(numberOfItemsLabel: UILabel) {
         contentView.addSubview(numberOfItemsLabel)
         numberOfItemsLabel.translatesAutoresizingMaskIntoConstraints = false
         if #available(iOS 11, *) {
-            numberOfItemsLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+            numberOfItemsLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor, constant: 10).isActive = true
         } else {
             numberOfItemsLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor, constant: contentView.bounds.width * 0.13).isActive = true
         }
         
         
-        numberOfItemsLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: contentView.bounds.height * 0.008).isActive = true
+        numberOfItemsLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: contentView.bounds.height * 0.007).isActive = true
         numberOfItemsLabel.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.25).isActive = true
-        numberOfItemsLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.7).isActive = true
+        numberOfItemsLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.3).isActive = true
     }
     
     private func setup(albumArtView: UIImageView) {
         contentView.addSubview(albumArtView)
         albumArtView.translatesAutoresizingMaskIntoConstraints = false
         if #available(iOS 11, *) {
-            albumArtView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: contentView.bounds.width * 0.04).isActive = true
+            albumArtView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: contentView.bounds.width * 0.07).isActive = true
             albumArtView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
             albumArtView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.7).isActive = true
             albumArtView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.2).isActive = true
@@ -152,8 +164,23 @@ final class PlaylistCell: UITableViewCell, Reusable {
             deleteImageView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.26).isActive = true
             deleteImageView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: contentView.bounds.width * -0.04).isActive = true
         }
-        
-        deleteImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
+//        self.view.addConstraint(NSLayoutConstraint(
+//            item:       button,
+//            attribute:  .trailing,
+//            relatedBy:  .equal,
+//            toItem:     button,
+//            attribute:  .trailing,
+//            multiplier: 1.0,
+//            constant:   0.0
+//        ))
+        contentView.addConstraint(NSLayoutConstraint(item: deleteImageView,
+                                                     attribute: .centerY,
+                                                     relatedBy: .equal,
+                                                     toItem: contentView,
+                                                     attribute: .centerY,
+                                                     multiplier: 1.0,
+                                                     constant: 0.0))
+       // deleteImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
     }
     
     func setupSeparator() {

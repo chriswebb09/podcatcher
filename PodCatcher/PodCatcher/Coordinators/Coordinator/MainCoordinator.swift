@@ -85,7 +85,7 @@ extension MainCoordinator: CoordinatorDelegate {
     }
     
     func setupHomeTab() {
-        let backingVC = BackingViewController()
+        let backingVC = HomeBackingViewController()
         let homeViewController = HomeViewController()
         backingVC.homeViewController = homeViewController
         let backingTab = UINavigationController(rootViewController: backingVC)

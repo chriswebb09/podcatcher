@@ -83,6 +83,7 @@ class SliderControl: UIControl {
         addSubview(containerView)
         containerView.addSubview(backgroundView)
         containerView.addSubview(selectedContainerView)
+        containerView.layer.setCellShadow(contentView: containerView)
         //containerView.layer.borderWidth = 1
         //containerView.layer.borderColor = UIColor.gray.cgColor
         containerView.addSubview(sliderView)
@@ -134,7 +135,7 @@ class SliderControl: UIControl {
             case 2208:
                 print("2208")
                 containerView.frame = CGRect(x: Constants.leadingTrailingMargin,
-                                             y: Constants.height / 6,
+                                             y: Constants.height / 4,
                                              width: bounds.width - Constants.leadingTrailingMargin * 3,
                                              height: Constants.height)
             default:
@@ -150,9 +151,9 @@ class SliderControl: UIControl {
         backgroundView.frame = frame
         
         selectedContainerView.frame = frame
-        sliderView.frame = CGRect(x: 2, y: 3, width: segmentWidth, height: backgroundView.frame.height - 6)
+        sliderView.frame = CGRect(x: 2, y: 3, width: segmentWidth, height: backgroundView.frame.height - 8)
         
-        let cornerRadius = backgroundView.frame.height / 2.2
+        let cornerRadius = backgroundView.frame.height / 2.3
             //CGFloat(10)
             //backgroundView.frame.height / 2
         
@@ -172,7 +173,7 @@ class SliderControl: UIControl {
     private func setupAutoresizingMasks() {
         containerView.autoresizingMask = [.flexibleWidth]
         backgroundView.autoresizingMask = [.flexibleWidth]
-        selectedContainerView.autoresizingMask = [.flexibleWidth]
+        selectedContainerView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         sliderView.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin, .flexibleWidth]
     }
     
@@ -235,7 +236,7 @@ class SliderControl: UIControl {
         case .cancelled, .ended, .failed:
             moveToNearestPoint(basedOn: panGesture, velocity: panGesture.velocity(in: sliderView))
         case .began:
-            correction = panGesture.location(in: sliderView).x - sliderView.frame.width/2
+            correction = panGesture.location(in: sliderView).x - sliderView.frame.width / 2
         case .changed:
             let location = panGesture.location(in: self)
             sliderView.center.x = location.x - correction

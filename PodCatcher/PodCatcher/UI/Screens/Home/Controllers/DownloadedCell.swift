@@ -20,8 +20,8 @@ final class DownloadedCell: UITableViewCell, Reusable {
     
     private var titleLabel: UILabel = {
         let title = UILabel()
-        title.textColor = .black
-        title.font = UIFont(name: "AvenirNext-Regular", size: 12)
+        title.textColor = .gray
+        title.font = UIFont(name: "AvenirNext-Regular", size: 11)
         title.textAlignment = .left
         title.numberOfLines = 0
         return title
@@ -29,8 +29,9 @@ final class DownloadedCell: UITableViewCell, Reusable {
     
     var moreButton: UIButton = {
         var more = UIButton()
-        more.setImage(#imageLiteral(resourceName: "more-icon"), for: .normal)
-        more.tintColor = .darkGray
+        let image = #imageLiteral(resourceName: "more-icon").withRenderingMode(.alwaysTemplate)
+        more.setImage(image, for: .normal)
+        more.tintColor = .gray
         return more
     }()
     
@@ -89,7 +90,7 @@ final class DownloadedCell: UITableViewCell, Reusable {
         contentView.addSubview(separatorView)
         separatorView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            separatorView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.01),
+            separatorView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.009),
             separatorView.widthAnchor.constraint(equalTo: contentView.widthAnchor),
             separatorView.rightAnchor.constraint(equalTo: rightAnchor),
             separatorView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
@@ -102,19 +103,19 @@ final class DownloadedCell: UITableViewCell, Reusable {
         contentView.addSubview(titleLabel)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            titleLabel.leftAnchor.constraint(equalTo: albumArtView.rightAnchor, constant: contentView.frame.width * 0.1),
-            titleLabel.centerYAnchor.constraint(equalTo:  contentView.centerYAnchor),
+            titleLabel.leftAnchor.constraint(equalTo: albumArtView.rightAnchor, constant: contentView.frame.width * 0.07),
+            titleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             titleLabel.heightAnchor.constraint(equalTo: contentView.heightAnchor),
-            titleLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.6)
+            titleLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.46)
             ])
     }
     
     private func setup(albumArtView: UIImageView) {
         NSLayoutConstraint.activate([
-            albumArtView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: contentView.bounds.width * 0.02),
+            albumArtView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: contentView.bounds.width * 0.07),
             albumArtView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            albumArtView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.88),
-            albumArtView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.2)
+            albumArtView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.7),
+            albumArtView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.15)
             ])
     }
     
@@ -125,7 +126,7 @@ final class DownloadedCell: UITableViewCell, Reusable {
             NSLayoutConstraint.activate([
                 button.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.06),
                 button.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.3),
-                button.centerXAnchor.constraint(equalTo: centerXAnchor, constant: contentView.bounds.width * 0.40)
+                button.centerXAnchor.constraint(equalTo: centerXAnchor, constant: contentView.bounds.width * 0.34)
                 ])
         } else {
             NSLayoutConstraint.activate([

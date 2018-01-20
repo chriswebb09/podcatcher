@@ -1,4 +1,12 @@
 //
+//  BrowserBackingViewController.swift
+//  PodCatcher
+//
+//  Created by Christopher Webb-Orenstein on 1/18/18.
+//  Copyright © 2018 Christopher Webb-Orenstein. All rights reserved.
+//
+
+//
 //  BackingViewController.swift
 //  PodCatcher
 //
@@ -8,7 +16,7 @@
 
 import UIKit
 
-final class BackingViewController: UIViewController {
+final class BrowserBackingViewController: UIViewController {
     
     // MARK: - Properties
     
@@ -18,9 +26,9 @@ final class BackingViewController: UIViewController {
     
     var backingView: UIView = UIView()
     
-    var homeViewController: HomeViewController!
+    var playlistsViewController: PlaylistsViewController!
     
-    var downloadedViewController: DownloadedViewController = DownloadedViewController()
+    var browseViewController: BrowseViewController = BrowseViewController(index: 0)
     
     var tagsViewController: TagsViewController = TagsViewController()
     
@@ -47,6 +55,7 @@ final class BackingViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         edgesForExtendedLayout = []
+        title = "Browse"
         DispatchQueue.main.async {
             self.view.add(self.backingView)
             self.view.add(self.sliderControl)
@@ -88,29 +97,30 @@ final class BackingViewController: UIViewController {
             self.backingView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1).isActive = true
             self.backingView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: 0).isActive = true
             self.backingView.layoutIfNeeded()
-            self.currentEmbeddedVC = self.homeViewController
+            self.currentEmbeddedVC = self.playlistsViewController
             DispatchQueue.main.async {
-                self.navigationItem.rightBarButtonItem = self.homeViewController.rightButtonItem
+                self.navigationItem.rightBarButtonItem = self.playlistsViewController.rightButtonItem
             }
         }
     }
 }
 
-extension BackingViewController: SliderControlDelegate {
+extension BrowserBackingViewController: SliderControlDelegate {
     
     func didSelect(_ segmentIndex: Int) {
         switch segmentIndex {
         case 0:
-            currentEmbeddedVC = homeViewController
+            currentEmbeddedVC = playlistsViewController
             DispatchQueue.main.async {
-                self.navigationItem.rightBarButtonItem = self.homeViewController.rightButtonItem
+                self.navigationItem.rightBarButtonItem = self.playlistsViewController.rightButtonItem
             }
         case 1:
-            currentEmbeddedVC = downloadedViewController
+            currentEmbeddedVC = browseViewController
         case 2:
             currentEmbeddedVC = tagsViewController
         default:
-            currentEmbeddedVC = homeViewController
+            currentEmbeddedVC = playlistsViewController
         }
     }
 }
+

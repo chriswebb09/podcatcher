@@ -75,7 +75,7 @@ class HomeViewController: BaseCollectionViewController {
         view.layoutSubviews()
         setupAutoresizingMasks()
         //UIFont(
-        let font = UIFont(name: "AvenirNext-Regular", size: 10)!
+        let font = UIFont(name: "AvenirNext-Regular", size: 16)!
 
         navigationController?.navigationBar.topItem?.title = "Subscribed Podcasts"
         edgesForExtendedLayout = []
@@ -105,7 +105,7 @@ class HomeViewController: BaseCollectionViewController {
         
         DispatchQueue.main.async {
             self.collectionView.translatesAutoresizingMaskIntoConstraints = false
-            self.collectionView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 0).isActive = true
+            self.collectionView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 8).isActive = true
             self.collectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0).isActive = true
             self.collectionView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1).isActive = true
             self.collectionView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: 0).isActive = true

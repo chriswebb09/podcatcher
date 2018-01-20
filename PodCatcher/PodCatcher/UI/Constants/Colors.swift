@@ -2,6 +2,14 @@ import UIKit
 
 enum Style {
     
+    enum Font {
+        static let main = UIFont(name: "AvenirNext-Regular", size: 16)
+        enum PlaylistCell {
+            static let title = UIFont(name: "AvenirNext-Regular", size: 17)
+            static let items = UIFont(name: "AvenirNext-UltraLight", size: 14)
+        }
+    }
+    
     enum Color {
         static let main = UIColor(red:0.41, green:0.72, blue:0.90, alpha:1.0)
         static let background = UIColor(red:0.21, green:0.22, blue:0.24, alpha:1.0)

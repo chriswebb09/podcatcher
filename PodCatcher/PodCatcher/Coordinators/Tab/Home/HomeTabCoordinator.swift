@@ -38,7 +38,7 @@ final class HomeTabCoordinator: NSObject, NavigationCoordinator, HomeCoordinator
     }
     
     func start() {
-        let backingVC = navigationController.viewControllers[0] as! BackingViewController
+        let backingVC = navigationController.viewControllers[0] as! HomeBackingViewController
         let homeViewController = backingVC.homeViewController
         homeViewController?.managedContext = feedStore.managedContext
 
@@ -80,7 +80,7 @@ extension HomeTabCoordinator: HomeViewControllerDelegate {
         concurrent.async { [weak self] in
             
             if let strongSelf = self {
-                let backingVC = strongSelf.navigationController.viewControllers[0] as! BackingViewController
+                let backingVC = strongSelf.navigationController.viewControllers[0] as! HomeBackingViewController
             //    let homeViewController = strongSelf.navigationController.viewControllers[0] as! HomeViewController
                 let homeViewController = backingVC.homeViewController
                 homeViewController?.loading()

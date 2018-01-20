@@ -51,16 +51,19 @@ extension BrowseCollectionDataSource:  UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return count
+        return 4
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as TopPodcastCell
-        if let urlString = items[indexPath.row].podcastArtUrlString,
-            let url = URL(string: urlString),
-            let title = items[indexPath.row].podcastTitle {
-            cell.configureCell(with: url, title: title)
+        if items.count > indexPath.row {
+            if let urlString = items[indexPath.row].podcastArtUrlString,
+                let url = URL(string: urlString),
+                let title = items[indexPath.row].podcastTitle {
+                cell.configureCell(with: url, title: title)
+            }
         }
+       
         return cell
     }
 }

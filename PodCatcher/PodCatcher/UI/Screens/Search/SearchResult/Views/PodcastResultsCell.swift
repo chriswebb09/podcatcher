@@ -81,11 +81,49 @@ final class PodcastResultCell: UICollectionViewCell {
         
         contentView.add(moreButton)
         moreButton.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            moreButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.076),
-            moreButton.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.39),
-            moreButton.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: PodcastCellConstants.playtimeLabelRightOffset),
-            moreButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
-            ])
+        
+        if UIDevice().userInterfaceIdiom == .phone {
+            switch UIScreen.main.nativeBounds.height {
+            case 480:
+                print("iPhone Classic")
+            case 960:
+                NSLayoutConstraint.activate([
+                    moreButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.076),
+                    moreButton.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.39),
+                    moreButton.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: PodcastCellConstants.playtimeLabelRightOffset),
+                    moreButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+                    ])
+            case 1136:
+                NSLayoutConstraint.activate([
+                    moreButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.076),
+                    moreButton.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.4),
+                    moreButton.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: PodcastCellConstants.playtimeLabelRightOffset),
+                    moreButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+                    ])
+            case 1334:
+                NSLayoutConstraint.activate([
+                    moreButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.076),
+                    moreButton.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.42),
+                    moreButton.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: PodcastCellConstants.playtimeLabelRightOffset),
+                    moreButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+                    ])
+            case 2208:
+                NSLayoutConstraint.activate([
+                    moreButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.076),
+                    moreButton.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.39),
+                    moreButton.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: PodcastCellConstants.playtimeLabelRightOffset),
+                    moreButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+                    ])
+            default:
+                NSLayoutConstraint.activate([
+                    moreButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.076),
+                    moreButton.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.39),
+                    moreButton.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: PodcastCellConstants.playtimeLabelRightOffset),
+                    moreButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+                    ])
+            }
+        }
+                
+       
     }
 }

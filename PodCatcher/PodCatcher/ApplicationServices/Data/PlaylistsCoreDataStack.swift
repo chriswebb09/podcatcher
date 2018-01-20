@@ -17,24 +17,7 @@ struct PodcastCoreData {
         podcast.setValue(podcastId,forKeyPath: "podcasterId")
         podcast.setValue(episodeId, forKey: "episodeId")
         podcast.setValue(podcastImage, forKey: "podcastImage")
-        //        let id = UUID().uuidString
-        //        let date = NSDate()
-        //
-        //        playlist.setValue(name, forKeyPath: "playlistName")
-        //        playlist.setValue(id, forKey: "playlistId")
-        //        playlist.setValue(date, forKey: "dateCreated")
-        //        playlist.setValue(0, forKey: "timeSpentListening")
-        //        playlist.setValue(0, forKey: "numberOfItems")
-        //        playlist.setValue(0, forKey: "numberOfPlays")
-        //        playlist.setValue(uid, forKey: "uid")
-        
-        //        @NSManaged public var episodeTitle: String?
-        //        @NSManaged public var audioUrl: String?
-        //        @NSManaged public var podcasterName: String?
-        //        @NSManaged public var podcasterId: String?
-        //        @NSManaged public var episodeId: String?
-        //        @NSManaged public var podcastImage: NSData?
-        
+
         do {
             try managedContext.save()
             podcasts.append(podcast)

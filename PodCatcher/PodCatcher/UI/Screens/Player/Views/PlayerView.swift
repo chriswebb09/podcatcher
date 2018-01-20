@@ -288,15 +288,71 @@ final class PlayerView: UIView {
     private func setup(playButton: UIButton) {
         controlsView.addSubview(playButton)
         playButton.translatesAutoresizingMaskIntoConstraints = false
-        if #available(iOS 11, *) {
-            NSLayoutConstraint.activate([
-                playButton.heightAnchor.constraint(equalTo: controlsView.heightAnchor, multiplier: 0.40)
-                ])
-        } else {
-            NSLayoutConstraint.activate([
-                playButton.heightAnchor.constraint(equalTo: controlsView.heightAnchor, multiplier: 0.44)
-                ])
+        if UIDevice().userInterfaceIdiom == .phone {
+            switch UIScreen.main.nativeBounds.height {
+            case 480:
+                if #available(iOS 11, *) {
+                    NSLayoutConstraint.activate([
+                        playButton.heightAnchor.constraint(equalTo: controlsView.heightAnchor, multiplier: 0.40)
+                        ])
+                } else {
+                    NSLayoutConstraint.activate([
+                        playButton.heightAnchor.constraint(equalTo: controlsView.heightAnchor, multiplier: 0.44)
+                        ])
+                }
+            case 960:
+                if #available(iOS 11, *) {
+                    NSLayoutConstraint.activate([
+                        playButton.heightAnchor.constraint(equalTo: controlsView.heightAnchor, multiplier: 0.40)
+                        ])
+                } else {
+                    NSLayoutConstraint.activate([
+                        playButton.heightAnchor.constraint(equalTo: controlsView.heightAnchor, multiplier: 0.44)
+                        ])
+                }
+            case 1136:
+                if #available(iOS 11, *) {
+                    NSLayoutConstraint.activate([
+                        playButton.heightAnchor.constraint(equalTo: controlsView.heightAnchor, multiplier: 0.40)
+                        ])
+                } else {
+                    NSLayoutConstraint.activate([
+                        playButton.heightAnchor.constraint(equalTo: controlsView.heightAnchor, multiplier: 0.44)
+                        ])
+                }
+            case 1334:
+                if #available(iOS 11, *) {
+                    NSLayoutConstraint.activate([
+                        playButton.heightAnchor.constraint(equalTo: controlsView.heightAnchor, multiplier: 0.424)
+                        ])
+                } else {
+                    NSLayoutConstraint.activate([
+                        playButton.heightAnchor.constraint(equalTo: controlsView.heightAnchor, multiplier: 0.44)
+                        ])
+                }
+            case 2208:
+                if #available(iOS 11, *) {
+                    NSLayoutConstraint.activate([
+                        playButton.heightAnchor.constraint(equalTo: controlsView.heightAnchor, multiplier: 0.40)
+                        ])
+                } else {
+                    NSLayoutConstraint.activate([
+                        playButton.heightAnchor.constraint(equalTo: controlsView.heightAnchor, multiplier: 0.44)
+                        ])
+                }
+            default:
+                if #available(iOS 11, *) {
+                    NSLayoutConstraint.activate([
+                        playButton.heightAnchor.constraint(equalTo: controlsView.heightAnchor, multiplier: 0.40)
+                        ])
+                } else {
+                    NSLayoutConstraint.activate([
+                        playButton.heightAnchor.constraint(equalTo: controlsView.heightAnchor, multiplier: 0.44)
+                        ])
+                }
+            }
         }
+     
         NSLayoutConstraint.activate([
             playButton.widthAnchor.constraint(equalTo: controlsView.widthAnchor, multiplier: 0.24),
             playButton.bottomAnchor.constraint(equalTo: controlsView.centerYAnchor, constant: UIScreen.main.bounds.height * 0.03),

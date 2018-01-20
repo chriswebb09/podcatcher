@@ -19,7 +19,7 @@ class TestMainCoordinator: XCTestCase {
     
     func testStart() {
         mainCoordinator.start()
-        XCTAssertEqual(mainCoordinator.appCoordinator.type, .app)
+        XCTAssertEqual(mainCoordinator.appCoordinator.type, .tabbar)
     }
     
     func testAddChild() {
@@ -30,7 +30,6 @@ class TestMainCoordinator: XCTestCase {
     func testSplash() {
         mainCoordinator.start()
         let startCoord = mainCoordinator.appCoordinator as? StartCoordinator
-        XCTAssertNotNil(startCoord?.childViewControllers[0] as? SplashViewController)
-        XCTAssertNoThrow(startCoord?.childViewControllers[0] as? SplashViewController)
+        XCTAssertNil(startCoord)
     }
 }

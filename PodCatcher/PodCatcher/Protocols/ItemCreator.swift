@@ -22,7 +22,7 @@ extension ItemCreator {
                 }
                 let index = id.index(id.startIndex, offsetBy: 2)
                 let item = TopItem(title: title,
-                                   id: id.substring(from: index),
+                                   id: String(id[index...]),
                                    pubDate: date,
                                    category: itemCategory,
                                    itunesLinkString: itemLink)

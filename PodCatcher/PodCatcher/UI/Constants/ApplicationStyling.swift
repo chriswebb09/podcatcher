@@ -25,7 +25,7 @@ class ApplicationStyling {
 //       x
             //.setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.grayColor()], forState:UIControlState.Selected)
        // let customFont = UIFont(name: "Avenir-Medium", size: 18.0)!
-        let customFont = UIFont(name: "AvenirNext-Regular", size: 10.0)!
+        let customFont = UIFont(name: "AvenirNext-Regular", size: 12.0)!
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.black, NSAttributedStringKey.font: customFont], for: .normal)
         //UIColor(red:0.35, green:0.69, blue:0.93, alpha:1.0)
        // UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedStringKey.font: customFont], for: .normal)

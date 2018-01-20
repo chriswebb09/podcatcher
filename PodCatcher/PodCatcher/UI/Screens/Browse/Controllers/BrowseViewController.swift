@@ -2,28 +2,42 @@ import UIKit
 import Reachability
 
 final class BrowseViewController: BaseCollectionViewController, LoadingPresenting {
-    
+    static let headerId = "HeaderSection"
     weak var delegate: BrowseViewControllerDelegate?
     
     weak var coordinator: BrowseCoordinator?
-    
+    let browsePageController = BrowsePageController()
     var currentPlaylistId: String = ""
     var reach: Reachable?
-    
+    let browseTopView = BrowseTopView()
     var topItems = [CasterSearchResult]() {
         didSet {
             topItems = dataSource.items
             if topItems.count > 0, let artUrl = topItems[0].podcastArtUrlString, let url = URL(string: artUrl) {
-                topView.podcastImageView.downloadImage(url: url)
+                browseTopView.podcastImageView.downloadImage(url: url)
+                DispatchQueue.main.async {
+                    self.browseTopView.setTitle(title: self.dataSource.items[self.browseTopView.index].podcastArtist!)
+                    let mediaViewController = self.browsePageController.pages[0] as! MediaViewController
+                    mediaViewController.topView.podcastImageView = self.browseTopView.podcastImageView
+                    mediaViewController.topView.setTitle(title: self.dataSource.items[0].podcastTitle!)
+                }
+            }
+            
+            if topItems.count > 1, let artUrl = topItems[1].podcastArtUrlString, let url = URL(string: artUrl) {
+                self.browseTopView.setTitle(title: self.dataSource.items[self.browseTopView.index].podcastArtist!)
+                let mediaViewController = self.browsePageController.pages[1] as! MediaViewController
+                mediaViewController.topView.podcastImageView.downloadImage(url: url)
+                mediaViewController.topView.setTitle(title: self.dataSource.items[1].podcastTitle!)
             }
         }
     }
     
-    var topView = BrowseTopView()
+    var topView = UIView()
     var tap: UITapGestureRecognizer!
     let loadingPop = LoadingPopover()
     let reachability = Reachability()!
     var network = InformationView(data: "CANNOT CONNECT TO NETWORK", icon: #imageLiteral(resourceName: "network-icon"))
+    let sectionHeader = BrowseSection()
     
     var dataSource: BrowseCollectionDataSource! {
         didSet {
@@ -54,22 +68,61 @@ final class BrowseViewController: BaseCollectionViewController, LoadingPresentin
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        edgesForExtendedLayout = []
+        view.addSubview(topView)
+        
+        topView.translatesAutoresizingMaskIntoConstraints = false
+        topView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
+        topView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: 0).isActive = true
+        topView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.32).isActive = true
+        topView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
+        embedChild(controller: browsePageController, in: topView)
+        let mediaViewController = browsePageController.pages[0] as! MediaViewController
+        mediaViewController.topView.podcastImageView = self.browseTopView.podcastImageView
+        //mediaViewController.topView.setTitle(title: dataSource.items[0].podcastTitle!)
+//        let mediaViewController = MediaViewController()
+//        mediaViewController.topView.podcastImageView = self.browseTopView.podcastImageView.
+//        browsePageController.pages =
         coordinator?.viewDidLoad(self)
         NotificationCenter.default.addObserver(self, selector: #selector(reachabilityDidChange(_:)), name: NSNotification.Name(rawValue: "ReachabilityDidChangeNotificationName"), object: nil)
+       // collectionView.register(BrowseSection.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: BrowseViewController.headerId)
         reach?.start()
+
         DispatchQueue.main.async {
-            self.topView.podcastImageView.layer.cornerRadius = 4
-            self.topView.podcastImageView.layer.masksToBounds = true
-            self.topView.layer.setCellShadow(contentView: self.topView)
-            self.topView.podcastImageView.layer.setCellShadow(contentView: self.topView.podcastImageView)
+         
+            self.browseTopView.podcastImageView.layer.cornerRadius = 3
+            self.browseTopView.podcastImageView.layer.masksToBounds = true
+            self.browseTopView.layer.setCellShadow(contentView: self.topView)
+            self.browseTopView.podcastImageView.layer.setCellShadow(contentView: self.browseTopView.podcastImageView)
         }
+       
+        view.add(sectionHeader)
+        sectionHeader.translatesAutoresizingMaskIntoConstraints = false
+        sectionHeader.widthAnchor.constraint(equalTo: view.widthAnchor, constant: 0).isActive = true
+        sectionHeader.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0).isActive = true
+        sectionHeader.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 0).isActive = true
+        sectionHeader.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.07).isActive = true
+    
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: 0).isActive = true
+        collectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0).isActive = true
+        collectionView.topAnchor.constraint(equalTo: sectionHeader.bottomAnchor, constant: 0).isActive = true
+        collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
+        collectionView.isScrollEnabled = false
+        view.layoutIfNeeded()
+        sectionHeader.layoutIfNeeded()
+        collectionView.layoutIfNeeded()
     }
     
     func setup(view: UIView, newLayout: BrowseItemsFlowLayout) {
         newLayout.setup()
         collectionView.collectionViewLayout = newLayout
-        collectionView.frame = CGRect(x: 0, y: view.bounds.midY + 100, width: UIScreen.main.bounds.width, height: (UIScreen.main.bounds.height / 2) - 100)
-        collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        collectionView.layoutIfNeeded()
+        //  collectionView.collectionViewLayout.head
+        //flowLayout.headerReferenceSize = CGSize(self.collectionView.frame.size.width, 100)
+        //collectionView.frame = CGRect(x: 0, y: view.bounds.midY, width: UIScreen.main.bounds.width, height: (UIScreen.main.bounds.height / 2))
+      //  collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
     
     
@@ -80,7 +133,7 @@ final class BrowseViewController: BaseCollectionViewController, LoadingPresentin
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tap = UITapGestureRecognizer(target: self, action: #selector(selectAt))
-        topView.podcastImageView.addGestureRecognizer(tap)
+        browseTopView.podcastImageView.addGestureRecognizer(tap)
         NotificationCenter.default.addObserver(self, selector: #selector(reachabilityChanged), name: Notification.Name.reachabilityChanged, object: reachability)
         do {
             try reachability.startNotifier()
@@ -89,9 +142,9 @@ final class BrowseViewController: BaseCollectionViewController, LoadingPresentin
         }
         UIView.animate(withDuration: 0.15) {
             self.view.alpha = 1
-            self.navigationController?.setNavigationBarHidden(true, animated: false)
+            //   self.navigationController?.setNavigationBarHidden(true, animated: false)
         }
-
+        
         DispatchQueue.main.async { [weak self] in
             
             if let strongSelf = self {
@@ -104,7 +157,7 @@ final class BrowseViewController: BaseCollectionViewController, LoadingPresentin
 extension BrowseViewController: UICollectionViewDelegate {
     
     @objc func selectAt() {
-        coordinator?.didSelect(at: 0, with: dataSource.items[0], with: topView.podcastImageView)
+        coordinator?.didSelect(at: 0, with: dataSource.items[0], with: browseTopView.podcastImageView)
         topView.removeGestureRecognizer(tap)
     }
     

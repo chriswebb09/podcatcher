@@ -9,6 +9,8 @@
 import UIKit
 import CoreData
 
+// https://www.objc.io/blog/2018/01/09/justified-flow-layout/
+
 class TagsViewController: UIViewController {
     
     var buttonView: ButtonsView!

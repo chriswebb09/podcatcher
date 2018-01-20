@@ -9,6 +9,12 @@
 import Foundation
 import UIKit
 
+extension Bool {
+    mutating func toggle() {
+        self = !self
+    }
+}
+
 extension Sequence where Element: Numeric {
     var sum: Element {
         return self.reduce(0 as Element, +)
@@ -37,13 +43,3 @@ extension Optional where Wrapped == String {
     }
 }
 
-extension Optional where Wrapped: Collection {
-    var isNilOrEmpty: Bool {
-        switch self {
-        case let collection?:
-            return collection.isEmpty
-        case nil:
-            return true
-        }
-    }
-}

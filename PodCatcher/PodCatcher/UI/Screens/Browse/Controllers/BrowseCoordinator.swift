@@ -16,10 +16,10 @@ extension BrowseCoordinator {
         browseVC.network.layoutSubviews()
         let topFrameHeight = UIScreen.main.bounds.height / 2
         let topFrameWidth = UIScreen.main.bounds.width
-        let topFrame = CGRect(x: 0, y: 0, width: topFrameWidth, height: topFrameHeight + 100)
-        browseVC.topView.frame = topFrame
+//        let topFrame = CGRect(x: 0, y: 0, width: topFrameWidth, height: topFrameHeight)
+//        browseVC.topView.frame = topFrame
         browseVC.loadingPop.configureLoadingOpacity(alpha: 0.2)
-        browseVC.view.addSubview(browseVC.topView)
+       
         browseVC.view.backgroundColor = .clear
         browseVC.topView.backgroundColor = .clear
         browseVC.view.addSubview(browseVC.collectionView)

@@ -17,6 +17,7 @@ class SearchResultDatasource: NSObject {
 }
 
 extension SearchResultDatasource: UICollectionViewDataSource {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return item.episodes.count
     }

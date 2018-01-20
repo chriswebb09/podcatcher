@@ -63,8 +63,10 @@ final class BrowseTabCoordinator: NSObject, NavigationCoordinator, BrowseCoordin
                 } else {
                     if browseViewController.dataSource.items.count > 0 {
                         guard let urlString = browseViewController.dataSource.items[0].podcastArtUrlString else { return }
+                        guard let title = browseViewController.dataSource.items[0].podcastTitle else { return }
                         guard let imageUrl = URL(string: urlString) else { return }
-                        browseViewController.topView.podcastImageView.downloadImage(url: imageUrl)
+                        browseViewController.browseTopView.setTitle(title: title)
+                        browseViewController.browseTopView.podcastImageView.downloadImage(url: imageUrl)
                     }
                 }
             }
@@ -113,7 +115,7 @@ final class BrowseTabCoordinator: NSObject, NavigationCoordinator, BrowseCoordin
                                 browseViewController.dataSource.items.append(caster)
                                 browseViewController.collectionView.reloadData()
                                 if let artUrl = results[0].podcastArtUrlString, let url = URL(string: artUrl) {
-                                    browseViewController.topView.podcastImageView.downloadImage(url: url)
+                                    browseViewController.browseTopView.podcastImageView.downloadImage(url: url)
                                 }
                             }
                         }
@@ -159,7 +161,7 @@ final class BrowseTabCoordinator: NSObject, NavigationCoordinator, BrowseCoordin
                                     browseViewController.dataSource.items.append(caster)
                                     browseViewController.collectionView.reloadData()
                                     if let artUrl = results[0].podcastArtUrlString, let url = URL(string: artUrl) {
-                                        browseViewController.topView.podcastImageView.downloadImage(url: url)
+                                        browseViewController.browseTopView.podcastImageView.downloadImage(url: url)
                                     }
                                 }
                             }

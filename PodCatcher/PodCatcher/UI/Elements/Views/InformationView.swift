@@ -80,7 +80,8 @@ class InformationView: UIView, StateView {
     private func setup(icon: UIView) {
         addSubview(icon)
         icon.translatesAutoresizingMaskIntoConstraints = false
-        icon.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.22).isActive = true
+//        icon.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.22).isActive = true
+        icon.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.24).isActive = true
         icon.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.38).isActive = true
         icon.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         icon.centerYAnchor.constraint(equalTo: centerYAnchor, constant: UIScreen.main.bounds.height * -0.1).isActive = true
@@ -98,7 +99,7 @@ class InformationView: UIView, StateView {
     
     func setLabel(text: String) {
         informationLabel.text = text
-        informationLabel.font = UIFont(name: "AvenirNext-Regular", size: 18)!
+        informationLabel.font = UIFont(name: "AvenirNext-Regular", size: 16)!
             //UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.medium)
         informationLabel.textColor = UIColor(red:0.38, green:0.63, blue:0.80, alpha:1.0)
             //UIColor(red:0.33, green:0.33, blue:1.00, alpha:1.0)

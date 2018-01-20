@@ -6,9 +6,9 @@ class HomeItemsFlowLayout: UICollectionViewFlowLayout {
         scrollDirection = .vertical
         if #available(iOS 11, *) {
             itemSize = CGSize(width: UIScreen.main.bounds.width / 3.09, height: UIScreen.main.bounds.height / 6.7)
-            sectionInset = UIEdgeInsets(top: 3, left: 1, bottom: 2, right: 1)
+            sectionInset = UIEdgeInsets(top: 3, left: 5, bottom: 2, right: 5)
             minimumInteritemSpacing = 0.1
-            minimumLineSpacing = 5
+            minimumLineSpacing = 1
         } else {
             itemSize = CGSize(width: UIScreen.main.bounds.width / 3.2, height: UIScreen.main.bounds.height / 6.4)
             sectionInset = UIEdgeInsets(top: 5, left: 6, bottom: 0, right: 6)

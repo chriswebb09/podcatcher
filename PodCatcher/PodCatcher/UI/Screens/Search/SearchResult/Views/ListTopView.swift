@@ -97,8 +97,8 @@ final class ListTopView: UIView {
 // MARK: - PreferencesViewDelegate
 
 extension ListTopView: PreferencesViewDelegate {
+    
     func infoButton(tapped: Bool) {
-        print("TAPPERS")
         delegate?.infoButton(tapped: true)
     }
     
