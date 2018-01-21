@@ -8,6 +8,8 @@
 
 import UIKit
 
+// https://github.com/twicketapp/TwicketSegmentedControl
+
 class SliderView: UIView {
     
     let sliderMaskView = UIView()
