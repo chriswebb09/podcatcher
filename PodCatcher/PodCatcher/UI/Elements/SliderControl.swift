@@ -8,6 +8,8 @@
 
 import UIKit
 
+// Credit: https://github.com/twicketapp/TwicketSegmentedControl
+
 class SliderControl: UIControl {
     
     static let height: CGFloat = Constants.height + Constants.topBottomMargin * 2
