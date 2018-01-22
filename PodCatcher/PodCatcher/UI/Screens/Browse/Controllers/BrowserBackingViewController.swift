@@ -26,7 +26,7 @@ final class BrowserBackingViewController: UIViewController {
     
     var backingView: UIView = UIView()
     
-    var playlistsViewController: PlaylistsViewController!
+    var playlistsViewController: PlaylistsViewController = PlaylistsViewController()
     
     var browseViewController: BrowseViewController = BrowseViewController(index: 0)
     

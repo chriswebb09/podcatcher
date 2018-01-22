@@ -77,7 +77,7 @@ class HomeViewController: BaseCollectionViewController {
         //UIFont(
         let font = UIFont(name: "AvenirNext-Regular", size: 16)!
         
-        navigationController?.navigationBar.topItem?.title = "Subscribed Podcasts"
+        navigationController?.navigationBar.topItem?.title = "Podcasts"
         edgesForExtendedLayout = []
         
         if homeDataSource.itemCount == 0 {

@@ -84,7 +84,32 @@ final class BrowseViewController: BaseCollectionViewController, LoadingPresentin
         let mediaViewController = browsePageController.pages[0] as! MediaViewController
         mediaViewController.topView.podcastImageView = self.browseTopView.podcastImageView
         
-        coordinator?.viewDidLoad(self)
+        emptyView = InformationView(data: "No Data", icon: #imageLiteral(resourceName: "mic-icon"))
+        emptyView.layoutSubviews()
+        view.addSubview(network)
+        view.sendSubview(toBack: network)
+        network.layoutSubviews()
+        let topFrameHeight = UIScreen.main.bounds.height / 2
+        let topFrameWidth = UIScreen.main.bounds.width
+        //        let topFrame = CGRect(x: 0, y: 0, width: topFrameWidth, height: topFrameHeight)
+        //        browseVC.topView.frame = topFrame
+        loadingPop.configureLoadingOpacity(alpha: 0.2)
+        
+        view.backgroundColor = .clear
+        topView.backgroundColor = .clear
+        view.addSubview(collectionView)
+        
+        setup(view: view, newLayout: BrowseItemsFlowLayout())
+        collectionView.dataSource = dataSource
+        collectionView.delegate = self
+        collectionView.isPagingEnabled = true
+        collectionView.isScrollEnabled = true
+        collectionView.decelerationRate = UIScrollViewDecelerationRateFast
+        collectionView.backgroundColor = .clear
+        network.frame = view.frame
+        collectionView.register(TopPodcastCell.self)
+        collectionView.backgroundColor = .white
+        collectionView.prefetchDataSource = dataSource
         NotificationCenter.default.addObserver(self, selector: #selector(reachabilityDidChange(_:)), name: NSNotification.Name(rawValue: "ReachabilityDidChangeNotificationName"), object: nil)
         
         reach?.start()
@@ -114,6 +139,8 @@ final class BrowseViewController: BaseCollectionViewController, LoadingPresentin
         sectionHeader.layoutIfNeeded()
         collectionView.layoutIfNeeded()
     }
+    
+    
     
     func setup(view: UIView, newLayout: BrowseItemsFlowLayout) {
         newLayout.setup()
