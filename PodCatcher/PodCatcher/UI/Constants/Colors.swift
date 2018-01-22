@@ -5,8 +5,8 @@ enum Style {
     enum Font {
         static let main = UIFont(name: "AvenirNext-Regular", size: 16)
         enum PlaylistCell {
-            static let title = UIFont(name: "AvenirNext-Regular", size: 17)
-            static let items = UIFont(name: "AvenirNext-UltraLight", size: 14)
+            static let title = UIFont(name: "AvenirNext-Regular", size: 14)
+            static let items = UIFont(name: "AvenirNext-UltraLight", size: 12)
         }
     }
     

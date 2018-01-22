@@ -2,7 +2,9 @@ import UIKit
 import Reachability
 
 final class BrowseViewController: BaseCollectionViewController, LoadingPresenting {
+    
     static let headerId = "HeaderSection"
+    
     weak var delegate: BrowseViewControllerDelegate?
     
     weak var coordinator: BrowseCoordinator?
@@ -10,6 +12,7 @@ final class BrowseViewController: BaseCollectionViewController, LoadingPresentin
     var currentPlaylistId: String = ""
     var reach: Reachable?
     let browseTopView = BrowseTopView()
+    
     var topItems = [CasterSearchResult]() {
         didSet {
             topItems = dataSource.items
@@ -80,30 +83,27 @@ final class BrowseViewController: BaseCollectionViewController, LoadingPresentin
         embedChild(controller: browsePageController, in: topView)
         let mediaViewController = browsePageController.pages[0] as! MediaViewController
         mediaViewController.topView.podcastImageView = self.browseTopView.podcastImageView
-        //mediaViewController.topView.setTitle(title: dataSource.items[0].podcastTitle!)
-//        let mediaViewController = MediaViewController()
-//        mediaViewController.topView.podcastImageView = self.browseTopView.podcastImageView.
-//        browsePageController.pages =
+        
         coordinator?.viewDidLoad(self)
         NotificationCenter.default.addObserver(self, selector: #selector(reachabilityDidChange(_:)), name: NSNotification.Name(rawValue: "ReachabilityDidChangeNotificationName"), object: nil)
-       // collectionView.register(BrowseSection.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: BrowseViewController.headerId)
+        
         reach?.start()
-
+        
         DispatchQueue.main.async {
-         
+            
             self.browseTopView.podcastImageView.layer.cornerRadius = 3
             self.browseTopView.podcastImageView.layer.masksToBounds = true
             self.browseTopView.layer.setCellShadow(contentView: self.topView)
             self.browseTopView.podcastImageView.layer.setCellShadow(contentView: self.browseTopView.podcastImageView)
         }
-       
+        
         view.add(sectionHeader)
         sectionHeader.translatesAutoresizingMaskIntoConstraints = false
         sectionHeader.widthAnchor.constraint(equalTo: view.widthAnchor, constant: 0).isActive = true
         sectionHeader.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0).isActive = true
         sectionHeader.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 0).isActive = true
         sectionHeader.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.07).isActive = true
-    
+        
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: 0).isActive = true
         collectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0).isActive = true
@@ -119,10 +119,6 @@ final class BrowseViewController: BaseCollectionViewController, LoadingPresentin
         newLayout.setup()
         collectionView.collectionViewLayout = newLayout
         collectionView.layoutIfNeeded()
-        //  collectionView.collectionViewLayout.head
-        //flowLayout.headerReferenceSize = CGSize(self.collectionView.frame.size.width, 100)
-        //collectionView.frame = CGRect(x: 0, y: view.bounds.midY, width: UIScreen.main.bounds.width, height: (UIScreen.main.bounds.height / 2))
-      //  collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
     
     
@@ -142,7 +138,7 @@ final class BrowseViewController: BaseCollectionViewController, LoadingPresentin
         }
         UIView.animate(withDuration: 0.15) {
             self.view.alpha = 1
-            //   self.navigationController?.setNavigationBarHidden(true, animated: false)
+            
         }
         
         DispatchQueue.main.async { [weak self] in

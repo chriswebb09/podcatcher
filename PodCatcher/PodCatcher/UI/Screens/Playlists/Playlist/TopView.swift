@@ -43,22 +43,22 @@ final class TopView: UIView {
     func setup(podcastImageView: UIImageView) {
         addSubview(podcastImageView)
         podcastImageView.translatesAutoresizingMaskIntoConstraints = false
-         if #available(iOS 11, *) {
+        if #available(iOS 11, *) {
             NSLayoutConstraint.activate([
                 podcastImageView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 0),
                 podcastImageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.74),
                 podcastImageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.88)
                 ])
-         } else {
+        } else {
             NSLayoutConstraint.activate([
                 podcastImageView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: PodcastListTopViewConstants.podcastImageViewCenterYOffset),
                 podcastImageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: PodcastListTopViewConstants.podcastImageViewHeightMultiplier),
                 podcastImageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: PodcastListTopViewConstants.podcastImageViewWidthMultiplier)
                 ])
         }
-         NSLayoutConstraint.activate([
-           podcastImageView.centerXAnchor.constraint(equalTo: centerXAnchor)
-        ])
+        NSLayoutConstraint.activate([
+            podcastImageView.centerXAnchor.constraint(equalTo: centerXAnchor)
+            ])
     }
     //static let podcastImageViewHeightMultiplier: CGFloat = 0.87
     func setup(titleLabel: UILabel) {

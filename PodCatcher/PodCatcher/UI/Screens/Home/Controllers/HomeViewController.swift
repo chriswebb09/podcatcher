@@ -76,7 +76,7 @@ class HomeViewController: BaseCollectionViewController {
         setupAutoresizingMasks()
         //UIFont(
         let font = UIFont(name: "AvenirNext-Regular", size: 16)!
-
+        
         navigationController?.navigationBar.topItem?.title = "Subscribed Podcasts"
         edgesForExtendedLayout = []
         
@@ -86,7 +86,7 @@ class HomeViewController: BaseCollectionViewController {
                 self.rightButtonItem.title = "Edit"
                 self.navigationItem.rightBarButtonItem = nil
                 self.rightButtonItem.setTitleTextAttributes([NSAttributedStringKey.font: font,
-                    NSAttributedStringKey.foregroundColor: UIColor.white], for: .normal)
+                                                             NSAttributedStringKey.foregroundColor: UIColor.white], for: .normal)
             }
         } else if homeDataSource.itemCount > 0 {
             DispatchQueue.main.async {
@@ -192,20 +192,19 @@ extension HomeViewController: UICollectionViewDelegate, ErrorPresenting, Loading
                            animations: {
                             cell.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
                             
-            }, completion: { finished in
+            }) { finished in
                 UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 5, options: .curveEaseInOut,
                                animations: {
                                 cell.transform = CGAffineTransform(scaleX: 1, y: 1)
-                                
                 }, completion: nil)
-            })
+            }
             delegate?.didSelect(at: indexPath.row, with: item, image: image, imageView: imageView)
         case .edit:
             update(indexPath: indexPath, item: item)
         }
     }
     
-    
+    //button.frame = CGRect(x: 0, y: 0, width: 32, height: 32)
     
     func remove(for indexPath: IndexPath) {
         do {
@@ -218,6 +217,7 @@ extension HomeViewController: UICollectionViewDelegate, ErrorPresenting, Loading
                 subscriptions.remove(at: index)
                 UserDefaults.saveSubscriptions(subscriptions: subscriptions)
             }
+            
             do {
                 try self.managedContext.save()
                 self.homeDataSource.reloadData()

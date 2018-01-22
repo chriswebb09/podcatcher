@@ -82,12 +82,14 @@ final class HomeBackingViewController: UIViewController {
             self.sliderControl.isUserInteractionEnabled = true
             self.sliderControl.setSegmentItems(titles)
             self.sliderControl.delegate = self
+            
             self.backingView.translatesAutoresizingMaskIntoConstraints = false
             self.backingView.topAnchor.constraint(equalTo: self.sliderControl.bottomAnchor, constant: 0).isActive = true
             self.backingView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0).isActive = true
             self.backingView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1).isActive = true
             self.backingView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: 0).isActive = true
             self.backingView.layoutIfNeeded()
+            
             self.currentEmbeddedVC = self.homeViewController
             DispatchQueue.main.async {
                 self.navigationItem.rightBarButtonItem = self.homeViewController.rightButtonItem

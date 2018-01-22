@@ -20,6 +20,7 @@ class TagsViewController: UIViewController {
     var topPodcasts: [TopPodcast] = []
     
     var tags: [String] = ["Society & Culture", "Business", "Politics", "Performing Arts", "Law", "Health", "Medicine", "News", "Education", "Personal Journals", "Mystery", "History", "News & Politics", "Comedy", "True Crime", "Philosophy", "Science", "Paranormal", "Religion", "Spirituality", "Russian History",  "Geopolitics"]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white

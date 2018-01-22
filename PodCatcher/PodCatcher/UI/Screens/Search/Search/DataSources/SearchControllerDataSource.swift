@@ -53,7 +53,6 @@ extension  SearchControllerDataSource: UITableViewDataSourcePrefetching {
     
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
         for indexPath in indexPaths {
-            if let _ = loadingOperations[indexPath] { return }
             if let topPocast = podcastForItemAtIndexPath(indexPath) {
                 let dataLoader = PodcastSearchResultLoadOperation(topPocast)
                 loadingQueue.addOperation(dataLoader)

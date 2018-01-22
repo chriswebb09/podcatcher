@@ -4,22 +4,12 @@ final class PlaylistCell: UITableViewCell, Reusable {
     
     static let reuseIdentifier = "PlaylistCell"
     
-//    enum PlaylistCell {
-//        static let title = UIFont(name: "AvenirNext-Regular", size: 17)
-//        static let items = UIFont(name: "AvenirNext-UltraLight", size: 14)
-//    }
-//    
-//  titleLabel
-//  numberOfItems  UIFont(name: "AvenirNext-Regular", size: 17)
-//
     var mode: PlaylistCellMode = .select {
         didSet {
             switch mode {
             case .select:
                 deleteImageView.alpha = 1
                 let image = #imageLiteral(resourceName: "circle-play").withRenderingMode(.alwaysTemplate)
-                
-               // let image = #imageLiteral(resourceName: "next").withRenderingMode(.alwaysTemplate)
                 deleteImageView.image = image
                 deleteImageView.tintColor = .darkGray
             case .delete:
@@ -129,9 +119,7 @@ final class PlaylistCell: UITableViewCell, Reusable {
         } else {
             numberOfItemsLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor, constant: contentView.bounds.width * 0.13).isActive = true
         }
-        
-        
-        numberOfItemsLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: contentView.bounds.height * 0.007).isActive = true
+        numberOfItemsLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: contentView.bounds.height * 0.02).isActive = true
         numberOfItemsLabel.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.25).isActive = true
         numberOfItemsLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.3).isActive = true
     }
@@ -164,15 +152,6 @@ final class PlaylistCell: UITableViewCell, Reusable {
             deleteImageView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.26).isActive = true
             deleteImageView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: contentView.bounds.width * -0.04).isActive = true
         }
-//        self.view.addConstraint(NSLayoutConstraint(
-//            item:       button,
-//            attribute:  .trailing,
-//            relatedBy:  .equal,
-//            toItem:     button,
-//            attribute:  .trailing,
-//            multiplier: 1.0,
-//            constant:   0.0
-//        ))
         contentView.addConstraint(NSLayoutConstraint(item: deleteImageView,
                                                      attribute: .centerY,
                                                      relatedBy: .equal,
@@ -180,7 +159,6 @@ final class PlaylistCell: UITableViewCell, Reusable {
                                                      attribute: .centerY,
                                                      multiplier: 1.0,
                                                      constant: 0.0))
-       // deleteImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
     }
     
     func setupSeparator() {

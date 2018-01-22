@@ -28,8 +28,8 @@ final class BrowseSection: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         backgroundColor = UIColor(red:0.96, green:0.96, blue:0.96, alpha:1.0)
-            //UIColor(red:0.91, green:0.91, blue:0.91, alpha:1.0)
-            //UIColor(red:0.97, green:0.97, blue:0.97, alpha:1.0)
+        //UIColor(red:0.91, green:0.91, blue:0.91, alpha:1.0)
+        //UIColor(red:0.97, green:0.97, blue:0.97, alpha:1.0)
         setup(titleLabel: titleLabel)
         layer.borderWidth = 1
         layer.borderColor = UIColor.lightGray.cgColor
@@ -41,88 +41,31 @@ final class BrowseSection: UIView {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         if UIDevice().userInterfaceIdiom == .phone {
             switch UIScreen.main.nativeBounds.height {
-            case 480:
+            case 480, 960, 1136:
                 if #available(iOS 11, *) {
                     titleLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 20).isActive = true
-                    // titleLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: 10).isActive = true
                 } else {
                     titleLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 20).isActive = true
-                    // titleLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: bounds.width * 0.13).isActive = true
                 }
                 titleLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 0).isActive = true
                 titleLabel.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.29).isActive = true
                 titleLabel.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.3).isActive = true
                 titleLabel.layoutIfNeeded()
-            case 960:
-                if #available(iOS 11, *) {
-                    titleLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 20).isActive = true
-                   // titleLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: 10).isActive = true
-                } else {
-                    titleLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 20).isActive = true
-                   // titleLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: bounds.width * 0.13).isActive = true
-                }
-                
-                titleLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 0).isActive = true
-                titleLabel.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.29).isActive = true
-                titleLabel.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.3).isActive = true
-                titleLabel.layoutIfNeeded()
-            case 1136:
-                if #available(iOS 11, *) {
-                    titleLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 20).isActive = true
-                    // titleLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: 10).isActive = true
-                } else {
-                    titleLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 20).isActive = true
-                    // titleLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: bounds.width * 0.13).isActive = true
-                }
-                
-                titleLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 0).isActive = true
-                titleLabel.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.29).isActive = true
-                titleLabel.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.3).isActive = true
-                titleLabel.layoutIfNeeded()
-                
-            case 1334:
-                if #available(iOS 11, *) {
-                    titleLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 20).isActive = true
-                    // titleLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: 10).isActive = true
-                } else {
-                    titleLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 20).isActive = true
-                    // titleLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: bounds.width * 0.13).isActive = true
-                }
+            case 1334, 2208:
+                titleLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 20).isActive = true
                 titleLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 0).isActive = true
                 titleLabel.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.34).isActive = true
                 titleLabel.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.3).isActive = true
                 titleLabel.layoutIfNeeded()
-                
-                
-            case 2208:
-                if #available(iOS 11, *) {
-                    titleLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 20).isActive = true
-                    // titleLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: 10).isActive = true
-                } else {
-                    titleLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 20).isActive = true
-                    // titleLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: bounds.width * 0.13).isActive = true
-                }
-                
-                titleLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 0).isActive = true
-                titleLabel.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.29).isActive = true
-                titleLabel.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.3).isActive = true
-                titleLabel.layoutIfNeeded()
-                
             default:
-                if #available(iOS 11, *) {
-                    titleLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 20).isActive = true
-                    // titleLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: 10).isActive = true
-                } else {
-                    titleLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 20).isActive = true
-                    // titleLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: bounds.width * 0.13).isActive = true
-                }
+                titleLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 20).isActive = true
                 titleLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 0).isActive = true
                 titleLabel.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.29).isActive = true
                 titleLabel.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.3).isActive = true
                 titleLabel.layoutIfNeeded()
             }
         }
-      
+        
     }
 }
 
@@ -133,6 +76,7 @@ final class BrowseTopView: UIView {
     weak var delegate: TopViewDelegate?
     
     // MARK: - UI Properties
+    
     let sliderBarView = UIView()
     var sliderControl = SliderControl()
     
@@ -140,11 +84,9 @@ final class BrowseTopView: UIView {
     var titleLabel: UILabel = {
         let title = UILabel()
         title.textColor = .white
-        //UIColor(red:0.24, green:0.24, blue:0.24, alpha:1.0)
+        
         title.font = UIFont(name: "AvenirNext-DemiBold", size: 24)
-        //Style.Font.PlaylistCell.title
-        //   title.text = "Podcasts"
-        //UIFont(name: "AvenirNext-Regular", size: 17)
+        
         title.textAlignment = .center
         title.numberOfLines = 0
         return title
@@ -253,46 +195,24 @@ final class BrowseTopView: UIView {
     func setup(titleLabel: UILabel) {
         dataView.add(titleLabel)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-//        NSLayoutConstraint.activate([
-//            titleLabel.centerXAnchor.constraint(equalTo: dataView.centerXAnchor, constant: 0),
-//            titleLabel.widthAnchor.constraint(equalTo: dataView.widthAnchor),
-//            titleLabel.centerYAnchor.constraint(equalTo: dataView.centerYAnchor),
-//            titleLabel.heightAnchor.constraint(equalTo: dataView.heightAnchor, multiplier: 0.3)
-//            ])
+        
         
         if UIDevice().userInterfaceIdiom == .phone {
             switch UIScreen.main.nativeBounds.height {
-            case 480:
+            case 480, 960:
                 NSLayoutConstraint.activate([
                     titleLabel.centerXAnchor.constraint(equalTo: dataView.centerXAnchor, constant: 0),
                     titleLabel.widthAnchor.constraint(equalTo: dataView.widthAnchor),
                     titleLabel.centerYAnchor.constraint(equalTo: dataView.centerYAnchor),
                     titleLabel.heightAnchor.constraint(equalTo: dataView.heightAnchor, multiplier: 0.3)
                     ])
-            case 960:
-                NSLayoutConstraint.activate([
-                    titleLabel.centerXAnchor.constraint(equalTo: dataView.centerXAnchor, constant: 0),
-                    titleLabel.widthAnchor.constraint(equalTo: dataView.widthAnchor),
-                    titleLabel.centerYAnchor.constraint(equalTo: dataView.centerYAnchor),
-                    titleLabel.heightAnchor.constraint(equalTo: dataView.heightAnchor, multiplier: 0.3)
-                    ])
-            case 1136:
+            case 1136, 1334:
                 NSLayoutConstraint.activate([
                     titleLabel.centerXAnchor.constraint(equalTo: dataView.centerXAnchor, constant: 0),
                     titleLabel.widthAnchor.constraint(equalTo: dataView.widthAnchor),
                     titleLabel.centerYAnchor.constraint(equalTo: dataView.centerYAnchor),
                     titleLabel.heightAnchor.constraint(equalTo: dataView.heightAnchor, multiplier: 0.4)
                     ])
-
-            case 1334:
-                NSLayoutConstraint.activate([
-                    titleLabel.centerXAnchor.constraint(equalTo: dataView.centerXAnchor, constant: 0),
-                    titleLabel.widthAnchor.constraint(equalTo: dataView.widthAnchor),
-                    titleLabel.centerYAnchor.constraint(equalTo: dataView.centerYAnchor),
-                    titleLabel.heightAnchor.constraint(equalTo: dataView.heightAnchor, multiplier: 0.4)
-                    ])
-
-                
             case 2208:
                 NSLayoutConstraint.activate([
                     titleLabel.centerXAnchor.constraint(equalTo: dataView.centerXAnchor, constant: 0),
@@ -300,7 +220,7 @@ final class BrowseTopView: UIView {
                     titleLabel.centerYAnchor.constraint(equalTo: dataView.centerYAnchor),
                     titleLabel.heightAnchor.constraint(equalTo: dataView.heightAnchor, multiplier: 0.3)
                     ])
-
+                
             default:
                 NSLayoutConstraint.activate([
                     titleLabel.centerXAnchor.constraint(equalTo: dataView.centerXAnchor, constant: 0),

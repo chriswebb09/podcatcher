@@ -9,7 +9,6 @@ final class SearchResultListViewController: BaseCollectionViewController {
     
     var navPop = false
     
-    
     private var confirmationIndicator = ConfirmationIndicatorView()
     private let entryPop = EntryPopover()
     
@@ -48,7 +47,6 @@ final class SearchResultListViewController: BaseCollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.register(PodcastResultCell.self)
-        //  dataSource =
         view.backgroundColor = .white
         initialize()
         setupNavbar()
@@ -80,7 +78,7 @@ final class SearchResultListViewController: BaseCollectionViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-         self.collectionView.setContentOffset(CGPoint(x:0,y:0), animated: false)
+        self.collectionView.setContentOffset(CGPoint(x:0,y:0), animated: false)
         self.collectionView.layoutIfNeeded()
     }
     
@@ -200,10 +198,10 @@ extension SearchResultListViewController {
         topView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
         self.collectionView.translatesAutoresizingMaskIntoConstraints = false
-       
+        
         self.collectionView.topAnchor.constraint(equalTo: topView.bottomAnchor).isActive = true
         self.collectionView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.54).isActive = true
-       // self.collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+      
         self.collectionView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         if let item = item, let urlString = item.podcastArtUrlString, let url = URL(string: urlString) {
             topView.podcastImageView.downloadImage(url: url)
@@ -275,6 +273,8 @@ extension SearchResultListViewController: TopViewDelegate {
 // MARK: - UICollectionViewDelegate
 
 extension SearchResultListViewController: UICollectionViewDelegate {
+    
+
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         state = .toPlayer

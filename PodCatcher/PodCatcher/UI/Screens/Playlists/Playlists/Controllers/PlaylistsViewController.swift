@@ -84,7 +84,7 @@ final class PlaylistsViewController: BaseTableViewController {
 extension PlaylistsViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UIScreen.main.bounds.height / 6.8
+        return UIScreen.main.bounds.height / 7.5
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -102,8 +102,6 @@ extension PlaylistsViewController: UITableViewDelegate {
         case .addPodcast:
             
             let cell = tableView.cellForRow(at: indexPath) as! PlaylistCell
-            
-            
             let podcastItem = PodcastPlaylistItem(context: fetchedResultsController.managedObjectContext)
             
             podcastItem.audioUrl = item.episodes[index].audioUrlSting
