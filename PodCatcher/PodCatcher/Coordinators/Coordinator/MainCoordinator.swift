@@ -73,11 +73,8 @@ extension MainCoordinator: CoordinatorDelegate {
     
     func setupTabCoordinator() {
         let tabbarController = TabBarController()
-
         self.tabbBarCoordinator = TabBarCoordinator(tabBarController: tabbarController, window: window)
         setupHomeTab()
-        setupPlaylistsTab()
-        setupBrowseTab()
         setupSearchTab()
         setupSettingsTab()
         appCoordinator = tabbBarCoordinator
@@ -85,49 +82,23 @@ extension MainCoordinator: CoordinatorDelegate {
     }
     
     func setupHomeTab() {
-        let backingVC = HomeBackingViewController()
+        let homeBackingVC = HomeBackingViewController()
         let homeViewController = HomeViewController()
-        backingVC.homeViewController = homeViewController
-        let backingTab = UINavigationController(rootViewController: backingVC)
+        homeBackingVC.homeViewController = homeViewController
+        let backingTab = UINavigationController(rootViewController: homeBackingVC)
         tabbBarCoordinator.setupHomeCoordinator(navigationController: backingTab)
-    
-//        let homeTab = UINavigationController(rootViewController: homeViewController)
-//        tabbBarCoordinator.setupHomeCoordinator(navigationController: homeTab)
         let homeCoord = tabbBarCoordinator.childCoordinators[0] as! HomeTabCoordinator
+        
         homeViewController.coordinator = homeCoord
         homeCoord.delegate = self
         homeCoord.feedStore = feedStore
-    }
-    
-    func setupPlaylistsTab() {
-        let playlistsViewController = PlaylistsViewController()
-        let playlistsTab = UINavigationController(rootViewController: playlistsViewController)
-        tabbBarCoordinator.setupPlaylistsCoordinator(navigationController: playlistsTab)
-        let playlistsCoord = tabbBarCoordinator.childCoordinators[1] as! PlaylistsTabCoordinator
-        playlistsViewController.coordinator = playlistsCoord
-        playlistsCoord.delegate = self
-        playlistsCoord.start()
-        addChildCoordinator(playlistsCoord)
-    }
-    
-    func setupBrowseTab() {
-        let browseViewController = BrowseViewController(index: 0)
-        let browseTab = UINavigationController(rootViewController: browseViewController)
-        tabbBarCoordinator.setupBrowseCoordinator(navigationController: browseTab)
-        let browseCoord = tabbBarCoordinator.childCoordinators[2] as! BrowseTabCoordinator
-        browseViewController.coordinator = browseCoord
-        browseCoord.delegate = self
-        browseCoord.setupBrowse()
-        addChildCoordinator(browseCoord)
-        browseCoord.viewDidLoad(browseViewController)
-        browseCoord.feedStore = feedStore
     }
     
     func setupSearchTab() {
         let searchViewController = SearchViewController()
         let searchTab = UINavigationController(rootViewController: searchViewController)
         tabbBarCoordinator.setupSearchCoordinator(navigationController: searchTab)
-        let searchCoord = tabbBarCoordinator.childCoordinators[3] as! SearchTabCoordinator
+        let searchCoord = tabbBarCoordinator.childCoordinators[1] as! SearchTabCoordinator
         searchCoord.delegate = self
         addChildCoordinator(searchCoord)
         searchCoord.feedStore = feedStore
@@ -136,11 +107,11 @@ extension MainCoordinator: CoordinatorDelegate {
     func setupSettingsTab() {
         let settingsViewController = SettingsViewController()
         let settingsTab = UINavigationController(rootViewController: settingsViewController)
-       
         tabbBarCoordinator.setupSettingsCoordinator(navigationController: settingsTab)
         tabbBarCoordinator.delegate = self
-        let settingsCoord = tabbBarCoordinator.childCoordinators[4] as! SettingsTabCoordinator
+        let settingsCoord = tabbBarCoordinator.childCoordinators[2] as! SettingsTabCoordinator
         settingsCoord.delegate = self
         addChildCoordinator(settingsCoord)
     }
 }
+

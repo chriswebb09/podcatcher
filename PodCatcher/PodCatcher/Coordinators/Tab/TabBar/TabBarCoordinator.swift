@@ -26,21 +26,10 @@ final class TabBarCoordinator: TabControllerCoordinator {
     func setupHomeCoordinator(navigationController: UINavigationController) {
         let tabCoordinator = HomeTabCoordinator(navigationController: navigationController)
         tabCoordinator.start()
-       
+        
         childCoordinators.append(tabCoordinator)
     }
     
-    func setupPlaylistsCoordinator(navigationController: UINavigationController) {
-        let tabCoordinator = PlaylistsTabCoordinator(navigationController: navigationController)
-        tabCoordinator.start()
-        addChild(coordinator: tabCoordinator)
-    }
-    
-    func setupBrowseCoordinator(navigationController: UINavigationController) {
-        let tabCoordinator = BrowseTabCoordinator(navigationController: navigationController)
-        tabCoordinator.start()
-        addChild(coordinator: tabCoordinator)
-    }
     
     func setupSearchCoordinator(navigationController: UINavigationController) {
         let tabCoordinator = SearchTabCoordinator(navigationController: navigationController)
@@ -63,9 +52,8 @@ final class TabBarCoordinator: TabControllerCoordinator {
     func setup() {
         let controllers = [childCoordinators[0].navigationController,
                            childCoordinators[1].navigationController,
-                           childCoordinators[2].navigationController,
-                           childCoordinators[3].navigationController,
-                           childCoordinators[4].navigationController]
+                           childCoordinators[2].navigationController]
         tabBarController.setTabTitles(controllers: controllers)
     }
 }
+

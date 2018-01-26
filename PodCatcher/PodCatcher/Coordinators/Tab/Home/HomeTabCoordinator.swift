@@ -40,8 +40,10 @@ final class HomeTabCoordinator: NSObject, NavigationCoordinator, HomeCoordinator
     func start() {
         let backingVC = navigationController.viewControllers[0] as! HomeBackingViewController
         let homeViewController = backingVC.homeViewController
+        backingVC.delegate = self
+        backingVC.setupBrowse()
         homeViewController?.managedContext = feedStore.managedContext
-
+        
         let controller: NSFetchedResultsController<Subscription> = {
             let fetchRequest: NSFetchRequest<Subscription> = Subscription.fetchRequest()
             fetchRequest.sortDescriptors = [NSSortDescriptor(key: "feedUrl", ascending: true)]
@@ -51,9 +53,7 @@ final class HomeTabCoordinator: NSObject, NavigationCoordinator, HomeCoordinator
             }
             return controller
         }()
-//
-//
-//
+        
         homeViewController?.fetchedResultsController = controller
         homeViewController?.delegate = self
         homeViewController?.persistentContainer = persistentContainer
@@ -81,7 +81,7 @@ extension HomeTabCoordinator: HomeViewControllerDelegate {
             
             if let strongSelf = self {
                 let backingVC = strongSelf.navigationController.viewControllers[0] as! HomeBackingViewController
-            //    let homeViewController = strongSelf.navigationController.viewControllers[0] as! HomeViewController
+                //    let homeViewController = strongSelf.navigationController.viewControllers[0] as! HomeViewController
                 let homeViewController = backingVC.homeViewController
                 homeViewController?.loading()
                 
@@ -145,6 +145,12 @@ extension HomeTabCoordinator: HomeViewControllerDelegate {
     }
 }
 
+extension HomeTabCoordinator: HomeBackingViewControllerDelegate {
+    func updatePodcast(with id: String) {
+        delegate?.updatePodcast(with: id)
+    }
+}
+
 extension HomeTabCoordinator: PodcastListViewControllerDelegate {
     
     func saveFeed(item: CasterSearchResult, podcastImage: UIImage, episodesCount: Int) {
@@ -201,7 +207,7 @@ extension HomeTabCoordinator: PlayerViewControllerDelegate {
         } else {
             podcastsData.save(title: item.episodes[index].title, audioUrl: item.episodes[index].audioUrlSting, podcasterName: item.podcastArtist!, podcastId: title, episodeId: item.episodes[index].podcastTitle, podcastImage: imageData! as NSData)
         }
-       
+        
         //  PodcastCoreData
     }
     
@@ -272,3 +278,4 @@ extension HomeTabCoordinator: UINavigationControllerDelegate {
         }
     }
 }
+
