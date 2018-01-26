@@ -41,14 +41,7 @@ final internal class TopPodcastCell: UICollectionViewCell {
     }()
     
     // Cell shadow
-    
-//    private func setShadow() {
-//        layer.setCellShadow(contentView: contentView)
-//        let rect = CGRect(origin: bounds.origin, size: CGSize(width: bounds.width, height: bounds.height - 10))
-//        let path =  UIBezierPath(roundedRect: rect, cornerRadius: contentView.layer.cornerRadius)
-//        layer.shadowPath = path.cgPath
-//    }
-//
+
     func configureCell(with imageUrl: URL, title: String) {
         trackNameLabel.text = title
         albumArtView.image = #imageLiteral(resourceName: "placeholder")

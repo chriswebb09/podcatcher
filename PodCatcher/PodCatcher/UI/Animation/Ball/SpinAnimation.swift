@@ -41,9 +41,9 @@ struct SpinAnimation: AnimatableView {
             view.transform = CGAffineTransform(scaleX: -0.25, y: -0.25)
         })
         
-        let shrinkAnimation = UIViewPropertyAnimator(duration: 0.5, curve: .linear, animations: {
+        let shrinkAnimation = UIViewPropertyAnimator(duration: 0.5, curve: .linear) {
             view.transform = CGAffineTransform(scaleX: 1, y: 1)
-        })
+        }
         
         UIView.animate(withDuration: 0.1) {
             spinAnimation.startAnimation()

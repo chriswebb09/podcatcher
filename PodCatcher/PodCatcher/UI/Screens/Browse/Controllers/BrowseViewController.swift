@@ -89,10 +89,6 @@ final class BrowseViewController: BaseCollectionViewController, LoadingPresentin
         view.addSubview(network)
         view.sendSubview(toBack: network)
         network.layoutSubviews()
-        let topFrameHeight = UIScreen.main.bounds.height / 2
-        let topFrameWidth = UIScreen.main.bounds.width
-        //        let topFrame = CGRect(x: 0, y: 0, width: topFrameWidth, height: topFrameHeight)
-        //        browseVC.topView.frame = topFrame
         loadingPop.configureLoadingOpacity(alpha: 0.2)
         
         view.backgroundColor = .clear
