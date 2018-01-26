@@ -40,33 +40,16 @@ final class PlaylistsViewController: BaseTableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.register(PlaylistCell.self)
         initialize()
         edgesForExtendedLayout = []
     }
     
     func initialize() {
         entryPop.delegate = self
-        playlistsDataSource = TableViewDataSource(tableView: tableView, identifier: PlaylistCell.reuseIdentifier, fetchedResultsController: fetchedResultsController, delegate: self)
+        playlistsDataSource = TableViewDataSource(tableView: tableView, identifier: "PlaylistCell", fetchedResultsController: fetchedResultsController, delegate: self)
         leftButtonItem  = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(edit))
         rightButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "plus-red").withRenderingMode(.alwaysTemplate), style: .plain, target: self, action: #selector(addPlaylist))
-        background.frame = UIScreen.main.bounds
-        view.addSubview(background)
-        view.sendSubview(toBack: background)
-        tableView.backgroundColor = .white
-        tableView.register(PlaylistCell.self, forCellReuseIdentifier: PlaylistCell.reuseIdentifier)
-        tableView.delegate = self
-        rightButtonItem.tintColor = .white
-        navigationItem.setRightBarButton(rightButtonItem, animated: false)
-        navigationItem.setLeftBarButton(leftButtonItem, animated: false)
-        playlistsDataSource.reloadData()
-        tableView.dataSource = playlistsDataSource
-        playlistsDataSource.setIcon(icon: #imageLiteral(resourceName: "podcast-icon").withRenderingMode(.alwaysTemplate))
-        playlistsDataSource.setText(text: "Create playlists with your favorite podcasts!")
-        if playlistsDataSource.itemCount == 0 {
-            navigationItem.leftBarButtonItem = nil
-        }
-//        coordinator?.viewDidLoad(self)
+        coordinator?.viewDidLoad(self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -118,7 +101,7 @@ extension PlaylistsViewController: UITableViewDelegate {
         switch reference {
         case .addPodcast:
             
-            let cell = tableView.dequeueReusableCell(withIdentifier: PlaylistCell.reuseIdentifier, for: indexPath) as! PlaylistCell
+            let cell = tableView.cellForRow(at: indexPath) as! PlaylistCell
             let podcastItem = PodcastPlaylistItem(context: fetchedResultsController.managedObjectContext)
             
             podcastItem.audioUrl = item.episodes[index].audioUrlSting

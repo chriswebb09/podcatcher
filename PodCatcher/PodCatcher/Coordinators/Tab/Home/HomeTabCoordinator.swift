@@ -40,7 +40,6 @@ final class HomeTabCoordinator: NSObject, NavigationCoordinator, HomeCoordinator
     func start() {
         let backingVC = navigationController.viewControllers[0] as! HomeBackingViewController
         let homeViewController = backingVC.homeViewController
-        backingVC.setupBrowse()
         homeViewController?.managedContext = feedStore.managedContext
 
         let controller: NSFetchedResultsController<Subscription> = {
@@ -52,7 +51,9 @@ final class HomeTabCoordinator: NSObject, NavigationCoordinator, HomeCoordinator
             }
             return controller
         }()
-
+//
+//
+//
         homeViewController?.fetchedResultsController = controller
         homeViewController?.delegate = self
         homeViewController?.persistentContainer = persistentContainer

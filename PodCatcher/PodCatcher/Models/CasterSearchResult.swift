@@ -45,6 +45,10 @@ struct CasterSearchResult: DataItem, PodcastSearchResult {
     
     init?(json: [String: Any]) {
         let list = ["Joe Rogan", "HowStuffWorks", "ESPN, ESPN Films, 30for30", "Matt Behdjou", "Mike & Matt", "Tenderfoot", "Mathis Entertainment, Inc."]
+        //print("\n\n\n")
+        //print("HERE - 2")
+       // print("\n\n\n\n")
+       // print(json)
         guard !list.contains(json["artistName"] as! String) else { return nil }
         guard let artUrl = json["artworkUrl600"] as? String else { return }
         guard let artistName = json["artistName"] as? String else { return }
@@ -75,14 +79,19 @@ struct CasterSearchResult: DataItem, PodcastSearchResult {
         }
         
         if let collectionName = json["collectionName"] as? String {
+           // print("podcast title")
             self.podcastTitle = collectionName
         }
         
         if let artistName = json["artistName"] as? String {
+          //  print(artistName)
+            //print("Artist name")
             self.podcastArtist = artistName
         }
         
         if let primaryGenre = json["primaryGenreName"] as? String {
+           // print("Primary genre")
+            //print(primaryGenre)
             self.category = primaryGenre
         }
         
@@ -99,6 +108,8 @@ struct CasterSearchResult: DataItem, PodcastSearchResult {
                 episode.tags.append(trimmedTag)
             }
         }
+    
+    //print(self)
     }
 }
 

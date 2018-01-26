@@ -65,6 +65,7 @@ extension BrowseCollectionDataSource:  UICollectionViewDataSource {
                 cell.configureCell(with: url, title: title)
             }
         }
+       
         return cell
     }
 }

@@ -54,7 +54,7 @@ extension UIButton {
             NSAttributedStringKey.foregroundColor : UIColor.white
         ]
       //  UIColor(red:0.77, green:0.91, blue:1.00, alpha:1.0)
-        let attributedtitle = NSAttributedString(string: title, attributes: attributes)
+        var attributedtitle = NSAttributedString(string: title, attributes: attributes)
         self.setAttributedTitle(attributedtitle, for: .normal)
         
         //        self.setAttributedTitle( for: .normal)
