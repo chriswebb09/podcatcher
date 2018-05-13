@@ -19,6 +19,26 @@ final class BrowseCollectionDataSource: BaseMediaControllerDataSource {
         return items.count
     }
     
+    var searchResultsDataStore = SearchResultsDataStore()
+    
+    override init() {
+        super.init()
+        
+          guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        
+        appDelegate.dataStore.getFeatured { podcasts in
+            for pod in podcasts {
+                let item = PodcastItem(podcastArtist: pod.podcastArtist, feedUrl: pod.feedUrl, podcastArtUrlString: pod.podcastArtUrlString, artistId: pod.artistId, id: pod.id, podcastTitle: pod.podcastTitle, episodes: [], category: "")
+                self.items.append(item)
+            }
+        }
+        //getFeaturedPodcasts(completion: { podcasts, errors in
+            
+            
+       // })
+        
+        
+    }
     var cellModels: [TopPodcastCellViewModel] = []
     
     var categories: [String] = []

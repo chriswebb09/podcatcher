@@ -62,35 +62,35 @@ final class HomeBackingViewController: UIViewController {
     }
     
     func setupBrowse() {
-        concurrent.async { [weak self] in
-            guard let strongSelf = self else { return }
-            strongSelf.getCasterWorkaround { items, error in
-                if error != nil {
-                    DispatchQueue.main.async {
-                        let informationView = InformationView(data: "", icon: #imageLiteral(resourceName: "sad-face"))
-                        informationView.setIcon(icon: #imageLiteral(resourceName: "sad-face"))
-                        informationView.setLabel(text: "Oops! Unable to connect to iTunes server.")
-                        informationView.frame = UIScreen.main.bounds
-                        strongSelf.browseViewController.view = informationView
-                        strongSelf.browseViewController.view.layoutSubviews()
-                        strongSelf.browseViewController.hideLoadingView(loadingPop: strongSelf.browseViewController.loadingPop)
-                    }
-                } else {
-                    if strongSelf.browseViewController.dataSource.items.count > 0 {
-                        //                        guard let urlString = strongSelf.browseViewController.dataSource.items[0].podcastArtUrlString else { return }
-                        //                        guard let title = strongSelf.browseViewController.dataSource.items[0].podcastTitle else { return }
-                        //                        guard let imageUrl = URL(string: urlString) else { return }
-                        //                        strongSelf.browseViewController.browseTopView.setTitle(title: title)
-                        //                        strongSelf.browseViewController.browseTopView.podcastImageView.downloadImage(url: imageUrl)
-                    }
-                }
-            }
-        }
+//        concurrent.async { [weak self] in
+//            guard let strongSelf = self else { return }
+//            strongSelf.getCasterWorkaround { items, error in
+//                if error != nil {
+//                    DispatchQueue.main.async {
+//                        let informationView = InformationView(data: "", icon: #imageLiteral(resourceName: "sad-face"))
+//                        informationView.setIcon(icon: #imageLiteral(resourceName: "sad-face"))
+//                        informationView.setLabel(text: "Oops! Unable to connect to iTunes server.")
+//                        informationView.frame = UIScreen.main.bounds
+//                        strongSelf.browseViewController.view = informationView
+//                        strongSelf.browseViewController.view.layoutSubviews()
+//                        strongSelf.browseViewController.hideLoadingView(loadingPop: strongSelf.browseViewController.loadingPop)
+//                    }
+//                } else {
+//                    if strongSelf.browseViewController.dataSource.items.count > 0 {
+//                        guard let urlString = strongSelf.browseViewController.dataSource.items[0].podcastArtUrlString else { return }
+//                        guard let title = strongSelf.browseViewController.dataSource.items[0].podcastTitle else { return }
+//                        guard let imageUrl = URL(string: urlString) else { return }
+//                        strongSelf.browseViewController.browseTopView.setTitle(title: title)
+//                        strongSelf.browseViewController.browseTopView.podcastImageView.downloadImage(url: imageUrl)
+//                    }
+//                }
+//            }
+//        }
     }
     
     
     func getCasterWorkaround(completion: @escaping ([PodcastItem]?, Error?) -> Void) {
-     
+        
         var results = [PodcastItem]()
         let topPodcastGroup = DispatchGroup()
         var ids: [String] = ["201671138", "1268047665", "1264843400", "1212558767", "1200361736", "1150510297", "1097193327", "1250180134", "523121474", "1119389968", "1222114325", "1074507850", "173001861", "1028908750", "1279361017"]
@@ -112,7 +112,7 @@ final class HomeBackingViewController: UIViewController {
                                 
                                 strongSelf.browseViewController.dataSource.items.append(caster)
                                 strongSelf.browseViewController.collectionView.reloadData()
-
+                                
                             }
                         }
                     }
@@ -215,7 +215,7 @@ extension HomeBackingViewController: SliderControlDelegate {
         case 2:
             currentEmbeddedVC =  playlistsViewController
             DispatchQueue.main.async {
-               
+                
                 self.navigationItem.title = "Podcasts"
                 self.navigationItem.rightBarButtonItem = self.playlistsViewController.rightButtonItem
                 self.navigationItem.leftBarButtonItem = self.playlistsViewController.leftButtonItem
@@ -230,7 +230,7 @@ extension HomeBackingViewController: SliderControlDelegate {
 }
 
 extension HomeBackingViewController: BrowseViewControllerDelegate {
-
+    
     func goToSearch() {
         
     }
@@ -240,47 +240,47 @@ extension HomeBackingViewController: BrowseViewControllerDelegate {
         let feedPodcast = podcast
         feedPodcast.podcastTitle = podcast.podcastTitle
         feedPodcast.podcastArtUrlString = podcast.podcastArtUrlString
-      //  let nav = navigationController?.childViewControllers[0] as! UINavigationController
+        //  let nav = navigationController?.childViewControllers[0] as! UINavigationController
         //let backingVC = nav.viewControllers[0] as! BackingViewController
         let dispatchGroup = DispatchGroup()
-       // backingVC.loadingPop.show(controller: backingVC)
+        // backingVC.loadingPop.show(controller: backingVC)
         let resultsList = PodcastListViewController(index: at)
-            
-            //SearchResultListViewController(index: at)
-      //  resultsList.persistentContainer = self.persistentContainer
+        
+        //SearchResultListViewController(index: at)
+        //  resultsList.persistentContainer = self.persistentContainer
         resultsList.index = 2
-     //   resultsList.delegate = self
+        //   resultsList.delegate = self
         if let tabController = self.tabBarController as? TabBarController {
             resultsList.miniPlayer = tabController.miniPlayer
             //resultsList.miniPlayer.delegate = self
         }
-      //  resultsList.miniPlayer = backingVC.miniPlayerViewController
+        //  resultsList.miniPlayer = backingVC.miniPlayerViewController
         
         dispatchGroup.enter()
         store.pullFeed(for: feedUrlString) {  response, error  in
             if error != nil {
                 print(error?.localizedDescription ?? "unable to get specific error")
-              //  backingVC.loadingPop.hideLoadingView(controller: backingVC)
+                //  backingVC.loadingPop.hideLoadingView(controller: backingVC)
                 return
             } else {
                 DispatchQueue.main.async {
-                   // backingVC.loadingPop.hideLoadingView(controller: backingVC)
+                    // backingVC.loadingPop.hideLoadingView(controller: backingVC)
                 }
             }
             guard let episodes = response else { return }
             feedPodcast.episodes = episodes
-           // resultsList.setDataItem(dataItem: feedPodcast)
-           // backingVC.loadingPop.hideLoadingView(controller: backingVC)
+            // resultsList.setDataItem(dataItem: feedPodcast)
+            // backingVC.loadingPop.hideLoadingView(controller: backingVC)
             resultsList.title = feedPodcast.podcastArtist
             if let url = URL(string: feedPodcast.podcastArtUrlString) {
                 resultsList.topView.setTopImage(from: url)
                 //topView.podcastImageView.image = imageView.image
             }
-           // resultsList.setDataItem(dataItem: feedPodcast)
+            // resultsList.setDataItem(dataItem: feedPodcast)
             dispatchGroup.leave()
         }
         dispatchGroup.notify(queue: .main) {
-           // backingVC.loadingPop.hideLoadingView(controller: backingVC)
+            // backingVC.loadingPop.hideLoadingView(controller: backingVC)
             DispatchQueue.main.async {
                 self.navigationController?.title = podcast.podcastArtist
                 //self.navigationController?.delegate = self
