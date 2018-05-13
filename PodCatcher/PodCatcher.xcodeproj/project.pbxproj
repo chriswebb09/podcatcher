@@ -193,6 +193,13 @@
 		A7FD21562008F085007C7053 /* InformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FD21552008F085007C7053 /* InformationView.swift */; };
 		A7FD21582008F1BE007C7053 /* HomeInteractionMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FD21572008F1BE007C7053 /* HomeInteractionMode.swift */; };
 		A7FD215A2008F211007C7053 /* PlaylistItemMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FD21592008F211007C7053 /* PlaylistItemMode.swift */; };
+		AE3F355120A85C04009F69C7 /* BrowseListTopViewConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE3F355020A85C04009F69C7 /* BrowseListTopViewConstants.swift */; };
+		AE3F355320A85C2A009F69C7 /* BrowseTopCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE3F355220A85C2A009F69C7 /* BrowseTopCollectionViewController.swift */; };
+		AE3F355520A85C5D009F69C7 /* CarouselFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE3F355420A85C5D009F69C7 /* CarouselFlowLayout.swift */; };
+		AE3F355720A85C84009F69C7 /* BrowseTopViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE3F355620A85C84009F69C7 /* BrowseTopViewCell.swift */; };
+		AE3F355920A85CA3009F69C7 /* BrowseTopCollectionViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE3F355820A85CA3009F69C7 /* BrowseTopCollectionViewControllerDelegate.swift */; };
+		AE3F355B20A85CB6009F69C7 /* BrowseCollectionDataSourceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE3F355A20A85CB6009F69C7 /* BrowseCollectionDataSourceDelegate.swift */; };
+		AE3F355D20A85F5D009F69C7 /* SelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE3F355C20A85F5D009F69C7 /* SelectionViewController.swift */; };
 		AE57650520A82E6100151B59 /* CardPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE57650420A82E6100151B59 /* CardPlayerViewController.swift */; };
 		AE57650720A82E7F00151B59 /* LowerModuleAnimatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE57650620A82E7F00151B59 /* LowerModuleAnimatable.swift */; };
 		AE57650920A82E8D00151B59 /* BottomSectionAnimatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE57650820A82E8D00151B59 /* BottomSectionAnimatable.swift */; };
@@ -213,6 +220,7 @@
 		AE57652B20A837DB00151B59 /* DownloadedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE57652A20A837DB00151B59 /* DownloadedCell.swift */; };
 		AE57652D20A837FD00151B59 /* DownloadCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE57652C20A837FD00151B59 /* DownloadCellDelegate.swift */; };
 		AE57652F20A8380F00151B59 /* DownloadedCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE57652E20A8380F00151B59 /* DownloadedCellViewModel.swift */; };
+		AE57653920A85B4300151B59 /* BrowseCollectionDataSourceConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE57653820A85B4300151B59 /* BrowseCollectionDataSourceConstants.swift */; };
 		AE868E6D20A76F7000D1AEC7 /* Podcatch.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AE868E6B20A76F6F00D1AEC7 /* Podcatch.xcdatamodeld */; };
 		AE868E7520A789CA00D1AEC7 /* Playlist+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE868E6F20A789C900D1AEC7 /* Playlist+CoreDataClass.swift */; };
 		AE868E7620A789CA00D1AEC7 /* Playlist+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE868E7020A789C900D1AEC7 /* Playlist+CoreDataProperties.swift */; };
@@ -479,6 +487,13 @@
 		A7FD21552008F085007C7053 /* InformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationView.swift; sourceTree = "<group>"; };
 		A7FD21572008F1BE007C7053 /* HomeInteractionMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeInteractionMode.swift; path = Home/Datasources/HomeInteractionMode.swift; sourceTree = "<group>"; };
 		A7FD21592008F211007C7053 /* PlaylistItemMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlaylistItemMode.swift; path = Playlists/Playlist/PlaylistItemMode.swift; sourceTree = "<group>"; };
+		AE3F355020A85C04009F69C7 /* BrowseListTopViewConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BrowseListTopViewConstants.swift; path = Browse/BrowseListTopViewConstants.swift; sourceTree = "<group>"; };
+		AE3F355220A85C2A009F69C7 /* BrowseTopCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseTopCollectionViewController.swift; sourceTree = "<group>"; };
+		AE3F355420A85C5D009F69C7 /* CarouselFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselFlowLayout.swift; sourceTree = "<group>"; };
+		AE3F355620A85C84009F69C7 /* BrowseTopViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseTopViewCell.swift; sourceTree = "<group>"; };
+		AE3F355820A85CA3009F69C7 /* BrowseTopCollectionViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseTopCollectionViewControllerDelegate.swift; sourceTree = "<group>"; };
+		AE3F355A20A85CB6009F69C7 /* BrowseCollectionDataSourceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseCollectionDataSourceDelegate.swift; sourceTree = "<group>"; };
+		AE3F355C20A85F5D009F69C7 /* SelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionViewController.swift; sourceTree = "<group>"; };
 		AE57650420A82E6100151B59 /* CardPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardPlayerViewController.swift; sourceTree = "<group>"; };
 		AE57650620A82E7F00151B59 /* LowerModuleAnimatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LowerModuleAnimatable.swift; sourceTree = "<group>"; };
 		AE57650820A82E8D00151B59 /* BottomSectionAnimatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSectionAnimatable.swift; sourceTree = "<group>"; };
@@ -499,6 +514,7 @@
 		AE57652A20A837DB00151B59 /* DownloadedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadedCell.swift; sourceTree = "<group>"; };
 		AE57652C20A837FD00151B59 /* DownloadCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadCellDelegate.swift; sourceTree = "<group>"; };
 		AE57652E20A8380F00151B59 /* DownloadedCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadedCellViewModel.swift; sourceTree = "<group>"; };
+		AE57653820A85B4300151B59 /* BrowseCollectionDataSourceConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseCollectionDataSourceConstants.swift; sourceTree = "<group>"; };
 		AE868E6C20A76F6F00D1AEC7 /* Podcatch.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Podcatch.xcdatamodel; sourceTree = "<group>"; };
 		AE868E6F20A789C900D1AEC7 /* Playlist+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Playlist+CoreDataClass.swift"; sourceTree = "<group>"; };
 		AE868E7020A789C900D1AEC7 /* Playlist+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Playlist+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -857,6 +873,7 @@
 			isa = PBXGroup;
 			children = (
 				A723B4131F0EB4F000EA6B27 /* PlaylistsViewController.swift */,
+				AE3F355C20A85F5D009F69C7 /* SelectionViewController.swift */,
 				A723B4191F0EB54300EA6B27 /* PlaylistCell.swift */,
 				A7FD21512008ED48007C7053 /* PlaylistsInteractionMode.swift */,
 				A7FD214F2008ED19007C7053 /* PlaylistsReference.swift */,
@@ -1020,6 +1037,12 @@
 			isa = PBXGroup;
 			children = (
 				A7780EFC1F173F1900737DA8 /* BrowseViewController.swift */,
+				AE3F355A20A85CB6009F69C7 /* BrowseCollectionDataSourceDelegate.swift */,
+				AE3F355820A85CA3009F69C7 /* BrowseTopCollectionViewControllerDelegate.swift */,
+				AE3F355620A85C84009F69C7 /* BrowseTopViewCell.swift */,
+				AE3F355420A85C5D009F69C7 /* CarouselFlowLayout.swift */,
+				AE3F355220A85C2A009F69C7 /* BrowseTopCollectionViewController.swift */,
+				AE3F355020A85C04009F69C7 /* BrowseListTopViewConstants.swift */,
 				A7780EFF1F173FAA00737DA8 /* BrowseTopView.swift */,
 				AE57651620A8345100151B59 /* BrowseSection.swift */,
 				A7780F071F1740BF00737DA8 /* TopPodcastCell.swift */,
@@ -1033,6 +1056,7 @@
 				A73144FC2011873E003FE2EA /* BrowserBackingViewController.swift */,
 				A7E5628020123A980065F18B /* BrowsePageController.swift */,
 				AE868EB320A7D53500D1AEC7 /* MediaViewController.swift */,
+				AE57653820A85B4300151B59 /* BrowseCollectionDataSourceConstants.swift */,
 			);
 			name = Browser;
 			sourceTree = "<group>";
@@ -1529,15 +1553,18 @@
 				A71B26F21EE5D24700613CF4 /* AppDelegate.swift in Sources */,
 				A7DF81EE1F2DFE0800ADB86B /* TopViewDelegate.swift in Sources */,
 				A770414A1F2933A500346FC7 /* BottomMenu.swift in Sources */,
+				AE3F355320A85C2A009F69C7 /* BrowseTopCollectionViewController.swift in Sources */,
 				AE57652120A836E200151B59 /* AudioState.swift in Sources */,
 				A71D83DB1F0AC781009D0720 /* SettingsViewController.swift in Sources */,
 				A7A7628F1F13EE0500D2C4FF /* ItemCreator.swift in Sources */,
 				A7B8C3981EF6E18E001AFFA1 /* BaseCollectionViewController.swift in Sources */,
 				AE868EC220A7D78A00D1AEC7 /* DataItem.swift in Sources */,
+				AE3F355920A85CA3009F69C7 /* BrowseTopCollectionViewControllerDelegate.swift in Sources */,
 				A73172811F00466C006A6A24 /* LocalStorageManager.swift in Sources */,
 				AE868EA220A7D2EE00D1AEC7 /* AudioIndicatorView.swift in Sources */,
 				A71C93A61F2AD3ED009F3EC9 /* HomeViewControllerDelegate.swift in Sources */,
 				AE57652D20A837FD00151B59 /* DownloadCellDelegate.swift in Sources */,
+				AE3F355D20A85F5D009F69C7 /* SelectionViewController.swift in Sources */,
 				AE57652720A8379200151B59 /* CellViewModel.swift in Sources */,
 				A71C93721F2ABAAA009F3EC9 /* NetworkServiceDelegate.swift in Sources */,
 				AE868E9620A7D0A200D1AEC7 /* SubscriptionReader.swift in Sources */,
@@ -1561,6 +1588,7 @@
 				AE57652B20A837DB00151B59 /* DownloadedCell.swift in Sources */,
 				A77107441F0D4DE90042D2E4 /* HomeViewController.swift in Sources */,
 				A7DF81F21F2E005500ADB86B /* PlaylistsViewControllerDelegate.swift in Sources */,
+				AE3F355B20A85CB6009F69C7 /* BrowseCollectionDataSourceDelegate.swift in Sources */,
 				A770415E1F29382C00346FC7 /* RSSFeedAPIClient.swift in Sources */,
 				A7FD21522008ED48007C7053 /* PlaylistsInteractionMode.swift in Sources */,
 				A77EDF591EE5FAC2001A24E5 /* CALayer+Extension.swift in Sources */,
@@ -1570,6 +1598,7 @@
 				A7FD21542008F068007C7053 /* StateView.swift in Sources */,
 				A71AE3091F18085D00AFC8CC /* SettingCell.swift in Sources */,
 				A77EDF651EE5FC17001A24E5 /* EmptyView.swift in Sources */,
+				AE3F355120A85C04009F69C7 /* BrowseListTopViewConstants.swift in Sources */,
 				A7C0824F1F2C143F00FB1B8B /* CollectionViewProtocol.swift in Sources */,
 				AE868EC820A7E16800D1AEC7 /* AVPlayerItemTimeProvider.swift in Sources */,
 				AE57650B20A82E9B00151B59 /* CoverImageAnimatable.swift in Sources */,
@@ -1578,6 +1607,7 @@
 				AE868EA420A7D32500D1AEC7 /* BaseCell.swift in Sources */,
 				AE868EB820A7D6C800D1AEC7 /* Podcast.swift in Sources */,
 				AE57651720A8345100151B59 /* BrowseSection.swift in Sources */,
+				AE3F355520A85C5D009F69C7 /* CarouselFlowLayout.swift in Sources */,
 				A717592C1F381CB600651EAF /* SplashViewDelegate.swift in Sources */,
 				A7986C6D1FFE319800C7E3D0 /* NavigationCoordinator.swift in Sources */,
 				A7FD21502008ED19007C7053 /* PlaylistsReference.swift in Sources */,
@@ -1590,6 +1620,7 @@
 				A77DF1F31F2069FA00565471 /* NoSearchResultsView.swift in Sources */,
 				A7DF81E61F2DFC1000ADB86B /* TableViewDataSource.swift in Sources */,
 				A7A54B4C1F33E41100BF4325 /* EntryPopoverDelegate.swift in Sources */,
+				AE57653920A85B4300151B59 /* BrowseCollectionDataSourceConstants.swift in Sources */,
 				A717592A1F381C9300651EAF /* SplashViewControllerDelegate.swift in Sources */,
 				A7986C691FFE315000C7E3D0 /* ApplicationCoordinator.swift in Sources */,
 				A7A54EB21EE71474009A5538 /* EntryView.swift in Sources */,
@@ -1665,6 +1696,7 @@
 				A7BD12CE1EFF78AB0040FAE5 /* iTunesAPIClient.swift in Sources */,
 				A7986C631FFE2DC200C7E3D0 /* ControllerType.swift in Sources */,
 				AE57652920A837BC00151B59 /* PlaylistViewControllerConstants.swift in Sources */,
+				AE3F355720A85C84009F69C7 /* BrowseTopViewCell.swift in Sources */,
 				AE868E8A20A7CF5D00D1AEC7 /* RSSFeedParser.swift in Sources */,
 				AE868E8820A7A03800D1AEC7 /* MiniPlayerViewController.swift in Sources */,
 				A73DE54E1F46835600A3BA40 /* ControllerCoordinator.swift in Sources */,

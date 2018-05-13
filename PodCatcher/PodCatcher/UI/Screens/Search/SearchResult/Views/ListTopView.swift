@@ -7,74 +7,6 @@
 //
 
 import UIKit
-
-extension UIView {
-    func fadeIn(_ duration: TimeInterval = 0.1, delay: TimeInterval = 0.0, completion: @escaping ((Bool) -> Void) = {(finished: Bool) -> Void in}) {
-        UIView.animate(withDuration: duration, delay: delay, options: UIViewAnimationOptions.curveEaseIn, animations: {
-            self.alpha = 1.0
-        }, completion: completion)  }
-    
-    func fadeOut(_ duration: TimeInterval = 0.1, delay: TimeInterval = 0.0, completion: @escaping (Bool) -> Void = {(finished: Bool) -> Void in}) {
-        UIView.animate(withDuration: duration, delay: delay, options: UIViewAnimationOptions.curveEaseIn, animations: {
-            self.alpha = 0.0
-        }, completion: completion)
-    }
-}
-
-extension UIImageView {
-    
-    func performUIUpdate(using closure: @escaping () -> Void) {
-        // If we are already on the main thread, execute the closure directly
-        if Thread.isMainThread {
-            closure()
-        } else {
-            DispatchQueue.main.async(execute: closure)
-        }
-    }
-    
-    func addBlurEffect() {
-        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
-        let blurEffectView = UIVisualEffectView(effect: blurEffect)
-        blurEffectView.frame = bounds
-        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        addSubview(blurEffectView)
-    }
-    
-    func downloadImage(url: URL) {
-        self.image = nil
-        let urlconfig = URLSessionConfiguration.ephemeral
-        urlconfig.timeoutIntervalForRequest = 8
-        let session = URLSession(configuration: urlconfig, delegate: nil, delegateQueue: nil)
-        let request = URLRequest(url: url,  cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 8)
-        session.dataTask(with: request) { data, response, error in
-            if error != nil {
-                print(error?.localizedDescription ?? "Unknown error")
-                return
-            }
-            self.performUIUpdate {
-                self.image = nil
-            }
-            
-            if let data = data, let image = UIImage(data: data) {
-                
-                self.performUIUpdate {
-                    self.image = image
-                }
-            }}.resume()
-    }
-    
-    func dropShadow() {
-        self.layer.masksToBounds = false
-        self.layer.shadowColor = UIColor.gray.cgColor
-        self.layer.shadowOpacity = 0.25
-        self.layer.shadowOffset = CGSize(width: -0.9, height: 0.8)
-        self.layer.shadowRadius = 0.6
-        self.layer.shadowPath = UIBezierPath(rect: self.bounds).cgPath
-        self.layer.shouldRasterize = true
-        self.layer.rasterizationScale = UIScreen.main.scale
-    }
-}
-
 import UIKit
 
 final class PodcastListTopView: UIView, BaseView {
@@ -108,12 +40,6 @@ final class PodcastListTopView: UIView, BaseView {
             self.backgroundImage.downloadImage(url: url)
         }
     }
-    
-//    func setTopImage(image: UIImage) {
-//        print("image")
-//        self.podcastImageView.image = image
-//        self.backgroundImage.image = podcastImageView.image
-//    }
     
     func getImageView() -> UIImageView {
         return podcastImageView
