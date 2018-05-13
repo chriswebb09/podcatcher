@@ -27,6 +27,9 @@ final class HomeBackingViewController: UIViewController {
     var interactor = SearchResultsIteractor()
     var browseViewController: BrowseViewController = BrowseViewController(index: 0)
     let globalDefault = DispatchQueue.global()
+    
+  let concurrentQueue = DispatchQueue( label: "com.main.queue", attributes: .concurrent)
+    
     let concurrent = DispatchQueue(label: "concurrentBackground",
                                    qos: .background,
                                    attributes: .concurrent,
@@ -49,6 +52,18 @@ final class HomeBackingViewController: UIViewController {
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         self.currentEmbeddedVC = UIViewController()
         super.init(nibName: nil, bundle: nil)
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+            concurrentQueue.async(flags: .assignCurrentContext) {
+                appDelegate.dataStore.fetchBrowse { items, error in
+                    if let error = error {
+                        print(error.localizedDescription)
+                    }
+                    guard let items = items else { return }
+                    self.browseViewController.featuredItems = items
+                    //podcastsStart = items
+                }
+            }
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -57,11 +72,39 @@ final class HomeBackingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+            concurrentQueue.async(flags: .assignCurrentContext) {
+                appDelegate.dataStore.fetchBrowse { items, error in
+                    if let error = error {
+                        print(error.localizedDescription)
+                    }
+                    guard let items = items else { return }
+                   // self.browseViewController.dataSource.
+                   self.browseViewController.featuredItems = items
+                    //browsePageController.topItems = items
+                  
+                  
+                        //.podcastsStart = items
+                }
+            }
+        }
         edgesForExtendedLayout = []
         browseViewController.delegate = self
     }
     
     func setupBrowse() {
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+            concurrentQueue.async(flags: .assignCurrentContext) {
+                appDelegate.dataStore.fetchBrowse { items, error in
+                    if let error = error {
+                        print(error.localizedDescription)
+                    }
+                    guard let items = items else { return }
+                    self.browseViewController.featuredItems = items 
+                        //.browsePageController.topItems = items
+                }
+            }
+        }
 //        concurrent.async { [weak self] in
 //            guard let strongSelf = self else { return }
 //            strongSelf.getCasterWorkaround { items, error in
@@ -89,47 +132,47 @@ final class HomeBackingViewController: UIViewController {
     }
     
     
-    func getCasterWorkaround(completion: @escaping ([PodcastItem]?, Error?) -> Void) {
-        
-        var results = [PodcastItem]()
-        let topPodcastGroup = DispatchGroup()
-        var ids: [String] = ["201671138", "1268047665", "1264843400", "1212558767", "1200361736", "1150510297", "1097193327", "1250180134", "523121474", "1119389968", "1222114325", "1074507850", "173001861", "1028908750", "1279361017"]
-        for i in 0..<ids.count {
-            self.globalDefault.async(group: topPodcastGroup) { [weak self] in
-                guard let strongSelf = self else { return }
-                strongSelf.interactor.setLookup(term: ids[i])
-                strongSelf.interactor.searchForTracksFromLookup { result, arg  in
-                    if let error = arg {
-                        print(error.localizedDescription)
-                        completion(nil, error)
-                    }
-                    guard let resultItem = result else { return }
-                    resultItem.forEach { resultingData in
-                        guard let resultingData = resultingData else { return }
-                        if let caster = PodcastItem(json: resultingData) {
-                            results.append(caster)
-                            DispatchQueue.main.async {
-                                
-                                strongSelf.browseViewController.dataSource.items.append(caster)
-                                strongSelf.browseViewController.collectionView.reloadData()
-                                
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        print("Waiting for completion...")
-        topPodcastGroup.notify(queue: self.globalDefault) {
-            print("Notify received, done waiting.")
-            DispatchQueue.main.async {
-                self.browseViewController.hideLoadingView(loadingPop: self.browseViewController.loadingPop)
-                completion(results, nil)
-            }
-        }
-        topPodcastGroup.wait()
-        print("Done waiting.")
-    }
+//    func getCasterWorkaround(completion: @escaping ([PodcastItem]?, Error?) -> Void) {
+//        
+//        var results = [PodcastItem]()
+//        let topPodcastGroup = DispatchGroup()
+//        var ids: [String] = ["201671138", "1268047665", "1264843400", "1212558767", "1200361736", "1150510297", "1097193327", "1250180134", "523121474", "1119389968", "1222114325", "1074507850", "173001861", "1028908750", "1279361017"]
+//        for i in 0..<ids.count {
+//            self.globalDefault.async(group: topPodcastGroup) { [weak self] in
+//                guard let strongSelf = self else { return }
+//                strongSelf.interactor.setLookup(term: ids[i])
+//                strongSelf.interactor.searchForTracksFromLookup { result, arg  in
+//                    if let error = arg {
+//                        print(error.localizedDescription)
+//                        completion(nil, error)
+//                    }
+//                    guard let resultItem = result else { return }
+//                    resultItem.forEach { resultingData in
+//                        guard let resultingData = resultingData else { return }
+//                        if let caster = PodcastItem(json: resultingData) {
+//                            results.append(caster)
+//                            DispatchQueue.main.async {
+//                                
+//                                strongSelf.browseViewController.dataSource.items.append(caster)
+//                                strongSelf.browseViewController.collectionView.reloadData()
+//                                
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//        print("Waiting for completion...")
+//        topPodcastGroup.notify(queue: self.globalDefault) {
+//            print("Notify received, done waiting.")
+//            DispatchQueue.main.async {
+//                self.browseViewController.hideLoadingView(loadingPop: self.browseViewController.loadingPop)
+//                completion(results, nil)
+//            }
+//        }
+//        topPodcastGroup.wait()
+//        print("Done waiting.")
+//    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -230,12 +273,7 @@ extension HomeBackingViewController: SliderControlDelegate {
 }
 
 extension HomeBackingViewController: BrowseViewControllerDelegate {
-    
-    func goToSearch() {
-        
-    }
-    
-    func selectedItem(at: Int, podcast: PodcastItem, imageView: UIImageView) {
+    func selectedItem(at: Int, podcast: Podcast, imageView: UIImageView) {
         let feedUrlString = podcast.feedUrl
         let feedPodcast = podcast
         feedPodcast.podcastTitle = podcast.podcastTitle
@@ -287,6 +325,15 @@ extension HomeBackingViewController: BrowseViewControllerDelegate {
                 self.navigationController?.pushViewController(resultsList, animated: true)
             }
         }
+    }
+    
+    
+    func goToSearch() {
+        
+    }
+    
+    func selectedItem(at: Int, podcast: PodcastItem, imageView: UIImageView) {
+       
     }
 }
 

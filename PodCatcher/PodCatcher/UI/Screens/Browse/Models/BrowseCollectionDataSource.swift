@@ -5,7 +5,7 @@ final class BrowseCollectionDataSource: BaseMediaControllerDataSource {
     var dataType: DataType = .network
     
     var topItemImage: UIImage!
-    var items: [PodcastItem] = []
+    var items: [Podcast] = []
     var topViewItemIndex: Int = 0
     
     var reserveItems: [PodcastItem] = []
@@ -26,12 +26,12 @@ final class BrowseCollectionDataSource: BaseMediaControllerDataSource {
         
           guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         
-        appDelegate.dataStore.getFeatured { podcasts in
-            for pod in podcasts {
-                let item = PodcastItem(podcastArtist: pod.podcastArtist, feedUrl: pod.feedUrl, podcastArtUrlString: pod.podcastArtUrlString, artistId: pod.artistId, id: pod.id, podcastTitle: pod.podcastTitle, episodes: [], category: "")
-                self.items.append(item)
-            }
-        }
+//        appDelegate.dataStore.getFeatured { podcasts in
+//            for pod in podcasts {
+//                let item = PodcastItem(podcastArtist: pod.podcastArtist, feedUrl: pod.feedUrl, podcastArtUrlString: pod.podcastArtUrlString, artistId: pod.artistId, id: pod.id, podcastTitle: pod.podcastTitle, episodes: [], category: "")
+//                self.items.append(item)
+//            }
+//        }
         //getFeaturedPodcasts(completion: { podcasts, errors in
             
             
@@ -52,7 +52,7 @@ final class BrowseCollectionDataSource: BaseMediaControllerDataSource {
         }
     }
     
-    func topPodcastForItemAtIndexPath(_ indexPath: IndexPath) -> PodcastItem? {
+    func topPodcastForItemAtIndexPath(_ indexPath: IndexPath) -> Podcast? {
         return items[indexPath.row]
     }
     
@@ -87,40 +87,40 @@ extension BrowseCollectionDataSource:  UICollectionViewDataSource {
         return cell
     }
 }
-
-extension BrowseCollectionDataSource: UICollectionViewDataSourcePrefetching {
-    
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        guard let cell = cell as? TopPodcastCell else { return }
-        if let url = URL(string: items[indexPath.row].podcastArtUrlString) {
-            cell.configureCell(with: url, title: items[indexPath.row].podcastTitle)
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if let dataLoader = loadingOperations[indexPath] {
-            dataLoader.cancel()
-            loadingOperations.removeValue(forKey: indexPath)
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
-        for indexPath in indexPaths {
-            if let _ = loadingOperations[indexPath] { return }
-            if let topPocast = topPodcastForItemAtIndexPath(indexPath) {
-                let dataLoader = TopPodcastLoadOperation(topPocast)
-                loadingQueue.addOperation(dataLoader)
-                loadingOperations[indexPath] = dataLoader
-            }
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cancelPrefetchingForItemsAt indexPaths: [IndexPath]) {
-        for indexPath in indexPaths {
-            if let dataLoader = loadingOperations[indexPath] {
-                dataLoader.cancel()
-                loadingOperations.removeValue(forKey: indexPath)
-            }
-        }
-    }
-}
+//
+//extension BrowseCollectionDataSource: UICollectionViewDataSourcePrefetching {
+//    
+//    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+//        guard let cell = cell as? TopPodcastCell else { return }
+//        if let url = URL(string: items[indexPath.row].podcastArtUrlString) {
+//            cell.configureCell(with: url, title: items[indexPath.row].podcastTitle)
+//        }
+//    }
+//    
+//    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+//        if let dataLoader = loadingOperations[indexPath] {
+//            dataLoader.cancel()
+//            loadingOperations.removeValue(forKey: indexPath)
+//        }
+//    }
+//    
+//    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+//        for indexPath in indexPaths {
+//            if let _ = loadingOperations[indexPath] { return }
+//            if let topPocast = topPodcastForItemAtIndexPath(indexPath) {
+//                let dataLoader = TopPodcastLoadOperation(topPocast)
+//                loadingQueue.addOperation(dataLoader)
+//                loadingOperations[indexPath] = dataLoader
+//            }
+//        }
+//    }
+//    
+//    func collectionView(_ collectionView: UICollectionView, cancelPrefetchingForItemsAt indexPaths: [IndexPath]) {
+//        for indexPath in indexPaths {
+//            if let dataLoader = loadingOperations[indexPath] {
+//                dataLoader.cancel()
+//                loadingOperations.removeValue(forKey: indexPath)
+//            }
+//        }
+//    }
+//}

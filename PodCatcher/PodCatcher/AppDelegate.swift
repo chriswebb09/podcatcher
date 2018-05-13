@@ -13,21 +13,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var dataStore: DataStore!
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        
+        UIApplication.shared.statusBarStyle = .lightContent
+        window = UIWindow(frame: UIScreen.main.bounds)
+        audioPlayer = AudioFilePlayer()
         ApplicationStyling.setupUI()
+        
         dataStore = DataStore(notificationCenter: .default)
+    
         dataStore.setFeatured()
         
-        coreData = CoreDataStack(modelName: "Podcatch")
         
         #if CLEAR_CACHES
-            let cachesFolderItems = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true)
-            for item in cachesFolderItems {
-                try? FileManager.default.removeItem(atPath: item)
-            }
-        #endif
-        audioPlayer = AudioFilePlayer()
-        window = UIWindow(frame: UIScreen.main.bounds)
+        UIApplication.shared.statusBarStyle = .lightContent
+        let cachesFolderItems = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true)
         
         var url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         url.appendPathComponent("podcasts")
@@ -38,6 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("Error creating directory: \(error.localizedDescription)")
         }
         
+        #endif
         
         NotificationCenter.default.addObserver(self, selector: #selector(beginInterruption), name: .AVAudioSessionInterruption, object: nil)
         do {
@@ -46,6 +45,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } catch {
             print("No AudioSession!! Don't know what do to here. ")
         }
+        
+        coreData = CoreDataStack(modelName: "PodCatcher")
+        
+        
+//        ApplicationStyling.setupUI()
+//        dataStore = DataStore(notificationCenter: .default)
+//        dataStore.setFeatured()
+//
+//        coreData = CoreDataStack(modelName: "Podcatch")
+//
+//        #if CLEAR_CACHES
+//            let cachesFolderItems = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true)
+//            for item in cachesFolderItems {
+//                try? FileManager.default.removeItem(atPath: item)
+//            }
+//        #endif
+//        audioPlayer = AudioFilePlayer()
+//        window = UIWindow(frame: UIScreen.main.bounds)
+
+  
         
         if let window = window {
             let startCoordinator = StartCoordinator(navigationController: UINavigationController(), window: window)

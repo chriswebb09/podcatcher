@@ -72,7 +72,7 @@ final class BrowseViewController: BaseCollectionViewController, LoadingPresentin
     init(index: Int) {
         self.dataSource = BrowseCollectionDataSource()
         super.init(nibName: nil, bundle: nil)
-        showLoadingView(loadingPop: loadingPop)
+       // showLoadingView(loadingPop: loadingPop)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -103,6 +103,7 @@ final class BrowseViewController: BaseCollectionViewController, LoadingPresentin
             DispatchQueue.main.async {
                 self.browsePageController.topItems = self.featuredItems
                 self.browsePageController.collectionView.reloadData()
+                self.collectionView.reloadData()
             }
         }
     }
@@ -142,7 +143,8 @@ final class BrowseViewController: BaseCollectionViewController, LoadingPresentin
         let layout = BrowseItemsFlowLayout()
         layout.setup()
         setup(view: view, newLayout: layout)
-        collectionView.dataSource = dataSource
+        collectionView.dataSource = self
+        //dataSource
         collectionView.delegate = self
         collectionView.isPagingEnabled = true
         collectionView.isScrollEnabled = true
@@ -151,7 +153,7 @@ final class BrowseViewController: BaseCollectionViewController, LoadingPresentin
         network.frame = view.frame
         collectionView.register(TopPodcastCell.self)
         collectionView.backgroundColor = .white
-        collectionView.prefetchDataSource = dataSource
+        //collectionView.prefetchDataSource = dataSource
         NotificationCenter.default.addObserver(self, selector: #selector(reachabilityDidChange(_:)), name: NSNotification.Name(rawValue: "ReachabilityDidChangeNotificationName"), object: nil)
         reach?.start()
         DispatchQueue.main.async {
@@ -216,7 +218,32 @@ final class BrowseViewController: BaseCollectionViewController, LoadingPresentin
     }
 }
 
-extension BrowseViewController: UICollectionViewDelegate {
+extension BrowseViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if featuredItems.count < 4 {
+            return featuredItems.count
+        } else {
+            return 4
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeue(TopPodcastCell.self, indexPath: indexPath)
+        let item = featuredItems[indexPath.row]
+        if let url = URL(string: item.podcastArtUrlString) {
+            DispatchQueue.main.async {
+                UIImage.downloadImage(url: url) { image in
+                    let topPodcatModel = TopPodcastCellViewModel(trackName: item.podcastTitle, podcastImage: image)
+                    cell.configureCell(with: topPodcatModel, withTime: 0)
+                }
+                
+               // cell.podcast = item
+//cell.podcastImageView.downloadImage(url: url)
+            }
+        }
+        return cell
+    }
     
     @objc func selectAt() {
         //coordinator?.didSelect(at: 0, with: dataSource.items[0], with: browseTopView.podcastImageView)
@@ -226,7 +253,7 @@ extension BrowseViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.isUserInteractionEnabled = false
         let cell = collectionView.cellForItem(at: indexPath) as! TopPodcastCell
-        delegate?.selectedItem(at: indexPath.row, podcast: self.dataSource.items[indexPath.row], imageView: cell.albumArtView)
+        delegate?.selectedItem(at: indexPath.row, podcast: featuredItems[indexPath.row], imageView: cell.albumArtView)
         //coordinator?.didSelect(at: indexPath.row, with: self.dataSource.items[indexPath.row], with: cell.albumArtView)
     }
 }
