@@ -1,4 +1,5 @@
 import UIKit
+import CoreData
 
 final class TabBarCoordinator: TabControllerCoordinator {
     
@@ -23,8 +24,9 @@ final class TabBarCoordinator: TabControllerCoordinator {
         self.window = window
     }
     
-    func setupHomeCoordinator(navigationController: UINavigationController) {
+    func setupHomeCoordinator(navigationController: UINavigationController, persistentCoordinator: NSPersistentContainer) {
         let tabCoordinator = HomeTabCoordinator(navigationController: navigationController)
+        tabCoordinator.persistentContainer = persistentCoordinator
         tabCoordinator.start()
         
         childCoordinators.append(tabCoordinator)

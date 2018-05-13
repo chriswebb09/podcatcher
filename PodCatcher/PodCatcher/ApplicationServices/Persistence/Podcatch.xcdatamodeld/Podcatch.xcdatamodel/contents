@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14102.1" systemVersion="17D102" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Episode" representedClassName="Episode" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="duration" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="episodeDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="episodeTitle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="favorite" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="mediaUrlString" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="podcastArtUrlString" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="podcastArtworkImage" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="podcastTitle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="stringDuration" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tags" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <relationship name="playlist" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Playlist" inverseName="playlistEpisodes" inverseEntity="Playlist" syncable="YES"/>
+        <relationship name="podcast" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Podcaster" inverseName="episodes" inverseEntity="Podcaster" syncable="YES"/>
+    </entity>
+    <entity name="Playlist" representedClassName="Playlist" syncable="YES">
+        <attribute name="dateCreated" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="episodes" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="image" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="numberOfItems" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="playlistId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="primaryCategory" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tags" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="timeListened" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="playlistEpisodes" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Episode" inverseName="playlist" inverseEntity="Episode" syncable="YES"/>
+    </entity>
+    <entity name="Podcaster" representedClassName="Podcaster" syncable="YES">
+        <attribute name="artistId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="category" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="feedUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="itunesUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="podcastArtist" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="podcastArtworkImage" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="podcastArtworkUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="podcastId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="podcastTitle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="starred" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="subscribed" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="tags" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <relationship name="episodes" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Episode" inverseName="podcast" inverseEntity="Episode" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Episode" positionX="-443" positionY="18" width="128" height="240"/>
+        <element name="Playlist" positionX="-245" positionY="27" width="128" height="195"/>
+        <element name="Podcaster" positionX="-92" positionY="18" width="128" height="240"/>
+    </elements>
+</model>

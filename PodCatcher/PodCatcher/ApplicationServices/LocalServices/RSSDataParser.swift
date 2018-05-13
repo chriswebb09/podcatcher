@@ -76,8 +76,6 @@ extension RSSParser: XMLParserDelegate {
             results.append(currentDictionary)
             currentDictionary = nil
         } else if dictionaryKeys.contains(elementName) && currentDictionary != nil {
-           // print(elementName)
-          //  print(currentValue)
             currentDictionary[elementName] = currentValue
             currentValue = nil
         }
@@ -107,8 +105,6 @@ class NPRParser: RSSParser {
     
     override func parser(_ parser: XMLParser, foundCharacters string: String) {
         currentValue? += string.trimmingCharacters(in: .whitespacesAndNewlines)
-       // print(currentValue)
-       // print("\n")
     }
     
     override func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {

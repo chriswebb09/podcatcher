@@ -9,13 +9,10 @@
 import UIKit
 import CoreData
 
-protocol HomeBackingViewControllerDelegate: class {
-    func updatePodcast(with id: String)
-}
-
 final class HomeBackingViewController: UIViewController {
     
     // MARK: - Properties
+    
     weak var delegate: HomeBackingViewControllerDelegate?
     let sliderBarView = UIView()
     private var thumbnailZoomTransitionAnimator: ImageTransitionAnimator?
@@ -23,7 +20,7 @@ final class HomeBackingViewController: UIViewController {
     var sliderControl = SliderControl()
     
     var backingView: UIView = UIView()
-    
+    var store = SearchResultsDataStore()
     var homeViewController: HomeViewController!
     
     var playlistsViewController: PlaylistsViewController = PlaylistsViewController()
@@ -60,8 +57,8 @@ final class HomeBackingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        edgesForExtendedLayout = []
         browseViewController.delegate = self
-        playlistsViewController.delegate = self
     }
     
     func setupBrowse() {
@@ -80,11 +77,11 @@ final class HomeBackingViewController: UIViewController {
                     }
                 } else {
                     if strongSelf.browseViewController.dataSource.items.count > 0 {
-                        guard let urlString = strongSelf.browseViewController.dataSource.items[0].podcastArtUrlString else { return }
-                        guard let title = strongSelf.browseViewController.dataSource.items[0].podcastTitle else { return }
-                        guard let imageUrl = URL(string: urlString) else { return }
-                        strongSelf.browseViewController.browseTopView.setTitle(title: title)
-                        strongSelf.browseViewController.browseTopView.podcastImageView.downloadImage(url: imageUrl)
+                        //                        guard let urlString = strongSelf.browseViewController.dataSource.items[0].podcastArtUrlString else { return }
+                        //                        guard let title = strongSelf.browseViewController.dataSource.items[0].podcastTitle else { return }
+                        //                        guard let imageUrl = URL(string: urlString) else { return }
+                        //                        strongSelf.browseViewController.browseTopView.setTitle(title: title)
+                        //                        strongSelf.browseViewController.browseTopView.podcastImageView.downloadImage(url: imageUrl)
                     }
                 }
             }
@@ -92,10 +89,9 @@ final class HomeBackingViewController: UIViewController {
     }
     
     
-    func getCasterWorkaround(completion: @escaping ([CasterSearchResult]?, Error?) -> Void) {
-        // let backingViewController = navigationController.viewControllers[0] as! BrowserBackingViewController
-        // let browseViewController = backingViewController.browseViewController
-        var results = [CasterSearchResult]()
+    func getCasterWorkaround(completion: @escaping ([PodcastItem]?, Error?) -> Void) {
+     
+        var results = [PodcastItem]()
         let topPodcastGroup = DispatchGroup()
         var ids: [String] = ["201671138", "1268047665", "1264843400", "1212558767", "1200361736", "1150510297", "1097193327", "1250180134", "523121474", "1119389968", "1222114325", "1074507850", "173001861", "1028908750", "1279361017"]
         for i in 0..<ids.count {
@@ -110,15 +106,13 @@ final class HomeBackingViewController: UIViewController {
                     guard let resultItem = result else { return }
                     resultItem.forEach { resultingData in
                         guard let resultingData = resultingData else { return }
-                        if let caster = CasterSearchResult(json: resultingData) {
+                        if let caster = PodcastItem(json: resultingData) {
                             results.append(caster)
                             DispatchQueue.main.async {
                                 
                                 strongSelf.browseViewController.dataSource.items.append(caster)
                                 strongSelf.browseViewController.collectionView.reloadData()
-                                if let artUrl = results[0].podcastArtUrlString, let url = URL(string: artUrl) {
-                                    strongSelf.browseViewController.browseTopView.podcastImageView.downloadImage(url: url)
-                                }
+
                             }
                         }
                     }
@@ -198,10 +192,13 @@ extension HomeBackingViewController: SliderControlDelegate {
         case 0:
             currentEmbeddedVC = homeViewController
             DispatchQueue.main.async {
-                // self.title = "Podcasts"
+                self.title = "Podcasts"
                 self.navigationItem.title = "Podcasts"
                 self.navigationItem.rightBarButtonItem = self.homeViewController.rightButtonItem
                 self.navigationItem.leftBarButtonItem = nil
+                self.tabBarController?.tabBar.items?[0].title = "Home"
+                self.tabBarController?.tabBar.items?[1].title = "Search"
+                self.tabBarController?.tabBar.items?[2].title = "Setting"
             }
             
         case 1:
@@ -211,33 +208,21 @@ extension HomeBackingViewController: SliderControlDelegate {
                 self.navigationItem.title = "Podcasts"
                 self.navigationItem.leftBarButtonItem = nil
                 self.navigationItem.rightBarButtonItem = nil
+                self.tabBarController?.tabBar.items?[0].title = "Home"
+                self.tabBarController?.tabBar.items?[1].title = "Search"
+                self.tabBarController?.tabBar.items?[2].title = "Setting"
             }
         case 2:
             currentEmbeddedVC =  playlistsViewController
             DispatchQueue.main.async {
-                // self.title = "Podcasts"
+               
                 self.navigationItem.title = "Podcasts"
                 self.navigationItem.rightBarButtonItem = self.playlistsViewController.rightButtonItem
                 self.navigationItem.leftBarButtonItem = self.playlistsViewController.leftButtonItem
+                self.tabBarController?.tabBar.items?[0].title = "Home"
+                self.tabBarController?.tabBar.items?[1].title = "Search"
+                self.tabBarController?.tabBar.items?[2].title = "Setting"
             }
-            //  currentEmbeddedVC = tagsViewController
-            //        case 1:
-            //            currentEmbeddedVC = downloadedViewController
-            //
-            //            DispatchQueue.main.async {
-            //                //self.title = "Downloads"
-            //                self.navigationItem.title =  "Downloads"
-            //                self.navigationItem.rightBarButtonItem = nil
-            //            }
-            //
-            //        case 2:
-            //             currentEmbeddedVC = tagsViewController
-            //            DispatchQueue.main.async {
-            //                //self.title = "Pocast Tags"
-            //                self.navigationItem.title = "Tags"
-            //                self.navigationItem.rightBarButtonItem = nil
-            //            }
-            
         default:
             currentEmbeddedVC = homeViewController
         }
@@ -245,73 +230,63 @@ extension HomeBackingViewController: SliderControlDelegate {
 }
 
 extension HomeBackingViewController: BrowseViewControllerDelegate {
-    func didSelect(at index: Int, with cast: PodcastSearchResult, with imageView: UIImageView) {
-        let resultsList = SearchResultListViewController(index: index)
-        resultsList.delegate = self
-        if var dataItem = cast as? CasterSearchResult {
-            guard let navigationController = navigationController else { return }
-            let browseViewController = navigationController.viewControllers[0] as! BrowseViewController
-            guard let feedUrlString = dataItem.feedUrl else { return }
-            browseViewController.showLoadingView(loadingPop: browseViewController.loadingPop)
-            let store = SearchResultsDataStore()
-            // navigationController.delegate = self
-            self.transitionThumbnail?.image = imageView.image
-            concurrent.async { [weak self] in
-                guard let strongSelf = self else { return }
-                store.pullFeed(for: feedUrlString) {  response, arg in
-                    guard let episodes = response else { return }
-                    dataItem.episodes = episodes
-                    resultsList.setDataItem(dataItem: dataItem)
-                    DispatchQueue.main.async {
-                        browseViewController.hideLoadingView(loadingPop: browseViewController.loadingPop)
-                        resultsList.navPop = true
-                        navigationController.pushViewController(resultsList, animated: true)
-                        browseViewController.collectionView.isUserInteractionEnabled = true
-                    }
+
+    func goToSearch() {
+        
+    }
+    
+    func selectedItem(at: Int, podcast: PodcastItem, imageView: UIImageView) {
+        let feedUrlString = podcast.feedUrl
+        let feedPodcast = podcast
+        feedPodcast.podcastTitle = podcast.podcastTitle
+        feedPodcast.podcastArtUrlString = podcast.podcastArtUrlString
+      //  let nav = navigationController?.childViewControllers[0] as! UINavigationController
+        //let backingVC = nav.viewControllers[0] as! BackingViewController
+        let dispatchGroup = DispatchGroup()
+       // backingVC.loadingPop.show(controller: backingVC)
+        let resultsList = PodcastListViewController(index: at)
+            
+            //SearchResultListViewController(index: at)
+      //  resultsList.persistentContainer = self.persistentContainer
+        resultsList.index = 2
+     //   resultsList.delegate = self
+        if let tabController = self.tabBarController as? TabBarController {
+            resultsList.miniPlayer = tabController.miniPlayer
+            //resultsList.miniPlayer.delegate = self
+        }
+      //  resultsList.miniPlayer = backingVC.miniPlayerViewController
+        
+        dispatchGroup.enter()
+        store.pullFeed(for: feedUrlString) {  response, error  in
+            if error != nil {
+                print(error?.localizedDescription ?? "unable to get specific error")
+              //  backingVC.loadingPop.hideLoadingView(controller: backingVC)
+                return
+            } else {
+                DispatchQueue.main.async {
+                   // backingVC.loadingPop.hideLoadingView(controller: backingVC)
                 }
             }
+            guard let episodes = response else { return }
+            feedPodcast.episodes = episodes
+           // resultsList.setDataItem(dataItem: feedPodcast)
+           // backingVC.loadingPop.hideLoadingView(controller: backingVC)
+            resultsList.title = feedPodcast.podcastArtist
+            if let url = URL(string: feedPodcast.podcastArtUrlString) {
+                resultsList.topView.setTopImage(from: url)
+                //topView.podcastImageView.image = imageView.image
+            }
+           // resultsList.setDataItem(dataItem: feedPodcast)
+            dispatchGroup.leave()
         }
-    }
-}
-
-extension HomeBackingViewController: PodcastListViewControllerDelegate {
-    func didSelectPodcastAt(at index: Int, podcast: CasterSearchResult, with episodes: [Episode]) {
-        
-    }
-    
-    func saveFeed(item: CasterSearchResult, podcastImage: UIImage, episodesCount: Int) {
-        
-    }
-    
-    func navigateBack(tapped: Bool) {
-        
-    }
-    
-    
-}
-
-extension HomeBackingViewController: PlaylistsViewControllerDelegate {
-    
-    func didAssignPlaylist(with id: String) {
-        guard let navigationController = navigationController else { return }
-        delegate?.updatePodcast(with: id)
-        
-        let item = PodcastPlaylistItem(context: managedContext)
-        item.playlistId = id
-        
-        let controller = navigationController.viewControllers.last as! PlaylistsViewController
-        navigationController.setNavigationBarHidden(false, animated: false)
-        controller.tabBarController?.selectedIndex = 2
-    }
-    
-    func playlistSelected(for caster: PodcastPlaylist) {
-        guard let navigationController = navigationController else { return }
-        let playlist = PlaylistViewController(index: 0, player: AudioFilePlayer(), playlist: caster)
-        
-        playlist.playlistId = caster.playlistId!
-        playlist.playlistTitle = caster.playlistName!
-        
-        navigationController.pushViewController(playlist, animated: false)
+        dispatchGroup.notify(queue: .main) {
+           // backingVC.loadingPop.hideLoadingView(controller: backingVC)
+            DispatchQueue.main.async {
+                self.navigationController?.title = podcast.podcastArtist
+                //self.navigationController?.delegate = self
+                self.navigationController?.pushViewController(resultsList, animated: true)
+            }
+        }
     }
 }
 

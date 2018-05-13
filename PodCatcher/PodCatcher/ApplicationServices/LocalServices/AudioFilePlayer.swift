@@ -1,12 +1,26 @@
-import Foundation
-import AVFoundation
 
 
 enum PlayerState {
     case playing, paused, stopped
 }
 
-@objc final class AudioFilePlayer: NSObject {
+import Foundation
+import AVFoundation
+
+extension Notification.Name {
+    static let audioPlayerWillStartPlaying = Notification.Name("audioPlayerWillStartPlaying")
+    static let audioPlayerDidStartLoading = Notification.Name("audioPlayerDidStartLoading")
+    static let audioPlayerDidStartPlaying = Notification.Name("audioPlayerDidStartPlaying")
+    static let audioPlayerDidPause = Notification.Name("audioPlayerDidPause")
+    static let audioPlayerPlaybackTimeChanged = Notification.Name("audioPlayerPlaybackTimeChanged")
+}
+
+
+let AudioPlayerEpisodeUserInfoKey = "AudioPlayerEpisodeUserInfoKey"
+let AudioPlayerSecondsElapsedUserInfoKey = "AudioPlayerSecondsElapsedUserInfoKey"
+let AudioPlayerSecondsRemainingUserInfoKey = "AudioPlayerSecondsRemainingUserInfoKey"
+
+@objc final class AudioFilePlayer: NSObject, AudioFileLoader {
     
     // MARK: Properties
     
@@ -15,7 +29,43 @@ enum PlayerState {
         "hasProtectedContent"
     ]
     
-    @objc var player: AVPlayer? = AVPlayer()
+    private var timeObserver: Any?
+    private var timeControlStatusObserver: NSKeyValueObservation?
+    
+    var audioPlayer: AVAudioPlayer?
+    
+    internal var player: AVPlayer? {
+        willSet {
+            self.timeObserver.map {
+                self.player?.removeTimeObserver($0)
+            }
+            self.timeControlStatusObserver?.invalidate()
+            self.timeControlStatusObserver = nil
+        }
+        didSet {
+            self.timeObserver = self.player?.addPeriodicTimeObserver(forInterval: CMTime(seconds: 1.0, preferredTimescale: 1), queue: DispatchQueue.main, using: { [weak self] _ in
+                guard let strongSelf = self, let item = strongSelf.player?.currentItem else {
+                    return
+                }
+//                NotificationCenter.default.post(name: .audioPlayerPlaybackTimeChanged, object: strongSelf, userInfo: [
+//                    AudioPlayerSecondsElapsedUserInfoKey: item.timeElapsed,
+//                    AudioPlayerSecondsRemainingUserInfoKey: item.timeRemaining,
+//                    ])
+            })
+            self.timeControlStatusObserver = self.player?.observe(\.timeControlStatus) { player, change in
+                switch player.timeControlStatus {
+                case .waitingToPlayAtSpecifiedRate:
+                    NotificationCenter.default.post(name: .audioPlayerDidStartLoading, object: self, userInfo: nil)
+                case .playing:
+                    NotificationCenter.default.post(name: .audioPlayerDidStartPlaying, object: self, userInfo: nil)
+                case .paused:
+                    NotificationCenter.default.post(name: .audioPlayerDidPause, object: self, userInfo: nil)
+                }
+            }
+        }
+    }
+    
+    //    @objc var player: AVPlayer? = AVPlayer()
     
     var currentTime: Double? {
         get {
@@ -63,6 +113,15 @@ enum PlayerState {
         }
     }
     
+    
+    var isPlaying: Bool {
+        if (self.rate != 0) {
+            return true
+        } else {
+            return false
+        }
+    }
+    
     override init() {
         // self.player = AVPlayer()
         super.init()
@@ -82,37 +141,38 @@ enum PlayerState {
         }
     }
     
-    func play() {
-        if player?.rate != 1.0 {
-            if currentTime == duration {
-                // At end, so got back to begining.
-                currentTime = 0.0
-            }
-            
-            player?.playImmediately(atRate: 1)
-        }
-        else {
-            // Playing, so pause.
-            player?.pause()
-        }
-        state = .playing
+    func pause() {
+        self.player?.pause()
     }
     
-    func pause() {
-        if player?.rate != 1.0 {
-            // Not playing forward, so play.
-            if currentTime == duration {
-                // At end, so got back to begining.
-                currentTime = 0.0
-            }
+    func showPlaybackFailedErrorAlert(error: Error) {
+        print(error.localizedDescription)
+    }
+    
+    func skip(by seconds: Double) {
+        self.player?.skip(by: seconds)
+    }
+    
+    func playAudioWithData(audioData: NSData) {
+        do {
+            self.audioPlayer = try AVAudioPlayer(data: audioData as Data)
+        } catch let error as Error {
             
-            player?.play()
+            self.showPlaybackFailedErrorAlert(error: error)
+            self.player = nil
+        } catch {
+            self.showGenericErrorAlert(altertString: "Playback Failed.")
+            self.player = nil
         }
-        else {
-            
-            player?.pause()
-        }
-        state = .paused
+    }
+    
+    func showGenericErrorAlert(altertString: String) {
+        
+    }
+    
+    func audioPlayerDidFinishPlaying(player: AVAudioPlayer, successfully flag: Bool) {
+        do { try AVAudioSession.sharedInstance().setActive(false) } catch { }
+        self.player = nil
     }
 }
 
@@ -131,6 +191,7 @@ extension AudioFilePlayer: AVAssetResourceLoaderDelegate {
             DispatchQueue.main.async {
                 
                 guard newAsset == strongSelf.asset else { return }
+                
                 for key in AudioFilePlayer.assetKeysRequiredToPlay {
                     var error: NSError?
                     print(key.description)
@@ -151,4 +212,3 @@ extension AudioFilePlayer: AVAssetResourceLoaderDelegate {
         }
     }
 }
-

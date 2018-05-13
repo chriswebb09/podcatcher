@@ -17,7 +17,7 @@ class ListTopViewTests: XCTestCase {
     override func setUp() {
         super.setUp()
         listTopView = ListTopView()
-        listTopViewDelegate = SearchResultListViewController(index: 0)
+        listTopViewDelegate = PodcastListViewController(index: 0)
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
     
@@ -42,7 +42,7 @@ class ListTopViewTests: XCTestCase {
     
     func testMoreButton() {
         listTopView.delegate = listTopViewDelegate
-        if let searchResultVC = listTopViewDelegate as? SearchResultListViewController {
+        if let searchResultVC = listTopViewDelegate as? PodcastListViewController {
             var caster = CasterSearchResult()
             caster.tags = ["One", "Two"]
             searchResultVC.setDataItem(dataItem: caster)

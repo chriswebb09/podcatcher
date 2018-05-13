@@ -7,24 +7,26 @@ class MainCoordinator: ApplicationCoordinator {
     var childCoordinators: [Coordinator] = []
     var window: UIWindow
     let feedStore = FeedCoreDataStack()
+   
     var appCoordinator: Coordinator
-    
+     var persistentContainer: NSPersistentContainer
     var tabbBarCoordinator:  TabBarCoordinator!
-    var itemToSave: CasterSearchResult!
+    var itemToSave: PodcastItem!
     var itemIndex: Int!
     let reachability = Reachability()!
     var store = SearchResultsDataStore()
     var audioPlayer = AudioFilePlayer()
     var managedContext: NSManagedObjectContext!
     
-    init(window: UIWindow) {
+    init(window: UIWindow, persistentContainer: NSPersistentContainer) {
         self.window = window
+        self.persistentContainer = persistentContainer
         appCoordinator = StartCoordinator(navigationController: UINavigationController(), window: window)
         appCoordinator.delegate = self
     }
     
-    convenience init(window: UIWindow, coordinator: Coordinator) {
-        self.init(window: window)
+    convenience init(window: UIWindow, coordinator: Coordinator, persistentContainer: NSPersistentContainer) {
+        self.init(window: window, persistentContainer: persistentContainer)
         appCoordinator = coordinator
         appCoordinator.delegate = self
     }
@@ -41,15 +43,15 @@ class MainCoordinator: ApplicationCoordinator {
 
 extension MainCoordinator: CoordinatorDelegate {
     
-    func addItemToPlaylist(podcastPlaylist: PodcastPlaylist) {
-        do {
-            try managedContext.save()
-        } catch {
-            print(error.localizedDescription)
-        }
-    }
+//    func addItemToPlaylist(podcastPlaylist: PodcastPlaylist) {
+//        do {
+//            try managedContext.save()
+//        } catch {
+//            print(error.localizedDescription)
+//        }
+//    }
     
-    func podcastItem(toAdd: CasterSearchResult, with index: Int) {
+    func podcastItem(toAdd: PodcastItem, with index: Int) {
         itemToSave = toAdd
         itemIndex = index
     }
@@ -86,22 +88,27 @@ extension MainCoordinator: CoordinatorDelegate {
         let homeViewController = HomeViewController()
         homeBackingVC.homeViewController = homeViewController
         let backingTab = UINavigationController(rootViewController: homeBackingVC)
-        tabbBarCoordinator.setupHomeCoordinator(navigationController: backingTab)
+        backingTab.edgesForExtendedLayout = []
+        // homeCoord.persistentContainer = persistentContainer
+        tabbBarCoordinator.setupHomeCoordinator(navigationController: backingTab, persistentCoordinator: persistentContainer)
         let homeCoord = tabbBarCoordinator.childCoordinators[0] as! HomeTabCoordinator
-        
+       
         homeViewController.coordinator = homeCoord
         homeCoord.delegate = self
-        homeCoord.feedStore = feedStore
+       // homeCoord.feedStore = feedStore
     }
     
     func setupSearchTab() {
         let searchViewController = SearchViewController()
+    
         let searchTab = UINavigationController(rootViewController: searchViewController)
         tabbBarCoordinator.setupSearchCoordinator(navigationController: searchTab)
         let searchCoord = tabbBarCoordinator.childCoordinators[1] as! SearchTabCoordinator
         searchCoord.delegate = self
+        searchCoord.persistentContainer = persistentContainer
         addChildCoordinator(searchCoord)
-        searchCoord.feedStore = feedStore
+        
+        //searchCoord.feedStore = feedStore
     }
     
     func setupSettingsTab() {
@@ -110,6 +117,7 @@ extension MainCoordinator: CoordinatorDelegate {
         tabbBarCoordinator.setupSettingsCoordinator(navigationController: settingsTab)
         tabbBarCoordinator.delegate = self
         let settingsCoord = tabbBarCoordinator.childCoordinators[2] as! SettingsTabCoordinator
+
         settingsCoord.delegate = self
         addChildCoordinator(settingsCoord)
     }

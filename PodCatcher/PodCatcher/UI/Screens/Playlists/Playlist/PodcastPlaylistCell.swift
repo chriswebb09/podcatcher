@@ -56,7 +56,7 @@ final class PodcastPlaylistCell: UICollectionViewCell {
         contentView.layer.setCellShadow(contentView: contentView)
     }
     
-    func configureCell(model: PodcastCellViewModel) {
+    func configureCell(model: PodcastResultCellViewModel) {
         backgroundColor = .lightGray
         layoutSubviews()
         setupConstraints()

@@ -31,9 +31,9 @@ extension Reusable where Self: UITableViewCell {
     }
 }
 
-protocol ReloadableCollection: class {
-    var playlistId: String { get set }
-    var fetchedResultsController: NSFetchedResultsController<PodcastPlaylistItem>! { get set }
-    var collectionView: UICollectionView { get set }
-    func reloadData()
-}
+//protocol ReloadableCollection: class {
+//    var playlistId: String { get set }
+//    var fetchedResultsController: NSFetchedResultsController<PodcastPlaylistItem>! { get set }
+//    var collectionView: UICollectionView { get set }
+//    func reloadData()
+//}

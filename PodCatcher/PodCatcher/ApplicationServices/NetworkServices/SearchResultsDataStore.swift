@@ -1,9 +1,69 @@
 import UIKit
 
+struct SearchResultsIteractor {
+    
+    var searchTerm: String? = ""
+    var lookup: String? = ""
+    
+    mutating func setSearch(term: String?) {
+        searchTerm = term
+    }
+    
+    mutating func setLookup(term: String?) {
+        lookup = term
+    }
+    
+    func searchForTracksFromLookup(completion: @escaping (_ results: [JSON?]? , _ error: Error?) -> Void) {
+        NetworkService.search(forLookup: lookup) { response in
+            switch response {
+            case .success(let data):
+                guard let data = data else { return }
+                let resultsData = data["results"] as? [[String: Any]?]?
+                DispatchQueue.main.async {
+                    guard let resultsData = resultsData else { return }
+                    completion(resultsData, nil)
+                }
+            case .failed(let error):
+                DispatchQueue.main.async {
+                    completion(nil, error)
+                }
+            }
+        }
+    }
+    
+    func searchForTracks(completion: @escaping (_ results: [Podcast]? , _ error: Error?) -> Void) {
+        guard let searchTerm = searchTerm else { return }
+        NetworkService.search(for: searchTerm) { response in
+            switch response {
+            case .success(let data):
+                guard let data = data else { return }
+                let resultsData = data["results"] as? [[String: Any]?]?
+                if let resultsData = resultsData {
+                    var results = [Podcast]()
+                    resultsData?.forEach { resultingData in
+                        guard let resultingData = resultingData else { return }
+                        if let caster = Podcast(json: resultingData) {
+                            results.append(caster)
+                        }
+                    }
+                    DispatchQueue.main.async {
+                        completion(results, nil)
+                    }
+                }
+            case .failed(let error):
+                DispatchQueue.main.async {
+                    completion(nil, error)
+                }
+            }
+        }
+    }
+}
+
+
 struct SearchResultsDataStore {
     
-    func pullFeed(for podCast: String, competion: @escaping (([Episode]?, Error?) -> Void)) {
-        var episodes = [Episode]()
+    func pullFeed(for podCast: String, competion: @escaping (([Episodes]?, Error?) -> Void)) {
+        var episodes = [Episodes]()
         RSSFeedAPIClient.requestFeed(for: podCast) { rssData, error in
             if let error = error {
                 DispatchQueue.main.async {
@@ -15,16 +75,18 @@ struct SearchResultsDataStore {
                 
                 guard let title = data["title"] else { continue }
                 guard let audioUrl = data["audio"] else { continue }
-                var episode = Episode(mediaUrlString: audioUrl,
-                                      audioUrlSting: audioUrl,
-                                      title: title,
-                                      podcastTitle: "",
-                                      date: "",
-                                      description: "",
-                                      duration: 000,
-                                      audioUrlString: audioUrl,
-                                      stringDuration: "",
-                                      tags: [])
+                var episode = Episodes()
+                    
+//                    // Episode(mediaUrlString: audioUrl,
+//                                      audioUrlSting: audioUrl,
+//                                      title: title,
+//                                      podcastTitle: "",
+//                                      date: "",
+//                                      description: "",
+//                                      duration: 000,
+//                                      audioUrlString: audioUrl,
+//                                      stringDuration: "",
+//                                      tags: [])
                 
                 if var duration = data["itunes:duration"] {
                     duration = duration.replacingOccurrences(of: "00:",

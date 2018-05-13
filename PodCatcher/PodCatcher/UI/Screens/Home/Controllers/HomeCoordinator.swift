@@ -14,7 +14,7 @@ extension HomeCoordinator {
         homeVC.emptyView.layoutSubviews()
         homeVC.collectionView.collectionViewLayout = newLayout
         homeVC.collectionView.frame = UIScreen.main.bounds
-        homeVC.collectionView.register(SubscribedPodcastCell.self)
+        homeVC.collectionView.register(SubscriptionCell.self)
         homeVC.collectionView.setupBackground(frame: homeVC.view.bounds)
         homeVC.navigationItem.setRightBarButton(homeVC.rightButtonItem, animated: false)
         homeVC.collectionView.delegate = homeVC

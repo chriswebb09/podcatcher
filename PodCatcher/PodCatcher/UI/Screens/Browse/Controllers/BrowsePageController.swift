@@ -8,21 +8,6 @@
 
 import UIKit
 
-class MediaViewController: UIViewController {
-    
-    var topView = BrowseTopView()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.add(topView)
-        topView.translatesAutoresizingMaskIntoConstraints = false
-        topView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1).isActive = true
-        topView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1).isActive = true
-        topView.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0).isActive = true
-        topView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 0).isActive = true
-    }
-}
-
 class BrowsePageController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     
     var pages = [UIViewController]()
@@ -30,7 +15,7 @@ class BrowsePageController: UIPageViewController, UIPageViewControllerDataSource
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        edgesForExtendedLayout = []
         self.dataSource = self
         self.delegate = self
         let initialPage = 0

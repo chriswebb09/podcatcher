@@ -11,6 +11,6 @@ import Foundation
 protocol CoordinatorDelegate: class {
     func transitionCoordinator(type: CoordinatorType)
     func updatePodcast(with playlistId: String)
-    func podcastItem(toAdd: CasterSearchResult, with index: Int)
-    func addItemToPlaylist(podcastPlaylist: PodcastPlaylist)
+    func podcastItem(toAdd: PodcastItem, with index: Int)
+   // func addItemToPlaylist(podcastPlaylist: PodcastPlaylist)
 }

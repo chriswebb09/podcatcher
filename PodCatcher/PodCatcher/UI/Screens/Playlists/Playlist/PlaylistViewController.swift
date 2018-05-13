@@ -1,393 +1,425 @@
+
 import UIKit
 import CoreData
 import AVFoundation
 
-private var playlistViewControllerKVOContext = 1
-
-class PlaylistViewController: BaseCollectionViewController, ErrorPresenting, LoadingPresenting {
+final class ListTopView: UIView, BaseView {
     
-    @objc var player: AudioFilePlayer?
+    let concurrentPhotoQueue = DispatchQueue( label: "com.Queue", attributes: .concurrent)
     
-    var item: CasterSearchResult!
-    var items: [PodcastPlaylistItem] = []
-    var state: PodcasterControlState = .toCollection
-    var selectedIndex: IndexPath!
-    var dataSource: BaseMediaControllerDataSource!
-    weak var delegate: PlaylistViewControllerDelegate?
-    var playlistId: String
-    let loadingPop = LoadingPopover()
-    var selectedSongIndex: Int!
-    var episodes = [Episode]()
-    var mode: PlaylistMode = .list
-    var playButtonImage: UIImage!
-    var caster = CasterSearchResult()
-    var playlistItems = [PodcastPlaylistItem]()
-    var bottomMenu = BottomMenu()
-    var playlistTitle: String!
-    let entryPop = EntryPopover()
-    var topView = ListTopView()
-    var itemMode: PlaylistItemMode = .play
-    var feedUrl: String!
-    var playlistEmptyView: UIView = InformationView(data: "Create playlists with your favorite episodes", icon: #imageLiteral(resourceName: "podcast-icon-1"))
-    var backgroundView = UIView()
-    let playlist: PodcastPlaylist!
+    // MARK: - UI Properties
     
-    init(index: Int, player: AudioFilePlayer, playlist: PodcastPlaylist) {
-        self.playlistId = ""
-        self.playlistTitle = ""
-        self.player = AudioFilePlayer()
-        self.playlist = playlist
-        super.init(nibName: nil, bundle: nil)
+    var podcastImageView: UIImageView! = {
+        var podcastImageView = UIImageView()
+        podcastImageView.layer.cornerRadius = 3
+        podcastImageView.layer.borderWidth = 1
+        podcastImageView.layer.borderColor = UIColor.lightGray.cgColor
+        return podcastImageView
+    }()
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        setup()
+        backgroundColor = .white
+        layer.setCellShadow(contentView: self)
+        autoresizingMask = [.flexibleWidth, .flexibleHeight]
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        topView.delegate = self
-        configureTopView()
-        background.frame = view.frame
-        view.addSubview(background)
-        emptyView = InformationView(data: "Add Podcasts", icon: #imageLiteral(resourceName: "list"))
-        emptyView.alpha = 0
-        edgesForExtendedLayout = []
-        collectionView.delegate = self
-        view.sendSubview(toBack: background)
-        collectionView.register(PodcastPlaylistCell.self)
-        collectionView.dataSource = self
-        emptyView.frame = UIScreen.main.bounds
-        
-        collectionView.backgroundView = emptyView
-
-        guard let podcast = playlist.podcast else { return }
-        
-        for (_, podItem) in podcast.enumerated() {
-            let item = podItem as! PodcastPlaylistItem
-            dump(item)
-            if let audio = item.audioUrl, let title = item.episodeTitle, let podcaster = item.artistName, let date = item.stringDate {
-                let duration = item.duration
-                let description = item.description
-                let episode = Episode(mediaUrlString: audio,
-                                       audioUrlSting: audio,
-                                       title: title,
-                                       podcastTitle: podcaster,
-                                       date: date,
-                                       description: description,
-                                       duration: duration,
-                                       audioUrlString: audio,
-                                       stringDuration: "",
-                                       tags: [])
-                episodes.append(episode)
-                playlistItems.append(item)
-            }
-        }
-        DispatchQueue.main.async {
-            self.topView.podcastImageView.layer.cornerRadius = 4
-            self.topView.podcastImageView.layer.masksToBounds = true
-            self.topView.layer.setCellShadow(contentView: self.topView)
-            self.topView.podcastImageView.layer.setCellShadow(contentView: self.topView.podcastImageView)
-        }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(false)
-        collectionView.alpha = 1
-        addObserver(self, forKeyPath: #keyPath(PlaylistViewController.player.player.rate), options: [.new, .initial], context: &playlistViewControllerKVOContext)
-        addObserver(self, forKeyPath: #keyPath(PlaylistViewController.player.player.currentItem.status), options: [.new, .initial], context: &playlistViewControllerKVOContext)
-        self.topView.podcastImageView.layer.setCellShadow(contentView: self.topView.podcastImageView)
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(false)
-        collectionView.alpha = 0
-        removeObserver(self, forKeyPath: #keyPath(PlaylistViewController.player.player.rate), context: &playlistViewControllerKVOContext)
-        removeObserver(self, forKeyPath: #keyPath(PlaylistViewController.player.player.currentItem.status), context: &playlistViewControllerKVOContext)
-        self.player = nil
-    }
-    
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        if keyPath == #keyPath(PlayerViewController.player.player.rate) {
-            let newRate = (change?[NSKeyValueChangeKey.newKey] as! NSNumber).doubleValue
-            DispatchQueue.main.async { [weak self] in
-                guard let strongSelf = self else { return }
-                let cellState = newRate == 1.0 ? PodcastPlaylistCell.CellState.playing : PodcastPlaylistCell.CellState.paused
-                if let index = strongSelf.selectedIndex, let cell = strongSelf.collectionView.cellForItem(at: index) as? PodcastPlaylistCell {
-                    cell.currentState = cellState
-                }
-            }
-        } else if keyPath == #keyPath(PlayerViewController.player.player.currentItem.status) {
-            let newStatus: AVPlayerItemStatus
-            if let newStatusAsNumber = change?[NSKeyValueChangeKey.newKey] as? NSNumber {
-                guard let status =  AVPlayerItemStatus(rawValue: newStatusAsNumber.intValue) else { return }
-                newStatus = status
-                if newStatus.rawValue == 1 {
-                    DispatchQueue.main.async { [weak self] in
-                        guard let strongSelf = self else { return }
-                        strongSelf.hideLoadingView(loadingPop: strongSelf.loadingPop)
-                    }
-                }
-            } else {
-                newStatus = .unknown
-            }
-            if newStatus == .failed {
-                presentError(title: "Error", message: "Error")
-            } else if newStatus == .readyToPlay {
-                DispatchQueue.main.async { [weak self] in
-                    guard let strongSelf = self else { return }
-                    let buttonImageName = newStatus ==  AVPlayerItemStatus.readyToPlay ? #imageLiteral(resourceName: "pause-round") : #imageLiteral(resourceName: "play")
-                    if let cell = strongSelf.collectionView.cellForItem(at: strongSelf.selectedIndex) as? PodcastPlaylistCell {
-                        cell.playButton.setImage(buttonImageName, for: .normal)
-                    }
-                }
+    func setupBackground() {
+        concurrentPhotoQueue.async(flags: .assignCurrentContext) {
+            DispatchQueue.main.async {
+                let background = UIImageView()
+                background.image = self.podcastImageView.image
+                background.frame = CGRect(x: self.frame.minX, y: self.frame.minY - 4, width: self.frame.width, height: self.frame.height)
+                self.add(background)
+                background.addBlurEffect()
+                self.bringSubview(toFront: self.podcastImageView)
+                background.alpha = 0.6
             }
         }
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        switch state {
-        case .toCollection:
-            navigationController?.popViewController(animated: false)
-        case .toPlayer:
-            break
-        }
+    func setup() {
+        setup(podcastImageView: podcastImageView)
     }
     
-    func moreButton(tapped: Bool) {
-        let height = view.bounds.height * 0.5
-        let width = view.bounds.width
-        let size = CGSize(width: width, height: height)
-        let originX = view.bounds.width * 0.001
-        let originY = view.bounds.height * 0.6
-        let origin = CGPoint(x: originX, y: originY)
-        bottomMenu.setMenu(size)
-        bottomMenu.setMenu(origin)
-        bottomMenu.setupMenu()
-        bottomMenu.setMenu(color: .white, borderColor: .darkGray, textColor: .darkGray)
-        showPopMenu()
+    func setup(podcastImageView: UIImageView) {
+        addSubview(podcastImageView)
+        podcastImageView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            podcastImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            podcastImageView.centerXAnchor.constraint(equalTo: centerXAnchor)
+            ])
+        if #available(iOS 11, *) {
+            NSLayoutConstraint.activate([
+                podcastImageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.8),
+                podcastImageView.widthAnchor.constraint(equalTo: heightAnchor, multiplier: 0.8)
+                ])
+        } else {
+            NSLayoutConstraint.activate([
+                podcastImageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: PodcastListTopViewConstants.imageHeightMultiplier),
+                podcastImageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: PodcastListTopViewConstants.imageWidthMultiplier)
+                ])
+        }
+        podcastImageView.layoutIfNeeded()
+        layoutIfNeeded()
+    }
+    
+    func configureTopImage() {
+        podcastImageView.dropShadow()
     }
 }
 
-// MARK: - PodcastCollectionViewProtocol
+private var playlistViewControllerKVOContext = 1
 
-extension PlaylistViewController {
+class PlaylistViewController: BaseTableViewController {
     
-    func setup(dataSource: UICollectionViewDataSource, delegate: UICollectionViewDelegate) {
-        collectionView.dataSource = dataSource
-        collectionView.delegate = delegate
-        collectionView.register(PodcastCell.self)
-//        let newView = UIView()
-//        newView.frame = collectionView.frame
-//        collectionView.add(newView)
-        collectionView.backgroundColor = .white
-            //PodcastListConstants.backgroundColor
+    var playlist: Playlist!
+    var cellModels: [DownloadedCellViewModel] = []
+    var audioPlayer: AudioFilePlayer!
+    
+    var items: [Episodes] = []
+    var topView = ListTopView()
+    var mode: PlaylistsInteractionMode = .add
+    
+    var name: String!
+    var playlistId: String!
+    var selectedIndex: IndexPath!
+    var miniPlayer: MiniPlayerViewController!
+    
+    var playerContainer: UIView = UIView()
+    
+    var topViewHeightConstraint: NSLayoutConstraint!
+    var topViewWidthConstraint: NSLayoutConstraint!
+    var topViewYConstraint: NSLayoutConstraint!
+    var topViewXConstraint: NSLayoutConstraint!
+    var topViewTopConstraint: NSLayoutConstraint!
+    var topViewBottomConstraint: NSLayoutConstraint!
+    
+    var background = UIView()
+    var persistentContainer: NSPersistentContainer!
+    
+    var managedContext: NSManagedObjectContext! {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return nil }
+        let context = appDelegate.persistentContainer.viewContext
+        context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        return context
+    }
+    
+    enum PlaylistsInteractionMode {
+        case add, edit
+    }
+    
+    lazy var fetchedResultsController:NSFetchedResultsController<Playlist> = {
+        let fetchRequest:NSFetchRequest<Playlist> = Playlist.fetchRequest()
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "dateCreated", ascending: true)]
+        fetchRequest.predicate = NSPredicate(format: "playlistId == %@", playlistId)
+        var controller = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.managedContext, sectionNameKeyPath: nil, cacheName: nil)
+        do {
+            try? controller.performFetch()
+        }
+        return controller
+    }()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        initialize()
+        edgesForExtendedLayout = []
+        tableView.register(DownloadedCell.self, forCellReuseIdentifier: DownloadedCell.reuseIdentifier)
+        tableView.dataSource = self
+        tableView.delegate = self
+        
+        configureTopView()
+        playlist = fetchedResultsController.fetchedObjects![0]
+        view.add(topView)
+        setupTopView()
+        setupTableView()
+        rightButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(self.edit))
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(audioPlayerWillStartPlaying(_:)), name: .audioPlayerWillStartPlaying, object: audioPlayer)
+        NotificationCenter.default.addObserver(self, selector: #selector(audioPlayerDidStartLoading(_:)), name: .audioPlayerDidStartLoading, object: audioPlayer)
+        NotificationCenter.default.addObserver(self, selector: #selector(audioPlayerDidStartPlaying(_:)), name: .audioPlayerDidStartPlaying, object: audioPlayer)
+        NotificationCenter.default.addObserver(self, selector: #selector(audioPlayerDidPause(_:)), name: .audioPlayerDidPause, object: audioPlayer)
+        NotificationCenter.default.addObserver(self, selector: #selector(audioPlayerPlaybackTimeChanged(_:)), name: .audioPlayerPlaybackTimeChanged, object: audioPlayer)
+        
+        setupPlayer()
+    }
+    
+    func setupTableView() {
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.topAnchor.constraint(equalTo: topView.bottomAnchor).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        tableView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        tableView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+    }
+    
+    func setupTopView() {
+        topView.translatesAutoresizingMaskIntoConstraints = false
+        topView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        topView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        topView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        topView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.3).isActive = true
+    }
+    
+    func setupPlayer() {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        audioPlayer = appDelegate.audioPlayer
+        setupModels()
+        if #available(iOS 10, *) {
+            view.addSubview(playerContainer)
+        } else {
+            view.add(playerContainer)
+        }
+        playerContainer.translatesAutoresizingMaskIntoConstraints = false
+        playerContainer.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        playerContainer.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        playerContainer.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        playerContainer.heightAnchor.constraint(equalToConstant: 68).isActive = true
+        if let tabController = tabBarController as? TabBarController {
+            miniPlayer = tabController.miniPlayer
+            miniPlayer.delegate = self
+            embedChild(controller: miniPlayer, in: playerContainer)
+            miniPlayer.configure()
+        }
+    }
+    
+    func initialize() {
+        topView.podcastImageView.image = #imageLiteral(resourceName: "podcast")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        audioPlayer = appDelegate.audioPlayer
+        tableView.delegate = self
+        DispatchQueue.main.async {
+            self.navigationItem.title = self.playlist.name
+            guard let playlistEpisodes = self.playlist.playlistEpisodes else { return }
+            if playlistEpisodes.count <= 0 {
+                self.navigationItem.rightBarButtonItems = []
+            } else if playlistEpisodes.count > 0 {
+                self.navigationItem.rightBarButtonItems = [UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(self.edit))]
+            }
+        }
+        tableView.isUserInteractionEnabled = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        if let browse = self.parent as? PlaylistsViewController {
+//            browse.miniPlayer = miniPlayer
+//            browse.embedChild(controller: browse.miniPlayer, in: browse.playerContainer)
+//            browse.miniPlayer.configure()
+        }
+    }
+    
+    @objc private func audioPlayerWillStartPlaying(_ notification: Notification) {
+        print(notification)
+    }
+    
+    @objc private func audioPlayerDidStartLoading(_ notification: Notification) {
+        print(notification)
+    }
+    
+    
+    @objc private func audioPlayerDidStartPlaying(_ notification: Notification) {
+        print(notification)
+    }
+    
+    @objc private func audioPlayerDidPause(_ notification: Notification) {
+        print(notification)
+    }
+    
+    @objc private func audioPlayerPlaybackTimeChanged(_ notification: Notification) {
+        let secondsElapsed = notification.userInfo![AudioPlayerSecondsElapsedUserInfoKey]! as! Double
+        let secondsRemaining = notification.userInfo![AudioPlayerSecondsRemainingUserInfoKey]! as! Double
+        print(secondsElapsed)
+        print(secondsRemaining)
+    }
+    
+    func setupModels() {
+        guard let playlistEpisode = playlist.playlistEpisodes else { return }
+        for episode in playlistEpisode {
+            if let item = episode as? Episode {
+                let model = DownloadedCellViewModel(episode: item)
+                if let image = UIImage(data: playlist.image as! Data) {
+                    model.mainImage = image
+                }
+                cellModels.append(model)
+            }
+        }
+    }
+    
+    @objc func edit() {
+        mode = mode == .edit ? .add : .edit
+        print(mode)
+        DispatchQueue.main.async {
+            switch self.mode {
+            case .edit:
+                self.navigationItem.rightBarButtonItems = [UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(self.edit))]
+            case .add:
+                self.navigationItem.rightBarButtonItems =  [UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(self.edit))]
+            }
+            self.tableView.reloadData()
+        }
     }
     
     func configureTopView() {
         topView.frame = PodcastListConstants.topFrame
-        guard let podcast = playlist.podcast else { return }
-        
-        for (index, podItem) in podcast.enumerated() {
-            if index == 0 {
-                if let item = podItem as? PodcastPlaylistItem, let id = item.playlistId {
-                    self.title = id
-                }
-            }
-            if let item = podItem as? PodcastPlaylistItem, let topImageArtworkData = item.artwork,
-                let artworkImage = UIImage(data: Data.init(referencing: topImageArtworkData)) {
-                topView.podcastImageView.image = artworkImage
-            } else {
-                topView.podcastImageView.image = #imageLiteral(resourceName: "light-placehoder-2")
-            }
-        }
-        if topView.podcastImageView.image == nil {
-            topView.podcastImageView.image = #imageLiteral(resourceName: "light-placehoder-2")
-        }
-        topView.layoutSubviews()
-        view.addSubview(topView)
-        view.bringSubview(toFront: topView)
-        
-        setupView()
-        dump(collectionView)
-    }
-    
-    func setupView() {
-        guard let tabBar = self.tabBarController?.tabBar else { return }
-        guard let navHeight = navigationController?.navigationBar.frame.height else { return }
-        let viewHeight = (view.bounds.height - navHeight) - 55
-        collectionView.frame = CGRect(x: topView.bounds.minX, y: topView.frame.maxY + (tabBar.frame.height + 6), width: view.bounds.width, height: viewHeight - (topView.frame.height - tabBar.frame.height))
-        collectionView.backgroundColor = .white
+        guard playlist.episodes != nil else { return }
     }
 }
 
-
-extension PlaylistViewController: UICollectionViewDataSource {
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if episodes.count > 0 {
-            backgroundView.alpha = 1
-            collectionView.backgroundView = backgroundView
-        } else if episodes.count <= 1 {
-            DispatchQueue.main.async { [weak self] in
-                guard let strongSelf = self else { return }
-                collectionView.backgroundView = strongSelf.emptyView
-                strongSelf.backgroundView.alpha = 0
-            }
+extension PlaylistViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if let playlist = fetchedResultsController.fetchedObjects?[0], let episodes = playlist.playlistEpisodes {
+            return episodes.count
         }
-        return episodes.count
+        return 0
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as PodcastPlaylistCell
-        let modelName = "\(playlistItems[indexPath.row].artistName!)  -  \(playlistItems[indexPath.row].episodeTitle!)"
-        let model = PodcastCellViewModel(podcastTitle: modelName)
-        cell.configureCell(model: model)
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: DownloadedCell.reuseIdentifier, for: indexPath) as! DownloadedCell
+        cell.configureWith(model: cellModels[indexPath.row])
         return cell
     }
 }
-// MARK: - UIScrollViewDelegate
 
-extension PlaylistViewController: UIScrollViewDelegate {
+extension PlaylistViewController: UITableViewDelegate {
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let offset = scrollView.contentOffset
-        let updatedTopViewFrame = CGRect(x: 0, y: 0, width: PodcastListConstants.topFrameWidth, height: PodcastListConstants.topFrameHeight / 1.2)
-        if offset.y > PodcastListConstants.minimumOffset {
-            UIView.animate(withDuration: 0.05) {
-                DispatchQueue.main.async { [weak self] in
-                    guard let strongSelf = self else { return }
-                    strongSelf.topView.removeFromSuperview()
-                    strongSelf.topView.alpha = 0
-                    strongSelf.collectionView.frame = strongSelf.view.bounds
-                }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if selectedIndex != nil && selectedIndex != indexPath {
+            DispatchQueue.main.async {
+                self.cellModels[indexPath.row].currentState = .paused
+                self.tableView.reloadRows(at: [self.selectedIndex], with: .fade)
+                self.selectedIndex = nil
             }
-        } else {
-            UIView.animate(withDuration: 0.15) {
-                DispatchQueue.main.async { [weak self] in
-                    guard let strongSelf = self else { return }
-                    guard let tabBar = strongSelf.tabBarController?.tabBar else { return }
-                    guard let navHeight = strongSelf.navigationController?.navigationBar.frame.height else { return }
-                    let viewHeight = (strongSelf.view.bounds.height - navHeight) - 20
-                    strongSelf.topView.frame = updatedTopViewFrame
-                    strongSelf.topView.alpha = 1
-                    strongSelf.topView.layoutSubviews()
-                    strongSelf.view.addSubview(strongSelf.topView)
-                    strongSelf.collectionView.frame = CGRect(x: strongSelf.topView.bounds.minX, y: strongSelf.topView.frame.maxY - 5, width: strongSelf.view.bounds.width, height: viewHeight - (strongSelf.topView.frame.height - tabBar.frame.height))
-                }
+        } else if selectedIndex != nil && selectedIndex == indexPath {
+            DispatchQueue.main.async {
+                self.cellModels[self.selectedIndex.row].currentState = .paused
+                self.tableView.reloadRows(at: [self.selectedIndex], with: .fade)
             }
         }
-    }
-}
-
-// MARK: - UICollectionViewDelegate
-
-extension PlaylistViewController: UICollectionViewDelegate {
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        switch itemMode {
-        case .play:
-            DispatchQueue.main.async { [weak self] in
-                guard let strongSelf = self else { return }
-                strongSelf.showLoadingView(loadingPop: strongSelf.loadingPop)
-            }
-            if let selectedIndex = selectedIndex {
-                if indexPath == selectedIndex {
-                    player?.playPause()
-                    DispatchQueue.main.async { [weak self] in
-                        guard let strongSelf = self else { return }
-                        strongSelf.hideLoadingView(loadingPop: strongSelf.loadingPop)
-                    }
-                } else if indexPath != selectedIndex {
-                    var previousIndex: IndexPath? = selectedIndex
-                    player?.playPause()
-                    let pod = playlistItems[indexPath.row]
-                    if let artWorkImageData = pod.artwork,
-                        let artworkImage = UIImage(data: Data.init(referencing: artWorkImageData)),
-                        let audioUrl = pod.audioUrl, let url = URL(string: audioUrl) {
-                        topView.podcastImageView.image = artworkImage
-                        if LocalStorageManager.localFileExists(for: url.absoluteString) {
-                            print("file is downloaded")
-                            let newUrl = LocalStorageManager.localFilePath(for: url)
-                            player?.asset = AVURLAsset(url: newUrl)
-                        } else {
-                            print("streaming")
-                            player?.asset = AVURLAsset(url: url)
-                        }
-                        DispatchQueue.main.async { [weak self] in
-                            guard let strongSelf = self else { return }
-                            if let previousIndex = previousIndex,
-                                let previousCell = strongSelf.collectionView.cellForItem(at: previousIndex) as? PodcastPlaylistCell {
-                                previousCell.playButton.setImage(#imageLiteral(resourceName: "play"), for: .normal)
-                            }
-                        }
-                    }
-                    previousIndex = nil
-                    self.selectedIndex = indexPath
-                }
-            } else {
-                let pod = playlistItems[indexPath.row]
-                let audioUrl = pod.audioUrl
-                if let artWorkImageData = pod.artwork,
-                    let artworkImage = UIImage(data: Data.init(referencing: artWorkImageData)),
-                    let url = URL(string: audioUrl!) {
-                    if LocalStorageManager.localFileExists(for: url.absoluteString) {
-                        print("file is downloaded")
-                        let newUrl = LocalStorageManager.localFilePath(for: url)
-                        player?.asset = AVURLAsset(url: newUrl)
-                    } else {
-                        print("streaming")
-                        player?.asset = AVURLAsset(url: url)
-                    }
-                    topView.podcastImageView.image = artworkImage
-                }
+        self.selectedIndex = indexPath
+        let item = self.playlist.playlistEpisodes?.object(at: indexPath.row) as! Episode
+        if let data = item.podcastArtworkImage as? Data, let image = UIImage(data: data), let mediaUrl = item.mediaUrlString {
+            miniPlayer.thumbImage.image = image
+            guard var episode = item.asEpisodes() else { return }
+            miniPlayer.playFor(episode: episode)
+            miniPlayer.currentPodcast = episode
+            miniPlayer.delegate = self
+            if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
+               // appDelegate.play(episode: episode)
+                self.cellModels[indexPath.row].currentState = .playing
+                self.tableView.reloadRows(at: [indexPath], with: .fade)
                 self.selectedIndex = indexPath
-                player?.playPause()
             }
-        case .delete:
-            print("delete")
         }
     }
-}
-
-// MARK: - UICollectionViewDelegateFlowLayout
-
-extension PlaylistViewController: UICollectionViewDelegateFlowLayout {
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: UIScreen.main.bounds.width / 1.0, height: UIScreen.main.bounds.height / 11)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 2
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return PlaylistViewControllerConstants.rowHeight
     }
 }
 
-extension PlaylistViewController: TopViewDelegate {
-    
-    func infoButton(tapped: Bool) {
-        print(item.tags)
+extension PlaylistViewController: DownloadCellDelegate {
+    func playButton(tapped: Bool) {
+        print("play")
     }
     
-    
-    func entryPop(popped: Bool) {
-        print("popped: \(popped)")
+    func pauseButton(tapped: Bool) {
+        print("pause")
     }
     
-    func popBottomMenu(popped: Bool) {
-        showPopMenu()
-    }
-    
-    func showPopMenu() {
-        let tap = UITapGestureRecognizer(target: self, action: #selector(hidePopMenu))
-        view.addGestureRecognizer(tap)
-        collectionView.addGestureRecognizer(tap)
-        topView.addGestureRecognizer(tap)
-        bottomMenu.showOn(collectionView)
-    }
-    
-    @objc func hidePopMenu() {
-        print("hidePopMenu")
+    func moreButtonTapped(sender: Any, cell: DownloadedCell) {
+        dump(sender)
+        dump(cell)
     }
 }
+
+extension PlaylistViewController: MiniPlayerDelegate {
+    
+    func expandPodcast(episode: Episodes) {
+//        if let backingVC = navigationController?.childViewControllers[0] as? BackingViewController {
+//            guard let maxiCard = UIStoryboard.init(name: "Player", bundle: nil).instantiateViewController(withIdentifier: "MaxiSongCardViewController") as? CardPlayerViewController else {
+//                assertionFailure("No view controller ID MaxiSongCardViewController in storyboard")
+//                return
+//            }
+//            maxiCard.delegate = self
+//            maxiCard.backingImage = self.view.makeSnapshot()
+//            maxiCard.endBackingImage = self.view.makeEndSnapshot()
+//            switch self.miniPlayer.currentState {
+//            case .playing:
+//                maxiCard.currentState = .playing
+//            case .paused:
+//                maxiCard.currentState = .paused
+//            case .stopped:
+//                maxiCard.currentState = .stopped
+//            }
+//            maxiCard.sourceView = backingVC.miniPlayerViewController
+//            maxiCard.backingImage = view.makeSnapshot()
+//            maxiCard.currentPodcast = episode
+//            if let urlString = URL(string: episode.podcastArtUrlString) {
+//                urlString.downloadImage { image in
+//                    DispatchQueue.main.async {
+//                        maxiCard.coverArtImage.image = image
+//                    }
+//                }
+//            }
+//            navigationController?.present(maxiCard, animated: false)
+//        }
+//        if navigationController?.childViewControllers[0] as? HomeViewController != nil {
+//            guard UIStoryboard.init(name: "Player", bundle: nil).instantiateViewController(withIdentifier: "MaxiSongCardViewController") is CardPlayerViewController else {
+//                assertionFailure("No view controller ID MaxiSongCardViewController in storyboard")
+//                return
+//            }
+//        }
+    }
+    
+    func expandPodcast(episode: Episode) {
+//        guard let maxiCard = UIStoryboard.init(name: "Player", bundle: nil).instantiateViewController(withIdentifier: "MaxiSongCardViewController") as? CardPlayerViewController else {
+//            assertionFailure("No view controller ID MaxiSongCardViewController in storyboard")
+//            return
+//        }
+//        DispatchQueue.main.async {
+//            maxiCard.delegate = self
+//            if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
+//                maxiCard.sourceView = self.miniPlayer
+//                maxiCard.audioTimeDuration =  appDelegate.audioPlayer.duration
+//            }
+//            maxiCard.backingImage = self.view.makeSnapshot()
+//            maxiCard.endBackingImage = self.view.makeEndSnapshot()
+//            switch self.miniPlayer.currentState {
+//            case .playing:
+//                maxiCard.currentState = .playing
+//            case .paused:
+//                maxiCard.currentState = .paused
+//            case .stopped:
+//                maxiCard.currentState = .stopped
+//            }
+//            maxiCard.currentPodcast = episode.asEpisodes()
+//            let title = episode.asEpisodes()?.title
+//            maxiCard.currentPodcast?.podcastTitle = title!
+//            if let data = episode.podcastArtworkImage, let image = UIImage(data: data as Data) {
+//                DispatchQueue.main.async {
+//                    maxiCard.coverArtImage.image = image
+//                }
+//            }
+//            self.navigationController?.present(maxiCard, animated: false)
+//        }
+    }
+}
+
+extension PlaylistViewController: CardPlayerViewControllerDelegate {
+    func skipButton(tapped: Bool) {
+        
+    }
+    
+    func backButton(tapped: Bool) {
+        
+    }
+    
+    func dismiss(tapped: Bool) {
+        
+    }
+}
+

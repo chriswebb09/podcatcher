@@ -1,6 +1,8 @@
 import UIKit
 
 protocol HomeViewControllerDelegate: class {
-    func didSelect(at index: Int, with subscription: Subscription, image: UIImage)
-    func didSelect(at index: Int, with subscription: Subscription, image: UIImage, imageView: UIImageView)
+    func selectedItem(at: Int, podcast: Podcaster, imageView: UIImageView)
+    func updateNavigation(for isNil: Bool)
+    func updateNavigationItems()
 }
+

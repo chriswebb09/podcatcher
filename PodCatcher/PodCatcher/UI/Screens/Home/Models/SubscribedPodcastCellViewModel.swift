@@ -1,6 +1,6 @@
 import UIKit
 
-final class SubscribedPodcastCellViewModel {
+final class SubsciptionCellViewModel {
     
     var trackName: String
     var albumImageUrl: UIImage

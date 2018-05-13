@@ -1,12 +1,12 @@
 import Foundation
 
 final class TopPodcastLoadOperation: Operation {
-    var topItem: CasterSearchResult?
-    var loadingCompleteHandler: ((CasterSearchResult) -> ())?
+    var topItem: PodcastItem?
+    var loadingCompleteHandler: ((PodcastItem) -> ())?
     
-    private let _topItem: CasterSearchResult
+    private let _topItem: PodcastItem
     
-    init(_ topItem: CasterSearchResult) {
+    init(_ topItem: PodcastItem) {
         _topItem = topItem
     }
     

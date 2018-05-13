@@ -16,6 +16,7 @@ final class StartCoordinator: NavigationCoordinator {
     
     init(navigationController: UINavigationController = UINavigationController()) {
         self.navigationController = navigationController
+        navigationController.edgesForExtendedLayout = []
     }
     
     convenience init(navigationController: UINavigationController, window: UIWindow) {

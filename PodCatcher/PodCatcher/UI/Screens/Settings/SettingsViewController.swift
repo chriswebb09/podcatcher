@@ -10,6 +10,7 @@ final class SettingsViewController: BaseTableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        edgesForExtendedLayout = []
         initialize()
     }
     

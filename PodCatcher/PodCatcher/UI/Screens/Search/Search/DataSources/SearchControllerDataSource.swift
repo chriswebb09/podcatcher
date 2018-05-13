@@ -1,10 +1,18 @@
+//
+//  SearchControllerDataSource.swift
+//  Podcatch
+//
+//  Created by Christopher Webb-Orenstein on 2/3/18.
+//  Copyright © 2018 Christopher Webb-Orenstein. All rights reserved.
+//
+
 import UIKit
 
 final class SearchControllerDataSource: NSObject {
     
     var interactor =  SearchResultsIteractor()
     
-    var items = [PodcastSearchResult]()
+    var items = [Podcast]()
     
     let loadingQueue = OperationQueue()
     
@@ -22,7 +30,7 @@ final class SearchControllerDataSource: NSObject {
     
     var emptyView = NoSearchResultsView()
     
-    func podcastForItemAtIndexPath(_ indexPath: IndexPath) -> PodcastSearchResult? {
+    func podcastForItemAtIndexPath(_ indexPath: IndexPath) -> Podcast? {
         return items[indexPath.row]
     }
     
@@ -35,11 +43,11 @@ extension SearchControllerDataSource: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as SearchResultCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultCell.reuseIdentifier, for: indexPath) as! SearchResultCell
         if items.count > 0 {
-            if let title = items[indexPath.row].podcastTitle, let urlString = items[indexPath.row].podcastArtUrlString, let url = URL(string: urlString)  {
+            if let url = URL(string: items[indexPath.row].podcastArtUrlString)  {
                 cell.alpha = 0
-                cell.configureCell(with: url, title: title)
+                cell.configureCell(with: url, title:  items[indexPath.row].podcastTitle)
                 UIView.animate(withDuration: 0.016, animations: {
                     cell.alpha = 1
                 })
@@ -62,11 +70,11 @@ extension  SearchControllerDataSource: UITableViewDataSourcePrefetching {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as SearchResultCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultCell.reuseIdentifier, for: indexPath) as! SearchResultCell
         if items.count > 0 {
-            if let title = items[indexPath.row].podcastTitle, let urlString = items[indexPath.row].podcastArtUrlString, let url = URL(string: urlString)  {
+            if let url = URL(string: items[indexPath.row].podcastArtUrlString)  {
                 DispatchQueue.main.async {
-                    cell.configureCell(with: url, title: title)
+                    cell.configureCell(with: url, title: self.items[indexPath.row].podcastTitle)
                 }
             }
         }

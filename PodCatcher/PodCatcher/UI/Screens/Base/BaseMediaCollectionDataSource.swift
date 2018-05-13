@@ -2,7 +2,7 @@ import UIKit
 
 class BaseMediaControllerDataSource: NSObject {
     
-    var casters: [PodcastSearchResult]?
+    var casters: [PodcastItem]?
     
     var count: Int {
         if let caster = casters {

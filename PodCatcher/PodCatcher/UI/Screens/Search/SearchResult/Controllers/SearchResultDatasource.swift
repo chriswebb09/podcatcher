@@ -9,25 +9,43 @@
 import UIKit
 
 class SearchResultDatasource: NSObject {
-    private var item: CasterSearchResult!
     
-    func setItem(item: CasterSearchResult) {
-        self.item = item
+    private var models: [PodcastResultCellViewModel]!
+    
+    var controller: PodcastListViewController!
+    
+    var animateCellAtIndex: IndexPath!
+    func set(models: [PodcastResultCellViewModel]) {
+        self.models = models
     }
 }
 
 extension SearchResultDatasource: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return item.episodes.count
+        if let models = models {
+            return models.count
+        } else {
+            return 0
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as PodcastResultCell
-        DispatchQueue.main.async {
-            if let playTime = self.item.episodes[indexPath.row].stringDuration {
-                let model = PodcastResultCellViewModel(podcastTitle: self.item.episodes[indexPath.row].title, playtimeLabel: playTime)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PodcastListCell.reuseIdentifier, for: indexPath) as! PodcastListCell
+        DispatchQueue.main.async { [weak self] in
+            if let strongSelf = self {
+                let model = strongSelf.models[indexPath.row]
                 cell.configureCell(model: model)
+                cell.delegate = strongSelf.controller
+                if self?.animateCellAtIndex == indexPath {
+                    cell.setupAudio()
+                } else {
+                    if let animation = cell.audioAnimation {
+                        if animation.isAnimating {
+                            cell.removeAudio()
+                        }
+                    }
+                }
             }
         }
         return cell

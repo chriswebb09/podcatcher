@@ -4,11 +4,16 @@ final class TabBarController: UITabBarController {
     
     var dataSource: BaseMediaControllerDataSource!
     
-    var first: Bool  = false
+    var miniPlayer = MiniPlayerViewController()
+    
+  //  var first: Bool  = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //view.backgroundColor = .white
+        edgesForExtendedLayout = []
+        view.backgroundColor = .black
+        tabBar.alpha = 1
+            //Style.Color.Charcoal.darkCharcoal
     }
     
     override func viewDidLayoutSubviews() {
@@ -45,13 +50,14 @@ final class TabBarController: UITabBarController {
         tabBar.items?[1].title = "Search"
         tabBar.items?[2].title = "Setting"
         
-        selectedIndex = 0
-        first = true
+       // selectedIndex = 0
+     //   first = true
         
         if let items = self.tabBar.items {
             for item in items {
                 if let image = item.image {
-                    item.image = image.withRenderingMode(.alwaysOriginal)
+                    item.image = image.withRenderingMode(.alwaysTemplate)
+                    //withRenderingMode(.alwaysOriginal)
                     item.selectedImage = item.selectedImage?.withRenderingMode(.alwaysTemplate)
                     //UIImage(named: "(Imagename)-a")?.withRenderingMode(.alwaysOriginal)
                 }

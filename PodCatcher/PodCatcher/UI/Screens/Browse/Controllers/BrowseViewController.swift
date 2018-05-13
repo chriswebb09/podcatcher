@@ -13,28 +13,38 @@ final class BrowseViewController: BaseCollectionViewController, LoadingPresentin
     var reach: Reachable?
     let browseTopView = BrowseTopView()
     
-    var topItems = [CasterSearchResult]() {
+    var topItems: [PodcastItem] = [] {
         didSet {
-            topItems = dataSource.items
-            if topItems.count > 0, let artUrl = topItems[0].podcastArtUrlString, let url = URL(string: artUrl) {
-                browseTopView.podcastImageView.downloadImage(url: url)
-                DispatchQueue.main.async {
-                    self.browseTopView.setTitle(title: self.dataSource.items[self.browseTopView.index].podcastArtist!)
-                    let mediaViewController = self.browsePageController.pages[0] as! MediaViewController
-                    mediaViewController.topView.podcastImageView = self.browseTopView.podcastImageView
-                    mediaViewController.topView.setTitle(title: self.dataSource.items[0].podcastTitle!)
+            if collectionView.visibleCells.count <= 0 {
+                DispatchQueue.main.async { [unowned self] in
+                    self.collectionView.reloadData()
                 }
-            }
-            
-            if topItems.count > 1, let artUrl = topItems[1].podcastArtUrlString, let url = URL(string: artUrl) {
-                self.browseTopView.setTitle(title: self.dataSource.items[self.browseTopView.index].podcastArtist!)
-                let mediaViewController = self.browsePageController.pages[1] as! MediaViewController
-                mediaViewController.topView.podcastImageView.downloadImage(url: url)
-                mediaViewController.topView.setTitle(title: self.dataSource.items[1].podcastTitle!)
             }
         }
     }
     
+    //    var topItems = [CasterSearchResult]() {
+    //        didSet {
+    //            topItems = dataSource.items
+    //            if topItems.count > 0, let artUrl = topItems[0].podcastArtUrlString, let url = URL(string: artUrl) {
+    //                browseTopView.podcastImageView.downloadImage(url: url)
+    //                DispatchQueue.main.async {
+    //                    self.browseTopView.setTitle(title: self.dataSource.items[self.browseTopView.index].podcastArtist!)
+    //                    let mediaViewController = self.browsePageController.pages[0] as! MediaViewController
+    //                    mediaViewController.topView.podcastImageView = self.browseTopView.podcastImageView
+    //                    mediaViewController.topView.setTitle(title: self.dataSource.items[0].podcastTitle!)
+    //                }
+    //            }
+    //
+    //            if topItems.count > 1, let artUrl = topItems[1].podcastArtUrlString, let url = URL(string: artUrl) {
+    //                self.browseTopView.setTitle(title: self.dataSource.items[self.browseTopView.index].podcastArtist!)
+    //                let mediaViewController = self.browsePageController.pages[1] as! MediaViewController
+    //                mediaViewController.topView.podcastImageView.downloadImage(url: url)
+    //                mediaViewController.topView.setTitle(title: self.dataSource.items[1].podcastTitle!)
+    //            }
+    //        }
+    //    }
+    //
     var topView = UIView()
     var tap: UITapGestureRecognizer!
     let loadingPop = LoadingPopover()
@@ -94,8 +104,9 @@ final class BrowseViewController: BaseCollectionViewController, LoadingPresentin
         view.backgroundColor = .clear
         topView.backgroundColor = .clear
         view.addSubview(collectionView)
-        
-        setup(view: view, newLayout: BrowseItemsFlowLayout())
+        let layout = BrowseItemsFlowLayout()
+        layout.setup()
+        setup(view: view, newLayout: layout)
         collectionView.dataSource = dataSource
         collectionView.delegate = self
         collectionView.isPagingEnabled = true
@@ -107,33 +118,29 @@ final class BrowseViewController: BaseCollectionViewController, LoadingPresentin
         collectionView.backgroundColor = .white
         collectionView.prefetchDataSource = dataSource
         NotificationCenter.default.addObserver(self, selector: #selector(reachabilityDidChange(_:)), name: NSNotification.Name(rawValue: "ReachabilityDidChangeNotificationName"), object: nil)
-        
         reach?.start()
-        
         DispatchQueue.main.async {
-            
             self.browseTopView.podcastImageView.layer.cornerRadius = 3
             self.browseTopView.podcastImageView.layer.masksToBounds = true
             self.browseTopView.layer.setCellShadow(contentView: self.topView)
             self.browseTopView.podcastImageView.layer.setCellShadow(contentView: self.browseTopView.podcastImageView)
         }
-        
         view.add(sectionHeader)
         sectionHeader.translatesAutoresizingMaskIntoConstraints = false
         sectionHeader.widthAnchor.constraint(equalTo: view.widthAnchor, constant: 0).isActive = true
         sectionHeader.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0).isActive = true
         sectionHeader.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 0).isActive = true
-        sectionHeader.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.07).isActive = true
-        
+        sectionHeader.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.06).isActive = true
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: 0).isActive = true
         collectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0).isActive = true
-        collectionView.topAnchor.constraint(equalTo: sectionHeader.bottomAnchor, constant: 0).isActive = true
-        collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
+        collectionView.topAnchor.constraint(equalTo: sectionHeader.bottomAnchor, constant: -15).isActive = true
+        collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8).isActive = true
         collectionView.isScrollEnabled = false
         view.layoutIfNeeded()
         sectionHeader.layoutIfNeeded()
         collectionView.layoutIfNeeded()
+        collectionView.delegate = self
     }
     
     
@@ -176,14 +183,15 @@ final class BrowseViewController: BaseCollectionViewController, LoadingPresentin
 extension BrowseViewController: UICollectionViewDelegate {
     
     @objc func selectAt() {
-        coordinator?.didSelect(at: 0, with: dataSource.items[0], with: browseTopView.podcastImageView)
+        //coordinator?.didSelect(at: 0, with: dataSource.items[0], with: browseTopView.podcastImageView)
         topView.removeGestureRecognizer(tap)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.isUserInteractionEnabled = false
         let cell = collectionView.cellForItem(at: indexPath) as! TopPodcastCell
-        coordinator?.didSelect(at: indexPath.row, with: self.dataSource.items[indexPath.row], with: cell.albumArtView)
+        delegate?.selectedItem(at: indexPath.row, podcast: self.dataSource.items[indexPath.row], imageView: cell.albumArtView)
+        //coordinator?.didSelect(at: indexPath.row, with: self.dataSource.items[indexPath.row], with: cell.albumArtView)
     }
 }
 

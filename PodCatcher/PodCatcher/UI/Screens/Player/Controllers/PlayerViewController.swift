@@ -21,7 +21,7 @@
     
     var bottomMenu = BottomMenu()
     
-    private(set) var caster: CasterSearchResult
+    private(set) var caster: PodcastItem
     
     var menuActive: MenuActive = .none
     
@@ -34,7 +34,7 @@
         }
     }
     
-    init(index: Int, caster: CasterSearchResult, image: UIImage?) {
+    init(index: Int, caster: PodcastItem, image: UIImage?) {
         player = AudioFilePlayer()
         self.index = index
         self.caster = caster
@@ -44,8 +44,8 @@
         }
         super.init(nibName: nil, bundle: nil)
         network.delegate = self
-        if let urlString = caster.episodes[index].audioUrlString, let url = URL(string: urlString) {
-            if LocalStorageManager.localFileExists(for: urlString) {
+        if let url = URL(string: caster.episodes[index].mediaString) {
+            if LocalStorageManager.localFileExists(for: caster.episodes[index].mediaString) {
                 let newUrl = LocalStorageManager.localFilePath(for: url)
                 player?.asset = AVURLAsset(url: newUrl)
             } else {
@@ -96,9 +96,9 @@
         
         CALayer.createGradientLayer(with: StartViewConstants.gradientColors, layer: playerView.backgroundView.layer, bounds: UIScreen.main.bounds)
         
-        guard let artUrl = caster.podcastArtUrlString else { return }
+       // guard let artUrl = caster.podcastArtUrlString else { return }
         
-        playerViewModel = PlayerViewModel(imageUrl: URL(string: artUrl), title: caster.episodes[index].title)
+        playerViewModel = PlayerViewModel(imageUrl: URL(string: caster.podcastArtUrlString), title: caster.episodes[index].title)
         playerView.configure(with: playerViewModel)
         playerView.delegate = self
         
@@ -298,11 +298,11 @@
             }
         }
         player?.playPause()
-        guard let artUrl = caster.podcastArtUrlString else { return }
+   //     guard let artUrl = caster.podcastArtUrlString else { return }
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }
             
-            strongSelf.playerViewModel = PlayerViewModel(imageUrl: URL(string: artUrl), title: strongSelf.caster.episodes[strongSelf.index].title)
+            strongSelf.playerViewModel = PlayerViewModel(imageUrl: URL(string: strongSelf.caster.podcastArtUrlString), title: strongSelf.caster.episodes[strongSelf.index].title)
             strongSelf.playerView.updateViewModel(model: strongSelf.playerViewModel)
             strongSelf.title = strongSelf.caster.episodes[strongSelf.index].title
         }
@@ -321,10 +321,10 @@
     }
     
     private func updatePlayerViewModel() {
-        guard let artUrl = caster.podcastArtUrlString else { return }
+     //   guard let artUrl = caster.podcastArtUrlString else { return }
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }
-            strongSelf.playerViewModel = PlayerViewModel(imageUrl: URL(string: artUrl),
+            strongSelf.playerViewModel = PlayerViewModel(imageUrl: URL(string: strongSelf.caster.podcastArtUrlString),
                                                          title: strongSelf.caster.episodes[strongSelf.index].title)
             guard let model = strongSelf.playerViewModel else { return }
             strongSelf.playerView.configure(with: model)
@@ -337,8 +337,8 @@
             guard let strongSelf = self else { return }
             strongSelf.showLoadingView(loadingPop: strongSelf.loadingPop)
         }
-        if let urlString = caster.episodes[index].audioUrlString, let url = URL(string: urlString) {
-            if LocalStorageManager.localFileExists(for: urlString) {
+        if let url = URL(string: caster.episodes[index].mediaString) {
+            if LocalStorageManager.localFileExists(for: caster.episodes[index].mediaString) {
                 let newUrl = LocalStorageManager.localFilePath(for: url)
                 player?.asset = AVURLAsset(url: newUrl)
             } else {
@@ -364,18 +364,18 @@
         hideLoadingView(loadingPop: loadingPop)
         delegate?.addItemToPlaylist(item: caster , index: index)
         
-        if let urlString = caster.episodes[index].audioUrlString, !LocalStorageManager.localFileExists(for: urlString) {
+      //  if let urlString = caster.episodes[index].audioUrlString, !LocalStorageManager.localFileExists(for: urlString) {
             downloadingIndicator.showActivityIndicator(viewController: self)
-            let download = Download(url: urlString)
+            let download = Download(url: caster.episodes[index].mediaString)
             network.startDownload(download)
-        }
+       // }
     }
     
     func optionTwo(tapped: Bool) {
         
-        if let urlString = caster.episodes[index].audioUrlString, !LocalStorageManager.localFileExists(for: urlString) {
+        if !LocalStorageManager.localFileExists(for: caster.episodes[index].mediaString) {
             downloadingIndicator.showActivityIndicator(viewController: self)
-            let download = Download(url: urlString)
+            let download = Download(url: caster.episodes[index].mediaString)
             network.startDownload(download)
             delegate?.saveItemCoreData(item: caster, index: index, image: playerView.albumImageView.image!)
         }

@@ -12,18 +12,24 @@ class HomeViewController: BaseCollectionViewController {
     private var loadingPop = LoadingPopover()
     
     weak var delegate: HomeViewControllerDelegate?
-    var managedContext: NSManagedObjectContext! 
+    var managedContext: NSManagedObjectContext!
     
-    var fetchedResultsController:NSFetchedResultsController<Subscription>!
+    var podcasters: [Podcaster] = []
     
-    var homeDataSource: CollectionViewDataSource<HomeViewController>!
+    let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Podcaster")
+    
+    var fetchedResultsController:NSFetchedResultsController<Podcaster>!
     
     var persistentContainer: NSPersistentContainer!
+    
+    var homeDataSource: CollectionViewDataSource<HomeViewController>!
     
     // MARK: - UI Properties
     
     init() {
         super.init(nibName: nil, bundle: nil)
+        // self.homeDataSource.fetchedResultsController = fetchedResultsController
+        //  self.homeDataSource.managedContext = managedContext
     }
     
     required public init(coder aDecoder: NSCoder) {
@@ -39,9 +45,7 @@ class HomeViewController: BaseCollectionViewController {
         super.viewDidLoad()
         initialize()
         setupNavbar()
-        extendedLayoutIncludesOpaqueBars = true
         edgesForExtendedLayout = []
-        view.backgroundColor = .white
         collectionView.collectionViewLayout.invalidateLayout()
     }
     
@@ -56,7 +60,6 @@ class HomeViewController: BaseCollectionViewController {
     }
     
     private func setupNavbar() {
-        
         DispatchQueue.main.async {
             let backImage = #imageLiteral(resourceName: "back").withRenderingMode(.alwaysTemplate)
             self.navigationController?.navigationBar.backIndicatorImage = backImage
@@ -69,12 +72,10 @@ class HomeViewController: BaseCollectionViewController {
         collectionView.autoresizingMask = []
     }
     
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(false)
         view.layoutSubviews()
         setupAutoresizingMasks()
-        //UIFont(
         let font = UIFont(name: "AvenirNext-Regular", size: 16)!
         
         navigationController?.navigationBar.topItem?.title = "Subscribed Podcasts"
@@ -132,15 +133,8 @@ class HomeViewController: BaseCollectionViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
-        
         // needed to clear the text in the back navigation:
         self.navigationItem.title = " "
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        
     }
     
     func loading() {
@@ -183,10 +177,8 @@ extension HomeViewController: UICollectionViewDelegate, ErrorPresenting, Loading
         let item = homeDataSource.fetchedResultsController.object(at: indexPath)
         switch mode {
         case .subscription:
-            let cell = cell as! SubscribedPodcastCell
-            var caster = CasterSearchResult()
-            caster.feedUrl = item.feedUrl
-            guard let imageData = item.artworkImage, let image = UIImage(data: imageData as Data) else { return }
+            let cell = cell as! SubscriptionCell
+            guard let imageData = item.podcastArtworkImage, let image = UIImage(data: imageData as Data) else { return }
             let imageView = cell.getAlbumImageView()
             UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 5, options: [],
                            animations: {
@@ -198,33 +190,30 @@ extension HomeViewController: UICollectionViewDelegate, ErrorPresenting, Loading
                                 cell.transform = CGAffineTransform(scaleX: 1, y: 1)
                 }, completion: nil)
             }
-            delegate?.didSelect(at: indexPath.row, with: item, image: image, imageView: imageView)
+            delegate?.selectedItem(at: indexPath.row, podcast: item, imageView: imageView)
         case .edit:
-            update(indexPath: indexPath, item: item)
+            print("edit")
         }
     }
-    
-    //button.frame = CGRect(x: 0, y: 0, width: 32, height: 32)
     
     func remove(for indexPath: IndexPath) {
         do {
             try self.homeDataSource.fetchedResultsController.performFetch()
             let feed = self.homeDataSource.fetchedResultsController.object(at: indexPath).feedUrl
-            self.managedContext.delete(self.homeDataSource.fetchedResultsController.object(at: indexPath))
+            self.persistentContainer.viewContext.delete(self.homeDataSource.fetchedResultsController.object(at: indexPath))
             var subscriptions = UserDefaults.loadSubscriptions()
             guard let feedUrl = feed else { return }
             if let index = subscriptions.index(of: feedUrl) {
                 subscriptions.remove(at: index)
                 UserDefaults.saveSubscriptions(subscriptions: subscriptions)
             }
-            
             do {
-                try self.managedContext.save()
+                try self.persistentContainer.viewContext.save()
                 self.homeDataSource.reloadData()
                 if self.homeDataSource.itemCount == 0 {
                     DispatchQueue.main.async {
                         self.mode = .subscription
-                        self.rightButtonItem.title = "Edit"
+                        //self.homeDataSource.mode = .subscription
                         self.navigationItem.rightBarButtonItem = nil
                     }
                 }
@@ -233,33 +222,17 @@ extension HomeViewController: UICollectionViewDelegate, ErrorPresenting, Loading
             presentError(title: "Error", message: error.localizedDescription)
         }
     }
-    
-    func update(indexPath: IndexPath, item: Subscription) {
-        guard let podcastTitle = item.podcastTitle else { return }
-        let message = "Pressing okay will remove: \n \(podcastTitle) \n from your subscription list."
-        let actionSheetController: UIAlertController = UIAlertController(title: "Are you sure?", message: message, preferredStyle: .alert)
-        let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel) { action in
-            actionSheetController.dismiss(animated: false, completion: nil)
-        }
-        let okayAction: UIAlertAction =  UIAlertAction(title: "Okay", style: .destructive) { action in
-            self.remove(for: indexPath)
-        }
-        actionSheetController.addAction(cancelAction)
-        actionSheetController.addAction(okayAction)
-        present(actionSheetController, animated: true, completion: nil)
-    }
 }
 
 extension HomeViewController: CollectionViewDataSourceDelegate {
     
-    typealias Object = Subscription
-    typealias Cell = SubscribedPodcastCell
+    typealias Object = Podcaster
+    typealias Cell = SubscriptionCell
     
-    func configure(_ cell: SubscribedPodcastCell, for object: Subscription) {
-        if let imageData = object.artworkImage,
-            let image = UIImage(data: imageData as Data),
-            let title =  object.podcastTitle {
-            let model = SubscribedPodcastCellViewModel(trackName: title, albumImageURL: image)
+    func configure(_ cell: SubscriptionCell, for object: Podcaster) {
+        if let imageData = object.podcastArtworkImage, let image = UIImage(data: imageData as Data), let title = object.podcastTitle {
+            let model = SubsciptionCellViewModel(trackName: title, albumImageURL: image)
+            
             switch mode {
             case .edit:
                 cell.alpha = 1

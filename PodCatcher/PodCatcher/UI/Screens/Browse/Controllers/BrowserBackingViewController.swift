@@ -6,13 +6,6 @@
 //  Copyright © 2018 Christopher Webb-Orenstein. All rights reserved.
 //
 
-//
-//  BackingViewController.swift
-//  PodCatcher
-//
-//  Created by Christopher Webb-Orenstein on 1/15/18.
-//  Copyright © 2018 Christopher Webb-Orenstein. All rights reserved.
-//
 
 import UIKit
 
@@ -50,6 +43,7 @@ final class BrowserBackingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        edgesForExtendedLayout = []
     }
     
     override func viewWillAppear(_ animated: Bool) {

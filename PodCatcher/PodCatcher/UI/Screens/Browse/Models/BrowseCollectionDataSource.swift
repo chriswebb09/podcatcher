@@ -5,10 +5,10 @@ final class BrowseCollectionDataSource: BaseMediaControllerDataSource {
     var dataType: DataType = .network
     
     var topItemImage: UIImage!
-    var items: [CasterSearchResult] = []
+    var items: [PodcastItem] = []
     var topViewItemIndex: Int = 0
     
-    var reserveItems: [CasterSearchResult] = []
+    var reserveItems: [PodcastItem] = []
     let loadingQueue = OperationQueue()
     
     fileprivate var sections: [String] = []
@@ -32,7 +32,7 @@ final class BrowseCollectionDataSource: BaseMediaControllerDataSource {
         }
     }
     
-    func topPodcastForItemAtIndexPath(_ indexPath: IndexPath) -> CasterSearchResult? {
+    func topPodcastForItemAtIndexPath(_ indexPath: IndexPath) -> PodcastItem? {
         return items[indexPath.row]
     }
     
@@ -59,10 +59,8 @@ extension BrowseCollectionDataSource:  UICollectionViewDataSource {
         let itemIndex = indexPath.row
         
         if items.count >= itemIndex && items.count > 0 {
-            if let urlString = items[itemIndex].podcastArtUrlString,
-                let url = URL(string: urlString),
-                let title = items[itemIndex].podcastTitle {
-                cell.configureCell(with: url, title: title)
+            if let url = URL(string: items[indexPath.row].podcastArtUrlString) {
+                cell.configureCell(with: url, title: items[indexPath.row].podcastTitle)
             }
         }
        
@@ -74,10 +72,8 @@ extension BrowseCollectionDataSource: UICollectionViewDataSourcePrefetching {
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         guard let cell = cell as? TopPodcastCell else { return }
-        if let urlString = items[indexPath.row].podcastArtUrlString,
-            let url = URL(string: urlString),
-            let title = items[indexPath.row].podcastTitle {
-            cell.configureCell(with: url, title: title)
+        if let url = URL(string: items[indexPath.row].podcastArtUrlString) {
+            cell.configureCell(with: url, title: items[indexPath.row].podcastTitle)
         }
     }
     

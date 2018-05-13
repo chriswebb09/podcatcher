@@ -14,7 +14,58 @@ struct DownloadState {
     var progress: Double = 0
 }
 
+import Foundation
+
+struct Resource<A> {
+    var method: String = "GET"
+    var body: Data? = nil
+    let url: URL
+}
+
+extension Resource {
+    var request: URLRequest {
+        var result = URLRequest(url: url)
+        result.httpMethod = method
+        return result
+    }
+}
+
+extension URLSession {
+    @discardableResult func load(_ request: URLRequest, completion: @escaping (Response) -> Void) -> URLSessionDataTask {
+        let task = dataTask(with: request) { data, response, error in
+            DispatchQueue.main.async {
+                if let e = error {
+                    completion(.failed(e))
+                } else if let d = data {
+                    guard let responseObject = try? JSONSerialization.jsonObject(with: d, options: .allowFragments) as? JSON else { return }
+                    DispatchQueue.main.async {
+                        completion(.success(responseObject))
+                    }
+                }
+            }
+        }
+        task.resume()
+        return task
+        
+    }
+}
+
+
 final class NetworkService: NSObject {
+    
+    //    weak var delegate: NetworkServiceDelegate?
+    //
+    //    var activeDownloads: [String: Download]
+    //
+    //    lazy var downloadsSession: URLSession = {
+    //        let configuration = URLSessionConfiguration.background(withIdentifier: "background")
+    //        return URLSession(configuration: configuration, delegate: self, delegateQueue: nil)
+    //    }()
+    //
+    override init() {
+        self.activeDownloads = [String: Download]()
+    }
+    
     
     weak var delegate: NetworkServiceDelegate?
     
@@ -25,9 +76,36 @@ final class NetworkService: NSObject {
         return URLSession(configuration: configuration, delegate: self, delegateQueue: nil)
     }()
     
-    override init() {
-        self.activeDownloads = [String: Download]()
+    //    override init() {
+    //        self.activeDownloads = [String: Download]()
+    //    }
+    
+    static func search(for query: String, _ completion: @escaping (Response) -> Void) {
+        guard let url = build(searchTerm: query) else { return }
+        let session =  URLSession(configuration: .ephemeral)
+        let request = URLRequest(url: url)
+        session.load(request) { response in
+            completion(response)
+        }
     }
+    
+    static func search(forLookup: String?, completion: @escaping (Response) -> Void) {
+        guard let forLookup = forLookup else { return }
+        guard let url = URL(string: "https://itunes.apple.com/lookup?id=\(forLookup)&entity=podcast&limit=15") else { return }
+        let request = URLRequest(url: url)
+        let session = URLSession(configuration: .ephemeral)
+        session.load(request) { response in
+            completion(response)
+        }
+    }
+    
+    static func build(searchTerm: String) -> URL? {
+        guard let encodedQuery = searchTerm.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else { return nil }
+        let urlString = URLRouter.base.url + URLRouter.path.url + encodedQuery
+        print(urlString)
+        return URL(string: urlString)
+    }
+    
     
     internal func downloadTrackPreview(for download: Download?) {
         if let download = download, let urlString = download.url, let url = URL(string: urlString) {
@@ -40,10 +118,11 @@ final class NetworkService: NSObject {
         if let newDownload = download, let urlString = newDownload.url {
             activeDownloads[urlString] = newDownload
             downloadTrackPreview(for: download)
+            
+            
         }
     }
 }
-
 extension NetworkService: URLSessionDelegate {
     
     internal func urlSessionDidFinishEvents(forBackgroundURLSession session: URLSession) {
@@ -62,7 +141,7 @@ extension NetworkService: URLSessionDelegate {
             delegate?.download(progress: progress)
             if progress == 1 {
                 activeDownloads[downloadUrl] = nil
-               // session.invalidateAndCancel()
+                // session.invalidateAndCancel()
             }
         }
     }
@@ -74,6 +153,7 @@ extension NetworkService: URLSessionDelegate {
             print("The task finished transferring data successfully")
             session.invalidateAndCancel()
         }
+        
     }
 }
 

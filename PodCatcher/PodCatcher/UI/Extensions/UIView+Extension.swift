@@ -1,5 +1,70 @@
 import UIKit
 
+extension UIView {
+    
+    
+    func addView(view: UIView, type: ViewType) {
+        switch type {
+        case .full:
+            view.frame = UIScreen.main.bounds
+            addSubview(view)
+            view.layoutSubviews()
+        case .element:
+            addSubview(view)
+            view.layoutSubviews()
+        }
+    }
+    
+    func embed(other view: UIView) {
+        embed(other: view, insets: .zero)
+    }
+    
+    func embed(other view: UIView, insets: UIEdgeInsets) {
+        view.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(view)
+        NSLayoutConstraint.activate([view.leadingAnchor.constraint(equalTo: leadingAnchor, constant: insets.left), view.trailingAnchor.constraint(equalTo: trailingAnchor, constant: insets.right), view.topAnchor.constraint(equalTo: topAnchor, constant: insets.top), view.bottomAnchor.constraint(equalTo: bottomAnchor, constant: insets.bottom)])
+    }
+    
+    func subview<T: UIView>() -> T? {
+        return subviews.first(where: { $0 is T }) as? T
+    }
+    
+    func add(_ subviews: UIView...) {
+        if #available(iOS 11.0, *) {
+            subviews.forEach(addSubview)
+        }
+    }
+    
+    func add(_ subviews: [UIView]) {
+        if #available(iOS 10, *) {
+            print(subviews)
+            for view in subviews {
+                addSubview(view)
+            }
+        }
+    }
+    
+    func makeSnapshot() -> UIImage? {
+        UIGraphicsBeginImageContextWithOptions(bounds.size, true, 0.0)
+        drawHierarchy(in: bounds, afterScreenUpdates: true)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
+    }
+    
+ 
+    
+    func makeEndSnapshot() -> UIImage? {
+        let layer = UIApplication.shared.keyWindow!.layer
+        let scale = UIScreen.main.scale
+        UIGraphicsBeginImageContextWithOptions(layer.frame.size, false, scale);
+        layer.render(in: UIGraphicsGetCurrentContext()!)
+        let screenshot = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return screenshot
+    }
+}
+
 extension UIColor {
     static func colorFromRGB(_ red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat = 1.0) -> UIColor {
         func amount(_ amount: CGFloat, with alpha: CGFloat) -> CGFloat {
@@ -15,22 +80,6 @@ extension UIColor {
 
 
 extension UIView {
-    
-    func add(_ subviews: UIView...) {
-        subviews.forEach(addSubview)
-    }
-    
-    func addView(view: UIView, type: ViewType) {
-        switch type {
-        case .full:
-            view.frame = UIScreen.main.bounds
-            addSubview(view)
-            view.layoutSubviews()
-        case .element:
-            addSubview(view)
-            view.layoutSubviews()
-        }
-    }
     
     
     static func findSubViewWithFirstResponder(_ view: UIView) -> UIView? {

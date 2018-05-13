@@ -1,6 +1,7 @@
 import UIKit
 
 protocol SearchViewControllerDelegate: class {
-    func didSelect(at index: Int, with cast: PodcastSearchResult)
+    func didSelect(at index: Int, with cast: Podcast)
 }
+
 

@@ -197,15 +197,15 @@ struct PodcastCellConstants {
     static let playtimeLabelWidthMultiplier: CGFloat = 0.2
 }
 
-struct PodcastListTopViewConstants {
-    static let podcastImageViewCenterYOffset: CGFloat = UIScreen.main.bounds.height * -0.022
-    static let preferencesViewHeightMultiplier: CGFloat = 0.1
-    static let tagsViewHeightMultiplier: CGFloat = 0.13
-    static let podcastImageViewHeightMultiplier: CGFloat = 0.87
-    static let podcastImageViewWidthMultiplier: CGFloat = 0.76
-    static let titleLabelHeightMultiplier: CGFloat = 0.3
-    static let titleLabelTopOffset: CGFloat = UIScreen.main.bounds.height * 0.0008
-}
+//struct PodcastListTopViewConstants {
+//    static let podcastImageViewCenterYOffset: CGFloat = UIScreen.main.bounds.height * -0.022
+//    static let preferencesViewHeightMultiplier: CGFloat = 0.1
+//    static let tagsViewHeightMultiplier: CGFloat = 0.13
+//    static let podcastImageViewHeightMultiplier: CGFloat = 0.87
+//    static let podcastImageViewWidthMultiplier: CGFloat = 0.76
+//    static let titleLabelHeightMultiplier: CGFloat = 0.3
+//    static let titleLabelTopOffset: CGFloat = UIScreen.main.bounds.height * 0.0008
+//}
 
 struct BrowseListTopViewConstants {
     static let podcastImageViewCenterYOffset: CGFloat = UIScreen.main.bounds.height * -0.01

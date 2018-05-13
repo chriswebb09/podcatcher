@@ -33,7 +33,6 @@ final internal class TopPodcastCell: UICollectionViewCell {
     var trackNameLabel: UILabel = {
         var trackName = UILabel()
         trackName.font = UIFont(name: "AvenirNext-DemiBold", size: 14)
-            //UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.semibold)
         trackName.textAlignment = .center
         trackName.textColor = .white
         trackName.numberOfLines = 0

@@ -11,6 +11,9 @@ class TrackItemsFlowLayout: UICollectionViewFlowLayout {
     }
 }
 
+extension UICollectionViewCell: Reusable { }
+
+
 extension UICollectionView {
     
     func register<T: UICollectionViewCell>(_ :T.Type) {

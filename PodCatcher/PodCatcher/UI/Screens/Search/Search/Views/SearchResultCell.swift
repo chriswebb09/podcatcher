@@ -32,7 +32,6 @@ final class SearchResultCell: UITableViewCell, Reusable {
         setup(albumArtView: albumArtView)
         setupSeparator()
         selectionStyle = .none
-       // selectionStyle = .gray
     }
     
     func configureCell(with imageUrl: URL, title: String) {

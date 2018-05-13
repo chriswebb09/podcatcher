@@ -2,7 +2,7 @@ import UIKit
 
 final class SubscribedPodcastCell: UICollectionViewCell {
     
-    fileprivate var viewModel: SubscribedPodcastCellViewModel? {
+    fileprivate var viewModel: SubsciptionCellViewModel? {
         didSet {
             guard let viewModel = viewModel else { return }
             albumArtView.image = viewModel.albumImageUrl
@@ -62,7 +62,7 @@ final class SubscribedPodcastCell: UICollectionViewCell {
         layer.shadowPath = path.cgPath
     }
     
-    func configureCell(with model: SubscribedPodcastCellViewModel, withTime: Double, mode: SubscriptionCellState) {
+    func configureCell(with model: SubsciptionCellViewModel, withTime: Double, mode: SubscriptionCellState) {
         self.viewModel  = model
         self.albumArtView.image = model.albumImageUrl
         self.layoutSubviews()
